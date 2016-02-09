@@ -6,6 +6,7 @@ app.controller('AlbumCtrl', function ($scope, $route, $location, $window, Post, 
   $scope.signedIn = Auth.signedIn;
   $scope.logout = Auth.logout;
   $scope.album = album;
+  $scope.date = new Date();
 
   console.log(album);
 
@@ -32,7 +33,9 @@ app.controller('AlbumCtrl', function ($scope, $route, $location, $window, Post, 
   $scope.cancel = function(){
      $modalInstance.close();
 
+
       $location.path('/');
+
     
   };
 
@@ -44,6 +47,9 @@ app.controller('AlbumCtrl', function ($scope, $route, $location, $window, Post, 
   $scope.post.image_medium = $scope.image_medium;
   $scope.post.image_small = $scope.image_small;
   $scope.post.spotify_uri = $scope.spotify_uri;
+  console.log($scope.date);
+  $scope.post.date = $scope.date;
+
   Post.create($scope.post).then(function (ref) {
     //$location.path('/posts/' + ref.name());
      $modalInstance.close();

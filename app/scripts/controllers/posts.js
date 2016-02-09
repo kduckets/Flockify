@@ -1,5 +1,5 @@
 'use strict';
-app.controller('PostsCtrl', function($scope, $route, $location, Post, Auth, Spotify,$uibModal, Profile, $firebase){
+app.controller('PostsCtrl', function($scope, $route, $location, $window, Post, Auth, Spotify,$uibModal, Profile, $firebase){
 
  $scope.posts = Post.all;
  $scope.user = Auth.user;
@@ -9,7 +9,33 @@ app.controller('PostsCtrl', function($scope, $route, $location, Post, Auth, Spot
   $scope.signedIn = Auth.signedIn;
   $scope.logout = Auth.logout;
   var ref = new Firebase("https://flockify.firebaseio.com");
+   
 
+  $scope.sorter = '-votes';
+
+    $scope.$watch('sorter', function(){
+      $scope.timer && $window.clearTimeout($scope.timer);
+      $scope.timer = $window.setTimeout(rearrange, 80);
+    });
+
+    function rearrange(){
+      var currNewTop = $('.container')[0].scrollTop;
+      $('.post').each(function(index, el){
+        var $el = $(el);
+        var currHeight = parseInt($el.css('height'));
+
+        if (currNewTop != parseInt($el.css('top'))) {
+          $el.css({
+            'top': currNewTop
+          })
+          .one('webkitTransitionEnd', function (evt){
+            $(evt.target).removeClass('moving');
+          })
+          .addClass('moving');  
+        }
+        currNewTop += currHeight;
+      });
+    }
  // console.log('upvotes' + $scope.post.upvotes);
 
  $scope.search = function(){
@@ -97,6 +123,8 @@ $scope.clearResults = function(){
 };
 
 });
+
+
 
 
   
