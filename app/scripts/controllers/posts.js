@@ -16,6 +16,7 @@ app.controller('PostsCtrl', function($scope, $route, $location, Post, Auth, Spot
    Spotify.search($scope.post.search, 'artist,album').then(function (data) {
     
   $scope.results = data.albums.items;
+
 });
 
  };

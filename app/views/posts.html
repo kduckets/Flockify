@@ -13,11 +13,14 @@
 
 </form>
 
-<div class="list-group" ng-repeat="result in results">
+<div class="list-group" ng-repeat="result in results" align="left">
 
+  <button type="button" class="list-group-item" ng-click="viewAlbum(result.href)">
+  <img ng-src="{{result.images[2].url}}"/>
 
+  <small>{{result.name}}</small>
 
-  <button type="button" class="list-group-item" ng-click="viewAlbum(result.href)">{{result.name}}</button>
+  </button>
 
 
   </div>
@@ -26,6 +29,7 @@
 </div>
 
 <br />
+
 
   <div class="post-row" ng-repeat="post in posts | orderBy:'-votes'" align="center">
 
