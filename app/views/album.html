@@ -1,0 +1,14 @@
+     <div class="modal-header">
+            <h4 class="modal-title">{{artist}} - {{album}}</h4>
+      </div>
+      <div class="modal-body">
+        <img ng-src="{{image_medium}}" height="200"/>
+     
+              </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="submitPost()">post</button>
+
+         <button type="button" ng-click="openInSpotify()" class="btn btn-success">listen</button>
+       
+        <button type="button" class="btn btn-secondary" ng-click="cancel()">close</button>   
+        </div>

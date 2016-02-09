@@ -1,0 +1,48 @@
+<div class="container posts-page">
+      <div>
+        <span>
+          album posted by
+          <a ng-href="#/users/{{ post.creatorUID }}">
+            {{ post.creator }}
+          </a>
+        </span>
+      </div>
+  
+
+  <div ng-repeat="comment in comments | orderBy:'-votes'" class="row cmt">
+    <div class="col-md-12">
+  <sub>{{ comment.votes }}</sub>
+      <img ng-click="upvote(comment)" src="/images/up.png"></img>
+       <img ng-click="downvote(comment)" src="/images/down.png"></img>
+
+      <p>{{ comment.text }}</p>
+      <p class="author">posted by
+        <a ng-href="#/users/{{ comment.creatorUID }}">
+          {{ comment.creator }}
+        </a>
+        <a ng-href=""
+        ng-click="deleteComment(comment)"
+        ng-show="signedIn() && comment.creatorUID === user.uid">
+        (delete)
+      </a>
+      </p>
+    </div>
+  </div>
+
+  <div class="cmt-form">
+    <div ng-hide="signedIn()">
+      <p><a href="#/login">Sign in</a> to post a comment</p>
+    </div>
+
+    <form ng-show="signedIn()" ng-submit="addComment()">
+      <textarea
+        ng-model="commentText"
+        placeholder="comment"
+        class="form-control"></textarea><br />
+      <input type="submit" value="Post" class="btn btn-primary" />
+    </form>
+  </div>
+</div>
+
+</div>
+</div>

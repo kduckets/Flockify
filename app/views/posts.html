@@ -1,0 +1,63 @@
+<div class="container" style="padding-top:68px" align="center">
+ <div ng-hide="signedIn()">
+      <p><a href="#/login">Sign in</a> or <a ng-href="#/register">register</a> to post an album or vote</p>
+    </div>
+
+<form ng-submit="search()" ng-show="signedIn()" class="form-inline" >
+
+<input type="text" placeholder="enter artist or album" class="form-control" ng-model="post.search" /> 
+
+
+<button class="btn btn-primary" type="submit">search</button>
+<button class="btn btn-secondary" ng-click="clearResults()">clear</button>
+
+</form>
+
+<div class="list-group" ng-repeat="result in results">
+
+
+
+  <button type="button" class="list-group-item" ng-click="viewAlbum(result.href)">{{result.name}}</button>
+
+
+  </div>
+ 
+
+</div>
+<br />
+<div >
+  <div class="post row" ng-repeat="post in posts | orderBy:'-votes'">
+    <div class="col-xs-1">
+    </div>
+    <div class="col-md-9 col-xs-11">
+
+      <div class="info">
+
+           <sub>{{ post.votes }}</sub>
+
+     <img ng-click="upvote(post)" src="/images/up.png"></img>
+   
+            <img ng-click="downvote(post)" src="/images/down.png"></img>
+
+        <a ng-href="{{post.spotify_uri}}">
+        <img ng-src="{{post.image_small}}"/>
+        <br/>
+        {{post.artist}} - {{ post.album }}
+        </a>
+ 
+        <br/>
+           <small>posted by {{post.creator}}</small>
+        <small><a ng-click="deletePost(post)" ng-show="user.uid === post.creatorUID">&mdash; delete</a></small>
+        </div>
+      </div>
+     
+         
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+
+
