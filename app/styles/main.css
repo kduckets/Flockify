@@ -58,6 +58,13 @@ right: 0;
  
 }
 
+.user-post {
+  height: 180px;
+text-align: center;
+  
+ 
+}
+
 .moving {
   opacity: 0.25;
   z-index: 10;
