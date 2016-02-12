@@ -18,13 +18,6 @@ app.controller('PostsCtrl', function($scope, $route, $location, $window, Post, A
       $scope.timer = $window.setTimeout(rearrange, 80);
     });
 
-      $scope.comments = function(post){
-    console.log('got here');
-    return $scope.comments_count = $firebase(ref.child('comments').child(post.$id)).$asObject();
-          console.log($scope.comments_count);
-
-        };
-
     function rearrange(){
       var currNewTop = $('.container')[0].scrollTop;
       $('.post').each(function(index, el){
