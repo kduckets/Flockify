@@ -1,7 +1,9 @@
 {
   "name": "debatemate",
   "version": "0.0.0",
-  "dependencies": {},
+  "dependencies": {
+    "giphy-api": "^1.1.14"
+  },
   "repository": {},
   "devDependencies": {
     "grunt": "^0.4.5",

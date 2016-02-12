@@ -58,6 +58,14 @@ right: 0;
  
 }
 
+.gifs {
+position: relative;
+padding-right: 10px;
+padding-bottom: 10px;
+  
+ 
+}
+
 .user-post {
   height: 180px;
 text-align: center;

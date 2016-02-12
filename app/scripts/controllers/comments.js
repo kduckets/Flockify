@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('CommentsCtrl', function ($scope, $routeParams, Post, Auth, $firebase, Profile) {
+app.controller('CommentsCtrl', function ($scope, $routeParams, Post, Auth, $firebase, Profile, $http) {
   var ref = new Firebase("https://flockify.firebaseio.com");
     $scope.user = Auth.user;
   $scope.signedIn = Auth.signedIn;
@@ -9,15 +9,35 @@ app.controller('CommentsCtrl', function ($scope, $routeParams, Post, Auth, $fire
     $scope.user = Auth.user;
   $scope.post = Post.get($routeParams.postId);
   $scope.comments = Post.comments($routeParams.postId);
+  $scope.gifSearchText = '';
+  
+
+   $scope.gifsearch = function(){
+
+  var body = {'search': $scope.gifSearchText};
+     $http.post('/api/giphysearch', body)
+
+            .success(function(data) {
+                
+                console.log(data.data);
+                $scope.gifs = data.data;
+           
+            })
+            .error(function(data) {
+                console.log('Error: ' + data);
+            });
+
+   };   
 
 
-  $scope.addComment = function () {
-    if(!$scope.commentText || $scope.commentText === '') {
-      return;
-    }
+  $scope.addComment = function (gif) {
+    // if(!$scope.commentText || $scope.commentText === '') {
+    //   return;
+    // }
 
     var comment = {
-      text: $scope.commentText,
+      // text: $scope.commentText,
+      text: gif,
       creator: $scope.user.profile.username,
       creatorUID: $scope.user.uid,
       votes: 0
@@ -25,6 +45,7 @@ app.controller('CommentsCtrl', function ($scope, $routeParams, Post, Auth, $fire
     $scope.comments.$add(comment);
 
     $scope.commentText = '';
+    $scope.gifSearchText = '';
 
     ref.once("value", function(snapshot) {
   $scope.comments_count = snapshot.child("comments").child($scope.post.$id).numChildren();

@@ -1,5 +1,6 @@
 // server.js
 
+    
     // set up ========================
     var express  = require('express');
     var app      = express();                               // create our app w/ express
@@ -7,9 +8,13 @@
     var morgan = require('morgan');             // log requests to the console (express4)
     var bodyParser = require('body-parser');    // pull information from HTML POST (express4)
     var methodOverride = require('method-override'); // simulate DELETE and PUT (express4)
+    var url = require('url'); //ACR api calls
+    var fs = require('fs'); 
+    var crypto = require('crypto'); //ACR api calls
+    var request = require('request');
     var Firebase = require("firebase");
     var firebaseRef = new Firebase("https://megastream.firebaseio.com/");
-
+    var giphy = require('giphy-api')();
     
 
     // configuration =================
@@ -31,6 +36,16 @@
      //routes
      var router = express.Router(); 
 
+        router.post('/giphysearch', function(req, resp){
+            var search = req.body.search;
+            // Search with options using promise 
+            console.log(search);
+           
+                giphy.search(req.body.search).then(function(res) {
+                    return resp.json(res);
+                    // Res contains gif data! 
+                });
+            });
 
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api

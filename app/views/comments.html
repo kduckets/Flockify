@@ -28,7 +28,8 @@
       <img ng-click="upvote(comment)" src="/images/up.svg" height="20"></img>
        <img ng-click="downvote(comment)" src="/images/down.svg" height="20"></img> -->
 
-      <p>{{ comment.text }}</p>
+   <!--    <p ng-show="comment.text">{{ comment.text }}</p> -->
+   <p><img ng-src="{{comment.text}}" height="100" /></p>
       <p class="author">posted by
         <a ng-href="#/users/{{ comment.creatorUID }}">
           {{ comment.creator }}
@@ -49,13 +50,29 @@
 
     <form ng-show="signedIn()" ng-submit="addComment()">
       <textarea
-        ng-model="commentText"
-        placeholder="comment"
+        ng-model="gifSearchText"
+        placeholder="search for gif"
         class="form-control"></textarea><br />
-      <input type="submit" value="Post" class="btn btn-primary" />
+      <!-- <input type="submit" value="Post" class="btn btn-primary" /> -->
+      <button ng-click="gifsearch()" class="btn btn-primary">Search</button>
     </form>
-<ng-giphy-search query="cats" limit="5" template-url="comments.html"></ng-giphy-search>
   </div>
+<br/>
+      <div ng-repeat="gif in gifs" style="display: inline-block;">
+        
+          <button ng-click="addComment(gif.images.downsized.url)"><img class="gifs" ng-src="{{gif.images.downsized.url}}" height="100" /></button>
+
+      </div>
+
+
+
+
+
+
+
+
+
+
 </div>
 </div>
 </div>
