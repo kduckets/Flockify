@@ -1,11 +1,14 @@
 'use strict';
 
-app.controller('CommentsCtrl', function ($scope, $routeParams, Post, Auth) {
+app.controller('CommentsCtrl', function ($scope, $routeParams, Post, Auth, $firebase, Profile) {
+  var ref = new Firebase("https://flockify.firebaseio.com");
+    $scope.user = Auth.user;
+  $scope.signedIn = Auth.signedIn;
+  $scope.logout = Auth.logout;
+   $scope.posts = Post.all;
+    $scope.user = Auth.user;
   $scope.post = Post.get($routeParams.postId);
   $scope.comments = Post.comments($routeParams.postId);
-
-  $scope.user = Auth.user;
-  $scope.signedIn = Auth.signedIn;
 
 
   $scope.addComment = function () {
@@ -29,16 +32,56 @@ app.controller('CommentsCtrl', function ($scope, $routeParams, Post, Auth) {
   $scope.comments.$remove(comment);
 };
 
-  $scope.upvote = function(comment) {
+  $scope.comment_upvote = function(comment) {
   comment.votes +=1;
   Post.commentVote($routeParams.postId, comment.$id, comment.votes);
 
 };
 
-  $scope.downvote = function(comment) {
+  $scope.comment_downvote = function(comment) {
   comment.votes -=1;
   Post.commentVote($routeParams.postId, comment.$id, comment.votes);
 
+};
+
+  $scope.upvote = function(post) {
+    if($scope.signedIn()){
+
+    $scope.current_vote = $firebase(ref.child('user_votes').child($scope.user.uid).child(post.$id).child('vote')).$asObject();
+    $scope.current_vote.$loaded().then(function(res) {
+
+    if(res.$value == 'up'){
+      //do nothing
+    };
+    if(res.$value == 'down' || !res.$value){
+        post.votes +=1;
+        Post.vote(post.$id, post.votes);
+        Profile.setVote($scope.user.uid, post.$id, 'up');
+    };
+    
+});
+};
+  
+};
+
+  $scope.downvote = function(post) {
+
+    if($scope.signedIn()){
+    $scope.current_vote = $firebase(ref.child('user_votes').child($scope.user.uid).child(post.$id).child('vote')).$asObject();
+    $scope.current_vote.$loaded().then(function(res) {
+    if(res.$value == 'down'){
+      //do nothing
+    };
+
+    if(res.$value == 'up' || !res.$value){
+        post.votes -=1;
+        Post.vote(post.$id, post.votes);
+        Profile.setVote($scope.user.uid, post.$id, 'down');
+    };
+    
+});
+};
+  
 };
 
 

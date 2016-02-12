@@ -1,19 +1,32 @@
-<div class="container posts-page">
-      <div>
-        <span>
-          album posted by
-          <a ng-href="#/users/{{ post.creatorUID }}">
-            {{ post.creator }}
-          </a>
-        </span>
+<div class="container" style="padding-top:68px">
+      <div align="center">
+        <img ng-click="upvote(post)" src="/images/up.svg" height="30"></img>
+  
+    
+ 
+        <a ng-href="{{post.spotify_uri}}">
+        <img ng-src="{{post.image_medium}}" height="100" />
+        </a>
+         
+           <img ng-click="downvote(post)" src="/images/down.svg" height="30"></img>
+
+        <br/>
+        <a ng-href="{{post.spotify_uri}}">
+        {{post.artist}} - {{ post.album }}
+        </a>
+ 
+        <p>
+         {{ post.votes }} votes
+           <small>(posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator}}</a>)</small>
+        <small><a ng-click="deletePost(post)" ng-show="user.uid === post.creatorUID">&mdash; delete</a></small>
       </div>
   
 
   <div ng-repeat="comment in comments | orderBy:'-votes'" class="row cmt">
     <div class="col-md-12">
-  <sub>{{ comment.votes }}</sub>
-      <img ng-click="upvote(comment)" src="/images/up.png"></img>
-       <img ng-click="downvote(comment)" src="/images/down.png"></img>
+  <!-- <sub>{{ comment.votes }}</sub>
+      <img ng-click="upvote(comment)" src="/images/up.svg" height="20"></img>
+       <img ng-click="downvote(comment)" src="/images/down.svg" height="20"></img> -->
 
       <p>{{ comment.text }}</p>
       <p class="author">posted by

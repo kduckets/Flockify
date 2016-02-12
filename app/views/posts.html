@@ -36,9 +36,9 @@
 <div align="center">
 <div class="sort-links">
   <a href ng-click="sorter = '-votes'">popular</a>
+   <a href ng-click="sorter = '-'">recent</a>
   <a href ng-click="sorter = 'votes'">unpopular</a>  
-  <a href ng-click="sorter = 'post.timestamp'">newest</a>
-  <a href ng-click="sorter = '-posts.timestamp'">oldest</a>  
+  <a href ng-click="sorter = ''">oldest</a>  
     </div>
         
   <div class="container">
@@ -66,7 +66,9 @@
         <p>
          {{ post.votes }} votes
            <small>(posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator}}</a>)</small>
-        <small><a ng-click="deletePost(post)" ng-show="user.uid === post.creatorUID">&mdash; delete</a></small>
+            <small><a ng-href="#/posts/{{ post.$id  }}">comments</a></small>
+      <!--   <small><a ng-click="deletePost(post)" ng-show="user.uid === post.creatorUID">&mdash; delete</a></small> -->
+
         </p>
          
 

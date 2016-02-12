@@ -18,6 +18,13 @@ app.controller('PostsCtrl', function($scope, $route, $location, $window, Post, A
       $scope.timer = $window.setTimeout(rearrange, 80);
     });
 
+      $scope.comments = function(post){
+    console.log('got here');
+    return $scope.comments_count = $firebase(ref.child('comments').child(post.$id)).$asObject();
+          console.log($scope.comments_count);
+
+        };
+
     function rearrange(){
       var currNewTop = $('.container')[0].scrollTop;
       $('.post').each(function(index, el){
@@ -66,18 +73,6 @@ $scope.clearResults = function(){
   $route.reload();
 };
 
- $scope.submitPost = function (album) {
-  $scope.post.creator = $scope.user.profile.username;
-  $scope.post.creatorUID = $scope.user.uid;
-  $scope.post.album = album;
-  Post.create($scope.post).then(function (ref) {
-    $location.path('/posts/' + ref.name());
-    $scope.post = {artist: '', album: ''};
-  });
-};
-
-  $scope.post = {artist: '', album: '', votes: 0};
-
   $scope.deletePost = function (post) {
     Post.delete(post);
   	};
@@ -121,6 +116,9 @@ $scope.clearResults = function(){
 };
   
 };
+
+
+
 
 });
 
