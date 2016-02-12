@@ -19,7 +19,6 @@ app.controller('CommentsCtrl', function ($scope, $routeParams, Post, Auth, $fire
 
             .success(function(data) {
                 
-                console.log(data.data);
                 $scope.gifs = data.data;
            
             })

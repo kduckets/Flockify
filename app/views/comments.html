@@ -48,13 +48,10 @@
       <p><a href="#/login">Sign in</a> to post a comment</p>
     </div>
 
-    <form ng-show="signedIn()" ng-submit="addComment()">
-      <textarea
-        ng-model="gifSearchText"
-        placeholder="search for gif"
-        class="form-control"></textarea><br />
-      <!-- <input type="submit" value="Post" class="btn btn-primary" /> -->
-      <button ng-click="gifsearch()" class="btn btn-primary">Search</button>
+    <form ng-show="signedIn()" ng-submit="gifsearch()">
+      <input type="text" ng-model="gifSearchText" placeholder="search for gif"/>
+      <input type="submit" value="Search" class="btn btn-secondary" /> 
+      <!-- <button ng-click="gifsearch()" class="btn btn-primary">Search</button> -->
     </form>
   </div>
 <br/>

@@ -28,7 +28,7 @@
          {{ post.votes }} votes
            <small>(posted by {{post.creator}})</small>
         
-         <small><a ng-href="#/posts/{{ post.$id  }}">comments</a></small>
+         <small><a ng-href="#/posts/{{ post.$id  }}">comments ({{post.comments}})</a></small>
          <small><a ng-click="deletePost(post)" ng-show="user.uid === post.creatorUID">&mdash; delete</a></small>
         </p>
  </div>
