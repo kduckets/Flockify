@@ -38,6 +38,12 @@ app.controller('CommentsCtrl', function ($scope, $routeParams, Post, Auth, $fire
 
   $scope.deleteComment = function (comment) {
   $scope.comments.$remove(comment);
+     ref.once("value", function(snapshot) {
+  $scope.comments_count = snapshot.child("comments").child($scope.post.$id).numChildren();
+  console.log($scope.comments_count);
+   ref.child("posts").child($scope.post.$id).update({'comments': $scope.comments_count});
+   
+  });
 };
 
   $scope.comment_upvote = function(comment) {
