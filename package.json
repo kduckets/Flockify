@@ -4,7 +4,7 @@
   "description": "flockify music",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "bower install"
   },
   "dependencies": {
     "body-parser": "^1.15.0",
