@@ -35,6 +35,7 @@
 
      //routes
      var router = express.Router(); 
+     app.set('port', (process.env.PORT || 5000));
 
         router.post('/giphysearch', function(req, resp){
             var search = req.body.search;
@@ -55,7 +56,10 @@ res.sendfile("index.html", { root: __dirname + "/app" });
 
 app.use('/api', router);
   
-    app.listen(8080);
-    console.log("App listening on port 8080");
+    // app.listen(8080);
+    // console.log("App listening on port 8080");
+    app.listen(app.get('port'), function() {
+  console.log('Node app is running on port', app.get('port'));
+});
 
   
