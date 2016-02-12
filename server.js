@@ -55,7 +55,7 @@ res.sendfile("index.html", { root: __dirname + "/app" });
 
 app.use('/api', router);
   
-    app.listen(80);
-    console.log("App listening on port 80");
+    app.listen(8080);
+    console.log("App listening on port 8080");
 
   
