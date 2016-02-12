@@ -47,6 +47,7 @@ app.controller('AlbumCtrl', function ($scope, $route, $location, $window, Post, 
   $scope.post.image_medium = $scope.image_medium;
   $scope.post.image_small = $scope.image_small;
   $scope.post.spotify_uri = $scope.spotify_uri;
+  $scope.post.comments = 0;
   console.log($scope.date);
   $scope.post.date = $scope.date;
 

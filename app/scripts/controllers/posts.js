@@ -4,7 +4,7 @@ app.controller('PostsCtrl', function($scope, $route, $location, $window, Post, A
  $scope.posts = Post.all;
  $scope.user = Auth.user;
 
-  $scope.post = {artist: '', album: '', votes: 0};
+  $scope.post = {artist: '', album: '', votes: 0, comments: 0};
   $scope.user = Auth.user;
   $scope.signedIn = Auth.signedIn;
   $scope.logout = Auth.logout;
