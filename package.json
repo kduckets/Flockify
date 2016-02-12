@@ -2,7 +2,18 @@
   "name": "flockify",
   "version": "0.0.0",
   "dependencies": {
-    "giphy-api": "^1.1.14"
+    "body-parser": "^1.15.0",
+    "crypto": "0.0.3",
+    "express": "^4.13.4",
+    "firebase": "^2.4.0",
+    "fs": "0.0.2",
+    "giphy-api": "^1.1.14",
+    "https": "^1.0.0",
+    "method-override": "^2.3.5",
+    "mongoose": "^4.4.3",
+    "morgan": "^1.6.1",
+    "request": "^2.69.0",
+    "url": "^0.11.0"
   },
   "repository": {},
   "devDependencies": {
@@ -33,13 +44,10 @@
   "engines": {
     "node": ">=0.10.0"
   },
-  "description": "Run with grunt. To install:",
+  "description": "flockify",
   "main": "server.js",
-  "directories": {
-    "test": "test"
-  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC"
