@@ -25,6 +25,14 @@ app.controller('CommentsCtrl', function ($scope, $routeParams, Post, Auth, $fire
     $scope.comments.$add(comment);
 
     $scope.commentText = '';
+
+    ref.once("value", function(snapshot) {
+  $scope.comments_count = snapshot.child("comments").child($scope.post.$id).numChildren();
+   ref.child("posts").child($scope.post.$id).update({'comments': $scope.comments_count});
+   
+  });
+
+
   };
 
 
