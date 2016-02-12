@@ -3,27 +3,23 @@
 app.directive('ngGiphySearch', ['$compile', '$http', '$templateCache', function ($compile, $http, $templateCache) {
 
     // Create the output object
-
     var output = {};
 
-
     // Restrict the directive to Attributes and Elements
-
     output.restrict = 'AE';
-
 
     output.scope = {
       query : '@query',
       limit : '@limit',
-      offset : '@offset'
-    }
+      offset : '@offset',
+      apikey : '@apikey'
+  }
 
-
-    // Retrive the template from the templateUrl parameter or use the default one.
+ // Retrive the template from the templateUrl parameter or use the default one.
 
     var getTemplate = function(url){
       if (angular.isUndefined(url)) {
-          url = 'giphy-view.html';
+          url = 'templates/giphy-view.html';
       };
 
       var templateLoader = $http.get(url, {cache: $templateCache});
@@ -32,52 +28,44 @@ app.directive('ngGiphySearch', ['$compile', '$http', '$templateCache', function 
 
     }
 
-
     // Create the linker function
-
     var linker = function(scope, element, attrs) {
 
-
       // Define if data has been loaded
-
       scope.dataLoaded = false;
 
-
       // Define parameters from attributes
-
       var params = {};
-
-      // TODO create a configurable api_key parameter
-      params.api_key = 'dc6zaTOxFJmzC';
 
       // Retrive parameters from directive attributes
       params.q = scope.query.split(',').join('+');
       params.limit = scope.limit;
       params.offset = scope.offset;
+      params.api_key =  scope.apikey;
 
       var apiSearch = function(){
 
           $http.get('//api.giphy.com/v1/gifs/search', {params:params})
-            .success(
+          .success(
               function(data,status){
 
                 if(typeof data=='object'){
                   scope.results = data.data;
                   scope.dataLoaded = true;
-                }
-
               }
 
-            )
-            .error(
+          }
+
+          )
+          .error(
               function(){
                 console.log("Failed to access");
-              }
+            }
             )
 
       }
 
-      var loader = getTemplate(attrs.templateUrl);
+        var loader = getTemplate(attrs.templateUrl);
 
       var promise = loader.success(function(html) {
           element.replaceWith($compile(html)(scope));
@@ -86,9 +74,8 @@ app.directive('ngGiphySearch', ['$compile', '$http', '$templateCache', function 
       });
     }
 
+  output.link = linker;
 
-    output.link = linker;
+  return output;
 
-    return output;
-
-  }]);
+}]);

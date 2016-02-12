@@ -42,7 +42,7 @@
     "time-grunt": "^1.0.0"
   },
   "engines": {
-    "node": ">=0.10.0"
+    "node": "4.2.3"
   },
   "description": "flockify",
   "main": "server.js",
