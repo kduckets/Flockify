@@ -1,5 +1,5 @@
 {
-  "name": "debatemate",
+  "name": "flockify",
   "version": "0.0.0",
   "dependencies": {
     "giphy-api": "^1.1.14"
@@ -34,7 +34,7 @@
     "node": ">=0.10.0"
   },
   "description": "Run with grunt. To install:",
-  "main": "Gruntfile.js",
+  "main": "server.js",
   "directories": {
     "test": "test"
   },
