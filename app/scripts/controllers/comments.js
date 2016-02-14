@@ -91,6 +91,9 @@ app.controller('CommentsCtrl', function ($scope, $routeParams, Post, Auth, $fire
         post.votes +=1;
         Post.vote(post.$id, post.votes);
         Profile.setVote($scope.user.uid, post.$id, 'up');
+        console.log($scope.post.creatorUID);
+       $scope.user_score += post.votes;
+        ref.child("user_scores").child($scope.post.creatorUID).update({'score': $scope.user_score});
     };
     
 });
@@ -111,6 +114,8 @@ app.controller('CommentsCtrl', function ($scope, $routeParams, Post, Auth, $fire
         post.votes -=1;
         Post.vote(post.$id, post.votes);
         Profile.setVote($scope.user.uid, post.$id, 'down');
+        $scope.user_score += post.votes;
+        ref.child("user_scores").child($scope.post.creatorUID).update({'score': $scope.user_score});
     };
     
 });

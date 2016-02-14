@@ -10,6 +10,7 @@ app.factory('Profile', function ($window, FIREBASE_URL, $firebase, Post, $q) {
 
     setVote: function(userId, postId, vote){
        return ref.child('user_votes').child(userId).child(postId).update({'vote': vote});
+       
 
     },
 

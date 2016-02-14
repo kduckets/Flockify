@@ -13,6 +13,11 @@ app.controller('ProfileCtrl', function ($scope, $routeParams, Profile, Post, Aut
     $scope.user_posts = posts;
   });
 
+
+ref.child('user_scores').child($scope.profile.$id).child('score').on("value", function(snapshot) {
+  $scope.score = snapshot.val();
+});
+
   $scope.deletePost = function (post) {
     Post.delete(post);
   	};
@@ -31,6 +36,8 @@ app.controller('ProfileCtrl', function ($scope, $routeParams, Profile, Post, Aut
         post.votes +=1;
         Post.vote(post.$id, post.votes);
         Profile.setVote($scope.user.uid, post.$id, 'up');
+            $scope.score = $scope.score + 1;
+        ref.child("user_scores").child(post.creatorUID).update({'score': $scope.score});
     };
     
 });
@@ -41,6 +48,7 @@ app.controller('ProfileCtrl', function ($scope, $routeParams, Profile, Post, Aut
   $scope.downvote = function(post) {
 
     if($scope.signedIn()){
+
     $scope.current_vote = $firebase(ref.child('user_votes').child($scope.user.uid).child(post.$id).child('vote')).$asObject();
     $scope.current_vote.$loaded().then(function(res) {
     if(res.$value == 'down'){
@@ -51,6 +59,9 @@ app.controller('ProfileCtrl', function ($scope, $routeParams, Profile, Post, Aut
         post.votes -=1;
         Post.vote(post.$id, post.votes);
         Profile.setVote($scope.user.uid, post.$id, 'down');
+        $scope.score = $scope.score - 1;
+        ref.child("user_scores").child($scope.profile.$id).update({'score': $scope.score});
+
     };
     
 });
