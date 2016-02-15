@@ -40,9 +40,8 @@
         router.post('/giphysearch', function(req, resp){
             var search = req.body.search;
             // Search with options using promise 
-            console.log(search);
            
-                giphy.search(req.body.search).then(function(res) {
+                giphy.search({q:req.body.search, limit:'50'}).then(function(res) {
                     return resp.json(res);
                     // Res contains gif data! 
                 });
