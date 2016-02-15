@@ -63,14 +63,6 @@ app.controller('PostsCtrl', function($scope, $route, $location, $window, Post, A
 
  };
 
- $scope.getScore = function(user){
-
-   $scope.return_score =  $firebase(ref.child('user_score').child(user).child('score')).$asObject();
-   $scope.return_score.$loaded().then(function(score){
-      return score.$value;
-   });
- };
-
 $scope.clearResults = function(){
 
   $route.reload();
@@ -83,7 +75,7 @@ $scope.clearResults = function(){
   $scope.upvote = function(post) {
     if($scope.signedIn()){
 
-ref.child('user_scores').child(post.creatorUID).child('score').on("value", function(snapshot) {
+ref.child('user_scores').child(post.creator).child('score').on("value", function(snapshot) {
   $scope.score = snapshot.val();
 });
 
@@ -98,7 +90,7 @@ ref.child('user_scores').child(post.creatorUID).child('score').on("value", funct
         Post.vote(post.$id, post.votes);
         Profile.setVote($scope.user.uid, post.$id, 'up');
       $scope.score = $scope.score + 1;
-        ref.child("user_scores").child(post.creatorUID).update({'score': $scope.score});
+        ref.child("user_scores").child(post.creator).update({'score': $scope.score});
     };
     
 });
@@ -110,7 +102,7 @@ ref.child('user_scores').child(post.creatorUID).child('score').on("value", funct
 
     if($scope.signedIn()){
       
-   ref.child('user_scores').child(post.creatorUID).child('score').on("value", function(snapshot) {
+   ref.child('user_scores').child(post.creator).child('score').on("value", function(snapshot) {
   $scope.score = snapshot.val();
 });
 
@@ -125,7 +117,7 @@ ref.child('user_scores').child(post.creatorUID).child('score').on("value", funct
         Post.vote(post.$id, post.votes);
         Profile.setVote($scope.user.uid, post.$id, 'down');
         $scope.score = $scope.score - 1;
-        ref.child("user_scores").child(post.creatorUID).update({'score': $scope.score});
+        ref.child("user_scores").child(post.creator).update({'score': $scope.score});
 
     };
     

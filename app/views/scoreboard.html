@@ -1,0 +1,23 @@
+<div class="container" style="padding-top:60px" >
+
+
+<table class="table table-inverse">
+  <thead>
+    <tr>
+      <th>rank</th>
+      <th>user</th>
+      <th>score</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="user in users | orderBy:'-score'">
+      <th scope="row">1</th>
+      <td>{{user.$id}}</td>
+      <td>{{user.score}}</td>
+      
+    </tr>
+  </tbody>
+</table>
+
+
+</div>

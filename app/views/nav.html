@@ -5,7 +5,12 @@
   <div ng-controller="NavCtrl">
 
     <ul class="nav navbar-nav pull-md-right pull-xs-right" >
-
+  <li class="nav-item">
+    <a class="nav-link" ng-href="#/scoreboard">
+     scoreboard
+  <!--     <img ng-src="http://www.gravatar.com/avatar/{{ user.profile.md5_hash }}" class="nav-pic" />    --> 
+    </a>
+  </li>
   <li class="nav-item" ng-show="signedIn()">
     <a class="nav-link" ng-href="#/users/{{ user.uid }}">
      profile

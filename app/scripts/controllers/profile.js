@@ -11,12 +11,13 @@ app.controller('ProfileCtrl', function ($scope, $routeParams, Profile, Post, Aut
   $scope.profile = Profile.get(uid);
   Profile.getPosts(uid).then(function(posts) {
     $scope.user_posts = posts;
+    ref.child('user_scores').child($scope.profile.username).child('score').on("value", function(snapshot) {
+  $scope.score = snapshot.val();
+});
   });
 
 
-ref.child('user_scores').child($scope.profile.$id).child('score').on("value", function(snapshot) {
-  $scope.score = snapshot.val();
-});
+
 
   $scope.deletePost = function (post) {
     Post.delete(post);
@@ -37,7 +38,7 @@ ref.child('user_scores').child($scope.profile.$id).child('score').on("value", fu
         Post.vote(post.$id, post.votes);
         Profile.setVote($scope.user.uid, post.$id, 'up');
             $scope.score = $scope.score + 1;
-        ref.child("user_scores").child(post.creatorUID).update({'score': $scope.score});
+        ref.child("user_scores").child(post.creator).update({'score': $scope.score});
     };
     
 });
@@ -60,7 +61,7 @@ ref.child('user_scores').child($scope.profile.$id).child('score').on("value", fu
         Post.vote(post.$id, post.votes);
         Profile.setVote($scope.user.uid, post.$id, 'down');
         $scope.score = $scope.score - 1;
-        ref.child("user_scores").child($scope.profile.$id).update({'score': $scope.score});
+        ref.child("user_scores").child(post.creator).update({'score': $scope.score});
 
     };
     
