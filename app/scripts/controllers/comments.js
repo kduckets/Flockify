@@ -85,7 +85,7 @@ app.controller('CommentsCtrl', function ($scope, $routeParams, Post, Auth, $fire
 };
 
   $scope.upvote = function(post) {
-    if($scope.signedIn()){
+    if($scope.signedIn() && $scope.user.uid != post.creatorUID){
 
 ref.child('user_scores').child(post.creator).child('score').on("value", function(snapshot) {
   $scope.score = snapshot.val();
@@ -112,7 +112,7 @@ ref.child('user_scores').child(post.creator).child('score').on("value", function
 
   $scope.downvote = function(post) {
 
-    if($scope.signedIn()){
+    if($scope.signedIn() && $scope.user.uid != post.creatorUID){
       
    ref.child('user_scores').child(post.creator).child('score').on("value", function(snapshot) {
   $scope.score = snapshot.val();

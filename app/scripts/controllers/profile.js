@@ -24,7 +24,7 @@ app.controller('ProfileCtrl', function ($scope, $routeParams, Profile, Post, Aut
 
 
   $scope.upvote = function(post) {
-    if($scope.signedIn()){
+    if($scope.signedIn() && $scope.user.uid != post.creatorUID){
 
     $scope.current_vote = $firebase(ref.child('user_votes').child($scope.user.uid).child(post.$id).child('vote')).$asObject();
     $scope.current_vote.$loaded().then(function(res) {
@@ -47,7 +47,7 @@ app.controller('ProfileCtrl', function ($scope, $routeParams, Profile, Post, Aut
 
   $scope.downvote = function(post) {
 
-    if($scope.signedIn()){
+    if($scope.signedIn() && $scope.user.uid != post.creatorUID){
 
     $scope.current_vote = $firebase(ref.child('user_votes').child($scope.user.uid).child(post.$id).child('vote')).$asObject();
     $scope.current_vote.$loaded().then(function(res) {
