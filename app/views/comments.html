@@ -4,14 +4,14 @@
   
     
  
-        <a ng-href="{{post.spotify_uri}}">
+        <a ng-href="{{post.spotify_uri}}" target="_blank">
         <img ng-src="{{post.image_medium}}" height="100" />
         </a>
          
            <img ng-click="downvote(post)" src="/images/down.svg" height="30"></img>
 
         <br/>
-        <a ng-href="{{post.spotify_uri}}">
+        <a ng-href="{{post.spotify_uri}}" target="_blank">
         {{post.artist}} - {{ post.album }}
         </a>
  

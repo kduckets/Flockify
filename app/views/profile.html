@@ -17,14 +17,14 @@
      <div class="user-post" ng-show="post.artist">
     <img ng-click="upvote(post)" src="/images/up.svg" height="30"></img>
  
-        <a ng-href="{{post.spotify_uri}}">
+        <a ng-href="{{post.spotify_uri}}" target="_blank">
         <img ng-src="{{post.image_medium}}" height="100" />
         </a>
          
            <img ng-click="downvote(post)" src="/images/down.svg" height="30"></img>
 
         <br/>
-        <a ng-href="{{post.spotify_uri}}">
+        <a ng-href="{{post.spotify_uri}}" target="_blank">
         {{post.artist}} - {{ post.album }}
         </a>
            <p>
