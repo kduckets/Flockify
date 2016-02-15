@@ -13,7 +13,7 @@ app.controller('PostsCtrl', function($scope, $route, $location, $window, Post, A
   // console.log('score', $scope.user_score);
    
 
-  $scope.sorter = '-votes';
+  $scope.sorter = '-';
 
     $scope.$watch('sorter', function(){
       $scope.timer && $window.clearTimeout($scope.timer);
