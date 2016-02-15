@@ -1,6 +1,6 @@
 'use strict';
 
-app.factory('Auth', function ($firebaseSimpleLogin, FIREBASE_URL, $rootScope, $firebase) {
+app.factory('Auth', function ($firebaseSimpleLogin, FIREBASE_URL, $rootScope, $firebase, $cookieStore) {
   var ref = new Firebase(FIREBASE_URL);
   var auth = $firebaseSimpleLogin(ref);
 
@@ -20,6 +20,9 @@ app.factory('Auth', function ($firebaseSimpleLogin, FIREBASE_URL, $rootScope, $f
       return auth.$login('password', user);
     },
     logout: function () {
+        if($cookieStore.get('login')){
+        $cookieStore.remove('login');
+    };
       auth.$logout();
     },
     resolveUser: function() {
