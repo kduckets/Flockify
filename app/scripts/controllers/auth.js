@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('AuthCtrl', function ($scope, $location, Auth, user) {
+app.controller('AuthCtrl', function ($scope, $location, Auth, user, $cookieStore) {
   if (user) {
     $location.path('/');
   }
@@ -9,6 +9,7 @@ app.controller('AuthCtrl', function ($scope, $location, Auth, user) {
 
   $scope.login = function () {
     Auth.login($scope.user).then(function () {
+      $cookieStore.put('login', $scope.user)
       $location.path('/');
     }, function (error) {
       $scope.error = error.toString();

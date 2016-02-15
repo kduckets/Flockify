@@ -65,3 +65,12 @@ var app = angular
       });
   });
 app.constant('FIREBASE_URL', 'https://flockify.firebaseIO.com');
+app.run(function($cookieStore, Auth) {
+    if ($cookieStore.get('login')) {
+        var user = $cookieStore.get('login');
+ Auth.login(user);
+    }
+    else {
+        //do nothing
+    }
+});

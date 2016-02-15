@@ -81,6 +81,10 @@ app.controller('CommentsCtrl', function ($scope, $routeParams, Post, Auth, $fire
   $scope.upvote = function(post) {
     if($scope.signedIn()){
 
+ref.child('user_scores').child(post.creator).child('score').on("value", function(snapshot) {
+  $scope.score = snapshot.val();
+});
+
     $scope.current_vote = $firebase(ref.child('user_votes').child($scope.user.uid).child(post.$id).child('vote')).$asObject();
     $scope.current_vote.$loaded().then(function(res) {
 
@@ -91,9 +95,8 @@ app.controller('CommentsCtrl', function ($scope, $routeParams, Post, Auth, $fire
         post.votes +=1;
         Post.vote(post.$id, post.votes);
         Profile.setVote($scope.user.uid, post.$id, 'up');
-        console.log($scope.post.creatorUID);
-       $scope.user_score += post.votes;
-        ref.child("user_scores").child($scope.post.creatorUID).update({'score': $scope.user_score});
+      $scope.score = $scope.score + 1;
+        ref.child("user_scores").child(post.creator).update({'score': $scope.score});
     };
     
 });
@@ -104,6 +107,11 @@ app.controller('CommentsCtrl', function ($scope, $routeParams, Post, Auth, $fire
   $scope.downvote = function(post) {
 
     if($scope.signedIn()){
+      
+   ref.child('user_scores').child(post.creator).child('score').on("value", function(snapshot) {
+  $scope.score = snapshot.val();
+});
+
     $scope.current_vote = $firebase(ref.child('user_votes').child($scope.user.uid).child(post.$id).child('vote')).$asObject();
     $scope.current_vote.$loaded().then(function(res) {
     if(res.$value == 'down'){
@@ -114,8 +122,9 @@ app.controller('CommentsCtrl', function ($scope, $routeParams, Post, Auth, $fire
         post.votes -=1;
         Post.vote(post.$id, post.votes);
         Profile.setVote($scope.user.uid, post.$id, 'down');
-        $scope.user_score += post.votes;
-        ref.child("user_scores").child($scope.post.creatorUID).update({'score': $scope.user_score});
+        $scope.score = $scope.score - 1;
+        ref.child("user_scores").child(post.creator).update({'score': $scope.score});
+
     };
     
 });
