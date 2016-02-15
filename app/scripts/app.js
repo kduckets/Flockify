@@ -22,7 +22,8 @@ var app = angular
     'ngTouch',
     'firebase',
     'spotify',
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'ngLoadingSpinner'
   ])
   .config(function ($routeProvider) {
     $routeProvider
