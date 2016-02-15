@@ -28,6 +28,12 @@ app.controller('CommentsCtrl', function ($scope, $routeParams, Post, Auth, $fire
 
    };   
 
+     $scope.deletePost = function (post) {
+    //Post.delete(post.$id);
+    var postsRef = new Firebase('https://flockify.firebaseio.com/posts/'+post.$id);
+    postsRef.remove();
+    };
+
 
   $scope.addComment = function (gif) {
     // if(!$scope.commentText || $scope.commentText === '') {
