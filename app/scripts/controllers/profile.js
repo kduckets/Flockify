@@ -16,11 +16,10 @@ app.controller('ProfileCtrl', function ($scope, $routeParams, Profile, Post, Aut
 });
   });
 
-
-
-
   $scope.deletePost = function (post) {
-    Post.delete(post);
+    //Post.delete(post.$id);
+    var postsRef = new Firebase('https://flockify.firebaseio.com/posts/'+post.$id);
+    postsRef.remove();
   	};
 
 
