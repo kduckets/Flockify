@@ -17,11 +17,13 @@ app.controller('AlbumCtrl', function ($scope, $route, $location, $window, Post, 
   
 
     $scope.spotify_result = album.data;
+    console.log($scope.spotify_result);
     $scope.artist = album.data.artists[0].name;
     $scope.album = album.data.name;
     $scope.image_medium = album.data.images[1].url;
     $scope.image_small = album.data.images[2].url;
     $scope.spotify_uri = album.data.external_urls.spotify;
+    $scope.release_date = album.data.release_date;
 
 
   }, function errorCallback(response) {
@@ -50,6 +52,7 @@ app.controller('AlbumCtrl', function ($scope, $route, $location, $window, Post, 
   $scope.post.comments = 0;
   console.log($scope.date);
   $scope.post.date = $scope.date;
+  $scope.post.release_date = $scope.release_date;
 
   Post.create($scope.post).then(function (ref) {
     //$location.path('/posts/' + ref.name());

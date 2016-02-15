@@ -45,6 +45,7 @@ app.controller('PostsCtrl', function($scope, $route, $location, $window, Post, A
     
   $scope.results = data.albums.items;
 
+
 });
 
  };
