@@ -12,8 +12,8 @@
       </p>
     </div>
     <div class="btn-group-lg" role="group" aria-label="profiletabs" align="center">
-  <button type="button" class="btn btn-secondary" ng-click="changeTab('tabA')" >posts</button>
-  <button type="button" class="btn btn-secondary" ng-click="changeTab('tabB')" >likes</button>
+  <button type="button" class="btn btn-secondary" ng-class="{'active': view_tab == 'tabA'}" ng-click="changeTab('tabA')" >posts</button>
+  <button type="button" class="btn btn-secondary" ng-class="{'active': view_tab == 'tabB'}" ng-click="changeTab('tabB')" >likes</button>
 </div>
  <br/>
 
