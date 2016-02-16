@@ -5,15 +5,46 @@
     </div> -->
 
     <div align="center">
-      <span class="name">posts by {{ profile.username }}
-      </span>
+      <span ng-show="view_tab == 'tabA'" class="name">posts by {{ profile.username }}</span>
+      <span ng-show="view_tab == 'tabB'" class="name">liked by {{ profile.username }}</span>
       <p>
       score: {{score}}
       </p>
     </div>
+    <div class="btn-group-lg" role="group" aria-label="profiletabs" align="center">
+  <button type="button" class="btn btn-secondary" ng-click="changeTab('tabA')" >posts</button>
+  <button type="button" class="btn btn-secondary" ng-click="changeTab('tabB')" >likes</button>
+</div>
  <br/>
 
-  <div ng-repeat="(key,post) in user_posts" align="center">
+  <div ng-repeat="(key,post) in user_posts" ng-show="view_tab == 'tabA'" align="center">
+     <div class="user-post" ng-show="post.artist">
+    <img ng-click="upvote(post)" src="/images/up.svg" height="30"></img>
+ 
+        <a ng-href="{{post.spotify_uri}}" target="_blank">
+        <img ng-src="{{post.image_medium}}" height="100" />
+        </a>
+         
+           <img ng-click="downvote(post)" src="/images/down.svg" height="30"></img>
+
+        <br/>
+        <a ng-href="{{post.spotify_uri}}" target="_blank">
+        {{post.artist}} - {{ post.album }}
+        </a>
+           <p>
+         {{ post.votes }} votes
+           <small>(posted by {{post.creator}})</small>
+        
+         <small><a ng-href="#/posts/{{ post.$id  }}">comments ({{post.comments}})</a></small>
+         <small><a href="" ng-click="deletePost(post)" ng-show="user.uid === post.creatorUID">&mdash; delete</a></small>
+        </p>
+ </div>
+ </div>
+
+
+
+   <div ng-repeat="post in likes" ng-show="view_tab == 'tabB'" align="center">
+
      <div class="user-post" ng-show="post.artist">
     <img ng-click="upvote(post)" src="/images/up.svg" height="30"></img>
  

@@ -31,6 +31,29 @@ app.factory('Profile', function ($window, FIREBASE_URL, $firebase, Post, $q) {
         });
 
       return defer.promise;
+    },
+        getLikes: function(userId) {
+      var defer = $q.defer();
+      $firebase(ref.child('user_votes').child(userId))
+        .$asArray()
+        .$loaded()
+        .then(function(data) {
+
+         
+          var posts = {};
+
+          for(var i = 0; i<data.length; i++) {
+            var value = data[i].$id;
+              var vote = data[i].vote;
+
+            if(value && vote=='up'){
+            posts[value] = Post.get(value);
+          }
+          }
+          defer.resolve(posts);
+        });
+
+      return defer.promise;
     }
   };
 
