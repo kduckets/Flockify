@@ -31,7 +31,7 @@ h3 {
 
 .album-list{
 
-  height: 220px;
+/*  height: 220px;*/
 text-align: center;
    
 }
@@ -46,7 +46,7 @@ text-align: center;
 }
 
 .post {
-position: absolute;
+/*position: absolute;
 margin-left: auto;
 margin-right: auto;
 left: 0;
@@ -54,7 +54,7 @@ right: 0;
    
   -webkit-transition: top 1s ease-out, opacity 1s;
   -moz-transition: top 1s ease-out, opacity 1s;
-  
+  */
  
 }
 
