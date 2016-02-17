@@ -21,8 +21,6 @@ app.controller('PostsCtrl', function($scope, $route, $location, $window, Post, A
     $scope.catFilter = '';
   };
 
-  $scope.forceHide = true;
-  $scope.forceHide = false;
 };
 
   // console.log('score', $scope.user_score);
