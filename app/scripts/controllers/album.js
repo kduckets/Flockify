@@ -48,8 +48,12 @@ app.controller('AlbumCtrl', function ($scope, $route, $location, $window, Post, 
   $scope.post.image_small = $scope.image_small;
   $scope.post.spotify_uri = $scope.spotify_uri;
   $scope.post.comments = 0;
+  if($scope.selectedCat != 'all albums'){
+  $scope.post.category = $scope.selectedCat;
+}
   $scope.post.date = $scope.date;
   $scope.post.release_date = $scope.release_date;
+
 
   Post.create($scope.post).then(function (ref) {
     //$location.path('/posts/' + ref.name());

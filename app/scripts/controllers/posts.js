@@ -10,10 +10,15 @@ app.controller('PostsCtrl', function($scope, $route, $location, $window, Post, A
   $scope.logout = Auth.logout;
   var ref = new Firebase("https://flockify.firebaseio.com");
   $scope.categories = $firebase(ref.child('categories')).$asArray();
-  $scope.selectedCat = 'categories';
+  $scope.selectedCat = 'all albums';
+
 
   $scope.selectCat = function(selectedCat){
   $scope.selectedCat = selectedCat;
+  $scope.catFilter = $scope.selectedCat;
+  if(selectedCat == 'all albums'){
+    $scope.catFilter = '';
+  }
 };
 
   // console.log('score', $scope.user_score);
