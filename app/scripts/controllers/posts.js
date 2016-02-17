@@ -9,6 +9,12 @@ app.controller('PostsCtrl', function($scope, $route, $location, $window, Post, A
   $scope.signedIn = Auth.signedIn;
   $scope.logout = Auth.logout;
   var ref = new Firebase("https://flockify.firebaseio.com");
+  $scope.categories = $firebase(ref.child('categories')).$asArray();
+  $scope.selectedCat = 'categories';
+
+  $scope.selectCat = function(selectedCat){
+  $scope.selectedCat = selectedCat;
+};
 
   // console.log('score', $scope.user_score);
    
@@ -61,6 +67,11 @@ app.controller('PostsCtrl', function($scope, $route, $location, $window, Post, A
       }
     }
 });
+
+ };
+
+ $scope.addCategory = function(){
+  ref.child("categories").child($scope.new_category).update({'description': $scope.new_description});
 
  };
 

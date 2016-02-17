@@ -31,6 +31,9 @@
         <a ng-href="{{post.spotify_uri}}" target="_blank">
         {{post.artist}} - {{ post.album }}
         </a>
+        <div>
+         <span class="label label-pill label-info">{{post.summary}}</span>
+         </div>
            <p>
          {{ post.votes }} votes
            <small>(posted by {{post.creator}})</small>
