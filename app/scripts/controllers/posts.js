@@ -19,6 +19,8 @@ app.controller('PostsCtrl', function($scope, $route, $location, $window, Post, A
   if(selectedCat == 'all albums'){
     $scope.catFilter = '';
   };
+
+  $scope.forceHide = true;
 };
 
   // console.log('score', $scope.user_score);

@@ -44,11 +44,11 @@
     </div>
 
     <div class="btn-group">
-  <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown">
+  <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" ng-click="forceHide=false" data-toggle="dropdown">
     {{selectedCat}}
   </button>
-  <div class="dropdown-menu">
-     <a class="dropdown-item"  data-toggle="collapse" data-target=".in" ng-repeat="category in categories" ng-click="selectCat(category.$id)" href="">{{category.$id}}</a>
+  <div class="dropdown-menu" ng-hide="forceHide">
+     <a class="dropdown-item" ng-repeat="category in categories" ng-click="selectCat(category.$id)" href="">{{category.$id}}</a>
     <div class="dropdown-divider"></div>
     <a class="dropdown-item" data-toggle="modal" data-target="#myModal" href="">add new category...</a>
   </div>
