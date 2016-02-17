@@ -24,6 +24,16 @@ img{
   transition: .3s ease-in-out;
 }
 
+img.arrow{
+
+  opacity: 0.4
+}
+
+img.arrow:hover{
+
+  opacity: 1
+}
+
 img.album:hover {
 
 /* or the drop-shadow effect */
