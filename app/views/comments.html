@@ -19,8 +19,9 @@
          {{ post.votes }} votes
            <small>(posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator}}</a>)</small>
         <small><a ng-click="deletePost(post)" ng-show="user.uid === post.creatorUID">&mdash; delete</a></small>
+         <div class="alert alert-info" role="alert">{{post.summary}}</div>
       </div>
-  
+ 
 
   <div ng-repeat="comment in comments | orderBy:'-votes'" class="row cmt">
     <div class="col-md-12">

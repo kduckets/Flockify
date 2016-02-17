@@ -2,9 +2,18 @@
             <h4 class="modal-title">{{artist}} - {{album}}</h4>
       </div>
       <div class="modal-body">
+      <div align="center">
         <img ng-src="{{image_medium}}" height="200"/>
-     
+        </div>
+    <form name="form">
+        <textarea required class="form-control" placeholder="explain yourself" name="summary" ng-model="summary" rows="2"></textarea> 
+           <div role="alert">
+     <small class="text-muted" ng-show="form.summary.$error.required"><font color="red">Please provide a quick summary for your post</font></small>
+    </div>
+    </form>
+          </p>
               </div>
+
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" ng-click="submitPost()">post</button>
 

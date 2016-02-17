@@ -8,8 +8,6 @@ app.controller('AlbumCtrl', function ($scope, $route, $location, $window, Post, 
   $scope.album = album;
   $scope.date = new Date();
 
-  console.log(album);
-
   $http({
   method: 'GET',
   url: $scope.album
@@ -17,7 +15,6 @@ app.controller('AlbumCtrl', function ($scope, $route, $location, $window, Post, 
   
 
     $scope.spotify_result = album.data;
-    console.log($scope.spotify_result);
     $scope.artist = album.data.artists[0].name;
     $scope.album = album.data.name;
     $scope.image_medium = album.data.images[1].url;
@@ -43,6 +40,7 @@ app.controller('AlbumCtrl', function ($scope, $route, $location, $window, Post, 
 
    $scope.submitPost = function () {
   $scope.post.creator = $scope.user.profile.username;
+  $scope.post.summary = $scope.summary;
   $scope.post.creatorUID = $scope.user.uid;
   $scope.post.album = $scope.album;
   $scope.post.artist = $scope.artist;
@@ -50,7 +48,6 @@ app.controller('AlbumCtrl', function ($scope, $route, $location, $window, Post, 
   $scope.post.image_small = $scope.image_small;
   $scope.post.spotify_uri = $scope.spotify_uri;
   $scope.post.comments = 0;
-  console.log($scope.date);
   $scope.post.date = $scope.date;
   $scope.post.release_date = $scope.release_date;
 
