@@ -6,6 +6,34 @@ body {
  position: relative;
 }
 
+a{
+
+    text-decoration: none !important;
+}
+
+/*img a:hover{
+
+box-shadow: 0 1px 8px black;
+  text-decoration: none !important;
+
+}*/
+
+img{
+
+  -webkit-transition: .3s ease-in-out;
+  transition: .3s ease-in-out;
+}
+
+img.album:hover {
+
+/* or the drop-shadow effect */
+
+box-shadow: 0 2px 8px black; /* goes x-axis, y-axis, blur, (stretch factor on x-axis, not used here), colour */
+
+height: 180px;
+
+}
+
 
 /*SORT*/
 
