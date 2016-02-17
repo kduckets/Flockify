@@ -16,9 +16,9 @@
     {{selectedCat}}
   </button>
   <div class="dropdown-menu">
-     <a class="dropdown-item" ng-repeat="category in categories" ng-click="selectCat(category.$id)" href="">{{category.$id}}</a>
+     <button class="dropdown-item" ng-repeat="category in categories" ng-click="selectCat(category.$id)" href="">{{category.$id}}</button>
     <div class="dropdown-divider"></div>
-    <a class="dropdown-item" data-toggle="modal" data-target="#myModal" href="">add new category...</a>
+    <button class="dropdown-item" data-toggle="modal" data-target="#myModal" href="">add new category...</button>
   </div>
 </div>
 
