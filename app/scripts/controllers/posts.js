@@ -11,6 +11,7 @@ app.controller('PostsCtrl', function($scope, $route, $location, $window, Post, A
   var ref = new Firebase("https://flockify.firebaseio.com");
   $scope.categories = $firebase(ref.child('categories')).$asArray();
   $scope.selectedCat = 'all albums';
+   $scope.forceHide = false;
 
 
   $scope.selectCat = function(selectedCat){
