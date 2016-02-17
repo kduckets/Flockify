@@ -43,15 +43,15 @@
 
     </div>
 
-    <div class="btn-group" uib-dropdown-toggle is-open="status.isopen">
+    <div class="btn-group">
   <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown">
     {{selectedCat}}
   </button>
   <div class="dropdown-menu">
 
-     <a class="dropdown-item" uib-dropdown ng-repeat="category in categories" ng-click="selectCat(category.$id)" href="">{{category.$id}}</a>
+     <a class="dropdown-item" ng-repeat="category in categories" ng-click="selectCat(category.$id)" href="">{{category.$id}}</a>
     <div class="dropdown-divider"></div>
-    <a class="dropdown-item" uib-dropdown data-toggle="modal" data-target="#myModal" href="">add new category...</a>
+    <a class="dropdown-item" data-toggle="modal" data-target="#myModal" href="">add new category...</a>
   </div>
 </div>
 
