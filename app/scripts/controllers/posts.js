@@ -18,8 +18,7 @@ app.controller('PostsCtrl', function($scope, $route, $location, $window, Post, A
   $scope.catFilter = $scope.selectedCat;
   if(selectedCat == 'all albums'){
     $scope.catFilter = '';
-  }
-  $scope.$broadcast('$locationChangeSuccess');
+  };
 };
 
   // console.log('score', $scope.user_score);
