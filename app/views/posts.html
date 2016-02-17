@@ -49,9 +49,9 @@
   </button>
   <div class="dropdown-menu">
 
-     <span class="dropdown-item" ng-repeat="category in categories" ng-click="selectCat(category.$id)" href="">{{category.$id}}</span>
+     <a class="dropdown-item" dropdown-toggle ng-repeat="category in categories" ng-click="selectCat(category.$id)" href="">{{category.$id}}</a>
     <div class="dropdown-divider"></div>
-    <span class="dropdown-item" data-toggle="modal" data-target="#myModal" href="">add new category...</span>
+    <a class="dropdown-item" dropdown-toggle data-toggle="modal" data-target="#myModal" href="">add new category...</a>
   </div>
 </div>
 
