@@ -108,6 +108,8 @@
         <br/>
         <a ng-href="{{post.spotify_uri}}" target="_blank">
        {{post.artist}} - {{ post.album }} ({{post.release_date | limitTo: 4}})</a> 
+       <div><img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18" />
+      <img ng-click="addStar(post)" ng-src="/images/empty-star.png" height="18" /></div>
        <div>
        <div><span class="label label-default">{{post.category}}</span></div>
        <a ng-href="#/posts/{{ post.$id  }}"><span class="label label-pill label-info">{{ post.summary | limitTo: 40 }}{{post.summary.length > 40 ? '..' : ''}}</span></a>

@@ -20,6 +20,10 @@ app.factory('Post', function ($firebase, FIREBASE_URL) {
       return ref.child('posts').child(postId).update({'votes': votes});
      },
 
+       star: function(postId, stars){
+      return ref.child('posts').child(postId).update({'stars': stars});
+     },
+
 
 
     comments: function (postId) {

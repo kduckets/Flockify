@@ -21,6 +21,10 @@ app.controller('ProfileCtrl', function ($scope, $routeParams, Profile, Post, Aut
     ref.child('user_scores').child($scope.profile.username).child('score').on("value", function(snapshot) {
   $scope.score = snapshot.val();
 });
+  ref.child('user_scores').child($scope.profile.username).child('stars').on("value", function(snapshot) {
+  $scope.stars = snapshot.val();
+});
+
   });
 
  
@@ -32,7 +36,40 @@ app.controller('ProfileCtrl', function ($scope, $routeParams, Profile, Post, Aut
 };
 
    
-       
+ $scope.addStar = function(post){
+      if($scope.signedIn() && $scope.user.uid != post.creatorUID){
+
+        ref.child('user_scores').child(post.creator).child('score').on("value", function(snapshot) {
+  $scope.score = snapshot.val();
+});
+
+        ref.child('user_scores').child(post.creator).child('stars').on("value", function(snapshot) {
+  $scope.user_stars = snapshot.val();
+});
+
+    $scope.current_vote = $firebase(ref.child('user_votes').child($scope.user.uid).child(post.$id).child('star')).$asObject();
+    $scope.current_vote.$loaded().then(function(res) {
+
+    if(res.$value == 'gold'){
+      //do nothing
+    };
+    if(!res.$value){
+       post.stars +=1;
+      Post.star(post.$id, post.stars);
+        Profile.setStar($scope.user.uid, post.$id, 'gold');
+            $scope.score = $scope.score + 2;
+            $scope.user_stars = $scope.user_stars + 1;
+        ref.child("user_scores").child(post.creator).update({'score': $scope.score});
+        ref.child("user_scores").child(post.creator).update({'stars': $scope.user_stars});
+    };
+    
+});
+};
+ };
+
+ $scope.getNumber = function(num) {
+    return new Array(num);   
+}; 
 
   $scope.deletePost = function (post) {
     //Post.delete(post.$id);

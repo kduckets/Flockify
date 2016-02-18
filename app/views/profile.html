@@ -9,7 +9,10 @@
       <span ng-show="view_tab == 'tabB'" class="name">liked by {{ profile.username }}</span>
       <p>
       score: {{score}}
+      <br/>
+      <img ng-repeat="i in getNumber(stars) track by $index" ng-src="/images/gold-star.png" height="18" />
       </p>
+  
     </div>
     <div class="btn-group-lg" role="group" aria-label="profiletabs" align="center">
   <button type="button" class="btn btn-secondary" ng-class="{'active': view_tab == 'tabA'}" ng-click="changeTab('tabA')" >posts</button>
@@ -31,6 +34,8 @@
         <a ng-href="{{post.spotify_uri}}" target="_blank">
         {{post.artist}} - {{ post.album }} ({{post.release_date | limitTo: 4}})
         </a>
+          <div><img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18" />
+      <img ng-click="addStar(post)" ng-src="/images/empty-star.png" height="18" /></div>
         <div>
           <div><span class="label label-default">{{post.category}}</span></div>
        <span class="label label-pill label-info">{{ post.summary | limitTo: 40 }}{{post.summary.length > 40 ? '..' : ''}}</span>

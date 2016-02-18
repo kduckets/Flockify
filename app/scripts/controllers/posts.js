@@ -4,7 +4,7 @@ app.controller('PostsCtrl', function($scope, $route, $location, $window, Post, A
  $scope.posts = Post.all;
  $scope.user = Auth.user;
 
-  $scope.post = {artist: '', album: '', votes: 0, comments: 0};
+  $scope.post = {artist: '', album: '', votes: 0, comments: 0, stars:0};
   $scope.user = Auth.user;
   $scope.signedIn = Auth.signedIn;
   $scope.logout = Auth.logout;
@@ -27,11 +27,6 @@ app.controller('PostsCtrl', function($scope, $route, $location, $window, Post, A
 };
 
 };
-
-  // console.log('score', $scope.user_score);
-   
-
-
 
     // $scope.$watch('sorter', function(){
     //   $scope.timer && $window.clearTimeout($scope.timer);
@@ -56,7 +51,43 @@ app.controller('PostsCtrl', function($scope, $route, $location, $window, Post, A
     //     currNewTop += currHeight;
     //   });
     // }
- // console.log('upvotes' + $scope.post.upvotes);
+
+ $scope.addStar = function(post){
+      if($scope.signedIn() && $scope.user.uid != post.creatorUID){
+
+        ref.child('user_scores').child(post.creator).child('score').on("value", function(snapshot) {
+  $scope.score = snapshot.val();
+});
+
+        ref.child('user_scores').child(post.creator).child('stars').on("value", function(snapshot) {
+  $scope.user_stars = snapshot.val();
+});
+
+    $scope.current_vote = $firebase(ref.child('user_votes').child($scope.user.uid).child(post.$id).child('star')).$asObject();
+    $scope.current_vote.$loaded().then(function(res) {
+
+    if(res.$value == 'gold'){
+      //do nothing
+    };
+    if(!res.$value){
+       post.stars +=1;
+      Post.star(post.$id, post.stars);
+        Profile.setStar($scope.user.uid, post.$id, 'gold');
+            $scope.score = $scope.score + 2;
+            $scope.user_stars = $scope.user_stars + 1;
+        ref.child("user_scores").child(post.creator).update({'score': $scope.score});
+        ref.child("user_scores").child(post.creator).update({'stars': $scope.user_stars});
+    };
+    
+});
+};
+ };
+
+
+
+ $scope.getNumber = function(num) {
+    return new Array(num);   
+};
 
  $scope.search = function(){
    Spotify.search($scope.post.search, 'artist,album').then(function (data) {
