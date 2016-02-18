@@ -107,7 +107,7 @@
 
         <br/>
         <a ng-href="{{post.spotify_uri}}" target="_blank">
-       {{post.artist}} - {{ post.album }}</a> 
+       {{post.artist}} - {{ post.album }} ({{post.release_date | limitTo: 4}})</a> 
        <div>
        <div><span class="label label-default">{{post.category}}</span></div>
        <a ng-href="#/posts/{{ post.$id  }}"><span class="label label-pill label-info">{{ post.summary | limitTo: 40 }}{{post.summary.length > 40 ? '..' : ''}}</span></a>
