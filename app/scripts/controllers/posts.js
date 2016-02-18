@@ -11,23 +11,25 @@ app.controller('PostsCtrl', function($scope, $route, $location, $window, Post, A
   var ref = new Firebase("https://flockify.firebaseio.com");
   $scope.categories = $firebase(ref.child('categories')).$asArray();
   $scope.selectedCat = 'all albums';
-  
+  $scope.sorter = '-';
 
 
 
   $scope.selectCat = function(selectedCat){
+      if(selectedCat == 'all albums'){
+    $scope.catFilter = '';
+  }else{
   $scope.selectedCat = selectedCat;
   $scope.catFilter = $scope.selectedCat;
-  if(selectedCat == 'all albums'){
-    $scope.catFilter = '';
-  };
+  $scope.sorter = '-votes';
+};
 
 };
 
   // console.log('score', $scope.user_score);
    
 
-  $scope.sorter = '-';
+
 
     // $scope.$watch('sorter', function(){
     //   $scope.timer && $window.clearTimeout($scope.timer);
