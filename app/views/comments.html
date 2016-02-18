@@ -12,7 +12,7 @@
 
         <br/>
         <a ng-href="{{post.spotify_uri}}" target="_blank">
-        {{post.artist}} - {{ post.album }}
+        {{post.artist}} - {{ post.album }} ({{post.release_date | limitTo: 4}})
         </a>
  
         <p>
