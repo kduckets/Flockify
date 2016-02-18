@@ -110,7 +110,7 @@
        {{post.artist}} - {{ post.album }}</a> 
        <div>
        <div><span class="label label-default">{{post.category}}</span></div>
-       <span class="label label-pill label-info">{{post.summary}}</span>
+       <span class="label label-pill label-info">{{ post.summary | limitTo: 38 }}{{post.summary.length > 38 ? '..' : ''}}</span>
 
   </div>
     <!--    <a ng-href="{{post.spotify_uri}}" ng-show="{{post.release_date}}" target="_blank"> ({{post.release_date}})</a>  -->
