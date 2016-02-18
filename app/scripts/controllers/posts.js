@@ -102,7 +102,7 @@ ref.child('user_scores').child(post.creator).child('score').on("value", function
   $scope.score = snapshot.val();
 });
 
-    
+      $scope.current_vote = $firebase(ref.child('user_votes').child($scope.user.uid).child(post.$id).child('vote')).$asObject();
     $scope.current_vote.$loaded().then(function(res) {
 
     if(res.$value == 'up'){
