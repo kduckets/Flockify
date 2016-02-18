@@ -33,7 +33,7 @@
         </a>
         <div>
           <div><span class="label label-default">{{post.category}}</span></div>
-       <span class="label label-pill label-info">{{ post.summary | limitTo: 38 }}{{post.summary.length > 38 ? '..' : ''}}</span>
+       <span class="label label-pill label-info">{{ post.summary | limitTo: 42 }}{{post.summary.length > 42 ? '..' : ''}}</span>
          </div>
            <p>
          {{ post.votes }} votes
@@ -63,7 +63,7 @@
         {{post.artist}} - {{ post.album }}
         </a>
           <div><span class="label label-default">{{post.category}}</span></div>
-        <span class="label label-pill label-info">{{ post.summary | limitTo: 38 }}{{post.summary.length > 38 ? '..' : ''}}</span>
+        <span class="label label-pill label-info">{{ post.summary | limitTo: 42 }}{{post.summary.length > 42 ? '..' : ''}}</span>
            <p>
          {{ post.votes }} votes
            <small>(posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator}}</a>)</small>
