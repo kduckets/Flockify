@@ -18,6 +18,7 @@ app.controller('PostsCtrl', function($scope, $route, $location, $window, Post, A
   $scope.selectCat = function(selectedCat){
       if(selectedCat == 'all albums'){
     $scope.catFilter = '';
+    $scope.selectedCat = 'all albums';
      $scope.sorter = '-';
   }else{
   $scope.selectedCat = selectedCat;
