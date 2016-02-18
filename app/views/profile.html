@@ -18,7 +18,7 @@
  <br/>
 
   <div ng-repeat="(key,post) in user_posts" ng-show="view_tab == 'tabA'" align="center">
-     <div class="user-post" ng-show="post.artist">
+     <div class="post" ng-show="post.artist">
     <img ng-click="upvote(post)" src="/images/up.svg" height="30"></img>
  
         <a ng-href="{{post.spotify_uri}}" target="_blank">
@@ -32,7 +32,8 @@
         {{post.artist}} - {{ post.album }}
         </a>
         <div>
-         <span class="label label-pill label-info">{{post.summary}}</span>
+          <div><span class="label label-default">{{post.category}}</span></div>
+       <span class="label label-pill label-info">{{post.summary}}</span>
          </div>
            <p>
          {{ post.votes }} votes
@@ -48,19 +49,21 @@
 
    <div ng-repeat="post in likes" ng-show="view_tab == 'tabB'" align="center">
 
-     <div class="user-post" ng-show="post.artist">
-    <img ng-click="upvote(post)" src="/images/up.svg" height="30"></img>
+     <div class="post" ng-show="post.artist">
+    
  
         <a ng-href="{{post.spotify_uri}}" target="_blank">
         <img ng-src="{{post.image_medium}}" height="100" />
         </a>
          
-           <img ng-click="downvote(post)" src="/images/down.svg" height="30"></img>
+           
 
         <br/>
         <a ng-href="{{post.spotify_uri}}" target="_blank">
         {{post.artist}} - {{ post.album }}
         </a>
+          <div><span class="label label-default">{{post.category}}</span></div>
+       <span class="label label-pill label-info">{{post.summary}}</span>
            <p>
          {{ post.votes }} votes
            <small>(posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator}}</a>)</small>
