@@ -1,0 +1,18 @@
+
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" ng-click="cancel()">&times;</span>
+        </button>
+        <div align="center">
+        <h4 class="modal-title">{{post.artist}} - {{post.album}} </h4><img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png"height="18" />
+      </div>
+      </div>
+      <div class="modal-body" align="center">
+    {{text}}
+      </div>
+      <div class="modal-footer" ng-show="hideButtons">
+        <button type="button" class="btn btn-secondary" ng-click="cancel()">Cancel</button>
+      <button type="button" class="btn btn-primary" ng-click="addStar(post)" data-dismiss="modal">Give Star</button>
+      
+        
+      </div>
