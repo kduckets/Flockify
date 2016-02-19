@@ -23,7 +23,7 @@ var app = angular
     'firebase',
     'spotify',
     'ui.bootstrap',
-    'ngLoadingSpinner',
+    'ngLoadingSpinner'
   ])
   .config(function ($routeProvider) {
     $routeProvider
