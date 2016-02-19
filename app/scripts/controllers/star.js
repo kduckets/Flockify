@@ -25,10 +25,6 @@ app.controller('StarCtrl', function ($scope, $route, $location, $window, Post, A
 
     $scope.cancel = function(){
      $modalInstance.close();
-
-
-      $location.path('/');
-
     
   };
 
