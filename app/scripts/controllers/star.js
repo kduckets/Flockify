@@ -13,7 +13,7 @@ app.controller('StarCtrl', function ($scope, $route, $location, $window, Post, A
 
     if(res.$value == 'gold'){
       $scope.hideButtons = false;
-      $scope.text = "Looks like you already gave this album a star";
+      $scope.text = "Looks like you already gave this post a star";
     }
 
     else

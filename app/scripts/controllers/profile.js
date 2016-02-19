@@ -2,11 +2,13 @@
 
 app.controller('ProfileCtrl', function ($scope, $routeParams, Profile, Post, Auth, $firebase, $uibModal) {
 	var ref = new Firebase("https://flockify.firebaseio.com");
+        $scope.sorter = '-';
 	  $scope.user = Auth.user;
   $scope.signedIn = Auth.signedIn;
   $scope.logout = Auth.logout;
 	 $scope.posts = Post.all;
  		$scope.user = Auth.user;
+
   var uid = $routeParams.userId;
   $scope.profile = Profile.get(uid);
   //get likes
@@ -28,7 +30,7 @@ app.controller('ProfileCtrl', function ($scope, $routeParams, Profile, Post, Aut
   });
 
  
-
+  
     $scope.view_tab = 'tabA';
 
   $scope.changeTab = function(tab) {

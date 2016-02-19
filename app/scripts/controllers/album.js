@@ -48,7 +48,6 @@ app.controller('AlbumCtrl', function ($scope, $route, $location, $window, Post, 
   $scope.post.image_small = $scope.image_small;
   $scope.post.spotify_uri = $scope.spotify_uri;
   $scope.post.comments = 0;
-  $sope.post.stars = 0;
   if($scope.selectedCat != 'all albums'){
   $scope.post.category = $scope.selectedCat;
 }

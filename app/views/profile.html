@@ -12,7 +12,15 @@
       <br/>
       <img ng-repeat="i in getNumber(stars) track by $index" ng-src="/images/gold-star.png" height="18" />
       </p>
-  
+  <div class="sort-links">
+  <a href ng-click="sorter = '-votes'">popular</a>
+   <a href ng-click="sorter = '-'">new</a>
+  <a href ng-click="sorter = 'votes'">unpopular</a>  
+  <a href ng-click="sorter = '-comments'">comments</a> 
+  <a href ng-click="sorter = '-stars'">stars</a> 
+
+
+    </div>
     </div>
     <div class="btn-group-lg" role="group" aria-label="profiletabs" align="center">
   <button type="button" class="btn btn-secondary" ng-class="{'active': view_tab == 'tabA'}" ng-click="changeTab('tabA')" >posts</button>
@@ -20,7 +28,7 @@
 </div>
  <br/>
 
-  <div ng-repeat="(key,post) in user_posts" ng-show="view_tab == 'tabA'" align="center">
+  <div ng-repeat="(key,post) in user_posts | orderBy:sorter" ng-show="view_tab == 'tabA'" align="center" >
      <div class="post" ng-show="post.artist">
     <img ng-click="upvote(post)" src="/images/up.svg" height="30"></img>
  
@@ -56,7 +64,7 @@
 
 
 
-   <div ng-repeat="post in likes" ng-show="view_tab == 'tabB'" align="center">
+   <div ng-repeat="post in likes | orderBy:sorter" ng-show="view_tab == 'tabB'" align="center">
 
      <div class="post" ng-show="post.artist">
     
