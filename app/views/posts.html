@@ -115,7 +115,13 @@
      <img ng-src="/images/empty-star.png" height="18" /></a></div>
        <div>
        <div><span class="label label-default">{{post.category}}</span></div>
-       <a ng-href="#/posts/{{ post.$id  }}"><span class="label label-pill label-info">{{ post.summary | limitTo: 40 }}{{post.summary.length > 40 ? '..' : ''}}</span></a>
+
+       <a ng-href="#/posts/{{ post.$id  }}"><span ng-show="deviceDetector=='device-iphone'" class="label label-pill label-info">{{ post.summary | limitTo: 40 }}{{post.summary.length > 40 ? '..' : ''}}</span>
+
+       <span ng-show="deviceDetector!='device-iphone'" class="label label-pill label-info">{{ post.summary}}</span>
+
+
+       </a>
 
   </div>
     <!--    <a ng-href="{{post.spotify_uri}}" ng-show="{{post.release_date}}" target="_blank"> ({{post.release_date}})</a>  -->
