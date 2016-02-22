@@ -129,6 +129,7 @@ ref.child('user_scores').child(post.creator).child('score').on("value", function
         Profile.setVote($scope.user.uid, post.$id, 'up');
       $scope.score = $scope.score + 1;
         ref.child("user_scores").child(post.creator).update({'score': $scope.score});
+        // ref.child("user_scores").child(post.creatorUID).update({'score': $scope.score});
     };
     
 });
@@ -156,6 +157,7 @@ ref.child('user_scores').child(post.creator).child('score').on("value", function
         Profile.setVote($scope.user.uid, post.$id, 'down');
         $scope.score = $scope.score - 1;
         ref.child("user_scores").child(post.creator).update({'score': $scope.score});
+        // ref.child("user_scores").child(post.creatorUID).update({'score': $scope.score});
 
     };
     

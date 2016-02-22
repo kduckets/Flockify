@@ -11,7 +11,10 @@
       score: {{score}}
       <br/>
       <img ng-repeat="i in getNumber(stars) track by $index" ng-src="/images/gold-star.png" height="18" />
+      <br/>
+       points per post: {{(score / postsNumber) | limitTo: 3}}
       </p>
+
   <div class="sort-links">
   <a href ng-click="sorter = '-votes'">popular</a>
    <a href ng-click="sorter = '-'">new</a>

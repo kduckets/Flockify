@@ -26,6 +26,7 @@ app.controller('ProfileCtrl', function ($scope, $routeParams, Profile, Post, Aut
   ref.child('user_scores').child($scope.profile.username).child('stars').on("value", function(snapshot) {
   $scope.stars = snapshot.val();
 });
+  $scope.postsNumber = Object.keys($scope.user_posts).length;
 
   });
 

@@ -13,53 +13,21 @@ app.controller('ScoreCtrl', function ($scope, $routeParams, Profile, Post, Auth,
    
   $scope.users = $firebase(ref.child('user_scores')).$asArray();
 
+//   var uid = $routeParams.userId;
+//   $scope.profile = Profile.get(uid);
 
-  $scope.addComment = function () {
-     if(!$scope.commentText || $scope.commentText === '') {
-       return;
-    }
+//  Profile.getPosts(uid).then(function(posts) {
+//     $scope.user_posts = posts;
+//     ref.child('user_scores').child($scope.profile.username).child('score').on("value", function(snapshot) {
+//   $scope.score = snapshot.val();
+// });
+//   ref.child('user_scores').child($scope.profile.username).child('stars').on("value", function(snapshot) {
+//   $scope.stars = snapshot.val();
+// });
+//   $scope.postsNumber = Object.keys($scope.user_posts).length;
 
-    var comment = {
-      // text: $scope.commentText,
-      text: $scope.commentText,
-      creator: $scope.user.profile.username,
-      creatorUID: $scope.user.uid,
-      votes: 0
-    };
-    $scope.comments.$add(comment);
+//   });
 
-    $scope.commentText = '';
-    $scope.gifSearchText = '';
-
-    ref.once("value", function(snapshot) {
-  $scope.comments_count = snapshot.child("comments").child('scoreboard').numChildren();
-   ref.child("posts").child('scoreboard').update({'comments': $scope.comments_count});
-   
-  });
-
-
-  };
-
-   $scope.deleteComment = function (comment) {
-  $scope.comments.$remove(comment);
-     ref.once("value", function(snapshot) {
-  $scope.comments_count = snapshot.child("comments").child('scoreboard').numChildren();
-   ref.child("posts").child('scoreboard').update({'comments': $scope.comments_count});
-   
-  });
-};
-
-  $scope.comment_upvote = function(comment) {
-  comment.votes +=1;
-  Post.commentVote('scoreboard', comment.$id, comment.votes);
-
-};
-
-  $scope.comment_downvote = function(comment) {
-  comment.votes -=1;
-  Post.commentVote('scoreboard', comment.$id, comment.votes);
-
-};
 
 
 });
