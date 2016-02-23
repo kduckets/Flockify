@@ -1,5 +1,5 @@
 'use strict';
-app.controller('PostsCtrl', function($scope, $route, $location, $window, Post, Auth, Spotify,$uibModal, Profile, $firebase){
+app.controller('PostsCtrl', function($scope, $route, $location, $window, Post, Auth, Spotify,$uibModal, Profile, $firebase, $filter){
 
  $scope.posts = Post.all;
  $scope.user = Auth.user;
@@ -12,6 +12,7 @@ app.controller('PostsCtrl', function($scope, $route, $location, $window, Post, A
   $scope.categories = $firebase(ref.child('categories')).$asArray();
   $scope.selectedCat = 'all albums';
   $scope.sorter = '-';
+  
 
 
 
@@ -27,31 +28,6 @@ app.controller('PostsCtrl', function($scope, $route, $location, $window, Post, A
 };
 
 };
-
-    // $scope.$watch('sorter', function(){
-    //   $scope.timer && $window.clearTimeout($scope.timer);
-    //   $scope.timer = $window.setTimeout(rearrange, 80);
-    // });
-
-    // function rearrange(){
-    //   var currNewTop = $('.container')[0].scrollTop;
-    //   $('.post').each(function(index, el){
-    //     var $el = $(el);
-    //     var currHeight = parseInt($el.css('height'));
-
-    //     if (currNewTop != parseInt($el.css('top'))) {
-    //       $el.css({
-    //         'top': currNewTop
-    //       })
-    //       .one('webkitTransitionEnd', function (evt){
-    //         $(evt.target).removeClass('moving');
-    //       })
-    //       .addClass('moving');  
-    //     }
-    //     currNewTop += currHeight;
-    //   });
-    // }
-
  
  $scope.getNumber = function(num) {
     return new Array(num);   
@@ -166,6 +142,16 @@ ref.child('user_scores').child(post.creator).child('score').on("value", function
   
 };
 
+// $scope.batchUpdate = function(){
+
+//    var today = $filter('date')(new Date(),'yyyy-MM-dd HH:mm:ss');
+
+//    angular.forEach($scope.posts, function(post) {
+//     ref.child("posts").child(post.$id).update({'latest_comment': today});
+// });
+
+  
+// }
 
 
 

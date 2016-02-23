@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('CommentsCtrl', function ($scope, $routeParams, Post, Auth, $firebase, Profile, $http) {
+app.controller('CommentsCtrl', function ($scope, $routeParams, Post, Auth, $firebase, Profile, $http, $filter) {
   var ref = new Firebase("https://flockify.firebaseio.com");
     $scope.user = Auth.user;
   $scope.signedIn = Auth.signedIn;
@@ -55,6 +55,9 @@ app.controller('CommentsCtrl', function ($scope, $routeParams, Post, Auth, $fire
     ref.once("value", function(snapshot) {
   $scope.comments_count = snapshot.child("comments").child($scope.post.$id).numChildren();
    ref.child("posts").child($scope.post.$id).update({'comments': $scope.comments_count});
+   var today = $filter('date')(new Date(),'yyyy-MM-dd HH:mm:ss');
+    ref.child("posts").child($scope.post.$id).update({'latest_comment': today});
+
    
   });
 
