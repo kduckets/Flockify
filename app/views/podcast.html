@@ -1,0 +1,51 @@
+     <div class="modal-header">
+            <h4 class="modal-title">{{podcast.artistName}} - {{podcast.trackName}}</h4>
+      </div>
+      <div class="modal-body">
+       <img ng-src="{{podcast.artworkUrl100}}" height="100"/>
+       <button class="btn btn-primary" ng-click="viewInItunes()">View in itunes</button>
+
+       <table class="table table-sm table-hover">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Released</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="episode in podcastFeed">
+    <a ng-click="postEpisode(episode)" href="" > <td>  <small>{{episode.title}}</small></td>
+      <td><small>{{episode.description | limitTo: 80 }}{{episode.description.length > 80 ? '..' : ''}}</small></td>
+      <td><small>{{episode.date | limitTo : 10}}</small></td>
+      </a>
+    </tr>
+  </tbody>
+</table>
+
+         <small class="text-muted" ng-show="form.summary.$error.required"><font color="red">Please provide a quick description of your post</font></small>
+    <form name="form">
+        <textarea required class="form-control" placeholder="explain yourself" name="summary" ng-model="summary" rows="2"></textarea> 
+           <div role="alert">
+    
+     <br />
+
+  <div class="dropdown-menu">
+     <a class="dropdown-item" ng-repeat="category in categories" ng-click="selectCat(category.$id)" href="">{{category.$id}}</a>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item" data-toggle="modal" data-target="#myModal" href="">add new category...</a>
+  </div>
+</div>
+
+    </div>
+    </form>
+          </p>
+              </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="submitPost()">post</button>
+
+         <button type="button" ng-click="openInSpotify()" class="btn btn-success">listen</button>
+       
+        <button type="button" class="btn btn-secondary" ng-click="cancel()">close</button>   
+        </div>

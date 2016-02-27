@@ -15,6 +15,9 @@
     var Firebase = require("firebase");
     var firebaseRef = new Firebase("https://megastream.firebaseio.com/");
     var giphy = require('giphy-api')();
+    var Audiosearch = require('audiosearch-client-node');
+    var rsj = require('rsj');
+    var xml2js = require('xml2js');
     
 
     // configuration =================
@@ -45,6 +48,36 @@
                     return resp.json(res);
                     // Res contains gif data! 
                 });
+            });
+
+
+            //     router.post('/podcastsearch', function(req, resp){
+            // var audiosearch = new Audiosearch('9814e9a65391df3b5b523e1093bba9a63a089101f725d1b56fb3ac3ab3de44e3',
+            //  '7f98e6cfab3cf8b59b4f3ab1472fa8ca65dc6628247b9940626a75d1cc824ef9');
+            // var search = req.body.search;
+            // // Search with options using promise 
+           
+            //  audiosearch.searchEpisodes(search).then(function (res) {
+            //     var parser = new xml2js.Parser();
+
+            //         return resp.json(res);
+            //         // Res contains gif data! 
+            //     });
+            // });
+
+
+
+
+                router.post('/podcastfeed', function(req, resp){
+       
+            var feed = req.body.feed;
+            rsj.r2j(feed,function(res) {
+                resp.setHeader('Content-Type', 'application/json');
+                resp.send(res);
+
+            })
+           
+   
             });
 
 // REGISTER OUR ROUTES -------------------------------

@@ -53,6 +53,7 @@ app.controller('AlbumCtrl', function ($scope, $route, $location, $window, Post, 
 }
   $scope.post.date = $scope.date;
   $scope.post.release_date = $scope.release_date;
+  $scope.post.latest_comment = 9999;
 
 
   Post.create($scope.post).then(function (ref) {

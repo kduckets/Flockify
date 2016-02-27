@@ -39,6 +39,10 @@ var app = angular
   templateUrl: 'views/scoreboard.html',
   controller: 'ScoreCtrl'
       })
+           .when('/podcasts', {
+  templateUrl: 'views/podcasts.html',
+  controller: 'PodcastsCtrl'
+      })
       .when('/register', {
   templateUrl: 'views/register.html',
   controller: 'AuthCtrl',
