@@ -2,7 +2,7 @@
  <div ng-hide="signedIn()">
       <p><a href="#/login">Sign in</a> or <a ng-href="#/register">register</a> to post an album or vote</p>
     </div>
-<a href="/#/">albums</a>
+<small>go to <a href="/#/">albums</a></small>
 <form ng-submit="search()" ng-show="signedIn()" class="form-inline" >
 
 <input type="text" placeholder="search for podcast" class="form-control" ng-model="searchTerm" /> 
