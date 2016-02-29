@@ -20,6 +20,7 @@ app.controller('BookCtrl', function ($scope, $route, $location, $window, Post, A
   $scope.post.summary = $scope.summary;
   $scope.post.creatorUID = $scope.user.uid;
   $scope.post.title = $scope.book.trackName;
+  $scope.post.album = $scope.book.trackName;
   $scope.post.artist = $scope.book.artistName;
   $scope.post.image_medium = $scope.book.artworkUrl100;
   $scope.post.image_small = $scope.book.artworkUrl60;

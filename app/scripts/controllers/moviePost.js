@@ -37,6 +37,7 @@ app.controller('MovieCtrl', function ($scope, $route, $location, $window, Post, 
   $scope.post.summary = $scope.summary;
   $scope.post.creatorUID = $scope.user.uid;
   $scope.post.title = $scope.movie.trackName;
+  $scope.post.album = $scope.movie.trackName;
   $scope.post.artist = $scope.movie.artistName;
   $scope.post.image_medium = $scope.movie.artworkUrl100;
   $scope.post.image_small = $scope.movie.artworkUrl60;
