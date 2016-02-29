@@ -26,7 +26,7 @@ app.controller('MoviesCtrl', function($scope, $route, $location, $window, Post, 
            .success(function (response) { 
 
              $scope.results = response.results; 
-             console.log($scope.results);
+         
 
 
            })

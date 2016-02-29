@@ -41,7 +41,7 @@ app.controller('MovieCtrl', function ($scope, $route, $location, $window, Post, 
   $scope.post.image_medium = $scope.movie.artworkUrl100;
   $scope.post.image_small = $scope.movie.artworkUrl60;
   $scope.post.itunes_link = $scope.movie.trackViewUrl
-  $scope.post.link = "http://www.canistream.it/search/movie/" + $scope.movie.trackName;
+  $scope.post.link = "http://www.canistream.it/search/movie/" + encodeURI($scope.movie.trackName);
   $scope.post.comments = 0;
   $scope.post.media_type = 'movie/film';
   $scope.post.date = $scope.date;
