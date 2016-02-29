@@ -33,13 +33,13 @@
 
   <div ng-repeat="(key,post) in user_posts | orderBy:sorter" ng-show="view_tab == 'tabA'" align="center" >
      <div class="post" ng-show="post.artist">
-    <img ng-click="upvote(post)" src="/images/up.svg" height="30"></img>
+    <img ng-click="upvote(post)" src="/images/up.png" height="30"></img>
  
         <a ng-href="{{post.spotify_uri}}" target="_blank">
         <img ng-src="{{post.image_medium}}" height="100" />
         </a>
          
-           <img ng-click="downvote(post)" src="/images/down.svg" height="30"></img>
+           <img ng-click="downvote(post)" src="/images/down.png" height="30"></img>
 
         <br/>
         <a ng-href="{{post.spotify_uri}}" target="_blank">
