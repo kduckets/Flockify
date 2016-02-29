@@ -50,7 +50,7 @@ angular.forEach($scope.posts, function(item, key) {
 
  $scope.viewAlbum = function(album){
  var modalInstance = $uibModal.open({
-    templateUrl: 'views/album.html',
+    templateUrl: 'views/albumPost.html',
     scope: $scope,
     controller: 'AlbumCtrl',
     resolve: {

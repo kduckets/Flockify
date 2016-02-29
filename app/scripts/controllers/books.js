@@ -1,5 +1,5 @@
 'use strict';
-app.controller('MoviesCtrl', function($scope, $route, $location, $window, Post, Auth, Spotify,$uibModal, 
+app.controller('BooksCtrl', function($scope, $route, $location, $window, Post, Auth, Spotify,$uibModal, 
   Profile, $firebase, $filter, $http){
 
  $scope.posts = Post.all;
@@ -20,27 +20,27 @@ app.controller('MoviesCtrl', function($scope, $route, $location, $window, Post, 
    $scope.search = function () {
          $scope.mediaResults = [];
          $scope.searching = true;
-         var type = "movie";
+         var type = "ebook";
          $http
            .jsonp('https://itunes.apple.com/search', { params: { term: $scope.searchTerm, entity: type, limit: 10, callback: 'JSON_CALLBACK' } })
            .success(function (response) { 
 
              $scope.results = response.results; 
-         
+              console.log($scope.results);
 
 
            })
           .finally(function () { $scope.searching = false; });
       };
 
- $scope.viewMovie = function(movie){
+ $scope.viewBook = function(book){
  var modalInstance = $uibModal.open({
-    templateUrl: 'views/moviePost.html',
+    templateUrl: 'views/bookPost.html',
     scope: $scope,
-    controller: 'MovieCtrl',
+    controller: 'BookCtrl',
     resolve: {
-      movie: function () {
-        return movie;
+      book: function () {
+        return book;
       }
     }
 });

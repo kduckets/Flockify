@@ -49,7 +49,7 @@ app.controller('PodcastsCtrl', function($scope, $route, $location, $window, Post
 
  $scope.viewPodcast = function(podcast){
  var modalInstance = $uibModal.open({
-    templateUrl: 'views/podcast.html',
+    templateUrl: 'views/podcastPost.html',
     scope: $scope,
     controller: 'PodcastCtrl',
     resolve: {
