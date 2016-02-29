@@ -8,17 +8,20 @@ app.controller('MovieCtrl', function ($scope, $route, $location, $window, Post, 
   $scope.movie = movie;
   $scope.date = new Date();
 
-  //TODO: call netflix API
+ 
 
-//   $http({
-//   method: 'GET',
-//   url: "http://netflixroulette.net/api/api.php?title="
-// }).then(function successCallback(album) {
+  $http({
+  method: 'GET',
+  url: "http://www.canistream.it/services/search?movieName=" + $scope.movie.trackName,
 
+}).then(function successCallback(movieInfo) {
+  $scope.cisi = movieInfo;
 
-//   }, function errorCallback(response) {
-//     console.log(response);
-//   });
+  console.log($scope.cisi);
+
+  }, function errorCallback(response) {
+    console.log(response);
+  });
 
 
 
