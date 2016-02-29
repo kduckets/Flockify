@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('NavCtrl', function ($scope, $location, Post, Auth, $cookieStore) {
+app.controller('NavCtrl', function ($scope, $location, Post, Auth, $cookieStore, $rootScope) {
   $scope.post = {artist: '', album: ''};
   $scope.user = Auth.user;
   $scope.signedIn = Auth.signedIn;
@@ -13,6 +13,17 @@ app.controller('NavCtrl', function ($scope, $location, Post, Auth, $cookieStore)
   	
 // };
 $scope.logout = Auth.logout;
+
+    var history = [];
+
+    $rootScope.$on('$routeChangeSuccess', function() {
+        history.push($location.$$path);
+    });
+
+    $rootScope.back = function () {
+        var prevUrl = history.length > 1 ? history.splice(-2)[0] : "/";
+        $location.path(prevUrl);
+    };
    
 
 });
