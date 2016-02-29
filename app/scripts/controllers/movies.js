@@ -1,5 +1,5 @@
 'use strict';
-app.controller('PodcastsCtrl', function($scope, $route, $location, $window, Post, Auth, Spotify,$uibModal, 
+app.controller('MoviesCtrl', function($scope, $route, $location, $window, Post, Auth, Spotify,$uibModal, 
   Profile, $firebase, $filter, $http){
 
  $scope.posts = Post.all;
@@ -20,9 +20,9 @@ app.controller('PodcastsCtrl', function($scope, $route, $location, $window, Post
    $scope.search = function () {
          $scope.mediaResults = [];
          $scope.searching = true;
-         var type = "podcast";
+         var type = "movie";
          $http
-           .jsonp('https://itunes.apple.com/search', { params: { term: $scope.searchTerm, entity: type, limit: 15, callback: 'JSON_CALLBACK' } })
+           .jsonp('https://itunes.apple.com/search', { params: { term: $scope.searchTerm, entity: type, limit: 10, callback: 'JSON_CALLBACK' } })
            .success(function (response) { 
 
              $scope.results = response.results; 
@@ -31,30 +31,16 @@ app.controller('PodcastsCtrl', function($scope, $route, $location, $window, Post
 
            })
           .finally(function () { $scope.searching = false; });
-
-     //     var body = {'search': $scope.searchTerm};
-     // $http.post('/api/podcastsearch', body)
-
-     //        .success(function(data) {
-                
-     //            $scope.results = data.results;
-     //            console.log($scope.results);
-           
-     //        })
-     //        .error(function(data) {
-     //            console.log('Error: ' + data);
-     //        });
-
       };
 
- $scope.viewPodcast = function(podcast){
+ $scope.viewMovie = function(movie){
  var modalInstance = $uibModal.open({
-    templateUrl: 'views/podcast.html',
+    templateUrl: 'views/movie.html',
     scope: $scope,
-    controller: 'PodcastCtrl',
+    controller: 'MovieCtrl',
     resolve: {
-      podcast: function () {
-        return podcast;
+      movie: function () {
+        return movie;
       }
     }
 });
@@ -74,11 +60,6 @@ app.controller('PodcastsCtrl', function($scope, $route, $location, $window, Post
     }
 });
 }
- };
-
- $scope.addCategory = function(){
-  ref.child("categories").child($scope.new_category).update({'description': $scope.new_description});
-
  };
 
 $scope.clearResults = function(){

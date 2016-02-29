@@ -2,10 +2,10 @@
  <div ng-hide="signedIn()">
       <p><a href="#/login">Sign in</a> or <a ng-href="#/register">register</a> to post an album or vote</p>
     </div>
-<small>go to <a href="/#/">albums</a> | <a href="/#/movies">movies</a></small>
+<small>go to <a href="/#/">albums</a> | <a href="/#/podcasts">podcasts</a></small>
 <form ng-submit="search()" ng-show="signedIn()" class="form-inline" >
 
-<input type="text" placeholder="search for podcast" class="form-control" ng-model="searchTerm" /> 
+<input type="text" placeholder="search for movie" class="form-control" ng-model="searchTerm" /> 
 
 
 <input type="submit" value="search" class="btn btn-primary" /> 
@@ -15,10 +15,10 @@
 
 <div class="list-group" ng-repeat="result in results" align="left">
 
-  <button type="button" class="list-group-item" ng-click="viewPodcast(result)">
+  <button type="button" class="list-group-item" ng-click="viewMovie(result)">
   <img ng-src="{{result.artworkUrl60}}"/>
 
-  <small>{{result.artistName}} - {{result.trackName}}</small>
+  <small>{{result.trackName}} ({{result.releaseDate | limitTo:4}})</small>
 
   </button>
 
@@ -53,7 +53,7 @@
     
   <div class="container">
 
-  <div class="album-list" ng-repeat="post in posts | orderBy:sorter | filter:'podcast'" jd-script>
+  <div class="album-list" ng-repeat="post in posts | orderBy:sorter | filter:'movie/film'" jd-script>
 
                <div class="post">
 
@@ -63,18 +63,18 @@
     
  
         <a ng-href="{{post.link}}" target="_blank" >
-        <img class="album" ng-src="{{post.image_medium}}" height="100" />
+        <img ng-src="{{post.image_medium}}" height="100" />
         </a>
          
            <img class="arrow" ng-click="downvote(post)" src="/images/down.svg" height="30"></img>
 
         <br/>
         <a ng-href="{{post.link}}" target="_blank">
-       {{post.artist}} - {{ post.title }} ({{post.release_date | limitTo: 10}})</a> 
+      {{ post.title }} ({{post.release_date | limitTo: 4}})</a> 
       <a data-toggle="modal" ng-click="starPost(post)" href="" >  <div><img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18" />
      <img ng-src="/images/empty-star.png" height="18" /></a></div>
        <div>
-       <div><span class="label label-default">{{post.category}}</span></div>
+       <div><span class="label label-default">{{post.genre}}</span></div>
 
        <a ng-href="#/posts/{{ post.$id  }}"><span class="label label-pill label-info">{{ post.summary | limitTo: 40 }}{{post.summary.length > 40 ? '..' : ''}}</span></a>
 

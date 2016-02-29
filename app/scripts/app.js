@@ -39,7 +39,11 @@ var app = angular
   templateUrl: 'views/scoreboard.html',
   controller: 'ScoreCtrl'
       })
-           .when('/podcasts', {
+      .when('/movies', {
+  templateUrl: 'views/movies.html',
+  controller: 'MoviesCtrl'
+      })
+      .when('/podcasts', {
   templateUrl: 'views/podcasts.html',
   controller: 'PodcastsCtrl'
       })

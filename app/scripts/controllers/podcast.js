@@ -45,6 +45,7 @@ app.controller('PodcastCtrl', function ($scope, $route, $location, $window, Post
   $scope.post.release_date = episode.date;
   $scope.post.description = episode.description;
   $scope.post.media_type = 'podcast';
+  $scope.post.latest_comment = 9999;
 
 
   Post.create($scope.post).then(function (ref) {
