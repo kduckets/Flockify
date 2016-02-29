@@ -71,7 +71,7 @@
 
         <br/>
         <a ng-href="{{post.link}}" target="_blank">
-       {{post.artist}} - {{ post.title }} ({{post.release_date | limitTo: 10}})</a> 
+       {{post.album}} - {{ post.title }} ({{post.release_date | limitTo: 10}})</a> 
       <a data-toggle="modal" ng-click="starPost(post)" href="" >  <div><img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18" />
      <img ng-src="/images/empty-star.png" height="18" /></a></div>
        <div>

@@ -36,7 +36,7 @@ app.controller('PodcastCtrl', function ($scope, $route, $location, $window, Post
   $scope.post.summary = episode.user_description
   $scope.post.creatorUID = $scope.user.uid;
   $scope.post.title = episode.title;
-  $scope.post.album = episode.title;
+  $scope.post.album = $scope.podcast.trackName;
   $scope.post.artist = $scope.podcast.artistName;
   $scope.post.image_medium = episode.image.url;
   $scope.post.link = episode.link;
