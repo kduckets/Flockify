@@ -2,7 +2,7 @@
  <div ng-hide="signedIn()">
       <p><a href="#/login">Sign in</a> or <a ng-href="#/register">register</a> to post an album or vote</p>
     </div>
-
+<a href="/#/">albums</a>
 <form ng-submit="search()" ng-show="signedIn()" class="form-inline" >
 
 <input type="text" placeholder="search for podcast" class="form-control" ng-model="searchTerm" /> 
@@ -46,36 +46,6 @@
 
     </div>
 
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-        <h4 class="modal-title">add a new category</h4>
-      </div>
-      <div class="modal-body">
-       <form>
-  <fieldset class="form-group">
-    <label for="category">category name</label>
-    <input type="text" class="form-control" id="category" ng-model="new_category" placeholder="enter the category name">
-  </fieldset>
-  <fieldset class="form-group">
-    <label for="description">description</label>
-    <input type="text" class="form-control" id="description" ng-model="new_description" placeholder="provide a description for this category">
-  </fieldset>
-</form>
-      </div>
-      <div class="modal-footer">
-      <button type="button" class="btn btn-primary" ng-click="addCategory()" data-dismiss="modal">add category</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">cancel</button>
-        
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
 
 
 
@@ -84,7 +54,7 @@
 
   <div class="container">
 
-  <div class="album-list" ng-repeat="post in posts | orderBy:sorter | filter:catFilter" jd-script>
+  <div class="album-list" ng-repeat="post in posts | orderBy:sorter | filter:'podcast'" jd-script>
 
                <div class="post">
 
@@ -93,7 +63,7 @@
   
     
  
-        <a ng-href="{{post.spotify_uri}}" target="_blank" >
+        <a ng-href="{{post.link}}" target="_blank" >
         <img class="album" ng-src="{{post.image_medium}}" height="100" />
         </a>
          
@@ -101,7 +71,7 @@
 
         <br/>
         <a ng-href="{{post.spotify_uri}}" target="_blank">
-       {{post.artist}} - {{ post.album }} ({{post.release_date | limitTo: 4}})</a> 
+       {{post.artist}} - {{ post.title }} ({{post.release_date | limitTo: 10}})</a> 
       <a data-toggle="modal" ng-click="starPost(post)" href="" >  <div><img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18" />
      <img ng-src="/images/empty-star.png" height="18" /></a></div>
        <div>

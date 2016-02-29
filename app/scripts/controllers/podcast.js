@@ -16,33 +16,12 @@ app.controller('PodcastCtrl', function ($scope, $route, $location, $window, Post
              .success(function(data) {
                 
                  $scope.podcastFeed = data;
-                 console.log($scope.podcastFeed);
+              
            
              })
              .error(function(data) {
                  console.log('Error: ' + data);
              });
-
-
-
-//   $http({
-//   method: 'GET',
-//   url: $scope.album
-// }).then(function successCallback(album) {
-  
-
-//     $scope.spotify_result = album.data;
-//     $scope.artist = album.data.artists[0].name;
-//     $scope.album = album.data.name;
-//     $scope.image_medium = album.data.images[1].url;
-//     $scope.image_small = album.data.images[2].url;
-//     $scope.spotify_uri = album.data.external_urls.spotify;
-//     $scope.release_date = album.data.release_date;
-
-
-//   }, function errorCallback(response) {
-//     console.log(response);
-//   });
 
 
 
@@ -52,21 +31,20 @@ app.controller('PodcastCtrl', function ($scope, $route, $location, $window, Post
     
   };
 
-   $scope.submitPost = function () {
+   $scope.submitPost = function (episode) {
   $scope.post.creator = $scope.user.profile.username;
-  $scope.post.summary = $scope.summary;
+  $scope.post.summary = episode.user_description
   $scope.post.creatorUID = $scope.user.uid;
-  $scope.post.album = $scope.album;
-  $scope.post.artist = $scope.artist;
-  $scope.post.image_medium = $scope.image_medium;
-  $scope.post.image_small = $scope.image_small;
-  $scope.post.spotify_uri = $scope.spotify_uri;
+  $scope.post.title = episode.title;
+  $scope.post.album = episode.title;
+  $scope.post.artist = $scope.podcast.artistName;
+  $scope.post.image_medium = episode.image.url;
+  $scope.post.link = episode.link;
   $scope.post.comments = 0;
-  if($scope.selectedCat != 'all albums'){
-  $scope.post.category = $scope.selectedCat;
-}
   $scope.post.date = $scope.date;
-  $scope.post.release_date = $scope.release_date;
+  $scope.post.release_date = episode.date;
+  $scope.post.description = episode.description;
+  $scope.post.media_type = 'podcast';
 
 
   Post.create($scope.post).then(function (ref) {

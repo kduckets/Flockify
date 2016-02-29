@@ -14,38 +14,36 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="episode in podcastFeed">
-    <a ng-click="postEpisode(episode)" href="" > <td>  <small>{{episode.title}}</small></td>
+
+    <tr ng-repeat-start="episode in podcastFeed" ng-click="episode.expanded = true">
+   
+      <td><small>{{episode.title}}</small></td>
       <td><small>{{episode.description | limitTo: 80 }}{{episode.description.length > 80 ? '..' : ''}}</small></td>
       <td><small>{{episode.date | limitTo : 10}}</small></td>
-      </a>
-    </tr>
+
+       </tr>
+          <tr ng-if="episode.expanded" ng-repeat-end="">
+            <td colspan="3">
+
+            <small class="text-muted" ng-show="form.summary.$error.required"><font color="red">Please provide a quick description of your post</font></small>
+    <form name="form">
+        <textarea required class="form-control" placeholder="explain yourself" name="summary" ng-model="episode.user_description" rows="2"></textarea> 
+
+
+    </form>
+        
+            
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="submitPost(episode)">post</button>
+
+       <!--   <button type="button" ng-click="openInSpotify()" class="btn btn-success">listen</button> -->
+       
+        <button type="button" class="btn btn-secondary" ng-click="cancel()">close</button>   
+        </div></td>
+          </tr>
+
+   
   </tbody>
 </table>
 
-         <small class="text-muted" ng-show="form.summary.$error.required"><font color="red">Please provide a quick description of your post</font></small>
-    <form name="form">
-        <textarea required class="form-control" placeholder="explain yourself" name="summary" ng-model="summary" rows="2"></textarea> 
-           <div role="alert">
-    
-     <br />
-
-  <div class="dropdown-menu">
-     <a class="dropdown-item" ng-repeat="category in categories" ng-click="selectCat(category.$id)" href="">{{category.$id}}</a>
-    <div class="dropdown-divider"></div>
-    <a class="dropdown-item" data-toggle="modal" data-target="#myModal" href="">add new category...</a>
-  </div>
-</div>
-
-    </div>
-    </form>
-          </p>
-              </div>
-
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" ng-click="submitPost()">post</button>
-
-         <button type="button" ng-click="openInSpotify()" class="btn btn-success">listen</button>
-       
-        <button type="button" class="btn btn-secondary" ng-click="cancel()">close</button>   
-        </div>

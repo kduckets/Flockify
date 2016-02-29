@@ -14,6 +14,11 @@ app.controller('PostsCtrl', function($scope, $route, $location, $window, Post, A
   $scope.sorter = '-';
   
 
+  $scope.albumPosts = {};
+angular.forEach($scope.posts, function(item, key) {
+    if ($scope.post.media_type == 'spotify') { $scope.albumPosts[key] = item; };
+});
+
 
 
   $scope.selectCat = function(selectedCat){
@@ -142,16 +147,16 @@ ref.child('user_scores').child(post.creator).child('score').on("value", function
   
 };
 
-// $scope.batchUpdate = function(){
+ // $scope.batchUpdate = function(){
 
-//    var today = $filter('date')(new Date(),'yyyy-MM-dd HH:mm:ss');
+ //   var today = $filter('date')(new Date(),'yyyy-MM-dd HH:mm:ss');
 
-//    angular.forEach($scope.posts, function(post) {
-//     ref.child("posts").child(post.$id).update({'latest_comment': today});
-// });
+ //   angular.forEach($scope.posts, function(post) {
+ //    ref.child("posts").child(post.$id).update({'media_type': 'spotify'});
+ // });
 
   
-// }
+ // }
 
 
 

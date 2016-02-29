@@ -2,7 +2,7 @@
  <div ng-hide="signedIn()">
       <p><a href="#/login">Sign in</a> or <a ng-href="#/register">register</a> to post an album or vote</p>
     </div>
-<!-- <a href="#/podcasts">podcasts</a> -->
+<a href="#/podcasts">podcasts</a>
 <form ng-submit="search()" ng-show="signedIn()" class="form-inline" >
 
 <input type="text" placeholder="enter artist or album" class="form-control" ng-model="post.search" /> 
@@ -40,8 +40,10 @@
     
   <a href ng-click="sorter = 'votes'">unpopular</a>  
 <a href ng-click="sorter = '-latest_comment'">new comments</a> 
-<!--   <a href ng-click="batchUpdate()">comments</a>  -->
+
   <a href ng-click="sorter = '-stars'">stars</a> 
+
+  <!--   <a href ng-click="batchUpdate()">batch</a>  -->
 
 
     </div>
@@ -95,7 +97,8 @@
 
   <div class="container">
 
-  <div class="album-list" ng-repeat="post in posts | orderBy:sorter | filter:catFilter" jd-script>
+  <div class="album-list" ng-repeat="post in posts | orderBy:sorter | filter:'spotify'" jd-script>
+      
 
                <div class="post">
 
