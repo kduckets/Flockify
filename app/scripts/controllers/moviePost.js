@@ -10,18 +10,18 @@ app.controller('MovieCtrl', function ($scope, $route, $location, $window, Post, 
 
  
 
-  $http({
-  method: 'GET',
-  url: "http://www.canistream.it/services/search?movieName=" + $scope.movie.trackName,
+//   $http({
+//   method: 'GET',
+//   url: "http://www.canistream.it/services/search?movieName=" + $scope.movie.trackName,
 
-}).then(function successCallback(movieInfo) {
-  $scope.cisi = movieInfo;
+// }).then(function successCallback(movieInfo) {
+//   $scope.cisi = movieInfo;
 
-  console.log($scope.cisi);
+//   console.log($scope.cisi);
 
-  }, function errorCallback(response) {
-    console.log(response);
-  });
+//   }, function errorCallback(response) {
+//     console.log(response);
+//   });
 
 
 
