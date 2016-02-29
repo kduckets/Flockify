@@ -16,7 +16,7 @@ app.controller('PodcastCtrl', function ($scope, $route, $location, $window, Post
              .success(function(data) {
                 
                  $scope.podcastFeed = data;
-              
+                  // console.log($scope.podcastFeed);   
            
              })
              .error(function(data) {
