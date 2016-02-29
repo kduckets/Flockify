@@ -10,18 +10,19 @@ app.controller('MovieCtrl', function ($scope, $route, $location, $window, Post, 
 
  
 
-//   $http({
-//   method: 'GET',
-//   url: "http://www.canistream.it/services/search?movieName=" + $scope.movie.trackName,
+// var movie_title = {'movie': $scope.movie.trackName};
+//       $http.post('/api/findstreams', movie_title)
 
-// }).then(function successCallback(movieInfo) {
-//   $scope.cisi = movieInfo;
+//              .success(function(data) {
+                
+//                  $scope.streams = data;
+//                   console.log($scope.streams);   
+           
+//              })
+//              .error(function(data) {
+//                  console.log('Error: ' + data);
+//              });
 
-//   console.log($scope.cisi);
-
-//   }, function errorCallback(response) {
-//     console.log(response);
-//   });
 
 
 
@@ -39,7 +40,8 @@ app.controller('MovieCtrl', function ($scope, $route, $location, $window, Post, 
   $scope.post.artist = $scope.movie.artistName;
   $scope.post.image_medium = $scope.movie.artworkUrl100;
   $scope.post.image_small = $scope.movie.artworkUrl60;
-  $scope.post.link = $scope.movie.trackViewUrl
+  $scope.post.itunes_link = $scope.movie.trackViewUrl
+  $scope.post.link = "http://www.canistream.it/search/movie/" + $scope.movie.trackName;
   $scope.post.comments = 0;
   $scope.post.media_type = 'movie/film';
   $scope.post.date = $scope.date;

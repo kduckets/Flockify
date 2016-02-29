@@ -18,6 +18,7 @@
     var Audiosearch = require('audiosearch-client-node');
     var rsj = require('rsj');
     var xml2js = require('xml2js');
+    var http = require('http');
     
 
     // configuration =================
@@ -50,24 +51,6 @@
                 });
             });
 
-
-            //     router.post('/podcastsearch', function(req, resp){
-            // var audiosearch = new Audiosearch('9814e9a65391df3b5b523e1093bba9a63a089101f725d1b56fb3ac3ab3de44e3',
-            //  '7f98e6cfab3cf8b59b4f3ab1472fa8ca65dc6628247b9940626a75d1cc824ef9');
-            // var search = req.body.search;
-            // // Search with options using promise 
-           
-            //  audiosearch.searchEpisodes(search).then(function (res) {
-            //     var parser = new xml2js.Parser();
-
-            //         return resp.json(res);
-            //         // Res contains gif data! 
-            //     });
-            // });
-
-
-
-
                 router.post('/podcastfeed', function(req, resp){
        
             var feed = req.body.feed;
@@ -79,6 +62,30 @@
            
    
             });
+
+                router.post('/findstreams', function(req, resp){
+       
+            var movie = req.body.movie;
+                
+           http.get({
+            host: 'http://www.canistream.it/services/search?movieName=' + movie,
+                 }, function(response) {
+                 // Continuously update stream with data
+                var body = '';
+                response.on('data', function(d) {
+            body += d;
+        });
+        response.on('end', function() {
+
+            // Data reception is done, do whatever with it!
+            var parsed = JSON.parse(body);
+        
+              return resp.json(parsed);
+            
+        });
+   
+            });
+             });
 
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
