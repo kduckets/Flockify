@@ -37,8 +37,8 @@ app.controller('MovieCtrl', function ($scope, $route, $location, $window, Post, 
   $scope.post.title = $scope.omdb.Title;
   $scope.post.album = $scope.omdb.Title;
   $scope.post.artist = $scope.omdb.Director;
-  $scope.post.image_medium = "http://img.omdbapi.com/?i="+ $scope.movie.imdbID + "&apikey=973fea0"
-  $scope.post.image_small = "http://img.omdbapi.com/?i="+ $scope.movie.imdbID + "&apikey=973fea0"
+  $scope.post.image_medium = "https://img.omdbapi.com/?i="+ $scope.movie.imdbID + "&apikey=973fea0"
+  $scope.post.image_small = "https://img.omdbapi.com/?i="+ $scope.movie.imdbID + "&apikey=973fea0"
   $scope.post.imdb_id = $scope.movie.imdbID
   $scope.post.link = "http://www.canistream.it/search/movie/" + encodeURI($scope.movie.Title);
   $scope.post.comments = 0;

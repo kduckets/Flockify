@@ -51,7 +51,7 @@
                 });
             });
 
-                router.post('/podcastfeed', function(req, resp){
+        router.post('/podcastfeed', function(req, resp){
        
             var feed = req.body.feed;
             rsj.r2j(feed,function(res) {
@@ -70,14 +70,12 @@
            http.get({
             host: 'http://www.canistream.it/services/search?movieName=' + movie,
                  }, function(response) {
-                 // Continuously update stream with data
+              
                 var body = '';
                 response.on('data', function(d) {
             body += d;
         });
         response.on('end', function() {
-
-            // Data reception is done, do whatever with it!
             var parsed = JSON.parse(body);
         
               return resp.json(parsed);
