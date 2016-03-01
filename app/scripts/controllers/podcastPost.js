@@ -16,7 +16,7 @@ app.controller('PodcastCtrl', function ($scope, $route, $location, $window, Post
              .success(function(data) {
                 
                  $scope.podcastFeed = data;
-                  // console.log($scope.podcastFeed);   
+                  //console.log($scope.podcastFeed);   
            
              })
              .error(function(data) {
@@ -39,13 +39,14 @@ app.controller('PodcastCtrl', function ($scope, $route, $location, $window, Post
   $scope.post.album = $scope.podcast.trackName;
   $scope.post.artist = $scope.podcast.artistName;
   $scope.post.image_medium = episode.image.url;
-  $scope.post.link = episode.link;
+  $scope.post.external_link = episode.link;
   $scope.post.comments = 0;
   $scope.post.date = $scope.date;
   $scope.post.release_date = episode.date;
   $scope.post.description = episode.description;
   $scope.post.media_type = 'podcast';
   $scope.post.latest_comment = 9999;
+  $scope.post.link = $scope.podcast.collectionViewUrl;
 
 
   Post.create($scope.post).then(function (ref) {
