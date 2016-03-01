@@ -10,7 +10,7 @@ app.controller('MovieCtrl', function ($scope, $route, $location, $window, Post, 
 
       $http({
         method: 'GET',
-        url: 'http://www.omdbapi.com/?t=' + $scope.movie.Title + "&r=json&tomatoes=true&apikey=973fea0"
+        url: 'https://www.omdbapi.com/?t=' + $scope.movie.Title + "&r=json&tomatoes=true&apikey=973fea0"
           }).then(function successCallback(response) {
           $scope.omdb = response.data; 
             console.log($scope.omdb);

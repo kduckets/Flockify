@@ -22,7 +22,7 @@ app.controller('MoviesCtrl', function($scope, $route, $location, $window, Post, 
       $scope.search = function () {
        $http({
         method: 'GET',
-        url: 'http://www.omdbapi.com/?s=' + $scope.searchTerm + "&r=json&tomatoes=true&apikey=973fea0"
+        url: 'https://www.omdbapi.com/?s=' + $scope.searchTerm + "&r=json&tomatoes=true&apikey=973fea0"
           }).then(function successCallback(response) {
           $scope.results = response.data.Search; 
             
