@@ -9,7 +9,7 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>Description</th>
+    <!--   <th>Description</th> -->
       <th>Released</th>
     </tr>
   </thead>
@@ -18,7 +18,7 @@
     <tr ng-repeat-start="episode in podcastFeed" ng-click="episode.expanded = true">
    
       <td><small>{{episode.title}}</small></td>
-      <td><small>{{episode.description | limitTo: 80 }}{{episode.description.length > 80 ? '..' : ''}}</small></td>
+     <!--  <td><small>{{episode.description | limitTo: 80 }}{{episode.description.length > 80 ? '..' : ''}}</small></td> -->
       <td><small>{{episode.date | limitTo : 10}}</small></td>
 
        </tr>
