@@ -38,7 +38,11 @@ app.controller('PodcastCtrl', function ($scope, $route, $location, $window, Post
   $scope.post.title = episode.title;
   $scope.post.album = $scope.podcast.trackName;
   $scope.post.artist = $scope.podcast.artistName;
+  if(episode.image.url){
   $scope.post.image_medium = episode.image.url;
+    }else{
+  $scope.post.image_medium = $scope.podcast.artworkUrl100;
+    }
   $scope.post.external_link = episode.link;
   $scope.post.comments = 0;
   $scope.post.date = $scope.date;
