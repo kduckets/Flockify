@@ -51,24 +51,25 @@ box-shadow: 0 2px 8px black; /* goes x-axis, y-axis, blur, (stretch factor on x-
 /*height: 220px;*/
 
 }
+.post {
+  background: #fff;
+ 
+  -moz-box-shadow: 0 0 3px rgba(0,0,0,0.2);
+  -webkit-box-shadow: 0 0 3px rgba(0,0,0,0.2);
+  box-shadow: 1px 3px 3px rgba(0,0,0,0.1);
+}
 }
 
 @media screen and (max-width: 320px) {
 
 img.post{
 height:80px;
-box-shadow: 0 2px 8px black;
+/*box-shadow: 0 2px 8px black;*/
+ padding-top: 5px;
 
 
 }
   }
-.post {
-  background: #fff;
- 
-  -moz-box-shadow: 0 0 5px rgba(0,0,0,0.2);
-  -webkit-box-shadow: 0 0 5px rgba(0,0,0,0.2);
-  box-shadow: 1px 3px 3px rgba(0,0,0,0.1);
-}
 /*SORT*/
 
 *,
