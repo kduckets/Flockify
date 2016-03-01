@@ -17,20 +17,33 @@ app.controller('MoviesCtrl', function($scope, $route, $location, $window, Post, 
     return new Array(num);   
 };
 
-   $scope.search = function () {
-         $scope.mediaResults = [];
-         $scope.searching = true;
-         var type = "movie";
-         $http
-           .jsonp('https://itunes.apple.com/search', { params: { term: $scope.searchTerm, entity: type, limit: 10, callback: 'JSON_CALLBACK' } })
-           .success(function (response) { 
 
-             $scope.results = response.results; 
+
+      $scope.search = function () {
+       $http({
+        method: 'GET',
+        url: 'http://www.omdbapi.com/?s=' + $scope.searchTerm + "&r=json&tomatoes=true&apikey=973fea0"
+          }).then(function successCallback(response) {
+          $scope.results = response.data.Search; 
+            
+         }, function errorCallback(response) {
+        });
+
+        // $scope.mediaResults = [];
+        //  $scope.searching = true;
+        //  var type = "movie";
+        //  $http
+        //    .jsonp('https://itunes.apple.com/search', { params: { term: $scope.searchTerm, entity: type, limit: 10, callback: 'JSON_CALLBACK' } })
+        //    .success(function (resp) { 
+
+        //      $scope.itunes_data = resp.results[0];
+        //      $scope.movie.image = $scope.itunes_data.artworkUrl100; 
          
 
 
-           })
-          .finally(function () { $scope.searching = false; });
+        //    })
+        //   .finally(function () { $scope.searching = false; });
+         
       };
 
  $scope.viewMovie = function(movie){

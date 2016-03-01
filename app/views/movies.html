@@ -18,9 +18,9 @@
 <div class="list-group" ng-repeat="result in results" align="left">
 
   <button type="button" class="list-group-item" ng-click="viewMovie(result)">
-  <img ng-src="{{result.artworkUrl60}}"/>
+  <img ng-src="http://img.omdbapi.com/?i={{result.imdbID}}&apikey=973fea0" height="80" />
 
-  <small>{{result.trackName}} ({{result.releaseDate | limitTo:4}})</small>
+  <small>{{result.Title}} ({{result.Year | limitTo:4}})</small>
 
   </button>
 
@@ -73,13 +73,26 @@
         <br/>
         <a ng-href="{{post.link}}" target="_blank">
       {{ post.title }} ({{post.release_date | limitTo: 4}})</a> 
+      <div>
+          <a href="http://www.imdb.com/title/{{post.imdb_id}}" target="_blank">
+        <img ng-src="/images/imdb.ico" height="40" target="_blank">
+        <small>{{post.imdb_rating}}</small>
+        </a>
+        
+       <a href="{{post.tomato_url}}" target="_blank">   
+       <img ng-show="post.tomato_image == 'certified'" ng-src="/images/certified.png" height="30" />
+       <img ng-show="post.tomato_image == 'fresh'" ng-src="/images/fresh.png" height="30" />
+      <img ng-show="post.tomato_image == 'rotten'" ng-src="/images/rotten.png" height="30" />
+       <small>{{post.tomato_meter}}%</small>
+       </a>
+    </div>
       <a data-toggle="modal" ng-click="starPost(post)" href="" >  <div><img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18" />
      <img ng-src="/images/empty-star.png" height="18" /></a></div>
        <div>
        <div><span class="label label-default">{{post.genre}}</span></div>
 
        <a ng-href="#/posts/{{ post.$id  }}"><span class="label label-pill label-info">{{ post.summary | limitTo: 40 }}{{post.summary.length > 40 ? '..' : ''}}</span></a>
-
+     
   </div>
     <!--    <a ng-href="{{post.spotify_uri}}" ng-show="{{post.release_date}}" target="_blank"> ({{post.release_date}})</a>  -->
        
