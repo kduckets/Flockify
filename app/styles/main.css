@@ -60,7 +60,7 @@ box-shadow: 0 2px 8px black; /* goes x-axis, y-axis, blur, (stretch factor on x-
 }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 640px) {
 
 img.post{
 height:90px;
