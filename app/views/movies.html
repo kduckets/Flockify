@@ -73,7 +73,7 @@
 
        <a ng-href="#/posts/{{ post.$id  }}"><span class="label label-pill label-info">{{ post.summary | limitTo: 40 }}{{post.summary.length > 40 ? '..' : ''}}</span></a>
        
-
+<br />
        <span class="label label-default">{{post.genre}}</span>
          <a href="http://www.imdb.com/title/{{post.imdb_id}}" target="_blank">
         <img ng-src="/images/imdb.ico" height="40" target="_blank">

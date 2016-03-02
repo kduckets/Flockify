@@ -1,44 +1,101 @@
 body {
   background: #F3F3F3;
 }
-
+/* Portrait iphone 5 */
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 568px)
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: portrait){
 .container {
  position: relative;
- width: 400px;
-
+ width: 320;
 }
-
-    img.post{
-        width: 400px;
-    
-     
-        border-left:10px solid white;
-        border-right:10px solid white;
-        position: relative;
-
-      
+img.post{
+width: 320px;    
+border-left:10px solid white;
+border-right:10px solid white;
+position: relative;     
     }
-
-    .post-bottom{
-
+.post-bottom{
 background-color:white; 
-width:400px;
+width:320px;
 height:50px;
 padding-left: 10px;
 padding-top:10px;
-
-
 }
-
 .post-top{
  background-color:white; 
- width: 400px;
+ width: 320px;
   padding-left: 0px;
   padding-top: 0px;
   z-index: 100;
-  padding-bottom: 20px;
-  
+  padding-bottom: 20px; 
 }
+}
+
+/* Portrait */
+@media only screen 
+  and (min-device-width: 375px) 
+  and (max-device-width: 667px) 
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: portrait) { 
+.container {
+ position: relative;
+ width: 375px ;
+}
+img.post{
+width: 375px;    
+border-left:10px solid white;
+border-right:10px solid white;
+position: relative;     
+    }
+.post-bottom{
+background-color:white; 
+width:375px;
+height:50px;
+padding-left: 10px;
+padding-top:10px;
+}
+.post-top{
+ background-color:white; 
+ width: 375px;
+  padding-left: 0px;
+  padding-top: 0px;
+  z-index: 100;
+  padding-bottom: 20px; 
+}
+}
+
+
+/* laptop */
+.container {
+ position: relative;
+ width: 480px;
+}
+img.post{
+width: 480px;    
+border-left:10px solid white;
+border-right:10px solid white;
+position: relative;     
+    }
+.post-bottom{
+background-color:white; 
+width:480px;
+height:50px;
+padding-left: 10px;
+padding-top:10px;
+}
+.post-top{
+ background-color:white; 
+ width: 480px;
+  padding-left: 0px;
+  padding-top: 0px;
+  z-index: 100;
+  padding-bottom: 20px; 
+}
+
+
 
 .post-info{
   padding-left: 74px;
@@ -108,28 +165,11 @@ margin: 0 auto;
   /*}*/
     img.post:hover {
 
-
-
-
-/*height: 220px;*/
-
-
-
-
 }
 
 
-@media screen and (max-width: 640px) {
-
-img.post{
-
-/*box-shadow: 0 2px 8px black;*/
- 
 
 
-}
-  }
-/*SORT*/
 
 *,
 *:before,
