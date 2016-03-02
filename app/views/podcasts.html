@@ -1,3 +1,4 @@
+  <div class="container">
 <div style="padding-top:68px" align="center">
  <div ng-hide="signedIn()">
       <p><a href="#/login">Sign in</a> or <a ng-href="#/register">register</a> to post an album or vote</p>
@@ -52,7 +53,7 @@
 
 <br />
     
-  <div class="container">
+
 
   <div class="album-list" ng-repeat="post in posts | orderBy:sorter | filter:'podcast'" jd-script>
 
