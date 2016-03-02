@@ -2,11 +2,7 @@ body {
   background: #F3F3F3;
 }
 /* Portrait iphone 5 */
-@media only screen 
-  and (min-device-width: 320px) 
-  and (max-device-width: 568px)
-  and (-webkit-min-device-pixel-ratio: 2)
-  and (orientation: portrait){
+@media screen and (max-width: 320px){
 .container {
  position: relative;
  width: 320;
@@ -30,16 +26,12 @@ padding-top:10px;
   padding-left: 0px;
   padding-top: 0px;
   z-index: 100;
-  padding-bottom: 20px; 
+  padding-bottom: 24px; 
 }
 }
 
-/* Portrait */
-@media only screen 
-  and (min-device-width: 375px) 
-  and (max-device-width: 667px) 
-  and (-webkit-min-device-pixel-ratio: 2)
-  and (orientation: portrait) { 
+/* Portrait iphone 6*/
+@media screen and (max-width: 375px){ 
 .container {
  position: relative;
  width: 375px ;
@@ -63,7 +55,7 @@ padding-top:10px;
   padding-left: 0px;
   padding-top: 0px;
   z-index: 100;
-  padding-bottom: 20px; 
+  padding-bottom: 24px; 
 }
 }
 
@@ -92,7 +84,7 @@ padding-top:10px;
   padding-left: 0px;
   padding-top: 0px;
   z-index: 100;
-  padding-bottom: 20px; 
+  padding-bottom: 24px; 
 }
 
 
