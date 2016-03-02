@@ -52,49 +52,56 @@
 
 <br />
 
-
+<div class="container">
 
   <div class="album-list" ng-repeat="post in posts | orderBy:sorter | filter:'spotify'" jd-script>
       
 
-               <div class="post" align="center">
-
-     
-    <img class="arrow" ng-click="upvote(post)" src="/images/up.png" height="30"></img>
+               <div class="post">
+<div class="post-top">
+    <span class="profile-image"><img src="/images/storm.jpg" height="60"/></span>  <div class="post-info">
   
-    
+    <small><a ng-href="#/users/{{ post.creatorUID }}">
+    {{post.creator}}</a> posted
+        <a ng-href="{{post.spotify_uri}}" target="_blank">
+       {{post.artist}} - {{ post.album }} ({{post.release_date | limitTo: 4}})</a> </small>
+
+       <br/>
+       <a ng-href="#/posts/{{ post.$id  }}"><span class="label label-pill label-info">{{ post.summary | limitTo: 40 }}{{post.summary.length > 40 ? '..' : ''}}</span></a>
+
+       </div>
+  </div>
  
         <a ng-href="{{post.spotify_uri}}" target="_blank" >
         <img class="post" ng-src="{{post.image_medium}}" />
         </a>
-         
-           <img class="arrow" ng-click="downvote(post)" src="/images/down.png" height="30"></img>
 
-        <br/>
-        <a ng-href="{{post.spotify_uri}}" target="_blank">
-       {{post.artist}} - {{ post.album }} ({{post.release_date | limitTo: 4}})</a> 
-      <a data-toggle="modal" ng-click="starPost(post)" href="" >  <div><img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18" />
-     <img ng-src="/images/empty-star.png" height="18" /></a></div>
-       <div>
-       <div><span class="label label-default">{{post.category}}</span></div>
-
-       <a ng-href="#/posts/{{ post.$id  }}"><span class="label label-pill label-info">{{ post.summary | limitTo: 40 }}{{post.summary.length > 40 ? '..' : ''}}</span></a>
-
-  </div>
-    <!--    <a ng-href="{{post.spotify_uri}}" ng-show="{{post.release_date}}" target="_blank"> ({{post.release_date}})</a>  -->
-       
  
-        <p>
-         {{ post.votes }} votes
-           <small>(posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator}}</a>)</small>
-            <small><a ng-href="#/posts/{{ post.$id  }}">comments ({{post.comments}})</a> </small>
+<div class="post-bottom">
+        <span class="post-votes">
+           <img class="arrow" ng-click="upvote(post)" src="/images/up.png" height="30"></img> 
+         <img class="arrow" ng-click="downvote(post)" src="/images/down.png" height="30"></img>
+            {{ post.votes }}<small> votes</small>
+        <a data-toggle="modal" ng-click="starPost(post)" href="" > <img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18" />
+     <img ng-src="/images/empty-star.png" height="18" /></a> 
+ 
+    </span>
+                    <span class="post-comments"> 
+ <small><a ng-href="#/posts/{{ post.$id  }}">comments ({{post.comments}})</a> </small>
+      </span>
+  </div>
+      
+        <p></p>
+
+          
+        
       <!--   <small><a ng-click="deletePost(post)" ng-show="user.uid === post.creatorUID">&mdash; delete</a></small> -->
 
-        </p>
+      
 
 
          
-
+</div>
 </div>
 </div>
 
