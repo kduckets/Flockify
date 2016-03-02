@@ -67,7 +67,7 @@
 
     {{post.creator}}</a> posted
         <a ng-href="{{post.link}}" target="_blank">
-       {{post.artist}} - {{ post.album }} ({{post.release_date | limitTo: 10}})</a> <a ng-show="{{post.external_link}}" ng-href="{{post.external_link}}" target="_blank"> direct link</a></small>
+       {{post.album}} - {{ post.title }} ({{post.release_date | limitTo: 10}})</a> <a ng-show="{{post.external_link}}" ng-href="{{post.external_link}}" target="_blank"> direct link</a></small>
        <br/>
        <a ng-href="#/posts/{{ post.$id  }}"><span class="label label-pill label-info">{{ post.summary | limitTo: 60 }}{{post.summary.length > 60 ? '..' : ''}}</span></a>
      
