@@ -68,7 +68,7 @@
        {{post.artist}} - {{ post.album }} ({{post.release_date | limitTo: 4}})</a> </small>
 
        <br/>
-       <a ng-href="#/posts/{{ post.$id  }}"><span class="label label-pill label-info">{{ post.summary | limitTo: 40 }}{{post.summary.length > 40 ? '..' : ''}}</span></a>
+       <a ng-href="#/posts/{{ post.$id  }}"><span class="label label-pill label-info">{{ post.summary | limitTo: 60 }}{{post.summary.length > 60 ? '..' : ''}}</span></a>
 
        </div>
   </div>

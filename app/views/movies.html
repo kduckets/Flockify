@@ -72,7 +72,7 @@
         <a ng-href="{{post.spotify_uri}}" target="_blank">
        {{ post.title }} ({{post.release_date | limitTo: 4}})</a> </small>
 
-       <a ng-href="#/posts/{{ post.$id  }}"><span class="label label-pill label-info">{{ post.summary | limitTo: 40 }}{{post.summary.length > 40 ? '..' : ''}}</span></a>
+       <a ng-href="#/posts/{{ post.$id  }}"><span class="label label-pill label-info">{{ post.summary | limitTo: 60 }}{{post.summary.length > 60 ? '..' : ''}}</span></a>
        
 <br />
        <span class="label label-default">{{post.genre}}</span>
