@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('CommentsCtrl', function ($scope, $routeParams, Post, Auth, $firebase, Profile, $http, $filter) {
+app.controller('CommentsCtrl', function ($scope, $routeParams, Post, Auth, $firebase, Profile, $http, $filter, $sce) {
   var ref = new Firebase("https://flockify.firebaseio.com");
     $scope.user = Auth.user;
   $scope.signedIn = Auth.signedIn;
@@ -10,6 +10,7 @@ app.controller('CommentsCtrl', function ($scope, $routeParams, Post, Auth, $fire
   $scope.post = Post.get($routeParams.postId);
   $scope.comments = Post.comments($routeParams.postId);
   $scope.gifSearchText = '';
+  // $scope.embed_link = $sce.trustAsResourceUrl("https://embed.spotify.com/?uri=spotify:album:6SwMUCcHLfZjji3MAFODMv"); 
   
 
    $scope.gifsearch = function(){

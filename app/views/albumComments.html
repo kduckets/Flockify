@@ -1,0 +1,69 @@
+<div class="container" style="padding-top:68px">
+      <div align="center">
+        <img ng-click="upvote(post)" src="/images/up.png" height="30"></img>
+  
+    
+ 
+        <a ng-href="{{post.spotify_uri}}" target="_blank">
+        <img ng-src="{{post.image_medium}}" height="100" />
+        </a>
+         
+           <img ng-click="downvote(post)" src="/images/down.png" height="30"></img>
+
+        <br/>
+        <a ng-href="{{post.spotify_uri}}" target="_blank">
+        {{post.artist}} - {{ post.album }} ({{post.release_date | limitTo: 4}})
+        </a>
+ 
+        <p>
+         {{ post.votes }} votes
+           <small>(posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator}}</a>)</small>
+        <small><a ng-click="deletePost(post)" ng-show="user.uid === post.creatorUID">&mdash; delete</a></small>
+         <div class="alert alert-info" role="alert">{{post.summary}}</div>
+      </div>
+
+   <!--    <iframe ng-src="{{embed_link}}" width="300" height="380" frameborder="0" allowtransparency="true"></iframe> -->
+ 
+
+  <div ng-repeat="comment in comments | orderBy:'-votes'" class="row cmt">
+    <div class="col-md-12">
+  <!-- <sub>{{ comment.votes }}</sub>
+      <img ng-click="upvote(comment)" src="/images/up.svg" height="20"></img>
+       <img ng-click="downvote(comment)" src="/images/down.svg" height="20"></img> -->
+
+   <!--    <p ng-show="comment.text">{{ comment.text }}</p> -->
+   <p><img ng-src="{{comment.text}}" height="100" /></p>
+      <p class="author">posted by
+        <a ng-href="#/users/{{ comment.creatorUID }}">
+          {{ comment.creator }}
+        </a>
+        <a ng-href=""
+        ng-click="deleteComment(comment)"
+        ng-show="signedIn() && comment.creatorUID === user.uid">
+        (delete)
+      </a>
+      </p>
+    </div>
+  </div>
+
+  <div class="cmt-form">
+    <div ng-hide="signedIn()">
+      <p><a href="#/login">Sign in</a> to post a comment</p>
+    </div>
+
+    <form ng-show="signedIn()" ng-submit="gifsearch()">
+      <input type="text" ng-model="gifSearchText" placeholder="search for gif"/>
+      <input type="submit" value="Search" class="btn btn-secondary" /> 
+      <!-- <button ng-click="gifsearch()" class="btn btn-primary">Search</button> -->
+    </form>
+  </div>
+<br/>
+      <div ng-repeat="gif in gifs" style="display: inline-block;">
+        
+          <a ng-href="#/posts/{{ post.$id  }}" ng-click="addComment(gif.images.downsized.url)"><img class="gifs" ng-src="{{gif.images.downsized.url}}" height="100" /></a>
+
+      </div>
+
+</div>
+</div>
+</div>

@@ -35,8 +35,8 @@
       <option value="-votes" ng-click="sorter = '-votes'">popular</option>
       <option value="votes" ng-click="sorter = 'votes'">unpopular</option>
     </select> -->
-<div align="center">
-<div class="sort-links">
+<div>
+<div class="sort-links" align="center">
   <a href ng-click="sorter = '-votes'">popular</a>
    <a href ng-click="sorter = '-'">new</a>
     
@@ -50,59 +50,14 @@
 
     </div>
 
-  <!--   <div class="btn-group">
-  <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown">
-    {{selectedCat}}
-  </button>
-  <div class="dropdown-menu">
-     <a class="dropdown-item" ng-repeat="category in categories" ng-click="selectCat(category.$id)" href="">{{category.$id}}</a>
-    <div class="dropdown-divider"></div>
-    <a class="dropdown-item" data-toggle="modal" data-target="#myModal" href="">add new category...</a>
-  </div>
-</div>
-
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-        <h4 class="modal-title">add a new category</h4>
-      </div>
-      <div class="modal-body">
-       <form>
-  <fieldset class="form-group">
-    <label for="category">category name</label>
-    <input type="text" class="form-control" id="category" ng-model="new_category" placeholder="enter the category name">
-  </fieldset>
-  <fieldset class="form-group">
-    <label for="description">description</label>
-    <input type="text" class="form-control" id="description" ng-model="new_description" placeholder="provide a description for this category">
-  </fieldset>
-</form>
-      </div>
-      <div class="modal-footer">
-      <button type="button" class="btn btn-primary" ng-click="addCategory()" data-dismiss="modal">add category</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">cancel</button>
-        
-      </div>
-    </div>
-  </div>
-</div> -->
-
-
-
-
 <br />
 
 
-  <div class="container">
 
   <div class="album-list" ng-repeat="post in posts | orderBy:sorter | filter:'spotify'" jd-script>
       
 
-               <div class="post">
+               <div class="post" align="center">
 
      
     <img class="arrow" ng-click="upvote(post)" src="/images/up.png" height="30"></img>
@@ -140,7 +95,6 @@
 
          
 
-</div>
 </div>
 </div>
 

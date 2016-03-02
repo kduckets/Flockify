@@ -37,9 +37,7 @@ img.arrow:hover{
 @media screen and (min-width: 1000px) {
 
     img.post{
-
-      height: 300px;
-      padding-top: 5px;
+        height: 400px;
       
     }
     img.post:hover {
@@ -63,9 +61,9 @@ box-shadow: 0 2px 8px black; /* goes x-axis, y-axis, blur, (stretch factor on x-
 @media screen and (max-width: 640px) {
 
 img.post{
-height:90px;
+
 /*box-shadow: 0 2px 8px black;*/
- padding-top: 5px;
+ 
 
 
 }
@@ -95,7 +93,7 @@ h3 {
 .album-list{
 
 /*  height: 220px;*/
-text-align: center;
+/*text-align: center;*/
    
 }
 
