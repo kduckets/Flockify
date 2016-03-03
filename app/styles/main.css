@@ -99,12 +99,11 @@ margin: 0 auto;
   position: relative;
 }
 
-.post-image .after{
-position: absolute;
-left:0px;
-bottom:68px;
-font-size: 20px;
-opacity: .8;
+.score-box{
+position: relative;
+font-size: 22px;
+top: 2px;
+
 
 }
 
