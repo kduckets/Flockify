@@ -63,14 +63,14 @@
   
     
  
-        <a ng-href="#/posts/{{ post.$id  }}" >
+       <a ng-href="{{post.link}}" target="_blank">
         <img class="post" ng-src="{{post.image_medium}}" />
         </a>
          
            <img class="arrow" ng-click="downvote(post)" src="/images/down.png" height="30"></img>
 
         <br/>
-        <a ng-href="#/posts/{{ post.$id  }}">
+        <a ng-href="{{post.link}}" target="_blank">
      {{ post.album }} - {{ post.title }} ({{post.release_date | limitTo: 10}})</a> 
       <a data-toggle="modal" ng-click="starPost(post)" href="" >  <div><img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18" />
      <img ng-src="/images/empty-star.png" height="18" /></a></div>

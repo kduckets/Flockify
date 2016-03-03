@@ -1,6 +1,6 @@
 <div class="container" style="padding-top:68px">
       <div align="center">
-        <img ng-click="upvote(post)" src="/images/up.png" class="arrow"></img>
+       
   
     
  
@@ -8,7 +8,14 @@
         <img ng-src="{{post.image_medium}}" height="50%" width="50%" />
         </a>
          
-           <img ng-click="downvote(post)" src="/images/down.png" class="arrow"></img>
+          <div style="padding-top:5px"> 
+
+      <img class="arrow" ng-click="upvote(post)" src="/images/up.png" height="30"></img>
+
+      <img ng-src="/images/meh.png" height="30" class="arrow" />
+
+  <img class="arrow" ng-click="downvote(post)" src="/images/down.png" height="30"></img>
+      </div>
 
         <br/>
         <a ng-href="{{post.spotify_uri}}" target="_blank">

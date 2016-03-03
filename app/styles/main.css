@@ -13,12 +13,21 @@ body {
 
 @media screen and (min-width: 1000px) {
    
-
-    img.post:hover {
+img.post:hover {
 
 /* or the drop-shadow effect */
 width: 300px;
 }
+img.comments{
+  height: 50%;
+  width: 50%;
+}
+
+}
+
+img.comments{
+  height: 100%;
+  width: 100%;
 }
 
 img.post{
