@@ -1,14 +1,14 @@
 <div class="container" style="padding-top:68px">
       <div align="center">
-        <img ng-click="upvote(post)" src="/images/up.png" height="30"></img>
+        <img ng-click="upvote(post)" src="/images/up.png" class="arrow"></img>
   
     
  
         <a ng-href="{{post.spotify_uri}}" target="_blank">
-        <img ng-src="{{post.image_medium}}" height="100" />
+        <img ng-src="{{post.image_medium}}" />
         </a>
          
-           <img ng-click="downvote(post)" src="/images/down.png" height="30"></img>
+           <img ng-click="downvote(post)" src="/images/down.png" class="arrow"></img>
 
         <br/>
         <a ng-href="{{post.spotify_uri}}" target="_blank">
@@ -25,11 +25,6 @@
 
   <div ng-repeat="comment in comments | orderBy:'-votes'" class="row cmt">
     <div class="col-md-12">
-  <!-- <sub>{{ comment.votes }}</sub>
-      <img ng-click="upvote(comment)" src="/images/up.svg" height="20"></img>
-       <img ng-click="downvote(comment)" src="/images/down.svg" height="20"></img> -->
-
-   <!--    <p ng-show="comment.text">{{ comment.text }}</p> -->
    <p><img ng-src="{{comment.text}}" height="100" /></p>
       <p class="author">posted by
         <a ng-href="#/users/{{ comment.creatorUID }}">

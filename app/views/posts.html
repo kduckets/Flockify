@@ -62,7 +62,7 @@
                <div class="post" align="center">
 
      
-    <img class="arrow" ng-click="upvote(post)" src="/images/up.png" height="30"></img>
+    
   
     
  
@@ -70,17 +70,32 @@
         <img class="post" ng-src="{{post.image_medium}}" />
         </a>
          
-           <img class="arrow" ng-click="downvote(post)" src="/images/down.png" height="30"></img>
+            <div style="padding-top:5px"> 
 
-        <br/>
+      <img class="arrow" ng-click="upvote(post)" src="/images/up.png" height="30"></img>
+
+      <img ng-src="/images/meh.png" height="30" class="arrow" />
+
+  <img class="arrow" ng-click="downvote(post)" src="/images/down.png" height="30"></img>
+      </div>
+
+      
         <a ng-href="#/posts/{{ post.$id  }}">
      {{ post.artist }} - {{ post.album }} ({{post.release_date | limitTo: 4}})</a> 
+
+
+     <div>
+       <a ng-href="#/posts/{{ post.$id  }}"><span class="label label-pill label-info">{{ post.summary | limitTo: 40 }}{{post.summary.length > 40 ? '..' : ''}}</span></a>
+       </div>
+
+
+      
+
+
       <a data-toggle="modal" ng-click="starPost(post)" href="" >  <div><img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18" />
      <img ng-src="/images/empty-star.png" height="18" /></a></div>
        <div>
        <div><span class="label label-default">{{post.genre}}</span></div>
-
-       <a ng-href="#/posts/{{ post.$id  }}"><span class="label label-pill label-info">{{ post.summary | limitTo: 40 }}{{post.summary.length > 40 ? '..' : ''}}</span></a>
 
   </div>
        
