@@ -29,7 +29,18 @@
     
         <div>  <small>(posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator}}</a>)</small>
         </div>
-         {{ post.votes }} <img ng-src="/images/coin.png" height="30px" /> 0 <img ng-src="/images/meh.png" height="25px" /> 0 <img ng-src="/images/gold-star.png" height="18px" />
+        <p>
+         {{ post.votes }} <img ng-src="/images/coin.png" height="30px" />
+
+          0 <img ng-src="/images/meh.png" height="22px"/>
+          
+            {{post.comments}} <a ng-href="#/posts/{{ post.$id  }}"><img ng-src="/images/comments.ico" height="20px" /></a>
+
+         <img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18" />
+
+
+        </p>
+
          
         <small><a ng-click="deletePost(post)" ng-show="user.uid === post.creatorUID">&mdash; delete</a></small>
          <div class="alert alert-info" role="alert">{{post.summary}}</div>

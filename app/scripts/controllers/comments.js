@@ -88,6 +88,10 @@ app.controller('CommentsCtrl', function ($scope, $routeParams, Post, Auth, $fire
 
 // };
 
+ $scope.getNumber = function(num) {
+    return new Array(num);   
+};
+
   $scope.upvote = function(post) {
     if($scope.signedIn() && $scope.user.uid != post.creatorUID){
 
