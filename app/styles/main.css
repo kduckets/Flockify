@@ -93,11 +93,21 @@ padding-right: 10px
 }
 .post-box {
 margin: 0 auto;
+}
 
+.comments-icon{
+  position: relative;
 
+}
+
+.comments-icon .after{
+position: absolute;
+left:15px;
+bottom:5px;
 
 
 }
+
 /*@media screen and (min-width: 1000px) {*/
 
 
