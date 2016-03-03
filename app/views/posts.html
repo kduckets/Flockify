@@ -65,10 +65,11 @@
  <div>
        <a ng-href="#/posts/{{ post.$id  }}"><span class="label label-pill label-info">{{ post.summary | limitTo: 40 }}{{post.summary.length > 40 ? '..' : ''}}</span></a>
        </div>
+           <div> <img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18" /></div>
  <a ng-href="#/posts/{{ post.$id  }}" >
         <img class="post" ng-src="{{post.image_medium}}" />
         </a>
-         <div> <img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18" /></div>
+     
           <div style="padding-top:5px; padding-bottom:15px"> 
 
     {{ post.votes }}  <a href="" data-toggle="tooltip" title="Post approved" data-placement="top"><img class="arrow" ng-click="upvote(post)" src="/images/up.png" height="30" ></img></a>
