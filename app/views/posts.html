@@ -79,13 +79,14 @@
      
           <div style="padding-top:5px; padding-bottom:30px"> 
 
-   <img class="arrow" ng-click="upvote(post)" src="/images/up.png" height="30" ></img>
+    <span ng-style="postition:relative"><img class="arrow" ng-click="upvote(post)" src="/images/up.png" height="30" ></img></span>
 
-    <img class="arrow" ng-click="downvote(post)" src="/images/down.png" height="30"></img>
+     <span ng-style="postition:relative"><img class="arrow" ng-click="downvote(post)" src="/images/down.png" height="30"></img></span>
 
-     <a href="" data-toggle="tooltip" title="Meh.." data-placement="top"><img ng-src="/images/meh.png" height="30" class="arrow" /></a>
- <a data-toggle="modal" ng-click="starPost(post)" href="" >  <img ng-src="/images/empty-star.png" height="32" 
-   style="padding-bottom:2px;padding-left:5px;" /></a>
+     <img ng-src="/images/meh.png" height="30" class="arrow" />
+
+ <span ng-style="postition:relative"><a data-toggle="modal" ng-click="starPost(post)" href="" >  <img ng-src="/images/empty-star.png" height="32" 
+   style="padding-bottom:2px;padding-left:5px;" /></a></span>
 
     <span class="comments-icon"><a ng-href="#/posts/{{ post.$id  }}"><img ng-src="/images/comments.ico" height="30px" />
     <span class="after label label-pill label-danger"> {{post.comments}} </a></span>
