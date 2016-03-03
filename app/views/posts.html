@@ -66,20 +66,28 @@
        </div>
            <div> <img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18" /></div>
  <a ng-href="#/posts/{{ post.$id  }}" >
-        <img class="post" ng-src="{{post.image_medium}}" />
+
+
+        <span class="post-image"><img class="post" ng-src="{{post.image_medium}}" />
+        <span ng-show="post.votes >= 0" class="after label label-default label-success">   {{ post.votes }} </span> 
+        <span ng-show="post.votes < 0" class="after label label-default label-danger">   {{ post.votes }} </span> 
+
+        </span>
+
+
         </a>
      
           <div style="padding-top:5px; padding-bottom:30px"> 
 
-    {{ post.votes }}  <a href="" data-toggle="tooltip" title="Post approved" data-placement="top"><img class="arrow" ng-click="upvote(post)" src="/images/up.png" height="30" ></img></a>
+   <img class="arrow" ng-click="upvote(post)" src="/images/up.png" height="30" ></img>
 
-    0 <a href="" data-toggle="tooltip" title="Not into this one" data-placement="top"><img class="arrow" ng-click="downvote(post)" src="/images/down.png" height="30"></img></a>
+    <img class="arrow" ng-click="downvote(post)" src="/images/down.png" height="30"></img>
 
-     0 <a href="" data-toggle="tooltip" title="Meh.." data-placement="top"><img ng-src="/images/meh.png" height="30" class="arrow" /></a>
+     <a href="" data-toggle="tooltip" title="Meh.." data-placement="top"><img ng-src="/images/meh.png" height="30" class="arrow" /></a>
 
 
-    <span class="comments-icon"><a ng-href="#/posts/{{ post.$id  }}"><img ng-src="/images/comments.ico" height="30px" /></a>
-    <span class="after label label-pill label-danger"> {{post.comments}} </span>
+    <span class="comments-icon"><a ng-href="#/posts/{{ post.$id  }}"><img ng-src="/images/comments.ico" height="30px" />
+    <span class="after label label-pill label-danger"> {{post.comments}} </a></span>
      </span>
    
    <a data-toggle="modal" ng-click="starPost(post)" href="" >  <img ng-src="/images/empty-star.png" height="32" 

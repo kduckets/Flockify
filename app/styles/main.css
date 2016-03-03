@@ -60,6 +60,19 @@ img.arrow:hover{
   opacity: 1
 }
 
+.post-image{
+  position: relative;
+}
+
+.post-image .after{
+position: absolute;
+left:0px;
+bottom:67px;
+font-size: 20px;
+opacity: .8;
+
+}
+
 
 .up-vote{
   position: relative;
