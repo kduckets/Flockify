@@ -2,7 +2,7 @@ body {
   background: #F3F3F3;
 }
 /* Portrait iphone 5 */
-@media screen and (max-width: 320px){
+/*@media screen and (max-width: 320px){
 .container {
  position: relative;
  width: 300;
@@ -28,10 +28,10 @@ padding-top:10px;
   z-index: 100;
   padding-bottom: 24px; 
 }
-}
+}*/
 
 /* Portrait iphone 6*/
-@media screen and (max-width: 375px){ 
+/*@media screen and (max-width: 375px){ 
 .container {
  position: relative;
  width: 375px ;
@@ -57,42 +57,27 @@ padding-top:10px;
   z-index: 100;
   padding-bottom: 24px; 
 }
+}*/
+
+@media screen and (min-width: 1000px) {
+   
+
+    img.post:hover {
+
+/* or the drop-shadow effect */
+width: 300px;
+}
 }
 
 
-/* laptop */
 .container {
  position: relative;
- width: 480px;
+ width: 800px;
 }
 img.post{
-width: 480px;    
-border-left:10px solid white;
-border-right:10px solid white;
+width: 180px;    
 position: relative;     
     }
-.post-bottom{
-background-color:white; 
-width:480px;
-height:50px;
-padding-left: 10px;
-padding-top:10px;
-}
-.post-top{
- background-color:white; 
- width: 480px;
-  padding-left: 0px;
-  padding-top: 0px;
-  z-index: 100;
-  padding-bottom: 24px; 
-}
-
-
-
-.post-info{
-  padding-left: 74px;
-
-}
 
 a{
 
