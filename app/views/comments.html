@@ -7,20 +7,24 @@
         <a ng-href="{{post.spotify_uri}}" target="_blank">
         <img ng-src="{{post.image_medium}}" class="comments" />
         </a>
-         
-          <div style="padding-top:5px"> 
-
-      <img class="arrow" ng-click="upvote(post)" src="/images/up.png" height="30"></img>
-
-      <img ng-src="/images/meh.png" height="30" class="arrow" />
-
-  <img class="arrow" ng-click="downvote(post)" src="/images/down.png" height="30"></img>
-      </div>
-
-        <br/>
-        <a ng-href="{{post.spotify_uri}}" target="_blank">
+        <div>
+            <a ng-href="{{post.spotify_uri}}" target="_blank">
         {{post.artist}} - {{ post.album }} ({{post.release_date | limitTo: 4}})
         </a>
+        </div>
+ <div style="padding-top:5px"> 
+
+      <a href="" data-toggle="tooltip" title="Post approved" data-placement="top"><img class="arrow" ng-click="upvote(post)" src="/images/up.png" height="30" ></img></a>
+
+       <a href="" data-toggle="tooltip" title="Meh.." data-placement="top"><img ng-src="/images/meh.png" height="30" class="arrow" /></a>
+
+   <a href="" data-toggle="tooltip" title="Not into this one" data-placement="top"><img class="arrow" ng-click="downvote(post)" src="/images/down.png" height="30"></img></a>
+
+      <a data-toggle="modal" ng-click="starPost(post)" href="" >  <img ng-src="/images/empty-star.png" height="32" style="padding-bottom:2px" /></a>
+      </div> 
+
+
+     
  
     
         <div>  <small>(posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator}}</a>)</small>

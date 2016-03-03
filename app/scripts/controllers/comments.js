@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('CommentsCtrl', function ($scope, $routeParams, Post, Auth, $firebase, Profile, $http, $filter, $sce) {
+app.controller('CommentsCtrl', function ($scope, $routeParams, Post, Auth, $firebase, Profile, $http, $filter, $sce, $uibModal) {
   var ref = new Firebase("https://flockify.firebaseio.com");
     $scope.user = Auth.user;
   $scope.signedIn = Auth.signedIn;
@@ -76,17 +76,17 @@ app.controller('CommentsCtrl', function ($scope, $routeParams, Post, Auth, $fire
   });
 };
 
-  $scope.comment_upvote = function(comment) {
-  comment.votes +=1;
-  Post.commentVote($routeParams.postId, comment.$id, comment.votes);
+//   $scope.comment_upvote = function(comment) {
+//   comment.votes +=1;
+//   Post.commentVote($routeParams.postId, comment.$id, comment.votes);
 
-};
+// };
 
-  $scope.comment_downvote = function(comment) {
-  comment.votes -=1;
-  Post.commentVote($routeParams.postId, comment.$id, comment.votes);
+//   $scope.comment_downvote = function(comment) {
+//   comment.votes -=1;
+//   Post.commentVote($routeParams.postId, comment.$id, comment.votes);
 
-};
+// };
 
   $scope.upvote = function(post) {
     if($scope.signedIn() && $scope.user.uid != post.creatorUID){
@@ -141,6 +141,22 @@ ref.child('user_scores').child(post.creator).child('score').on("value", function
 };
   
 };
+
+
+  $scope.starPost = function(post){
+     if($scope.signedIn() && $scope.user.uid != post.creatorUID){
+ var modalInstance = $uibModal.open({
+    templateUrl: 'views/star.html',
+    scope: $scope,
+    controller: 'StarCtrl',
+    resolve: {
+      post: function () {
+        return post;
+      }
+    }
+});
+}
+ };
 
 
 });

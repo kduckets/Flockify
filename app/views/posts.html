@@ -55,17 +55,8 @@
 
 
 
-  <div class="album-list" ng-repeat="post in posts | orderBy:sorter | filter:'spotify'" jd-script>
+  <div class="post-box" align="center" ng-repeat="post in posts | orderBy:sorter | filter:'spotify'" jd-script>
       
-
-
-               <div class="post" align="center">
-
-     
-    
-  
-    
- 
        
              <div>
         <a ng-href="#/posts/{{ post.$id  }}">
@@ -80,11 +71,11 @@
          
           <div style="padding-top:5px"> 
 
-      <img class="arrow" ng-click="upvote(post)" src="/images/up.png" height="30"></img>
+      <a href="" data-toggle="tooltip" title="Post approved" data-placement="top"><img class="arrow" ng-click="upvote(post)" src="/images/up.png" height="30" ></img></a>
 
-      <img ng-src="/images/meh.png" height="30" class="arrow" />
+       <a href="" data-toggle="tooltip" title="Meh.." data-placement="top"><img ng-src="/images/meh.png" height="30" class="arrow" /></a>
 
-  <img class="arrow" ng-click="downvote(post)" src="/images/down.png" height="30"></img>
+   <a href="" data-toggle="tooltip" title="Not into this one" data-placement="top"><img class="arrow" ng-click="downvote(post)" src="/images/down.png" height="30"></img></a>
 
       <a data-toggle="modal" ng-click="starPost(post)" href="" >  <img ng-src="/images/empty-star.png" height="32" style="padding-bottom:2px" /></a>
       </div> 
