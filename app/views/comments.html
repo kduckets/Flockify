@@ -7,43 +7,40 @@
         <a ng-href="{{post.spotify_uri}}" target="_blank">
         <img ng-src="{{post.image_medium}}" class="comments" />
         </a>
+
+        <div> <img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18" /></div>
         <div>
             <a ng-href="{{post.spotify_uri}}" target="_blank">
         {{post.artist}} - {{ post.album }} ({{post.release_date | limitTo: 4}})
         </a>
         </div>
- <div style="padding-top:5px"> 
 
-      <a href="" data-toggle="tooltip" title="Post approved" data-placement="top"><img class="arrow" ng-click="upvote(post)" src="/images/up.png" height="30" ></img></a>
+         <div>  <small>(posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator}}</a>) <a ng-click="deletePost(post)" ng-show="user.uid === post.creatorUID">&mdash; delete</a></small>
 
-       <a href="" data-toggle="tooltip" title="Meh.." data-placement="top"><img ng-src="/images/meh.png" height="30" class="arrow" /></a>
+           <div class="alert alert-info" role="alert">{{post.summary}}</div>
+          <div style="padding-top:5px"> 
 
-   <a href="" data-toggle="tooltip" title="Not into this one" data-placement="top"><img class="arrow" ng-click="downvote(post)" src="/images/down.png" height="30"></img></a>
+    {{ post.votes }}  <a href="" data-toggle="tooltip" title="Post approved" data-placement="top"><img class="arrow" ng-click="upvote(post)" src="/images/up.png" height="30" ></img></a>
 
-      <a data-toggle="modal" ng-click="starPost(post)" href="" >  <img ng-src="/images/empty-star.png" height="32" style="padding-bottom:2px" /></a>
+    0 <a href="" data-toggle="tooltip" title="Not into this one" data-placement="top"><img class="arrow" ng-click="downvote(post)" src="/images/down.png" height="30"></img></a>
+
+     0 <a href="" data-toggle="tooltip" title="Meh.." data-placement="top"><img ng-src="/images/meh.png" height="30" class="arrow" /></a>
+     {{post.comments}} <a ng-href="#/posts/{{ post.$id  }}"><img ng-src="/images/comments.ico" height="30px" /></a>
+   <a data-toggle="modal" ng-click="starPost(post)" href="" >  <img ng-src="/images/empty-star.png" height="32" style="padding-bottom:2px" /></a>
+     
       </div> 
 
 
      
  
     
-        <div>  <small>(posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator}}</a>)</small>
+       
         </div>
-        <p>
-         {{ post.votes }} <img ng-src="/images/coin.png" height="30px" />
 
-          0 <img ng-src="/images/meh.png" height="22px"/>
-          
-            {{post.comments}} <a ng-href="#/posts/{{ post.$id  }}"><img ng-src="/images/comments.ico" height="20px" /></a>
-
-         <img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18" />
-
-
-        </p>
 
          
-        <small><a ng-click="deletePost(post)" ng-show="user.uid === post.creatorUID">&mdash; delete</a></small>
-         <div class="alert alert-info" role="alert">{{post.summary}}</div>
+      
+       
       </div>
  
 
