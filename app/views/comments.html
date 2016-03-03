@@ -22,9 +22,11 @@
         {{post.artist}} - {{ post.album }} ({{post.release_date | limitTo: 4}})
         </a>
  
-        <p>
-         {{ post.votes }} votes
-           <small>(posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator}}</a>)</small>
+    
+        <div>  <small>(posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator}}</a>)</small>
+        </div>
+         {{ post.votes }} <img ng-src="/images/coin.png" height="30px" /> 0 <img ng-src="/images/meh.png" height="25px" /> 0 <img ng-src="/images/gold-star.png" height="18px" />
+         
         <small><a ng-click="deletePost(post)" ng-show="user.uid === post.creatorUID">&mdash; delete</a></small>
          <div class="alert alert-info" role="alert">{{post.summary}}</div>
       </div>
