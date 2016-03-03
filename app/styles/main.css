@@ -19,8 +19,8 @@ img.post:hover {
 width: 300px;
 }
 img.comments{
-  height: 50%;
-  width: 50%;
+  height: 50% !important;
+  width: 50% !important;
 }
 
 }
