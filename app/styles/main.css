@@ -15,8 +15,7 @@ body {
    
 img.post:hover {
 
-/* or the drop-shadow effect */
-width: 300px;
+/*width: 300px;*/
 }
 img.comments{
   height: 50% !important;
@@ -99,23 +98,29 @@ margin: 0 auto;
   position: relative;
 }
 
-.score-box{
-position: relative;
-font-size: 22px;
-top: 2px;
-
-
+.post-image .score{
+  position: absolute;
+  left:-8px;
+  bottom:70px;
+  font-size: 22px;
 }
 
-.comments-icon{
+.post-image .comments-icon{
+  position: absolute;
+  right:-8px;
+  top:80px;
+}
+
+
+/*.comments-icon{
   position: relative;
 
-}
+}*/
 
 .comments-icon .after{
 position: absolute;
 left:15px;
-bottom:5px;
+top:5px;
 }
 
 /*@media screen and (min-width: 1000px) {*/

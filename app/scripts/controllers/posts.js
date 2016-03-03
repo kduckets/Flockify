@@ -141,11 +141,51 @@ ref.child('user_scores').child(post.creator).child('score').on("value", function
         // ref.child("user_scores").child(post.creatorUID).update({'score': $scope.score});
 
     };
+
+
     
 });
 };
   
 };
+
+//   $scope.meh = function(post) {
+
+//     if($scope.signedIn() && $scope.user.uid != post.creatorUID){
+      
+//    ref.child('user_scores').child(post.creator).child('score').on("value", function(snapshot) {
+//   $scope.score = snapshot.val();
+// });
+
+//     $scope.current_vote = $firebase(ref.child('user_votes').child($scope.user.uid).child(post.$id).child('vote')).$asObject();
+//     $scope.current_vote.$loaded().then(function(res) {
+//     if(res.$value == 'meh' ){
+//       //do nothing
+//     };
+
+//     if(res.$value == 'up'){
+//         post.votes -=1;
+//         Post.vote(post.$id, post.votes);
+//         Profile.setVote($scope.user.uid, post.$id, 'meh');
+//         $scope.score = $scope.score - 1;
+//         ref.child("user_scores").child(post.creator).update({'score': $scope.score});
+//         // ref.child("user_scores").child(post.creatorUID).update({'score': $scope.score});
+
+//     };
+
+//         if(res.$value == 'down' ){
+//         post.votes +=1;
+//         Post.vote(post.$id, post.votes);
+//         Profile.setVote($scope.user.uid, post.$id, 'meh');
+//       $scope.score = $scope.score + 1;
+//         ref.child("user_scores").child(post.creator).update({'score': $scope.score});
+//         // ref.child("user_scores").child(post.creatorUID).update({'score': $scope.score});
+//     };
+    
+// });
+// };
+  
+// };
 
  // $scope.batchUpdate = function(){
 

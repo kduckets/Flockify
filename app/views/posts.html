@@ -1,5 +1,5 @@
 
-<div style="padding-top:68px" align="center">
+<div style="padding-top:68px; padding-bottom:10px" align="center">
  <div ng-hide="signedIn()">
       <p><a href="#/login">Sign in</a> or <a ng-href="#/register">register</a> to post an album or vote</p>
     </div>
@@ -31,11 +31,19 @@
 
 </div>
 
-<br />
-  <!--  <select name="filter" ng-model="data.filter">
-      <option value="-votes" ng-click="sorter = '-votes'">popular</option>
-      <option value="votes" ng-click="sorter = 'votes'">unpopular</option>
-    </select> -->
+<!-- <div align="center">
+<div class="alert alert-warning" role="alert" style="max-width:300px">
+ <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <strong>Nobody likes a lurker.</strong> Go vote.
+</div>
+</div> -->
+
+
+
+
+
 <div>
 <div class="sort-links" align="center">
   <a href ng-click="sorter = '-votes'">popular</a>
@@ -64,33 +72,36 @@
  <div>
        <a ng-href="#/posts/{{ post.$id  }}"><span class="label label-pill label-info">{{ post.summary | limitTo: 40 }}{{post.summary.length > 40 ? '..' : ''}}</span></a>
        </div>
-           <div> <img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18" /></div>
+           <div>   <a data-toggle="modal" ng-click="starPost(post)" href="" >  <div><img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18" />
+     <img ng-src="/images/empty-star.png" height="18" /></a></div>
  <a ng-href="#/posts/{{ post.$id  }}" >
+
+      <img class="arrow" ng-click="upvote(post)" src="/images/up.png" height="30" ></img>
 
 
         <span class="post-image"><img class="post" ng-src="{{post.image_medium}}" />
-   <!--      <span class="after label label-default label-success">   {{ post.votes }} </span> 
-        <span ng-show="post.votes < 0" class="after label label-default label-danger">   {{ post.votes }} </span> 
-
-        </span> -->
-
-
+     <span class="score label label-default label-default">   {{ post.votes }} </span> 
+       <span class="comments-icon"><img ng-src="/images/comments.png" height="35px" />
+    <span class="after label label-pill label-danger"> {{post.comments}} </span></span>
+     </span>
+       
+        </span> 
         </a>
+
+            <img class="arrow" ng-click="downvote(post)" src="/images/down.png" height="30"></img>
      
           <div style="padding-top:5px; padding-bottom:30px"> 
-          
-          <span class="score-box label label-default label-info">   {{ post.votes }}</span>
-      <img class="arrow" ng-click="upvote(post)" src="/images/up.png" height="30" ></img>
 
-     <img class="arrow" ng-click="downvote(post)" src="/images/down.png" height="30"></img>
+         
+    
 
-      <img ng-src="/images/meh.png" height="30" class="arrow" />
+ 
 
-     <a data-toggle="modal" ng-click="starPost(post)" href="" >  <img ng-src="/images/empty-star.png" height="32" style="padding-bottom:2px;padding-left:5px;" /></a>
+     <!--  <img ng-src="/images/meh.png" height="30" class="arrow" /> -->
 
-    <span class="comments-icon"><a ng-href="#/posts/{{ post.$id  }}"><img ng-src="/images/comments.png" height="30px" />
-    <span class="after label label-pill label-danger"> {{post.comments}} </a></span>
-     </span>
+ <!--     <a data-toggle="modal" ng-click="starPost(post)" href="" >  <img ng-src="/images/empty-star.png" height="32" style="padding-bottom:2px;padding-left:5px;" /></a> -->
+
+  
    
   
      
@@ -104,26 +115,6 @@
       
        <div><span class="label label-default">{{post.genre}}</span></div>
        
- 
-       <!--  <p>
-         {{ post.votes }} <img ng-src="/images/coin.png" height="30px" />
-
-          0 <img ng-src="/images/meh.png" height="22px"/>
-          
-            {{post.comments}} <a ng-href="#/posts/{{ post.$id  }}"><img ng-src="/images/comments.ico" height="20px" /></a>
-
-        
-    
-
-
-          
-     
-
-        </p> -->
-
-          
-        
-      <!--   <small><a ng-click="deletePost(post)" ng-show="user.uid === post.creatorUID">&mdash; delete</a></small> -->
 
       
 
