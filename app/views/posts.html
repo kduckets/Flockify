@@ -68,17 +68,19 @@
  <a ng-href="#/posts/{{ post.$id  }}" >
         <img class="post" ng-src="{{post.image_medium}}" />
         </a>
-         
-          <div style="padding-top:5px"> 
+         <div> <img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18" /></div>
+          <div style="padding-top:5px; padding-bottom:15px"> 
 
-      <a href="" data-toggle="tooltip" title="Post approved" data-placement="top"><img class="arrow" ng-click="upvote(post)" src="/images/up.png" height="30" ></img></a>
+    {{ post.votes }}  <a href="" data-toggle="tooltip" title="Post approved" data-placement="top"><img class="arrow" ng-click="upvote(post)" src="/images/up.png" height="30" ></img></a>
 
-       <a href="" data-toggle="tooltip" title="Meh.." data-placement="top"><img ng-src="/images/meh.png" height="30" class="arrow" /></a>
+    0 <a href="" data-toggle="tooltip" title="Not into this one" data-placement="top"><img class="arrow" ng-click="downvote(post)" src="/images/down.png" height="30"></img></a>
 
-   <a href="" data-toggle="tooltip" title="Not into this one" data-placement="top"><img class="arrow" ng-click="downvote(post)" src="/images/down.png" height="30"></img></a>
-
-      <a data-toggle="modal" ng-click="starPost(post)" href="" >  <img ng-src="/images/empty-star.png" height="32" style="padding-bottom:2px" /></a>
+     0 <a href="" data-toggle="tooltip" title="Meh.." data-placement="top"><img ng-src="/images/meh.png" height="30" class="arrow" /></a>
+     {{post.comments}} <a ng-href="#/posts/{{ post.$id  }}"><img ng-src="/images/comments.ico" height="30px" /></a>
+   <a data-toggle="modal" ng-click="starPost(post)" href="" >  <img ng-src="/images/empty-star.png" height="32" style="padding-bottom:2px" /></a>
+     
       </div> 
+     
 
  
 
@@ -88,23 +90,21 @@
        <div><span class="label label-default">{{post.genre}}</span></div>
        
  
-        <p>
+       <!--  <p>
          {{ post.votes }} <img ng-src="/images/coin.png" height="30px" />
 
           0 <img ng-src="/images/meh.png" height="22px"/>
           
             {{post.comments}} <a ng-href="#/posts/{{ post.$id  }}"><img ng-src="/images/comments.ico" height="20px" /></a>
 
-         <img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18" />
+        
     
-
-         <!--     <small>(posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator}}</a>)</small> -->
 
 
           
      
 
-        </p>
+        </p> -->
 
           
         
