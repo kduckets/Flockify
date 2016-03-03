@@ -65,20 +65,11 @@
   <div class="post-box" align="center" ng-repeat="post in posts | orderBy:sorter | filter:'spotify'" jd-script>
       
        
-             <div>
-        <a ng-href="#/posts/{{ post.$id  }}">
-     {{ post.artist }} - {{ post.album }} ({{post.release_date | limitTo: 4}})</a> 
-</div>
- <div>
-       <a ng-href="#/posts/{{ post.$id  }}"><span class="label label-pill label-info">{{ post.summary | limitTo: 40 }}{{post.summary.length > 40 ? '..' : ''}}</span></a>
-       </div>
-           <div>   <a data-toggle="modal" ng-click="starPost(post)" href="" >  <div><img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18" />
-     <img ng-src="/images/empty-star.png" height="18" /></a></div>
- <a ng-href="#/posts/{{ post.$id  }}" >
+             
 
       <img class="arrow" ng-click="upvote(post)" src="/images/up.png" height="30" ></img>
 
-
+ <a ng-href="#/posts/{{ post.$id  }}" >
         <span class="post-image"><img class="post" ng-src="{{post.image_medium}}" />
      <span class="score label label-default label-default">   {{ post.votes }} </span> 
        <span class="comments-icon"><img ng-src="/images/comments.png" height="35px" />
@@ -91,8 +82,18 @@
             <img class="arrow" ng-click="downvote(post)" src="/images/down.png" height="30"></img>
      
           <div style="padding-top:5px; padding-bottom:30px"> 
+     <div>   <a data-toggle="modal" ng-click="starPost(post)" href="" >  <div><img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18" />
+     <img ng-src="/images/empty-star.png" height="18" /></a></div>
+         <div>
 
-         
+        <a ng-href="#/posts/{{ post.$id  }}">
+     {{ post.artist }} - {{ post.album }} ({{post.release_date | limitTo: 4}})</a> 
+</div>
+ <div>
+       <a ng-href="#/posts/{{ post.$id  }}"><span class="label label-pill label-info">{{ post.summary | limitTo: 40 }}{{post.summary.length > 40 ? '..' : ''}}</span></a>
+       </div>
+      
+
     
 
  
