@@ -87,8 +87,8 @@
 
       <span ng-style="postition:relative"><a data-toggle="modal" ng-click="starPost(post)" href="" >  <img ng-src="/images/empty-star.png" height="32" style="padding-bottom:2px;padding-left:5px;" /></a></span>
 
-    <span class="comments-icon"><a ng-href="#/posts/{{ post.$id  }}"><img ng-src="/images/comments.png" height="30px" />
-    <span class="after label label-pill label-danger"> {{post.comments}} </a></span>
+    <a ng-href="#/posts/{{ post.$id  }}"><span class="comments-icon"><img ng-src="/images/comments.png" height="30px" />
+    <span class="after label label-pill label-danger"> {{post.comments}} </span></a>
      </span>
    
   
