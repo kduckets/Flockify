@@ -298,16 +298,6 @@ text-align: center;
   font-family: 'Montserrat', sans-serif; font-weight: 100;
 }
 
-.navbar-fixed-top {
-  position: fixed;
-  
-
-}
-
-.navbar-fixed-top, .navbar-fixed-bottom {
-  position: static; 
-}
-
 
 
 /* MAIN POSTS PAGE */
