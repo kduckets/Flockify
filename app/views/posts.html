@@ -1,17 +1,18 @@
 
-<div style="padding-top:68px; padding-bottom:10px" align="center">
+<div style="padding-bottom:10px" align="center">
  <div ng-hide="signedIn()">
       <p><a href="#/login">Sign in</a> or <a ng-href="#/register">register</a> to post an album or vote</p>
     </div>
 
       <small>go to <a href="/#/">albums</a> | <a href="/#/podcasts">podcasts</a> 
     | <a href="/#/movies">movies</a> | <a href="/#/books">books</a></small>
-<form ng-submit="search()" ng-show="signedIn()" class="form-inline" >
 
-<input type="text" placeholder="enter artist or album" class="form-control" ng-model="post.search" /> 
+<form ng-submit="search()" ng-show="signedIn()" class="form-inline search-form">
+
+<input type="text" placeholder="post an album" class="form-control" ng-model="post.search" /> 
 
 
-<input type="submit" value="search" class="btn btn-primary" /> 
+<button type="submit" value="" class="btn btn-primary"><i class="fa fa-search"></i></button> 
 <button class="btn btn-secondary" ng-click="clearResults()">clear</button>
 
 </form>
