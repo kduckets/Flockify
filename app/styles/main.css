@@ -140,7 +140,7 @@ top:2px;
 
 .search-form{
 
-
+width: 50%;
 left:0;
 right:0;
 margin-left:auto;
@@ -288,7 +288,7 @@ text-align: center;
 }
 
 .navbar h3{
- 
+ left:0px;
   color:white;
   font-family: 'Montserrat', sans-serif; font-weight: 100;
 }
