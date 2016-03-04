@@ -1,6 +1,7 @@
 <div class="container" style="padding-top:60px" >
 
 
+<h1 align="center">Albums</h1>
 <table class="table table-inverse">
   <thead>
     <tr>
@@ -10,43 +11,66 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="user in users | orderBy:'-score'">
+    <tr ng-repeat="user in users | orderBy:'-album_score'">
       <th scope="row">{{$index + 1}}</th>
       <td>{{user.$id}}</td>
-      <td>{{user.score}}</td>
-      
+      <td>{{user.album_score}}</td>      
     </tr>
   </tbody>
 </table>
 
-<!-- <div ng-repeat="comment in comments | orderBy:'-votes'" class="row cmt">
-    <div class="col-md-12">
-  <sub>{{ comment.votes }}</sub>
-      <img ng-click="upvote(comment)" src="/images/up.svg" height="15"></img>
-       <img ng-click="downvote(comment)" src="/images/down.svg" height="15"></img>
-   {{comment.text}}
-      <p class="author">posted by
-        <a ng-href="#/users/{{ comment.creatorUID }}">
-          {{ comment.creator }}
-        </a>
-        <a ng-href=""
-        ng-click="deleteComment(comment)"
-        ng-show="signedIn() && comment.creatorUID === user.uid">
-        (delete)
-      </a>
-      </p>
-    </div>
-  </div>
+<h1 align="center">Podcasts</h1>
+<table class="table table-inverse">
+  <thead>
+    <tr>
+      <th>rank</th>
+      <th>user</th>
+      <th>score</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="user in users | orderBy:'-podcast_score'">
+      <th scope="row">{{$index + 1}}</th>
+      <td>{{user.$id}}</td>
+      <td>{{user.podcast_score}}</td>      
+    </tr>
+  </tbody>
+</table>
 
-  <div class="cmt-form">
-    <div ng-hide="signedIn()">
-      <p><a href="#/login">Sign in</a> to post a comment</p>
-    </div>
+<h1 align="center">Movies</h1>
+<table class="table table-inverse">
+  <thead>
+    <tr>
+      <th>rank</th>
+      <th>user</th>
+      <th>score</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="user in users | orderBy:'-movie_score'">
+      <th scope="row">{{$index + 1}}</th>
+      <td>{{user.$id}}</td>
+      <td>{{user.movie_score}}</td>      
+    </tr>
+  </tbody>
+</table>
 
-    <form ng-show="signedIn()" ng-submit="addComment()">
-      <input type="text" ng-model="commentText" placeholder="post a comment"/>
-      <input type="submit" value="post" class="btn btn-secondary" /> 
-    
-    </form>
-  </div> -->
+<h1 align="center">Books</h1>
+<table class="table table-inverse">
+  <thead>
+    <tr>
+      <th>rank</th>
+      <th>user</th>
+      <th>score</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="user in users | orderBy:'-book_score'">
+      <th scope="row">{{$index + 1}}</th>
+      <td>{{user.$id}}</td>
+      <td>{{user.book_score}}</td>      
+    </tr>
+  </tbody>
+</table>
+
 </div>

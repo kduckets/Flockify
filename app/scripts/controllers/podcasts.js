@@ -61,19 +61,52 @@ app.controller('PodcastsCtrl', function($scope, $route, $location, $window, Post
 
  };
 
+//   $scope.starPost = function(post){
+//      if($scope.signedIn() && $scope.user.uid != post.creatorUID){
+//  var modalInstance = $uibModal.open({
+//     templateUrl: 'views/star.html',
+//     scope: $scope,
+//     controller: 'StarCtrl',
+//     resolve: {
+//       post: function () {
+//         return post;
+//       }
+//     }
+// });
+// }
+//  };
+
   $scope.starPost = function(post){
-     if($scope.signedIn() && $scope.user.uid != post.creatorUID){
- var modalInstance = $uibModal.open({
-    templateUrl: 'views/star.html',
-    scope: $scope,
-    controller: 'StarCtrl',
-    resolve: {
-      post: function () {
-        return post;
-      }
-    }
+      if($scope.signedIn() && $scope.user.uid != post.creatorUID){
+
+        ref.child('user_scores').child(post.creator).child('podcast_score').on("value", function(snapshot) {
+  $scope.score = snapshot.val();
 });
-}
+
+        ref.child('user_scores').child(post.creator).child('stars').on("value", function(snapshot) {
+  $scope.user_stars = snapshot.val();
+});
+
+    $scope.current_vote = $firebase(ref.child('user_votes').child($scope.user.uid).child(post.$id).child('star')).$asObject();
+    $scope.current_vote.$loaded().then(function(res) {
+
+    if(res.$value == 'gold'){
+      $scope.text = "looks like you already gave this album a star";
+    };
+    if(!res.$value){
+       post.stars +=1;
+      Post.star(post.$id, post.stars);
+        Profile.setStar($scope.user.uid, post.$id, 'gold');
+            $scope.score = $scope.score + 2;
+            $scope.user_stars = $scope.user_stars + 1;
+        ref.child("user_scores").child(post.creator).update({'podcast_score': $scope.score});
+        ref.child("user_scores").child(post.creator).update({'stars': $scope.user_stars});
+      
+    };
+    
+});
+};
+
  };
 
  $scope.addCategory = function(){
@@ -93,7 +126,7 @@ $scope.clearResults = function(){
   $scope.upvote = function(post) {
     if($scope.signedIn() && $scope.user.uid != post.creatorUID){
 
-ref.child('user_scores').child(post.creator).child('score').on("value", function(snapshot) {
+ref.child('user_scores').child(post.creator).child('podcast_score').on("value", function(snapshot) {
   $scope.score = snapshot.val();
 });
 
@@ -108,7 +141,7 @@ ref.child('user_scores').child(post.creator).child('score').on("value", function
         Post.vote(post.$id, post.votes);
         Profile.setVote($scope.user.uid, post.$id, 'up');
       $scope.score = $scope.score + 1;
-        ref.child("user_scores").child(post.creator).update({'score': $scope.score});
+        ref.child("user_scores").child(post.creator).update({'podcast_score': $scope.score});
         // ref.child("user_scores").child(post.creatorUID).update({'score': $scope.score});
     };
     
@@ -121,7 +154,7 @@ ref.child('user_scores').child(post.creator).child('score').on("value", function
 
     if($scope.signedIn() && $scope.user.uid != post.creatorUID){
       
-   ref.child('user_scores').child(post.creator).child('score').on("value", function(snapshot) {
+   ref.child('user_scores').child(post.creator).child('podcast_score').on("value", function(snapshot) {
   $scope.score = snapshot.val();
 });
 
@@ -136,7 +169,7 @@ ref.child('user_scores').child(post.creator).child('score').on("value", function
         Post.vote(post.$id, post.votes);
         Profile.setVote($scope.user.uid, post.$id, 'down');
         $scope.score = $scope.score - 1;
-        ref.child("user_scores").child(post.creator).update({'score': $scope.score});
+        ref.child("user_scores").child(post.creator).update({'podcast_score': $scope.score});
         // ref.child("user_scores").child(post.creatorUID).update({'score': $scope.score});
 
     };

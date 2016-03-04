@@ -6,16 +6,19 @@
 
     <div align="center">
       <span ng-show="view_tab == 'tabA'" class="name">posts by {{ profile.username }}</span>
-      <span ng-show="view_tab == 'tabB'" class="name">liked by {{ profile.username }}</span>
-      <p>
-      score: {{score}}
+      <span ng-show="view_tab == 'tabB'" class="name">likes by {{ profile.username }}</span>
+ <!--       <p>
+     score: {{score}}
       <br/>
-      <img ng-repeat="i in getNumber(stars) track by $index" ng-src="/images/gold-star.png" height="18" />
+     
       <br/>
        points per post: {{(score / postsNumber) | limitTo: 3}}
-      </p>
+      </p> -->
 
-  <div class="sort-links">
+      <div> <img ng-repeat="i in getNumber(stars) track by $index" ng-src="/images/gold-star.png" height="18" /></div>
+      <br/>
+
+<!--   <div class="sort-links">
   <a href ng-click="sorter = '-votes'">popular</a>
    <a href ng-click="sorter = '-'">new</a>
   <a href ng-click="sorter = 'votes'">unpopular</a>  
@@ -23,7 +26,7 @@
   <a href ng-click="sorter = '-stars'">stars</a> 
 
 
-    </div>
+    </div> -->
     </div>
     <div class="btn-group-lg" role="group" aria-label="profiletabs" align="center">
   <button type="button" class="btn btn-secondary" ng-class="{'active': view_tab == 'tabA'}" ng-click="changeTab('tabA')" >posts</button>
@@ -33,22 +36,22 @@
 
   <div ng-repeat="(key,post) in user_posts | orderBy:sorter" ng-show="view_tab == 'tabA'" align="center" >
      <div class="post" ng-show="post.artist">
-    <img ng-click="upvote(post)" src="/images/up.png" height="30"></img>
+<!--     <img ng-click="upvote(post)" src="/images/up.png" height="30"></img> -->
  
-        <a ng-href="{{post.spotify_uri}}" target="_blank">
+        <a ng-href="#/posts/{{ post.$id  }}">
         <img ng-src="{{post.image_medium}}" height="100" />
         </a>
-         
-           <img ng-click="downvote(post)" src="/images/down.png" height="30"></img>
+       
+            <!--  <img ng-click="downvote(post)" src="/images/down.png" height="30"></img> -->
 
         <br/>
-        <a ng-href="{{post.spotify_uri}}" target="_blank">
+        <a ng-href="#/posts/{{ post.$id  }}">
         {{post.artist}} - {{ post.album }} ({{post.release_date | limitTo: 4}})
         </a>
           <div>
- <a data-toggle="modal" ng-click="starPost(post)" href="" >  
+ <!-- <a data-toggle="modal" ng-click="starPost(post)" href="" >   -->
           <img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18" />
-      <img ng-src="/images/empty-star.png" height="18" /></a>
+ <!--      <img ng-src="/images/empty-star.png" height="18" /></a> -->
 
       </div>
         <div>
@@ -72,20 +75,20 @@
      <div class="post" ng-show="post.artist">
     
  
-        <a ng-href="{{post.spotify_uri}}" target="_blank">
+        <a ng-href="#/posts/{{ post.$id  }}">
         <img ng-src="{{post.image_medium}}" height="100" />
         </a>
          
            
 
         <br/>
-        <a ng-href="{{post.spotify_uri}}" target="_blank">
+        <a ng-href="#/posts/{{ post.$id  }}">
         {{post.artist}} - {{ post.album }}
         </a>
           <div>
-<a data-toggle="modal" ng-click="starPost(post)" href="" >  
+<!-- <a data-toggle="modal" ng-click="starPost(post)" href="" >   -->
           <img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18" />
-      <img ng-src="/images/empty-star.png" height="18" /></a>
+ <!--      <img ng-src="/images/empty-star.png" height="18" /></a> -->
           <span class="label label-default">{{post.category}}</span></div>
         <span class="label label-pill label-info">{{ post.summary | limitTo: 40 }}{{post.summary.length > 40 ? '..' : ''}}</span>
            <p>
