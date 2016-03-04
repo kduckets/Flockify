@@ -9,8 +9,6 @@ app.controller('PostsCtrl', function($scope, $route, $location, $window, Post, A
   $scope.signedIn = Auth.signedIn;
   $scope.logout = Auth.logout;
   var ref = new Firebase("https://flockify.firebaseio.com");
-  $scope.categories = $firebase(ref.child('categories')).$asArray();
-  $scope.selectedCat = 'all albums';
   $scope.sorter = '-';
   
 
@@ -18,21 +16,6 @@ app.controller('PostsCtrl', function($scope, $route, $location, $window, Post, A
 angular.forEach($scope.posts, function(item, key) {
     if ($scope.post.media_type == 'spotify') { $scope.albumPosts[key] = item; };
 });
-
-
-
-  $scope.selectCat = function(selectedCat){
-      if(selectedCat == 'all albums'){
-    $scope.catFilter = '';
-    $scope.selectedCat = 'all albums';
-     $scope.sorter = '-';
-  }else{
-  $scope.selectedCat = selectedCat;
-  $scope.catFilter = $scope.selectedCat;
-  $scope.sorter = '-votes';
-};
-
-};
  
  $scope.getNumber = function(num) {
     return new Array(num);   

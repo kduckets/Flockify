@@ -65,8 +65,12 @@
 
     <form ng-show="signedIn()" ng-submit="gifsearch()">
       <input type="text" ng-model="gifSearchText" placeholder="search for gif"/>
-      <input type="submit" value="Search" class="btn btn-secondary" /> 
-      <!-- <button ng-click="gifsearch()" class="btn btn-primary">Search</button> -->
+      <input type="submit" value="search" class="btn btn-secondary" /> 
+    </form>
+      or
+      <form ng-show="signedIn()" ng-submit="addComment(gifLink)">
+      <input type="text" ng-model="gifLink" placeholder="paste gif link"/>
+      <input type="submit" value="post" class="btn btn-secondary" /> 
     </form>
   </div>
 <br/>

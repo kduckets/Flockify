@@ -76,18 +76,6 @@ app.controller('CommentsCtrl', function ($scope, $routeParams, Post, Auth, $fire
   });
 };
 
-//   $scope.comment_upvote = function(comment) {
-//   comment.votes +=1;
-//   Post.commentVote($routeParams.postId, comment.$id, comment.votes);
-
-// };
-
-//   $scope.comment_downvote = function(comment) {
-//   comment.votes -=1;
-//   Post.commentVote($routeParams.postId, comment.$id, comment.votes);
-
-// };
-
  $scope.getNumber = function(num) {
     return new Array(num);   
 };
