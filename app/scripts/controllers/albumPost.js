@@ -47,9 +47,6 @@ app.controller('AlbumCtrl', function ($scope, $route, $location, $window, Post, 
   $scope.post.spotify_uri = $scope.spotify_uri;
   $scope.post.embed_uri = $scope.embed_uri;
   $scope.post.comments = 0;
-  if($scope.selectedCat != 'all albums'){
-  $scope.post.category = $scope.selectedCat;
-}
   $scope.post.date = $scope.date;
   $scope.post.release_date = $scope.release_date;
   $scope.post.latest_comment = 9999;
