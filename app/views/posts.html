@@ -47,11 +47,16 @@
 
 <div>
 <div class="sort-links" align="center">
-  <a href ng-click="sorter = '-votes'">popular</a>
-   <a href ng-click="sorter = '-'">new</a>
+  <a href ng-show="sorter != '-votes'" ng-click="sorter = '-votes'">popular</a>
+    <a href ng-show="sorter == '-votes'" ng-click="sorter = 'votes'">unpopular</a>
+
+    <a href ng-click="sorter = '-latest_comment'">new comments</a> 
+   
+
+   <a href ng-show="sorter != '-'" ng-click="sorter = '-'">fresh</a>
+      <a href ng-show="sorter == '-'"  ng-click="sorter = ''">old</a>
     
- <!--  <a href ng-click="sorter = 'votes'">unpopular</a>   -->
-<a href ng-click="sorter = '-latest_comment'">new comments</a> 
+
 
   <a href ng-click="sorter = '-stars'">stars</a> 
 
