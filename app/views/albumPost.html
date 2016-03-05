@@ -4,7 +4,10 @@
       <div class="modal-body">
       <div align="center">
         <img ng-src="{{image_medium}}" height="200"/>
+
         </div>
+
+    <!--      <iframe ng-src="{{embed_link}}" width="300" height="380" frameborder="0" allowtransparency="true"></iframe> -->
          <small class="text-muted" ng-show="form.summary.$error.required"><font color="red">Please provide a quick description of your post</font></small>
     <form name="form">
         <textarea required class="form-control" placeholder="explain yourself" name="summary" ng-model="summary" rows="2"></textarea> 

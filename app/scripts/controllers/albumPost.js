@@ -1,12 +1,14 @@
 'use strict';
 
-app.controller('AlbumCtrl', function ($scope, $route, $location, $window, Post, Auth, $http, $cookies, $modalInstance, album) {
+app.controller('AlbumCtrl', function ($scope, $route, $location, $window, Post, Auth, $http, $cookies, $modalInstance, album, $sce) {
 
   $scope.user = Auth.user;
   $scope.signedIn = Auth.signedIn;
   $scope.logout = Auth.logout;
   $scope.album = album;
   $scope.date = new Date();
+
+
 
   $http({
   method: 'GET',
@@ -22,6 +24,8 @@ app.controller('AlbumCtrl', function ($scope, $route, $location, $window, Post, 
     $scope.spotify_uri = album.data.external_urls.spotify;
     $scope.release_date = album.data.release_date;
     $scope.embed_uri = album.data.uri;
+
+    // $scope.embed_link = $sce.trustAsResourceUrl("https://embed.spotify.com/?uri=spotify:album:6SwMUCcHLfZjji3MAFODMv"); 
 
 
   }, function errorCallback(response) {
