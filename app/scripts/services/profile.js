@@ -51,8 +51,9 @@ app.factory('Profile', function ($window, FIREBASE_URL, $firebase, Post, $q) {
           for(var i = 0; i<data.length; i++) {
             var value = data[i].$id;
               var vote = data[i].vote;
+               var star = data[i].star;
 
-            if(value && vote=='up'){
+            if(value && vote=='up' || value && star=='gold'){
             posts[value] = Post.get(value);
           }
           }
