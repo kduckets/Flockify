@@ -278,13 +278,24 @@ text-align: center;
 
 #menu-standard li { 
     float: left;
+
+}
+
+#menu-standard a { 
+    color: white;
+    margin-left: 25px;
+}
+
+.navbar{
+  background-color: black;
 }
 
 .navbar li {
   padding-right: 10px;
   padding-top: 3px;
   display: inline-block;
-  text-align:center; 
+  text-align:center;
+
 }
 
 .navbar h3{
@@ -294,7 +305,7 @@ text-align: center;
 }
 
 .navbar h5{
-  color:white;
+  color:#FFFFFF;
   font-family: 'Montserrat', sans-serif; font-weight: 100;
 }
 
@@ -406,3 +417,5 @@ text-align: center;
   z-index: 1;
   color: black;
 }
+
+
