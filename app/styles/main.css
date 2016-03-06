@@ -309,8 +309,6 @@ text-align: center;
   font-family: 'Montserrat', sans-serif; font-weight: 100;
 }
 
-
-
 /* MAIN POSTS PAGE */
 /*.post {
   background: #fff;
@@ -333,7 +331,8 @@ text-align: center;
 }
 
 
-/* PROFILE PAGE */
+/*--------PROFILE PAGE-------- */
+
 .prof-img{
   width:100%;
   max-width:100px;
@@ -384,7 +383,15 @@ text-align: center;
   color:#bbb;
 }
 
-/*Search Bar*/
+/*---------Category Icons----------*/
+
+.category a{
+  padding-left:20px;
+  padding-right:20px;
+  color:#009999; 
+}
+
+/*----------Search Bar------------*/
 
 .box{
   margin: 20px auto;
@@ -439,7 +446,6 @@ text-align: center;
   border-radius: 15px;
   font-family: 'Nunito'; font-size:35px;
 }
-
 .search-box:focus {
   box-shadow: 0 0 4px 2px black; 
   border: 2px solid #bebede;
@@ -465,10 +471,7 @@ text-align: center;
   border-left-width: 0px;
   border-bottom-width: 3px;
   outline:0 !important; 
- 
 }
 .search-box:not(:valid) ~ .close-icon {
   display: none;
 }
-
-
