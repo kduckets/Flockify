@@ -6,15 +6,17 @@
 
       <small>go to <a href="/#/">albums</a> | <a href="/#/podcasts">podcasts</a> 
     | <a href="/#/movies">movies</a> | <a href="/#/books">books</a></small>
-<form ng-submit="search()" ng-show="signedIn()" class="form-inline search-form">
 
-<input type="text" placeholder="post a movie" class="form-control" ng-model="searchTerm" /> 
-
-
-<button type="submit" value="" class="btn btn-primary"><i class="fa fa-search"></i></button> 
-<button class="btn btn-secondary" ng-click="clearResults()"><i class="fa fa-ban"></i></button>
-
-</form>
+<!-- Search Bar -->
+<div class="box">
+  <div class="container-1">
+    <form ng-submit="search()" ng-show="signedIn()" class="form-inline search-form">
+      <button class="icon"><i class="fa fa-search"></i></span></button>
+      <input type="search" name="focus" id="search" required class="search-box form-control" ng-model="post.search" placeholder=" post a movie"/>
+      <button class="close-icon" type="reset" ng-click="clearResults()"><i class="fa fa-times"></i></button>
+    </form>
+  </div>
+</div>
 
 <div class="list-group" ng-repeat="result in results" align="left">
 
