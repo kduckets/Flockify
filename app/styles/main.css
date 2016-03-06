@@ -383,10 +383,11 @@ text-align: center;
   font-size:11px;
   color:#bbb;
 }
-/*Search Bar */
+
+/*Search Bar*/
 
 .box{
-  margin: 100px auto;
+  margin: 20px auto;
   width: 300px;
   height: 50px;
 }
@@ -400,22 +401,74 @@ text-align: center;
   width: 300px;
   height: 50px;
   background: #FFFFFF;
-  border: none;
-  font-size: 10pt;
+  border: 0px;
+  font-family: 'Nunito'; 
+  font-size: 18pt;
   float: left;
-  color: #63717f;
+  color: #63717f; 
   padding-left: 45px;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
-  border-radius: 5px;
+  border-radius: 15px;
 }
 .container-1 .icon{
   position: absolute;
   top: 50%;
-  margin-left: -132px;
+  margin-left: -141px;
   margin-top: 13px;
   z-index: 1;
   color: black;
+  border:0px;
+  background-color: transparent !important;
+  position: absolute;
+  outline:0 !important;
+}
+.search-box,.close-icon,.search-wrapper {
+  position: relative;
+  padding: 10px;
+}
+.search-wrapper {
+  width: 500px;
+  margin: auto;
+  margin-top: 50px;
+}
+.search-box {
+  width: 80%;
+  border: 1px solid #ccc;
+  outline: 0;
+  border-radius: 15px;
+  font-family: 'Nunito'; font-size:35px;
+}
+
+.search-box:focus {
+  box-shadow: 0 0 4px 2px black; 
+  border: 2px solid #bebede;
+}
+.close-icon {
+  border:0px;
+  background-color: transparent !important;
+  position: absolute;
+  right: -100px;
+  top: 0;
+  bottom: 0;
+  padding: 2px;
+  text-align: center;
+  font-weight: normal;
+  font-size: 20px;
+  width: 41px;
+  height: 45px;
+  padding-right: 0px;
+  right: 0px;
+  border-right-width: 0px;
+  padding-top: 5px;
+  border-top-width: 5px;
+  border-left-width: 0px;
+  border-bottom-width: 3px;
+  outline:0 !important; 
+ 
+}
+.search-box:not(:valid) ~ .close-icon {
+  display: none;
 }
 
 
