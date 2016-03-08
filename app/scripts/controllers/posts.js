@@ -71,6 +71,10 @@ angular.forEach($scope.posts, function(item, key) {
   $scope.user_stars = snapshot.val();
 });
 
+        ref.child('user_scores').child(post.creator).child('weekly_scores').child('album_score').on("value", function(snapshot) {
+  $scope.weekly_score = snapshot.val();
+});
+
     $scope.current_vote = $firebase(ref.child('user_votes').child($scope.user.uid).child(post.$id).child('star')).$asObject();
     $scope.current_vote.$loaded().then(function(res) {
 
@@ -85,8 +89,10 @@ angular.forEach($scope.posts, function(item, key) {
         Profile.setStar($scope.user.uid, post.$id, 'gold');
             $scope.score = $scope.score + 2;
             $scope.user_stars = $scope.user_stars + 1;
+            $scope.weekly_score = $scope.weekly_score + 2;
         ref.child("user_scores").child(post.creator).update({'album_score': $scope.score});
         ref.child("user_scores").child(post.creator).update({'stars': $scope.user_stars});
+        ref.child("user_scores").child(post.creator).child('weekly_scores').update({'album_score': $scope.weekly_score});
        
     };
     
@@ -112,6 +118,10 @@ ref.child('user_scores').child(post.creator).child('album_score').on("value", fu
   $scope.score = snapshot.val();
 });
 
+ref.child('user_scores').child(post.creator).child('weekly_scores').child('album_score').on("value", function(snapshot) {
+  $scope.weekly_score = snapshot.val();
+});
+
       $scope.current_vote = $firebase(ref.child('user_votes').child($scope.user.uid).child(post.$id).child('vote')).$asObject();
     $scope.current_vote.$loaded().then(function(res) {
 
@@ -123,7 +133,9 @@ ref.child('user_scores').child(post.creator).child('album_score').on("value", fu
         Post.vote(post.$id, post.votes);
         Profile.setVote($scope.user.uid, post.$id, 'up');
       $scope.score = $scope.score + 1;
+      $scope.weekly_score = $scope.weekly_score + 1;
         ref.child("user_scores").child(post.creator).update({'album_score': $scope.score});
+        ref.child("user_scores").child(post.creator).child('weekly_scores').update({'album_score': $scope.weekly_score});
         // ref.child("user_scores").child(post.creatorUID).update({'score': $scope.score});
     };
     
@@ -140,6 +152,10 @@ ref.child('user_scores').child(post.creator).child('album_score').on("value", fu
   $scope.score = snapshot.val();
 });
 
+   ref.child('user_scores').child(post.creator).child('weekly_scores').child('album_score').on("value", function(snapshot) {
+  $scope.weekly_score = snapshot.val();
+});
+
     $scope.current_vote = $firebase(ref.child('user_votes').child($scope.user.uid).child(post.$id).child('vote')).$asObject();
     $scope.current_vote.$loaded().then(function(res) {
     if(res.$value == 'down'){
@@ -151,7 +167,9 @@ ref.child('user_scores').child(post.creator).child('album_score').on("value", fu
         Post.vote(post.$id, post.votes);
         Profile.setVote($scope.user.uid, post.$id, 'down');
         $scope.score = $scope.score - 1;
+        $scope.weekly_score = $scope.weekly_score - 1;
         ref.child("user_scores").child(post.creator).update({'album_score': $scope.score});
+        ref.child("user_scores").child(post.creator).child('weekly_scores').update({'album_score': $scope.weekly_score});
         // ref.child("user_scores").child(post.creatorUID).update({'score': $scope.score});
 
     };
