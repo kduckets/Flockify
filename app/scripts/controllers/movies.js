@@ -93,6 +93,8 @@ app.controller('MoviesCtrl', function($scope, $route, $location, $window, Post, 
       $scope.text = "looks like you already gave this album a star";
     };
     if(!res.$value){
+       post.votes +=2;
+        Post.vote(post.$id, post.votes);
        post.stars +=1;
       Post.star(post.$id, post.stars);
         Profile.setStar($scope.user.uid, post.$id, 'gold');
