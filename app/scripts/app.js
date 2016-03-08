@@ -37,7 +37,7 @@ var app = angular
       })
     .when('/albums/:postId', {
   templateUrl: 'views/albumComments.html',
-  controller: 'CommentsCtrl'
+  controller: 'AlbumCommentsCtrl'
       })
       .when('/scoreboard', {
   templateUrl: 'views/scoreboard.html',
