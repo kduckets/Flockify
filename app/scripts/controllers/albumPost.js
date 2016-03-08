@@ -1,12 +1,12 @@
 'use strict';
 
-app.controller('AlbumCtrl', function ($scope, $route, $location, $window, Post, Auth, $http, $cookies, $modalInstance, album, $sce) {
+app.controller('AlbumCtrl', function ($scope, $route, $location, $window, Post, Auth, $http, $cookies, $modalInstance, album, $sce, $filter) {
 
   $scope.user = Auth.user;
   $scope.signedIn = Auth.signedIn;
   $scope.logout = Auth.logout;
   $scope.album = album;
-  $scope.date = new Date();
+  
 
 
 
@@ -51,7 +51,7 @@ app.controller('AlbumCtrl', function ($scope, $route, $location, $window, Post, 
   $scope.post.spotify_uri = $scope.spotify_uri;
   $scope.post.embed_uri = $scope.embed_uri;
   $scope.post.comments = 0;
-  $scope.post.date = $scope.date;
+  $scope.post.date = $filter('date')(new Date(),'yyyy-MM-dd HH:mm:ss');
   $scope.post.release_date = $scope.release_date;
   $scope.post.latest_comment = 9999;
 
