@@ -1,6 +1,6 @@
 'use strict';
-app.controller('PodcastsCtrl', function($scope, $route, $location, $window, Post, Auth, Spotify,$uibModal, 
-  Profile, $firebase, $filter, $http){
+app.controller('PodcastsCtrl', function($scope, $route, $location, $window, Post, Auth, Spotify,$uibModal,
+  Profile, $firebase, $filter, $http, FIREBASE_URL){
 
  $scope.posts = Post.all;
  $scope.user = Auth.user;
@@ -9,12 +9,12 @@ app.controller('PodcastsCtrl', function($scope, $route, $location, $window, Post
   $scope.user = Auth.user;
   $scope.signedIn = Auth.signedIn;
   $scope.logout = Auth.logout;
-  var ref = new Firebase("https://flockify.firebaseio.com");
+  var ref = new Firebase(FIREBASE_URL);
   $scope.sorter = '-';
-  
- 
+
+
  $scope.getNumber = function(num) {
-    return new Array(num);   
+    return new Array(num);
 };
 
    $scope.search = function () {
@@ -23,9 +23,9 @@ app.controller('PodcastsCtrl', function($scope, $route, $location, $window, Post
          var type = "podcast";
          $http
            .jsonp('https://itunes.apple.com/search', { params: { term: $scope.searchTerm, entity: type, limit: 15, callback: 'JSON_CALLBACK' } })
-           .success(function (response) { 
+           .success(function (response) {
 
-             $scope.results = response.results; 
+             $scope.results = response.results;
              console.log($scope.results);
 
 
@@ -36,10 +36,10 @@ app.controller('PodcastsCtrl', function($scope, $route, $location, $window, Post
      // $http.post('/api/podcastsearch', body)
 
      //        .success(function(data) {
-                
+
      //            $scope.results = data.results;
      //            console.log($scope.results);
-           
+
      //        })
      //        .error(function(data) {
      //            console.log('Error: ' + data);
@@ -103,9 +103,9 @@ app.controller('PodcastsCtrl', function($scope, $route, $location, $window, Post
             $scope.user_stars = $scope.user_stars + 1;
         ref.child("user_scores").child(post.creator).update({'podcast_score': $scope.score});
         ref.child("user_scores").child(post.creator).update({'stars': $scope.user_stars});
-      
+
     };
-    
+
 });
 };
 
@@ -124,7 +124,7 @@ $scope.clearResults = function(){
   $scope.deletePost = function (post) {
     Post.delete(post);
   	};
-	
+
   $scope.upvote = function(post) {
     if($scope.signedIn() && $scope.user.uid != post.creatorUID){
 
@@ -146,16 +146,16 @@ ref.child('user_scores').child(post.creator).child('podcast_score').on("value", 
         ref.child("user_scores").child(post.creator).update({'podcast_score': $scope.score});
         // ref.child("user_scores").child(post.creatorUID).update({'score': $scope.score});
     };
-    
+
 });
 };
-  
+
 };
 
   $scope.downvote = function(post) {
 
     if($scope.signedIn() && $scope.user.uid != post.creatorUID){
-      
+
    ref.child('user_scores').child(post.creator).child('podcast_score').on("value", function(snapshot) {
   $scope.score = snapshot.val();
 });
@@ -175,17 +175,17 @@ ref.child('user_scores').child(post.creator).child('podcast_score').on("value", 
         // ref.child("user_scores").child(post.creatorUID).update({'score': $scope.score});
 
     };
-    
-});
-};
-  
-};
-
-
 
 });
+};
+
+};
+
+
+
+});
 
 
 
 
-  
+

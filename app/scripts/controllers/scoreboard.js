@@ -1,7 +1,7 @@
 'use strict';
 
-app.controller('ScoreCtrl', function ($scope, $routeParams, Profile, Post, Auth, $firebase) {
-	var ref = new Firebase("https://flockify.firebaseio.com");
+app.controller('ScoreCtrl', function ($scope, $routeParams, Profile, Post, Auth, $firebase, FIREBASE_URL) {
+	var ref = new Firebase(FIREBASE_URL);
 
  //$scope.posts = Post.all;
  $scope.user = Auth.user;
@@ -11,7 +11,7 @@ app.controller('ScoreCtrl', function ($scope, $routeParams, Profile, Post, Auth,
     $scope.comments = Post.comments('scoreboard');
     $scope.sorter = '-album_score';
 
-   
+
   $scope.users = $firebase(ref.child('user_scores')).$asArray();
 
 
@@ -23,4 +23,4 @@ app.controller('ScoreCtrl', function ($scope, $routeParams, Profile, Post, Auth,
 
 
 
-  
+

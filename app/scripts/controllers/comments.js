@@ -1,7 +1,7 @@
 'use strict';
 
-app.controller('CommentsCtrl', function ($scope, $routeParams, Post, Auth, $firebase, Profile, $http, $filter, $sce, $uibModal) {
-  var ref = new Firebase("https://flockify.firebaseio.com");
+app.controller('CommentsCtrl', function ($scope, $routeParams, Post, Auth, $firebase, Profile, $http, $filter, $sce, $uibModal, FIREBASE_URL) {
+  var ref = new Firebase(FIREBASE_URL);
     $scope.user = Auth.user;
   $scope.signedIn = Auth.signedIn;
   $scope.logout = Auth.logout;
@@ -10,8 +10,8 @@ app.controller('CommentsCtrl', function ($scope, $routeParams, Post, Auth, $fire
   $scope.post = Post.get($routeParams.postId);
   $scope.comments = Post.comments($routeParams.postId);
   $scope.gifSearchText = '';
-  // $scope.embed_link = $sce.trustAsResourceUrl("https://embed.spotify.com/?uri=spotify:album:6SwMUCcHLfZjji3MAFODMv"); 
-  
+  // $scope.embed_link = $sce.trustAsResourceUrl("https://embed.spotify.com/?uri=spotify:album:6SwMUCcHLfZjji3MAFODMv");
+
 
    $scope.gifsearch = function(){
 
@@ -19,21 +19,19 @@ app.controller('CommentsCtrl', function ($scope, $routeParams, Post, Auth, $fire
      $http.post('/api/giphysearch', body)
 
             .success(function(data) {
-                
+
                 $scope.gifs = data.data;
-           
+
             })
             .error(function(data) {
                 console.log('Error: ' + data);
             });
 
-   };   
+   };
 
-     $scope.deletePost = function (post) {
-    //Post.delete(post.$id);
-    var postsRef = new Firebase('https://flockify.firebaseio.com/posts/'+post.$id);
-    postsRef.remove();
-    };
+   $scope.deletePost = function (post) {
+        Post.delete(post.$id);
+   };
 
 
   $scope.addComment = function (gif) {
@@ -59,7 +57,7 @@ app.controller('CommentsCtrl', function ($scope, $routeParams, Post, Auth, $fire
    var today = $filter('date')(new Date(),'yyyy-MM-dd HH:mm:ss');
     ref.child("posts").child($scope.post.$id).update({'latest_comment': today});
 
-   
+
   });
 
 
@@ -72,12 +70,12 @@ app.controller('CommentsCtrl', function ($scope, $routeParams, Post, Auth, $fire
   $scope.comments_count = snapshot.child("comments").child($scope.post.$id).numChildren();
   console.log($scope.comments_count);
    ref.child("posts").child($scope.post.$id).update({'comments': $scope.comments_count});
-   
+
   });
 };
 
  $scope.getNumber = function(num) {
-    return new Array(num);   
+    return new Array(num);
 };
 
   $scope.upvote = function(post) {
@@ -107,16 +105,16 @@ ref.child('user_scores').child(post.creator).child('weekly_scores').child('album
         ref.child("user_scores").child(post.creator).child('weekly_scores').update({'album_score': $scope.weekly_score});
         // ref.child("user_scores").child(post.creatorUID).update({'score': $scope.score});
     };
-    
+
 });
 };
-  
+
 };
 
   $scope.downvote = function(post) {
 
     if($scope.signedIn() && $scope.user.uid != post.creatorUID){
-      
+
    ref.child('user_scores').child(post.creator).child('album_score').on("value", function(snapshot) {
   $scope.score = snapshot.val();
 });
@@ -144,10 +142,10 @@ ref.child('user_scores').child(post.creator).child('weekly_scores').child('album
     };
 
 
-    
+
 });
 };
-  
+
 };
 
 

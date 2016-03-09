@@ -1,5 +1,5 @@
 'use strict';
-app.controller('PostsCtrl', function($scope, $route, $location, $window, Post, Auth, Spotify,$uibModal, Profile, $firebase, $filter){
+app.controller('PostsCtrl', function($scope, $route, $location, $window, Post, Auth, Spotify,$uibModal, Profile, $firebase, $filter, FIREBASE_URL){
 
  $scope.posts = Post.all;
  $scope.user = Auth.user;
@@ -8,22 +8,22 @@ app.controller('PostsCtrl', function($scope, $route, $location, $window, Post, A
   $scope.user = Auth.user;
   $scope.signedIn = Auth.signedIn;
   $scope.logout = Auth.logout;
-  var ref = new Firebase("https://flockify.firebaseio.com");
+  var ref = new Firebase(FIREBASE_URL);
   $scope.sorter = '-';
-  
+
 
   $scope.albumPosts = {};
 angular.forEach($scope.posts, function(item, key) {
     if ($scope.post.media_type == 'spotify') { $scope.albumPosts[key] = item; };
 });
- 
+
  $scope.getNumber = function(num) {
-    return new Array(num);   
+    return new Array(num);
 };
 
  $scope.search = function(){
    Spotify.search($scope.post.search + '*', 'artist,album').then(function (data) {
-    
+
   $scope.results = data.albums.items;
 
   var post_names = $.map($scope.posts, function(post, idx){ return post.album;})
@@ -86,9 +86,9 @@ angular.forEach($scope.posts, function(item, key) {
         ref.child("user_scores").child(post.creator).update({'album_score': $scope.score});
         ref.child("user_scores").child(post.creator).update({'stars': $scope.user_stars});
         ref.child("user_scores").child(post.creator).child('weekly_scores').update({'album_score': $scope.weekly_score});
-       
+
     };
-    
+
 });
 };
 
@@ -103,7 +103,7 @@ $scope.clearResults = function(){
   $scope.deletePost = function (post) {
     Post.delete(post);
   	};
-	
+
   $scope.upvote = function(post) {
     if($scope.signedIn() && $scope.user.uid != post.creatorUID){
 
@@ -131,16 +131,16 @@ ref.child('user_scores').child(post.creator).child('weekly_scores').child('album
         ref.child("user_scores").child(post.creator).child('weekly_scores').update({'album_score': $scope.weekly_score});
         // ref.child("user_scores").child(post.creatorUID).update({'score': $scope.score});
     };
-    
+
 });
 };
-  
+
 };
 
   $scope.downvote = function(post) {
 
     if($scope.signedIn() && $scope.user.uid != post.creatorUID){
-      
+
    ref.child('user_scores').child(post.creator).child('album_score').on("value", function(snapshot) {
   $scope.score = snapshot.val();
 });
@@ -168,10 +168,10 @@ ref.child('user_scores').child(post.creator).child('weekly_scores').child('album
     };
 
 
-    
+
 });
 };
-  
+
 };
 
 
@@ -183,7 +183,7 @@ ref.child('user_scores').child(post.creator).child('weekly_scores').child('album
  //    ref.child("posts").child(post.$id).update({'media_type': 'spotify'});
  // });
 
-  
+
  // }
 
 
@@ -193,4 +193,4 @@ ref.child('user_scores').child(post.creator).child('weekly_scores').child('album
 
 
 
-  
+

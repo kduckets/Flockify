@@ -1,7 +1,7 @@
 'use strict';
 
-app.controller('ProfileCtrl', function ($scope, $routeParams, Profile, Post, Auth, $firebase, $uibModal) {
-	var ref = new Firebase("https://flockify.firebaseio.com");
+app.controller('ProfileCtrl', function ($scope, $routeParams, Profile, Post, Auth, $firebase, $uibModal, FIREBASE_URL) {
+	var ref = new Firebase(FIREBASE_URL);
         $scope.sorter = '-';
 	  $scope.user = Auth.user;
   $scope.signedIn = Auth.signedIn;
@@ -12,7 +12,7 @@ app.controller('ProfileCtrl', function ($scope, $routeParams, Profile, Post, Aut
   var uid = $routeParams.userId;
   $scope.profile = Profile.get(uid);
   //get likes
-     Profile.getLikes(uid).then(function(posts) {  
+     Profile.getLikes(uid).then(function(posts) {
     $scope.likes = posts;
     //console.log($scope.likes);
    });
@@ -30,19 +30,19 @@ app.controller('ProfileCtrl', function ($scope, $routeParams, Profile, Post, Aut
 
   });
 
- 
-  
+
+
     $scope.view_tab = 'tabA';
 
   $scope.changeTab = function(tab) {
     $scope.view_tab = tab;
 };
 
-   
+
 
  $scope.getNumber = function(num) {
-    return new Array(num);   
-}; 
+    return new Array(num);
+};
 
   $scope.deletePost = function (post) {
     //Post.delete(post.$id);

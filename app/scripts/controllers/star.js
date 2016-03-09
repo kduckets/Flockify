@@ -1,13 +1,13 @@
 'use strict';
 
-app.controller('StarCtrl', function ($scope, $route, $location, $window, Post, Auth, $http, $cookies, $modalInstance, $firebase, post, Profile) {
+app.controller('StarCtrl', function ($scope, $route, $location, $window, Post, Auth, $http, $cookies, $modalInstance, $firebase, post, Profile, FIREBASE_URL) {
 
   $scope.user = Auth.user;
   $scope.signedIn = Auth.signedIn;
   $scope.logout = Auth.logout;
   $scope.post = post;
-   var ref = new Firebase("https://flockify.firebaseio.com");
-  
+   var ref = new Firebase(FIREBASE_URL);
+
       $scope.current_vote = $firebase(ref.child('user_votes').child($scope.user.uid).child(post.$id).child('star')).$asObject();
     $scope.current_vote.$loaded().then(function(res) {
 
@@ -25,7 +25,7 @@ app.controller('StarCtrl', function ($scope, $route, $location, $window, Post, A
 
     $scope.cancel = function(){
      $modalInstance.close();
-    
+
   };
 
   $scope.addStar = function(post){
@@ -55,7 +55,7 @@ app.controller('StarCtrl', function ($scope, $route, $location, $window, Post, A
         ref.child("user_scores").child(post.creator).update({'stars': $scope.user_stars});
         $modalInstance.close();
     };
-    
+
 });
 };
 
@@ -64,8 +64,8 @@ app.controller('StarCtrl', function ($scope, $route, $location, $window, Post, A
 
 
  $scope.getNumber = function(num) {
-    return new Array(num);   
+    return new Array(num);
 };
-  
+
 
 });

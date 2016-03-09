@@ -26,6 +26,7 @@ app.factory('Post', function ($firebase, FIREBASE_URL) {
       return $firebase(ref.child('comments').child(postId)).$asArray();
     },
 
+    // unused
     commentVote: function(postId, commentId, votes){
       return ref.child('comments').child(postId).child(commentId).update({'votes': votes});
     },
