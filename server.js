@@ -12,7 +12,6 @@
     var crypto = require('crypto'); //ACR api calls
     var request = require('request');
     var Firebase = require("firebase");
-    var firebaseRef = new Firebase("https://megastream.firebaseio.com/");
     var giphy = require('giphy-api')();
     var Audiosearch = require('audiosearch-client-node');
     var rsj = require('rsj');
