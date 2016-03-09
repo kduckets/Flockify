@@ -39,20 +39,6 @@ app.controller('ProfileCtrl', function ($scope, $routeParams, Profile, Post, Aut
 };
 
    
-  $scope.starPost = function(post){
-     if($scope.signedIn() && $scope.user.uid != post.creatorUID){
- var modalInstance = $uibModal.open({
-    templateUrl: 'views/star.html',
-    scope: $scope,
-    controller: 'StarCtrl',
-    resolve: {
-      post: function () {
-        return post;
-      }
-    }
-});
-}
- };
 
  $scope.getNumber = function(num) {
     return new Array(num);   
@@ -65,58 +51,5 @@ app.controller('ProfileCtrl', function ($scope, $routeParams, Profile, Post, Aut
   	};
 
 
-  $scope.upvote = function(post) {
-    if($scope.signedIn() && $scope.user.uid != post.creatorUID){
-
-        ref.child('user_scores').child(post.creator).child('score').on("value", function(snapshot) {
-  $scope.score = snapshot.val();
-});
-
-    $scope.current_vote = $firebase(ref.child('user_votes').child($scope.user.uid).child(post.$id).child('vote')).$asObject();
-    $scope.current_vote.$loaded().then(function(res) {
-
-    if(res.$value == 'up'){
-      //do nothing
-    };
-    if(res.$value == 'down' || !res.$value){
-        post.votes +=1;
-        Post.vote(post.$id, post.votes);
-        Profile.setVote($scope.user.uid, post.$id, 'up');
-            $scope.score = $scope.score + 1;
-        ref.child("user_scores").child(post.creator).update({'score': $scope.score});
-    };
-    
-});
-};
-  
-};
-
-  $scope.downvote = function(post) {
-
-    if($scope.signedIn() && $scope.user.uid != post.creatorUID){
-
-        ref.child('user_scores').child(post.creator).child('score').on("value", function(snapshot) {
-  $scope.score = snapshot.val();
-});
-
-    $scope.current_vote = $firebase(ref.child('user_votes').child($scope.user.uid).child(post.$id).child('vote')).$asObject();
-    $scope.current_vote.$loaded().then(function(res) {
-    if(res.$value == 'down'){
-      //do nothing
-    };
-
-    if(res.$value == 'up' || !res.$value){
-        post.votes -=1;
-        Post.vote(post.$id, post.votes);
-        Profile.setVote($scope.user.uid, post.$id, 'down');
-        $scope.score = $scope.score - 1;
-        ref.child("user_scores").child(post.creator).update({'score': $scope.score});
-
-    };
-    
-});
-};
-  
-};
 
 });

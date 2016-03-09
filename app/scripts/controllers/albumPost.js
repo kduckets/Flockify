@@ -6,6 +6,7 @@ app.controller('AlbumCtrl', function ($scope, $route, $location, $window, Post, 
   $scope.signedIn = Auth.signedIn;
   $scope.logout = Auth.logout;
   $scope.album = album;
+  $scope.posts = Post.all;
   
 
 
@@ -40,6 +41,10 @@ app.controller('AlbumCtrl', function ($scope, $route, $location, $window, Post, 
   };
 
    $scope.submitPost = function () {
+    // angular.forEach($scope.posts, function(item, key) {
+    //   if item.
+
+    // });
   $scope.post.creator = $scope.user.profile.username;
   $scope.post.summary = $scope.summary;
   $scope.post.creatorUID = $scope.user.uid;
