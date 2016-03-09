@@ -51,6 +51,7 @@ app.controller('AlbumCtrl', function ($scope, $route, $location, $window, Post, 
   $scope.post.album = $scope.album;
   $scope.post.artist = $scope.artist;
    //$scope.post.image_large= $scope.image_large;
+  //var genres= $.map($scope.posts, function(post, idx){ return post.album;})
   $scope.post.image_medium = $scope.image_large;
   $scope.post.image_small = $scope.image_small;
   $scope.post.spotify_uri = $scope.spotify_uri;

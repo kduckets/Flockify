@@ -5,7 +5,8 @@
     </div>
    <small>go to <a href="/#/">albums</a> | <a href="/#/podcasts">podcasts</a> 
     | <a href="/#/movies">movies</a> | <a href="/#/books">books</a></small>
-<form ng-submit="search()" ng-show="signedIn()" class="form-inline search-form">
+
+<!-- <form ng-submit="search()" ng-show="signedIn()" class="form-inline search-form">
 
 <input type="text" placeholder="post a podcast" class="form-control" ng-model="searchTerm" /> 
 
@@ -13,7 +14,17 @@
 <button type="submit" value="" class="btn btn-primary"><i class="fa fa-search"></i></button> 
 <button class="btn btn-secondary" ng-click="clearResults()"><i class="fa fa-ban"></i></button>
 
-</form>
+</form> -->
+
+<div class="box">
+  <div class="container-1">
+    <form ng-submit="search()" ng-show="signedIn()" class="form-inline search-form">
+      <button class="icon"><i class="fa fa-search"></i></span></button>
+      <input type="text" name="focus" id="search" required class="search-box form-control" ng-model="searchTerm" placeholder=" post a podcast"/>
+      <button class="close-icon" type="reset" ng-click="clearResults()"><i class="fa fa-times"></i></button>
+    </form>
+  </div>
+</div>
 
 <div class="list-group" ng-repeat="result in results" align="left">
 
@@ -62,15 +73,15 @@
   
     
  
-       <a ng-href="{{post.link}}" target="_blank">
+       <a ng-href="{{post.external_link}}" target="_blank">
         <img class="post" ng-src="{{post.image_medium}}" />
         </a>
          
            <img class="arrow" ng-click="downvote(post)" src="/images/down.png" height="30"></img>
 
         <br/>
-        <a ng-href="{{post.link}}" target="_blank">
-     {{ post.album }} - {{ post.title }} ({{post.release_date | limitTo: 10}})</a> 
+        <a ng-href="{{post.external_link}}" target="_blank">
+     {{ post.album }} - {{ post.title }} ({{post.release_date | limitTo: 10}})</a> <a ng-href="{{post.link}}"><img src="/images/itunes.png" height="30px" /></a>
       <a data-toggle="modal" ng-click="starPost(post)" href="" >  <div><img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18" />
      <img ng-src="/images/empty-star.png" height="18" /></a></div>
        <div>
