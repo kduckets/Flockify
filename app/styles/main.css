@@ -17,6 +17,11 @@ img.post:hover {
 
 /*width: 300px;*/
 }
+
+img.gif:hover {
+
+height: 300px;
+}
 img.comments{
   height: 50% !important;
   width: 50% !important;

@@ -49,7 +49,7 @@
 
   <div ng-repeat="comment in comments | orderBy:'-votes'" class="row cmt">
     <div class="col-md-12">
-   <p><img ng-src="{{comment.text}}" height="100" /></p>
+   <p><img ng-src="{{comment.text}}" height="100" class="gif" /></p>
       <p class="author">posted by
         <a ng-href="#/users/{{ comment.creatorUID }}">
           {{ comment.creator }}
