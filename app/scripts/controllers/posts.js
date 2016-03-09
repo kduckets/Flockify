@@ -26,6 +26,14 @@ angular.forEach($scope.posts, function(item, key) {
     
   $scope.results = data.albums.items;
 
+  var post_names = $.map($scope.posts, function(post, idx){ return post.album;})
+
+  angular.forEach($scope.results, function(result, key) {
+    if(post_names.indexOf(result.name) != -1){
+        //console.log(result, key);
+        result.name += ' **already been posted**';
+    }
+  });
 
 });
 
@@ -44,21 +52,6 @@ angular.forEach($scope.posts, function(item, key) {
 });
 
  };
-
-//   $scope.starPost = function(post){
-//      if($scope.signedIn() && $scope.user.uid != post.creatorUID){
-//  var modalInstance = $uibModal.open({
-//     templateUrl: 'views/star.html',
-//     scope: $scope,
-//     controller: 'StarCtrl',
-//     resolve: {
-//       post: function () {
-//         return post;
-//       }
-//     }
-// });
-// }
-//  };
 
   $scope.starPost = function(post){
       if($scope.signedIn() && $scope.user.uid != post.creatorUID){
