@@ -58,7 +58,7 @@ app.controller('ChatCtrl', function ($scope, $routeParams, Post, Auth, $firebase
 
     var comment = {
       // text: $scope.commentText,
-      text: '<img src="'+ gif+ '" height="100" class="gif" />',
+      text: '<img src="'+ gif+ '" height="80" class="gif" />',
       type: 'gif',
       creator: $scope.user.profile.username,
       creatorUID: $scope.user.uid,
