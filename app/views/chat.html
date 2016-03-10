@@ -2,7 +2,7 @@
 
 <h2 align="center">Flockify Huddle</h2>
 
-  <div ng-repeat="comment in comments | orderBy:'-'" class="row cmt">
+  <div ng-repeat="comment in comments.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))" class="row cmt">
     <div class="col-md-12">
      <p>
         <a ng-href="#/users/{{ comment.creatorUID }}">
@@ -13,7 +13,14 @@
    
     </div>
   </div>
-    <uib-pagination boundary-links="true" total-items="totalItems" ng-model="currentPage" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;" items-per-page="2"></uib-pagination>
+  <hr class="style-two"></a>
+  <uib-pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages" items-per-page="itemsPerPage" first-text="<<" last-text=">>" next-text=">" previous-text="<"></uib-pagination>
+    <pre>Page: {{currentPage}} / {{numPages}}</pre>
+
+
+
+
+                
 
   <div class="cmt-form">
 <!--     <div ng-hide="signedIn()">
