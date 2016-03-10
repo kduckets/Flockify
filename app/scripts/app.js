@@ -31,6 +31,10 @@ var app = angular
   templateUrl: 'views/posts.html',
   controller: 'PostsCtrl'
       })
+      .when('/chat', {
+  templateUrl: 'views/chat.html',
+  controller: 'ChatCtrl'
+      })
       .when('/posts/:postId', {
   templateUrl: 'views/comments.html',
   controller: 'CommentsCtrl'
