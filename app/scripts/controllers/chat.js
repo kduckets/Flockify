@@ -10,6 +10,32 @@ app.controller('ChatCtrl', function ($scope, $routeParams, Post, Auth, $firebase
   $scope.gifSearchText = '';
    $scope.comments = Post.comments('flock_groupchat');
 
+ 
+  // $scope.itemsPerPage = 10
+  // $scope.currentPage = 1;
+
+  // $scope.pageCount = function () {
+  //   return Math.ceil($scope.comments.length / $scope.itemsPerPage);
+  // };
+
+  // $scope.comments.$promise.then(function () {
+  //   $scope.totalItems = $scope.comments.length;
+  //   $scope.$watch('currentPage + itemsPerPage', function() {
+  //     var begin = (($scope.currentPage - 1) * $scope.itemsPerPage),
+  //       end = begin + $scope.itemsPerPage;
+
+  //     $scope.filteredComments = $scope.comments.slice(begin, end);
+  //   });
+  //    });
+
+  // $scope.setPage = function (pageNo) {
+  //   $scope.currentPage = pageNo;
+  // };
+
+  // $scope.pageChanged = function() {
+  //   console.log('Page changed to: ' + $scope.currentPage);
+  // };
+
 
    $scope.gifsearch = function(){
 
