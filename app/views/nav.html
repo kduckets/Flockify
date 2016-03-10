@@ -3,11 +3,11 @@
         <a class="navbar-brand" href="/#/"><h3>Flockify<h3></a> 
     <div ng-controller="NavCtrl">
         <ul id="menu-standard" class="nav pull-md-right pull-xs-right">
-          <li><a class="nav-link" ng-href="#/scoreboard"><i class="fa fa-trophy"></i></a></li>
+          <li ng-show="signedIn()"><a class="nav-link" ng-href="#/scoreboard"><i class="fa fa-trophy"></i></a></li>
           <li ng-show="signedIn()"><a class="nav-link" ng-href="#/users/{{ user.uid }}"><i class="fa fa-user"></i></a></li>
           <li ng-show="signedIn()"><a class="nav-link" href="/#/" ng-click="logout()"><i class="fa fa-sign-out"></i></a></li>
-          <li ng-hide="signedIn()"><a class="nav-link" href="#/login"><i class="fa fa-sign-in"></i></a></li>
-          <li ng-hide="signedIn()"><a class="nav-link" href="#/register"><i class="fa fa-pencil-square-o"></i></a></li>
+         <!--  <li ng-hide="signedIn()"><a class="nav-link" href="#/login"><i class="fa fa-sign-in"></i></a></li>
+          <li ng-hide="signedIn()"><a class="nav-link" href="#/register"><i class="fa fa-pencil-square-o"></i></a></li> -->
         </ul>
     </div>  
   </nav> 

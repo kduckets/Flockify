@@ -1,8 +1,11 @@
     
   
 <div align="center">
+
  <div ng-hide="signedIn()">
-      <p><a href="#/login">Sign in</a> or <a ng-href="#/register">register</a> to post or vote</p>
+ <h2>Welcome to flockify</h2>
+      <p><a href="/#/login">Sign in</a> to get started</p>
+       <!--  <div ng-include="'views/login.html'"></div> -->
     </div>
 
     <small>go to <a href="/#/">albums</a> | <a href="/#/podcasts">podcasts</a> 
@@ -38,7 +41,7 @@
       <option value="-votes" ng-click="sorter = '-votes'">popular</option>
       <option value="votes" ng-click="sorter = 'votes'">unpopular</option>
     </select> -->
-<div align="center">
+<div align="center" ng-show="signedIn()">
 <div class="sort-links">
   <a href ng-click="sorter = '-votes'">popular</a>
    <a href ng-click="sorter = '-'">new</a>
