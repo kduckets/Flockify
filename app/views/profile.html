@@ -34,7 +34,7 @@
 </div>
  <br/>
 
-  <div ng-repeat="(key,post) in user_posts | orderBy:sorter" ng-show="view_tab == 'tabA'" align="center" >
+  <div ng-repeat="(key,post) in user_posts | orderBy:'-'" ng-show="view_tab == 'tabA'" align="center" >
      <div class="post" ng-show="post.artist">
 <!--     <img ng-click="upvote(post)" src="/images/up.png" height="30"></img> -->
  
@@ -70,7 +70,7 @@
 
 
 
-   <div ng-repeat="post in likes | orderBy:sorter" ng-show="view_tab == 'tabB'" align="center">
+   <div ng-repeat="post in likes | orderBy:'-'" ng-show="view_tab == 'tabB'" align="center">
 
      <div class="post" ng-show="post.artist">
     

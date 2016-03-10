@@ -56,7 +56,10 @@ app.controller('AlbumCommentsCtrl', function ($scope, $routeParams, Post, Auth, 
     ref.once("value", function(snapshot) {
   $scope.comments_count = snapshot.child("comments").child($scope.post.$id).numChildren();
    ref.child("posts").child($scope.post.$id).update({'comments': $scope.comments_count});
-   var today = $filter('date')(new Date(),'yyyy-MM-dd HH:mm:ss');
+  
+   var date = new Date();
+   date.setMinutes(date.getTimezoneOffset());
+    var today = $filter('date')(new Date(),'yyyy-MM-dd HH:mm:ss Z');
     ref.child("posts").child($scope.post.$id).update({'latest_comment': today});
 
    
