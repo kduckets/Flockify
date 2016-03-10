@@ -8,20 +8,25 @@ app.controller('ChatCtrl', function ($scope, $routeParams, Post, Auth, $firebase
    $scope.posts = Post.all;
     $scope.user = Auth.user;
   $scope.gifSearchText = '';
+  
+
+        ref.once("value", function(snapshot) {
+  $scope.totalItems = snapshot.child("comments").child("flock_groupchat").numChildren();
+  $scope.currentPage = Math.round($scope.totalItems / $scope.itemsPerPage);
   $scope.comments = Post.comments('flock_groupchat');
+  //console.log($scope.totalItems);
+ 
+});
+  
+
   $scope.viewby = 10;
 
   $scope.itemsPerPage = $scope.viewby;
   $scope.maxSize = 5; //Number of pager buttons to show
 
-ref.once("value", function(snapshot) {
 
-  $scope.totalItems = snapshot.child("comments").child("flock_groupchat").numChildren();
 
-  $scope.currentPage = Math.round($scope.totalItems / $scope.itemsPerPage);
-  //console.log($scope.totalItems);
- 
-});
+
 
   
 
@@ -37,32 +42,6 @@ $scope.setItemsPerPage = function(num) {
   $scope.itemsPerPage = num;
   $scope.currentPage = 1; //reset to first paghe
 };
- 
-  // $scope.itemsPerPage = 10
-  // $scope.currentPage = 1;
-
-  // $scope.pageCount = function () {
-  //   return Math.ceil($scope.comments.length / $scope.itemsPerPage);
-  // };
-
-  // $scope.comments.$promise.then(function () {
-  //   $scope.totalItems = $scope.comments.length;
-  //   $scope.$watch('currentPage + itemsPerPage', function() {
-  //     var begin = (($scope.currentPage - 1) * $scope.itemsPerPage),
-  //       end = begin + $scope.itemsPerPage;
-
-  //     $scope.filteredComments = $scope.comments.slice(begin, end);
-  //   });
-  //    });
-
-  // $scope.setPage = function (pageNo) {
-  //   $scope.currentPage = pageNo;
-  // };
-
-  // $scope.pageChanged = function() {
-  //   console.log('Page changed to: ' + $scope.currentPage);
-  // };
-
 
    $scope.gifsearch = function(){
 
