@@ -19,7 +19,7 @@ app.controller('ChatCtrl', function ($scope, $routeParams, Post, Auth, $firebase
 });
   
 
-  $scope.viewby = 10;
+  $scope.viewby = 15;
 
   $scope.itemsPerPage = $scope.viewby;
   $scope.maxSize = 5; //Number of pager buttons to show
