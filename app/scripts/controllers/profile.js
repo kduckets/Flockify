@@ -55,7 +55,7 @@ app.controller('ProfileCtrl', function ($scope, $routeParams, Profile, Post, Aut
   $scope.removeSaved = function(post){
  Profile.savePost($scope.user.uid, post.$id, 'no');
 
- $location.path("#/albums/"+ post.$id);
+ $location.path("/#/albums/"+ post.$id);
 
   };
 

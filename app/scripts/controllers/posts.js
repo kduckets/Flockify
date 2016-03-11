@@ -12,6 +12,7 @@ app.controller('PostsCtrl', function($scope, $route, $location, $window, Post, A
   $scope.sorter = '-';
 
 
+
   $scope.albumPosts = {};
 angular.forEach($scope.posts, function(item, key) {
     if ($scope.post.media_type == 'spotify') { $scope.albumPosts[key] = item; };
@@ -43,6 +44,7 @@ angular.forEach($scope.posts, function(item, key) {
     if($scope.signedIn() && $scope.user.uid != post.creatorUID){
 
         Profile.savePost($scope.user.uid, post.$id, 'yes');
+        // $scope.post.saveButtonText = 'saved';
   
     };
     

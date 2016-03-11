@@ -99,7 +99,7 @@
 
             <img class="arrow" ng-click="downvote(post)" src="/images/down.png" height="30"></img>
      
-          <div style="padding-top:5px; padding-bottom:30px"> 
+          <div style="padding-top:5px; padding-bottom:10px"> 
      <div>   <a data-toggle="modal" ng-click="starPost(post)" href="" >  <div><img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18" />
      <img ng-src="/images/empty-star.png" height="18" /></a></div>
          <div>
@@ -118,7 +118,7 @@
 
        
 <small>(posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator}}</a>)</small>
-                      <div><small> <button class="btn btn-success-outline btn-sm" style="font-size:10px" ng-click="save(post)" data-toggle="modal" data-target=".bd-example-modal-sm">save to my queue</button></small></div>
+                      <div><small> <button class="btn btn-success-outline btn-sm" style="font-size:10px"ng-click="save(post)" data-toggle="modal" data-target=".bd-example-modal-sm">save to my queue</button></small></div>
 <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="Save to queue" aria-hidden="true">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
