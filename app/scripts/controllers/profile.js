@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('ProfileCtrl', function ($scope, $routeParams, Profile, Post, Auth, $firebase, $uibModal, FIREBASE_URL) {
+app.controller('ProfileCtrl', function ($scope, $routeParams, Profile, Post, Auth, $firebase, $uibModal, FIREBASE_URL, $location) {
 	var ref = new Firebase(FIREBASE_URL);
         $scope.sorter = '-';
 	  $scope.user = Auth.user;
@@ -54,6 +54,8 @@ app.controller('ProfileCtrl', function ($scope, $routeParams, Profile, Post, Aut
 
   $scope.removeSaved = function(post){
  Profile.savePost($scope.user.uid, post.$id, 'no');
+
+ $location.path("#/albums/"+ post.$id);
 
   };
 

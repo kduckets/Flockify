@@ -115,7 +115,10 @@
 
       
        <div><span class="label label-default">{{post.genre}}</span></div>
-                       <a href="" ng-click="save(post)" class="arrow" data-toggle="modal" data-target=".bd-example-modal-sm"><img src="/images/save.png" height="25px"></a>
+
+       
+<small>(posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator}}</a>)</small>
+                      <div><small> <button type="image" ng-click="save(post)" data-toggle="modal" data-target=".bd-example-modal-sm">save to my queue</button></small></div>
 <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="Save to queue" aria-hidden="true">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
@@ -123,8 +126,6 @@
     </div>
   </div>
 </div>
-       
-<small>(posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator}}</a>)</small>
 
       
 <hr class="style-two"></a>
