@@ -14,7 +14,6 @@ app.controller('ProfileCtrl', function ($scope, $routeParams, Profile, Post, Aut
   //get likes
      Profile.getLikes(uid).then(function(posts) {
     $scope.likes = posts;
-    //console.log($scope.likes);
    });
 
      //get posts
@@ -30,6 +29,9 @@ app.controller('ProfileCtrl', function ($scope, $routeParams, Profile, Post, Aut
 
   });
 
+     Profile.getQueue(uid).then(function(posts) {
+    $scope.queue = posts;
+   });
 
 
     $scope.view_tab = 'tabA';
@@ -50,6 +52,11 @@ app.controller('ProfileCtrl', function ($scope, $routeParams, Profile, Post, Aut
     postsRef.remove();
   	};
 
+  $scope.removeSaved = function(post){
+ Profile.savePost($scope.user.uid, post.$id, 'no');
 
+  };
+
+  
 
 });

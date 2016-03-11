@@ -7,6 +7,8 @@
     <div align="center">
       <span ng-show="view_tab == 'tabA'" class="name">posts by {{ profile.username }}</span>
       <span ng-show="view_tab == 'tabB'" class="name">likes by {{ profile.username }}</span>
+      <span ng-show="view_tab == 'tabC'" class="name">queue for {{ profile.username }}</span>
+
  <!--       <p>
      score: {{score}}
       <br/>
@@ -31,6 +33,7 @@
     <div class="btn-group-lg" role="group" aria-label="profiletabs" align="center">
   <button type="button" class="btn btn-secondary" ng-class="{'active': view_tab == 'tabA'}" ng-click="changeTab('tabA')" >posts</button>
   <button type="button" class="btn btn-secondary" ng-class="{'active': view_tab == 'tabB'}" ng-click="changeTab('tabB')" >likes</button>
+   <button type="button" class="btn btn-secondary" ng-class="{'active': view_tab == 'tabC'}" ng-click="changeTab('tabC')" >queue</button>
 </div>
  <br/>
 
@@ -99,6 +102,48 @@
          <small><a href="" ng-click="deletePost(post)" ng-show="user.uid === post.creatorUID">&mdash; delete</a></small>
         </p>
  </div>
+   
+  </div>
+
+
+
+     <div ng-repeat="post in queue | orderBy:'-'" ng-show="view_tab == 'tabC'" align="center">
+
+
+
+     <!--  <img class="arrow" ng-click="upvote(post)" src="/images/up.png" height="30" ></img> -->
+
+ <a ng-href="#/albums/{{ post.$id  }}" >
+        <span class="post-image"><img class="post" ng-src="{{post.image_medium}}" />
+     <span class="score label label-default label-default">   {{ post.votes }} </span> 
+       <span class="comments-icon"><img ng-src="/images/comments.png" height="35px" />
+    <span class="after label label-pill label-danger"> {{post.comments}} </span></span>
+     </span>
+       
+        </a>
+
+           <!--  <img class="arrow" ng-click="downvote(post)" src="/images/down.png" height="30"></img> -->
+     
+          <div style="padding-top:15px; padding-bottom:10px"> 
+     <div><img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18" />
+    </div>
+         <div>
+
+        <a ng-href="#/albums/{{ post.$id  }}">
+     {{ post.artist }} - {{ post.album }} ({{post.release_date | limitTo: 4}})</a> 
+</div>
+ <div>
+       <a ng-href="#/albums/{{ post.$id  }}"><span class="label label-pill label-info">{{ post.summary | limitTo: 40 }}{{post.summary.length > 40 ? '..' : ''}}</span></a>
+       </div> 
+       <small>(posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator}}</a>)</small>
+
+<p><small><a href="" ng-click="removeSaved(post)">remove from my queue</a></small></p>  
+       
+      </div> 
+       
+
+      
+<hr class="style-two"></a>
    
   </div>
 </div>

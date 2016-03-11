@@ -83,6 +83,16 @@ app.controller('AlbumCommentsCtrl', function ($scope, $routeParams, Post, Auth, 
     return new Array(num);   
 };
 
+  $scope.save = function(post) {
+    if($scope.signedIn() && $scope.user.uid != post.creatorUID){
+
+        Profile.savePost($scope.user.uid, post.$id, 'yes');
+  
+    };
+    
+};
+
+
   $scope.upvote = function(post) {
     if($scope.signedIn() && $scope.user.uid != post.creatorUID){
 
