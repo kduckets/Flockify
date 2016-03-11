@@ -9,20 +9,22 @@ app.controller('ChatCtrl', function ($scope, $routeParams, Post, Auth, $firebase
     $scope.user = Auth.user;
   $scope.gifSearchText = '';
   
+    $scope.viewby = 12;
+
+  $scope.itemsPerPage = $scope.viewby;
+  $scope.maxSize = 5; //Number of pager buttons to show
+  
 
         ref.once("value", function(snapshot) {
   $scope.totalItems = snapshot.child("comments").child("flock_groupchat").numChildren();
-  $scope.currentPage = Math.round($scope.totalItems / $scope.itemsPerPage);
+  $scope.currentPage = Math.ceil($scope.totalItems / $scope.itemsPerPage);
   $scope.comments = Post.comments('flock_groupchat');
   //console.log($scope.totalItems);
  
 });
   
 
-  $scope.viewby = 12;
 
-  $scope.itemsPerPage = $scope.viewby;
-  $scope.maxSize = 5; //Number of pager buttons to show
 
 
 
