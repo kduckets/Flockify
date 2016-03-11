@@ -30,7 +30,15 @@
 
     <a href="" data-toggle="tooltip" title="Not into this one" data-placement="top"><img class="arrow" ng-click="downvote(post)" src="/images/down.png" height="30"></img></a>
 
-    <a href="" ng-click="save(post)" class="arrow"><i class="fa fa-save fa-2x" style=" vertical-align: middle;" ></i></a>
+    <a href="" ng-click="save(post)" class="arrow" data-toggle="modal" data-target=".bd-example-modal-sm"><i class="fa fa-save fa-2x" style=" vertical-align: middle;" ></i></a>
+
+<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="Save to queue" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      This is album has been saved to your queue.
+    </div>
+  </div>
+</div>
 
 
      
