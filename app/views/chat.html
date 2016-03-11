@@ -7,7 +7,7 @@
      <p>
         <a ng-href="#/users/{{ comment.creatorUID }}">
           <b>{{ comment.creator }}</b>
-        </a> <i> <span>({{comment.datetime_ts | date:'dd-MM-yy HH:mm'}})</span></i>: <p ng-bind-html="comment.text"></p></p>
+        </a> <i> <span><small>({{comment.datetime_ts | date:'dd-MM-yy HH:mm'}})</small></span></i>: <p ng-bind-html="comment.text"></p></p>
  <!--   <p><img ng-src="{{comment.text}}" height="100" class="gif" /></p> -->
   
    
