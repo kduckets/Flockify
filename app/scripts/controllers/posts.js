@@ -39,6 +39,15 @@ angular.forEach($scope.posts, function(item, key) {
 
  };
 
+   $scope.save = function(post) {
+    if($scope.signedIn() && $scope.user.uid != post.creatorUID){
+
+        Profile.savePost($scope.user.uid, post.$id, 'yes');
+  
+    };
+    
+};
+
  $scope.viewAlbum = function(album){
  var modalInstance = $uibModal.open({
     templateUrl: 'views/albumPost.html',

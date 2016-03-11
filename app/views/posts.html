@@ -90,11 +90,12 @@
  <a ng-href="#/albums/{{ post.$id  }}" >
         <span class="post-image"><img class="post" ng-src="{{post.image_medium}}" />
      <span class="score label label-default label-default">   {{ post.votes }} </span> 
+     
        <span class="comments-icon"><img ng-src="/images/comments.png" height="35px" />
-    <span class="after label label-pill label-danger"> {{post.comments}} </span></span>
+    <span class="after label label-pill label-danger"> {{post.comments}} </span>   </span>
+  </a>
      </span>
        
-        </a>
 
             <img class="arrow" ng-click="downvote(post)" src="/images/down.png" height="30"></img>
      
@@ -108,27 +109,23 @@
 </div>
  <div>
        <a ng-href="#/albums/{{ post.$id  }}"><span class="label label-pill label-info">{{ post.summary | limitTo: 40 }}{{post.summary.length > 40 ? '..' : ''}}</span></a>
-       </div>
-      
+       </div>   
 
-    
-
- 
-
-     <!--  <img ng-src="/images/meh.png" height="30" class="arrow" /> -->
-
- <!--     <a data-toggle="modal" ng-click="starPost(post)" href="" >  <img ng-src="/images/empty-star.png" height="32" style="padding-bottom:2px;padding-left:5px;" /></a> -->
-
-  
-   
-  
-     
       </div>  
 
       
        <div><span class="label label-default">{{post.genre}}</span></div>
+                       <a href="" ng-click="save(post)" class="arrow" data-toggle="modal" data-target=".bd-example-modal-sm"><img src="/images/save.png" height="25px"></a>
+<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="Save to queue" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      Album saved to your queue.
+    </div>
+  </div>
+</div>
        
 <small>(posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator}}</a>)</small>
+
       
 <hr class="style-two"></a>
 

@@ -122,6 +122,13 @@ margin: 0 auto;
   top:80px;
 }
 
+.post-image .save-icon{
+   position: absolute;
+  left:-8px;
+  top:70px;
+  font-size: 22px;
+}
+
 
 /*.comments-icon{
   position: relative;

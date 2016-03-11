@@ -20,7 +20,7 @@ app.factory('Profile', function ($window, FIREBASE_URL, $firebase, Post, $q) {
 
     },
 
-       setStar: function(userId, postId, vote){
+    setStar: function(userId, postId, vote){
        return ref.child('user_votes').child(userId).child(postId).update({'star': vote});
        
 
