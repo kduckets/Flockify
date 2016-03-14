@@ -15,7 +15,7 @@
         </a>
         </div>
 
-         <div>  <small>(posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator}}</a>) <a ng-click="deletePost(post)" ng-show="user.uid === post.creatorUID">&mdash; delete</a></small>
+         <div>  <small>(posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator}}<img src="/images/poop.gif" style="padding-bottom:4px" ng-show="post.creator == 's3rg' || post.creator == 'Oat'" height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:3px" ng-show="post.creator == 'kev' || post.creator == 'Ryan'" height="30px"/></a>) <a ng-click="deletePost(post)" ng-show="user.uid === post.creatorUID">&mdash; delete</a></small>
 
            <div class="alert alert-info" role="alert">{{post.summary}}</div>
           <div style="padding-top:5px"> 
@@ -49,7 +49,7 @@
    <p><img ng-src="{{comment.text}}" height="100" class="gif" /></p>
       <p class="author">posted by
         <a ng-href="#/users/{{ comment.creatorUID }}">
-          {{ comment.creator }}
+          {{ comment.creator }}<img src="/images/poop.gif" style="padding-bottom:4px" ng-show="comment.creator == 's3rg' || comment.creator == 'Oat'" height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:6px" ng-show="comment.creator == 'kev' || comment.creator == 'Ryan'" height="30px"/>
         </a>
         <a ng-href=""
         ng-click="deleteComment(comment)"

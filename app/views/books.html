@@ -90,7 +90,8 @@
  
         <p>
          {{ post.votes }} votes
-           <small>(posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator}}</a>)</small>
+           <small>(posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator}}<img src="/images/poop.gif" style="padding-bottom:4px" ng-show="post.creator == 's3rg' || post.creator == 'Oat'" height="50px"/>
+           <img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:6px" ng-show="post.creator == 'kev'|| post.creator == 'Ryan'" height="30px"/></a>)</small>
             <small><a ng-href="#/posts/{{ post.$id  }}">comments ({{post.comments}})</a> </small>
      
 
