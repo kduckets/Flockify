@@ -4,5 +4,7 @@ npm install
 
 npm install -g nodemon
 
-nodemon server.js
+NODE_ENV=dev nodemon server.js to use the test database for local development
+
+nodemon server.js (in production)
 

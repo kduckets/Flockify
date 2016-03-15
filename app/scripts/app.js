@@ -85,7 +85,7 @@ var app = angular
         redirectTo: '/'
       });
   });
-app.constant('FIREBASE_URL', 'https://flockify.firebaseIO.com');
+app.constant('FIREBASE_URL', globals.firebase_url);
 app.run(function($cookieStore, Auth) {
     if ($cookieStore.get('login')) {
         var user = $cookieStore.get('login');

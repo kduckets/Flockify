@@ -17,6 +17,7 @@
     var rsj = require('rsj');
     var xml2js = require('xml2js');
     var http = require('http');
+    var ejs = require('ejs');
 
     // configuration =================
 
@@ -29,10 +30,21 @@
     var https = require('https');
     app.use(methodOverride());
 
+    //
+    var env = process.env.NODE_ENV || 'production';
+    var firebase_url = env == 'production'? 'https://flockify.firebaseIO.com' : 'https://resplendent-heat-6063.firebaseio.com';
+    console.log("ENVIRONMENT IS:", env);
+    console.log("FIREBASE_URL IS:", firebase_url);
+
+    // app config
+    app.set('port', (process.env.PORT || 5000));
+    app.engine('html', ejs.renderFile);
+    app.set('view engine', 'html');
+    app.set('views', __dirname + "/app/views")
     // listen (start app with node server.js) ======================================
 
     //routes
-    app.set('port', (process.env.PORT || 5000));
+
     var router = express.Router();
 
     // Giphy comment search
@@ -69,8 +81,10 @@
 
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
-app.get('/*', function(req,res){
-  res.sendfile("index.html", { root: __dirname + "/app" });
+app.get('/*', function(req, res){
+  res.render("index", {
+    firebase_url: firebase_url
+  })
 });
 
 app.use('/api', router);

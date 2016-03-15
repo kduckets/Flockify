@@ -30,15 +30,15 @@
     <div class="header">
      <div ng-include="'views/nav.html'"></div>
      </div>
-      
-           
+
+
        <div style="padding-top:66px" ng-view="">
 
        </div>
 
     <div class="footer">
       <div class="container">
-      
+
       </div>
     </div>
 
@@ -54,6 +54,12 @@
   ga('send', 'pageview');
 
 </script>
+<script>
+  var globals = {
+    firebase_url: "<%= firebase_url %>"
+  };
+</script>
+
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
@@ -79,7 +85,7 @@
     <script type="text/javascript" src="bower_components/angular-xml2json.js"></script>
 
   <!--<script type="text/javascript" src="bower_components/ng-device-detector/ng-device-detector.min.js"></script>-->
-  
+
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -93,7 +99,7 @@
         <script src="scripts/services/post.js"></script>
         <script src="scripts/services/auth.js"></script>
         <script src="scripts/services/profile.js"></script>
-  
+
         <script src="scripts/controllers/albumPost.js"></script>
           <script src="scripts/controllers/chat.js"></script>
          <script src="scripts/controllers/scoreboard.js"></script>
