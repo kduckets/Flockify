@@ -40,7 +40,7 @@ app.controller('AlbumCommentsCtrl', function ($scope, $routeParams, Post, Auth, 
     // if(!$scope.commentText || $scope.commentText === '') {
     //   return;
     // }
- var today = $filter('date')(new Date(),'MM/dd/yy h:mma');
+ var today = $filter('date')(new Date(),'yyyy-MM-dd HH:mm:ss');
     var comment = {
       // text: $scope.commentText,
       text: gif,
