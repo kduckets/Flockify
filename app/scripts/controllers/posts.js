@@ -22,6 +22,7 @@ angular.forEach($scope.posts, function(item, key) {
     return new Array(num);
 };
 
+
  $scope.search = function(){
    Spotify.search($scope.post.search + '*', 'artist,album').then(function (data) {
 

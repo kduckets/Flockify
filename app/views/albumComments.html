@@ -65,7 +65,7 @@
       <p class="author">posted by
         <a ng-href="#/users/{{ comment.creatorUID }}">
           {{ comment.creator }}<img src="/images/poop.gif" style="padding-bottom:4px" ng-show="comment.creator == 's3rg' || comment.creator == 'Oat'" height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:6px" ng-show="comment.creator == 'kev'|| comment.creator == 'Ryan'" height="30px"/>
-        </a>
+        </a>{{comment.datetime_ts | timeAgo}}
         <a ng-href=""
         ng-click="deleteComment(comment)"
         ng-show="signedIn() && comment.creatorUID === user.uid">

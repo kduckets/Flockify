@@ -24,7 +24,9 @@ var app = angular
     'spotify',
     'ui.bootstrap',
     'ngLoadingSpinner',
-    'angular.backtop'
+    'angular.backtop',
+    'yaru22.angular-timeago',
+   
   ])
   .config(function ($routeProvider) {
     $routeProvider

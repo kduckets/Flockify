@@ -40,13 +40,14 @@ app.controller('AlbumCommentsCtrl', function ($scope, $routeParams, Post, Auth, 
     // if(!$scope.commentText || $scope.commentText === '') {
     //   return;
     // }
-
+ var today = $filter('date')(new Date(),'MM/dd/yy h:mma');
     var comment = {
       // text: $scope.commentText,
       text: gif,
       creator: $scope.user.profile.username,
       creatorUID: $scope.user.uid,
-      votes: 0
+      votes: 0,
+      datetime_ts: today
     };
     $scope.comments.$add(comment);
 
