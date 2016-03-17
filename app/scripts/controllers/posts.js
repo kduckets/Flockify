@@ -96,7 +96,7 @@ angular.forEach($scope.posts, function(item, key) {
             $scope.weekly_score = $scope.weekly_score + 2;
         ref.child("user_scores").child(post.creator).update({'album_score': $scope.score});
         ref.child("user_scores").child(post.creator).update({'stars': $scope.user_stars});
-        // ref.child("user_scores").child(post.creator).child('weekly_scores').update({'album_score': $scope.weekly_score});
+        ref.child("user_scores").child(post.creator).child('weekly_scores').update({'album_score': $scope.weekly_score});
 
     };
 
@@ -139,7 +139,7 @@ ref.child('user_scores').child(post.creator).child('weekly_scores').child('album
       $scope.score = $scope.score + 1;
       $scope.weekly_score = $scope.weekly_score + 1;
         ref.child("user_scores").child(post.creator).update({'album_score': $scope.score});
-        // ref.child("user_scores").child(post.creator).child('weekly_scores').update({'album_score': $scope.weekly_score});
+        ref.child("user_scores").child(post.creator).child('weekly_scores').update({'album_score': $scope.weekly_score});
         // ref.child("user_scores").child(post.creatorUID).update({'score': $scope.score});
     };
 
@@ -173,7 +173,7 @@ ref.child('user_scores').child(post.creator).child('weekly_scores').child('album
         $scope.score = $scope.score - 1;
         $scope.weekly_score = $scope.weekly_score - 1;
         ref.child("user_scores").child(post.creator).update({'album_score': $scope.score});
-        // ref.child("user_scores").child(post.creator).child('weekly_scores').update({'album_score': $scope.weekly_score});
+        ref.child("user_scores").child(post.creator).child('weekly_scores').update({'album_score': $scope.weekly_score});
         // ref.child("user_scores").child(post.creatorUID).update({'score': $scope.score});
 
     };
