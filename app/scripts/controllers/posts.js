@@ -65,6 +65,13 @@ angular.forEach($scope.posts, function(item, key) {
 
  };
 
+ function getMonday(d) {
+  d = new Date(d);
+  var day = d.getDay(),
+      diff = d.getDate() - day + (day == 0 ? -6:1); // adjust when day is sunday
+  return new Date(d.setDate(diff));
+};
+
   $scope.starPost = function(post){
       if($scope.signedIn() && $scope.user.uid != post.creatorUID){
 
@@ -97,7 +104,11 @@ angular.forEach($scope.posts, function(item, key) {
             $scope.weekly_score = $scope.weekly_score + 2;
         ref.child("user_scores").child(post.creator).update({'album_score': $scope.score});
         ref.child("user_scores").child(post.creator).update({'stars': $scope.user_stars});
+        if(new Date(post.date) > getMonday(new Date()))
+        {  
         ref.child("user_scores").child(post.creator).child('weekly_scores').update({'album_score': $scope.weekly_score});
+      };
+      
 
     };
 
@@ -140,7 +151,11 @@ ref.child('user_scores').child(post.creator).child('weekly_scores').child('album
       $scope.score = $scope.score + 1;
       $scope.weekly_score = $scope.weekly_score + 1;
         ref.child("user_scores").child(post.creator).update({'album_score': $scope.score});
+       
+           if(new Date(post.date) > getMonday(new Date()))
+        {      
         ref.child("user_scores").child(post.creator).child('weekly_scores').update({'album_score': $scope.weekly_score});
+       };
         // ref.child("user_scores").child(post.creatorUID).update({'score': $scope.score});
     };
 
@@ -174,7 +189,10 @@ ref.child('user_scores').child(post.creator).child('weekly_scores').child('album
         $scope.score = $scope.score - 1;
         $scope.weekly_score = $scope.weekly_score - 1;
         ref.child("user_scores").child(post.creator).update({'album_score': $scope.score});
+               if(new Date(post.date) > getMonday(new Date()))
+        {  
         ref.child("user_scores").child(post.creator).child('weekly_scores').update({'album_score': $scope.weekly_score});
+      };
         // ref.child("user_scores").child(post.creatorUID).update({'score': $scope.score});
 
     };
