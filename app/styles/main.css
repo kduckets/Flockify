@@ -1,5 +1,23 @@
 body {
   background: #F3F3F3;
+
+}
+
+.albums-container{
+
+  position: relative;
+}
+
+img.background{
+
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: auto;
+    opacity: 0.6;
+    z-index: -100;
+    
 }
 
 .imageholder{
@@ -101,12 +119,21 @@ hr.style-two {
 
 }
 .post-box {
-margin: 0 auto;
+  padding-top: 16px;
+  margin: 0 auto; 
+  margin-bottom: 10px;
+ background-color: rgba(255,255,255,.8);
+ box-shadow: 0px 8px 8px rgba(0,0,0,0.5);
+
+ max-width: 800px;
+  
+
 
 }
 
 .post-image{
   position: relative;
+  
 }
 
 .post-image .score{

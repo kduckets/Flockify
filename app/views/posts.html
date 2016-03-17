@@ -1,5 +1,6 @@
 
-<div style="padding-bottom:10px" align="center">
+<div style="padding-bottom:10px" align="center" >
+<img class="background" src="/images/record.jpg"/>
  <div ng-hide="signedIn()">
  <h2>Welcome to flockify</h2>
       <p><a href="/#/login">Sign in</a> to get started</p>
@@ -78,12 +79,8 @@
 
 
 
-<hr class="style-two"></a>
-<div>
-  <div class="post-box" align="center" ng-repeat="post in posts | orderBy:sorter | filter:'spotify'" jd-script >
-      
-       
-             
+
+  <div class="post-box" align="center" ng-repeat="post in posts | orderBy:sorter | filter:'spotify'" jd-script >           
 
       <img class="arrow" ng-click="upvote(post)" src="/images/up.png" height="30" ></img>
 
@@ -129,9 +126,10 @@
 </div>
 
       
-<hr class="style-two"></a>
+<!-- <hr class="style-two"></a> -->
 
          
+</div>
 </div>
 </div>
 </div>
