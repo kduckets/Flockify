@@ -19,7 +19,23 @@ body {
  
 }
 
-img.background{
+  img.background{
+
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 0px;
+    height: 0px;
+    opacity: 0.6;
+    z-index: -100;
+    
+}
+
+
+
+@media screen and (min-width: 1000px) {
+
+  img.background{
 
     position: fixed;
     left: 0;
@@ -30,8 +46,6 @@ img.background{
     z-index: -100;
     
 }
-
-@media screen and (min-width: 1000px) {
    
 img.post:hover {
 
