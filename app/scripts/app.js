@@ -24,6 +24,7 @@ var app = angular
     'spotify',
     'ui.bootstrap',
     'ngLoadingSpinner',
+    'angular.backtop'
   ])
   .config(function ($routeProvider) {
     $routeProvider
