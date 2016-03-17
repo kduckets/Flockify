@@ -8,17 +8,7 @@ body {
   position: relative;
 }
 
-img.background{
 
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: auto;
-    opacity: 0.6;
-    z-index: -100;
-    
-}
 
 .imageholder{
     position: relative;
@@ -29,11 +19,35 @@ img.background{
  
 }
 
+img.background{
+
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: auto;
+    height: auto;
+    opacity: 0.6;
+    z-index: -100;
+    
+}
+
 @media screen and (min-width: 1000px) {
    
 img.post:hover {
 
 /*width: 300px;*/
+}
+
+img.background{
+
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: auto;
+    opacity: 0.6;
+    z-index: -100;
+    
 }
 
 img.gif:hover {
