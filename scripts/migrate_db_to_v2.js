@@ -91,21 +91,16 @@ post_mappings = {
 // *********************************** START HERE ***************************************
 // load the json export of the db
 // fs.open
-file_contents =  fs.readFileSync('db_export.json');
+file_contents = fs.readFileSync('db_export.json');
 old_db = JSON.parse(file_contents);
 //console.log(old_db);
-new_db = {}
+new_db = {};
 
 // modify to final pattern
 // ************************************** POSTS *****************************************
 posts = old_db.posts;
-var added = 0;
 new_db.posts = {};
 _.each(posts, function(model, model_id){
-  if (added > 1){
-    return false;
-  }
-  added += 1;
   new_model = {};
   var media_type = (model.media_type == 'spotify' || model.media_type == undefined) ? 'album' : model.media_type;
   new_model.media_info = map_info_obj(model, content_types[media_type]);
@@ -136,7 +131,7 @@ _.each(Object.keys(old_db['profile']), function(key){
 
 // ************************************** comments *****************************************
 
-new_db.comments = {}
+new_db.comments = {};
 _.each(old_db.comments, function(models, post_id){
   _.each(models, function(comment, comment_id){
     is_link = comment.text.indexOf("http") != -1;
@@ -146,16 +141,16 @@ _.each(old_db.comments, function(models, post_id){
       creator_name: comment.creator,
       creation_ts: comment.datetime_ts,
       type: is_link ? 'gif': 'chat'
-    }
+    };
     new_db.comments[comment_id] = new_model;
-  })
-})
+  });
+});
 
 // ************************************** votes *****************************************
 
 var added = 0;
 new_db.actions = {};
-vote_pks = {}
+vote_pks = {};
 // **** save it for later votes need to be added, as do stars *****
 _.each(old_db.user_votes, function(votes, user_id){
   _.each(votes, function(vote, post_id){

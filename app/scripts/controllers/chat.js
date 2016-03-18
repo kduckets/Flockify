@@ -2,35 +2,34 @@
 
 app.controller('ChatCtrl', function ($scope, $routeParams, Post, Auth, $firebase, Profile, $http, $filter, $sce, $uibModal, FIREBASE_URL) {
   var ref = new Firebase(FIREBASE_URL);
-    $scope.user = Auth.user;
+  $scope.user = Auth.user;
   $scope.signedIn = Auth.signedIn;
   $scope.logout = Auth.logout;
-   $scope.posts = Post.all;
-    $scope.user = Auth.user;
+  $scope.posts = Post.all;
+  $scope.user = Auth.user;
   $scope.gifSearchText = '';
-  
-    $scope.viewby = 12;
 
+  $scope.viewby = 12;
   $scope.itemsPerPage = $scope.viewby;
   $scope.maxSize = 5; //Number of pager buttons to show
-  
 
-        ref.once("value", function(snapshot) {
-  $scope.totalItems = snapshot.child("comments").child("flock_groupchat").numChildren();
-  $scope.currentPage = Math.ceil($scope.totalItems / $scope.itemsPerPage);
-  $scope.comments = Post.comments('flock_groupchat');
-  //console.log($scope.totalItems);
- 
-});
-  
+  ref.once("value", function(snapshot) {
+    $scope.totalItems = snapshot.child("comments").child("flock_groupchat").numChildren();
+    $scope.currentPage = Math.ceil($scope.totalItems / $scope.itemsPerPage);
 
+    $scope.comments = Post.comments('flock_groupchat');
+    // TODO:db_change
+    // $scope.chats = Chats.all_chats;
+  });
 
 
 
 
 
 
-  
+
+
+
 
   $scope.setPage = function (pageNo) {
     $scope.currentPage = pageNo;
@@ -80,7 +79,7 @@ $scope.setItemsPerPage = function(num) {
     $scope.comments.$add(comment);
 
     $scope.commentText = '';
- 
+
 
   };
 

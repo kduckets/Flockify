@@ -1,82 +1,50 @@
 'use strict';
 
-app.controller('CommentsCtrl', function ($scope, $routeParams, Post, Auth, $firebase, Profile, $http, $filter, $sce, $uibModal, FIREBASE_URL) {
+app.controller('CommentsCtrl', function ($scope, $routeParams, Post, Auth, Comment, $firebase, Profile, $http, $filter, $sce, $uibModal, FIREBASE_URL) {
   var ref = new Firebase(FIREBASE_URL);
-    $scope.user = Auth.user;
+  $scope.user = Auth.user;
   $scope.signedIn = Auth.signedIn;
   $scope.logout = Auth.logout;
-   $scope.posts = Post.all;
-    $scope.user = Auth.user;
+  $scope.posts = Post.all;
+  $scope.user = Auth.user;
   $scope.post = Post.get($routeParams.postId);
   $scope.comments = Post.comments($routeParams.postId);
   $scope.gifSearchText = '';
   // $scope.embed_link = $sce.trustAsResourceUrl("https://embed.spotify.com/?uri=spotify:album:6SwMUCcHLfZjji3MAFODMv");
 
-
-   $scope.gifsearch = function(){
-
-  var body = {'search': $scope.gifSearchText};
-     $http.post('/api/giphysearch', body)
-
-            .success(function(data) {
-
-                $scope.gifs = data.data;
-
-            })
-            .error(function(data) {
-                console.log('Error: ' + data);
-            });
-
-   };
-
-   $scope.deletePost = function (post) {
-        Post.delete(post.$id);
-   };
-
-
-  $scope.addComment = function (gif) {
-    // if(!$scope.commentText || $scope.commentText === '') {
-    //   return;
-    // }
-
-    var comment = {
-      // text: $scope.commentText,
-      text: gif,
-      creator: $scope.user.profile.username,
-      creatorUID: $scope.user.uid,
-      votes: 0
-    };
-    $scope.comments.$add(comment);
-
-    $scope.commentText = '';
-    $scope.gifSearchText = '';
-
-    ref.once("value", function(snapshot) {
-  $scope.comments_count = snapshot.child("comments").child($scope.post.$id).numChildren();
-   ref.child("posts").child($scope.post.$id).update({'comments': $scope.comments_count});
-   var today = $filter('date')(new Date(),'yyyy-MM-dd HH:mm:ss');
-    ref.child("posts").child($scope.post.$id).update({'latest_comment': today});
-
-
-  });
-
-
+  $scope.gifsearch = function(){
+    var body = {'search': $scope.gifSearchText};
+    $http.post('/api/giphysearch', body)
+      .success(function(data) {
+        $scope.gifs = data.data;
+      })
+      .error(function(data) {
+        console.log('Error: ' + data);
+      });
   };
 
+  $scope.deletePost = function (post) {
+    Post.delete(post.$id);
+  };
+
+  $scope.addComment = function (gif) {
+    comment = Comment.add_comment(gif);
+    $scope.comments.$add(comment);
+    $scope.commentText = '';
+    $scope.gifSearchText = '';
+  };
 
   $scope.deleteComment = function (comment) {
-  $scope.comments.$remove(comment);
-     ref.once("value", function(snapshot) {
-  $scope.comments_count = snapshot.child("comments").child($scope.post.$id).numChildren();
-  console.log($scope.comments_count);
-   ref.child("posts").child($scope.post.$id).update({'comments': $scope.comments_count});
+    $scope.comments.$remove(comment);
+    $scope.comments_count = $scope.comments_count - 1;
+    // TODO: db_change
+    // update comments count on posts and and remove the comment from the posts FK
+    // probably don't need to worry about last_comment_ts
+  };
 
-  });
-};
-
- $scope.getNumber = function(num) {
+  $scope.getNumber = function(num) {
     return new Array(num);
-};
+  };
 
   $scope.upvote = function(post) {
     if($scope.signedIn() && $scope.user.uid != post.creatorUID){
