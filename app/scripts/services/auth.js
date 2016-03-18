@@ -10,9 +10,9 @@ app.factory('Auth', function ($firebaseSimpleLogin, FIREBASE_URL, $rootScope, $f
     },
     createProfile: function (user) {
       var profile = {
-    username: user.username,
-    md5_hash: user.md5_hash
-    };
+        username: user.username,
+        md5_hash: user.md5_hash
+      };
       var profileRef = $firebase(ref.child('profile'));
       return profileRef.$set(user.uid, profile);
     },
@@ -20,9 +20,9 @@ app.factory('Auth', function ($firebaseSimpleLogin, FIREBASE_URL, $rootScope, $f
       return auth.$login('password', user);
     },
     logout: function () {
-        if($cookieStore.get('login')){
+      if($cookieStore.get('login')){
         $cookieStore.remove('login');
-    };
+      };
       auth.$logout();
     },
     resolveUser: function() {
@@ -34,19 +34,19 @@ app.factory('Auth', function ($firebaseSimpleLogin, FIREBASE_URL, $rootScope, $f
     user: {}
   };
 
- $rootScope.$on('$firebaseSimpleLogin:login', function(e, user) {
-  angular.copy(user, Auth.user);
-  Auth.user.profile = $firebase(ref.child('profile').child(Auth.user.uid)).$asObject();
+  $rootScope.$on('$firebaseSimpleLogin:login', function(e, user) {
+    angular.copy(user, Auth.user);
+    Auth.user.profile = $firebase(ref.child('profile').child(Auth.user.uid)).$asObject();
 
-});
-$rootScope.$on('$firebaseSimpleLogin:logout', function() {
-  console.log('logged out');
+  });
+  $rootScope.$on('$firebaseSimpleLogin:logout', function() {
+    console.log('logged out');
 
-  if(Auth.user && Auth.user.profile) {
-    Auth.user.profile.$destroy();
-  }
-  angular.copy({}, Auth.user);
-});
+    if(Auth.user && Auth.user.profile) {
+      Auth.user.profile.$destroy();
+    }
+    angular.copy({}, Auth.user);
+  });
 
   return Auth;
 });

@@ -1,49 +1,49 @@
      <div class="modal-header">
-            <h4 class="modal-title">{{podcast.artistName}} - {{podcast.trackName}}</h4>
-      </div>
-      <div class="modal-body">
-       <img ng-src="{{podcast.artworkUrl100}}" height="100"/>
-       <button class="btn btn-primary" ng-click="viewInItunes()">View in itunes</button>
+      <h4 class="modal-title">{{podcast.artistName}} - {{podcast.trackName}}</h4>
+    </div>
+    <div class="modal-body">
+     <img ng-src="{{podcast.artworkUrl100}}" height="100"/>
+     <button class="btn btn-primary" ng-click="viewInItunes()">View in itunes</button>
 
-       <table class="table table-sm table-hover">
-  <thead>
-    <tr>
-      <th>Name</th>
-    <!--   <th>Description</th> -->
-      <th>Released</th>
-    </tr>
-  </thead>
-  <tbody>
+     <table class="table table-sm table-hover">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <!--   <th>Description</th> -->
+          <th>Released</th>
+        </tr>
+      </thead>
+      <tbody>
 
-    <tr ng-repeat-start="episode in podcastFeed" ng-click="episode.expanded = true">
-   
-      <td><small>{{episode.title}}</small></td>
-     <!--  <td><small>{{episode.description | limitTo: 80 }}{{episode.description.length > 80 ? '..' : ''}}</small></td> -->
-      <td><small>{{episode.date | limitTo : 10}}</small></td>
+        <tr ng-repeat-start="episode in podcastFeed" ng-click="episode.expanded = true">
+         
+          <td><small>{{episode.title}}</small></td>
+          <!--  <td><small>{{episode.description | limitTo: 80 }}{{episode.description.length > 80 ? '..' : ''}}</small></td> -->
+          <td><small>{{episode.date | limitTo : 10}}</small></td>
 
-       </tr>
-          <tr ng-if="episode.expanded" ng-repeat-end="">
-            <td colspan="3">
+        </tr>
+        <tr ng-if="episode.expanded" ng-repeat-end="">
+          <td colspan="3">
 
             <small class="text-muted" ng-show="form.summary.$error.required"><font color="red">Please provide a quick description of your post</font></small>
-    <form name="form">
-        <textarea required class="form-control" placeholder="explain yourself" name="summary" ng-model="episode.user_description" rows="2"></textarea> 
+            <form name="form">
+              <textarea required class="form-control" placeholder="explain yourself" name="summary" ng-model="episode.user_description" rows="2"></textarea> 
 
 
-    </form>
-        
+            </form>
+            
             
 
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" ng-click="submitPost(episode)">post</button>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" ng-click="submitPost(episode)">post</button>
 
-       <!--   <button type="button" ng-click="openInSpotify()" class="btn btn-success">listen</button> -->
-       
-        <button type="button" class="btn btn-secondary" ng-click="cancel()">close</button>   
-        </div></td>
+              <!--   <button type="button" ng-click="openInSpotify()" class="btn btn-success">listen</button> -->
+              
+              <button type="button" class="btn btn-secondary" ng-click="cancel()">close</button>   
+            </div></td>
           </tr>
 
-   
-  </tbody>
-</table>
+          
+        </tbody>
+      </table>
 

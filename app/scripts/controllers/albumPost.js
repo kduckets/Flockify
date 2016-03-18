@@ -12,14 +12,14 @@ app.controller('AlbumCtrl', function ($scope, $route, $location, $window, Post, 
 
 
   $http({
-  method: 'GET',
-  url: $scope.album
-}).then(function successCallback(album) {
+    method: 'GET',
+    url: $scope.album
+  }).then(function successCallback(album) {
     // console.log(album);
     $scope.spotify_result = album.data;
     $scope.artist = album.data.artists[0].name;
     $scope.album = album.data.name;
-     $scope.image_large = album.data.images[0].url;
+    $scope.image_large = album.data.images[0].url;
     $scope.image_medium = album.data.images[1].url;
     $scope.image_small = album.data.images[2].url;
     $scope.spotify_uri = album.data.external_urls.spotify;
@@ -36,20 +36,20 @@ app.controller('AlbumCtrl', function ($scope, $route, $location, $window, Post, 
 
 
   $scope.cancel = function(){
-     $modalInstance.close();
-      $location.path('/');    
-  };
+   $modalInstance.close();
+   $location.path('/');    
+ };
 
-   $scope.submitPost = function () {
+ $scope.submitPost = function () {
     // angular.forEach($scope.posts, function(item, key) {
     //   if item.
 
     // });
-  $scope.post.creator = $scope.user.profile.username;
-  $scope.post.summary = $scope.summary;
-  $scope.post.creatorUID = $scope.user.uid;
-  $scope.post.album = $scope.album;
-  $scope.post.artist = $scope.artist;
+$scope.post.creator = $scope.user.profile.username;
+$scope.post.summary = $scope.summary;
+$scope.post.creatorUID = $scope.user.uid;
+$scope.post.album = $scope.album;
+$scope.post.artist = $scope.artist;
    //$scope.post.image_large= $scope.image_large;
   //var genres= $.map($scope.posts, function(post, idx){ return post.album;})
   $scope.post.image_medium = $scope.image_large;
@@ -64,15 +64,15 @@ app.controller('AlbumCtrl', function ($scope, $route, $location, $window, Post, 
 
   Post.create($scope.post).then(function (ref) {
     //$location.path('/posts/' + ref.name());
-     $modalInstance.close();
+    $modalInstance.close();
 
-      $route.reload();
+    $route.reload();
     $scope.post = {artist: '', album: ''};
   });
 };
 
-        $scope.openInSpotify = function(){
-            $window.open($scope.spotify_uri, '_blank');
-        };
+$scope.openInSpotify = function(){
+  $window.open($scope.spotify_uri, '_blank');
+};
 
 });

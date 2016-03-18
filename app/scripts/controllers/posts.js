@@ -4,9 +4,7 @@
 
    $scope.posts = Post.all;
    $scope.user = Auth.user;
-
    $scope.post = {artist: '', album: '', votes: 0, comments: 0, stars:0};
-   $scope.user = Auth.user;
    $scope.signedIn = Auth.signedIn;
    $scope.logout = Auth.logout;
    var ref = new Firebase(FIREBASE_URL);
@@ -37,12 +35,12 @@
 
   });
 
-  };
+ };
 
-  $scope.save = function(post) {
-    if($scope.signedIn() && $scope.user.uid != post.creatorUID){
+ $scope.save = function(post) {
+  if($scope.signedIn() && $scope.user.uid != post.creatorUID){
 
-      Profile.savePost($scope.user.uid, post.$id, 'yes');
+    Profile.savePost($scope.user.uid, post.$id, 'yes');
           // $scope.post.saveButtonText = 'saved';
 
         };
@@ -66,12 +64,12 @@
 
 
 
-    $scope.clearResults = function(){
+     $scope.clearResults = function(){
 
        $route.reload();
      };
 
-    $scope.deletePost = function (post) {
+     $scope.deletePost = function (post) {
       Post.delete(post);
     };
 
@@ -104,7 +102,7 @@
 
 
 
-  });
+ });
 
 
 

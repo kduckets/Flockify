@@ -1,49 +1,49 @@
 
 <div style="padding-bottom:10px" align="center" >
-<img class="background" src="/images/record.jpg"/>
- <div ng-hide="signedIn()">
- <h2>Welcome to flockify</h2>
-      <p><a href="/#/login">Sign in</a> to get started</p>
-       <!--  <div ng-include="'views/login.html'"></div> -->
-    </div>
+  <img class="background" src="/images/record.jpg"/>
+  <div ng-hide="signedIn()">
+   <h2>Welcome to flockify</h2>
+   <p><a href="/#/login">Sign in</a> to get started</p>
+   <!--  <div ng-include="'views/login.html'"></div> -->
+ </div>
  
 <!--     <div class="category">
         <a href="/#/"><i class="material-icons" style="font-size:35px;">album</i></a> 
         <a href="/#/podcasts"><i class="fa fa-microphone fa-3x"></i></a> 
         <a href="/#/movies"><i class="fa fa-film fa-3x"></i></a> 
         <a href="/#/books"><i class="fa fa-book fa-3x"></i></a> 
-    </div>     --> 
+      </div>     --> 
 
-     <small>go to <a href="/#/">albums</a> | <a href="/#/podcasts">podcasts</a> 
-    | <a href="/#/movies">movies</a> | <a href="/#/books">books</a></small>
+      <small>go to <a href="/#/">albums</a> | <a href="/#/podcasts">podcasts</a> 
+        | <a href="/#/movies">movies</a> | <a href="/#/books">books</a></small>
 
-<!-- Search Bar -->
-<div class="box">
-  <div class="container-1">
-    <form ng-submit="search()" ng-show="signedIn()" class="form-inline search-form">
-      <button class="icon"><i class="fa fa-search"></i></span></button>
-      <input type="search" name="focus" id="search" required class="search-box form-control" ng-model="post.search" placeholder=" post an album"/>
-      <button class="close-icon" type="reset" ng-click="clearResults()"><i class="fa fa-times"></i></button>
-    </form>
-  </div>
-</div>
-
-
-
-<div class="list-group" ng-repeat="result in results" align="left">
-
-  <button type="button" class="list-group-item" ng-click="viewAlbum(result.href)">
-  <img ng-src="{{result.images[2].url}}"/>
-
-  <small>{{result.name}}</small>
-
-  </button>
+        <!-- Search Bar -->
+        <div class="box">
+          <div class="container-1">
+            <form ng-submit="search()" ng-show="signedIn()" class="form-inline search-form">
+              <button class="icon"><i class="fa fa-search"></i></span></button>
+              <input type="search" name="focus" id="search" required class="search-box form-control" ng-model="post.search" placeholder=" post an album"/>
+              <button class="close-icon" type="reset" ng-click="clearResults()"><i class="fa fa-times"></i></button>
+            </form>
+          </div>
+        </div>
 
 
-  </div>
- 
 
-</div>
+        <div class="list-group" ng-repeat="result in results" align="left">
+
+          <button type="button" class="list-group-item" ng-click="viewAlbum(result.href)">
+            <img ng-src="{{result.images[2].url}}"/>
+
+            <small>{{result.name}}</small>
+
+          </button>
+
+
+        </div>
+        
+
+      </div>
 
 <!-- <div align="center">
 <div class="alert alert-warning" role="alert" style="max-width:300px">
@@ -59,76 +59,76 @@
 <back-top scroll-speed=600 button-theme="light"><i class="fa fa-arrow-circle-up"></i></back-top>
 
 <div ng-show="signedIn()">
-<div class="sort-links" align="center">
+  <div class="sort-links" align="center">
    <a href ng-click="sorter = '-'">fresh</a>
-  <a href ng-click="sorter = '-votes'">popular</a>
+   <a href ng-click="sorter = '-votes'">popular</a>
 
-    <a href ng-click="sorter = '-latest_comment'">new comments</a> 
+   <a href ng-click="sorter = '-latest_comment'">new comments</a> 
    
 
 
-  
+   
 
 
-  <a href ng-click="sorter = '-stars'">stars</a> 
+   <a href ng-click="sorter = '-stars'">stars</a> 
 
-  <!--   <a href ng-click="batchUpdate()">batch</a>  -->
-
-
-    </div>
+   <!--   <a href ng-click="batchUpdate()">batch</a>  -->
 
 
+ </div>
 
 
-  <div class="post-box" align="center" ng-repeat="post in posts | orderBy:sorter | filter:'spotify'" jd-script >           
 
-      <img class="arrow" ng-click="upvote(post)" src="/images/up.png" height="30" ></img>
 
- <a ng-href="#/albums/{{ post.$id  }}" >
-        <span class="post-image"><img class="post" ng-src="{{post.image_medium}}" />
+ <div class="post-box" align="center" ng-repeat="post in posts | orderBy:sorter | filter:'spotify'" jd-script >           
+
+  <img class="arrow" ng-click="upvote(post)" src="/images/up.png" height="30" ></img>
+
+  <a ng-href="#/albums/{{ post.$id  }}" >
+    <span class="post-image"><img class="post" ng-src="{{post.image_medium}}" />
      <span class="score label label-default label-default">   {{ post.votes }} </span> 
      
-       <span class="comments-icon"><img ng-src="/images/comments.png" height="35px" />
-    <span class="after label label-pill label-danger"> {{post.comments}} </span>   </span>
-  </a>
-     </span>
-       
+     <span class="comments-icon"><img ng-src="/images/comments.png" height="35px" />
+      <span class="after label label-pill label-danger"> {{post.comments}} </span>   </span>
+    </a>
+  </span>
+  
 
-            <img class="arrow" ng-click="downvote(post)" src="/images/down.png" height="30"></img>
-     
-          <div style="padding-top:5px; padding-bottom:10px"> 
-     <div>   <a data-toggle="modal" ng-click="starPost(post)" href="" >  <div><img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18" />
+  <img class="arrow" ng-click="downvote(post)" src="/images/down.png" height="30"></img>
+  
+  <div style="padding-top:5px; padding-bottom:10px"> 
+   <div>   <a data-toggle="modal" ng-click="starPost(post)" href="" >  <div><img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18" />
      <img ng-src="/images/empty-star.png" height="18" /></a></div>
-         <div>
+     <div>
 
-        <a ng-href="#/albums/{{ post.$id  }}">
-     {{ post.artist }} - {{ post.album }} ({{post.release_date | limitTo: 4}})</a> 
-</div>
- <div>
+      <a ng-href="#/albums/{{ post.$id  }}">
+       {{ post.artist }} - {{ post.album }} ({{post.release_date | limitTo: 4}})</a> 
+     </div>
+     <div>
        <a ng-href="#/albums/{{ post.$id  }}"><span class="label label-pill label-info">{{ post.summary | limitTo: 40 }}{{post.summary.length > 40 ? '..' : ''}}</span></a>
-       </div>   
+     </div>   
 
-      </div>  
+   </div>  
 
-      
-       <div><span class="label label-default">{{post.genre}}</span></div>
+   
+   <div><span class="label label-default">{{post.genre}}</span></div>
 
-       
-<small style="font-style: italic;">(posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator}}<img src="/images/poop.gif" style="padding-bottom:10px; padding-left:6px" ng-show="post.creator == 's3rg' || post.creator == 'Oat'" height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:6px" ng-show="post.creator == 'kev'|| post.creator == 'Ryan'" height="30px"/></a> {{post.date | timeAgo}})</small>
+   
+   <small style="font-style: italic;">(posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator}}<img src="/images/poop.gif" style="padding-bottom:10px; padding-left:6px" ng-show="post.creator == 's3rg' || post.creator == 'Oat'" height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:6px" ng-show="post.creator == 'kev'|| post.creator == 'Ryan'" height="30px"/></a> {{post.date | timeAgo}})</small>
 
-                      <div><small> <button class="btn btn-success-outline btn-sm" style="font-size:10px"ng-click="save(post)" data-toggle="modal" data-target=".bd-example-modal-sm">save to my queue</button></small></div>
-<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="Save to queue" aria-hidden="true">
-  <div class="modal-dialog modal-sm">
-    <div class="modal-content">
-      Album saved to your queue.
+   <div><small> <button class="btn btn-success-outline btn-sm" style="font-size:10px"ng-click="save(post)" data-toggle="modal" data-target=".bd-example-modal-sm">save to my queue</button></small></div>
+   <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="Save to queue" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        Album saved to your queue.
+      </div>
     </div>
   </div>
-</div>
 
-      
-<!-- <hr class="style-two"></a> -->
+  
+  <!-- <hr class="style-two"></a> -->
 
-         
+  
 </div>
 </div>
 </div>

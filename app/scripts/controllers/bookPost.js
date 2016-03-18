@@ -10,12 +10,12 @@ app.controller('BookCtrl', function ($scope, $route, $location, $window, Post, A
 
 
   $scope.cancel = function(){
-     $modalInstance.close();
+   $modalInstance.close();
 
-    
-  };
+   
+ };
 
-   $scope.submitPost = function () {
+ $scope.submitPost = function () {
   $scope.post.creator = $scope.user.profile.username;
   $scope.post.summary = $scope.summary;
   $scope.post.creatorUID = $scope.user.uid;
@@ -35,15 +35,15 @@ app.controller('BookCtrl', function ($scope, $route, $location, $window, Post, A
 
   Post.create($scope.post).then(function (ref) {
     //$location.path('/posts/' + ref.name());
-     $modalInstance.close();
+    $modalInstance.close();
 
-      $route.reload();
+    $route.reload();
     $scope.post = {artist: '', album: ''};
   });
 };
 
-        $scope.openInItunes = function(){
-            $window.open($scope.movie.trackViewUrl, '_blank');
-        };
+$scope.openInItunes = function(){
+  $window.open($scope.movie.trackViewUrl, '_blank');
+};
 
 });

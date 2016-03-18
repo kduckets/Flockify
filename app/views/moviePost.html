@@ -1,42 +1,42 @@
      <div class="modal-header">
-            <h4 class="modal-title">{{movie.Title}} ({{movie.Year | limitTo:4}})</h4>
-      </div>
-      <div class="modal-body">
+      <h4 class="modal-title">{{movie.Title}} ({{movie.Year | limitTo:4}})</h4>
+    </div>
+    <div class="modal-body">
       <div>
         <img ng-src="https://img.omdbapi.com/?i={{movie.imdbID}}&apikey=973fea0" height="100" align="left" style="padding-right:10px" />
-       <small> {{omdb.Plot}} </small>
-       <p>
+        <small> {{omdb.Plot}} </small>
+        <p>
 
           <a href="https://www.imdb.com/title/{{movie.imdbID}}" target="_blank">
-        <img ng-src="/images/imdb.ico" height="40" target="_blank">
-        <small>{{post.imdb_rating}}</small>
-        </a>
+            <img ng-src="/images/imdb.ico" height="40" target="_blank">
+            <small>{{post.imdb_rating}}</small>
+          </a>
 
-       <a href="{{omdb.tomatoURL}}" target="_blank">   
-       <img ng-show="omdb.tomatoImage == 'certified'" ng-src="/images/certified.png" height="30" />
-       <img ng-show="omdb.tomatoImage == 'fresh'" ng-src="/images/fresh.png" height="30" />
-      <img ng-show="omdb.tomatoImage == 'rotten'" ng-src="/images/rotten.png" height="30" />
-       <small>{{omdb.tomatoMeter}}%</small>
-       </a>
-    
+          <a href="{{omdb.tomatoURL}}" target="_blank">   
+           <img ng-show="omdb.tomatoImage == 'certified'" ng-src="/images/certified.png" height="30" />
+           <img ng-show="omdb.tomatoImage == 'fresh'" ng-src="/images/fresh.png" height="30" />
+           <img ng-show="omdb.tomatoImage == 'rotten'" ng-src="/images/rotten.png" height="30" />
+           <small>{{omdb.tomatoMeter}}%</small>
+         </a>
+         
        </p>
-        </div>
-         <small class="text-muted" ng-show="form.summary.$error.required"><font color="red">Please provide a quick description of your post</font></small>
-    <form name="form">
-        <textarea required class="form-control" placeholder="explain yourself" name="summary" ng-model="summary" rows="2"></textarea> 
-           <div role="alert">
-    
-     <br />
+     </div>
+     <small class="text-muted" ng-show="form.summary.$error.required"><font color="red">Please provide a quick description of your post</font></small>
+     <form name="form">
+      <textarea required class="form-control" placeholder="explain yourself" name="summary" ng-model="summary" rows="2"></textarea> 
+      <div role="alert">
+        
+       <br />
 
-    </div>
-    </form>
-          </p>
-              </div>
+     </div>
+   </form>
+ </p>
+</div>
 
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" ng-click="submitPost()">post</button>
+<div class="modal-footer">
+  <button type="button" class="btn btn-primary" ng-click="submitPost()">post</button>
 <!-- 
-         <button type="button" ng-click="openInItunes()" class="btn btn-success">itunes</button> -->
-       
-        <button type="button" class="btn btn-secondary" ng-click="cancel()">close</button>   
-        </div>
+ <button type="button" ng-click="openInItunes()" class="btn btn-success">itunes</button> -->
+ 
+ <button type="button" class="btn btn-secondary" ng-click="cancel()">close</button>   
+</div>

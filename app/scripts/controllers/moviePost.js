@@ -8,29 +8,29 @@ app.controller('MovieCtrl', function ($scope, $route, $location, $window, Post, 
   $scope.movie = movie;
   $scope.date = new Date();
 
-      $http({
-        method: 'GET',
-        url: 'https://www.omdbapi.com/?t=' + $scope.movie.Title + "&r=json&tomatoes=true&apikey=973fea0"
-          }).then(function successCallback(response) {
-          $scope.omdb = response.data; 
-            console.log($scope.omdb);
-            $scope.post.tomato_meter = $scope.omdb.tomatoMeter;
-            $scope.post.tomato_url = $scope.omdb.tomatoURL;
-            $scope.post.tomato_image = $scope.omdb.tomatoImage;
-            $scope.post.imdb_rating = $scope.omdb.imdbRating;
-         }, function errorCallback(response) {
-        });
+  $http({
+    method: 'GET',
+    url: 'https://www.omdbapi.com/?t=' + $scope.movie.Title + "&r=json&tomatoes=true&apikey=973fea0"
+  }).then(function successCallback(response) {
+    $scope.omdb = response.data; 
+    console.log($scope.omdb);
+    $scope.post.tomato_meter = $scope.omdb.tomatoMeter;
+    $scope.post.tomato_url = $scope.omdb.tomatoURL;
+    $scope.post.tomato_image = $scope.omdb.tomatoImage;
+    $scope.post.imdb_rating = $scope.omdb.imdbRating;
+  }, function errorCallback(response) {
+  });
 
 
 
 
   $scope.cancel = function(){
-     $modalInstance.close();
+   $modalInstance.close();
 
-    
-  };
+   
+ };
 
-   $scope.submitPost = function () {
+ $scope.submitPost = function () {
   $scope.post.creator = $scope.user.profile.username;
   $scope.post.summary = $scope.summary;
   $scope.post.creatorUID = $scope.user.uid;
@@ -51,15 +51,15 @@ app.controller('MovieCtrl', function ($scope, $route, $location, $window, Post, 
 
   Post.create($scope.post).then(function (ref) {
     //$location.path('/posts/' + ref.name());
-     $modalInstance.close();
+    $modalInstance.close();
 
-      $route.reload();
+    $route.reload();
     $scope.post = {artist: '', album: ''};
   });
 };
 
-        $scope.openInItunes = function(){
-            $window.open($scope.movie.trackViewUrl, '_blank');
-        };
+$scope.openInItunes = function(){
+  $window.open($scope.movie.trackViewUrl, '_blank');
+};
 
 });

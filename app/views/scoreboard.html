@@ -1,92 +1,92 @@
 <div ng-show="signedIn()">
-<h2 align="center">Album a day Contest (3/14)</h2>
-<table class="table table-inverse">
-  <thead>
-    <tr>
-      <th>rank</th>
-      <th>user</th>
-      <th>score</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr ng-repeat="user in users | orderBy:'-weekly_scores.album_score'">
-      <th scope="row">{{$index + 1}}</th>
-      <td>{{user.$id}}<img src="/images/poop.gif" style="padding-bottom:4px" ng-show="user.$id == 's3rg' || user.$id == 'Oat'" height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:3px" ng-show="user.$id == 'kev' || user.$id == 'Ryan'" height="30px"/></td>
-      <td>{{user.weekly_scores.album_score}}</td>      
-    </tr>
-  </tbody>
-</table>
+  <h2 align="center">Album a day Contest (3/14)</h2>
+  <table class="table table-inverse">
+    <thead>
+      <tr>
+        <th>rank</th>
+        <th>user</th>
+        <th>score</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="user in users | orderBy:'-weekly_scores.album_score'">
+        <th scope="row">{{$index + 1}}</th>
+        <td>{{user.$id}}<img src="/images/poop.gif" style="padding-bottom:4px" ng-show="user.$id == 's3rg' || user.$id == 'Oat'" height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:3px" ng-show="user.$id == 'kev' || user.$id == 'Ryan'" height="30px"/></td>
+        <td>{{user.weekly_scores.album_score}}</td>      
+      </tr>
+    </tbody>
+  </table>
 
-<h2 align="center">Albums (total)</h2>
-<table class="table table-inverse">
-  <thead>
-    <tr>
-      <th>rank</th>
-      <th>user</th>
-      <th>score</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr ng-repeat="user in users | orderBy:'-album_score'">
-      <th scope="row">{{$index + 1}}</th>
-      <td>{{user.$id}}</td>
-      <td>{{user.album_score}}</td>      
-    </tr>
-  </tbody>
-</table>
+  <h2 align="center">Albums (total)</h2>
+  <table class="table table-inverse">
+    <thead>
+      <tr>
+        <th>rank</th>
+        <th>user</th>
+        <th>score</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="user in users | orderBy:'-album_score'">
+        <th scope="row">{{$index + 1}}</th>
+        <td>{{user.$id}}</td>
+        <td>{{user.album_score}}</td>      
+      </tr>
+    </tbody>
+  </table>
 
-<h2 align="center">Podcasts (total)</h2>
-<table class="table table-inverse">
-  <thead>
-    <tr>
-      <th>rank</th>
-      <th>user</th>
-      <th>score</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr ng-repeat="user in users | orderBy:'-podcast_score'">
-      <th scope="row">{{$index + 1}}</th>
-      <td>{{user.$id}}</td>
-      <td>{{user.podcast_score}}</td>      
-    </tr>
-  </tbody>
-</table>
+  <h2 align="center">Podcasts (total)</h2>
+  <table class="table table-inverse">
+    <thead>
+      <tr>
+        <th>rank</th>
+        <th>user</th>
+        <th>score</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="user in users | orderBy:'-podcast_score'">
+        <th scope="row">{{$index + 1}}</th>
+        <td>{{user.$id}}</td>
+        <td>{{user.podcast_score}}</td>      
+      </tr>
+    </tbody>
+  </table>
 
-<h2 align="center">Movies (total)</h2>
-<table class="table table-inverse">
-  <thead>
-    <tr>
-      <th>rank</th>
-      <th>user</th>
-      <th>score</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr ng-repeat="user in users | orderBy:'-movie_score'">
-      <th scope="row">{{$index + 1}}</th>
-      <td>{{user.$id}}</td>
-      <td>{{user.movie_score}}</td>      
-    </tr>
-  </tbody>
-</table>
+  <h2 align="center">Movies (total)</h2>
+  <table class="table table-inverse">
+    <thead>
+      <tr>
+        <th>rank</th>
+        <th>user</th>
+        <th>score</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="user in users | orderBy:'-movie_score'">
+        <th scope="row">{{$index + 1}}</th>
+        <td>{{user.$id}}</td>
+        <td>{{user.movie_score}}</td>      
+      </tr>
+    </tbody>
+  </table>
 
-<h2 align="center">Books (total)</h2>
-<table class="table table-inverse">
-  <thead>
-    <tr>
-      <th>rank</th>
-      <th>user</th>
-      <th>score</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr ng-repeat="user in users | orderBy:'-book_score'">
-      <th scope="row">{{$index + 1}}</th>
-      <td>{{user.$id}}</td>
-      <td>{{user.book_score}}</td>      
-    </tr>
-  </tbody>
-</table>
+  <h2 align="center">Books (total)</h2>
+  <table class="table table-inverse">
+    <thead>
+      <tr>
+        <th>rank</th>
+        <th>user</th>
+        <th>score</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="user in users | orderBy:'-book_score'">
+        <th scope="row">{{$index + 1}}</th>
+        <td>{{user.$id}}</td>
+        <td>{{user.book_score}}</td>      
+      </tr>
+    </tbody>
+  </table>
 
 </div>

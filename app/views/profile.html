@@ -6,15 +6,15 @@
 
     <div align="center">
       <span ng-show="view_tab == 'tabA'" class="name">posts by {{ profile.username }}
-      <img src="/images/poop.gif" style="padding-bottom:10px" ng-show="profile.username == 's3rg' || profile.username == 'Oat'" height="60px"/>
-      <img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:6px" ng-show="profile.username == 'kev' || profile.username == 'Ryan'" height="60px"/></span>
-      <span ng-show="view_tab == 'tabB'" class="name">likes by {{ profile.username }}
-      <img src="/images/poop.gif" style="padding-bottom:10px" ng-show="profile.username == 's3rg' || profile.username == 'Oat'" height="60px"/>
-      <img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:6px" ng-show="profile.username == 'kev' || profile.username == 'Ryan'" height="60px"/></span>
-      <span ng-show="view_tab == 'tabC'" class="name">queue for {{ profile.username }}
-      <img src="/images/poop.gif" style="padding-bottom:10px" ng-show="profile.username == 's3rg' || profile.username == 'Oat'" height="60px"/>
-      <img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:6px" ng-show="profile.username == 'kev' || profile.username == 'Ryan'" height="60px"/>
-      </span>
+        <img src="/images/poop.gif" style="padding-bottom:10px" ng-show="profile.username == 's3rg' || profile.username == 'Oat'" height="60px"/>
+        <img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:6px" ng-show="profile.username == 'kev' || profile.username == 'Ryan'" height="60px"/></span>
+        <span ng-show="view_tab == 'tabB'" class="name">likes by {{ profile.username }}
+          <img src="/images/poop.gif" style="padding-bottom:10px" ng-show="profile.username == 's3rg' || profile.username == 'Oat'" height="60px"/>
+          <img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:6px" ng-show="profile.username == 'kev' || profile.username == 'Ryan'" height="60px"/></span>
+          <span ng-show="view_tab == 'tabC'" class="name">queue for {{ profile.username }}
+            <img src="/images/poop.gif" style="padding-bottom:10px" ng-show="profile.username == 's3rg' || profile.username == 'Oat'" height="60px"/>
+            <img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:6px" ng-show="profile.username == 'kev' || profile.username == 'Ryan'" height="60px"/>
+          </span>
 
  <!--       <p>
      score: {{score}}
@@ -22,10 +22,10 @@
      
       <br/>
        points per post: {{(score / postsNumber) | limitTo: 3}}
-      </p> -->
+     </p> -->
 
-      <div> <img ng-repeat="i in getNumber(stars) track by $index" ng-src="/images/gold-star.png" height="18" /></div>
-      <br/>
+     <div> <img ng-repeat="i in getNumber(stars) track by $index" ng-src="/images/gold-star.png" height="18" /></div>
+     <br/>
 
 <!--   <div class="sort-links">
   <a href ng-click="sorter = '-votes'">popular</a>
@@ -35,130 +35,130 @@
   <a href ng-click="sorter = '-stars'">stars</a> 
 
 
-    </div> -->
-    </div>
-    <div class="btn-group-lg" role="group" aria-label="profiletabs" align="center">
+</div> -->
+</div>
+<div class="btn-group-lg" role="group" aria-label="profiletabs" align="center">
   <button type="button" class="btn btn-secondary" ng-class="{'active': view_tab == 'tabA'}" ng-click="changeTab('tabA')" >posts</button>
   <button type="button" class="btn btn-secondary" ng-class="{'active': view_tab == 'tabB'}" ng-click="changeTab('tabB')" >likes</button>
-   <button type="button" class="btn btn-secondary" ng-class="{'active': view_tab == 'tabC'}" ng-click="changeTab('tabC')" >queue</button>
+  <button type="button" class="btn btn-secondary" ng-class="{'active': view_tab == 'tabC'}" ng-click="changeTab('tabC')" >queue</button>
 </div>
- <br/>
+<br/>
 
-  <div ng-repeat="(key,post) in user_posts | orderBy:'-'" ng-show="view_tab == 'tabA'" align="center" >
-     <div class="post" ng-show="post.artist">
-<!--     <img ng-click="upvote(post)" src="/images/up.png" height="30"></img> -->
+<div ng-repeat="(key,post) in user_posts | orderBy:'-'" ng-show="view_tab == 'tabA'" align="center" >
+ <div class="post" ng-show="post.artist">
+  <!--     <img ng-click="upvote(post)" src="/images/up.png" height="30"></img> -->
+  
+  <a ng-href="#/posts/{{ post.$id  }}">
+    <img ng-src="{{post.image_medium}}" height="100" />
+  </a>
+  
+  <!--  <img ng-click="downvote(post)" src="/images/down.png" height="30"></img> -->
+
+  <br/>
+  <a ng-href="#/posts/{{ post.$id  }}">
+    {{post.artist}} - {{ post.album }} ({{post.release_date | limitTo: 4}})
+  </a>
+  <div>
+   <!-- <a data-toggle="modal" ng-click="starPost(post)" href="" >   -->
+   <img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18" />
+   <!--      <img ng-src="/images/empty-star.png" height="18" /></a> -->
+
+ </div>
+ <div>
+  <div><span class="label label-default">{{post.category}}</span></div>
+  <span class="label label-pill label-info">{{ post.summary | limitTo: 40 }}{{post.summary.length > 40 ? '..' : ''}}</span>
+</div>
+<p>
+ {{ post.votes }} votes
+ <small>(posted by {{post.creator}})</small>
  
-        <a ng-href="#/posts/{{ post.$id  }}">
-        <img ng-src="{{post.image_medium}}" height="100" />
-        </a>
-       
-            <!--  <img ng-click="downvote(post)" src="/images/down.png" height="30"></img> -->
-
-        <br/>
-        <a ng-href="#/posts/{{ post.$id  }}">
-        {{post.artist}} - {{ post.album }} ({{post.release_date | limitTo: 4}})
-        </a>
-          <div>
- <!-- <a data-toggle="modal" ng-click="starPost(post)" href="" >   -->
-          <img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18" />
- <!--      <img ng-src="/images/empty-star.png" height="18" /></a> -->
-
-      </div>
-        <div>
-          <div><span class="label label-default">{{post.category}}</span></div>
-       <span class="label label-pill label-info">{{ post.summary | limitTo: 40 }}{{post.summary.length > 40 ? '..' : ''}}</span>
-         </div>
-           <p>
-         {{ post.votes }} votes
-           <small>(posted by {{post.creator}})</small>
-        
-         <small><a ng-href="#/posts/{{ post.$id  }}">comments ({{post.comments}})</a></small>
-         <small><a href="" ng-click="deletePost(post)" ng-show="user.uid === post.creatorUID">&mdash; delete</a></small>
-        </p>
- </div>
- </div>
+ <small><a ng-href="#/posts/{{ post.$id  }}">comments ({{post.comments}})</a></small>
+ <small><a href="" ng-click="deletePost(post)" ng-show="user.uid === post.creatorUID">&mdash; delete</a></small>
+</p>
+</div>
+</div>
 
 
 
-   <div ng-repeat="post in likes | orderBy:'-'" ng-show="view_tab == 'tabB'" align="center">
+<div ng-repeat="post in likes | orderBy:'-'" ng-show="view_tab == 'tabB'" align="center">
 
-     <div class="post" ng-show="post.artist">
-    
- 
-        <a ng-href="#/posts/{{ post.$id  }}">
-        <img ng-src="{{post.image_medium}}" height="100" />
-        </a>
-         
-           
-
-        <br/>
-        <a ng-href="#/posts/{{ post.$id  }}">
-        {{post.artist}} - {{ post.album }}
-        </a>
-          <div>
-<!-- <a data-toggle="modal" ng-click="starPost(post)" href="" >   -->
-          <img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18" />
- <!--      <img ng-src="/images/empty-star.png" height="18" /></a> -->
-          <span class="label label-default">{{post.category}}</span></div>
-        <span class="label label-pill label-info">{{ post.summary | limitTo: 40 }}{{post.summary.length > 40 ? '..' : ''}}</span>
-           <p>
-         {{ post.votes }} votes
-           <small>(posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator}}</a>)</small>
-        
-         <small><a ng-href="#/posts/{{ post.$id  }}">comments ({{post.comments}})</a></small>
-         <small><a href="" ng-click="deletePost(post)" ng-show="user.uid === post.creatorUID">&mdash; delete</a></small>
-        </p>
- </div>
+ <div class="post" ng-show="post.artist">
+  
    
-  </div>
+  <a ng-href="#/posts/{{ post.$id  }}">
+    <img ng-src="{{post.image_medium}}" height="100" />
+  </a>
+  
+  
+
+  <br/>
+  <a ng-href="#/posts/{{ post.$id  }}">
+    {{post.artist}} - {{ post.album }}
+  </a>
+  <div>
+    <!-- <a data-toggle="modal" ng-click="starPost(post)" href="" >   -->
+    <img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18" />
+    <!--      <img ng-src="/images/empty-star.png" height="18" /></a> -->
+    <span class="label label-default">{{post.category}}</span></div>
+    <span class="label label-pill label-info">{{ post.summary | limitTo: 40 }}{{post.summary.length > 40 ? '..' : ''}}</span>
+    <p>
+     {{ post.votes }} votes
+     <small>(posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator}}</a>)</small>
+     
+     <small><a ng-href="#/posts/{{ post.$id  }}">comments ({{post.comments}})</a></small>
+     <small><a href="" ng-click="deletePost(post)" ng-show="user.uid === post.creatorUID">&mdash; delete</a></small>
+   </p>
+ </div>
+ 
+</div>
 
 <hr class="style-two"></a>
 
-     <div ng-repeat="post in queue | orderBy:'-'" ng-show="view_tab == 'tabC'" align="center">
+<div ng-repeat="post in queue | orderBy:'-'" ng-show="view_tab == 'tabC'" align="center">
 
 
 
-     <!--  <img class="arrow" ng-click="upvote(post)" src="/images/up.png" height="30" ></img> -->
+ <!--  <img class="arrow" ng-click="upvote(post)" src="/images/up.png" height="30" ></img> -->
 
  <a ng-href="#/albums/{{ post.$id  }}" >
-        <span class="post-image"><img class="post" ng-src="{{post.image_medium}}" />
-     <span class="score label label-default label-default">   {{ post.votes }} </span> 
-       <span class="comments-icon"><img ng-src="/images/comments.png" height="35px" />
+  <span class="post-image"><img class="post" ng-src="{{post.image_medium}}" />
+   <span class="score label label-default label-default">   {{ post.votes }} </span> 
+   <span class="comments-icon"><img ng-src="/images/comments.png" height="35px" />
     <span class="after label label-pill label-danger"> {{post.comments}} </span></span>
-     </span>
-       
-        </a>
+  </span>
+  
+</a>
 
-           <!--  <img class="arrow" ng-click="downvote(post)" src="/images/down.png" height="30"></img> -->
-     
-          <div style="padding-top:15px; padding-bottom:5px"> 
-     <div><img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18" />
-    </div>
-         <div>
+<!--  <img class="arrow" ng-click="downvote(post)" src="/images/down.png" height="30"></img> -->
 
-        <a ng-href="#/albums/{{ post.$id  }}">
-     {{ post.artist }} - {{ post.album }} ({{post.release_date | limitTo: 4}})</a> 
-</div>
+<div style="padding-top:15px; padding-bottom:5px"> 
+ <div><img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18" />
+ </div>
  <div>
-       <a ng-href="#/albums/{{ post.$id  }}"><span class="label label-pill label-info">{{ post.summary | limitTo: 40 }}{{post.summary.length > 40 ? '..' : ''}}</span></a>
-       </div> 
-       <small>(posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator}}</a>)</small>
 
-<p><small><button class="btn btn-success-outline btn-sm" ng-click="removeSaved(post)" data-toggle="modal" data-target=".bd-example-modal-sm">remove from my queue</button></small></p>  
+  <a ng-href="#/albums/{{ post.$id  }}">
+   {{ post.artist }} - {{ post.album }} ({{post.release_date | limitTo: 4}})</a> 
+ </div>
+ <div>
+   <a ng-href="#/albums/{{ post.$id  }}"><span class="label label-pill label-info">{{ post.summary | limitTo: 40 }}{{post.summary.length > 40 ? '..' : ''}}</span></a>
+ </div> 
+ <small>(posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator}}</a>)</small>
 
-<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="Save to queue" aria-hidden="true">
+ <p><small><button class="btn btn-success-outline btn-sm" ng-click="removeSaved(post)" data-toggle="modal" data-target=".bd-example-modal-sm">remove from my queue</button></small></p>  
+
+ <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="Save to queue" aria-hidden="true">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       Album removed from your queue (it will clear on next refresh)
     </div>
   </div>
 </div>
-       
-      </div> 
-       
 
-      
+</div> 
+
+
+
 <hr class="style-two"></a>
-   
-  </div>
+
+</div>
 </div>

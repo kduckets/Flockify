@@ -10,28 +10,28 @@ app.controller('PodcastCtrl', function ($scope, $route, $location, $window, Post
   $scope.date = new Date();
 
 
-          var body = {'feed': $scope.feedUrl};
-      $http.post('/api/podcastfeed', body)
+  var body = {'feed': $scope.feedUrl};
+  $http.post('/api/podcastfeed', body)
 
-             .success(function(data) {
-                
-                 $scope.podcastFeed = data;
+  .success(function(data) {
+    
+   $scope.podcastFeed = data;
                   //console.log($scope.podcastFeed);   
-           
-             })
-             .error(function(data) {
-                 console.log('Error: ' + data);
-             });
+                  
+                })
+  .error(function(data) {
+   console.log('Error: ' + data);
+ });
 
 
 
   $scope.cancel = function(){
-     $modalInstance.close();
+   $modalInstance.close();
 
-    
-  };
+   
+ };
 
-   $scope.submitPost = function (episode) {
+ $scope.submitPost = function (episode) {
   $scope.post.creator = $scope.user.profile.username;
   $scope.post.summary = episode.user_description
   $scope.post.creatorUID = $scope.user.uid;
@@ -39,10 +39,10 @@ app.controller('PodcastCtrl', function ($scope, $route, $location, $window, Post
   $scope.post.album = $scope.podcast.trackName;
   $scope.post.artist = $scope.podcast.artistName;
   if(episode.image.url){
-  $scope.post.image_medium = episode.image.url;
-    }else{
-  $scope.post.image_medium = $scope.podcast.artworkUrl100;
-    }
+    $scope.post.image_medium = episode.image.url;
+  }else{
+    $scope.post.image_medium = $scope.podcast.artworkUrl100;
+  }
   $scope.post.external_link = episode.link;
   $scope.post.comments = 0;
   $scope.post.date = $scope.date;
@@ -55,15 +55,15 @@ app.controller('PodcastCtrl', function ($scope, $route, $location, $window, Post
 
   Post.create($scope.post).then(function (ref) {
     //$location.path('/posts/' + ref.name());
-     $modalInstance.close();
+    $modalInstance.close();
 
-      $route.reload();
+    $route.reload();
     $scope.post = {artist: '', album: ''};
   });
 };
 
-        $scope.viewInItunes = function(){
-            $window.open($scope.podcast.collectionViewUrl, '_blank');
-        };
+$scope.viewInItunes = function(){
+  $window.open($scope.podcast.collectionViewUrl, '_blank');
+};
 
 });

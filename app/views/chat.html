@@ -1,56 +1,56 @@
 <div class="container" ng-show="signedIn()">
 
-<h2 align="center">Flockify Huddle</h2>
+  <h2 align="center">Flockify Huddle</h2>
 
   <div ng-repeat="comment in comments.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))" class="row cmt">
     <div class="col-md-12">
      <p>
-        <a ng-href="#/users/{{ comment.creatorUID }}">
-          <b>{{ comment.creator }}</b> <img src="/images/poop.gif" style="padding-bottom:4px" ng-show="comment.creator == 's3rg' || comment.creator == 'Oat'" height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:3px" ng-show="comment.creator == 'kev' || comment.creator == 'Ryan'" height="30px"/>
-        </a> <i> <span><small>({{comment.datetime_ts | date:'dd-MM-yy HH:mm'}})</small></span></i>: <p ng-bind-html="comment.text"></p></p>
- <!--   <p><img ng-src="{{comment.text}}" height="100" class="gif" /></p> -->
-  
-   
+      <a ng-href="#/users/{{ comment.creatorUID }}">
+        <b>{{ comment.creator }}</b> <img src="/images/poop.gif" style="padding-bottom:4px" ng-show="comment.creator == 's3rg' || comment.creator == 'Oat'" height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:3px" ng-show="comment.creator == 'kev' || comment.creator == 'Ryan'" height="30px"/>
+      </a> <i> <span><small>({{comment.datetime_ts | date:'dd-MM-yy HH:mm'}})</small></span></i>: <p ng-bind-html="comment.text"></p></p>
+      <!--   <p><img ng-src="{{comment.text}}" height="100" class="gif" /></p> -->
+      
+      
     </div>
   </div>
   <hr class="style-two"></a>
   <uib-pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages" items-per-page="itemsPerPage" first-text="<<" last-text=">>" next-text=">" previous-text="<"></uib-pagination>
-    <pre>Page: {{currentPage}} / {{numPages}}</pre>
+  <pre>Page: {{currentPage}} / {{numPages}}</pre>
 
 
 
 
-                
+  
 
   <div class="cmt-form">
 <!--     <div ng-hide="signedIn()">
       <p><a href="#/login">Sign in</a> to chat</p>
     </div> -->
 
-      <form ng-show="signedIn()" ng-submit="addComment(commentText)">
+    <form ng-show="signedIn()" ng-submit="addComment(commentText)">
       <textarea
-        ng-model="commentText"
-        placeholder="chat box"
-        class="form-control"></textarea>
+      ng-model="commentText"
+      placeholder="chat box"
+      class="form-control"></textarea>
       <input type="submit" value="post" class="btn btn-primary" />
     </form>
 
-<p>
-    <form ng-show="signedIn()" ng-submit="gifsearch()">
-      <input type="text" ng-model="gifSearchText" placeholder="search for gif"/>
-      <input type="submit" value="search" class="btn btn-secondary" /> 
-    </form>
+    <p>
+      <form ng-show="signedIn()" ng-submit="gifsearch()">
+        <input type="text" ng-model="gifSearchText" placeholder="search for gif"/>
+        <input type="submit" value="search" class="btn btn-secondary" /> 
+      </form>
       or
       <form ng-show="signedIn()" ng-submit="addGif(gifLink)">
-      <input type="text" ng-model="gifLink" placeholder="paste gif link"/>
-      <input type="submit" value="post" class="btn btn-secondary" /> 
-    </form>
+        <input type="text" ng-model="gifLink" placeholder="paste gif link"/>
+        <input type="submit" value="post" class="btn btn-secondary" /> 
+      </form>
     </p>
   </div>
-<br/>
-      <div ng-repeat="gif in gifs" style="display: inline-block;">
-          <a ng-href="#/chat" ng-click="addGif(gif.images.downsized.url)"><img class="gifs" ng-src="{{gif.images.downsized.url}}" height="100" /></a>
-      </div>
+  <br/>
+  <div ng-repeat="gif in gifs" style="display: inline-block;">
+    <a ng-href="#/chat" ng-click="addGif(gif.images.downsized.url)"><img class="gifs" ng-src="{{gif.images.downsized.url}}" height="100" /></a>
+  </div>
 
 
 
