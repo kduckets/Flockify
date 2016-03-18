@@ -2,11 +2,11 @@
 
 app.controller('AlbumCommentsCtrl', function ($scope, $routeParams, Post, Auth, $firebase, Profile, $http, $filter, $sce, $uibModal) {
   var ref = new Firebase("https://flockify.firebaseio.com");
-    $scope.user = Auth.user;
+  $scope.user = Auth.user;
   $scope.signedIn = Auth.signedIn;
   $scope.logout = Auth.logout;
-   $scope.posts = Post.all;
-    $scope.user = Auth.user;
+  $scope.posts = Post.all;
+  $scope.user = Auth.user;
   $scope.post = Post.get($routeParams.postId);
   $scope.comments = Post.comments($routeParams.postId);
   $scope.gifSearchText = '';
