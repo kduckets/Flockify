@@ -144,7 +144,15 @@
        </div> 
        <small>(posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator}}</a>)</small>
 
-<p><small><button class="btn btn-success-outline btn-sm" ng-click="removeSaved(post)">remove from my queue</button></small></p>  
+<p><small><button class="btn btn-success-outline btn-sm" ng-click="removeSaved(post)" data-toggle="modal" data-target=".bd-example-modal-sm">remove from my queue</button></small></p>  
+
+<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="Save to queue" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      Album removed from your queue (it will clear on next refresh)
+    </div>
+  </div>
+</div>
        
       </div> 
        
