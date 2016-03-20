@@ -1,6 +1,6 @@
 'use strict';
 
-app.factory('Action', function ($firebase, FIREBASE_URL, Auth, Post, Profile) {
+app.factory('Action', function ($firebase, FIREBASE_URL, Auth, Post, Profile, $filter) {
   var ref = new Firebase(FIREBASE_URL);
   var posts = $firebase(ref.child('posts')).$asArray();
   var signedIn = Auth.signedIn;
@@ -40,11 +40,11 @@ app.factory('Action', function ($firebase, FIREBASE_URL, Auth, Post, Profile) {
         //todo: use media_type
         ref.child("user_scores").child(post.creator).update({'album_score': score});
         
-        // if(new Date(post.date) > getMonday(new Date()))
-        // {      
-        //todo: use media_type
+        if(new Date(post.date) > getMonday($filter('date')(new Date(),'yyyy-MM-dd HH:mm:ss')))
+        {      
+       
         ref.child("user_scores").child(post.creator).child('weekly_scores').update({'album_score': weekly_score});
-      // };
+      };
       
     };
 
@@ -78,10 +78,10 @@ downvote:function(post, media_type) {
       weekly_score = weekly_score - 1;
       ref.child("user_scores").child(post.creator).update({'album_score': score});
       
-      // if(new Date(post.date) > getMonday(new Date()))
-      // {      
+      if(new Date(post.date) > getMonday($filter('date')(new Date(),'yyyy-MM-dd HH:mm:ss')))
+      {      
         ref.child("user_scores").child(post.creator).child('weekly_scores').update({'album_score': weekly_score});
-      // };
+      };
       
     };
 
