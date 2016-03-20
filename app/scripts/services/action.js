@@ -7,14 +7,14 @@ app.factory('Action', function ($firebase, FIREBASE_URL, Auth, Post, Profile) {
   var user = Auth.user;
  
 
-  var getMonday = function(d) {
-    d = new Date(d);
-    var day = d.getDay(),
-      diff = d.getDate() - day + (day == 0 ? -6:1); // adjust when day is sunday
-      return new Date(d.setDate(diff));
-    };
+  // var getMonday = function(d) {
+  //   d = moment(d);
+  //   var day = d.day(),
+  //     diff = d.getDate() - day + (day == 0 ? -6:1); // adjust when day is sunday
+  //     return moment(d.setDate(diff));
+  //   };
 
- var monday = getMonday(new Date());
+
 
     var actionResult = {
       upvote:function(post, media_type) {
@@ -42,12 +42,13 @@ app.factory('Action', function ($firebase, FIREBASE_URL, Auth, Post, Profile) {
 
         //todo: use media_type
         ref.child("user_scores").child(post.creator).update({'album_score': score});
-        
-        // if(new Date(post.date) > monday)
-        // {      
+
+       var monday = moment().weekday(-7);
+        if(moment(post.date) > monday)
+        {      
         //todo: use media_type
         ref.child("user_scores").child(post.creator).child('weekly_scores').update({'album_score': weekly_score});
-      // };
+      };
       
     };
 
@@ -81,12 +82,12 @@ downvote:function(post, media_type) {
       weekly_score = weekly_score - 1;
       ref.child("user_scores").child(post.creator).update({'album_score': score});
       
-    
+     var monday = moment().weekday(-7);
         
-      //   if(new Date(post.date) > monday)
-      // {      
+        if(moment(post.date) > monday)
+      {      
         ref.child("user_scores").child(post.creator).child('weekly_scores').update({'album_score': weekly_score});
-      // };
+      };
       
     };
 
