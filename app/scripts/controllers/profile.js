@@ -10,52 +10,43 @@ app.controller('ProfileCtrl', function ($scope, $routeParams, Profile, Post, Aut
 
   var uid = $routeParams.userId;
   $scope.profile = Profile.get(uid);
+  $scope.view_tab = 'tabA';
+
   //get likes
   Profile.getLikes(uid).then(function(posts) {
     $scope.likes = posts;
   });
 
-     //get posts
-     Profile.getPosts(uid).then(function(posts) {
-      $scope.user_posts = posts;
-      ref.child('user_scores').child($scope.profile.username).child('score').on("value", function(snapshot) {
-        $scope.score = snapshot.val();
-      });
-      ref.child('user_scores').child($scope.profile.username).child('stars').on("value", function(snapshot) {
-        $scope.stars = snapshot.val();
-      });
-      $scope.postsNumber = Object.keys($scope.user_posts).length;
-
+  // get posts
+  Profile.getPosts(uid).then(function(posts) {
+    $scope.user_posts = posts;
+    ref.child('user_scores').child($scope.profile.username).child('score').on("value", function(snapshot) {
+      $scope.score = snapshot.val();
     });
-
-     Profile.getQueue(uid).then(function(posts) {
-      $scope.queue = posts;
+    ref.child('user_scores').child($scope.profile.username).child('stars').on("value", function(snapshot) {
+      $scope.stars = snapshot.val();
     });
+    $scope.postsNumber = Object.keys($scope.user_posts).length;
+  });
 
+  Profile.getQueue(uid).then(function(posts) {
+    $scope.queue = posts;
+  });
 
-     $scope.view_tab = 'tabA';
+  $scope.changeTab = function(tab) {
+    $scope.view_tab = tab;
+  };
 
-     $scope.changeTab = function(tab) {
-      $scope.view_tab = tab;
-    };
+  $scope.getNumber = function(num) {
+    return new Array(num);
+  };
 
-
-
-    $scope.getNumber = function(num) {
-      return new Array(num);
-    };
-
-    $scope.deletePost = function (post) {
-    //Post.delete(post.$id);
-    var postsRef = new Firebase('https://flockify.firebaseio.com/posts/'+post.$id);
-    postsRef.remove();
+  $scope.deletePost = function (post) {
+    Post.delete(post);
   };
 
   $scope.removeSaved = function(post){
-   Profile.savePost($scope.user.uid, post.$id, 'no');
-
- };
-
-
+    Profile.savePost($scope.user.uid, post.$id, 'no');
+  };
 
 });
