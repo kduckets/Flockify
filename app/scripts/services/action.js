@@ -5,15 +5,6 @@ app.factory('Action', function ($firebase, FIREBASE_URL, Auth, Post, Profile) {
   var posts = $firebase(ref.child('posts')).$asArray();
   var signedIn = Auth.signedIn;
   var user = Auth.user;
- 
-
-  // var getMonday = function(d) {
-  //   d = moment(d);
-  //   var day = d.day(),
-  //     diff = d.getDate() - day + (day == 0 ? -6:1); // adjust when day is sunday
-  //     return moment(d.setDate(diff));
-  //   };
-
 
 
     var actionResult = {
@@ -127,10 +118,12 @@ starPost:function(post, media_type){
      weekly_score = weekly_score + 2;
      ref.child("user_scores").child(post.creator).update({'album_score': score});
      ref.child("user_scores").child(post.creator).update({'stars': user_stars});
-     // if(new Date(post.date) > getMonday(new Date()))
-     // {  
+      var monday = moment().weekday(-7);
+        
+        if(moment(post.date) > monday)
+      {  
       ref.child("user_scores").child(post.creator).child('weekly_scores').update({'album_score': weekly_score});
-    // };
+     };
     
 
   };
