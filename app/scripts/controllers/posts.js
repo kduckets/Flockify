@@ -65,26 +65,25 @@
 
 
      $scope.clearResults = function(){
-
-       $route.reload();
+      $route.reload();
      };
 
-     $scope.deletePost = function (post) {
+    $scope.deletePost = function (post) {
       Post.delete(post);
     };
 
     $scope.upvote = function(post) {
-      Action.upvote(post, post.media_type);
+      Action.upvote(post, 'spotify');
 
     };
 
     $scope.downvote = function(post) {
-      Action.downvote(post, post.media_type);
+      Action.downvote(post, 'spotify');
 
     };
 
     $scope.starPost = function(post){
-      Action.starPost(post, post.media_type);
+      Action.starPost(post, 'spotify');
 
     };
 
