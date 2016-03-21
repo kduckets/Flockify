@@ -1,17 +1,17 @@
 <div class="container">
   <!-- <img class="background" src="/images/record.jpg"/> -->
   <div align="center">
-   
-    
-    
-   
+
+
+
+
     <a ng-href="{{post.spotify_uri}}" target="_blank">
       <img ng-src="{{post.image_medium}}" class="comments" />
     </a>
 
     <div> <img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18" />
 
-     <a data-toggle="modal" ng-click="starPost(post)" href="" >  <img ng-src="/images/empty-star.png" height="32" style="padding-bottom:2px" /></a> 
+     <a data-toggle="modal" ng-click="starPost(post)" href="" >  <img ng-src="/images/empty-star.png" height="32" style="padding-bottom:2px" /></a>
    </div>
    <div>
     <a ng-href="{{post.spotify_uri}}" target="_blank">
@@ -22,12 +22,12 @@
   <div>  <small>(posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator}}<img src="/images/poop.gif" style="padding-bottom:4px" ng-show="post.creator == 's3rg' || post.creator == 'Oat'" height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:3px" ng-show="post.creator == 'kev' || post.creator == 'Ryan'" height="30px"/></a>) <a ng-click="deletePost(post)" ng-show="user.uid === post.creatorUID">&mdash; delete</a></small>
 
    <div class="alert alert-info" role="alert">{{post.summary}}</div>
-   <div style="padding-top:5px"> 
+   <div style="padding-top:5px">
 
 
-     <a href="" data-toggle="tooltip" title="Post approved" data-placement="top"><img class="arrow" ng-click="upvote(post)" src="/images/up.png" height="30" ></img></a> 
+     <a href="" data-toggle="tooltip" title="Post approved" data-placement="top"><img class="arrow" ng-click="upvote(post)" src="/images/up.png" height="30" ></img></a>
 
-     <span class="label label-default label-default" style="font-size:20px">   {{ post.votes }} </span> 
+     <span class="label label-default label-default" style="font-size:20px">   {{ post.votes }} </span>
 
      <a href="" data-toggle="tooltip" title="Not into this one" data-placement="top"><img class="arrow" ng-click="downvote(post)" src="/images/down.png" height="30"></img></a>
 
@@ -42,15 +42,9 @@
     </div>
 
 
-    
-  </div> 
 
+  </div>
 
-  
-  
-  
-  
-</div>
 
 
 
@@ -59,7 +53,13 @@
 </div>
 
 
-<div ng-repeat="comment in comments | orderBy:'-votes'" class="row cmt">
+
+
+
+</div>
+
+
+<div ng-repeat="comment in comments" class="row cmt">
   <div class="col-md-12">
    <p><img ng-src="{{comment.text}}" height="100" class="gif" /></p>
    <p class="author">posted by
@@ -82,17 +82,17 @@
 
   <form ng-show="signedIn()" ng-submit="gifsearch()">
     <input type="text" ng-model="gifSearchText" placeholder="search for gif"/>
-    <input type="submit" value="search" class="btn btn-secondary" /> 
+    <input type="submit" value="search" class="btn btn-secondary" />
   </form>
   or
   <form ng-show="signedIn()" ng-submit="addComment(gifLink)">
     <input type="text" ng-model="gifLink" placeholder="paste gif link"/>
-    <input type="submit" value="post" class="btn btn-secondary" /> 
+    <input type="submit" value="post" class="btn btn-secondary" />
   </form>
 </div>
 <br/>
 <div ng-repeat="gif in gifs" style="display: inline-block;">
-  
+
   <a ng-href="#/albums/{{ post.$id  }}" ng-click="addComment(gif.images.downsized.url)"><img class="gifs" ng-src="{{gif.images.downsized.url}}" height="100" /></a>
 
 </div>
