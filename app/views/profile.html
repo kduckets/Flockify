@@ -31,6 +31,8 @@
 
      <div> <img ng-repeat="i in getNumber(stars) track by $index" ng-src="/images/gold-star.png" height="18" /></div>
      <br/>
+  <small>weekly score: {{score}} | weekly ratio: {{ratio | limitTo: 3}}</small>
+
 
 <!--   <div class="sort-links">
   <a href ng-click="sorter = '-votes'">popular</a>

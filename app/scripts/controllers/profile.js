@@ -20,13 +20,21 @@ app.controller('ProfileCtrl', function ($scope, $routeParams, Profile, Post, Aut
   // get posts
   Profile.getPosts(uid).then(function(posts) {
     $scope.user_posts = posts;
-    ref.child('user_scores').child($scope.profile.username).child('score').on("value", function(snapshot) {
+    ref.child('user_scores').child($scope.profile.username).child('weekly_scores').child('album_score').on("value", function(snapshot) {
       $scope.score = snapshot.val();
     });
     ref.child('user_scores').child($scope.profile.username).child('stars').on("value", function(snapshot) {
       $scope.stars = snapshot.val();
     });
+    var monday = moment().startOf('isoweek');
     $scope.postsNumber = Object.keys($scope.user_posts).length;
+    angular.forEach($scope.user_posts, function(post, key) {
+      var i = 0;
+    if(moment(post.date) > monday){
+      i++;
+    }
+    $scope.ratio = $scope.score / i;
+});
   });
 
   Profile.getQueue(uid).then(function(posts) {
