@@ -13,10 +13,10 @@ app.controller('ChatCtrl', function ($scope, $routeParams, Post, Auth, Comment, 
 
   // don't load scope.comments with comments until we know total #
   var comments = Comment.get_comments_for_post('flock_groupchat');
-  comments.$loaded().then(function(comments){
-    $scope.totalItems = comments.length;
-    $scope.comments = comments;
-    $scope.currentPage = Math.ceil($scope.totalItems / $scope.itemsPerPage);
+  comments.$loaded().then(function(comments) {
+      $scope.totalItems = comments.length;
+      $scope.comments = comments;
+      $scope.currentPage = Math.ceil($scope.totalItems / $scope.itemsPerPage);
   });
 
   $scope.setPage = function (pageNo) {

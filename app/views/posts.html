@@ -55,32 +55,27 @@
 </div> -->
 
 
-
 <back-top scroll-speed=600 button-theme="light"><i class="fa fa-arrow-circle-up"></i></back-top>
 
 <div ng-show="signedIn()">
   <div class="sort-links" align="center">
    <a href ng-click="sorter = '-'">fresh</a>
    <a href ng-click="sorter = '-votes'">popular</a>
-
    <a href ng-click="sorter = '-latest_comment'">new comments</a> 
-   
-
-
-   
-
-
    <a href ng-click="sorter = '-stars'">stars</a> 
 
    <!--   <a href ng-click="batchUpdate()">batch</a>  -->
 
 
  </div>
+<div align="center">
+<div class="btn-group btn-group-sm" role="group" aria-label="Date filter" align="center">
+  <button type="button" ng-click="thisWeek()" class="btn btn-secondary">this week</button>
+  <button type="button" ng-click="allTime()" class="btn btn-secondary">all time</button>
+</div>
+</div>
 
-
-
-
- <div class="post-box" align="center" ng-repeat="post in posts | orderBy:sorter | filter:'spotify'" jd-script >           
+ <div class="post-box" align="center" ng-repeat="post in posts | orderBy:sorter | filter:'spotify' | isAfter:filter_date" jd-script >           
 
   <img class="arrow" ng-click="upvote(post)" src="/images/up.png" height="30" ></img>
 

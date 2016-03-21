@@ -7,13 +7,24 @@
    $scope.post = {artist: '', album: '', votes: 0, comments: 0, stars:0};
    $scope.signedIn = Auth.signedIn;
    $scope.logout = Auth.logout;
+
    var ref = new Firebase(FIREBASE_URL);
+
+   $scope.filter_date = moment('2016-01-01 16:07:35');
+
    $scope.sorter = '-';
    $scope.albumPosts = {};
    angular.forEach($scope.posts, function(item, key) {
     if ($scope.post.media_type == 'spotify') { $scope.albumPosts[key] = item; };
   });
 
+
+   $scope.thisWeek = function(){
+ $scope.filter_date = moment().startOf('isoweek');
+   }
+    $scope.allTime = function(){
+    $scope.filter_date = moment('2016-01-01 16:07:35');
+   }
    $scope.getNumber = function(num) {
     return new Array(num);
   };
