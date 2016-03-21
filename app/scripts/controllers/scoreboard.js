@@ -5,7 +5,6 @@ app.controller('ScoreCtrl', function ($scope, $routeParams, Profile, Post, Auth,
 
  //$scope.posts = Post.all;
  $scope.user = Auth.user;
-  $scope.user = Auth.user;
   $scope.signedIn = Auth.signedIn;
   $scope.logout = Auth.logout;
     $scope.comments = Post.comments('scoreboard');
