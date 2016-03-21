@@ -24,7 +24,7 @@ app.factory('Comment', function ($firebase, FIREBASE_URL, Auth, Post, $filter) {
       var new_comment = {
         text: comment,
         type: type,
-        creator_name: user.profile.username || null,
+        creator: user.profile.username || null,
         creatorUID: user.uid,
         datetime_ts: today
       };
