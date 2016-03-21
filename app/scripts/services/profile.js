@@ -34,11 +34,14 @@ app.factory('Profile', function ($window, FIREBASE_URL, $firebase, Post, $q) {
     .$loaded()
     .then(function(data) {
       var posts = {};
+      data.reverse();
 
       for(var i = 0; i<data.length; i++) {
         var value = data[i].$value;
         posts[value] = Post.get(value);
       }
+
+      
       defer.resolve(posts);
     });
 
@@ -50,7 +53,7 @@ app.factory('Profile', function ($window, FIREBASE_URL, $firebase, Post, $q) {
     .$asArray()
     .$loaded()
     .then(function(data) {
-
+        data.reverse();
 
       var posts = {};
 
