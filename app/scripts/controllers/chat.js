@@ -22,13 +22,6 @@ app.controller('ChatCtrl', function ($scope, $routeParams, Post, Auth, $firebase
   
 });
   
-
-
-
-
-
-
-
   
 
   $scope.setPage = function (pageNo) {

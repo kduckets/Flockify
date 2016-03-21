@@ -34,7 +34,7 @@ app.factory('Action', function ($firebase, FIREBASE_URL, Auth, Post, Profile) {
         //todo: use media_type
         ref.child("user_scores").child(post.creator).update({'album_score': score});
 
-       var monday = moment().weekday(-7);
+       var monday = moment().startOf('isoweek');
         if(moment(post.date) > monday)
         {      
         //todo: use media_type
@@ -73,7 +73,7 @@ downvote:function(post, media_type) {
       weekly_score = weekly_score - 1;
       ref.child("user_scores").child(post.creator).update({'album_score': score});
       
-     var monday = moment().weekday(-7);
+     var monday = moment().startOf('isoweek');
         
         if(moment(post.date) > monday)
       {      
@@ -118,7 +118,7 @@ starPost:function(post, media_type){
      weekly_score = weekly_score + 2;
      ref.child("user_scores").child(post.creator).update({'album_score': score});
      ref.child("user_scores").child(post.creator).update({'stars': user_stars});
-      var monday = moment().weekday(-7);
+      var monday = moment().startOf('isoweek');
         
         if(moment(post.date) > monday)
       {  

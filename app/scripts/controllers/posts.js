@@ -20,7 +20,7 @@
 
 
    $scope.thisWeek = function(){
- $scope.filter_date = moment().weekday(-7);
+ $scope.filter_date = moment().startOf('isoweek');
    }
     $scope.allTime = function(){
     $scope.filter_date = moment('2016-01-01 16:07:35');
