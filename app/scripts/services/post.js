@@ -22,10 +22,6 @@ app.factory('Post', function ($firebase, FIREBASE_URL) {
       return ref.child('posts').child(postId).update({'stars': stars});
     },
 
-    comments: function (postId) {
-      return $firebase(ref.child('comments').child(postId)).$asArray();
-    },
-
     // unused
     commentVote: function(postId, commentId, votes){
       return ref.child('comments').child(postId).child(commentId).update({'votes': votes});
@@ -35,8 +31,12 @@ app.factory('Post', function ($firebase, FIREBASE_URL) {
       return $firebase(ref.child('posts').child(postId)).$asObject();
     },
 
+    get_reference: function(postId){
+      return $firebase(ref.child('posts').child(postId));
+    },
+
     delete: function (post) {
-      return posts.$remove(post);
+      ref.child('posts').child(post.$id).remove();
     }
   };
 

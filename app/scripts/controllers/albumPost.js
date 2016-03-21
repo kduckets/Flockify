@@ -7,7 +7,7 @@ app.controller('AlbumCtrl', function ($scope, $route, $location, $window, Post, 
   $scope.logout = Auth.logout;
   $scope.album = album;
   $scope.posts = Post.all;
-  
+
 
 
 
@@ -26,7 +26,7 @@ app.controller('AlbumCtrl', function ($scope, $route, $location, $window, Post, 
     $scope.release_date = album.data.release_date;
     $scope.embed_uri = album.data.uri;
 
-    // $scope.embed_link = $sce.trustAsResourceUrl("https://embed.spotify.com/?uri=spotify:album:6SwMUCcHLfZjji3MAFODMv"); 
+    // $scope.embed_link = $sce.trustAsResourceUrl("https://embed.spotify.com/?uri=spotify:album:6SwMUCcHLfZjji3MAFODMv");
 
 
   }, function errorCallback(response) {
@@ -37,7 +37,7 @@ app.controller('AlbumCtrl', function ($scope, $route, $location, $window, Post, 
 
   $scope.cancel = function(){
    $modalInstance.close();
-   $location.path('/');    
+   $location.path('/');
  };
 
  $scope.submitPost = function () {
@@ -45,7 +45,7 @@ app.controller('AlbumCtrl', function ($scope, $route, $location, $window, Post, 
     //   if item.
 
     // });
-$scope.post.creator = $scope.user.profile.username;
+$scope.post.creator = $scope.user.profile.username || null,
 $scope.post.summary = $scope.summary;
 $scope.post.creatorUID = $scope.user.uid;
 $scope.post.album = $scope.album;

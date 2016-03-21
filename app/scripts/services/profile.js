@@ -10,19 +10,19 @@ app.factory('Profile', function ($window, FIREBASE_URL, $firebase, Post, $q) {
 
     setVote: function(userId, postId, vote){
      return ref.child('user_votes').child(userId).child(postId).update({'vote': vote});
-     
+
 
    },
 
    savePost: function(userId, postId, save){
      return ref.child('user_votes').child(userId).child(postId).update({'saved': save});
-     
+
 
    },
 
    setStar: function(userId, postId, vote){
      return ref.child('user_votes').child(userId).child(postId).update({'star': vote});
-     
+
 
    },
 
@@ -51,7 +51,7 @@ app.factory('Profile', function ($window, FIREBASE_URL, $firebase, Post, $q) {
     .$loaded()
     .then(function(data) {
 
-     
+
       var posts = {};
 
       for(var i = 0; i<data.length; i++) {
@@ -76,7 +76,7 @@ app.factory('Profile', function ($window, FIREBASE_URL, $firebase, Post, $q) {
     .$loaded()
     .then(function(data) {
 
-     
+
       var posts = {};
 
       for(var i = 0; i<data.length; i++) {
