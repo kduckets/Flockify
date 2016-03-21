@@ -50,6 +50,10 @@ var app = angular
   templateUrl: 'views/scoreboard.html',
   controller: 'ScoreCtrl'
       })
+    .when('/history', {
+  templateUrl: 'views/scoreboardHistory.html',
+  controller: 'ScoreCtrl'
+      })
       .when('/movies', {
   templateUrl: 'views/movies.html',
   controller: 'MoviesCtrl'
