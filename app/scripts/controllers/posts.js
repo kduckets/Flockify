@@ -2,6 +2,7 @@
   app.controller('PostsCtrl', function($scope, $route, $location, $window, Post, Auth, Spotify,$uibModal, Profile, $firebase, 
     $filter, FIREBASE_URL, Action){
 
+
    $scope.posts = Post.all;
    $scope.user = Auth.user;
    $scope.post = {artist: '', album: '', votes: 0, comments: 0, stars:0};
@@ -10,9 +11,11 @@
 
    var ref = new Firebase(FIREBASE_URL);
 
-   $scope.filter_date = moment('2016-01-01 16:07:35');
+   $scope.filter_date = moment().startOf('isoweek');
 
    $scope.sorter = '-';
+    $scope.week = 'true';
+   $scope.allTime = 'false';
    $scope.albumPosts = {};
    angular.forEach($scope.posts, function(item, key) {
     if ($scope.post.media_type == 'spotify') { $scope.albumPosts[key] = item; };
@@ -21,9 +24,14 @@
 
    $scope.thisWeek = function(){
  $scope.filter_date = moment().startOf('isoweek');
+ $scope.week = true;
+
+
    }
     $scope.allTime = function(){
     $scope.filter_date = moment('2016-01-01 16:07:35');
+ 
+     $scope.week = false;
    }
    $scope.getNumber = function(num) {
     return new Array(num);
