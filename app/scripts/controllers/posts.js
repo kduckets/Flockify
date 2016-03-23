@@ -102,7 +102,7 @@
       //todo: wait for response
         $mdToast.show(
         $mdToast.simple()
-        .textContent('Gave ' + post.album + ' an upvote!')
+        .textContent('Gave "' + post.album + '" an upvote!')
         .position('bottom right' )
         .hideDelay(3000)
     );
@@ -115,7 +115,7 @@
       //todo: wait for response
         $mdToast.show(
         $mdToast.simple()
-        .textContent('Gave ' + post.album + ' a downvote')
+        .textContent('Gave "' + post.album + '" a downvote')
         .position('bottom right' )
         .hideDelay(3000)
     );
@@ -127,7 +127,7 @@
             //todo: wait for response
         $mdToast.show(
         $mdToast.simple()
-        .textContent('Gave ' + post.album + ' a star!')
+        .textContent('Gave "' + post.album + '" a star!')
         .position('bottom right' )
         .hideDelay(3000)
     );
