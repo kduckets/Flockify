@@ -1,63 +1,61 @@
-    <div layout="vertical">
-    <md-sidenav
+      <md-sidenav
         class="md-sidenav-right"
         md-component-id="right"
         md-disable-backdrop
         md-whiteframe="4">
-      <md-toolbar class="md-theme-indigo">
+    <md-toolbar class="md-theme-indigo">
         <h1 class="md-toolbar-tools"></h1>
       </md-toolbar>
-      <md-content layout-padding ng-controller="NavCtrl">
+      <md-content layout-padding ng-controller="NavCtrl" flex>
        <span flex></span>
-        <p><a ng-href="#/chat" ng-click="close()">
+        <p><a ng-href="#/chat">
         <md-button ng-show="signedIn()" class="md-icon-button" aria-label="Chat">
         <i class="fa fa-wechat fa-2x"></i>    
         </md-button>Chat</a></p>
 
-        <p><a ng-href="#/scoreboard" ng-click="close()">
+        <p><a ng-href="#/scoreboard">
         <md-button ng-show="signedIn()" class="md-icon-button" aria-label="Scoreboard">
         <i class="fa fa-trophy fa-2x"></i>
         </md-button>Leaderboard</a></p>
 
-        <p><a ng-href="#/users/{{ user.uid }}" ng-click="close()">
+        <p><a ng-href="#/users/{{ user.uid }}">
         <md-button ng-show="signedIn()" class="md-icon-button" aria-label="Profile">
         <i class="fa fa-user fa-2x"></i>
         </md-button>My Profile</a></p>
 
-        <p><a href="/#/" ng-click="logout()" ng-click="close()">
+        <p><a href="/#/" ng-click="logout()">
         <md-button ng-show="signedIn()" class="md-icon-button" aria-label="Logout">
         <i class="fa fa-sign-out fa-2x"></i>
         </md-button>Logout</a></p>
 
          <md-divider/>
 
-          <p><a href="/#/" ng-click="close()">
+          <p><a href="/#/">
           <md-button ng-show="signedIn()" class="md-icon-button" aria-label="Albums">
-          <ng-md-icon icon="album"></md-icon>
+          <ng-md-icon icon="album"></ng-md-icon>
           </md-button>Albums</a></p>
 
-          <p><a href="/#/podcasts" ng-click="close()">
+          <p><a href="/#/podcasts">
           <md-button ng-show="signedIn()" class="md-icon-button" aria-label="Podcasts">
-          <ng-md-icon icon="mic"></md-icon>
+          <ng-md-icon icon="mic"></ng-md-icon>
           </md-button>Podcasts</a></p>
 
-          <p><a href="/#/movies" ng-click="close()">
+          <p><a href="/#/movies">
           <md-button ng-show="signedIn()" class="md-icon-button" aria-label="Movies">
-          <ng-md-icon icon="movie"></md-icon>
+          <ng-md-icon icon="movie"></ng-md-icon>
           </md-button>Movies</a></p>
       
-          <p><a href="/#/books" ng-click="close()">
+          <p><a href="/#/books">
           <md-button ng-show="signedIn()" class="md-icon-button" aria-label="Books">
-          <ng-md-icon icon="book"></md-icon>
+          <ng-md-icon icon="book"></ng-md-icon>
           </md-button>Books</a></p>
        
       </md-content>
     </md-sidenav>
- 
-</ng-md-icon>
+
 
  <md-toolbar style="position:fixed !important">
- 
+
   <div class="md-toolbar-tools" ng-controller="NavCtrl">
    <a href="/#/"> <h2><img ng-src="/images/flockify.png" height="40px"/> Flockify</a></h2>
       <span flex></span>
