@@ -1,32 +1,46 @@
 
+
 <div style="padding-bottom:10px" align="center" >
-  <img class="background" src="/images/record.jpg"/>
+
+<!-- <img class="background" src="/images/record.jpg"></img>  -->
   <div ng-hide="signedIn()">
    <h2>Welcome to flockify</h2>
    <p><a href="/#/login">Sign in</a> to get started</p>
-   <!--  <div ng-include="'views/login.html'"></div> -->
  </div>
- 
-<!--     <div class="category">
-        <a href="/#/"><i class="material-icons" style="font-size:35px;">album</i></a> 
-        <a href="/#/podcasts"><i class="fa fa-microphone fa-3x"></i></a> 
-        <a href="/#/movies"><i class="fa fa-film fa-3x"></i></a> 
-        <a href="/#/books"><i class="fa fa-book fa-3x"></i></a> 
-      </div>     --> 
-
-      <small>go to <a href="/#/">albums</a> | <a href="/#/podcasts">podcasts</a> 
-        | <a href="/#/movies">movies</a> | <a href="/#/books">books</a></small>
-
+<div ng-show="signedIn()" align="center">
         <!-- Search Bar -->
-        <div class="box">
+
+        <md-button aria-label="Search" class="search-box" ng-click="showSearch = !showSearch" style="position:fixed;">
+            <ng-md-icon icon="add_circle" style="fill:white; padding-right:8px" size="48"></ng-md-icon>
+          </md-button>
+          <md-toolbar class="md-hue-3" ng-show="showSearch" layout="row" layout-align="center center">
+        <div class="md-toolbar-tools" style="max-width:320px">
+          <md-button flex="33" ng-click="clearResults()" aria-label="Back">
+            <ng-md-icon icon="arrow_back"></ng-md-icon>
+          </md-button>
+      
+          <form ng-submit="search()">
+          <md-input-container md-theme="input" style="max-width:190px !important" flex>
+            <label>&nbsp;</label>
+            <input ng-model="post.search" placeholder="post an album">
+          </md-input-container>
+          <md-button flex="33" aria-label="Search" ng-click="search()">
+            <ng-md-icon icon="search"></ng-md-icon>
+          </md-button>
+          </form>
+        </div>
+       
+      </md-toolbar>
+
+ <!--        <div class="box">
           <div class="container-1">
             <form ng-submit="search()" ng-show="signedIn()" class="form-inline search-form">
               <button class="icon"><i class="fa fa-search"></i></span></button>
-              <input type="search" name="focus" id="search" required class="search-box form-control" ng-model="post.search" placeholder=" post an album"/>
+              <input type="search" name="focus" id="search" required class="search-box form-control" ng-model="post.search" placeholder=" new post"/>
               <button class="close-icon" type="reset" ng-click="clearResults()"><i class="fa fa-times"></i></button>
             </form>
           </div>
-        </div>
+        </div> -->
 
 
 
@@ -43,47 +57,42 @@
         </div>
         
 
-      </div>
-
-<!-- <div align="center">
-<div class="alert alert-warning" role="alert" style="max-width:300px">
- <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-  <strong>Nobody likes a lurker.</strong> Go vote.
-</div>
-</div> -->
+ 
 
 
 <back-top scroll-speed=600 button-theme="light"><i class="fa fa-arrow-circle-up"></i></back-top>
 
-<div ng-show="signedIn()">
-  <div class="sort-links" align="center">
-   <a href ng-click="sorter = '-'">fresh</a>
-   <a href ng-click="sorter = '-votes'">popular</a>
-   <a href ng-click="sorter = '-latest_comment'">new comments</a> 
-   <a href ng-click="sorter = '-stars'">stars</a> 
+<div class="btn-group btn-group-sm" role="group" aria-label="Date filter" align="center" >
+ <md-button ng-click="thisWeek()" ng-class="week ? 'md-raised md-primary':'md-raised'">this week</md-button>
+  <md-button type="button" ng-click="allTime()" ng-class="week ? 'md-raised':'md-raised md-primary'">all time</md-button>
+</div>
+<div>
+
+   <md-button ng-click="sorter = '-'">new</md-button>
+   <md-button ng-click="sorter = '-votes'">top</md-button>
+   <md-button ng-click="sorter = '-latest_comment'">comments</md-button>
+   <md-button ng-click="sorter = '-stars'">stars</md-button>
+
+  </div>
 
    <!--   <a href ng-click="batchUpdate()">batch</a>  -->
 
 
- </div>
-<div align="center">
-<div class="btn-group btn-group-sm" role="group" aria-label="Date filter" align="center">
-  <button type="button" ng-click="thisWeek()" ng-class="week ? 'btn btn-primary':'btn btn-secondary'">this week</button>
-  <button type="button" ng-click="allTime()" ng-class="week ? 'btn btn-secondary':'btn btn-primary'">all time</button>
-</div>
-</div>
 
- <div class="post-box" align="center" ng-repeat="post in posts | orderBy:sorter | filter:'spotify' | isAfter:filter_date" jd-script >           
 
+
+
+
+ <div align="center" ng-repeat="post in posts | orderBy:sorter | filter:'spotify' | isAfter:filter_date" jd-script > 
+
+<div class="post-box">
   <img class="arrow" ng-click="upvote(post)" src="/images/up.png" height="30" ></img>
 
   <a ng-href="#/albums/{{ post.$id  }}" >
     <span class="post-image"><img class="post" ng-src="{{post.image_medium}}" />
      <span class="score label label-default label-default">   {{ post.votes }} </span> 
      
-     <span class="comments-icon"><img ng-src="/images/comments.png" height="35px" />
+     <span class="comments-icon"><i class="fa fa-comment fa-2x"></i>
       <span class="after label label-pill label-danger"> {{post.comments}} </span>   </span>
     </a>
   </span>
@@ -94,11 +103,11 @@
   <div style="padding-top:5px; padding-bottom:10px"> 
    <div>   <a data-toggle="modal" ng-click="starPost(post)" href="" >  <div><img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18" />
      <img ng-src="/images/empty-star.png" height="18" /></a></div>
-     <div>
+   
 
       <a ng-href="#/albums/{{ post.$id  }}">
        {{ post.artist }} - {{ post.album }} ({{post.release_date | limitTo: 4}})</a> 
-     </div>
+
      <div>
        <a ng-href="#/albums/{{ post.$id  }}"><span class="label label-pill label-info">{{ post.summary | limitTo: 40 }}{{post.summary.length > 40 ? '..' : ''}}</span></a>
      </div>   
@@ -124,11 +133,10 @@
     </div>
   </div>
 
-  
-  <!-- <hr class="style-two"></a> -->
+</div>
 
   
-</div>
+</div> 
 </div>
 </div>
 </div>

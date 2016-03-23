@@ -1,9 +1,28 @@
 'use strict';
 
-app.controller('NavCtrl', function ($scope, $location, Post, Auth, $cookieStore, $rootScope) {
+app.controller('NavCtrl', function ($scope, $location, Post, Auth, $cookieStore, $rootScope, $timeout, $mdSidenav) {
   $scope.post = {artist: '', album: ''};
   $scope.user = Auth.user;
   $scope.signedIn = Auth.signedIn;
+  $scope.toggleMenu = buildToggler('right');
+
+
+     function buildToggler(navID) {
+      return function() {
+        $mdSidenav(navID)
+          .toggle()
+          .then(function () {
+        //done
+          });
+      }
+    }
+
+    $scope.close = function () {
+      $mdSidenav('right').close()
+        .then(function () {
+         //done
+        });
+      };
 //   $scope.logout = function(){
 //   	Auth.logout;
 //   	console.log('got here');

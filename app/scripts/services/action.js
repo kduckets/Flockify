@@ -6,7 +6,6 @@ app.factory('Action', function ($firebase, FIREBASE_URL, Auth, Post, Profile) {
   var signedIn = Auth.signedIn;
   var user = Auth.user;
 
-
     var actionResult = {
       upvote:function(post, media_type) {
 
@@ -39,6 +38,7 @@ app.factory('Action', function ($firebase, FIREBASE_URL, Auth, Post, Profile) {
         {      
         //todo: use media_type
         ref.child("user_scores").child(post.creator).child('weekly_scores').update({'album_score': weekly_score});
+ 
       };
       
     };
@@ -78,6 +78,7 @@ downvote:function(post, media_type) {
         if(moment(post.date) > monday)
       {      
         ref.child("user_scores").child(post.creator).child('weekly_scores').update({'album_score': weekly_score});
+ 
       };
       
     };

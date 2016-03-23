@@ -26,8 +26,19 @@ var app = angular
     'ngLoadingSpinner',
     'angular.backtop',
     'yaru22.angular-timeago',
+    'ngMaterial',
+    'ngMdIcons'
    
   ])
+  .config(function($mdThemingProvider) {
+  $mdThemingProvider.theme('default').primaryPalette('grey', {
+                'default': '900',
+                'hue-2': '500',
+                'hue-3': '200'
+            }).backgroundPalette('grey', {
+                'default': '200'
+            })
+})
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {

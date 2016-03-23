@@ -6,10 +6,32 @@
    <!--  <div ng-include="'views/login.html'"></div> -->
  </div>
 
- <small>go to <a href="/#/">albums</a> | <a href="/#/podcasts">podcasts</a> 
-  | <a href="/#/movies">movies</a> | <a href="/#/books">books</a></small>
+ <md-button aria-label="Search" class="search-box" ng-click="showSearch = !showSearch">
+            <ng-md-icon icon="add_circle" style="fill:white; padding-right:8px" size="48"></ng-md-icon>
+          </md-button>
+          <md-toolbar class="md-hue-3" ng-show="showSearch">
+        <div class="md-toolbar-tools" style="max-width:320px">
+          <md-button ng-click="clearResults()" aria-label="Back">
+            <ng-md-icon icon="arrow_back"></ng-md-icon>
+          </md-button>
+      
+          <form ng-submit="search()">
+          <md-input-container md-theme="input" style="max-width:190px !important" flex>
+            <label>&nbsp;</label>
+            <input ng-model="searchTerm" placeholder="post a movie">
+          </md-input-container>
+          <md-button aria-label="Search" ng-click="search()">
+            <ng-md-icon icon="search"></ng-md-icon>
+          </md-button>
+       <!--    <md-button aria-label="Open Settings" ng-click="showListBottomSheet($event)">
+            <ng-md-icon icon="more_vert"></ng-md-icon>
+          </md-button> -->
+          </form>
+        </div>
+       
+      </md-toolbar>
 
-  <div class="box">
+<!--   <div class="box">
     <div class="container-1">
       <form ng-submit="search()" ng-show="signedIn()" class="form-inline search-form">
         <button class="icon"><i class="fa fa-search"></i></span></button>
@@ -17,7 +39,7 @@
         <button class="close-icon" type="reset" ng-click="clearResults()"><i class="fa fa-times"></i></button>
       </form>
     </div>
-  </div>
+  </div> -->
 
   <div class="list-group" ng-repeat="result in results" align="left">
 

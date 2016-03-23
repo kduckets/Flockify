@@ -1,6 +1,6 @@
   'use strict';
   app.controller('PostsCtrl', function($scope, $route, $location, $window, Post, Auth, Spotify,$uibModal, Profile, $firebase, 
-    $filter, FIREBASE_URL, Action){
+    $filter, FIREBASE_URL, Action, $mdToast){
 
 
    $scope.posts = Post.all;
@@ -14,7 +14,7 @@
    $scope.filter_date = moment().startOf('isoweek');
 
    $scope.sorter = '-';
-    $scope.week = 'true';
+   $scope.week = 'true';
    $scope.allTime = 'false';
    $scope.albumPosts = {};
    angular.forEach($scope.posts, function(item, key) {
@@ -94,10 +94,26 @@
     $scope.upvote = function(post) {
       Action.upvote(post, 'spotify');
 
+      //todo: wait for response
+        $mdToast.show(
+        $mdToast.simple()
+        .textContent('Album Upvoted!')
+        .position('bottom right' )
+        .hideDelay(3000)
+    );
+
     };
 
     $scope.downvote = function(post) {
       Action.downvote(post, 'spotify');
+
+      //todo: wait for response
+        $mdToast.show(
+        $mdToast.simple()
+        .textContent('Album downvoted!')
+        .position('bottom right' )
+        .hideDelay(3000)
+    );
 
     };
 
