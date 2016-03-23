@@ -61,10 +61,26 @@
 </div>
 <div>
 
-   <md-button ng-click="sorter = '-'">new</md-button>
-   <md-button ng-click="sorter = '-votes'">top</md-button>
-   <md-button ng-click="sorter = '-latest_comment'">comments</md-button>
-   <md-button ng-click="sorter = '-stars'">stars</md-button>
+   <md-button ng-click="sorter = '-'">new
+  <md-tooltip md-direction="botom">
+          Sort by most recent
+        </md-tooltip>
+   </md-button>
+   <md-button ng-click="sorter = '-votes'">top
+    <md-tooltip md-direction="botom">
+          Sort by highest score
+        </md-tooltip>
+   </md-button>
+   <md-button ng-click="sorter = '-latest_comment'">comments
+    <md-tooltip md-direction="botom">
+          Sort by most recent comments
+        </md-tooltip>
+   </md-button>
+   <md-button ng-click="sorter = '-stars'">stars
+ <md-tooltip md-direction="botom">
+          Sort by most stars
+        </md-tooltip>
+   </md-button>
 
   </div>
 
@@ -79,7 +95,19 @@
  <div align="center" ng-repeat="post in posts | orderBy:sorter | filter:'spotify' | isAfter:filter_date" jd-script > 
 
 <div class="post-box">
-  <img class="arrow" ng-click="upvote(post)" src="/images/up.png" height="30" ></img>
+ <md-button ng-click="upvote(post)">
+ <md-tooltip md-direction="left">
+          Upvote this album
+        </md-tooltip>
+ <img class="arrow"  src="/images/up.png" height="30" ></img>
+ </md-button>
+
+<!--    <md-button aria-label="Upvote" ng-click="upvote(post)">
+     <ng-md-icon icon="arrow_drop_up" size="80"></ng-md-icon>
+       <md-tooltip md-direction="left">
+          Upvote this post
+        </md-tooltip>
+     </md-button>  -->
 
   <a ng-href="#/albums/{{ post.$id  }}" >
     <span class="post-image"><img class="post" ng-src="{{post.image_medium}}" />
@@ -90,12 +118,25 @@
     </a>
   </span>
   
-
+<md-button ng-click="upvote(post)">
+ <md-tooltip md-direction="right">
+          Downvote this album
+        </md-tooltip>
   <img class="arrow" ng-click="downvote(post)" src="/images/down.png" height="30"></img>
+  </md-button>
   
   <div style="padding-top:5px; padding-bottom:10px"> 
-   <div>   <a data-toggle="modal" ng-click="starPost(post)" href="" >  <div><img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18" />
+   <div>   
+
+   <a ng-click="starPost(post)" href="" >  <div><img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18" />
      <img ng-src="/images/empty-star.png" height="18" /></a></div>
+
+<!--         <md-button aria-label="Star" style="padding-top:10px" ng-click="starPost(post)">
+     <ng-md-icon icon="star_border"></ng-md-icon>
+       <md-tooltip md-direction="right">
+          Star this post
+        </md-tooltip>
+     </md-button> -->
    
 
       <a ng-href="#/albums/{{ post.$id  }}">
