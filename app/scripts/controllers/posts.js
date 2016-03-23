@@ -2,7 +2,6 @@
   app.controller('PostsCtrl', function($scope, $route, $location, $window, Post, Auth, Spotify,$uibModal, Profile, $firebase, 
     $filter, FIREBASE_URL, Action, $mdToast){
 
-
    $scope.posts = Post.all;
    $scope.user = Auth.user;
    $scope.post = {artist: '', album: '', votes: 0, comments: 0, stars:0};
