@@ -6,6 +6,13 @@ app.controller('NavCtrl', function ($scope, $location, Post, Auth, $cookieStore,
   $scope.signedIn = Auth.signedIn;
   $scope.toggleMenu = buildToggler('right');
 
+  $scope.$on('$routeChangeStart', function(next, current) { 
+       $mdSidenav('right').close()
+        .then(function () {
+         //done
+        });
+ });
+
 
      function buildToggler(navID) {
       return function() {
@@ -18,10 +25,7 @@ app.controller('NavCtrl', function ($scope, $location, Post, Auth, $cookieStore,
     }
 
     $scope.close = function () {
-      $mdSidenav('right').close()
-        .then(function () {
-         //done
-        });
+  
       };
 //   $scope.logout = function(){
 //   	Auth.logout;
