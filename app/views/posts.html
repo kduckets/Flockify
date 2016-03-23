@@ -10,23 +10,27 @@
 <div ng-show="signedIn()" align="center">
         <!-- Search Bar -->
 
-        <md-button aria-label="Search" class="search-box" ng-click="showSearch = !showSearch" style="position:fixed;">
+       <!--  <md-button aria-label="Search" class="search-box" ng-click="showSearch = !showSearch" style="position:fixed;">
             <ng-md-icon icon="add_circle" style="fill:white; padding-right:8px" size="48"></ng-md-icon>
-          </md-button>
-          <md-toolbar class="md-hue-3" ng-show="showSearch" layout="row" layout-align="center center">
+          </md-button> -->
+
+
+          <md-toolbar class="md-hue-3" layout="row" layout-align="center center">
         <div class="md-toolbar-tools" style="max-width:320px">
-          <md-button flex="33" ng-click="clearResults()" aria-label="Back">
-            <ng-md-icon icon="arrow_back"></ng-md-icon>
+           <md-button flex="33" aria-label="Search" ng-click="search()">
+            <ng-md-icon icon="search"></ng-md-icon>
           </md-button>
-      
           <form ng-submit="search()">
           <md-input-container md-theme="input" style="max-width:190px !important" flex>
             <label>&nbsp;</label>
             <input ng-model="post.search" placeholder="post an album">
+          
           </md-input-container>
-          <md-button flex="33" aria-label="Search" ng-click="search()">
-            <ng-md-icon icon="search"></ng-md-icon>
+                  <md-button flex="33" ng-click="clearResults()" ng-show="post.search" aria-label="Back">
+            <ng-md-icon icon="clear"></ng-md-icon>
           </md-button>
+        
+     
           </form>
         </div>
        
