@@ -62,24 +62,24 @@
 <div>
 
    <md-button ng-click="sorter = '-'">new
-  <md-tooltip md-direction="botom">
+ <!--  <md-tooltip md-direction="botom">
           Sort by most recent
-        </md-tooltip>
+        </md-tooltip> -->
    </md-button>
    <md-button ng-click="sorter = '-votes'">top
-    <md-tooltip md-direction="botom">
+   <!--  <md-tooltip md-direction="botom">
           Sort by highest score
-        </md-tooltip>
+        </md-tooltip> -->
    </md-button>
    <md-button ng-click="sorter = '-latest_comment'">comments
-    <md-tooltip md-direction="botom">
+  <!--   <md-tooltip md-direction="botom">
           Sort by most recent comments
-        </md-tooltip>
+        </md-tooltip> -->
    </md-button>
    <md-button ng-click="sorter = '-stars'">stars
- <md-tooltip md-direction="botom">
+<!--  <md-tooltip md-direction="botom">
           Sort by most stars
-        </md-tooltip>
+        </md-tooltip> -->
    </md-button>
 
   </div>
@@ -96,9 +96,9 @@
 
 <div class="post-box">
  <md-button ng-click="upvote(post)">
- <md-tooltip md-direction="left">
+ <!-- <md-tooltip md-direction="left">
           Upvote this album
-        </md-tooltip>
+        </md-tooltip> -->
  <img class="arrow"  src="/images/up.png" height="30" ></img>
  </md-button>
 
@@ -119,9 +119,9 @@
   </span>
   
 <md-button ng-click="downvote(post)">
- <md-tooltip md-direction="right">
+<!--  <md-tooltip md-direction="right">
           Downvote this album
-        </md-tooltip>
+        </md-tooltip> -->
   <img class="arrow" ng-click="downvote(post)" src="/images/down.png" height="30"></img>
   </md-button>
   
