@@ -60,6 +60,12 @@
 
     Profile.savePost($scope.user.uid, post.$id, 'yes');
           // $scope.post.saveButtonText = 'saved';
+        $mdToast.show(
+        $mdToast.simple()
+        .textContent('Saved ' + post.album + ' to your queue')
+        .position('bottom right' )
+        .hideDelay(3000)
+    );
 
         };
 

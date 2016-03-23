@@ -1,6 +1,11 @@
 body {
   background: #F3F3F3;
+  overflow-y: hidden !important
 
+}
+
+.md-toast {
+  position: fixed !important;
 }
 
 .md-button {

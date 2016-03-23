@@ -55,6 +55,12 @@ app.controller('ProfileCtrl', function ($scope, $routeParams, Profile, Post, Aut
 
   $scope.removeSaved = function(post){
     Profile.savePost($scope.user.uid, post.$id, 'no');
+             $mdToast.show(
+        $mdToast.simple()
+        .textContent(post.album + ' removed from your queue')
+        .position('bottom right' )
+        .hideDelay(3000)
+    );
   };
 
 });
