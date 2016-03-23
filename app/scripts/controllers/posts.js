@@ -97,7 +97,7 @@
       //todo: wait for response
         $mdToast.show(
         $mdToast.simple()
-        .textContent('Album Upvoted!')
+        .textContent('Gave ' + post.album + ' an upvote!')
         .position('bottom right' )
         .hideDelay(3000)
     );
@@ -110,7 +110,7 @@
       //todo: wait for response
         $mdToast.show(
         $mdToast.simple()
-        .textContent('Album downvoted!')
+        .textContent('Gave ' + post.album + ' a downvote')
         .position('bottom right' )
         .hideDelay(3000)
     );
@@ -119,6 +119,13 @@
 
     $scope.starPost = function(post){
       Action.starPost(post, 'spotify');
+            //todo: wait for response
+        $mdToast.show(
+        $mdToast.simple()
+        .textContent('Gave ' + post.album + ' a star!')
+        .position('bottom right' )
+        .hideDelay(3000)
+    );
 
     };
 
