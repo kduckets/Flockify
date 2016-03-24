@@ -19,18 +19,25 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
   if ($scope.post.media_type == 'spotify') { $scope.albumPosts[key] = item; };
 });
 
+ $scope.getPostLink = function(post){
+  if($scope.user.profile.group_id == 1){
+    var link = '#/albums/' + post.$id
+    return link;
+  }else return post.spotify_uri;
+
+ };
 
  $scope.thisWeek = function(){
    $scope.filter_date = moment().startOf('isoweek');
    $scope.week = true;
 
 
- }
+ };
  $scope.allTime = function(){
   $scope.filter_date = moment('2016-01-01 16:07:35');
 
   $scope.week = false;
-}
+};
 $scope.getNumber = function(num) {
   return new Array(num);
 };
