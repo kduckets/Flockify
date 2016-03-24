@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "b10c254e7ecfca5e0bc6"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "3b2878b2b45429dd78b8"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -81572,17 +81572,41 @@
 /* 74 */
 /***/ function(module, exports) {
 
-	module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootScope) {
+	module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootScope, $timeout, $mdSidenav) {
+	
 	  $scope.post = {artist: '', album: ''};
 	  $scope.user = Auth.user;
 	  $scope.signedIn = Auth.signedIn;
-	//   $scope.logout = function(){
-	//   	Auth.logout;
-	//   	console.log('got here');
-	//   	  if($cookieStore.get('login')){
-	//   	    $cookieStore.remove('login');
-	//   	};
+	  $scope.toggleMenu = buildToggler('right');
 	
+	  $scope.$on('$routeChangeStart', function(next, current) { 
+	       $mdSidenav('right').close()
+	        .then(function () {
+	         //done
+	        });
+	 });
+	
+	
+	     function buildToggler(navID) {
+	      return function() {
+	        $mdSidenav(navID)
+	          .toggle()
+	          .then(function () {
+	        //done
+	          });
+	      }
+	    }
+	
+	    $scope.close = function () {
+	  
+	      };
+	//   $scope.logout = function(){
+	//    Auth.logout;
+	//    console.log('got here');
+	//      if($cookieStore.get('login')){
+	//        $cookieStore.remove('login');
+	//    };
+	    
 	// };
 	$scope.logout = Auth.logout;
 	
@@ -81596,7 +81620,7 @@
 	        var prevUrl = history.length > 1 ? history.splice(-2)[0] : "/";
 	        $location.path(prevUrl);
 	    };
-	
+	   
 	
 	};
 

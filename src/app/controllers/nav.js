@@ -4,7 +4,6 @@ module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootSco
   $scope.user = Auth.user;
   $scope.signedIn = Auth.signedIn;
   $scope.toggleMenu = buildToggler('right');
-     console.log('sup from top');
 
   $scope.$on('$routeChangeStart', function(next, current) { 
        $mdSidenav('right').close()
@@ -15,7 +14,6 @@ module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootSco
 
 
      function buildToggler(navID) {
-      console.log('sup');
       return function() {
         $mdSidenav(navID)
           .toggle()
