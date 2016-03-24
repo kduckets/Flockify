@@ -6,7 +6,7 @@
   "scripts": {
     "prestart": "webpack",
     "start": "node server.js",
-    "start-dev": "NODE_ENV=dev DEFAULT_VIEW=index2 nodemon --ignore 'src/**/*.js' server.js",
+    "start-dev": "NODE_ENV=dev nodemon --ignore 'src/**/*.js' server.js",
     "test": "./node_modules/.bin/mocha"
   },
   "dependencies": {
@@ -15,6 +15,7 @@
     "angular-aria": "^1.5.2",
     "angular-cookies": "^1.5.2",
     "angular-material": "^1.0.6",
+    "angular-material-icons": "^0.7.0",
     "angular-messages": "^1.5.2",
     "angular-resource": "^1.5.2",
     "angular-route": "^1.5.2",

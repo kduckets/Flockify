@@ -26,15 +26,16 @@
 </head>
 <body layout="column" ng-app="flockifyApp">
  
-  <span style="padding-top:80px" us-spinner="{radius:30, width:8, length: 16}"></span>
+  
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
       <![endif]-->
 
       <!-- Add your site or application content here -->
        <div ng-include="'views/nav.html'"></div>
+        
        <md-content flex>
-    
+   <span style="padding-top:80px" us-spinner="{radius:30, width:8, length: 16}"></span>
      <div style="padding-top:66px" layout='column' layout-fill ng-view="">
      </div>
      </md-content>
@@ -64,72 +65,8 @@
     </script>
 
 
-    <!-- build:js(.) scripts/vendor.js -->
-    <!-- bower:js -->
-    <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="bower_components/angular-animate/angular-animate.js"></script>
-    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
-    <script src="bower_components/angular-resource/angular-resource.js"></script>
-    <script src="bower_components/angular-route/angular-route.js"></script>
-    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-    <script src="bower_components/angular-touch/angular-touch.js"></script>
-    <script src="bower_components/firebase/firebase.js"></script>
-    <script src="bower_components/firebase-simple-login/firebase-simple-login.js"></script>
-    <script src="bower_components/mockfirebase/dist/mockfirebase.js"></script>
-    <script src="bower_components/angularfire/dist/angularfire.min.js"></script>
-    <script src="bower_components/angular-spotify/dist/angular-spotify.min.js"></script>
-    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-    <script type="text/javascript" src="bower_components/angular-loading-spinner/spin.min.js"></script>
-    <script type="text/javascript" src="bower_components/angular-loading-spinner/angular-spinner.min.js"></script>
-    <script type="text/javascript" src="bower_components/angular-loading-spinner/angular-loading-spinner.js"></script>
-    <script type="text/javascript" src="bower_components/angular-timeago/angular-timeago.min.js"></script>
-    <script type="text/javascript" src="bower_components/moment/min/moment-with-locales.min.js"></script>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
-
-    <!-- Angular Material Library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-material-icons/0.7.0/angular-material-icons.min.js"></script> 
-
-
-
-
-    <script type="text/javascript" src="bower_components/angular-xml2json.js"></script>
-
-    <!--<script type="text/javascript" src="bower_components/ng-device-detector/ng-device-detector.min.js"></script>-->
-
-    <!-- endbower -->
-    <!-- endbuild -->
-
-    <!-- build:js({.tmp,app}) scripts/scripts.js -->
-    <script src="scripts/app.js"></script>
-    <script src="scripts/controllers/posts.js"></script>
-    <script src="scripts/controllers/comments.js"></script>
-    <script src="scripts/controllers/nav.js"></script>
-    <script src="scripts/controllers/auth.js"></script>
-    <script src="scripts/controllers/profile.js"></script>
-    <script src="scripts/services/post.js"></script>
-    <script src="scripts/services/auth.js"></script>
-    <script src="scripts/services/profile.js"></script>
-    <script src="scripts/services/action.js"></script>
-    <script src="scripts/services/comments.js"></script>
-    <script src="scripts/services/dateFilter.js"></script>
-
-    <script src="scripts/controllers/albumPost.js"></script>
-    <script src="scripts/controllers/chat.js"></script>
-    <script src="scripts/controllers/scoreboard.js"></script>
-    <script src="scripts/controllers/podcastPost.js"></script>
-    <script src="scripts/controllers/podcasts.js"></script>
-    <script src="scripts/controllers/moviePost.js"></script>
-    <script src="scripts/controllers/movies.js"></script>
-    <script src="scripts/controllers/bookPost.js"></script>
-    <script src="scripts/controllers/books.js"></script>
-    <script src="scripts/controllers/albumComments.js"></script>
-    <script src="scripts/directives/backtop.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.min.js"></script>
+    <script src="/bundle.js"></script>
 
 
     <!-- endbuild -->

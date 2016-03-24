@@ -8,6 +8,7 @@ require('angular-resource');
 require('angular-route');
 require('angular-sanitize');
 require('angular-touch');
+require('angular-material-icons');
 
 //firebase connectivity
 require('./../../app/bower_components/firebase/firebase.js');
@@ -33,10 +34,19 @@ var app = angular.module('flockifyApp', [
   'firebase',
   'spotify',
   'ui.bootstrap',
-  'yaru22.angular-timeago'
+  'yaru22.angular-timeago',
+  'ngMdIcons'
 
 ]);
-
+app.config(function($mdThemingProvider) {
+  $mdThemingProvider.theme('default').primaryPalette('grey', {
+        'default': '900',
+        'hue-2': '500',
+        'hue-3': '200'
+            }).backgroundPalette('grey', {
+                'default': '200'
+            })
+});
 app.config(function($routeProvider) { //TODO: move to routes module
   $routeProvider
     .when('/', {
