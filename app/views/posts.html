@@ -102,7 +102,7 @@
         </md-tooltip>
      </md-button>  -->
 
-  <a ng-href="#/albums/{{ post.$id  }}" >
+  <a ng-href="{{getPostLink(post)}}" >
     <span class="post-image"><img class="post" ng-src="{{post.image_medium}}" />
      <span class="score label label-default label-default">   {{ post.votes }} </span> 
      
@@ -132,11 +132,12 @@
      </md-button> -->
    
 
-      <a ng-href="#/albums/{{ post.$id  }}">
+     <a ng-href="{{getPostLink(post)}}" >
        {{ post.artist }} - {{ post.album }} ({{post.release_date | limitTo: 4}})</a> 
 
      <div>
-       <a ng-href="#/albums/{{ post.$id  }}"><span class="label label-pill label-info">{{ post.summary | limitTo: 40 }}{{post.summary.length > 40 ? '..' : ''}}</span></a>
+       <a ng-href="#/albums/{{ post.$id  }}">
+       <span class="label label-pill label-info">{{ post.summary | limitTo: 40 }}{{post.summary.length > 40 ? '..' : ''}}</span></a>
      </div>   
 
    </div>  
