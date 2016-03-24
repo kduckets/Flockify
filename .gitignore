@@ -2,4 +2,10 @@
 .sass-cache
 .idea/*
 
+#NodeJS
 /node_modules
+/*.log
+
+#Webpack
+/bundle.js
+/bundle.js.map
