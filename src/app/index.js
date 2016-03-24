@@ -21,7 +21,7 @@ require('./../../app/bower_components/angular-bootstrap/ui-bootstrap-tpls.min');
 require('./../../app/bower_components/angular-loading-spinner/angular-loading-spinner');
 require('./../../app/bower_components/angular-timeago/angular-timeago.min');
 
-var pluginManager = require('./../plugins/pluginManager');
+//var pluginManager = require('./../plugins/pluginManager');
 
 
 var app = angular.module('flockifyApp', [
