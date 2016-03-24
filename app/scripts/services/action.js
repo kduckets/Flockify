@@ -9,7 +9,7 @@ app.factory('Action', function ($firebase, FIREBASE_URL, Auth, Post, Profile) {
     var actionResult = {
       upvote:function(post, media_type) {
 
-        if(signedIn() && user.uid != post.creatorUID){ 
+        if(signedIn() && user.uid != post.creatorUID){
 
           ref.child('user_scores').child(post.creator).once("value", function(snapshot) {
       //todo: use media_type
@@ -35,12 +35,12 @@ app.factory('Action', function ($firebase, FIREBASE_URL, Auth, Post, Profile) {
 
        var monday = moment().startOf('isoweek');
         if(moment(post.date) > monday)
-        {      
+        {
         //todo: use media_type
         ref.child("user_scores").child(post.creator).child('weekly_scores').update({'album_score': weekly_score});
  
       };
-      
+
     };
 
   })
@@ -54,7 +54,7 @@ app.factory('Action', function ($firebase, FIREBASE_URL, Auth, Post, Profile) {
 
 downvote:function(post, media_type) {
 
-  if(signedIn() && user.uid != post.creatorUID){ 
+  if(signedIn() && user.uid != post.creatorUID){
 
     ref.child('user_scores').child(post.creator).once("value", function(snapshot) {
      var score = snapshot.val().album_score;
@@ -72,15 +72,15 @@ downvote:function(post, media_type) {
       score = score - 1;
       weekly_score = weekly_score - 1;
       ref.child("user_scores").child(post.creator).update({'album_score': score});
-      
+
      var monday = moment().startOf('isoweek');
-        
+
         if(moment(post.date) > monday)
-      {      
+      {
         ref.child("user_scores").child(post.creator).child('weekly_scores').update({'album_score': weekly_score});
  
       };
-      
+
     };
 
   })
@@ -120,12 +120,12 @@ starPost:function(post, media_type){
      ref.child("user_scores").child(post.creator).update({'album_score': score});
      ref.child("user_scores").child(post.creator).update({'stars': user_stars});
       var monday = moment().startOf('isoweek');
-        
+
         if(moment(post.date) > monday)
-      {  
+      {
       ref.child("user_scores").child(post.creator).child('weekly_scores').update({'album_score': weekly_score});
      };
-    
+
 
   };
 
