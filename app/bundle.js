@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "bfe4bf5adf6f79fc6bbb"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "32572b12670792d75622"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -82382,20 +82382,27 @@
 	    ref.child('user_scores').child($scope.profile.username).child('stars').on("value", function(snapshot) {
 	      $scope.stars = snapshot.val();
 	    });
-	    var monday = moment().startOf('isoweek');
-	    $scope.postsNumber = Object.keys($scope.user_posts).length;
-	    angular.forEach($scope.user_posts, function(post, key) {
-	      var i = 0;
-	    if(moment(post.date) > monday){
-	      i++;
-	    }
-	    $scope.ratio = $scope.score / i;
-	});
 	  });
 	
 	  Profile.getQueue(uid).then(function(posts) {
 	    $scope.queue = posts;
 	  });
+	
+	  $scope.showRatio = function(){
+	    var monday = moment().startOf('isoweek');
+	    $scope.postsNumber = Object.keys($scope.user_posts).length;
+	     var i = 0;
+	     console.log(monday);
+	    angular.forEach($scope.user_posts, function(post, key) {
+	     
+	    if(post.date && moment(post.date).isAfter(monday)){
+	      console.log(post);
+	      i++;
+	    }
+	    console.log(i);
+	    $scope.ratio = $scope.score / i;
+	});
+	  };
 	
 	  $scope.changeTab = function(tab) {
 	    $scope.view_tab = tab;
@@ -82413,7 +82420,7 @@
 	    Profile.savePost($scope.user.uid, post.$id, 'no');
 	             $mdToast.show(
 	        $mdToast.simple()
-	        .textContent('Removed "' + post.album + '" from your queue')
+	        .textContent(post.album + ' removed from your queue')
 	        .position('bottom right' )
 	        .hideDelay(3000)
 	    );

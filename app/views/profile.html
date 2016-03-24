@@ -31,7 +31,7 @@
 
      <div> <img ng-repeat="i in getNumber(stars) track by $index" ng-src="/images/gold-star.png" height="18" /></div>
      <br/>
-  <small>weekly score: {{score}} | weekly ratio: {{ratio | limitTo: 3}}</small>
+  <small>weekly score: {{score}} | weekly ratio: <a href="" ng-click="showRatio()" ng-show="!ratio">show</a><span ng-show="ratio">{{ratio | limitTo: 3}}</span></small>
 
 
 <!--   <div class="sort-links">
@@ -51,7 +51,7 @@
 </div>
 <br/>
 
-<div ng-repeat="(key,post) in user_posts | orderBy:'-'" ng-show="view_tab == 'tabA'" align="center" >
+<div ng-repeat="(key,post) in user_posts" ng-show="view_tab == 'tabA'" align="center" >
  <div class="post" ng-show="post.artist">
   <!--     <img ng-click="upvote(post)" src="/images/up.png" height="30"></img> -->
   
@@ -87,7 +87,7 @@
 
 
 
-<div ng-repeat="post in likes | orderBy:'-'" ng-show="view_tab == 'tabB'" align="center">
+<div ng-repeat="post in likes" ng-show="view_tab == 'tabB'" align="center">
 
  <div class="post" ng-show="post.artist">
   
@@ -121,7 +121,7 @@
 
 <hr class="style-two"></a>
 
-<div ng-repeat="post in queue | orderBy:'-'" ng-show="view_tab == 'tabC'" align="center">
+<div ng-repeat="post in queue" ng-show="view_tab == 'tabC'" align="center">
 
 
 
