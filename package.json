@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "prestart": "webpack",
-    "start": "node server.js",
+    "start": "npm start",
     "start-dev": "NODE_ENV=dev nodemon --ignore 'src/**/*.js' server.js",
     "test": "./node_modules/.bin/mocha"
   },
