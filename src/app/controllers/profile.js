@@ -24,6 +24,8 @@ module.exports = function ($scope, $routeParams, Profile, Post, Auth, $firebase,
     ref.child('user_scores').child($scope.profile.username).child('stars').on("value", function(snapshot) {
       $scope.stars = snapshot.val();
     });
+
+    // $scope.showRatio();
   });
 
   Profile.getQueue(uid).then(function(posts) {
@@ -34,11 +36,10 @@ module.exports = function ($scope, $routeParams, Profile, Post, Auth, $firebase,
     var monday = moment().startOf('isoweek');
     $scope.postsNumber = Object.keys($scope.user_posts).length;
      var i = 0;
-     console.log(monday);
+
     angular.forEach($scope.user_posts, function(post, key) {
      
     if(post.date && moment(post.date).isAfter(monday)){
-      console.log(post);
       i++;
     }
     console.log(i);
