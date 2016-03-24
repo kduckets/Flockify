@@ -3,6 +3,7 @@ require('bootstrap');
 
 require('angular-animate');
 require('angular-cookies');
+require('angular-material');
 require('angular-resource');
 require('angular-route');
 require('angular-sanitize');
@@ -24,6 +25,7 @@ var pluginManager = require('./../plugins/pluginManager');
 var app = angular.module('flockifyApp', [
   'ngAnimate',
   'ngCookies',
+  'ngMaterial',
   'ngResource',
   'ngRoute',
   'ngSanitize',
@@ -117,8 +119,8 @@ app.controller('AlbumCommentsCtrl', require('./controllers/albumComments'));
 app.controller('AlbumCtrl', require('./controllers/albumPost'));
 app.controller('AuthCtrl', require('./controllers/auth'));
 
-// app.controller('BooksCtrl', require('./controllers/books'));
-// app.controller('BookCtrl', require('./controllers/bookPost'));
+app.controller('BooksCtrl', require('./controllers/books'));
+app.controller('BookCtrl', require('./controllers/bookPost'));
 
 app.controller('ChatCtrl', require('./controllers/chat'));
 app.controller('CommentsCtrl', require('./controllers/comments'));
@@ -129,10 +131,10 @@ app.controller('PostsCtrl', require('./controllers/posts'));
 app.controller('ProfileCtrl', require('./controllers/profile'));
 app.controller('ScoreCtrl', require('./controllers/scoreboard'));
 
-var plugins = pluginManager.getPlugins();
-angular.forEach(plugins, function(plugin, key){
-  pluginManager.loadPlugin(app, plugin);
-});
+// var plugins = pluginManager.getPlugins();
+// angular.forEach(plugins, function(plugin, key){
+//   pluginManager.loadPlugin(app, plugin);
+// });
 
 app.constant('FIREBASE_URL', globals.firebase_url);
 app.run(function($cookieStore, Auth) {
