@@ -56,27 +56,28 @@
 <back-top scroll-speed=600 button-theme="light"><i class="fa fa-arrow-circle-up"></i></back-top>
 
 <div class="btn-group btn-group-sm" role="group" aria-label="Date filter" align="center" >
- <md-button ng-click="thisWeek()" ng-class="week ? 'md-raised md-primary':'md-raised'">this week</md-button>
-  <md-button type="button" ng-click="allTime()" ng-class="week ? 'md-raised':'md-raised md-primary'">all time</md-button>
+<!--  <md-button ng-click="today()" aria-label="today" ng-class="today ? 'md-raised md-primary':'md-raised'">today</md-button> -->
+ <md-button ng-click="thisWeek()" aria-label="week" ng-class="week ? 'md-raised md-primary':'md-raised'">this week</md-button>
+ <md-button type="button" ng-click="allTime()" aria-label="all time" ng-class="week ? 'md-raised':'md-raised md-primary'">all time</md-button>
 </div>
 <div>
 
-   <md-button ng-click="sorter = '-'">new
+   <md-button aria-label="new" ng-click="sorter = '-'">new
  <!--  <md-tooltip md-direction="botom">
           Sort by most recent
         </md-tooltip> -->
    </md-button>
-   <md-button ng-click="sorter = '-votes'">top
+   <md-button aria-label="top" ng-click="sorter = '-votes'">top
    <!--  <md-tooltip md-direction="botom">
           Sort by highest score
         </md-tooltip> -->
    </md-button>
-   <md-button ng-click="sorter = '-latest_comment'">comments
+   <md-button aria-label="comments" ng-click="sorter = '-latest_comment'">comments
   <!--   <md-tooltip md-direction="botom">
           Sort by most recent comments
         </md-tooltip> -->
    </md-button>
-   <md-button ng-click="sorter = '-stars'">stars
+   <md-button aria-label="stars" ng-click="sorter = '-stars'">stars
 <!--  <md-tooltip md-direction="botom">
           Sort by most stars
         </md-tooltip> -->
@@ -95,7 +96,7 @@
  <div align="center" ng-repeat="post in posts | orderBy:sorter | filter:'spotify' | isAfter:filter_date" jd-script > 
 
 <div class="post-box">
- <md-button ng-click="upvote(post)">
+ <md-button ng-click="upvote(post)" aria-label="Upvote">
  <!-- <md-tooltip md-direction="left">
           Upvote this album
         </md-tooltip> -->
@@ -118,7 +119,7 @@
     </a>
   </span>
   
-<md-button ng-click="downvote(post)">
+<md-button ng-click="downvote(post)" aria-label="Downvote">
 <!--  <md-tooltip md-direction="right">
           Downvote this album
         </md-tooltip> -->
