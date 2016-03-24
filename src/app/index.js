@@ -18,6 +18,8 @@ require('./../../app/bower_components/angular-bootstrap/ui-bootstrap-tpls.min');
 require('./../../app/bower_components/angular-loading-spinner/angular-loading-spinner');
 require('./../../app/bower_components/angular-timeago/angular-timeago.min');
 
+var pluginManager = require('./../plugins/pluginManager');
+
 
 var app = angular.module('flockifyApp', [
   'ngAnimate',
@@ -115,8 +117,8 @@ app.controller('AlbumCommentsCtrl', require('./controllers/albumComments'));
 app.controller('AlbumCtrl', require('./controllers/albumPost'));
 app.controller('AuthCtrl', require('./controllers/auth'));
 
-app.controller('BooksCtrl', require('./controllers/books'));
-app.controller('BookCtrl', require('./controllers/bookPost'));
+// app.controller('BooksCtrl', require('./controllers/books'));
+// app.controller('BookCtrl', require('./controllers/bookPost'));
 
 app.controller('ChatCtrl', require('./controllers/chat'));
 app.controller('CommentsCtrl', require('./controllers/comments'));
@@ -126,6 +128,11 @@ app.controller('PodcastsCtrl', require('./controllers/podcasts'));
 app.controller('PostsCtrl', require('./controllers/posts'));
 app.controller('ProfileCtrl', require('./controllers/profile'));
 app.controller('ScoreCtrl', require('./controllers/scoreboard'));
+
+var plugins = pluginManager.getPlugins();
+angular.forEach(plugins, function(plugin, key){
+  pluginManager.loadPlugin(app, plugin);
+});
 
 app.constant('FIREBASE_URL', globals.firebase_url);
 app.run(function($cookieStore, Auth) {

@@ -1,0 +1,16 @@
+{
+  "name": "books",
+  "displayName": "Books",
+  "description": "Books!",
+  "settings": {
+    "maxPostsPerDay": 1
+  },
+  "clientControllers": [
+    { "controllerName": "BooksCtrl", "controllerModulePath": "/client/controllers/books" },
+    { "controllerName": "BookCtrl", "controllerModulePath": "/client/controllers/bookPost" }
+  ],
+  "clientRouteHandlers": [
+    { "path": "/books", "controllerName":"BooksCtrl", "view": "views/books.html" }
+  ],
+  "apiRouteHandlers": []
+}

@@ -4,8 +4,10 @@
   "description": "flockify music",
   "main": "server.js",
   "scripts": {
+    "prestart": "webpack",
     "start": "node server.js",
-    "start-dev": "NODE_ENV=dev DEFAULT_VIEW=index2 nodemon --ignore 'src/**/*.js' server.js"
+    "start-dev": "NODE_ENV=dev DEFAULT_VIEW=index2 nodemon --ignore 'src/**/*.js' server.js",
+    "test": "./node_modules/.bin/mocha"
   },
   "dependencies": {
     "angular": "^1.5.2",
@@ -22,6 +24,7 @@
     "ejs": "^2.4.1",
     "express": "^4.13.4",
     "firebase": "^2.4.1",
+    "fs": "0.0.2",
     "giphy-api": "^1.1.14",
     "http": "0.0.0",
     "https": "^1.0.0",
@@ -40,6 +43,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5",
     "webpack": "^1.8.11",
     "webpack-dev-middleware": "^1.0.11",
     "webpack-hot-middleware": "^2.10.0"

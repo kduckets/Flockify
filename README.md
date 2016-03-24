@@ -16,7 +16,7 @@ npm install
 
 development (uses test database for local development)
 ```
-NODE_ENV=dev nodemon server.js
+npm run start-dev
 
 ```
 --or--
