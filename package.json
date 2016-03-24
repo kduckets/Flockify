@@ -40,6 +40,11 @@
     "path": "^0.12.7",
     "rsj": "0.0.4",
     "xml2js": "^0.4.16"
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5",
+    "webpack": "^1.8.11",
+    "webpack-dev-middleware": "^1.0.11",
+    "webpack-hot-middleware": "^2.10.0"
   },
   "repository": {},
   "engines": {
