@@ -6,20 +6,7 @@
    <!--  <div ng-include="'views/login.html'"></div> -->
  </div>
 
-<!-- <form ng-submit="search()" ng-show="signedIn()" class="form-inline search-form">
-
-<input type="text" placeholder="post a podcast" class="form-control" ng-model="searchTerm" /> 
-
-
-<button type="submit" value="" class="btn btn-primary"><i class="fa fa-search"></i></button> 
-<button class="btn btn-secondary" ng-click="clearResults()"><i class="fa fa-ban"></i></button>
-
-</form> -->
-
-<!--  <md-button aria-label="Search" class="search-box" ng-click="showSearch = !showSearch">
-            <ng-md-icon icon="add_circle" style="fill:white; padding-right:8px" size="48"></ng-md-icon>
-          </md-button> -->
-
+    <div ng-show="user.profile.group_id == 1">
           <md-toolbar class="md-hue-3">
         <div class="md-toolbar-tools" style="max-width:320px">
           <md-button ng-click="clearResults()" aria-label="Back">
@@ -34,23 +21,10 @@
           <md-button aria-label="Search" ng-click="search()">
             <ng-md-icon icon="search"></ng-md-icon>
           </md-button>
-       <!--    <md-button aria-label="Open Settings" ng-click="showListBottomSheet($event)">
-            <ng-md-icon icon="more_vert"></ng-md-icon>
-          </md-button> -->
           </form>
-        </div>
-       
+        </div>     
       </md-toolbar>
-
-<!-- <div class="box">
-  <div class="container-1">
-    <form ng-submit="search()" ng-show="signedIn()" class="form-inline search-form">
-      <button class="icon"><i class="fa fa-search"></i></span></button>
-      <input type="text" name="focus" id="search" required class="search-box form-control" ng-model="searchTerm" placeholder=" post a podcast"/>
-      <button class="close-icon" type="reset" ng-click="clearResults()"><i class="fa fa-times"></i></button>
-    </form>
-  </div>
-</div> -->
+</div>
 
 <div class="list-group" ng-repeat="result in results" align="left">
 
@@ -67,27 +41,14 @@
 
 </div>
 
-  <!--  <select name="filter" ng-model="data.filter">
-      <option value="-votes" ng-click="sorter = '-votes'">popular</option>
-      <option value="votes" ng-click="sorter = 'votes'">unpopular</option>
-    </select> -->
-
     <div ng-show="signedIn()">
 
       <div class="sort-links" align="center">
         <a href ng-click="sorter = '-votes'">popular</a>
         <a href ng-click="sorter = '-'">new</a>
-        
-        <!--   <a href ng-click="sorter = 'votes'">unpopular</a>   -->
         <a href ng-click="sorter = '-latest_comment'">new comments</a> 
-        <!--   <a href ng-click="batchUpdate()">comments</a>  -->
         <a href ng-click="sorter = '-stars'">stars</a> 
-
-
       </div>
-
-
-
 
       <br />
       
@@ -97,7 +58,7 @@
         <div class="post" align="center">
 
          
-          <img class="arrow" ng-click="upvote(post)" src="/images/up.png" height="30"></img>
+          <img ng-show="user.profile.group_id == 1" class="arrow" ng-click="upvote(post)" src="/images/up.png" height="30"></img>
           
           
           
@@ -105,12 +66,14 @@
             <img class="post" ng-src="{{post.image_medium}}" />
           </a>
           
-          <img class="arrow" ng-click="downvote(post)" src="/images/down.png" height="30"></img>
+          <img ng-show="user.profile.group_id == 1" class="arrow" ng-click="downvote(post)" src="/images/down.png" height="30"></img>
 
           <br/>
           <a ng-href="{{post.external_link}}" target="_blank">
             <a ng-href="{{post.link}}" target="_blank"><img src="/images/itunes.png" height="26px" /></a> {{ post.album }} - {{ post.title }} ({{post.release_date | limitTo: 10}})</a> 
-            <a data-toggle="modal" ng-click="starPost(post)" href="" >  <div><img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18" />
+           <div><img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18" /> 
+
+           <a ng-click="starPost(post)" href="" ng-show="user.profile.group_id == 1" >  
              <img ng-src="/images/empty-star.png" height="18" /></a></div>
              <div>
                <div><span class="label label-default">{{post.genre}}</span></div>
@@ -122,11 +85,7 @@
              
              <p>
                {{ post.votes }} votes
-               <small>(posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator}}
-
-                <img src="/images/poop.gif" style="padding-bottom:10px; padding-left:2px" ng-show="post.creator == 'kev' || post.creator == 'Oat' || post.creator == 'Stevie'" height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:2px" ng-show="post.creator == 'Johnson'" height="30px"/>
-
-                 </a>)</small>
+               <small>(posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator}}</a>)</small>
                  <small><a ng-href="#/posts/{{ post.$id  }}">comments ({{post.comments}})</a> </small>
                  
 

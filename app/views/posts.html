@@ -8,13 +8,8 @@
    <p><a href="/#/login">Sign in</a> to get started</p>
  </div>
 <div ng-show="signedIn()" align="center">
-        <!-- Search Bar -->
 
-       <!--  <md-button aria-label="Search" class="search-box" ng-click="showSearch = !showSearch" style="position:fixed;">
-            <ng-md-icon icon="add_circle" style="fill:white; padding-right:8px" size="48"></ng-md-icon>
-          </md-button> -->
-
-
+<div ng-show="user.profile.group_id == 1">
           <md-toolbar class="md-hue-3">
         <div class="md-toolbar-tools" style="max-width:320px" align="center">
            <md-button flex="33" aria-label="Search" ng-click="search()">
@@ -35,6 +30,7 @@
         </div>
        
       </md-toolbar>
+      </div>
 
 
         <div class="list-group" ng-repeat="result in results" align="left">
@@ -48,10 +44,6 @@
 
 
         </div>
-        
-
- 
-
 
  <back-top scroll-speed=600 button-theme="light"> <ng-md-icon icon="clear"></ng-md-icon></back-top>
 
@@ -96,7 +88,7 @@
  <div align="center" ng-repeat="post in posts | orderBy:sorter | filter:'spotify' | isAfter:filter_date" jd-script > 
 
 <div class="post-box">
- <md-button ng-click="upvote(post)" aria-label="Upvote">
+ <md-button ng-show="user.profile.group_id == 1" ng-click="upvote(post)" aria-label="Upvote">
  <!-- <md-tooltip md-direction="left">
           Upvote this album
         </md-tooltip> -->
@@ -119,7 +111,7 @@
     </a>
   </span>
   
-<md-button ng-click="downvote(post)" aria-label="Downvote">
+<md-button ng-show="user.profile.group_id == 1" ng-click="downvote(post)" aria-label="Downvote">
 <!--  <md-tooltip md-direction="right">
           Downvote this album
         </md-tooltip> -->
@@ -129,7 +121,7 @@
   <div style="padding-top:5px; padding-bottom:10px"> 
    <div>   
 
-   <a ng-click="starPost(post)" href="" >  <div><img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18" />
+    <div><img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18" /><a ng-show="user.profile.group_id == 1" ng-click="starPost(post)" href="" > 
      <img ng-src="/images/empty-star.png" height="18" /></a></div>
 
 <!--         <md-button aria-label="Star" style="padding-top:10px" ng-click="starPost(post)">
@@ -155,7 +147,7 @@
    
    <small style="font-style: italic;">(posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator}}
 
-   <img src="/images/poop.gif" style="padding-bottom:10px; padding-left:2px" ng-show="post.creator == 'kev' || post.creator == 'Oat' || post.creator == 'Stevie'" height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:2px" ng-show="post.creator == 'Johnson'" height="30px"/>
+   <img src="/images/poop.gif" style="padding-bottom:10px; padding-left:2px" ng-show="user.profile.group_id == 1 && post.creator == 'kev' || post.creator == 'Oat' || post.creator == 'Stevie'" height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:2px" ng-show="user.profile.group_id == 1 && post.creator == 'Johnson'" height="30px"/>
 
    </a> {{post.date | timeAgo}})</small>
 

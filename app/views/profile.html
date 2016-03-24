@@ -1,4 +1,9 @@
-<div class="container" ng-show="signedIn()">
+<div class="container" ng-show="user.profile.group_id != 1">
+<i><small>profiles are disabled for users not in this group</small></i>
+</div>
+
+<div class="container" ng-show="signedIn() && user.profile.group_id == 1">
+
  
    <!--  <div class="col-sm-1">
       <img ng-src="http://www.gravatar.com/avatar/{{ profile.md5_hash }}" class="prof-img" />

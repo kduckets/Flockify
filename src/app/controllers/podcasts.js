@@ -1,6 +1,5 @@
 module.exports = function($scope, $route, $location, $window, Post, Auth, Spotify, $uibModal,
   Profile, $firebase, $filter, $http, FIREBASE_URL) {
-
   $scope.posts = Post.all;
   $scope.user = Auth.user;
 

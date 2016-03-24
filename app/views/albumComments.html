@@ -1,10 +1,10 @@
-<div class="container">
+<div class="container" ng-show="user.profile.group_id != 1">
+<i><small>comments are disabled for users not in this group</small></i>
+</div>
+
+<div class="container" ng-show="signedIn() && user.profile.group_id == 1">
   <!-- <img class="background" src="/images/record.jpg"/> -->
   <div align="center">
-
-
-
-
     <a ng-href="{{post.spotify_uri}}" target="_blank">
       <img ng-src="{{post.image_medium}}" class="comments" />
     </a>
