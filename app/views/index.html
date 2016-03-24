@@ -22,20 +22,18 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"/>
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
   <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Cutive|Montserrat|Sigmar+One|Bangers|Nunito' type='text/css'/>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.css' type='text/css' media='all' />
   <!-- endbuild -->
 </head>
 <body layout="column" ng-app="flockifyApp">
  
   
-    <!--[if lt IE 7]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-      <![endif]-->
-
-      <!-- Add your site or application content here -->
        <div ng-include="'views/nav.html'"></div>
-        
+
        <md-content flex>
-   <span style="padding-top:80px" us-spinner="{radius:30, width:8, length: 16}"></span>
+
+<!--    <span style="padding-top:80px" us-spinner="{radius:30, width:8, length: 16}"></span>
+   <back-top scroll-speed=600 button-theme="light"> <ng-md-icon icon="clear"></ng-md-icon></back-top> -->
      <div style="padding-top:66px" layout='column' layout-fill ng-view="">
      </div>
      </md-content>

@@ -1,5 +1,5 @@
-module.exports = function ($scope, $routeParams, Profile, Post, Auth, $firebase, $uibModal, FIREBASE_URL, $location) {
-	var ref = new Firebase(FIREBASE_URL);
+module.exports = function ($scope, $routeParams, Profile, Post, Auth, $firebase, $uibModal, FIREBASE_URL, $location,$mdToast) {
+  var ref = new Firebase(FIREBASE_URL);
   $scope.sorter = '-';
   $scope.user = Auth.user;
   $scope.signedIn = Auth.signedIn;
@@ -53,6 +53,12 @@ module.exports = function ($scope, $routeParams, Profile, Post, Auth, $firebase,
 
   $scope.removeSaved = function(post){
     Profile.savePost($scope.user.uid, post.$id, 'no');
+             $mdToast.show(
+        $mdToast.simple()
+        .textContent(post.album + ' removed from your queue')
+        .position('bottom right' )
+        .hideDelay(3000)
+    );
   };
 
 };

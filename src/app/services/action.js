@@ -1,4 +1,4 @@
-module.exports = function($firebase, FIREBASE_URL, Auth, Post, Profile) {
+module.exports = function($firebase, FIREBASE_URL, Auth, Post, Profile, $q) {
   var ref = new Firebase(FIREBASE_URL);
   var posts = $firebase(ref.child('posts')).$asArray();
   var signedIn = Auth.signedIn;
@@ -7,8 +7,11 @@ module.exports = function($firebase, FIREBASE_URL, Auth, Post, Profile) {
 
   var actionResult = {
     upvote: function(post, media_type) {
+        var defer = $q.defer();
 
       if (signedIn() && user.uid != post.creatorUID) {
+
+       
 
         ref.child('user_scores').child(post.creator).once("value", function(snapshot) {
           //TODO: use media_type
@@ -19,8 +22,10 @@ module.exports = function($firebase, FIREBASE_URL, Auth, Post, Profile) {
           var current_vote = $firebase(ref.child('user_votes').child(user.uid).child(post.$id).child('vote')).$asObject();
           current_vote.$loaded().then(function(res) {
             if (res.$value == 'up') {
-              //do nothing
-              return false;
+              //already upvoted
+              var msg = 'Already upvoted "' + post.album + '"';
+              defer.resolve(msg);
+          
             };
             if (res.$value == 'down' || !res.$value) {
               post.votes += 1;
@@ -42,18 +47,20 @@ module.exports = function($firebase, FIREBASE_URL, Auth, Post, Profile) {
                 });
               };
 
+              var msg = 'Gave "' + post.album + '" an upvote!';
+              defer.resolve(msg);
+
             };
 
           })
         })
 
-
-
-
       }
+          return defer.promise;
     },
 
     downvote: function(post, media_type) {
+        var defer = $q.defer();
 
       if (signedIn() && user.uid != post.creatorUID) {
 
@@ -63,8 +70,9 @@ module.exports = function($firebase, FIREBASE_URL, Auth, Post, Profile) {
           var current_vote = $firebase(ref.child('user_votes').child(user.uid).child(post.$id).child('vote')).$asObject();
           current_vote.$loaded().then(function(res) {
             if (res.$value == 'down') {
-              //do nothing
-              return false;
+              //already downvoted
+              var msg = 'Already downvoted "' + post.album + '"';
+              defer.resolve(msg);
             };
             if (res.$value == 'up' || !res.$value) {
               post.votes -= 1;
@@ -84,15 +92,20 @@ module.exports = function($firebase, FIREBASE_URL, Auth, Post, Profile) {
                 });
               };
 
+              var msg = 'Gave "' + post.album + '" a downvote';
+              defer.resolve(msg);
+
             };
 
           })
         })
 
       }
+        return defer.promise;
     },
 
     starPost: function(post, media_type) {
+      var defer = $q.defer();
       if (signedIn() && user.uid != post.creatorUID) {
 
         ref.child('user_scores').child(post.creator).once("value", function(snapshot) {
@@ -107,8 +120,8 @@ module.exports = function($firebase, FIREBASE_URL, Auth, Post, Profile) {
           current_vote.$loaded().then(function(res) {
 
             if (res.$value == 'gold') {
-              //already gave a star
-              return false;
+              var msg = 'Already gave "' + post.album + '" a star';
+              defer.resolve(msg);
             };
 
             if (!res.$value) {
@@ -134,7 +147,8 @@ module.exports = function($firebase, FIREBASE_URL, Auth, Post, Profile) {
                 });
               };
 
-
+              var msg = 'Gave "' + post.album + '" a star!';
+              defer.resolve(msg);
             };
 
           });
@@ -144,6 +158,7 @@ module.exports = function($firebase, FIREBASE_URL, Auth, Post, Profile) {
 
 
       };
+        return defer.promise;
 
     }
 

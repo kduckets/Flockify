@@ -9,6 +9,7 @@ require('angular-route');
 require('angular-sanitize');
 require('angular-touch');
 require('angular-material-icons');
+require('angular-loading-bar');
 
 //firebase connectivity
 require('./../../app/bower_components/firebase/firebase.js');
@@ -35,7 +36,8 @@ var app = angular.module('flockifyApp', [
   'spotify',
   'ui.bootstrap',
   'yaru22.angular-timeago',
-  'ngMdIcons'
+  'ngMdIcons',
+  'angular-loading-bar'
 
 ]);
 app.config(function($mdThemingProvider) {

@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "3b2878b2b45429dd78b8"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "bfe4bf5adf6f79fc6bbb"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -572,8 +572,8 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(54);
-	module.exports = __webpack_require__(82);
+	__webpack_require__(56);
+	module.exports = __webpack_require__(84);
 
 
 /***/ },
@@ -10525,8 +10525,8 @@
 /* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var fs = __webpack_require__(48);
-	var path = __webpack_require__(52);
+	var fs = __webpack_require__(50);
+	var path = __webpack_require__(54);
 	
 	module.exports = (function(){
 	  const pluginRootPath = './src/plugins'
@@ -10582,7 +10582,7 @@
 	  };
 	
 	  var bindControllers = function(app, controllerName, controllerModulePath){
-	    app.controller(controllerName, __webpack_require__(89)(path.join('.', controllerModulePath)));
+	    app.controller(controllerName, __webpack_require__(91)(path.join('.', controllerModulePath)));
 	  }
 	
 	  var getPluginComponentPath = function(pluginPath, componentPath){
@@ -10608,7 +10608,7 @@
 /* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(34);
+	__webpack_require__(36);
 	module.exports = angular;
 
 
@@ -16335,6 +16335,361 @@
 /* 22 */
 /***/ function(module, exports) {
 
+	/*! 
+	 * angular-loading-bar v0.9.0
+	 * https://chieffancypants.github.io/angular-loading-bar
+	 * Copyright (c) 2016 Wes Cruver
+	 * License: MIT
+	 */
+	/*
+	 * angular-loading-bar
+	 *
+	 * intercepts XHR requests and creates a loading bar.
+	 * Based on the excellent nprogress work by rstacruz (more info in readme)
+	 *
+	 * (c) 2013 Wes Cruver
+	 * License: MIT
+	 */
+	
+	
+	(function() {
+	
+	'use strict';
+	
+	// Alias the loading bar for various backwards compatibilities since the project has matured:
+	angular.module('angular-loading-bar', ['cfp.loadingBarInterceptor']);
+	angular.module('chieffancypants.loadingBar', ['cfp.loadingBarInterceptor']);
+	
+	
+	/**
+	 * loadingBarInterceptor service
+	 *
+	 * Registers itself as an Angular interceptor and listens for XHR requests.
+	 */
+	angular.module('cfp.loadingBarInterceptor', ['cfp.loadingBar'])
+	  .config(['$httpProvider', function ($httpProvider) {
+	
+	    var interceptor = ['$q', '$cacheFactory', '$timeout', '$rootScope', '$log', 'cfpLoadingBar', function ($q, $cacheFactory, $timeout, $rootScope, $log, cfpLoadingBar) {
+	
+	      /**
+	       * The total number of requests made
+	       */
+	      var reqsTotal = 0;
+	
+	      /**
+	       * The number of requests completed (either successfully or not)
+	       */
+	      var reqsCompleted = 0;
+	
+	      /**
+	       * The amount of time spent fetching before showing the loading bar
+	       */
+	      var latencyThreshold = cfpLoadingBar.latencyThreshold;
+	
+	      /**
+	       * $timeout handle for latencyThreshold
+	       */
+	      var startTimeout;
+	
+	
+	      /**
+	       * calls cfpLoadingBar.complete() which removes the
+	       * loading bar from the DOM.
+	       */
+	      function setComplete() {
+	        $timeout.cancel(startTimeout);
+	        cfpLoadingBar.complete();
+	        reqsCompleted = 0;
+	        reqsTotal = 0;
+	      }
+	
+	      /**
+	       * Determine if the response has already been cached
+	       * @param  {Object}  config the config option from the request
+	       * @return {Boolean} retrns true if cached, otherwise false
+	       */
+	      function isCached(config) {
+	        var cache;
+	        var defaultCache = $cacheFactory.get('$http');
+	        var defaults = $httpProvider.defaults;
+	
+	        // Choose the proper cache source. Borrowed from angular: $http service
+	        if ((config.cache || defaults.cache) && config.cache !== false &&
+	          (config.method === 'GET' || config.method === 'JSONP')) {
+	            cache = angular.isObject(config.cache) ? config.cache
+	              : angular.isObject(defaults.cache) ? defaults.cache
+	              : defaultCache;
+	        }
+	
+	        var cached = cache !== undefined ?
+	          cache.get(config.url) !== undefined : false;
+	
+	        if (config.cached !== undefined && cached !== config.cached) {
+	          return config.cached;
+	        }
+	        config.cached = cached;
+	        return cached;
+	      }
+	
+	
+	      return {
+	        'request': function(config) {
+	          // Check to make sure this request hasn't already been cached and that
+	          // the requester didn't explicitly ask us to ignore this request:
+	          if (!config.ignoreLoadingBar && !isCached(config)) {
+	            $rootScope.$broadcast('cfpLoadingBar:loading', {url: config.url});
+	            if (reqsTotal === 0) {
+	              startTimeout = $timeout(function() {
+	                cfpLoadingBar.start();
+	              }, latencyThreshold);
+	            }
+	            reqsTotal++;
+	            cfpLoadingBar.set(reqsCompleted / reqsTotal);
+	          }
+	          return config;
+	        },
+	
+	        'response': function(response) {
+	          if (!response || !response.config) {
+	            $log.error('Broken interceptor detected: Config object not supplied in response:\n https://github.com/chieffancypants/angular-loading-bar/pull/50');
+	            return response;
+	          }
+	
+	          if (!response.config.ignoreLoadingBar && !isCached(response.config)) {
+	            reqsCompleted++;
+	            $rootScope.$broadcast('cfpLoadingBar:loaded', {url: response.config.url, result: response});
+	            if (reqsCompleted >= reqsTotal) {
+	              setComplete();
+	            } else {
+	              cfpLoadingBar.set(reqsCompleted / reqsTotal);
+	            }
+	          }
+	          return response;
+	        },
+	
+	        'responseError': function(rejection) {
+	          if (!rejection || !rejection.config) {
+	            $log.error('Broken interceptor detected: Config object not supplied in rejection:\n https://github.com/chieffancypants/angular-loading-bar/pull/50');
+	            return $q.reject(rejection);
+	          }
+	
+	          if (!rejection.config.ignoreLoadingBar && !isCached(rejection.config)) {
+	            reqsCompleted++;
+	            $rootScope.$broadcast('cfpLoadingBar:loaded', {url: rejection.config.url, result: rejection});
+	            if (reqsCompleted >= reqsTotal) {
+	              setComplete();
+	            } else {
+	              cfpLoadingBar.set(reqsCompleted / reqsTotal);
+	            }
+	          }
+	          return $q.reject(rejection);
+	        }
+	      };
+	    }];
+	
+	    $httpProvider.interceptors.push(interceptor);
+	  }]);
+	
+	
+	/**
+	 * Loading Bar
+	 *
+	 * This service handles adding and removing the actual element in the DOM.
+	 * Generally, best practices for DOM manipulation is to take place in a
+	 * directive, but because the element itself is injected in the DOM only upon
+	 * XHR requests, and it's likely needed on every view, the best option is to
+	 * use a service.
+	 */
+	angular.module('cfp.loadingBar', [])
+	  .provider('cfpLoadingBar', function() {
+	
+	    this.autoIncrement = true;
+	    this.includeSpinner = true;
+	    this.includeBar = true;
+	    this.latencyThreshold = 100;
+	    this.startSize = 0.02;
+	    this.parentSelector = 'body';
+	    this.spinnerTemplate = '<div id="loading-bar-spinner"><div class="spinner-icon"></div></div>';
+	    this.loadingBarTemplate = '<div id="loading-bar"><div class="bar"><div class="peg"></div></div></div>';
+	
+	    this.$get = ['$injector', '$document', '$timeout', '$rootScope', function ($injector, $document, $timeout, $rootScope) {
+	      var $animate;
+	      var $parentSelector = this.parentSelector,
+	        loadingBarContainer = angular.element(this.loadingBarTemplate),
+	        loadingBar = loadingBarContainer.find('div').eq(0),
+	        spinner = angular.element(this.spinnerTemplate);
+	
+	      var incTimeout,
+	        completeTimeout,
+	        started = false,
+	        status = 0;
+	
+	      var autoIncrement = this.autoIncrement;
+	      var includeSpinner = this.includeSpinner;
+	      var includeBar = this.includeBar;
+	      var startSize = this.startSize;
+	
+	      /**
+	       * Inserts the loading bar element into the dom, and sets it to 2%
+	       */
+	      function _start() {
+	        if (!$animate) {
+	          $animate = $injector.get('$animate');
+	        }
+	
+	        $timeout.cancel(completeTimeout);
+	
+	        // do not continually broadcast the started event:
+	        if (started) {
+	          return;
+	        }
+	
+	        var document = $document[0];
+	        var parent = document.querySelector ?
+	          document.querySelector($parentSelector)
+	          : $document.find($parentSelector)[0]
+	        ;
+	
+	        if (! parent) {
+	          parent = document.getElementsByTagName('body')[0];
+	        }
+	
+	        var $parent = angular.element(parent);
+	        var $after = parent.lastChild && angular.element(parent.lastChild);
+	
+	        $rootScope.$broadcast('cfpLoadingBar:started');
+	        started = true;
+	
+	        if (includeBar) {
+	          $animate.enter(loadingBarContainer, $parent, $after);
+	        }
+	
+	        if (includeSpinner) {
+	          $animate.enter(spinner, $parent, loadingBarContainer);
+	        }
+	
+	        _set(startSize);
+	      }
+	
+	      /**
+	       * Set the loading bar's width to a certain percent.
+	       *
+	       * @param n any value between 0 and 1
+	       */
+	      function _set(n) {
+	        if (!started) {
+	          return;
+	        }
+	        var pct = (n * 100) + '%';
+	        loadingBar.css('width', pct);
+	        status = n;
+	
+	        // increment loadingbar to give the illusion that there is always
+	        // progress but make sure to cancel the previous timeouts so we don't
+	        // have multiple incs running at the same time.
+	        if (autoIncrement) {
+	          $timeout.cancel(incTimeout);
+	          incTimeout = $timeout(function() {
+	            _inc();
+	          }, 250);
+	        }
+	      }
+	
+	      /**
+	       * Increments the loading bar by a random amount
+	       * but slows down as it progresses
+	       */
+	      function _inc() {
+	        if (_status() >= 1) {
+	          return;
+	        }
+	
+	        var rnd = 0;
+	
+	        // TODO: do this mathmatically instead of through conditions
+	
+	        var stat = _status();
+	        if (stat >= 0 && stat < 0.25) {
+	          // Start out between 3 - 6% increments
+	          rnd = (Math.random() * (5 - 3 + 1) + 3) / 100;
+	        } else if (stat >= 0.25 && stat < 0.65) {
+	          // increment between 0 - 3%
+	          rnd = (Math.random() * 3) / 100;
+	        } else if (stat >= 0.65 && stat < 0.9) {
+	          // increment between 0 - 2%
+	          rnd = (Math.random() * 2) / 100;
+	        } else if (stat >= 0.9 && stat < 0.99) {
+	          // finally, increment it .5 %
+	          rnd = 0.005;
+	        } else {
+	          // after 99%, don't increment:
+	          rnd = 0;
+	        }
+	
+	        var pct = _status() + rnd;
+	        _set(pct);
+	      }
+	
+	      function _status() {
+	        return status;
+	      }
+	
+	      function _completeAnimation() {
+	        status = 0;
+	        started = false;
+	      }
+	
+	      function _complete() {
+	        if (!$animate) {
+	          $animate = $injector.get('$animate');
+	        }
+	
+	        $rootScope.$broadcast('cfpLoadingBar:completed');
+	        _set(1);
+	
+	        $timeout.cancel(completeTimeout);
+	
+	        // Attempt to aggregate any start/complete calls within 500ms:
+	        completeTimeout = $timeout(function() {
+	          var promise = $animate.leave(loadingBarContainer, _completeAnimation);
+	          if (promise && promise.then) {
+	            promise.then(_completeAnimation);
+	          }
+	          $animate.leave(spinner);
+	        }, 500);
+	      }
+	
+	      return {
+	        start            : _start,
+	        set              : _set,
+	        status           : _status,
+	        inc              : _inc,
+	        complete         : _complete,
+	        autoIncrement    : this.autoIncrement,
+	        includeSpinner   : this.includeSpinner,
+	        latencyThreshold : this.latencyThreshold,
+	        parentSelector   : this.parentSelector,
+	        startSize        : this.startSize
+	      };
+	
+	
+	    }];     //
+	  });       // wtf javascript. srsly
+	})();       //
+
+
+/***/ },
+/* 23 */
+/***/ function(module, exports, __webpack_require__) {
+
+	__webpack_require__(22);
+	module.exports = 'angular-loading-bar';
+
+
+/***/ },
+/* 24 */
+/***/ function(module, exports) {
+
 	/*
 	 * angular-material-icons v0.7.0
 	 * (c) 2014 Klar Systems
@@ -17556,15 +17911,15 @@
 
 
 /***/ },
-/* 23 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(22);
+	__webpack_require__(24);
 	module.exports = 'ngMdIcons';
 
 
 /***/ },
-/* 24 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(__webpack_provided_window_dot_jQuery) {/*!
@@ -42119,7 +42474,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 25 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// Should already be required, here for clarity
@@ -42130,14 +42485,14 @@
 	__webpack_require__(19);
 	
 	// Now load Angular Material
-	__webpack_require__(24);
+	__webpack_require__(26);
 	
 	// Export namespace
 	module.exports = 'ngMaterial';
 
 
 /***/ },
-/* 26 */
+/* 28 */
 /***/ function(module, exports) {
 
 	/**
@@ -42911,15 +43266,15 @@
 
 
 /***/ },
-/* 27 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(26);
+	__webpack_require__(28);
 	module.exports = 'ngResource';
 
 
 /***/ },
-/* 28 */
+/* 30 */
 /***/ function(module, exports) {
 
 	/**
@@ -43947,15 +44302,15 @@
 
 
 /***/ },
-/* 29 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(28);
+	__webpack_require__(30);
 	module.exports = 'ngRoute';
 
 
 /***/ },
-/* 30 */
+/* 32 */
 /***/ function(module, exports) {
 
 	/**
@@ -44678,15 +45033,15 @@
 
 
 /***/ },
-/* 31 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(30);
+	__webpack_require__(32);
 	module.exports = 'ngSanitize';
 
 
 /***/ },
-/* 32 */
+/* 34 */
 /***/ function(module, exports) {
 
 	/**
@@ -45421,15 +45776,15 @@
 
 
 /***/ },
-/* 33 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(32);
+	__webpack_require__(34);
 	module.exports = 'ngTouch';
 
 
 /***/ },
-/* 34 */
+/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(__webpack_provided_window_dot_jQuery) {/**
@@ -76015,25 +76370,25 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 35 */
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// This file is autogenerated via the `commonjs` Grunt task. You can require() this file in a CommonJS environment.
-	__webpack_require__(47)
-	__webpack_require__(37)
-	__webpack_require__(38)
+	__webpack_require__(49)
 	__webpack_require__(39)
 	__webpack_require__(40)
 	__webpack_require__(41)
 	__webpack_require__(42)
-	__webpack_require__(46)
 	__webpack_require__(43)
 	__webpack_require__(44)
+	__webpack_require__(48)
 	__webpack_require__(45)
-	__webpack_require__(36)
+	__webpack_require__(46)
+	__webpack_require__(47)
+	__webpack_require__(38)
 
 /***/ },
-/* 36 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
@@ -76202,7 +76557,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 37 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
@@ -76303,7 +76658,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 38 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
@@ -76430,7 +76785,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 39 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
@@ -76674,7 +77029,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 40 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
@@ -76892,7 +77247,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 41 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
@@ -77064,7 +77419,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 42 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
@@ -77408,7 +77763,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 43 */
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
@@ -77523,7 +77878,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 44 */
+/* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
@@ -77702,7 +78057,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 45 */
+/* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
@@ -77864,7 +78219,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 46 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
@@ -78385,7 +78740,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 47 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
@@ -78451,14 +78806,14 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 48 */
+/* 50 */
 /***/ function(module, exports) {
 
 	console.log("I'm `fs` modules");
 
 
 /***/ },
-/* 49 */
+/* 51 */
 /***/ function(module, exports) {
 
 	if (typeof Object.create === 'function') {
@@ -78487,7 +78842,7 @@
 
 
 /***/ },
-/* 50 */
+/* 52 */
 /***/ function(module, exports) {
 
 	module.exports = function isBuffer(arg) {
@@ -78498,7 +78853,7 @@
 	}
 
 /***/ },
-/* 51 */
+/* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global, process) {// Copyright Joyent, Inc. and other Node contributors.
@@ -79026,7 +79381,7 @@
 	}
 	exports.isPrimitive = isPrimitive;
 	
-	exports.isBuffer = __webpack_require__(50);
+	exports.isBuffer = __webpack_require__(52);
 	
 	function objectToString(o) {
 	  return Object.prototype.toString.call(o);
@@ -79070,7 +79425,7 @@
 	 *     prototype.
 	 * @param {function} superCtor Constructor function to inherit prototype from.
 	 */
-	exports.inherits = __webpack_require__(49);
+	exports.inherits = __webpack_require__(51);
 	
 	exports._extend = function(origin, add) {
 	  // Don't do anything if add isn't an object
@@ -79091,7 +79446,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(2)))
 
 /***/ },
-/* 52 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {// Copyright Joyent, Inc. and other Node contributors.
@@ -79119,7 +79474,7 @@
 	
 	
 	var isWindows = process.platform === 'win32';
-	var util = __webpack_require__(51);
+	var util = __webpack_require__(53);
 	
 	
 	// resolves . and .. elements in a path array with directory names there
@@ -79726,7 +80081,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
-/* 53 */
+/* 55 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*eslint-env browser*/
@@ -79752,7 +80107,7 @@
 	  clientOverlay.style[key] = styles[key];
 	}
 	
-	var ansiHTML = __webpack_require__(55);
+	var ansiHTML = __webpack_require__(57);
 	var colors = {
 	  reset: ['transparent', 'transparent'],
 	  black: '181818',
@@ -79767,7 +80122,7 @@
 	};
 	ansiHTML.setColors(colors);
 	
-	var Entities = __webpack_require__(56).AllHtmlEntities;
+	var Entities = __webpack_require__(58).AllHtmlEntities;
 	var entities = new Entities();
 	
 	exports.showProblems =
@@ -79808,7 +80163,7 @@
 
 
 /***/ },
-/* 54 */
+/* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(__resourceQuery, module) {/*eslint-env browser*/
@@ -79823,7 +80178,7 @@
 	  warn: true
 	};
 	if (true) {
-	  var querystring = __webpack_require__(61);
+	  var querystring = __webpack_require__(63);
 	  var overrides = querystring.parse(__resourceQuery.slice(1));
 	  if (overrides.path) options.path = overrides.path;
 	  if (overrides.timeout) options.timeout = overrides.timeout;
@@ -79902,11 +80257,11 @@
 	}
 	
 	function createReporter() {
-	  var strip = __webpack_require__(62);
+	  var strip = __webpack_require__(64);
 	
 	  var overlay;
 	  if (typeof document !== 'undefined' && options.overlay) {
-	    overlay = __webpack_require__(53);
+	    overlay = __webpack_require__(55);
 	  }
 	
 	  return {
@@ -79928,7 +80283,7 @@
 	  };
 	}
 	
-	var processUpdate = __webpack_require__(64);
+	var processUpdate = __webpack_require__(66);
 	
 	var customHandler;
 	function processMessage(obj) {
@@ -79967,10 +80322,10 @@
 	  };
 	}
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, "?path=/__webpack_hmr&timeout=20000", __webpack_require__(65)(module)))
+	/* WEBPACK VAR INJECTION */}.call(exports, "?path=/__webpack_hmr&timeout=20000", __webpack_require__(67)(module)))
 
 /***/ },
-/* 55 */
+/* 57 */
 /***/ function(module, exports) {
 
 	module.exports = ansiHTML;
@@ -80144,19 +80499,19 @@
 
 
 /***/ },
-/* 56 */
+/* 58 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = {
-	  XmlEntities: __webpack_require__(58),
-	  Html4Entities: __webpack_require__(57),
+	  XmlEntities: __webpack_require__(60),
+	  Html4Entities: __webpack_require__(59),
 	  Html5Entities: __webpack_require__(6),
 	  AllHtmlEntities: __webpack_require__(6)
 	};
 
 
 /***/ },
-/* 57 */
+/* 59 */
 /***/ function(module, exports) {
 
 	var HTML_ALPHA = ['apos', 'nbsp', 'iexcl', 'cent', 'pound', 'curren', 'yen', 'brvbar', 'sect', 'uml', 'copy', 'ordf', 'laquo', 'not', 'shy', 'reg', 'macr', 'deg', 'plusmn', 'sup2', 'sup3', 'acute', 'micro', 'para', 'middot', 'cedil', 'sup1', 'ordm', 'raquo', 'frac14', 'frac12', 'frac34', 'iquest', 'Agrave', 'Aacute', 'Acirc', 'Atilde', 'Auml', 'Aring', 'Aelig', 'Ccedil', 'Egrave', 'Eacute', 'Ecirc', 'Euml', 'Igrave', 'Iacute', 'Icirc', 'Iuml', 'ETH', 'Ntilde', 'Ograve', 'Oacute', 'Ocirc', 'Otilde', 'Ouml', 'times', 'Oslash', 'Ugrave', 'Uacute', 'Ucirc', 'Uuml', 'Yacute', 'THORN', 'szlig', 'agrave', 'aacute', 'acirc', 'atilde', 'auml', 'aring', 'aelig', 'ccedil', 'egrave', 'eacute', 'ecirc', 'euml', 'igrave', 'iacute', 'icirc', 'iuml', 'eth', 'ntilde', 'ograve', 'oacute', 'ocirc', 'otilde', 'ouml', 'divide', 'Oslash', 'ugrave', 'uacute', 'ucirc', 'uuml', 'yacute', 'thorn', 'yuml', 'quot', 'amp', 'lt', 'gt', 'oelig', 'oelig', 'scaron', 'scaron', 'yuml', 'circ', 'tilde', 'ensp', 'emsp', 'thinsp', 'zwnj', 'zwj', 'lrm', 'rlm', 'ndash', 'mdash', 'lsquo', 'rsquo', 'sbquo', 'ldquo', 'rdquo', 'bdquo', 'dagger', 'dagger', 'permil', 'lsaquo', 'rsaquo', 'euro', 'fnof', 'alpha', 'beta', 'gamma', 'delta', 'epsilon', 'zeta', 'eta', 'theta', 'iota', 'kappa', 'lambda', 'mu', 'nu', 'xi', 'omicron', 'pi', 'rho', 'sigma', 'tau', 'upsilon', 'phi', 'chi', 'psi', 'omega', 'alpha', 'beta', 'gamma', 'delta', 'epsilon', 'zeta', 'eta', 'theta', 'iota', 'kappa', 'lambda', 'mu', 'nu', 'xi', 'omicron', 'pi', 'rho', 'sigmaf', 'sigma', 'tau', 'upsilon', 'phi', 'chi', 'psi', 'omega', 'thetasym', 'upsih', 'piv', 'bull', 'hellip', 'prime', 'prime', 'oline', 'frasl', 'weierp', 'image', 'real', 'trade', 'alefsym', 'larr', 'uarr', 'rarr', 'darr', 'harr', 'crarr', 'larr', 'uarr', 'rarr', 'darr', 'harr', 'forall', 'part', 'exist', 'empty', 'nabla', 'isin', 'notin', 'ni', 'prod', 'sum', 'minus', 'lowast', 'radic', 'prop', 'infin', 'ang', 'and', 'or', 'cap', 'cup', 'int', 'there4', 'sim', 'cong', 'asymp', 'ne', 'equiv', 'le', 'ge', 'sub', 'sup', 'nsub', 'sube', 'supe', 'oplus', 'otimes', 'perp', 'sdot', 'lceil', 'rceil', 'lfloor', 'rfloor', 'lang', 'rang', 'loz', 'spades', 'clubs', 'hearts', 'diams'];
@@ -80309,7 +80664,7 @@
 
 
 /***/ },
-/* 58 */
+/* 60 */
 /***/ function(module, exports) {
 
 	var ALPHA_INDEX = {
@@ -80470,7 +80825,7 @@
 
 
 /***/ },
-/* 59 */
+/* 61 */
 /***/ function(module, exports) {
 
 	// Copyright Joyent, Inc. and other Node contributors.
@@ -80556,7 +80911,7 @@
 
 
 /***/ },
-/* 60 */
+/* 62 */
 /***/ function(module, exports) {
 
 	// Copyright Joyent, Inc. and other Node contributors.
@@ -80626,21 +80981,21 @@
 
 
 /***/ },
-/* 61 */
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	exports.decode = exports.parse = __webpack_require__(59);
-	exports.encode = exports.stringify = __webpack_require__(60);
+	exports.decode = exports.parse = __webpack_require__(61);
+	exports.encode = exports.stringify = __webpack_require__(62);
 
 
 /***/ },
-/* 62 */
+/* 64 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	var ansiRegex = __webpack_require__(63)();
+	var ansiRegex = __webpack_require__(65)();
 	
 	module.exports = function (str) {
 		return typeof str === 'string' ? str.replace(ansiRegex, '') : str;
@@ -80648,7 +81003,7 @@
 
 
 /***/ },
-/* 63 */
+/* 65 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -80658,7 +81013,7 @@
 
 
 /***/ },
-/* 64 */
+/* 66 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -80796,7 +81151,7 @@
 
 
 /***/ },
-/* 65 */
+/* 67 */
 /***/ function(module, exports) {
 
 	module.exports = function(module) {
@@ -80812,7 +81167,7 @@
 
 
 /***/ },
-/* 66 */
+/* 68 */
 /***/ function(module, exports) {
 
 	module.exports = function ($scope, $routeParams, Post, Auth, Comment, $firebase, Profile, $http, $filter, $sce, $location, $uibModal, Action) {
@@ -80875,7 +81230,7 @@
 
 
 /***/ },
-/* 67 */
+/* 69 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $route, $location, $window, Post, Auth, $http, $cookies, $modalInstance, album, $sce, $filter) {
@@ -80959,7 +81314,7 @@
 
 
 /***/ },
-/* 68 */
+/* 70 */
 /***/ function(module, exports) {
 
 	module.exports = function ($scope, $location, Auth, user, $cookieStore) {
@@ -80996,7 +81351,7 @@
 
 
 /***/ },
-/* 69 */
+/* 71 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $route, $location, $window, Post, Auth, $http, $cookies, $modalInstance, book) {
@@ -81051,7 +81406,7 @@
 
 
 /***/ },
-/* 70 */
+/* 72 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $route, $location, $window, Post, Auth, Spotify, $uibModal,
@@ -81245,7 +81600,7 @@
 
 
 /***/ },
-/* 71 */
+/* 73 */
 /***/ function(module, exports) {
 
 	module.exports = function ($scope, $routeParams, Post, Auth, Comment, $firebase, Profile, $http, $filter, $sce, $uibModal, FIREBASE_URL) {
@@ -81311,7 +81666,7 @@
 
 
 /***/ },
-/* 72 */
+/* 74 */
 /***/ function(module, exports) {
 
 	module.exports = function ($scope, $routeParams, Post, Auth, Comment, $firebase, Profile, $location, $http, $filter, $sce, $uibModal, FIREBASE_URL) {
@@ -81373,7 +81728,7 @@
 
 
 /***/ },
-/* 73 */
+/* 75 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $route, $location, $window, Post, Auth, Spotify, $uibModal,
@@ -81569,7 +81924,7 @@
 
 
 /***/ },
-/* 74 */
+/* 76 */
 /***/ function(module, exports) {
 
 	module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootScope, $timeout, $mdSidenav) {
@@ -81626,7 +81981,7 @@
 
 
 /***/ },
-/* 75 */
+/* 77 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $route, $location, $window, Post, Auth, Spotify, $uibModal,
@@ -81841,150 +82196,168 @@
 
 
 /***/ },
-/* 76 */
+/* 78 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function($) {module.exports = function($scope, $route, $location, $window, Post, Auth, Spotify, $uibModal, Profile, $firebase,
-	  $filter, FIREBASE_URL, Action) {
+	/* WEBPACK VAR INJECTION */(function($) {module.exports = function($scope, $route, $location, $window, Post, Auth, Spotify,$uibModal, Profile, $firebase, 
+	  $filter, FIREBASE_URL, Action, $mdToast){
+	
+	 $scope.posts = Post.all;
+	 $scope.user = Auth.user;
+	 $scope.post = {artist: '', album: '', votes: 0, comments: 0, stars:0};
+	 $scope.signedIn = Auth.signedIn;
+	 $scope.logout = Auth.logout;
+	
+	 var ref = new Firebase(FIREBASE_URL);
+	
+	 $scope.filter_date = moment().startOf('isoweek');
+	
+	 $scope.sorter = '-';
+	 $scope.week = 'true';
+	 $scope.allTime = 'false';
+	 $scope.albumPosts = {};
+	 angular.forEach($scope.posts, function(item, key) {
+	  if ($scope.post.media_type == 'spotify') { $scope.albumPosts[key] = item; };
+	});
 	
 	
-	  $scope.posts = Post.all;
-	  $scope.user = Auth.user;
-	  $scope.post = {
-	    artist: '',
-	    album: '',
-	    votes: 0,
-	    comments: 0,
-	    stars: 0
-	  };
-	  $scope.signedIn = Auth.signedIn;
-	  $scope.logout = Auth.logout;
-	
-	  var ref = new Firebase(FIREBASE_URL);
-	
-	  $scope.filter_date = moment().startOf('isoweek');
-	
-	  $scope.sorter = '-';
-	  $scope.week = 'true';
-	  $scope.allTime = 'false';
-	  $scope.albumPosts = {};
-	  angular.forEach($scope.posts, function(item, key) {
-	    if ($scope.post.media_type == 'spotify') {
-	      $scope.albumPosts[key] = item;
-	    };
-	  });
+	 $scope.thisWeek = function(){
+	   $scope.filter_date = moment().startOf('isoweek');
+	   $scope.week = true;
 	
 	
-	  $scope.thisWeek = function() {
-	    $scope.filter_date = moment().startOf('isoweek');
-	    $scope.week = true;
+	 }
+	 $scope.allTime = function(){
+	  $scope.filter_date = moment('2016-01-01 16:07:35');
+	
+	  $scope.week = false;
+	}
+	$scope.getNumber = function(num) {
+	  return new Array(num);
+	};
 	
 	
-	  }
-	  $scope.allTime = function() {
-	    $scope.filter_date = moment('2016-01-01 16:07:35');
+	$scope.search = function(){
+	 Spotify.search($scope.post.search + '*', 'artist,album').then(function (data) {
 	
-	    $scope.week = false;
-	  }
-	  $scope.getNumber = function(num) {
-	    return new Array(num);
-	  };
+	  $scope.results = data.albums.items;
 	
+	  var post_names = $.map($scope.posts, function(post, idx){ return post.album;})
 	
-	  $scope.search = function() {
-	    Spotify.search($scope.post.search + '*', 'artist,album').then(function(data) {
-	
-	      $scope.results = data.albums.items;
-	
-	      var post_names = $.map($scope.posts, function(post, idx) {
-	        return post.album;
-	      })
-	
-	      angular.forEach($scope.results, function(result, key) {
-	        if (post_names.indexOf(result.name) != -1) {
+	  angular.forEach($scope.results, function(result, key) {
+	    if(post_names.indexOf(result.name) != -1){
 	          //console.log(result, key);
 	          result.name += ' **already been posted**';
 	        }
 	      });
 	
-	    });
+	});
 	
-	  };
+	};
 	
 	  $scope.save = function(post) {
-	    if ($scope.signedIn() && $scope.user.uid != post.creatorUID) {
+	  if($scope.signedIn() && $scope.user.uid != post.creatorUID){
 	
-	      Profile.savePost($scope.user.uid, post.$id, 'yes');
-	      // $scope.post.saveButtonText = 'saved';
+	    Profile.savePost($scope.user.uid, post.$id, 'yes');
+	          // $scope.post.saveButtonText = 'saved';
+	          $mdToast.show(
+	            $mdToast.simple()
+	            .textContent('Saved "' + post.album + '" to your queue')
+	            .position('bottom right' )
+	            .hideDelay(3000)
+	            );
+	
+	        };
+	
+	      };
+	
+	  $scope.viewAlbum = function(album){
+	    var modalInstance = $uibModal.open({
+	        templateUrl: 'views/albumPost.html',
+	        scope: $scope,
+	        controller: 'AlbumCtrl',
+	        resolve: {
+	          album: function () {
+	            return album;
+	          }
+	        }
+	      });
+	
+	     };
+	
+	
+	
+	
+	  $scope.clearResults = function(){
+	      $route.reload();
+	    };
+	
+	  $scope.deletePost = function (post) {
+	      Post.delete(post);
+	    };
+	
+	    $scope.upvote = function(post) {
+	      Action.upvote(post, 'spotify').then(function(msg){
+	        console.log(msg);
+	        $mdToast.show(
+	          $mdToast.simple()
+	          .textContent(msg)
+	          .position('bottom right' )
+	          .hideDelay(3000)
+	          );
+	      });
+	    };
+	
+	    $scope.downvote = function(post) {
+	      Action.downvote(post, 'spotify').then(function(msg){
+	        console.log(msg);
+	        $mdToast.show(
+	          $mdToast.simple()
+	          .textContent(msg)
+	          .position('bottom right' )
+	          .hideDelay(3000)
+	          );
+	      });
 	
 	    };
 	
-	  };
+	    $scope.starPost = function(post){
+	      Action.starPost(post, 'spotify').then(function(msg){
+	        console.log(msg);
+	        $mdToast.show(
+	          $mdToast.simple()
+	          .textContent(msg)
+	          .position('bottom right' )
+	          .hideDelay(3000)
+	          );
+	      });
 	
-	  $scope.viewAlbum = function(album) {
-	    var modalInstance = $uibModal.open({
-	      templateUrl: 'views/albumPost.html',
-	      scope: $scope,
-	      controller: 'AlbumCtrl',
-	      resolve: {
-	        album: function() {
-	          return album;
-	        }
-	      }
-	    });
-	
-	  };
+	          };
 	
 	
+	   // $scope.batchUpdate = function(){
+	
+	   //   var today = $filter('date')(new Date(),'yyyy-MM-dd HH:mm:ss');
+	
+	   //   angular.forEach($scope.posts, function(post) {
+	   //    ref.child("posts").child(post.$id).update({'media_type': 'spotify'});
+	   // });
 	
 	
-	  $scope.clearResults = function() {
-	    $route.reload();
-	  };
-	
-	  $scope.deletePost = function(post) {
-	    Post.delete(post);
-	  };
-	
-	  $scope.upvote = function(post) {
-	    Action.upvote(post, 'spotify');
-	
-	  };
-	
-	  $scope.downvote = function(post) {
-	    Action.downvote(post, 'spotify');
-	
-	  };
-	
-	  $scope.starPost = function(post) {
-	    Action.starPost(post, 'spotify');
-	
-	  };
-	
-	
-	  // $scope.batchUpdate = function(){
-	
-	  //   var today = $filter('date')(new Date(),'yyyy-MM-dd HH:mm:ss');
-	
-	  //   angular.forEach($scope.posts, function(post) {
-	  //    ref.child("posts").child(post.$id).update({'media_type': 'spotify'});
-	  // });
-	
-	
-	  // }
+	   // }
 	
 	
 	
-	};
+	 };
 	
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 77 */
+/* 79 */
 /***/ function(module, exports) {
 
-	module.exports = function ($scope, $routeParams, Profile, Post, Auth, $firebase, $uibModal, FIREBASE_URL, $location) {
-		var ref = new Firebase(FIREBASE_URL);
+	module.exports = function ($scope, $routeParams, Profile, Post, Auth, $firebase, $uibModal, FIREBASE_URL, $location,$mdToast) {
+	  var ref = new Firebase(FIREBASE_URL);
 	  $scope.sorter = '-';
 	  $scope.user = Auth.user;
 	  $scope.signedIn = Auth.signedIn;
@@ -82038,13 +82411,18 @@
 	
 	  $scope.removeSaved = function(post){
 	    Profile.savePost($scope.user.uid, post.$id, 'no');
+	             $mdToast.show(
+	        $mdToast.simple()
+	        .textContent('Removed "' + post.album + '" from your queue')
+	        .position('bottom right' )
+	        .hideDelay(3000)
+	    );
 	  };
 	
 	};
 
-
 /***/ },
-/* 78 */
+/* 80 */
 /***/ function(module, exports) {
 
 	module.exports = function ($scope, $routeParams, Profile, Post, Auth, $firebase, FIREBASE_URL) {
@@ -82058,7 +82436,7 @@
 
 
 /***/ },
-/* 79 */
+/* 81 */
 /***/ function(module, exports) {
 
 	module.exports = function() {
@@ -82066,7 +82444,7 @@
 	    restrict: 'E',
 	    transclude: true,
 	    replace: true,
-	    template: '<div id="backtop" class="{{theme}}"><button><div ng-transclude></div></button></div>',
+	    template: '<div id="backtop" class="{{theme}}"><md-button><div ng-transclude></div></md-button></div>',
 	    scope: {
 	      text: "@buttonText",
 	      speed: "@scrollSpeed",
@@ -82140,7 +82518,7 @@
 
 
 /***/ },
-/* 80 */
+/* 82 */
 /***/ function(module, exports) {
 
 	module.exports = function(){
@@ -82175,7 +82553,7 @@
 
 
 /***/ },
-/* 81 */
+/* 83 */
 /***/ function(module, exports) {
 
 	module.exports = function(){
@@ -82190,19 +82568,20 @@
 
 
 /***/ },
-/* 82 */
+/* 84 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var angular = __webpack_require__(5);
-	__webpack_require__(35);
+	__webpack_require__(37);
 	
 	__webpack_require__(4);
 	__webpack_require__(21);
-	__webpack_require__(25);
 	__webpack_require__(27);
 	__webpack_require__(29);
 	__webpack_require__(31);
 	__webpack_require__(33);
+	__webpack_require__(35);
+	__webpack_require__(25);
 	__webpack_require__(23);
 	
 	//firebase connectivity
@@ -82230,7 +82609,8 @@
 	  'spotify',
 	  'ui.bootstrap',
 	  'yaru22.angular-timeago',
-	  'ngMdIcons'
+	  'ngMdIcons',
+	  'angular-loading-bar'
 	
 	]);
 	app.config(function($mdThemingProvider) {
@@ -82308,33 +82688,33 @@
 	});
 	//test
 	//
-	app.factory('Action', __webpack_require__(83));
-	app.factory('Auth', __webpack_require__(84));
-	app.factory('Comment', __webpack_require__(85));
-	app.factory('Post', __webpack_require__(87));
-	app.factory('Profile', __webpack_require__(88));
+	app.factory('Action', __webpack_require__(85));
+	app.factory('Auth', __webpack_require__(86));
+	app.factory('Comment', __webpack_require__(87));
+	app.factory('Post', __webpack_require__(89));
+	app.factory('Profile', __webpack_require__(90));
 	
-	app.filter('isAfter', __webpack_require__(86));
+	app.filter('isAfter', __webpack_require__(88));
 	
-	app.directive("keepScroll", __webpack_require__(80));
-	app.directive("scrollItem", __webpack_require__(81));
-	app.directive("backTop", __webpack_require__(79));
+	app.directive("keepScroll", __webpack_require__(82));
+	app.directive("scrollItem", __webpack_require__(83));
+	app.directive("backTop", __webpack_require__(81));
 	
-	app.controller('AlbumCommentsCtrl', __webpack_require__(66));
-	app.controller('AlbumCtrl', __webpack_require__(67));
-	app.controller('AuthCtrl', __webpack_require__(68));
+	app.controller('AlbumCommentsCtrl', __webpack_require__(68));
+	app.controller('AlbumCtrl', __webpack_require__(69));
+	app.controller('AuthCtrl', __webpack_require__(70));
 	
-	app.controller('BooksCtrl', __webpack_require__(70));
-	app.controller('BookCtrl', __webpack_require__(69));
+	app.controller('BooksCtrl', __webpack_require__(72));
+	app.controller('BookCtrl', __webpack_require__(71));
 	
-	app.controller('ChatCtrl', __webpack_require__(71));
-	app.controller('CommentsCtrl', __webpack_require__(72));
-	app.controller('MoviesCtrl', __webpack_require__(73));
-	app.controller('NavCtrl', __webpack_require__(74));
-	app.controller('PodcastsCtrl', __webpack_require__(75));
-	app.controller('PostsCtrl', __webpack_require__(76));
-	app.controller('ProfileCtrl', __webpack_require__(77));
-	app.controller('ScoreCtrl', __webpack_require__(78));
+	app.controller('ChatCtrl', __webpack_require__(73));
+	app.controller('CommentsCtrl', __webpack_require__(74));
+	app.controller('MoviesCtrl', __webpack_require__(75));
+	app.controller('NavCtrl', __webpack_require__(76));
+	app.controller('PodcastsCtrl', __webpack_require__(77));
+	app.controller('PostsCtrl', __webpack_require__(78));
+	app.controller('ProfileCtrl', __webpack_require__(79));
+	app.controller('ScoreCtrl', __webpack_require__(80));
 	
 	// var plugins = pluginManager.getPlugins();
 	// angular.forEach(plugins, function(plugin, key){
@@ -82363,10 +82743,10 @@
 
 
 /***/ },
-/* 83 */
+/* 85 */
 /***/ function(module, exports) {
 
-	module.exports = function($firebase, FIREBASE_URL, Auth, Post, Profile) {
+	module.exports = function($firebase, FIREBASE_URL, Auth, Post, Profile, $q) {
 	  var ref = new Firebase(FIREBASE_URL);
 	  var posts = $firebase(ref.child('posts')).$asArray();
 	  var signedIn = Auth.signedIn;
@@ -82375,8 +82755,11 @@
 	
 	  var actionResult = {
 	    upvote: function(post, media_type) {
+	        var defer = $q.defer();
 	
 	      if (signedIn() && user.uid != post.creatorUID) {
+	
+	       
 	
 	        ref.child('user_scores').child(post.creator).once("value", function(snapshot) {
 	          //TODO: use media_type
@@ -82387,8 +82770,10 @@
 	          var current_vote = $firebase(ref.child('user_votes').child(user.uid).child(post.$id).child('vote')).$asObject();
 	          current_vote.$loaded().then(function(res) {
 	            if (res.$value == 'up') {
-	              //do nothing
-	              return false;
+	              //already upvoted
+	              var msg = 'Already upvoted "' + post.album + '"';
+	              defer.resolve(msg);
+	          
 	            };
 	            if (res.$value == 'down' || !res.$value) {
 	              post.votes += 1;
@@ -82410,18 +82795,20 @@
 	                });
 	              };
 	
+	              var msg = 'Gave "' + post.album + '" an upvote!';
+	              defer.resolve(msg);
+	
 	            };
 	
 	          })
 	        })
 	
-	
-	
-	
 	      }
+	          return defer.promise;
 	    },
 	
 	    downvote: function(post, media_type) {
+	        var defer = $q.defer();
 	
 	      if (signedIn() && user.uid != post.creatorUID) {
 	
@@ -82431,8 +82818,9 @@
 	          var current_vote = $firebase(ref.child('user_votes').child(user.uid).child(post.$id).child('vote')).$asObject();
 	          current_vote.$loaded().then(function(res) {
 	            if (res.$value == 'down') {
-	              //do nothing
-	              return false;
+	              //already downvoted
+	              var msg = 'Already downvoted "' + post.album + '"';
+	              defer.resolve(msg);
 	            };
 	            if (res.$value == 'up' || !res.$value) {
 	              post.votes -= 1;
@@ -82452,15 +82840,20 @@
 	                });
 	              };
 	
+	              var msg = 'Gave "' + post.album + '" a downvote';
+	              defer.resolve(msg);
+	
 	            };
 	
 	          })
 	        })
 	
 	      }
+	        return defer.promise;
 	    },
 	
 	    starPost: function(post, media_type) {
+	      var defer = $q.defer();
 	      if (signedIn() && user.uid != post.creatorUID) {
 	
 	        ref.child('user_scores').child(post.creator).once("value", function(snapshot) {
@@ -82475,8 +82868,8 @@
 	          current_vote.$loaded().then(function(res) {
 	
 	            if (res.$value == 'gold') {
-	              //already gave a star
-	              return false;
+	              var msg = 'Already gave "' + post.album + '" a star';
+	              defer.resolve(msg);
 	            };
 	
 	            if (!res.$value) {
@@ -82502,7 +82895,8 @@
 	                });
 	              };
 	
-	
+	              var msg = 'Gave "' + post.album + '" a star!';
+	              defer.resolve(msg);
 	            };
 	
 	          });
@@ -82512,6 +82906,7 @@
 	
 	
 	      };
+	        return defer.promise;
 	
 	    }
 	
@@ -82525,7 +82920,7 @@
 
 
 /***/ },
-/* 84 */
+/* 86 */
 /***/ function(module, exports) {
 
 	module.exports = function ($firebaseSimpleLogin, FIREBASE_URL, $rootScope, $firebase, $cookieStore) {
@@ -82581,7 +82976,7 @@
 
 
 /***/ },
-/* 85 */
+/* 87 */
 /***/ function(module, exports) {
 
 	module.exports = function ($firebase, FIREBASE_URL, Auth, Post, $filter) {
@@ -82635,7 +83030,7 @@
 
 
 /***/ },
-/* 86 */
+/* 88 */
 /***/ function(module, exports) {
 
 	module.exports = function() {
@@ -82649,7 +83044,7 @@
 
 
 /***/ },
-/* 87 */
+/* 89 */
 /***/ function(module, exports) {
 
 	module.exports = function ($firebase, FIREBASE_URL) {
@@ -82697,7 +83092,7 @@
 
 
 /***/ },
-/* 88 */
+/* 90 */
 /***/ function(module, exports) {
 
 	module.exports = function ($window, FIREBASE_URL, $firebase, Post, $q) {
@@ -82801,7 +83196,7 @@
 
 
 /***/ },
-/* 89 */
+/* 91 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var map = {
@@ -82825,7 +83220,7 @@
 	};
 	webpackContext.resolve = webpackContextResolve;
 	module.exports = webpackContext;
-	webpackContext.id = 89;
+	webpackContext.id = 91;
 
 
 /***/ }
