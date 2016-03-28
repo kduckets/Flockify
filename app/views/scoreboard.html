@@ -1,8 +1,8 @@
-<!-- <div class="container" ng-show="user.profile.group_id != 1">
+<div class="container" ng-show="user.profile.group_id != 1">
 <i><small>the scoreboard is disabled for users not in this group</small></i>
-</div> -->
+</div>
 
-<div ng-show="signedIn()">
+<div ng-show="signedIn() && user.profile.group_id == 1">
 <div align="center"><small><a href="#/history">view previous contest results</a></small></div>
   <h2 align="center">Album a day Contest (3/21)</h2>
   <table class="table table-inverse">
@@ -16,7 +16,7 @@
     <tbody>
       <tr ng-repeat="user in users | orderBy:'-weekly_scores.album_score'">
         <th scope="row">{{$index + 1}}</th>
-        <td>{{user.$id}} <img src="/images/poop.gif" style="padding-bottom:4px" ng-show="user.profile.group_id == 1 && user.$id == 'kev' || user.profile.group_id == 1 && user.$id == 'Oat' || user.profile.group_id == 1 && user.$id == 'Stevie'" height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:3px" ng-show="user.profile.group_id == 1 && user.$id == 'Johnson'" height="30px"/></td>
+        <td>{{user.$id}} <img src="/images/poop.gif" style="padding-bottom:4px" ng-show="user.$id == 'Ryan'" height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:3px" ng-show="user.$id == 's3rg'" height="30px"/></td>
         <td>{{user.weekly_scores.album_score}}</td>      
       </tr>
     </tbody>
