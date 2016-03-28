@@ -10,6 +10,7 @@
 <div ng-show="signedIn()" align="center">
 
 <div ng-show="user.profile.group_id == 1">
+<alert type="info" close="bCloseAlert=1" ng-hide="bCloseAlert"><b>Theme week!</b> Post a space-themed album.</alert>
           <md-toolbar class="md-hue-3">
         <div class="md-toolbar-tools" style="max-width:320px" align="center">
            <md-button flex="33" aria-label="Search" ng-click="search()">
