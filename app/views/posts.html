@@ -1,12 +1,8 @@
-
-
 <div style="padding-bottom:10px" align="center" >
-
-<!-- <img class="background" src="/images/record.jpg"></img>  -->
-  <div ng-hide="signedIn()">
-   <h2>Welcome to flockify</h2>
+<div ng-show="!signedIn()">
+ <h2>Welcome to flockify</h2>
    <p><a href="/#/login">Sign in</a> to get started</p>
- </div>
+</div>
 <div ng-show="signedIn()" align="center">
 
 <div ng-show="user.profile.group_id == 1">

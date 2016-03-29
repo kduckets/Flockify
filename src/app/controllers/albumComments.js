@@ -1,4 +1,5 @@
-module.exports = function ($scope, $routeParams, Post, Auth, Comment, $firebase, Profile, $http, $filter, $sce, $location, $uibModal, Action) {
+module.exports = function ($scope, $routeParams, Post, Auth, Comment, $firebase, Profile, $http, $filter, $sce, $location, 
+  $uibModal, Action, $mdToast) {
   var post_id = $routeParams.postId;
   $scope.user = Auth.user;
   $scope.signedIn = Auth.signedIn;
@@ -39,19 +40,49 @@ module.exports = function ($scope, $routeParams, Post, Auth, Comment, $firebase,
   $scope.save = function(post) {
     if($scope.signedIn() && $scope.user.uid != post.creatorUID){
       Profile.savePost($scope.user.uid, post.$id, 'yes');
+         $mdToast.show(
+            $mdToast.simple()
+            .textContent('Saved "' + post.album + '" to your queue')
+            .position('bottom right' )
+            .hideDelay(3000)
+            );
     };
   };
 
   $scope.upvote = function(post) {
-    Action.upvote(post, post.media_type);
+    Action.upvote(post, post.media_type).then(function(msg){
+        console.log(msg);
+        $mdToast.show(
+          $mdToast.simple()
+          .textContent(msg)
+          .position('bottom right' )
+          .hideDelay(3000)
+          );
+      });
   };
 
   $scope.downvote = function(post) {
-    Action.downvote(post, post.media_type);
+    Action.downvote(post, post.media_type).then(function(msg){
+        console.log(msg);
+        $mdToast.show(
+          $mdToast.simple()
+          .textContent(msg)
+          .position('bottom right' )
+          .hideDelay(3000)
+          );
+      });
   };
 
   $scope.starPost = function(post){
-    Action.starPost(post, post.media_type);
+    Action.starPost(post, post.media_type).then(function(msg){
+        console.log(msg);
+        $mdToast.show(
+          $mdToast.simple()
+          .textContent(msg)
+          .position('bottom right' )
+          .hideDelay(3000)
+          );
+      });
   };
 
 };
