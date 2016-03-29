@@ -87,10 +87,6 @@ img.comments{
   width: 100%;
 }
 
-img.comments:hover{
-  opacity: 0.7;
-}
-
 img.post{
 width: 180px;    
 position: relative;     
