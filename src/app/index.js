@@ -10,6 +10,7 @@ require('angular-sanitize');
 require('angular-touch');
 require('angular-material-icons');
 require('angular-loading-bar');
+require('moment-range');
 
 //firebase connectivity
 require('./../../app/bower_components/firebase/firebase.js');

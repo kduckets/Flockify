@@ -12,8 +12,9 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
  $scope.filter_date = moment().startOf('isoweek');
 
  $scope.sorter = '-';
- $scope.week = 'true';
- $scope.allTime = 'false';
+ $scope.week = true;
+ $scope.last = false;
+ $scope.allPosts = false;
  $scope.albumPosts = {};
  angular.forEach($scope.posts, function(item, key) {
   if ($scope.post.media_type == 'spotify') { $scope.albumPosts[key] = item; };
@@ -29,15 +30,42 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
 
  $scope.thisWeek = function(){
    $scope.filter_date = moment().startOf('isoweek');
+   $scope.sorter = '-';
    $scope.week = true;
-
-
+   $scope.last = false;
+   $scope.allPosts = false;
  };
+
+  $scope.lastWeek = function(){
+    var last_monday = GetLastWeekStart(); 
+    var this_monday = moment().startOf('isoweek');
+    //TODO: use moment().range
+   $scope.filter_date =  last_monday;
+   $scope.sorter = '-votes';
+   $scope.last = true;
+   $scope.week = false;
+   $scope.allPosts = false;
+ };
+
  $scope.allTime = function(){
   $scope.filter_date = moment('2016-01-01 16:07:35');
-
+  $scope.sorter = '-votes';
+  $scope.allPosts = true;
   $scope.week = false;
+  $scope.last = false;
+
 };
+
+  function GetLastWeekStart() {
+    var today = moment();
+    var daystoLastMonday = 0 - (1 - today.isoWeekday()) + 8;
+
+    var lastMonday = today.subtract(daystoLastMonday, 'days');
+    console.log(lastMonday);
+
+     return lastMonday;
+};
+
 $scope.getNumber = function(num) {
   return new Array(num);
 };
