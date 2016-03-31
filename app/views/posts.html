@@ -131,7 +131,7 @@
 
 </md-card-title>
     <md-card-content>
-  <div>{{ post.summary| limitTo: 80 }}{{post.summary.length > 80 ? '..' : ''}}</div>
+  <div>{{ post.summary| limitTo: 132 }}{{post.summary.length > 132 ? '..' : ''}}</div>
      <span class="md-subhead"><small><b>posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator}}<img src="/images/poop.gif" style="padding-bottom:10px; padding-left:2px; height: 50px; width: auto;  display:inline-block;" ng-show="user.profile.group_id == 1 && post.creator == 'Ryan'"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:2px;height: 30px; width: auto;display:inline-block;" ng-show="user.profile.group_id == 1 && post.creator == 's3rg'"/></b>
        </a> <i>{{post.date | timeAgo}}</i></small></span>
       
