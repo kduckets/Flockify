@@ -51,7 +51,7 @@ left:20px;
   height:auto; 
   left:0px;
   width: auto;
-  font-size: 30px;
+  font-size: 28px;
   position: absolute;
 
   display:inline-block;
@@ -63,8 +63,8 @@ left:20px;
 }
 
 img.star{
-  height:40px; 
- bottom: 0px;
+  height:18px; 
+  bottom: 0px;
   width: auto;
   position: relative;
   display:inline-block;

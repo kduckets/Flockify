@@ -106,7 +106,7 @@
 
 <!-- desktop -->
 
-  <md-card class="card" flex="75" hide-xs>
+  <md-card class="card" flex="60" hide-xs>
 
   <div layout-xs="column" layout="row">
  
@@ -117,58 +117,41 @@
   </div>
   <div flex="60">
  
-  <md-card-title>
-    <md-card-title-text>
 
     <a ng-href="{{getPostLink(post)}}">
 
-   <span class="md-headline"><h1><b>{{ post.artist }}</b></h1>
+   <span class="md-headline" style=" padding: 0px 12px 12px;"><b>{{ post.artist }}</b><br/>
  {{ post.album | limitTo: 20 }}{{post.album.length > 20 ? '..' : ''}} ({{post.release_date | limitTo: 4}})</span></a>
 <div>
    <img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" class="star" />
    <a href="" ng-show="user.profile.group_id == 1" ng-click="starPost(post)">
-    <img ng-src="/images/empty-star.png" class="star" /></a></div>
+    <img ng-src="/images/empty-star.png" class="star" /></a>
+    </div>
 
-  </md-card-title-text>
- 
-  </md-card-title>
     <md-card-content>
 
-  <p>{{ post.summary| limitTo: 60 }}{{post.summary.length > 60 ? '..' : ''}}</p>
-     <span class="md-subhead"><b>posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator}}<img src="/images/poop.gif" style="padding-bottom:10px; padding-left:2px; height: 50px; width: auto;  display:inline-block;" ng-show="user.profile.group_id == 1 && post.creator == 'Ryan'"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:2px;height: 30px; width: auto;display:inline-block;" ng-show="user.profile.group_id == 1 && post.creator == 's3rg'"/></b>
-       </a> <br/><i>{{post.date | timeAgo}}</i></span>
+  <div><small>{{ post.summary| limitTo: 60 }}{{post.summary.length > 60 ? '..' : ''}}</small></div>
+     <span class="md-subhead"><small><b>posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator}}<img src="/images/poop.gif" style="padding-bottom:10px; padding-left:2px; height: 50px; width: auto;  display:inline-block;" ng-show="user.profile.group_id == 1 && post.creator == 'Ryan'"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:2px;height: 30px; width: auto;display:inline-block;" ng-show="user.profile.group_id == 1 && post.creator == 's3rg'"/></b>
+       </a> <i>{{post.date | timeAgo}}</i></small></span>
+      
        <div>
   <md-button ng-href="{{getPostLink(post)}}"><span class="comments-icon-big"><i class="fa fa-comment fa-3x"></i>
     <span class="after label label-pill label-danger"> {{post.comments}} </a></span></span></md-button>
-<div><small> <md-button  style="font-size:10px"ng-click="save(post)">save to my queue</md-button></small></div>
 
    </div>
+    <small> <md-button  style="font-size:10px; vertical-align: bottom"ng-click="save(post)">save to my queue</md-button></small>
    </div>
     
-<!--    <div flex="6">
  <md-card-actions layout="column" layout-align="start right">
   <md-button ng-show="user.profile.group_id == 1" ng-click="upvote(post)" aria-label="Upvote" >
  <ng-md-icon icon="arrow_upwards" class="arrow" size="40"></ng-md-icon>
  </md-button>
- <br/>
- <br/>
- <br/>
- <br/>
- <br/>
- <br/>
- <br/>
- <br/>
- <br/>
- <br/>
- <br/>
- <br/>
- <br/>
  <md-button ng-show="user.profile.group_id == 1" ng-click="downvote(post)" aria-label="Downvote" >
  <ng-md-icon icon="arrow_downward" class="arrow" size="40"></ng-md-icon>
  </md-button> 
 
  </md-card-actions>
-</div> -->
+
 
  
     
