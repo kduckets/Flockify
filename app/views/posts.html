@@ -57,7 +57,7 @@
 <!-- mobile -->
   <div class="post-box" show-xs hide-gt-xs>
  <md-button ng-show="user.profile.group_id == 1" ng-click="upvote(post)" aria-label="Upvote">
- <img src="/images/up.png" height="30" ></img>
+ <img src="/images/up.png" class="arrow" height="30" ></img>
  </md-button>
   <a ng-href="{{getPostLink(post)}}" >
     <span class="post-image"><img class="post" ng-src="{{post.image_medium}}" />
@@ -69,7 +69,7 @@
   </span>
   
 <md-button ng-show="user.profile.group_id == 1" ng-click="downvote(post)" aria-label="Downvote">
-  <img src="/images/down.png" height="30"></img>
+  <img src="/images/down.png" class="arrow" height="30"></img>
   </md-button>
   
   <div style="padding-top:5px; padding-bottom:10px"> 
