@@ -1,8 +1,8 @@
-<div class="container" ng-if="user.profile.group_id != 1">
-<i><small>profiles are disabled for users not in this group</small></i>
+<div class="container" ng-show="loading" align="center">
+   <md-progress-circular md-mode='indeterminate' md-diameter="100"></md-progress-circular>
 </div>
 
-<div class="container" ng-show="signedIn() && user.profile.group_id == 1">
+<div class="container" ng-show="signedIn() && user.profile.group_id == 1 && !loading">
 
  
    <!--  <div class="col-sm-1">
@@ -10,18 +10,18 @@
     </div> -->
 
     <div align="center">
-      <span ng-show="view_tab == 'tabA'" class="name">posts by {{ profile.username }}
+      <span ng-show="view_tab == 'tabA'" class="name">Posts by {{ profile.username }}
         <img src="/images/poop.gif" style="padding-bottom:10px" ng-show="profile.username == 'Ryan'" height="60px"/>
 
         <img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:2px" ng-show="profile.username == 's3rg'" height="60px"/>
 
         </span>
-        <span ng-show="view_tab == 'tabB'" class="name">likes by {{ profile.username }}
+        <span ng-show="view_tab == 'tabB'" class="name">Likes by {{ profile.username }}
            <img src="/images/poop.gif" style="padding-bottom:10px" ng-show="profile.username == 'Ryan'" height="60px"/>
 
         <img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:2px" ng-show="profile.username == 's3rg'" height="60px"/>
         </span>
-          <span ng-show="view_tab == 'tabC'" class="name">queue for {{ profile.username }}
+          <span ng-show="view_tab == 'tabC'" class="name">Queue for {{ profile.username }}
              <img src="/images/poop.gif" style="padding-bottom:10px" ng-show="profile.username == 'Ryan'" height="60px"/>
         <img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:2px" ng-show="profile.username == 's3rg'" height="60px"/>
           </span>
@@ -49,12 +49,17 @@
 
 </div> -->
 </div>
-<div class="btn-group-lg" role="group" aria-label="profiletabs" align="center">
-  <button type="button" class="btn btn-secondary" ng-class="{'active': view_tab == 'tabA'}" ng-click="changeTab('tabA')" >posts</button>
-  <button type="button" class="btn btn-secondary" ng-class="{'active': view_tab == 'tabB'}" ng-click="changeTab('tabB')" >likes</button>
-  <button type="button" class="btn btn-secondary" ng-class="{'active': view_tab == 'tabC'}" ng-click="changeTab('tabC')" >queue</button>
-</div>
-<br/>
+
+<md-tabs md-center-tabs="true" md-dynamic-height md-border-bottom>
+        <md-tab label="Posts" ng-class="{'active': view_tab == 'tabA'}" ng-click="changeTab('tabA')" >
+        </md-tab>
+        <md-tab label="Likes" ng-class="{'active': view_tab == 'tabB'}" ng-click="changeTab('tabB')" >
+        </md-tab>
+        <md-tab label="Queue" ng-class="{'active': view_tab == 'tabC'}" ng-click="changeTab('tabC')" >
+        </md-tab>
+        </md-tabs>
+
+        <br/>
 
 <div ng-repeat="(key,post) in user_posts" ng-show="view_tab == 'tabA'" align="center" >
  <div class="post" ng-show="post.artist">

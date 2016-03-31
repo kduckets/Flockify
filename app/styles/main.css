@@ -8,6 +8,18 @@ body {
   position: fixed !important;
 }
 
+.md-padding {
+    padding: 0px !important;
+}
+
+
+
+.md-card.card{
+  margin: 0 auto; 
+  background-color: rgba(255,255,255,.8) !important;
+  box-shadow: 0px 8px 8px rgba(0,0,0,0.5) !important;
+   }
+
 .md-button {
     min-width: 1%;
 }
@@ -15,6 +27,11 @@ body {
 .container{
 
   width: 100%
+}
+
+.post.votes{
+position:absolute
+left:20px;
 }
 
 .albums-container{
@@ -26,8 +43,32 @@ body {
  display:none;
 }
 
+.score-container{
+  position: absolute;
+}
 
+.score-big{
+  height:auto; 
+  left:0px;
+  width: auto;
+  font-size: 30px;
+  position: absolute;
 
+  display:inline-block;
+  z-index: 1;
+}
+
+.star{
+  position: absolute;
+}
+
+img.star{
+  height:40px; 
+ bottom: 0px;
+  width: auto;
+  position: relative;
+  display:inline-block;
+}
 .imageholder{
     position: relative;
     float: left;
@@ -36,20 +77,6 @@ body {
     position: absolute;
  
 }
-
-  img.background{
-
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 0px;
-    height: 0px;
-    opacity: 0;
-    z-index: -100;
-    
-}
-
-
 
 @media screen and (min-width: 1000px) {
 
@@ -105,12 +132,12 @@ img{
 
 img.arrow{
 
-  opacity: 0.4
+  opacity: 0.4;
 }
 
 img.arrow:hover{
 
-  opacity: 1
+  opacity: 1;
 }
 
 
@@ -149,6 +176,7 @@ hr.style-two {
   z-index: 100;
 
 }
+
 .post-box {
   padding-top: 16px;
   margin: 0 auto; 
@@ -156,8 +184,6 @@ hr.style-two {
   background-color: rgba(255,255,255,.8);
   box-shadow: 0px 8px 8px rgba(0,0,0,0.5);
   max-width: 800px;
-
-
 }
 
 .post-box:hover{
@@ -183,6 +209,19 @@ hr.style-two {
   top:80px;
 }
 
+.post-image .comments-icon-big{
+  position: absolute;
+  right:-8px;
+  top:80px;
+}
+
+.comments-icon-big .after{
+position: absolute;
+left:28px;
+top:0px;
+font-size:14px;
+}
+
 .post-image .save-icon{
    position: absolute;
   left:-8px;
@@ -191,23 +230,13 @@ hr.style-two {
 }
 
 
-/*.comments-icon{
-  position: relative;
-
-}*/
-
 .comments-icon .after{
 position: absolute;
 left:18px;
 top:0px;
 }
 
-/*@media screen and (min-width: 1000px) {*/
-
-
-
-  /*}*/
-    img.post:hover {
+img.post:hover {
 
 }
 
@@ -259,7 +288,7 @@ margin-right:auto;
 }
 
 body {
-  font-family: arial;
+  font-family: 'helvetica neue';
 }
 
 h3 {

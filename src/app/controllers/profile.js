@@ -5,6 +5,7 @@ module.exports = function ($scope, $routeParams, Profile, Post, Auth, $firebase,
   $scope.signedIn = Auth.signedIn;
   $scope.logout = Auth.logout;
   $scope.posts = Post.all;
+  $scope.loading = true;
 
   var uid = $routeParams.userId;
   $scope.profile = Profile.get(uid);
@@ -13,23 +14,29 @@ module.exports = function ($scope, $routeParams, Profile, Post, Auth, $firebase,
   //get likes
   Profile.getLikes(uid).then(function(posts) {
     $scope.likes = posts;
+    // $scope.loading = false;
   });
 
   // get posts
   Profile.getPosts(uid).then(function(posts) {
+
     $scope.user_posts = posts;
+  
     ref.child('user_scores').child($scope.profile.username).child('weekly_scores').child('album_score').on("value", function(snapshot) {
       $scope.score = snapshot.val();
+
     });
     ref.child('user_scores').child($scope.profile.username).child('stars').on("value", function(snapshot) {
       $scope.stars = snapshot.val();
+
     });
 
-    // $scope.showRatio();
+      $scope.loading = false;
   });
 
   Profile.getQueue(uid).then(function(posts) {
     $scope.queue = posts;
+  
   });
 
   $scope.showRatio = function(){

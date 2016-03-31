@@ -1,105 +1,64 @@
-<div style="padding-bottom:10px" align="center" >
-<div ng-show="!signedIn()">
- <h2>Welcome to flockify</h2>
+<div style="padding-bottom:10px">
+  <div ng-show="!signedIn()" align="center">
+   <h2>Welcome to flockify</h2>
    <p><a href="/#/login">Sign in</a> to get started</p>
+ </div>
+ <div ng-show="signedIn()">
+  <div ng-show="user.profile.group_id == 1" align="center">
+    <alert type="info" close="bCloseAlert=1" ng-hide="bCloseAlert"><b>Theme week!</b> Post a space-themed album.</alert>
+    <md-toolbar class="md-hue-3">
+    <div class="md-toolbar-tools" style="max-width:320px" align="center">
+     <md-button flex="33" aria-label="Search" ng-click="search()">
+     <ng-md-icon icon="search"></ng-md-icon>
+   </md-button>
+   <form ng-submit="search()">
+    <md-input-container md-theme="input" style="max-width:190px !important" flex>
+    <label>&nbsp;</label>
+    <input ng-model="post.search" placeholder="post an album">        
+  </md-input-container>
+  <md-button flex="33" ng-click="clearResults()" ng-show="post.search" aria-label="Back">
+  <ng-md-icon icon="clear"></ng-md-icon>
+</md-button>   
+</form>
 </div>
-<div ng-show="signedIn()" align="center">
+</md-toolbar>
+</div>
 
-<div ng-show="user.profile.group_id == 1">
-<alert type="info" close="bCloseAlert=1" ng-hide="bCloseAlert"><b>Theme week!</b> Post a space-themed album.</alert>
-          <md-toolbar class="md-hue-3">
-        <div class="md-toolbar-tools" style="max-width:320px" align="center">
-           <md-button flex="33" aria-label="Search" ng-click="search()">
-            <ng-md-icon icon="search"></ng-md-icon>
-          </md-button>
-          <form ng-submit="search()">
-          <md-input-container md-theme="input" style="max-width:190px !important" flex>
-            <label>&nbsp;</label>
-            <input ng-model="post.search" placeholder="post an album">
-          
-          </md-input-container>
-                  <md-button flex="33" ng-click="clearResults()" ng-show="post.search" aria-label="Back">
-            <ng-md-icon icon="clear"></ng-md-icon>
-          </md-button>
-        
-     
-          </form>
-        </div>
-       
-      </md-toolbar>
-      </div>
-
-
-        <div class="list-group" ng-repeat="result in results" align="left">
-
-          <button type="button" class="list-group-item" ng-click="viewAlbum(result.href)">
-            <img ng-src="{{result.images[2].url}}"/>
-
-            <small>{{result.name}}</small>
-
-          </button>
-
-
-        </div>
+<div class="list-group" ng-repeat="result in results" align="left">
+  <button type="button" class="list-group-item" ng-click="viewAlbum(result.href)">
+    <img ng-src="{{result.images[2].url}}"/>
+    <small>{{result.name}}</small>
+  </button>
+</div>
 
 <!--  <back-top scroll-speed=600 button-theme="light"> <ng-md-icon icon="clear"></ng-md-icon></back-top> -->
-
-<div class="btn-group btn-group-sm" role="group" aria-label="Date filter" align="center" >
-<!--  <md-button ng-click="today()" aria-label="today" ng-class="today ? 'md-raised md-primary':'md-raised'">today</md-button> -->
- <md-button ng-click="thisWeek()" aria-label="week" ng-class="week ? 'md-raised md-primary':'md-raised'">this week</md-button>
-<md-button ng-click="lastWeek()" aria-label="last" ng-class="last ? 'md-raised md-primary':'md-raised'">last week</md-button>
- <md-button type="button" ng-click="allTime()" aria-label="all" ng-class="allPosts ? 'md-raised md-primary':'md-raised'">all time</md-button>
-</div>
-<div>
-
+<div align="center">
+  <md-tabs md-center-tabs="true" md-dynamic-height md-border-bottom>
+   <md-tab ng-click="thisWeek()" aria-label="week" ng-class="week ? 'md-raised md-primary':'md-raised'">this week</md-tab>
+   <md-tab ng-click="lastWeek()" aria-label="last" ng-class="last ? 'md-raised md-primary':'md-raised'">last week</md-tab>
+   <md-tab type="button" ng-click="allTime()" aria-label="all" ng-class="allPosts ? 'md-raised md-primary':'md-raised'">all time</md-tab>
+ </md-tabs>
+ <div>
    <md-button aria-label="new" ng-click="sorter = '-'">new
- <!--  <md-tooltip md-direction="botom">
-          Sort by most recent
-        </md-tooltip> -->
-   </md-button>
-   <md-button aria-label="top" ng-click="sorter = '-votes'">top
-   <!--  <md-tooltip md-direction="botom">
-          Sort by highest score
-        </md-tooltip> -->
-   </md-button>
-   <md-button aria-label="comments" ng-click="sorter = '-latest_comment'">comments
-  <!--   <md-tooltip md-direction="botom">
-          Sort by most recent comments
-        </md-tooltip> -->
-   </md-button>
-   <md-button aria-label="stars" ng-click="sorter = '-stars'">stars
-<!--  <md-tooltip md-direction="botom">
-          Sort by most stars
-        </md-tooltip> -->
-   </md-button>
-
-  </div>
-
-   <!--   <a href ng-click="batchUpdate()">batch</a>  -->
-
-
-
-
-
-
-
- <div align="center" ng-repeat="post in posts | orderBy:sorter | filter:'spotify' | isAfter:filter_date" jd-script > 
-
-<div class="post-box">
- <md-button ng-show="user.profile.group_id == 1" ng-click="upvote(post)" aria-label="Upvote">
- <!-- <md-tooltip md-direction="left">
-          Upvote this album
-        </md-tooltip> -->
- <img class="arrow"  src="/images/up.png" height="30" ></img>
  </md-button>
+ <md-button aria-label="top" ng-click="sorter = '-votes'">top
+</md-button>
+<md-button aria-label="comments" ng-click="sorter = '-latest_comment'">comments
+</md-button>
+<md-button aria-label="stars" ng-click="sorter = '-stars'">stars
+</md-button>
+</div>
+</div>
 
-<!--    <md-button aria-label="Upvote" ng-click="upvote(post)">
-     <ng-md-icon icon="arrow_drop_up" size="80"></ng-md-icon>
-       <md-tooltip md-direction="left">
-          Upvote this post
-        </md-tooltip>
-     </md-button>  -->
+<!--   <a href ng-click="batchUpdate()">batch</a>  -->
 
+<div class="post" ng-repeat="post in posts | orderBy:sorter | filter:'spotify' | isAfter:filter_date" jd-script align="center"> 
+
+<!-- mobile -->
+  <div class="post-box" show-xs hide-gt-xs>
+ <md-button ng-show="user.profile.group_id == 1" ng-click="upvote(post)" aria-label="Upvote">
+ <img src="/images/up.png" height="30" ></img>
+ </md-button>
   <a ng-href="{{getPostLink(post)}}" >
     <span class="post-image"><img class="post" ng-src="{{post.image_medium}}" />
      <span class="score label label-default label-default">   {{ post.votes }} </span> 
@@ -110,10 +69,7 @@
   </span>
   
 <md-button ng-show="user.profile.group_id == 1" ng-click="downvote(post)" aria-label="Downvote">
-<!--  <md-tooltip md-direction="right">
-          Downvote this album
-        </md-tooltip> -->
-  <img class="arrow" src="/images/down.png" height="30"></img>
+  <img src="/images/down.png" height="30"></img>
   </md-button>
   
   <div style="padding-top:5px; padding-bottom:10px"> 
@@ -121,15 +77,6 @@
 
     <div><img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18" /><a ng-show="user.profile.group_id == 1" ng-click="starPost(post)" href="" > 
      <img ng-src="/images/empty-star.png" height="18" /></a></div>
-
-<!--         <md-button aria-label="Star" style="padding-top:10px" ng-click="starPost(post)">
-     <ng-md-icon icon="star_border"></ng-md-icon>
-       <md-tooltip md-direction="right">
-          Star this post
-        </md-tooltip>
-     </md-button> -->
-   
-
      <a ng-href="{{getPostLink(post)}}" >
        {{ post.artist }} - {{ post.album }} ({{post.release_date | limitTo: 4}})</a> 
 
@@ -154,10 +101,87 @@
 
 
 </div>
-
-  
-</div> 
 </div>
+
+
+<!-- desktop -->
+
+  <md-card class="card" flex="75" hide-xs>
+
+  <div layout-xs="column" layout="row">
+ 
+  <div flex="40">
+  <a ng-href="{{getPostLink(post)}}">
+  <span class="score-big label label-default label-default"> {{ post.votes }} </span>
+  <img class="md-card-image" ng-src="{{post.image_medium}}" /></a>
+  </div>
+  <div flex="60">
+ 
+  <md-card-title>
+    <md-card-title-text>
+
+    <a ng-href="{{getPostLink(post)}}">
+
+   <span class="md-headline"><h1><b>{{ post.artist }}</b></h1>
+ {{ post.album | limitTo: 20 }}{{post.album.length > 20 ? '..' : ''}} ({{post.release_date | limitTo: 4}})</span></a>
+<div>
+   <img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" class="star" />
+   <a href="" ng-show="user.profile.group_id == 1" ng-click="starPost(post)">
+    <img ng-src="/images/empty-star.png" class="star" /></a></div>
+
+  </md-card-title-text>
+ 
+  </md-card-title>
+    <md-card-content>
+
+  <p>{{ post.summary| limitTo: 60 }}{{post.summary.length > 60 ? '..' : ''}}</p>
+     <span class="md-subhead"><b>posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator}}</b>
+  <!--        <img src="/images/poop.gif" style="padding-bottom:10px; padding-left:2px" ng-show="user.profile.group_id == 1 && post.creator == 'Ryan'" height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:2px" ng-show="user.profile.group_id == 1 && post.creator == 's3rg'" height="30px"/> -->
+       </a> <br/><i>{{post.date | timeAgo}}</i></span>
+       <div>
+  <md-button ng-href="{{getPostLink(post)}}"><span class="comments-icon-big"><i class="fa fa-comment fa-3x"></i>
+    <span class="after label label-pill label-danger"> {{post.comments}} </a></span></span></md-button>
+<div><small> <md-button  style="font-size:10px"ng-click="save(post)">save to my queue</md-button></small></div>
+
+
+    
+   
+<!--     <div>
+  <md-button ng-show="user.profile.group_id == 1" ng-click="upvote(post)" aria-label="Upvote" >
+ <img src="/images/up.png" class="arrow" height="30" ></img>
+ </md-button>
+<span class="score-big label label-default label-default"> {{ post.votes }} </span>
+ <md-button ng-show="user.profile.group_id == 1" ng-click="downvote(post)" aria-label="Downvote" >
+<img src="/images/down.png" class="arrow" height="30" ></img>
+ </md-button> -->
+
+    </div>
+
+
+<!--      -->
+    </div>
+    
+
+ </div>
+<!--  <md-card-actions layout="row" layout-align="start center">
+<md-button ng-click="save(post)">save to my queue</md-button>
+</md-card-actions> -->
+
+  </md-card-content>
+
+ 
+  </div>
+
+  </md-card> 
+ 
+     
+
+       
+
+
+
+
+
 </div>
 </div>
 
