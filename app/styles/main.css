@@ -135,10 +135,23 @@ img.arrow{
   opacity: 0.4;
 }
 
+
 img.arrow:hover{
 
   opacity: 1;
 }
+
+.arrow{
+
+  opacity: 0.4;
+}
+
+
+.arrow:hover{
+
+  opacity: 1;
+}
+
 
 
 .up-vote{
