@@ -1,5 +1,5 @@
 module.exports = function($scope, $route, $location, $window, Post, Auth, $http, $cookies, album, $sce, $filter,
-  $timeout, $q, $mdDialog, FIREBASE_URL, $firebase) {
+  $timeout, $q, $mdDialog, FIREBASE_URL, $firebase, $mdConstant) {
 
    var ref = new $window.Firebase(FIREBASE_URL);
    var tags = $firebase(ref.child('tags')).$asArray();
@@ -12,6 +12,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
     $scope.tags = tags;
     $scope.querySearch = querySearch;
     $scope.transformChip = transformChip;
+    $scope.keys = [$mdConstant.KEY_CODE.COMMA];
 
   $scope.user = Auth.user;
   $scope.signedIn = Auth.signedIn;

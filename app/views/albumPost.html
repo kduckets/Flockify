@@ -25,7 +25,9 @@
 
     <md-chips ng-model="selectedTags" md-autocomplete-snap
               md-transform-chip="transformChip($chip)"
-              md-require-match="false">
+              md-require-match="false"
+              md-separator-keys="keys">
+
       <md-autocomplete
           md-selected-item="selectedItem"
           md-search-text="searchText"
