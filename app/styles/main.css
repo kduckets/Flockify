@@ -4,6 +4,13 @@ body {
 
 }
 
+.md-chips .md-chip{
+  float: none !important;
+  margin: 8px 4px 0 0 !important;
+  display: inline-block;
+  font-size: 14px;
+}
+
 .md-toast {
   position: fixed !important;
 }
