@@ -28,7 +28,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
   $scope.tagFilters.push(tag); 
   $scope.tagText += tag + " ";
   $timeout(function () { $scope.loadingBar = false; }, 3000); 
-  $window.scrollTo(0,0)
+  $window.scrollTo(0,0);
 
   };
 
