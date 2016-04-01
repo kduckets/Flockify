@@ -121,6 +121,8 @@ app.factory('Post', require('./services/post'));
 app.factory('Profile', require('./services/profile'));
 
 app.filter('isAfter', require('./services/dateFilter'));
+app.filter('byText', require('./services/textFilter'));
+app.filter('byTags', require('./services/tagFilter'));
 
 app.directive("keepScroll", require('./directives/keepScroll'));
 app.directive("scrollItem", require('./directives/scrollItem'));

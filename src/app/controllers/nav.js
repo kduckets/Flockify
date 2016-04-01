@@ -1,9 +1,14 @@
-module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootScope, $timeout, $mdSidenav) {
+module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootScope, $timeout, $mdSidenav, $anchorScroll) {
 
   $scope.post = {artist: '', album: ''};
   $scope.user = Auth.user;
   $scope.signedIn = Auth.signedIn;
   $scope.toggleMenu = buildToggler('right');
+
+  $scope.toTop = function(){
+      $location.hash('top');
+      $anchorScroll();
+  };
 
   $scope.$on('$routeChangeStart', function(next, current) { 
        $mdSidenav('right').close()

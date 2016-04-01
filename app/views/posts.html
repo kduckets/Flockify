@@ -3,7 +3,22 @@
    <h2>Welcome to flockify</h2>
    <p><a href="/#/login">Sign in</a> to get started</p>
  </div>
- <div ng-show="signedIn()">
+ <div ng-show="signedIn()" id="top">
+ <md-button aria-label="Search" style="top:9px;right:32px;position:fixed;z-index:2" ng-click="showSearch = !showSearch">
+            <ng-md-icon icon="search" style="fill:white" size="28"></ng-md-icon>
+          </md-button>
+           <md-toolbar class="md-hue-1" ng-show="showSearch" style="position:fixed">
+        <div class="md-toolbar-tools">
+          <md-button ng-click="showSearch = !showSearch" aria-label="Back">
+            <ng-md-icon icon="arrow_back"></ng-md-icon>
+          </md-button>
+          <md-input-container md-theme="input" flex>
+            <label>&nbsp;</label>
+            <input ng-model="textFilter" placeholder="search the feed">
+          </md-input-container>
+          </div>
+          </md-toolbar>
+  
   <div ng-show="user.profile.group_id == 1" align="center">
     <!-- <alert type="info" close="bCloseAlert=1" ng-hide="bCloseAlert"><b>Theme week!</b> Post a space-themed album.</alert> -->
  <!--    <md-toolbar class="md-hue-3"> -->
@@ -53,7 +68,8 @@
 
 <!--   <a href ng-click="batchUpdate()">batch</a>  -->
 
-<div class="post" ng-repeat="post in posts | orderBy:sorter | filter:'spotify' | isAfter:filter_date" jd-script align="center"> 
+<div class="post" ng-repeat="post in posts | orderBy:sorter | filter:'spotify' | isAfter:filter_date 
+| byText:textFilter" jd-script align="center"> 
 
 <!-- mobile -->
   <div class="post-box" show-xs hide-gt-xs>
@@ -144,9 +160,11 @@
   <div layout="row" layout-align="center center">
  <md-chips class="tag-chip"  ng-model="post.tags"  readonly="true">
       <md-chip-template>
+      <a href="" ng-click="filterByTag($chip.name)">
         <span>
           <small>{{$chip.name | lowercase}}</small>
         </span>
+        </a>
       </md-chip-template>
     </md-chips>
 </div>

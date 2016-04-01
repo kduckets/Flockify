@@ -11,6 +11,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
  $scope.filter_date = moment().startOf('isoweek');
 
  $scope.sorter = '-';
+ $scope.tagFilter = [];
  $scope.week = true;
  $scope.last = false;
  $scope.allPosts = false;
@@ -18,6 +19,14 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
  angular.forEach($scope.posts, function(item, key) {
   if ($scope.post.media_type == 'spotify') { $scope.albumPosts[key] = item; };
 });
+
+
+ $scope.filterByTag = function(tag){
+
+  $scope.tagFilter.push(tag); 
+  console.log($scope.tagFilter);
+
+  };
 
  $scope.getPostLink = function(post){
   if($scope.user.profile.group_id == 1){
