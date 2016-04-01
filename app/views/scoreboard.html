@@ -1,8 +1,4 @@
-<div class="container" ng-if="user.profile.group_id != 1">
-<i><small>the scoreboard is disabled for users not in this group</small></i>
-</div>
-
-<div ng-show="signedIn() && user.profile.group_id == 1">
+<div ng-show="signedIn()">
 <div align="center"><small><a href="#/history">view previous contest results</a></small></div>
   <h2 align="center">Weekly Contest (3/28)</h2>
   <p align="center">Mon-Wed Space Themed Albums, Thurs-Sat Free Play (album a day)</p>
