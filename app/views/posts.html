@@ -117,7 +117,7 @@
 
 <!-- desktop -->
 
-  <md-card class="card" flex="60" hide-xs>
+  <md-card class="card" flex="65" hide-xs>
 
   <div layout-xs="column" layout="row">
  
@@ -126,7 +126,7 @@
   <span class="score-big label label-default label-default"> {{ post.votes }} </span>
   <img class="md-card-image" ng-src="{{post.image_medium}}" /></a>
   </div>
-  <div flex="60">
+  <div flex="50">
   <md-card-title>
           <md-card-title-text>
     <a ng-href="{{getPostLink(post)}}">
@@ -155,12 +155,16 @@
 </div>
      <span class="md-subhead"><small><b>posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator}}<img src="/images/poop.gif" style="padding-bottom:10px; padding-left:2px; height: 50px; width: auto;  display:inline-block;" ng-show="user.profile.group_id == 1 && post.creator == 'Ryan'"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:2px;height: 30px; width: auto;display:inline-block;" ng-show="user.profile.group_id == 1 && post.creator == 's3rg'"/></b>
        </a> <i>{{post.date | timeAgo}}</i></small></span>
-      
-
-
     </md-card-content>
+      </div>
 
-    <md-card-actions layout="row" layout-align="end center" style="position:absolute;right:0;bottom:0;">
+    <div flex="10">
+    <md-card-actions layout="column" layout-align="end center" style="position:relative;right:0;bottom:0;">
+
+      <md-button style="top:11px; left:2px; overflow:visible !important;" ng-href="{{getPostLink(post)}}" aria-label="Comments" >
+  <span class="comments-icon-big"><ng-md-icon icon="chat_bubble" class="arrow" size="34"></ng-md-icon> 
+  <span class="after label label-pill label-danger">{{post.comments}}</span></span>
+  </md-button> 
   <md-button class="md-icon-button" ng-show="user.profile.group_id == 1" ng-click="upvote(post)" aria-label="Upvote" >
  <ng-md-icon icon="arrow_upwards" class="arrow" size="32"></ng-md-icon>
  </md-button>
@@ -171,13 +175,11 @@
   <ng-md-icon icon="save" class="arrow" size="32"></ng-md-icon>
  </md-button>
 
-  <md-button style="top:11px; left:2px; overflow:visible !important;" ng-href="{{getPostLink(post)}}" aria-label="Comments" >
-  <span class="comments-icon-big"><ng-md-icon icon="chat_bubble" class="arrow" size="34"></ng-md-icon> 
-  <span class="after label label-pill label-danger">{{post.comments}}</span></span>
-  </md-button> 
 
  </md-card-actions>
-  </div>
+ </div>
+
+
   </div>
 
   </md-card> 
