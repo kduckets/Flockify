@@ -7,7 +7,6 @@ require('angular-material');
 require('angular-resource');
 require('angular-route');
 require('angular-sanitize');
-require('angular-touch');
 require('angular-material-icons');
 require('angular-loading-bar');
 require('moment-range');
@@ -32,7 +31,6 @@ var app = angular.module('flockifyApp', [
   'ngResource',
   'ngRoute',
   'ngSanitize',
-  'ngTouch',
   'firebase',
   'spotify',
   'ui.bootstrap',
