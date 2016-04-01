@@ -25,11 +25,12 @@
 </div>
 
 <div class="list-group" ng-repeat="result in results" align="left">
-  <button type="button" class="list-group-item" ng-click="viewAlbum(result.href)">
+  <button type="button" class="list-group-item" ng-click="viewAlbum(result.href, $event)">
     <img ng-src="{{result.images[2].url}}"/>
     <small>{{result.name}}</small>
   </button>
 </div>
+
 
 <!--  <back-top scroll-speed=600 button-theme="light"> <ng-md-icon icon="clear"></ng-md-icon></back-top> -->
 <div align="center">
@@ -131,22 +132,24 @@
 
 </md-card-title>
     <md-card-content>
-  <div>{{ post.summary| limitTo: 132 }}{{post.summary.length > 132 ? '..' : ''}}</div>
+  <div hide-sm>{{ post.summary| limitTo: 132 }}{{post.summary.length > 132 ? '..' : ''}}</div>
+  <div show-sm hide-gt-sm> {{ post.summary| limitTo: 32 }}{{post.summary.length > 32 ? '..' : ''}}</div>
      <span class="md-subhead"><small><b>posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator}}<img src="/images/poop.gif" style="padding-bottom:10px; padding-left:2px; height: 50px; width: auto;  display:inline-block;" ng-show="user.profile.group_id == 1 && post.creator == 'Ryan'"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:2px;height: 30px; width: auto;display:inline-block;" ng-show="user.profile.group_id == 1 && post.creator == 's3rg'"/></b>
        </a> <i>{{post.date | timeAgo}}</i></small></span>
       
-<!-- <br/>
-  <md-button ng-href="{{getPostLink(post)}}"><span class="comments-icon-big"><i class="fa fa-comment fa-3x"></i>
-    <span class="after label label-pill label-danger"> {{post.comments}} </a></span></span></md-button> -->
-
-
-
+<div layout="row" layout-align="center center">
+ <md-chips class="custom-chips" ng-model="post.tags" readonly="true">
+      <md-chip-template>
+        <span>
+          <small>{{$chip.name | lowercase}}</small>
+        </span>
+      </md-chip-template>
+    </md-chips>
+</div>
 
     </md-card-content>
 
-    <md-card-actions layout="row" layout-align="end center" style="position: absolute;right:0;bottom:0;">
-
-
+    <md-card-actions layout="row" layout-align="end center" style="position:absolute;right:0;bottom:0;">
   <md-button class="md-icon-button" ng-show="user.profile.group_id == 1" ng-click="upvote(post)" aria-label="Upvote" >
  <ng-md-icon icon="arrow_upwards" class="arrow" size="32"></ng-md-icon>
  </md-button>

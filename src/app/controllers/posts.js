@@ -1,5 +1,5 @@
 module.exports = function($scope, $route, $location, $window, Post, Auth, Spotify,$uibModal, Profile, $firebase, 
-  $filter, FIREBASE_URL, Action, $mdToast){
+  $filter, FIREBASE_URL, Action, $mdToast, $mdDialog, $mdMedia){
  $scope.signedIn = Auth.signedIn;
  $scope.user = Auth.user;
  $scope.posts = Post.all;
@@ -104,22 +104,26 @@ $scope.search = function(){
 
       };
 
-  $scope.viewAlbum = function(album){
-    var modalInstance = $uibModal.open({
+  $scope.viewAlbum = function(album, ev){
+  $mdDialog.show({
         templateUrl: 'views/albumPost.html',
         scope: $scope,
         controller: 'AlbumCtrl',
-        resolve: {
+        parent: angular.element(document.body),
+         targetEvent: ev,
+         clickOutsideToClose:true,
+         preserveScope : true,
+         resolve: {
           album: function () {
             return album;
           }
         }
-      });
+      })
+    .then(function() {
+       // $route.reload();
+    });
 
      };
-
-
-
 
   $scope.clearResults = function(){
       $route.reload();

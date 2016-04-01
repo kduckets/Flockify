@@ -1,12 +1,55 @@
-module.exports = function($scope, $route, $location, $window, Post, Auth, $http, $cookies, $modalInstance, album, $sce, $filter) {
+module.exports = function($scope, $route, $location, $window, Post, Auth, $http, $cookies, album, $sce, $filter,
+  $timeout, $q, $mdDialog, FIREBASE_URL, $firebase) {
+
+   var ref = new $window.Firebase(FIREBASE_URL);
+   var tags = $firebase(ref.child('tags')).$asArray();
+
+    $scope.readonly = false;
+    $scope.selectedItem = null;
+    $scope.searchText = null;
+    $scope.selectedTags = [];
+    $scope.requireMatch = true;
+    $scope.tags = tags;
+    $scope.querySearch = querySearch;
+    $scope.transformChip = transformChip;
+
   $scope.user = Auth.user;
   $scope.signedIn = Auth.signedIn;
   $scope.logout = Auth.logout;
   $scope.album = album;
-  $scope.posts = Post.all;
+  // $scope.posts = Post.all;
 
 
+  function transformChip(chip) {
+      
+      // If it is an object, it's already a known chip
+      if (angular.isObject(chip)) {
+        return {name: chip.$value};
+      }
+      // Otherwise, create a new one
+      tags.$add(chip)
+      console.log('selected',$scope.selectedTags);
+      return { name: chip };
 
+    };
+
+    /**
+     * Search for tags.
+     */
+   function querySearch (query) {
+      var results = query ? $scope.tags.filter($scope.createFilterFor(query)) : query;
+      return results;
+    };
+
+    /**
+     * Create filter function for a query string
+     */
+    $scope.createFilterFor = function(query) {
+      var lowercaseQuery = angular.lowercase(query);
+      return function filterFn(tag) {
+        return (tag.$value.indexOf(lowercaseQuery) === 0)
+      };
+    };
 
   $http({
     method: 'GET',
@@ -33,8 +76,9 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
 
 
   $scope.cancel = function() {
-    $modalInstance.close();
-    $location.path('/');
+       $mdDialog.hide();
+       $location.path('/');
+
   };
 
   $scope.submitPost = function() {
@@ -43,12 +87,13 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
 
     // });
     $scope.post.creator = $scope.user.profile.username || null,
-      $scope.post.summary = $scope.summary;
+    $scope.post.summary = $scope.summary;
     $scope.post.creatorUID = $scope.user.uid;
     $scope.post.album = $scope.album;
     $scope.post.artist = $scope.artist;
     //$scope.post.image_large= $scope.image_large;
     //var genres= $.map($scope.posts, function(post, idx){ return post.album;})
+    $scope.post.tags = $scope.selectedTags;
     $scope.post.image_medium = $scope.image_large;
     $scope.post.image_small = $scope.image_small;
     $scope.post.spotify_uri = $scope.spotify_uri;
@@ -61,7 +106,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
 
     Post.create($scope.post).then(function(ref) {
       //$location.path('/posts/' + ref.name());
-      $modalInstance.close();
+      $mdDialog.hide();
 
       $route.reload();
       $scope.post = {
