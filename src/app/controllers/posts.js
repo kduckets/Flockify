@@ -1,5 +1,5 @@
 module.exports = function($scope, $route, $location, $window, Post, Auth, Spotify,$uibModal, Profile, $firebase, 
-  $filter, FIREBASE_URL, Action, $mdToast, $mdDialog, $mdMedia, $timeout){
+  $filter, FIREBASE_URL, Action, $mdToast, $mdDialog, $mdMedia, $timeout, $anchorScroll){
  $scope.signedIn = Auth.signedIn;
  $scope.user = Auth.user;
  $scope.posts = Post.all;
@@ -28,11 +28,13 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
   $scope.tagFilters.push(tag); 
   $scope.tagText += tag + " ";
   $timeout(function () { $scope.loadingBar = false; }, 3000); 
+  $window.scrollTo(0,0)
 
   };
 
   $scope.removeTag = function(tag){
-
+    $scope.loadingBar = true;
+    $timeout(function () { $scope.loadingBar = false; }, 2000); 
     var index = $scope.tagFilters.indexOf(tag);
     if (index > -1) {
     $scope.tagFilters.splice(index, 1);

@@ -1,4 +1,4 @@
-module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootScope, $timeout, $mdSidenav, $anchorScroll) {
+module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootScope, $timeout, $mdSidenav, $anchorScroll, $window) {
 
   $scope.post = {artist: '', album: ''};
   $scope.user = Auth.user;
@@ -6,8 +6,7 @@ module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootSco
   $scope.toggleMenu = buildToggler('right');
 
   $scope.toTop = function(){
-      $location.hash('top');
-      $anchorScroll();
+  $window.scrollTo(0,0);
   };
 
   $scope.$on('$routeChangeStart', function(next, current) { 
