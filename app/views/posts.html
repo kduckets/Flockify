@@ -69,7 +69,7 @@
 <div align="center">
 <md-chips ng-model="tagFilters" readonly="true">
 <md-chip-template>
-          <strong>{{$chip | lowercase}}</strong> <a ng-click="removeTag($chip)"> x</a>
+          <a ng-click="removeTag($chip)"><strong style="color:black">{{$chip | lowercase}}</strong>  x</a>
         </md-chip-template>
         </md-chips>
         </div>
