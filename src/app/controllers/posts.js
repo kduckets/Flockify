@@ -1,5 +1,5 @@
 module.exports = function($scope, $route, $location, $window, Post, Auth, Spotify,$uibModal, Profile, $firebase, 
-  $filter, FIREBASE_URL, Action, $mdToast, $mdDialog, $mdMedia){
+  $filter, FIREBASE_URL, Action, $mdToast, $mdDialog, $mdMedia, $timeout){
  $scope.signedIn = Auth.signedIn;
  $scope.user = Auth.user;
  $scope.posts = Post.all;
@@ -11,10 +11,12 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
  $scope.filter_date = moment().startOf('isoweek');
 
  $scope.sorter = '-';
- $scope.tagFilter = [];
+ $scope.tagText = '';
+ $scope.tagFilters = [];
  $scope.week = true;
  $scope.last = false;
  $scope.allPosts = false;
+ $scope.loadingBar = false;
  $scope.albumPosts = {};
  angular.forEach($scope.posts, function(item, key) {
   if ($scope.post.media_type == 'spotify') { $scope.albumPosts[key] = item; };
@@ -22,10 +24,20 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
 
 
  $scope.filterByTag = function(tag){
+  $scope.loadingBar = true;
+  $scope.tagFilters.push(tag); 
+  $scope.tagText += tag + " ";
+  $timeout(function () { $scope.loadingBar = false; }, 3000); 
 
-  $scope.tagFilter.push(tag); 
-  console.log($scope.tagFilter);
+  };
 
+  $scope.removeTag = function(tag){
+
+    var index = $scope.tagFilters.indexOf(tag);
+    if (index > -1) {
+    $scope.tagFilters.splice(index, 1);
+    }
+    $scope.tagText = $scope.tagText.replace(tag," ");  
   };
 
  $scope.getPostLink = function(post){
