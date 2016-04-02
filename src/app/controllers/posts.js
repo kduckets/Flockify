@@ -96,6 +96,8 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
  };
 
  $scope.thisWeek = function(){
+   $scope.loadingBar = true;
+   $timeout(function () { $scope.loadingBar = false; }, 2000); 
    $scope.filter_date = moment().startOf('isoweek');
    $scope.sorter = '-';
    $scope.week = true;
@@ -104,6 +106,8 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
  };
 
   $scope.lastWeek = function(){
+    $scope.loadingBar = true;
+    $timeout(function () { $scope.loadingBar = false; }, 2000); 
     var last_monday = GetLastWeekStart(); 
     var this_monday = moment().startOf('isoweek');
     //TODO: use moment().range
@@ -115,6 +119,8 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
  };
 
  $scope.allTime = function(){
+   $scope.loadingBar = true;
+   $timeout(function () { $scope.loadingBar = false; }, 3000); 
   $scope.filter_date = moment('2016-01-01 16:07:35');
   $scope.sorter = '-votes';
   $scope.allPosts = true;

@@ -23,6 +23,15 @@
   </a>) <a ng-click="deletePost(post)" ng-show="user.uid === post.creatorUID">&mdash; delete</a></small>
 
    <div class="alert alert-info" role="alert">{{post.summary}}</div>
+    <div layout="row" layout-align="center center">
+ <md-chips class="tag-chip"  ng-model="post.tags"  readonly="true">
+      <md-chip-template>
+        <span>
+          <small>{{$chip.name | lowercase}}</small>
+        </span>
+      </md-chip-template>
+    </md-chips>
+    </div>
    <div style="padding-top:5px">
 
 
