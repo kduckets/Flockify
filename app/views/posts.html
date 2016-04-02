@@ -167,6 +167,7 @@
     <md-card-content>
   <div hide-sm>{{ post.summary| limitTo: 132 }}{{post.summary.length > 132 ? '..' : ''}}</div>
   <div show-sm hide-gt-sm> {{ post.summary| limitTo: 32 }}{{post.summary.length > 32 ? '..' : ''}}</div>
+
   <div layout="row" layout-align="center center">
  <md-chips class="tag-chip"  ng-model="post.tags"  readonly="true">
       <md-chip-template>
@@ -177,7 +178,32 @@
         </a>
       </md-chip-template>
     </md-chips>
-</div>
+    </div>
+
+<!-- <div layout="row" layout-align="center center">
+ <md-chips ng-show="user.uid === post.creatorUID"
+              ng-model="selectedTags" md-autocomplete-snap
+              md-transform-chip="transformChip(post,$chip)"
+              md-require-match="false"
+              md-separator-keys="keys">
+
+      <md-autocomplete
+          md-selected-item="selectedItem"
+          md-search-text="searchText"
+          md-items="item in querySearch(searchText)"
+          md-item-text="item.$value"
+          placeholder="Add tags">
+        <span md-highlight-text="searchText">{{item.$value}}</span>
+      </md-autocomplete>
+      <md-chip-template>
+        <span>
+          <strong>{{$chip.$value}}{{$chip.name}}</strong>
+        </span>
+      </md-chip-template>
+    </md-chips>
+</div> -->
+
+
 
      <span class="md-subhead"><small><b>posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator}}<img src="/images/poop.gif" style="padding-bottom:10px; padding-left:2px; height: 50px; width: auto;  display:inline-block;" ng-show="user.profile.group_id == 1 && post.creator == 'Ryan'"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:2px;height: 30px; width: auto;display:inline-block;" ng-show="user.profile.group_id == 1 && post.creator == 's3rg'"/></b>
        </a> <i>{{post.date | timeAgo}}</i></small></span>

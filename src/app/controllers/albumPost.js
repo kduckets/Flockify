@@ -29,7 +29,6 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
       }
       // Otherwise, create a new one
       tags.$add(chip)
-      console.log('selected',$scope.selectedTags);
       return { name: chip };
 
     };

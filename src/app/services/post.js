@@ -16,6 +16,12 @@ module.exports = function ($firebase, FIREBASE_URL) {
       return ref.child('posts').child(postId).update({'votes': votes});
     },
 
+    tag: function(postId, tag){
+      // $firebase(ref.child('posts').child(postId).child('tags').child(tag)).$push(tag);
+      // return;
+      return ref.child('posts').child(postId).child('tags').child(tag).update({'name': tag});
+    },
+
     star: function(postId, stars){
       return ref.child('posts').child(postId).update({'stars': stars});
     },
