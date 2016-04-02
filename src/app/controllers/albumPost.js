@@ -12,7 +12,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
     $scope.tags = tags;
     $scope.querySearch = querySearch;
     $scope.transformChip = transformChip;
-    $scope.keys = [$mdConstant.KEY_CODE.COMMA];
+    $scope.keys = [$mdConstant.KEY_CODE.COMMA, $mdConstant.KEY_CODE.ENTER];
 
   $scope.user = Auth.user;
   $scope.signedIn = Auth.signedIn;
