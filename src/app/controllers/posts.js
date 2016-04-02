@@ -80,16 +80,12 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
   $scope.removeTag = function(tag){
     $scope.loadingBar = true;
     $timeout(function () { $scope.loadingBar = false; }, 2000); 
-    $scope.rmTag(tag);
-  };
-
-  $scope.rmTag = function(tag){
     var index = $scope.tagFilters.indexOf(tag);
     if (index > -1) {
     $scope.tagFilters.splice(index, 1);
     }
     $scope.tagText = $scope.tagText.replace(tag," ");  
-  }
+  };
 
  $scope.getPostLink = function(post){
   if($scope.user.profile.group_id == 1){

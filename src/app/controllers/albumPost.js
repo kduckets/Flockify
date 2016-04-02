@@ -86,6 +86,9 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
     //   if item.
 
     // });
+    $scope.loadingBar = true;
+    $timeout(function () { $scope.loadingBar = false; }, 2000); 
+
     $scope.post.creator = $scope.user.profile.username || null,
     $scope.post.summary = $scope.summary;
     $scope.post.creatorUID = $scope.user.uid;
