@@ -1,8 +1,10 @@
+#content {
+   -webkit-transform: translate3d(0,0,0);
+}
+
 body {
   background: #F3F3F3;
-  overflow-y: hidden !important
-  -webkit-transform: translate3d(0,0,0);
-
+  overflow-y: hidden !important;
 }
 
 .md-chips .md-chip{
