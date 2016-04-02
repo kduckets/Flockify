@@ -39,8 +39,14 @@
   <md-button flex="33" ng-click="clearResults()" ng-show="post.search" aria-label="Back">
   <ng-md-icon icon="clear"></ng-md-icon>
 </md-button>   
+<md-button aria-label="Search" show-xs hide-gt-xs ng-show="!post.search"
+ ng-click="showSearch = !showSearch">
+            <ng-md-icon icon="search" size="22"></ng-md-icon>
+          </md-button>
 </form>
+
 </div>
+
 <!-- </md-toolbar> -->
 </div>
 
@@ -71,10 +77,6 @@
 </div>
 </div>
 <div align="center">
- <md-button aria-label="Search" show-xs hide-gt-xs
- ng-click="showSearch = !showSearch">
-            <ng-md-icon icon="search" size="28"></ng-md-icon>
-          </md-button>
 <md-chips ng-model="tagFilters" readonly="true">
 <md-chip-template>
           <a ng-click="removeTag($chip)"><strong style="color:black">{{$chip | lowercase}}</strong>  x</a>
