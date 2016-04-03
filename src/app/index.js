@@ -127,6 +127,7 @@ app.filter('byTags', require('./services/tagFilter'));
 app.directive("keepScroll", require('./directives/keepScroll'));
 app.directive("scrollItem", require('./directives/scrollItem'));
 app.directive("backTop", require('./directives/backtop'));
+app.directive("focus", require('./directives/focus'));
 
 app.controller('AlbumCommentsCtrl', require('./controllers/albumComments'));
 app.controller('AlbumCtrl', require('./controllers/albumPost'));
