@@ -1,9 +1,12 @@
 <div style="padding-bottom:10px">
  <md-progress-linear ng-show="loadingBar" md-mode="indeterminate" style="position:fixed;z-index:1000"></md-progress-linear>
-  <div ng-show="!signedIn()" align="center">
+ <div ng-show="loadingCircle" align="center">
+ <md-progress-circular md-diameter="132"></md-progress-circular>
+ </div>
+<!--   <div ng-show="!signedIn() && !loadingCircle" align="center">
    <h2>Welcome to flockify</h2>
    <p><a href="/#/login">Sign in</a> to get started</p>
- </div>
+ </div> -->
  <div ng-show="signedIn()" id="top">
  <md-button aria-label="Search" 
  style="top:12px;right:48px;position:fixed;z-index:2;" ng-click="showSearch = !showSearch">

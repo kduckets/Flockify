@@ -6,6 +6,9 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
  $scope.post = {artist: '', album: '', votes: 0, comments: 0, stars:0};
  $scope.logout = Auth.logout;
 
+ $scope.loadingCircle = true;
+ $timeout(function () { $scope.loadingCircle = false; }, 2000); 
+
  var ref = new Firebase(FIREBASE_URL);
 
 
@@ -20,6 +23,8 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
     $scope.querySearch = querySearch;
     $scope.transformChip = transformChip;
     $scope.keys = [$mdConstant.KEY_CODE.COMMA, $mdConstant.KEY_CODE.ENTER];
+
+    
 
  $scope.filter_date = moment().startOf('isoweek');
 
