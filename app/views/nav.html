@@ -10,7 +10,7 @@
        <span flex></span>
   <!--       <p><a ng-show="!signedIn()" href="/#/login">Sign in</a></p> -->
           
-        <p><a ng-href="#/login">
+        <p ng-show="!signedIn()"><a ng-href="#/login">
         <md-button ng-show="!signedIn()" class="md-icon-button" aria-label="Chat">
         <i class="fa fa-key fa-2x"></i>    
         </md-button>Sign in</a></p>
