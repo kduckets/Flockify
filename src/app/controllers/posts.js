@@ -13,19 +13,6 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
 
 
  var tags = $firebase(ref.child('tags')).$asArray();
-
-    $scope.readonly = false;
-    $scope.selectedItem = null;
-    $scope.searchText = null;
-    $scope.selectedTags = [];
-    $scope.requireMatch = true;
-    $scope.tags = tags;
-    $scope.querySearch = querySearch;
-    $scope.transformChip = transformChip;
-    $scope.keys = [$mdConstant.KEY_CODE.COMMA, $mdConstant.KEY_CODE.ENTER];
-
-    
-
  $scope.filter_date = moment().startOf('isoweek');
 
  $scope.sorter = '-';
@@ -39,39 +26,6 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
  angular.forEach($scope.posts, function(item, key) {
   if ($scope.post.media_type == 'spotify') { $scope.albumPosts[key] = item; };
 });
-
- function transformChip(post, chip) {
-      
-      // If it is an object, it's already a known chip
-      if (angular.isObject(chip)) {
-          Post.tag(post.$id,chip.$value);
-        return {name: chip.$value};
-      }
-      // Otherwise, create a new one
-      tags.$add(chip)
-      Post.tag(post.$id,chip);
-      return { name: chip };
-
-    };
-
-    /**
-     * Search for tags.
-     */
-   function querySearch (query) {
-      var results = query ? $scope.tags.filter($scope.createFilterFor(query)) : query;
-      return results;
-    };
-
-    /**
-     * Create filter function for a query string
-     */
-    $scope.createFilterFor = function(query) {
-      var lowercaseQuery = angular.lowercase(query);
-      return function filterFn(tag) {
-        return (tag.$value.indexOf(lowercaseQuery) === 0)
-      };
-    };
-
 
  $scope.filterByTag = function(tag){
   $scope.loadingBar = true;

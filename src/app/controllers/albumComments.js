@@ -1,5 +1,5 @@
 module.exports = function ($scope, $routeParams, Post, Auth, Comment, $firebase, Profile, $http, $filter, $sce, $location, 
-  $uibModal, Action, $mdToast) {
+  $uibModal, Action, $mdToast, FIREBASE_URL, $firebase, $mdConstant) {
   var post_id = $routeParams.postId;
   $scope.user = Auth.user;
   $scope.signedIn = Auth.signedIn;
@@ -8,6 +8,45 @@ module.exports = function ($scope, $routeParams, Post, Auth, Comment, $firebase,
   $scope.post = Post.get(post_id);
   $scope.comments = Comment.get_comments_for_post(post_id);
   $scope.gifSearchText = '';
+
+  var ref = new Firebase(FIREBASE_URL);
+  var tags = $firebase(ref.child('tags')).$asArray();
+
+
+    $scope.readonly = false;
+    $scope.selectedItem = null;
+    $scope.searchText = null;
+    $scope.selectedTags = [];
+    $scope.requireMatch = true;
+    $scope.tags = tags;
+    $scope.querySearch = querySearch;
+    $scope.transformChip = transformChip;
+    $scope.keys = [$mdConstant.KEY_CODE.COMMA, $mdConstant.KEY_CODE.ENTER];
+
+  function transformChip(post, chip) {
+      
+      // If it is an object, it's already a known chip
+      if (angular.isObject(chip)) {
+          Post.tag(post.$id,chip.$value);
+        return {name: chip.$value};
+      }
+      // Otherwise, create a new one
+      tags.$add(chip)
+      Post.tag(post.$id,chip);
+      return { name: chip };
+
+    };
+   function querySearch (query) {
+      var results = query ? $scope.tags.filter($scope.createFilterFor(query)) : query;
+      return results;
+    };
+
+   $scope.createFilterFor = function(query) {
+      var lowercaseQuery = angular.lowercase(query);
+      return function filterFn(tag) {
+        return (tag.$value.indexOf(lowercaseQuery) === 0)
+      };
+    };
 
   $scope.gifsearch = function(){
     var body = {'search': $scope.gifSearchText};

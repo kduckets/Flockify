@@ -32,6 +32,29 @@
       </md-chip-template>
     </md-chips>
     </div>
+
+ <div ng-show="user.uid === post.creatorUID" layout="row" layout-align="center center">
+ <md-chips ng-show="user.uid === post.creatorUID"
+              ng-model="selectedTags" md-autocomplete-snap
+              md-transform-chip="transformChip(post,$chip)"
+              md-require-match="false"
+              md-separator-keys="keys">
+
+      <md-autocomplete
+          md-selected-item="selectedItem"
+          md-search-text="searchText"
+          md-items="item in querySearch(searchText)"
+          md-item-text="item.$value"
+          placeholder="Add tags">
+        <span md-highlight-text="searchText">{{item.$value}}</span>
+      </md-autocomplete>
+      <md-chip-template>
+        <span>
+          <strong>{{$chip.$value}}{{$chip.name}}</strong>
+        </span>
+      </md-chip-template>
+    </md-chips>
+</div>
    <div style="padding-top:5px">
 
 
@@ -46,18 +69,7 @@
 
 
   </div>
-
-
-
-
-
-
 </div>
-
-
-
-
-
 </div>
 
 
