@@ -7,7 +7,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
  $scope.logout = Auth.logout;
 
  $scope.loadingCircle = true;
- $timeout(function () { $scope.loadingCircle = false; }, 2000); 
+ $timeout(function () { $scope.loadingCircle = false; }, 1000); 
 
  var ref = new Firebase(FIREBASE_URL);
 
