@@ -1,8 +1,5 @@
 <div style="padding-bottom:10px">
  <md-progress-linear ng-show="loadingBar" md-mode="indeterminate" style="position:fixed;z-index:1000"></md-progress-linear>
- <div ng-show="loadingCircle" align="center">
- <md-progress-circular md-diameter="132"></md-progress-circular>
- </div>
 <!--   <div ng-show="!signedIn() && !loadingCircle" align="center">
    <h2>Welcome to flockify</h2>
    <p><a href="/#/login">Sign in</a> to get started</p>
@@ -248,6 +245,9 @@
 
   </md-card> 
 </div>
+ <div ng-show="loadingCircle" align="center">
+ <md-progress-circular md-diameter="132"></md-progress-circular>
+ </div>
 </div>
 
 
