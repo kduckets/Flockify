@@ -44,7 +44,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
       
       // If it is an object, it's already a known chip
       if (angular.isObject(chip)) {
-          Post.tag(post.$id,chip);
+          Post.tag(post.$id,chip.$value);
         return {name: chip.$value};
       }
       // Otherwise, create a new one

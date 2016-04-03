@@ -17,9 +17,10 @@ module.exports = function ($firebase, FIREBASE_URL) {
     },
 
     tag: function(postId, tag){
-      // $firebase(ref.child('posts').child(postId).child('tags').child(tag)).$push(tag);
-      // return;
-      return ref.child('posts').child(postId).child('tags').child(tag).update({'name': tag});
+     ref.once("value", function(snapshot) {
+     var numTags = snapshot.child('posts').child(postId).child('tags').numChildren();
+     return ref.child('posts').child(postId).child('tags').child(numTags).update({'name': tag});
+      });   
     },
 
     star: function(postId, stars){

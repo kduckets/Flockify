@@ -189,7 +189,13 @@
     </md-chips>
     </div>
 
-<!-- <div layout="row" layout-align="center center">
+            <div ng-show="user.uid === post.creatorUID && !showTagEditor">
+            <md-button ng-click="showTagEditor = !showTagEditor" aria-label="Back">
+            add tags
+          </md-button>
+          </div>
+
+<div ng-show="user.uid === post.creatorUID && showTagEditor"layout="row" layout-align="center center">
  <md-chips ng-show="user.uid === post.creatorUID"
               ng-model="selectedTags" md-autocomplete-snap
               md-transform-chip="transformChip(post,$chip)"
@@ -210,7 +216,7 @@
         </span>
       </md-chip-template>
     </md-chips>
-</div> -->
+</div>
 
 
 
@@ -249,7 +255,7 @@
   </md-card> 
 </div>
  <div ng-show="loadingCircle" align="center">
- <md-progress-circular md-diameter="132"></md-progress-circular>
+ <md-progress-circular md-mode='indeterminate' md-diameter="132"></md-progress-circular>
  </div>
 </div>
 
