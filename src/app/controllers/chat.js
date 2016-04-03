@@ -1,4 +1,5 @@
-module.exports = function ($scope, $routeParams, Post, Auth, Comment, $firebase, Profile, $http, $filter, $sce, $uibModal, FIREBASE_URL) {
+module.exports = function ($scope, $routeParams, Post, Auth, Comment, $firebase, Profile, $http, $filter, $sce, 
+  $route, $uibModal, FIREBASE_URL) {
   var ref = new Firebase(FIREBASE_URL);
   $scope.user = Auth.user;
   $scope.signedIn = Auth.signedIn;
@@ -45,12 +46,14 @@ module.exports = function ($scope, $routeParams, Post, Auth, Comment, $firebase,
     if(!$scope.commentText || $scope.commentText === '') { return; }
     Comment.add_comment($scope.comments, 'flock_groupchat', text);
     $scope.commentText = '';
+    $route.reload();
   };
 
   $scope.addGif = function (gif) {
     var text = '<img src="'+ gif+ '" height="80" class="gif" />';
     Comment.add_comment($scope.comments, 'flock_groupchat', text);
     $scope.gifSearchText = '';
+    $route.reload();
   };
 
   $scope.deleteComment = function (comment) {
