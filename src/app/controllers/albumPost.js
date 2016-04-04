@@ -25,6 +25,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
       
       // If it is an object, it's already a known chip
       if (angular.isObject(chip)) {
+        //TODO: if tag already exists don't add it to the database
         return {name: chip.$value};
       }
       // Otherwise, create a new one

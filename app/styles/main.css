@@ -3,6 +3,13 @@ body {
   overflow-y: hidden !important;
 }
 
+.card-image{
+  -webkit-filter: drop-shadow(12px 12px 25px rgba(0,0,0,0.5));
+    filter: url(#drop-shadow);
+    -ms-filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=12, OffY=12, Color='#444')";
+    filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=12, OffY=12, Color='#444')";
+}
+
 .md-chips .md-chip{
   float: none !important;
   margin: 8px 4px 0 0 !important;
@@ -107,8 +114,12 @@ img.gif:hover {
 height: 300px;
 }
 img.comments{
-  height: 50% !important;
-  width: 50% !important;
+  height: 60% !important;
+  width: 60% !important;
+  -webkit-filter: drop-shadow(12px 12px 25px rgba(0,0,0,0.5));
+    filter: url(#drop-shadow);
+    -ms-filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=12, OffY=12, Color='#444')";
+    filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=12, OffY=12, Color='#444')";
 }
 
 }
@@ -116,6 +127,10 @@ img.comments{
 img.comments{
   height: 100%;
   width: 100%;
+  -webkit-filter: drop-shadow(12px 12px 25px rgba(0,0,0,0.5));
+    filter: url(#drop-shadow);
+    -ms-filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=12, OffY=12, Color='#444')";
+    filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=12, OffY=12, Color='#444')";
 }
 
 img.post{
