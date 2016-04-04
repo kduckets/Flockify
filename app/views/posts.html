@@ -84,7 +84,6 @@
         </md-chips>
         </div>
 <!--   <a href ng-click="batchUpdate()">batch</a>  -->
-
 <div class="post" ng-repeat="post in posts | orderBy:sorter | filter:'spotify' | isAfter:filter_date 
 | byText:textFilter | byText:tagText" jd-script align="center"> 
 
@@ -136,7 +135,7 @@
    
    <small style="font-style: italic;">(posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator}}
 
-   <img src="/images/poop.gif" style="padding-bottom:10px; padding-left:2px" ng-show="user.profile.group_id == 1 && post.creator == 'Ryan'" height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:2px" ng-show="user.profile.group_id == 1 && post.creator == 's3rg'" height="30px"/>
+   <img src="/images/poop.gif" style="padding-bottom:10px; padding-left:2px" ng-show="user.profile.group_id == 1 && post.creator == 'Nrblanks' || post.creator == 'Stevie' || post.creator == 'davidemerritt' || post.creator == 'Oat'"height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:2px" ng-show="user.profile.group_id == 1 && post.creator == 'sparker'" height="30px"/>
 
    </a> {{post.date | timeAgo}})</small>
 
@@ -189,7 +188,11 @@
     </md-chips>
     </div>
     
-     <span class="md-subhead"><small><b>posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator}}<img src="/images/poop.gif" style="padding-bottom:10px; padding-left:2px; height: 50px; width: auto;  display:inline-block;" ng-show="user.profile.group_id == 1 && post.creator == 'Ryan'"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:2px;height: 30px; width: auto;display:inline-block;" ng-show="user.profile.group_id == 1 && post.creator == 's3rg'"/></b>
+     <span class="md-subhead"><small><b>posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator}}
+
+     <img src="/images/poop.gif" style="padding-bottom:10px; padding-left:2px; height: 50px; width: auto;  display:inline-block;" ng-show="user.profile.group_id == 1 && post.creator == 'Nrblanks' || post.creator == 'Stevie' || post.creator == 'davidemerritt' || post.creator == 'Oat'"height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:2px;height: 30px; width: auto;display:inline-block;" ng-show="user.profile.group_id == 1 && post.creator == 'sparker'"/>
+
+     </b>
        </a> <i>{{post.date | timeAgo}}</i></small></span>
     </md-card-content>
       </div>

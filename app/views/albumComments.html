@@ -18,7 +18,7 @@
   <div>  <small>(posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator}}
  
 
-   <img src="/images/poop.gif" style="padding-bottom:10px; padding-left:3px" ng-show="post.creator == 'Ryan'" height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:6px" ng-show="post.creator == 's3rg'" height="30px"/>
+   <img src="/images/poop.gif" style="padding-bottom:10px; padding-left:3px" ng-show="post.creator == 'Nrblanks' || post.creator == 'Stevie' || post.creator == 'davidemerritt' || post.creator == 'Oat'" height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:6px" ng-show="post.creator == 'sparker'" height="30px"/>
 
   </a>) <a ng-click="deletePost(post)" ng-show="user.uid === post.creatorUID">&mdash; delete</a></small>
 
@@ -81,7 +81,7 @@
     <a ng-href="#/users/{{ comment.creatorUID }}">
       {{ comment.creator }}
 
-      <img src="/images/poop.gif" style="padding-bottom:10px; padding-left:2px" ng-show="comment.creator == 'Ryan'" height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:2px" ng-show="comment.creator == 's3rg'" height="30px"/>
+      <img src="/images/poop.gif" style="padding-bottom:10px; padding-left:2px" ng-show="comment.creator  == 'Nrblanks' || comment.creator   == 'Stevie' || comment.creator == 'davidemerritt' || comment.creator == 'Oat'" height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:2px" ng-show="comment.creator == 'sparker'" height="30px"/>
 
 
     </a>{{comment.datetime_ts | timeAgo}}
@@ -103,6 +103,10 @@
     <input type="text" ng-model="gifSearchText" placeholder="search for gif"/>
     <input type="submit" value="search" class="btn btn-secondary" />
   </form>
+ <!--       <md-input-container>
+        <label>Search for a gif</label>
+        <input ng-model="">
+      </md-input-container> -->
   or
   <form ng-show="signedIn()" ng-submit="addComment(gifLink)">
     <input type="text" ng-model="gifLink" placeholder="paste gif link"/>
@@ -110,11 +114,11 @@
   </form>
 </div>
 <br/>
+<md-progress-circular ng-show="loadingCircle" md-mode='indeterminate' md-diameter="132"></md-progress-circular>
 <div ng-repeat="gif in gifs" style="display:inline-block;">
-
   <a ng-href="#/albums/{{ post.$id  }}" ng-click="addComment(gif.images.downsized.url)"><img class="gifs" ng-src="{{gif.images.downsized.url}}" height="100" /></a>
-
 </div>
+
 
 
 

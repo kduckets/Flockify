@@ -8,6 +8,7 @@ module.exports = function ($scope, $routeParams, Post, Auth, Comment, $firebase,
   $scope.post = Post.get(post_id);
   $scope.comments = Comment.get_comments_for_post(post_id);
   $scope.gifSearchText = '';
+  $scope.loadingCircle = false;
 
   var ref = new Firebase(FIREBASE_URL);
   var tags = $firebase(ref.child('tags')).$asArray();
@@ -51,8 +52,10 @@ module.exports = function ($scope, $routeParams, Post, Auth, Comment, $firebase,
 
   $scope.gifsearch = function(){
     var body = {'search': $scope.gifSearchText};
+    $scope.loadingCircle = true;
     $http.post('/api/giphysearch', body).success(function(data) {
       $scope.gifs = data.data;
+      $scope.loadingCircle = false;
     }).error(function(data) {
       console.log('Error: ' + data);
     });

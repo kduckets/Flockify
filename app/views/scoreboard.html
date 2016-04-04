@@ -1,7 +1,7 @@
 <div ng-show="signedIn()" flex ng-cloak>
 <div align="center"><small><a href="#/history">view previous contest results</a></small></div>
-  <h2 align="center">Weekly Contest (3/28)</h2>
-  <p align="center">Mon-Wed Space Themed Albums, Thurs-Sat Free Play (album a day)</p>
+  <h2 align="center">Weekly Contest (4/4)</h2>
+ <!--  <p align="center">Mon-Wed Space Themed Albums, Thurs-Sat Free Play (album a day)</p> -->
   <table class="table table-inverse">
     <thead>
       <tr>
@@ -13,7 +13,7 @@
     <tbody>
       <tr ng-repeat="user in users | orderBy:'-weekly_scores.album_score'">
         <th scope="row">{{$index + 1}}</th>
-        <td>{{user.$id}} <img src="/images/poop.gif" style="padding-bottom:4px" ng-show="user.$id == 'Ryan'" height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:3px" ng-show="user.$id == 's3rg'" height="30px"/></td>
+        <td>{{user.$id}} <img src="/images/poop.gif" style="padding-bottom:4px" ng-show="user.$id == 'Nrblanks' || user.$id == 'Stevie' || user.$id == 'davidemerritt' || user.$id == 'Oat'" height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:3px" ng-show="user.$id == 'sparker'" height="30px"/></td>
         <td>{{user.weekly_scores.album_score}}</td>      
       </tr>
     </tbody>

@@ -8,7 +8,7 @@
       <a ng-href="#/users/{{ comment.creatorUID }}">
         <b>{{ comment.creator }}</b> 
 
-  <img src="/images/poop.gif" style="padding-bottom:10px; padding-left:2px" ng-show="comment.creator == 'Ryan'" height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:2px" ng-show="comment.creator == 's3rg'" height="30px"/>
+  <img src="/images/poop.gif" style="padding-bottom:10px; padding-left:2px" ng-show="comment.creator  == 'Nrblanks' || comment.creator   == 'Stevie' || comment.creator == 'davidemerritt' || comment.creator == 'Oat'" height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:2px" ng-show="comment.creator == 'sparker'" height="30px"/>
 
       </a> <i> <span><small>({{comment.datetime_ts | date:'dd-MM-yy HH:mm'}})</small></span></i>: <p ng-bind-html="comment.text"></p></p>
       <!--   <p><img ng-src="{{comment.text}}" height="100" class="gif" /></p> -->   
