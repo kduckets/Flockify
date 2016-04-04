@@ -26,7 +26,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
  angular.forEach($scope.posts, function(item, key) {
   if ($scope.post.media_type == 'spotify') { $scope.albumPosts[key] = item; };
 });
-
+ 
  $scope.filterByTag = function(tag){
   $scope.loadingBar = true;
   $scope.tagFilters.push(tag); 

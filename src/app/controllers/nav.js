@@ -7,6 +7,7 @@ module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootSco
 
   $scope.toTop = function(){
   $window.scrollTo(0,0);
+  $location.path("/#/");
   };
 
   $scope.$on('$routeChangeStart', function(next, current) { 

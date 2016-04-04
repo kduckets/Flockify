@@ -23,10 +23,11 @@
           </md-button>
           </div>
           </md-toolbar>
-  
+   <md-virtual-repeat-container id="vertical-container" style="height:100vh;">
   <div ng-show="user.profile.group_id == 1" align="center">
     <!-- <alert type="info" close="bCloseAlert=1" ng-hide="bCloseAlert"><b>Theme week!</b> Post a space-themed album.</alert> -->
  <!--    <md-toolbar class="md-hue-3"> -->
+
     <div class="md-toolbar-tools" style="max-width:320px" align="center">
      <md-button flex="33" aria-label="Search" ng-click="search()">
      <ng-md-icon icon="my_library_music" size="28"></ng-md-icon>
@@ -46,8 +47,6 @@
 </form>
 
 </div>
-
-<!-- </md-toolbar> -->
 </div>
 
 <div class="list-group" ng-repeat="result in results" align="left">
@@ -56,7 +55,6 @@
     <small>{{result.name}}</small>
   </button>
 </div>
-
 
 <!--  <back-top scroll-speed=600 button-theme="light"> <ng-md-icon icon="clear"></ng-md-icon></back-top> -->
 <div align="center">
@@ -84,7 +82,8 @@
         </md-chips>
         </div>
 <!--   <a href ng-click="batchUpdate()">batch</a>  -->
-<div class="post" ng-repeat="post in posts | orderBy:sorter | filter:'spotify' | isAfter:filter_date 
+
+<div class="post" md-virtual-repeat="post in posts | orderBy:sorter | filter:'spotify' | isAfter:filter_date 
 | byText:textFilter | byText:tagText" jd-script align="center"> 
 
 <!-- mobile -->
@@ -225,6 +224,7 @@
   </div>
 
   </md-card> 
+  </md-virtual-repeat-container>
 </div>
  <div ng-show="loadingCircle" align="center">
  <md-progress-circular md-mode='indeterminate' md-diameter="132"></md-progress-circular>

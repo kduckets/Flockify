@@ -18,7 +18,7 @@ require('./../../app/bower_components/firebase-simple-login/firebase-simple-logi
 
 require('./../../app/bower_components/angular-spotify/dist/angular-spotify.min');
 require('./../../app/bower_components/angular-bootstrap/ui-bootstrap-tpls.min');
-require('./../../app/bower_components/angular-loading-spinner/angular-loading-spinner');
+// require('./../../app/bower_components/angular-loading-spinner/angular-loading-spinner');
 require('./../../app/bower_components/angular-timeago/angular-timeago.min');
 
 //var pluginManager = require('./../plugins/pluginManager');

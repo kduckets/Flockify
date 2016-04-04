@@ -40,6 +40,7 @@ module.exports = function($firebase, FIREBASE_URL, Auth, Post, Profile, $q) {
               });
 
               var monday = moment().startOf('isoweek');
+              console.log(monday.format('YYYY-MM-DD'));
               if (moment(post.date) > monday) {
                 //todo: use media_type
                 ref.child("user_scores").child(post.creator).child('weekly_scores').update({

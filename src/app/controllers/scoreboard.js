@@ -5,4 +5,6 @@ module.exports = function ($scope, $routeParams, Profile, Post, Auth, $firebase,
   $scope.logout = Auth.logout;
   $scope.sorter = '-album_score';
   $scope.users = $firebase(ref.child('user_scores')).$asArray();
+  var monday = moment().startOf('isoweek');
+  $scope.week_start = monday.format('YYYY-MM-DD');
 };
