@@ -82,8 +82,8 @@
         </div>
 <!--   <a href ng-click="batchUpdate()">batch</a>  -->
 
-<div class="post" ng-repeat="post in posts | orderBy:sorter | filter:'spotify' | isAfter:filter_date 
-| byText:textFilter | byText:tagText" jd-script align="center"> 
+<div class="post" ng-repeat="post in filteredItems=(posts | orderBy:sorter | filter:'spotify' | isAfter:filter_date 
+| byText:textFilter | byText:tagText) | limitTo:totalDisplayed track by post.$id" jd-script align="center"> 
 
 <!-- mobile -->
   <div class="post-box" show-xs hide-gt-xs>
@@ -223,6 +223,9 @@
   </div>
 
   </md-card> 
+</div>
+<div align="center" ng-show="!loadingCircle">
+<md-button ng-click="loadMore()" ng-show="filteredItems.length > totalDisplayed" >load more albums</md-button>
 </div>
  <div ng-show="loadingCircle" align="center">
  <md-progress-circular md-mode='indeterminate' md-diameter="132"></md-progress-circular>

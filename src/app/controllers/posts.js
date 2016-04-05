@@ -5,11 +5,17 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
  $scope.posts = Post.all;
  $scope.post = {artist: '', album: '', votes: 0, comments: 0, stars:0};
  $scope.logout = Auth.logout;
+ $scope.filteredItems = [];
 
  $scope.loadingCircle = true;
  $timeout(function () { $scope.loadingCircle = false; }, 3000); 
 
  var ref = new Firebase(FIREBASE_URL);
+
+  $scope.totalDisplayed = 10;
+  $scope.loadMore = function () {
+  $scope.totalDisplayed += 10;  
+};
 
 
  var tags = $firebase(ref.child('tags')).$asArray();
@@ -62,6 +68,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
    $scope.week = true;
    $scope.last = false;
    $scope.allPosts = false;
+   $scope.totalDisplayed = 10;
  };
 
   $scope.lastWeek = function(){
@@ -75,6 +82,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
    $scope.last = true;
    $scope.week = false;
    $scope.allPosts = false;
+   $scope.totalDisplayed = 10;
  };
 
  $scope.allTime = function(){
@@ -85,6 +93,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
   $scope.allPosts = true;
   $scope.week = false;
   $scope.last = false;
+  $scope.totalDisplayed = 10;
 
 };
 
