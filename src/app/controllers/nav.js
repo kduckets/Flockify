@@ -33,6 +33,7 @@ module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootSco
 //   });
 
  chatRef.limitToLast(1).on("child_added", function(snap) {
+  if($scope.signedIn()){
    if($cookieStore.get('last_chat') == snap.key()) {
        return;
    }
@@ -45,7 +46,9 @@ module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootSco
           .hideDelay(3000)
           );
    }
+   };
   });
+
 
   $scope.closeToast = function() {
     if (isDlgOpen) return;
@@ -106,6 +109,7 @@ module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootSco
     //       return;
     //   }
     // });
+    if($scope.signedIn()){
       chatRef.limitToLast(1).on("child_added", function(snap) {
       if($cookieStore.get('last_chat') == snap.key()){
         return;
@@ -116,6 +120,7 @@ module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootSco
       }
 
   });
+    };
     };
 
 

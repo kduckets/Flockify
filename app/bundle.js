@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "fda97d01079601990c63"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "a59d3bea11520699ebef"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -80279,6 +80279,7 @@
 	//   });
 	
 	 chatRef.limitToLast(1).on("child_added", function(snap) {
+	  if($scope.signedIn()){
 	   if($cookieStore.get('last_chat') == snap.key()) {
 	       return;
 	   }
@@ -80291,7 +80292,9 @@
 	          .hideDelay(3000)
 	          );
 	   }
+	   };
 	  });
+	
 	
 	  $scope.closeToast = function() {
 	    if (isDlgOpen) return;
@@ -80352,6 +80355,7 @@
 	    //       return;
 	    //   }
 	    // });
+	    if($scope.signedIn()){
 	      chatRef.limitToLast(1).on("child_added", function(snap) {
 	      if($cookieStore.get('last_chat') == snap.key()){
 	        return;
@@ -80362,6 +80366,7 @@
 	      }
 	
 	  });
+	    };
 	    };
 	
 	
