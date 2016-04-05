@@ -1,8 +1,8 @@
 module.exports = function() {
-  return function(items, dateAfter) {
+  return function(items, startDate, endDate) {;
     // Using ES6 filter method
     return items.filter(function(item){
-      return moment(item.date).isAfter(dateAfter);
+      return moment(item.date).isBetween(startDate, endDate);
     });
   };
 };

@@ -7,7 +7,7 @@ module.exports = function ($scope, $location, Auth, user, $cookieStore) {
 
   $scope.login = function () {
     Auth.login($scope.user).then(function () {
-      $cookieStore.put('login', $scope.user)
+      $cookieStore.put('login', $scope.user);
       $location.path('/');
     }, function (error) {
       $scope.error = error.toString();

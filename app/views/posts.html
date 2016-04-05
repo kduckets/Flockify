@@ -82,8 +82,8 @@
         </div>
 <!--   <a href ng-click="batchUpdate()">batch</a>  -->
 
-<div class="post" ng-repeat="post in filteredItems=(posts | orderBy:sorter | filter:'spotify' | isAfter:filter_date 
-| byText:textFilter | byText:tagText) | limitTo:totalDisplayed track by post.$id" jd-script align="center"> 
+<div class="post" ng-repeat="post in filteredItems=(posts | orderBy:sorter | filter:'spotify' | 
+isAfter:filter_start_date:filter_end_date | byText:textFilter | byText:tagText) | limitTo:totalDisplayed track by post.$id" jd-script align="center"> 
 
 <!-- mobile -->
   <div class="post-box" show-xs hide-gt-xs>
