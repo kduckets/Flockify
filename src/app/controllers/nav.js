@@ -42,10 +42,11 @@ module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootSco
      $mdToast.show(
           $mdToast.simple()
           .textContent('New chat message from ' + snap.val().creator)
+          .highlightAction(true)
           .position('bottom right')
           .hideDelay(3000)
-          );
-   }
+          )
+     }
    };
   });
 

@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "a59d3bea11520699ebef"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "23a798d86a041dc55ec4"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -80288,10 +80288,11 @@
 	     $mdToast.show(
 	          $mdToast.simple()
 	          .textContent('New chat message from ' + snap.val().creator)
+	          .highlightAction(true)
 	          .position('bottom right')
 	          .hideDelay(3000)
-	          );
-	   }
+	          )
+	     }
 	   };
 	  });
 	
