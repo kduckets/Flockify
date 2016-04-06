@@ -87,21 +87,22 @@ isAfter:filter_start_date:filter_end_date | byText:textFilter | byText:tagText) 
 
 <!-- mobile -->
   <div class="post-box" show-xs hide-gt-xs>
- <md-button ng-show="user.profile.group_id == 1" ng-click="upvote(post)" aria-label="Upvote">
+<!--  <md-button ng-show="user.profile.group_id == 1" ng-click="upvote(post)" aria-label="Upvote">
  <img src="/images/up.png" class="arrow" height="30" ></img>
- </md-button>
+ </md-button> -->
   <a ng-href="#/albums/{{post.$id}}" >
-    <span class="post-image"><img class="post card-image" ng-src="{{post.image_medium}}" />
-     <span class="score label label-default label-default">   {{ post.votes }} </span> 
+   <!--  <span class="post-image"> -->
+    <img class="post card-image" ng-src="{{post.image_medium}}" />
+     <!-- <span class="score label label-default label-default">   {{ post.votes }} </span> 
      
      <span class="comments-icon"><i class="fa fa-comment fa-2x"></i>
       <span class="after label label-pill label-danger"> {{post.comments}} </span>   </span>
-    </a>
-  </span>
+    </a> -->
+<!--   </span> -->
   
-<md-button ng-show="user.profile.group_id == 1" ng-click="downvote(post)" aria-label="Downvote">
+<!-- <md-button ng-show="user.profile.group_id == 1" ng-click="downvote(post)" aria-label="Downvote">
   <img src="/images/down.png" class="arrow" height="30"></img>
-  </md-button>
+  </md-button> -->
   
   <div style="padding-top:5px; padding-bottom:10px"> 
    <div>   
@@ -128,17 +129,32 @@ isAfter:filter_start_date:filter_end_date | byText:textFilter | byText:tagText) 
     </md-chips>
 </div> 
 
-   </div>  
-
-   
-   <small style="font-style: italic;">(posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator}}
+   </div>    
+   <small><b>posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator}}</b>
 
    <img src="/images/poop.gif" style="padding-bottom:10px; padding-left:2px" ng-show="user.profile.group_id == 1 && post.creator == 'Nrblanks' || post.creator == 'Stevie' || post.creator == 'davidemerritt' || post.creator == 'Oat'"height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:2px" ng-show="user.profile.group_id == 1 && post.creator == 'sparker'" height="30px"/>
 
-   </a> {{post.date | timeAgo}})</small>
+   </a> <i>{{post.date | timeAgo}}</i></small>
 
-   <div><small> <md-button style="font-size:10px"ng-click="save(post)">save to my queue</md-button></small></div>
 
+<div layout="row" layout-align="center center" style="position:relative;right:0;bottom:0;">
+    <md-button class="md-fab md-raised md-hue-1" style=" z-index:1"><b style="font-size:18pt">{{ post.votes }}</b> </md-button>
+   <md-button class="md-icon-button" ng-show="user.profile.group_id == 1" ng-click="save(post)" aria-label="Save" >
+  <ng-md-icon icon="save" class="arrow" size="28"></ng-md-icon>
+ </md-button>
+     
+  <md-button class="md-icon-button" ng-show="user.profile.group_id == 1" ng-click="upvote(post)" aria-label="Upvote" >
+ <ng-md-icon icon="arrow_upwards" class="arrow" size="28"></ng-md-icon>
+ </md-button>
+ <md-button class="md-icon-button"  ng-show="user.profile.group_id == 1" ng-click="downvote(post)" aria-label="Downvote" >
+ <ng-md-icon icon="arrow_downward" class="arrow" size="28"></ng-md-icon>
+ </md-button> 
+
+ <md-button style="top:11px; left:2px; overflow:visible !important;" ng-href="#/albums/{{post.$id}}" aria-label="Comments" >
+  <span class="comments-icon-big"><ng-md-icon icon="chat_bubble" class="arrow" size="30"></ng-md-icon> 
+  <span class="after label label-pill label-danger">{{post.comments}}</span></span>
+  </md-button> 
+</div>
 
 </div>
 </div>
