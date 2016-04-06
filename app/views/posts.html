@@ -91,15 +91,11 @@ isAfter:filter_start_date:filter_end_date | byText:textFilter | byText:tagText) 
  <img src="/images/up.png" class="arrow" height="30" ></img>
  </md-button> -->
   <a ng-href="#/albums/{{post.$id}}" >
-     <span class="post-image"> 
+<span class="post-image">
     <img class="post card-image" ng-src="{{post.image_medium}}" />
-     <span class="score">  <md-button class="md-fab md-raised md-hue-1" style=" z-index:1"><b style="font-size:22pt">{{ post.votes }}</b> </md-button></span> 
-     </span>
-<!--      
-     <span class="comments-icon"><i class="fa fa-comment fa-2x"></i>
-      <span class="after label label-pill label-danger"> {{post.comments}} </span>   </span>
-    </a>  -->
-<!--   </span> -->
+     <span class="score label label-default label-default"><b style="padding-bottom:4px">{{ post.votes }}</b></span> 
+    </a>
+</span> 
   
 <!-- <md-button ng-show="user.profile.group_id == 1" ng-click="downvote(post)" aria-label="Downvote">
   <img src="/images/down.png" class="arrow" height="30"></img>
@@ -139,7 +135,7 @@ isAfter:filter_start_date:filter_end_date | byText:textFilter | byText:tagText) 
 
 
 <div layout="row" layout-align="center center" style="position:relative;right:0;bottom:0;">
-    <!-- <md-button class="md-fab md-raised md-hue-1" style=" z-index:1"><b style="font-size:18pt">{{ post.votes }}</b> </md-button> -->
+  <!--   <md-button class="md-fab md-raised md-hue-1" style=" z-index:1"><b style="font-size:18pt">{{ post.votes }}</b> </md-button> -->
    <md-button class="md-icon-button" ng-show="user.profile.group_id == 1" ng-click="save(post)" aria-label="Save" >
   <ng-md-icon icon="save" class="arrow" size="28"></ng-md-icon>
  </md-button>
@@ -214,10 +210,12 @@ isAfter:filter_start_date:filter_end_date | byText:textFilter | byText:tagText) 
 
     <div flex="10">
     <md-card-actions layout="column" layout-align="end center" style="position:relative;right:0;bottom:0;">
-    <md-button class="md-fab md-raised md-hue-1" style=" z-index:1"><b style="font-size:22pt">{{ post.votes }}</b> </md-button>
-    <md-button class="md-icon-button" ng-show="user.profile.group_id == 1" ng-click="save(post)" aria-label="Save" >
-    <ng-md-icon icon="save" class="arrow" size="32"></ng-md-icon>
-     </md-button>
+ <md-button class="md-fab md-raised md-hue-1" style=" z-index:1"><b style="font-size:22pt">{{ post.votes }}</b> </md-button>
+
+
+   <md-button class="md-icon-button" ng-show="user.profile.group_id == 1" ng-click="save(post)" aria-label="Save" >
+  <ng-md-icon icon="save" class="arrow" size="32"></ng-md-icon>
+ </md-button>
      
   <md-button class="md-icon-button" ng-show="user.profile.group_id == 1" ng-click="upvote(post)" aria-label="Upvote" >
  <ng-md-icon icon="arrow_upwards" class="arrow" size="32"></ng-md-icon>

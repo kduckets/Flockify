@@ -230,8 +230,8 @@ hr.style-two {
 
 .post-image .score{
   position: absolute;
-  left: -22px;
-  bottom: 106px;
+  left: 0px;
+  bottom: 119px;
   font-size: 22px;
 }
 
