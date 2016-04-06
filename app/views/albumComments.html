@@ -21,7 +21,7 @@
   </a> <a ng-click="deletePost(post)" ng-show="user.uid === post.creatorUID">&mdash; delete</a></small>
 
      <div layout="row" layout-align="center center" >
-<md-button class="md-fab md-raised md-hue-1" style=" z-index:1"><b style="font-size:22pt">{{ post.votes }}</b> </md-button>
+
    <md-button class="md-icon-button" ng-show="user.profile.group_id == 1" ng-click="save(post)" aria-label="Save" >
   <ng-md-icon icon="save" class="arrow" size="32"></ng-md-icon>
  </md-button>
@@ -29,6 +29,7 @@
   <md-button class="md-icon-button" ng-show="user.profile.group_id == 1" ng-click="upvote(post)" aria-label="Upvote" >
  <ng-md-icon icon="arrow_upwards" class="arrow" size="32"></ng-md-icon>
  </md-button>
+ <md-button class="md-fab md-raised md-hue-1" style=" z-index:1"><b style="font-size:22pt">{{ post.votes }}</b> </md-button>
  <md-button class="md-icon-button"  ng-show="user.profile.group_id == 1" ng-click="downvote(post)" aria-label="Downvote" >
  <ng-md-icon icon="arrow_downward" class="arrow" size="32"></ng-md-icon>
  </md-button> 
