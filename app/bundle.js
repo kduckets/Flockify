@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "23a798d86a041dc55ec4"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "af4641aaad6abb035147"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -80278,23 +80278,23 @@
 	//    }
 	//   });
 	
-	 chatRef.limitToLast(1).on("child_added", function(snap) {
-	  if($scope.signedIn()){
-	   if($cookieStore.get('last_chat') == snap.key()) {
-	       return;
-	   }
-	   else {
-	    $cookieStore.put('last_chat', snap.key());
-	     $mdToast.show(
-	          $mdToast.simple()
-	          .textContent('New chat message from ' + snap.val().creator)
-	          .highlightAction(true)
-	          .position('bottom right')
-	          .hideDelay(3000)
-	          )
-	     }
-	   };
-	  });
+	 // chatRef.limitToLast(1).on("child_added", function(snap) {
+	 //  if($scope.signedIn()){
+	 //   if($cookieStore.get('last_chat') == snap.key()) {
+	 //       return;
+	 //   }
+	 //   else {
+	 //    $cookieStore.put('last_chat', snap.key());
+	 //     $mdToast.show(
+	 //          $mdToast.simple()
+	 //          .textContent('New chat message from ' + snap.val().creator)
+	 //          .highlightAction(true)
+	 //          .position('bottom right')
+	 //          .hideDelay(3000)
+	 //          )
+	 //     }
+	 //   };
+	 //  });
 	
 	
 	  $scope.closeToast = function() {
@@ -80346,33 +80346,33 @@
 	        $location.path(prevUrl);
 	    };
 	   
-	     var init = function () {
-	    //  postsRef.limitToLast(1).on("child_added", function(snap) {
-	    //   if($cookieStore.get('last_post') == snap.key()){
-	    //     return;
-	    //   }
-	    //   if(!$cookieStore.get('last_post')){
-	    //       $cookieStore.put('last_post', snap.key());
-	    //       return;
-	    //   }
-	    // });
-	    if($scope.signedIn()){
-	      chatRef.limitToLast(1).on("child_added", function(snap) {
-	      if($cookieStore.get('last_chat') == snap.key()){
-	        return;
-	      }
-	       if(!$cookieStore.get('last_chat')){
-	          $cookieStore.put('last_chat', snap.key());
-	          return;
-	      }
+	 //     var init = function () {
+	 //    //  postsRef.limitToLast(1).on("child_added", function(snap) {
+	 //    //   if($cookieStore.get('last_post') == snap.key()){
+	 //    //     return;
+	 //    //   }
+	 //    //   if(!$cookieStore.get('last_post')){
+	 //    //       $cookieStore.put('last_post', snap.key());
+	 //    //       return;
+	 //    //   }
+	 //    // });
+	 //    if($scope.signedIn()){
+	 //      chatRef.limitToLast(1).on("child_added", function(snap) {
+	 //      if($cookieStore.get('last_chat') == snap.key()){
+	 //        return;
+	 //      }
+	 //       if(!$cookieStore.get('last_chat')){
+	 //          $cookieStore.put('last_chat', snap.key());
+	 //          return;
+	 //      }
 	
-	  });
-	    };
-	    };
+	 //  });
+	 //    };
+	 //    };
 	
 	
 	
-	 init();
+	 // init();
 	
 	};
 
