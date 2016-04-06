@@ -86,29 +86,20 @@
 isAfter:filter_start_date:filter_end_date | byText:textFilter | byText:tagText) | limitTo:totalDisplayed track by post.$id" jd-script align="center"> 
 
 <!-- mobile -->
-  <div class="post-box" show-xs hide-gt-xs>
-<!--  <md-button ng-show="user.profile.group_id == 1" ng-click="upvote(post)" aria-label="Upvote">
- <img src="/images/up.png" class="arrow" height="30" ></img>
- </md-button> -->
+   <md-card class="card"  show-xs hide-gt-xs>
+  <span class="score label label-default label-default"><b>{{ post.votes }}</b></span> 
   <a ng-href="#/albums/{{post.$id}}" >
-<span class="post-image">
-    <img class="post card-image" ng-src="{{post.image_medium}}" />
-     <span class="score label label-default label-default"><b>{{ post.votes }}</b></span> 
-  </span> 
+    <img class="md-card-image" ng-src="{{post.image_medium}}" />
   </a>
-  
-<!-- <md-button ng-show="user.profile.group_id == 1" ng-click="downvote(post)" aria-label="Downvote">
-  <img src="/images/down.png" class="arrow" height="30"></img>
-  </md-button> -->
-  
   <div style="padding-top:5px; padding-bottom:10px"> 
    <div>   
-
-    <div><img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18" /><a ng-show="user.profile.group_id == 1" ng-click="starPost(post)" href="" > 
-     <img ng-src="/images/empty-star.png" height="18" /></a></div>
+    <div>
+   <img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" class="star" />
+   <a href="" ng-show="user.profile.group_id == 1" ng-click="starPost(post)">
+    <img ng-src="/images/empty-star.png" class="star" /></a>
+    </div>
      <a ng-href="#/albums/{{post.$id}}" >
        {{ post.artist }} - {{ post.album }} ({{post.release_date | limitTo: 4}})</a> 
-
      <div>
        <a ng-href="#/albums/{{ post.$id  }}">
        <span class="label label-pill label-info">{{ post.summary | limitTo: 40 }}{{post.summary.length > 40 ? '..' : ''}}</span></a>
@@ -129,13 +120,11 @@ isAfter:filter_start_date:filter_end_date | byText:textFilter | byText:tagText) 
    </div>    
    <small><b>posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator}}</b>
 
-   <img src="/images/poop.gif" style="padding-bottom:10px; padding-left:2px" ng-show="user.profile.group_id == 1 && post.creator == 'Nrblanks' || post.creator == 'Stevie' || post.creator == 'davidemerritt' || post.creator == 'Oat'"height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:2px" ng-show="user.profile.group_id == 1 && post.creator == 'sparker'" height="30px"/>
+ <img src="/images/poop.gif" style="padding-bottom:10px; padding-left:2px; height: 50px; width: auto;  display:inline-block;" ng-show="user.profile.group_id == 1 && post.creator == 'Nrblanks' || post.creator == 'Stevie' || post.creator == 'davidemerritt' || post.creator == 'Oat'"height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:2px;height: 30px; width: auto;display:inline-block;" ng-show="user.profile.group_id == 1 && post.creator == 'sparker'"/>
 
    </a> <i>{{post.date | timeAgo}}</i></small>
 
-
 <div layout="row" layout-align="center center" style="position:relative;right:0;bottom:0;">
-  <!--   <md-button class="md-fab md-raised md-hue-1" style=" z-index:1"><b style="font-size:18pt">{{ post.votes }}</b> </md-button> -->
    <md-button class="md-icon-button" ng-show="user.profile.group_id == 1" ng-click="save(post)" aria-label="Save" >
   <ng-md-icon icon="save" class="arrow" size="28"></ng-md-icon>
  </md-button>
@@ -154,7 +143,7 @@ isAfter:filter_start_date:filter_end_date | byText:textFilter | byText:tagText) 
 </div>
 
 </div>
-</div>
+</md-card>
 
 
 <!-- desktop -->

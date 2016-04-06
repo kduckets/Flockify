@@ -210,6 +210,7 @@ hr.style-two {
 }
 
 .post-box {
+  position: relative;
   padding-top: 16px;
   margin: 0 auto; 
   margin-bottom: 10px;
@@ -228,11 +229,10 @@ hr.style-two {
   
 }
 
-.post-image .score{
+.score{
   position: absolute;
-  left: 0px;
-  bottom: 104px;
-  font-size: 32px;
+  left:0;
+  font-size: 24px;
 }
 
 .post-image .comments-icon{
