@@ -1,6 +1,6 @@
-<div ng-show="signedIn()" class="container" ng-cloak>
+<div ng-show="signedIn()" flex="90" ng-cloak layout="row" layout-xs="column">
   <!-- <img class="background" src="/images/record.jpg"/> -->
-    <div align="center">
+    <div flex align="center">
  
     <a ng-href="{{post.spotify_uri}}" target="_blank">
       <img ng-src="{{post.image_medium}}" class="comments" />
@@ -12,20 +12,11 @@
 
     <div> <img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18" />
 
-     <a data-toggle="modal" ng-click="starPost(post)" href="" >  <img ng-src="/images/empty-star.png" height="32" style="padding-bottom:2px" /></a>
+     <a data-toggle="modal" ng-click="starPost(post)" href="" >  
+     <img ng-src="/images/empty-star.png" height="32" style="padding-bottom:2px" /></a>
    </div>
-   <div>
-    <a ng-href="{{post.spotify_uri}}" target="_blank">
-      {{post.artist}} - {{ post.album }} ({{post.release_date | limitTo: 4}})
-    </a>
-  </div>
 
-  <div>  <small><b>posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator}}</b>
-   <img src="/images/poop.gif" style="padding-bottom:10px; padding-left:3px" ng-show="post.creator == 'Nrblanks' || post.creator == 'Stevie' || post.creator == 'davidemerritt' || post.creator == 'Oat'" height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:6px" ng-show="post.creator == 'sparker'" height="30px"/>
-
-  </a> <a ng-click="deletePost(post)" ng-show="user.uid === post.creatorUID">&mdash; delete</a></small>
-
-     <div layout="row" layout-align="center center" >
+   <div layout="row" layout-align="center center" >
 
    <md-button class="md-icon-button" ng-show="user.profile.group_id == 1" ng-click="save(post)" aria-label="Save" >
   <ng-md-icon icon="save" class="arrow" size="32"></ng-md-icon>
@@ -43,6 +34,25 @@
   <span class="after label label-pill label-danger">{{post.comments}}</span></span>
   </md-button> 
   </div>
+   
+  </div>
+
+  <div flex>
+
+  <div>
+    <a ng-href="{{post.spotify_uri}}" target="_blank">
+      {{post.artist}} - {{ post.album }} ({{post.release_date | limitTo: 4}})
+    </a>
+  </div>
+
+  <div>  <small><b>posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator}}</b>
+   <img src="/images/poop.gif" style="padding-bottom:10px; padding-left:3px" ng-show="post.creator == 'Nrblanks' || post.creator == 'Stevie' || post.creator == 'davidemerritt' || post.creator == 'Oat'" height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:6px" ng-show="post.creator == 'sparker'" height="30px"/>
+
+  </a> <a ng-click="deletePost(post)" ng-show="user.uid === post.creatorUID">&mdash; delete</a></small>
+
+  </div>
+
+     
 
    <div class="alert alert-info" role="alert">{{post.summary}}</div>
     <div layout="row" layout-align="center center">
@@ -78,8 +88,6 @@
     </md-chips>
 </div>
 
-</div>
-</div>
 
 <div ng-repeat="comment in comments" class="row cmt">
   <div class="col-md-12">
