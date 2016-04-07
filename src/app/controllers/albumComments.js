@@ -1,5 +1,5 @@
 module.exports = function ($scope, $routeParams, Post, Auth, Comment, $firebase, Profile, $http, $filter, $sce, $location, 
-  $uibModal, Action, $mdToast, FIREBASE_URL, $firebase, $mdConstant) {
+  $uibModal, Action, $mdToast, FIREBASE_URL, $firebase, $mdConstant, $mdDialog) {
   var post_id = $routeParams.postId;
   $scope.user = Auth.user;
   $scope.signedIn = Auth.signedIn;
@@ -58,6 +58,16 @@ module.exports = function ($scope, $routeParams, Post, Auth, Comment, $firebase,
     var body = {'search': $scope.gifSearchText};
     $scope.loadingCircle = true;
     $http.post('/api/giphysearch', body).success(function(data) {
+    //   $mdDialog.show(
+    //   $mdDialog.alert()
+    //     .parent(angular.element(document.querySelector('#popupContainer')))
+    //     .clickOutsideToClose(true)
+    //     .title('This is an alert title')
+    //     .textContent('You can specify some description text in here.')
+    //     .ariaLabel('Search for gif')
+    //     .ok('Close')
+    //     .targetEvent(ev)
+    // );
       $scope.gifs = data.data;
       $scope.loadingCircle = false;
     }).error(function(data) {

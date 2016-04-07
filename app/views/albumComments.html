@@ -187,7 +187,7 @@ TODO: stack instead of two views -->
   <div>
   <br/>
     <a ng-href="{{post.spotify_uri}}" target="_blank">
-      {{post.artist}} - {{ post.album }} ({{post.release_date | limitTo: 4}})
+      <b>{{post.artist}} - {{ post.album }} ({{post.release_date | limitTo: 4}})</b>
     </a>
   </div>
 
@@ -276,7 +276,6 @@ TODO: stack instead of two views -->
   </form>
   </div>
 </div>
-<br/>
 <md-progress-circular ng-show="loadingCircle" md-mode='indeterminate' md-diameter="132"></md-progress-circular>
 <div ng-repeat="gif in gifs" style="display:inline-block;">
   <a ng-href="#/albums/{{ post.$id  }}" ng-click="addComment(gif.images.downsized.url)"><img class="gifs" ng-src="{{gif.images.downsized.url}}" height="100" /></a>
