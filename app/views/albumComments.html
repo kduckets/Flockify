@@ -256,20 +256,22 @@ TODO: stack instead of two views -->
   <div ng-hide="signedIn()">
     <p><a href="#/login">Sign in</a> to post a comment</p>
   </div>
+  <small>Add a gif comment:</small>
+<div layout-gt-sm="row" layout-padding>
 
-  <form ng-show="signedIn()" ng-submit="gifsearch()">
-    <input type="text" ng-model="gifSearchText" placeholder="search for gif"/>
-    <input type="submit" value="search" class="btn btn-secondary" />
-  </form>
- <!--       <md-input-container>
-        <label>Search for a gif</label>
-        <input ng-model="">
-      </md-input-container> -->
-  or
+ <form ng-show="signedIn()" ng-submit="gifsearch()">
+   <md-input-container>
+   <label>Search for a gif</label>
+   <input ng-model="gifSearchText">
+    </md-input-container>
+ </form>
   <form ng-show="signedIn()" ng-submit="addComment(gifLink)">
-    <input type="text" ng-model="gifLink" placeholder="paste gif link"/>
-    <input type="submit" value="post" class="btn btn-secondary" />
+  <md-input-container>
+  <label>Paste gif link</label>
+    <input ng-model="gifLink"/>
+    </md-input-container>
   </form>
+  </div>
 </div>
 <br/>
 <md-progress-circular ng-show="loadingCircle" md-mode='indeterminate' md-diameter="132"></md-progress-circular>
