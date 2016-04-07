@@ -1,9 +1,14 @@
-<div class="container" ng-show="signedIn()" flex ng-cloak>
+<div ng-show="signedIn()" class="container" ng-cloak>
   <!-- <img class="background" src="/images/record.jpg"/> -->
-  <div align="center">
+    <div align="center">
+ 
     <a ng-href="{{post.spotify_uri}}" target="_blank">
       <img ng-src="{{post.image_medium}}" class="comments" />
     </a>
+    
+<div class="embed-container">
+<iframe ng-src="{{iframeUrl}}" height="80" frameborder="0" allowtransparency="true"></iframe>
+</div>
 
     <div> <img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18" />
 
@@ -75,7 +80,6 @@
 
 </div>
 </div>
-
 
 <div ng-repeat="comment in comments" class="row cmt">
   <div class="col-md-12">

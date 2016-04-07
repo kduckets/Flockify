@@ -2,6 +2,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
   $timeout, $q, $mdDialog, FIREBASE_URL, $firebase, $mdConstant) {
 
    var ref = new $window.Firebase(FIREBASE_URL);
+   var tagsRef = new $window.Firebase(FIREBASE_URL+"/tags");
    var tags = $firebase(ref.child('tags')).$asArray();
 
     $scope.readonly = false;
@@ -25,13 +26,20 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
       
       // If it is an object, it's already a known chip
       if (angular.isObject(chip)) {
-        //TODO: if tag already exists don't add it to the database
+        console.log("chip is object", chip);
         return {name: chip.$value};
-      }
-      // Otherwise, create a new one
+      }else{
+      // tagsRef.once('value', function(snapshot) {
+      // var tagList = snapshot.val();
+      // if (tagList.indexOf(chip) > -1)
+      //   {
+      //     console.log("tag exists");
+      //     return { name: chip };
+      //   };
+       // });
       tags.$add(chip)
-      return { name: chip };
-
+      return { name: chip }; 
+    };
     };
 
     /**

@@ -4,8 +4,12 @@ module.exports = function ($scope, $routeParams, Post, Auth, Comment, $firebase,
   $scope.user = Auth.user;
   $scope.signedIn = Auth.signedIn;
   $scope.logout = Auth.logout;
-  $scope.posts = Post.all;
+  // $scope.posts = Post.all;
   $scope.post = Post.get(post_id);
+  var postRef = new Firebase(FIREBASE_URL+"/posts/"+ post_id);
+  postRef.once('value', function(dataSnapshot) {
+  $scope.iframeUrl = $sce.trustAsResourceUrl("https://embed.spotify.com/?uri="+dataSnapshot.val().embed_uri);
+  });
   $scope.comments = Comment.get_comments_for_post(post_id);
   $scope.gifSearchText = '';
   $scope.loadingCircle = false;

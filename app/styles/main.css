@@ -3,6 +3,17 @@ body {
   overflow-y: hidden !important;
 }
 
+.embed-container {
+    position: relative;
+}
+
+.embed-container iframe {
+  position: relative;
+  width: 100%;
+}
+
+
+
 .card-image{
 /*  -webkit-filter: drop-shadow(12px 12px 25px rgba(0,0,0,0.5));
     filter: url(#drop-shadow);
@@ -103,6 +114,15 @@ img.star{
     z-index: 0;
     
 }
+
+.embed-container {
+    position: relative;
+}
+
+.embed-container iframe {
+  position: relative;
+  width: 50%;
+}
    
 img.post:hover {
 
@@ -114,8 +134,7 @@ img.gif:hover {
 height: 300px;
 }
 img.comments{
-  height: 55% !important;
-  width: 55% !important;
+  width: 50% !important;
   -webkit-filter: drop-shadow(12px 12px 25px rgba(0,0,0,0.5));
     filter: url(#drop-shadow);
     -ms-filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=12, OffY=12, Color='#444')";
