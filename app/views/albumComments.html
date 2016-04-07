@@ -141,10 +141,10 @@ TODO: stack instead of two views -->
 
 <!-- desktop -->
 
-<div ng-show="signedIn()" flex="90" ng-cloak layout="row" layout-xs="column" hide-xs>
+<div ng-show="signedIn()" flex ng-cloak layout="row" layout-xs="column" hide-xs>
  
     <div flex align="center">
- 
+ <div style="position: fixed;">
     <a ng-href="{{post.spotify_uri}}" target="_blank">
       <img ng-src="{{post.image_medium}}" class="comments" />
     </a>
@@ -179,10 +179,12 @@ TODO: stack instead of two views -->
   </div>
    
   </div>
+  </div>
 
   <div flex>
 
   <div>
+  <br/>
     <a ng-href="{{post.spotify_uri}}" target="_blank">
       {{post.artist}} - {{ post.album }} ({{post.release_date | limitTo: 4}})
     </a>
