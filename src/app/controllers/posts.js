@@ -1,5 +1,5 @@
 module.exports = function($scope, $route, $location, $window, Post, Auth, Spotify,$uibModal, Profile, $firebase, 
-  $filter, FIREBASE_URL, Action, $mdToast, $mdDialog, $mdMedia, $timeout, $anchorScroll, $mdConstant, $rootScope){
+  $filter, FIREBASE_URL, Action, $mdToast, $mdDialog, $mdMedia, $timeout, $anchorScroll, $mdConstant, $rootScope,$cookieStore){
  $scope.signedIn = Auth.signedIn;
  $scope.user = Auth.user;
  $scope.posts = Post.all;
@@ -7,6 +7,24 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
  $scope.logout = Auth.logout;
  $scope.filteredItems = [];
  var ref = new Firebase(FIREBASE_URL);
+ var chatRef = new Firebase(FIREBASE_URL+"/comments/flock_groupchat");
+ chatRef.limitToLast(1).on("child_added", function(snap) {
+  if($scope.signedIn()){
+   if($cookieStore.get('last_chat') == snap.key()) {
+       return;
+   }
+   else {
+    $cookieStore.put('last_chat', snap.key());
+     $mdToast.show(
+          $mdToast.simple()
+          .textContent('New chat message from ' + snap.val().creator)
+          .highlightAction(true)
+          .position('bottom right')
+          .hideDelay(3000)
+          )
+     }
+   };
+  });
 
  $scope.loadingCircle = true;
  $timeout(function () { $scope.loadingCircle = false; }, 3000); 
@@ -215,6 +233,23 @@ $scope.search = function(){
       });
 
           };
+
+    var init = function () {
+    if($scope.signedIn()){
+      chatRef.limitToLast(1).on("child_added", function(snap) {
+      if($cookieStore.get('last_chat') == snap.key()){
+        return;
+      }
+       if(!$cookieStore.get('last_chat')){
+          $cookieStore.put('last_chat', snap.key());
+          return;
+      }
+
+  });
+    };
+    };
+
+ init();
 
 
    // $scope.batchUpdate = function(){

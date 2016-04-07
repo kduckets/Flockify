@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "dcefa45b1f0075f9db73"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "b471f99089b61170156a"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -79007,7 +79007,7 @@
 /***/ function(module, exports) {
 
 	module.exports = function ($scope, $routeParams, Post, Auth, Comment, $firebase, Profile, $http, $filter, $sce, $location, 
-	  $uibModal, Action, $mdToast, FIREBASE_URL, $firebase, $mdConstant) {
+	  $uibModal, Action, $mdToast, FIREBASE_URL, $firebase, $mdConstant, $mdDialog) {
 	  var post_id = $routeParams.postId;
 	  $scope.user = Auth.user;
 	  $scope.signedIn = Auth.signedIn;
@@ -79066,6 +79066,16 @@
 	    var body = {'search': $scope.gifSearchText};
 	    $scope.loadingCircle = true;
 	    $http.post('/api/giphysearch', body).success(function(data) {
+	    //   $mdDialog.show(
+	    //   $mdDialog.alert()
+	    //     .parent(angular.element(document.querySelector('#popupContainer')))
+	    //     .clickOutsideToClose(true)
+	    //     .title('This is an alert title')
+	    //     .textContent('You can specify some description text in here.')
+	    //     .ariaLabel('Search for gif')
+	    //     .ok('Close')
+	    //     .targetEvent(ev)
+	    // );
 	      $scope.gifs = data.data;
 	      $scope.loadingCircle = false;
 	    }).error(function(data) {
@@ -79909,25 +79919,6 @@
 	  $scope.signedIn = Auth.signedIn;
 	  $scope.toggleMenu = buildToggler('right');
 	  // var postsRef = new Firebase(FIREBASE_URL+"/posts");
-	  var chatRef = new Firebase(FIREBASE_URL+"/comments/flock_groupchat");
-	 chatRef.limitToLast(1).on("child_added", function(snap) {
-	  if($scope.signedIn()){
-	   if($cookieStore.get('last_chat') == snap.key()) {
-	       return;
-	   }
-	   else {
-	    $cookieStore.put('last_chat', snap.key());
-	     $mdToast.show(
-	          $mdToast.simple()
-	          .textContent('New chat message from ' + snap.val().creator)
-	          .highlightAction(true)
-	          .position('bottom right')
-	          .hideDelay(3000)
-	          )
-	     }
-	   };
-	  });
-	
 	
 	  $scope.closeToast = function() {
 	    if (isDlgOpen) return;
@@ -79977,25 +79968,6 @@
 	        var prevUrl = history.length > 1 ? history.splice(-2)[0] : "/";
 	        $location.path(prevUrl);
 	    };
-	   
-	     var init = function () {
-	    if($scope.signedIn()){
-	      chatRef.limitToLast(1).on("child_added", function(snap) {
-	      if($cookieStore.get('last_chat') == snap.key()){
-	        return;
-	      }
-	       if(!$cookieStore.get('last_chat')){
-	          $cookieStore.put('last_chat', snap.key());
-	          return;
-	      }
-	
-	  });
-	    };
-	    };
-	
-	
-	
-	 init();
 	
 	};
 
@@ -80219,7 +80191,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function($) {module.exports = function($scope, $route, $location, $window, Post, Auth, Spotify,$uibModal, Profile, $firebase, 
-	  $filter, FIREBASE_URL, Action, $mdToast, $mdDialog, $mdMedia, $timeout, $anchorScroll, $mdConstant, $rootScope){
+	  $filter, FIREBASE_URL, Action, $mdToast, $mdDialog, $mdMedia, $timeout, $anchorScroll, $mdConstant, $rootScope,$cookieStore){
 	 $scope.signedIn = Auth.signedIn;
 	 $scope.user = Auth.user;
 	 $scope.posts = Post.all;
@@ -80227,6 +80199,24 @@
 	 $scope.logout = Auth.logout;
 	 $scope.filteredItems = [];
 	 var ref = new Firebase(FIREBASE_URL);
+	 var chatRef = new Firebase(FIREBASE_URL+"/comments/flock_groupchat");
+	 chatRef.limitToLast(1).on("child_added", function(snap) {
+	  if($scope.signedIn()){
+	   if($cookieStore.get('last_chat') == snap.key()) {
+	       return;
+	   }
+	   else {
+	    $cookieStore.put('last_chat', snap.key());
+	     $mdToast.show(
+	          $mdToast.simple()
+	          .textContent('New chat message from ' + snap.val().creator)
+	          .highlightAction(true)
+	          .position('bottom right')
+	          .hideDelay(3000)
+	          )
+	     }
+	   };
+	  });
 	
 	 $scope.loadingCircle = true;
 	 $timeout(function () { $scope.loadingCircle = false; }, 3000); 
@@ -80435,6 +80425,23 @@
 	      });
 	
 	          };
+	
+	    var init = function () {
+	    if($scope.signedIn()){
+	      chatRef.limitToLast(1).on("child_added", function(snap) {
+	      if($cookieStore.get('last_chat') == snap.key()){
+	        return;
+	      }
+	       if(!$cookieStore.get('last_chat')){
+	          $cookieStore.put('last_chat', snap.key());
+	          return;
+	      }
+	
+	  });
+	    };
+	    };
+	
+	 init();
 	
 	
 	   // $scope.batchUpdate = function(){

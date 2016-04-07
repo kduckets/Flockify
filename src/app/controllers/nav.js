@@ -6,25 +6,6 @@ module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootSco
   $scope.signedIn = Auth.signedIn;
   $scope.toggleMenu = buildToggler('right');
   // var postsRef = new Firebase(FIREBASE_URL+"/posts");
-  var chatRef = new Firebase(FIREBASE_URL+"/comments/flock_groupchat");
- chatRef.limitToLast(1).on("child_added", function(snap) {
-  if($scope.signedIn()){
-   if($cookieStore.get('last_chat') == snap.key()) {
-       return;
-   }
-   else {
-    $cookieStore.put('last_chat', snap.key());
-     $mdToast.show(
-          $mdToast.simple()
-          .textContent('New chat message from ' + snap.val().creator)
-          .highlightAction(true)
-          .position('bottom right')
-          .hideDelay(3000)
-          )
-     }
-   };
-  });
-
 
   $scope.closeToast = function() {
     if (isDlgOpen) return;
@@ -74,24 +55,5 @@ module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootSco
         var prevUrl = history.length > 1 ? history.splice(-2)[0] : "/";
         $location.path(prevUrl);
     };
-   
-     var init = function () {
-    if($scope.signedIn()){
-      chatRef.limitToLast(1).on("child_added", function(snap) {
-      if($cookieStore.get('last_chat') == snap.key()){
-        return;
-      }
-       if(!$cookieStore.get('last_chat')){
-          $cookieStore.put('last_chat', snap.key());
-          return;
-      }
-
-  });
-    };
-    };
-
-
-
- init();
 
 };
