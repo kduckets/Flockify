@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "b471f99089b61170156a"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "61d53e6bbdb0e62c2a1d"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -79940,8 +79940,6 @@
 	         //done
 	        });
 	 });
-	
-	
 	     function buildToggler(navID) {
 	      return function() {
 	        $mdSidenav(navID)
@@ -80200,6 +80198,7 @@
 	 $scope.filteredItems = [];
 	 var ref = new Firebase(FIREBASE_URL);
 	 var chatRef = new Firebase(FIREBASE_URL+"/comments/flock_groupchat");
+	
 	 chatRef.limitToLast(1).on("child_added", function(snap) {
 	  if($scope.signedIn()){
 	   if($cookieStore.get('last_chat') == snap.key()) {
@@ -80207,6 +80206,8 @@
 	   }
 	   else {
 	    $cookieStore.put('last_chat', snap.key());
+	    //TODO: don't show notification if chat was from current user
+	     if(snap.key().creator != $scope.user.profile.username){
 	     $mdToast.show(
 	          $mdToast.simple()
 	          .textContent('New chat message from ' + snap.val().creator)
@@ -80214,16 +80215,18 @@
 	          .position('bottom right')
 	          .hideDelay(3000)
 	          )
-	     }
+	   };
+	     };
 	   };
 	  });
 	
-	 $scope.loadingCircle = true;
-	 $timeout(function () { $scope.loadingCircle = false; }, 3000); 
+	
 	
 	  $scope.totalDisplayed = 10;
 	  $scope.loadMore = function () {
-	  $scope.totalDisplayed += 10;  
+	  $scope.loadingCircle = true;
+	  $timeout(function () { $scope.loadingCircle = false; }, 1000); 
+	  $scope.totalDisplayed += 10; 
 	};
 	
 	

@@ -27,8 +27,6 @@ module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootSco
          //done
         });
  });
-
-
      function buildToggler(navID) {
       return function() {
         $mdSidenav(navID)

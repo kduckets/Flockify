@@ -82,7 +82,6 @@
         </md-chips>
         </div>
 <!--   <a href ng-click="batchUpdate()">batch</a>  -->
-
 <div class="post" ng-repeat="post in filteredItems=(posts | orderBy:sorter | filter:'spotify' | 
 isAfter:filter_start_date:filter_end_date | byText:textFilter | byText:tagText) | limitTo:totalDisplayed track by post.$id" jd-script align="center"> 
 
