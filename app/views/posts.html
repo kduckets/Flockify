@@ -7,7 +7,7 @@
  <div ng-show="signedIn()" id="top">
 
  <md-button aria-label="Search" 
- style="top:12px;right:48px;position:fixed;z-index:2;" ng-click="showSearch = !showSearch">
+ style="top:12px;right:48px;position:fixed;z-index:2;" ng-click="showSearch = !showSearch; allTime()">
             <ng-md-icon icon="search" style="fill:white" size="28"></ng-md-icon>
           </md-button>
            <md-toolbar class="md-hue-1" ng-show="showSearch" style="position:fixed">
@@ -41,7 +41,7 @@
   <ng-md-icon icon="clear"></ng-md-icon>
 </md-button>   
 <md-button aria-label="Search" show-xs hide-gt-xs ng-show="!post.search"
- ng-click="showSearch = !showSearch">
+ ng-click="showSearch = !showSearch; allTime()">
             <ng-md-icon icon="search" size="22"></ng-md-icon>
           </md-button>
 </form>

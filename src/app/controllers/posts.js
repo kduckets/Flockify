@@ -31,7 +31,6 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
   });
 
 
-
   $scope.totalDisplayed = 10;
   $scope.loadMore = function () {
   $scope.loadingCircle = true;
