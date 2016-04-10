@@ -46,7 +46,9 @@ module.exports = function ($scope, $routeParams, Post, Auth, Comment, $firebase,
     if(!$scope.commentText || $scope.commentText === '') { return; }
     Comment.add_comment($scope.comments, 'flock_groupchat', text);
     $scope.commentText = '';
+    // if($scope.totalItems % $scope.viewby === 0){
     $route.reload();
+  // };
   };
 
   $scope.addGif = function (gif) {

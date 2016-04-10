@@ -48,7 +48,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
  $scope.tagText = '';
  $scope.tagFilters = [];
  $scope.week = true;
- $scope.last = false;
+ $scope.month = false;
  $scope.allPosts = false;
  $scope.loadingBar = false;
  $scope.albumPosts = {};
@@ -97,16 +97,18 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
    console.log($scope.filter_date);
  };
 
-  $scope.lastWeek = function(){
+  $scope.thisMonth = function(){
     $scope.loadingBar = true;
     $timeout(function () { $scope.loadingBar = false; }, 2000); 
-    var last_monday = GetLastWeekStart(); 
+    // var last_monday = GetLastWeekStart(); 
+    // var month_start = moment().startOf('month');
+    var month_start = moment().subtract(30, 'days').startOf('day');
     var this_monday = moment().startOf('isoweek');
     //TODO: use moment().range
-   $scope.filter_start_date = last_monday;
+   $scope.filter_start_date = month_start;
    $scope.filter_end_date = this_monday;
    $scope.sorter = ['-votes','-stars'];
-   $scope.last = true;
+   $scope.month = true;
    $scope.week = false;
    $scope.allPosts = false;
    $scope.totalDisplayed = 10;

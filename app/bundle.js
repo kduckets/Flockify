@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "61d53e6bbdb0e62c2a1d"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "50f404162b8ea2060226"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -79632,7 +79632,9 @@
 	    if(!$scope.commentText || $scope.commentText === '') { return; }
 	    Comment.add_comment($scope.comments, 'flock_groupchat', text);
 	    $scope.commentText = '';
+	    // if($scope.totalItems % $scope.viewby === 0){
 	    $route.reload();
+	  // };
 	  };
 	
 	  $scope.addGif = function (gif) {
@@ -80238,7 +80240,7 @@
 	 $scope.tagText = '';
 	 $scope.tagFilters = [];
 	 $scope.week = true;
-	 $scope.last = false;
+	 $scope.month = false;
 	 $scope.allPosts = false;
 	 $scope.loadingBar = false;
 	 $scope.albumPosts = {};
@@ -80287,16 +80289,18 @@
 	   console.log($scope.filter_date);
 	 };
 	
-	  $scope.lastWeek = function(){
+	  $scope.thisMonth = function(){
 	    $scope.loadingBar = true;
 	    $timeout(function () { $scope.loadingBar = false; }, 2000); 
-	    var last_monday = GetLastWeekStart(); 
+	    // var last_monday = GetLastWeekStart(); 
+	    // var month_start = moment().startOf('month');
+	    var month_start = moment().subtract(30, 'days').startOf('day');
 	    var this_monday = moment().startOf('isoweek');
 	    //TODO: use moment().range
-	   $scope.filter_start_date = last_monday;
+	   $scope.filter_start_date = month_start;
 	   $scope.filter_end_date = this_monday;
 	   $scope.sorter = ['-votes','-stars'];
-	   $scope.last = true;
+	   $scope.month = true;
 	   $scope.week = false;
 	   $scope.allPosts = false;
 	   $scope.totalDisplayed = 10;
