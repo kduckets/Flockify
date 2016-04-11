@@ -11,19 +11,19 @@
 
     <div align="center">
       <span ng-show="view_tab == 'tabA'" class="name">Posts by {{ profile.username }}
-        <img src="/images/poop.gif" style="padding-bottom:10px" ng-show="profile.username  == 'Nrblanks' || profile.username  == 'Stevie' || profile.username == 'davidemerritt' || profile.username == 'Oat'" height="60px"/>
+       <!--  <img src="/images/poop.gif" style="padding-bottom:10px" ng-show="profile.username  == 'Nrblanks' || profile.username  == 'Stevie' || profile.username == 'davidemerritt' || profile.username == 'Oat'" height="60px"/>
 
-        <img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:2px" ng-show="profile.username == 'sparker'" height="60px"/>
+        <img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:2px" ng-show="profile.username == 'sparker'" height="60px"/> -->
 
         </span>
         <span ng-show="view_tab == 'tabB'" class="name">Likes by {{ profile.username }}
-           <img src="/images/poop.gif" style="padding-bottom:10px" ng-show="profile.username  == 'Nrblanks' || profile.username  == 'Stevie' || profile.username == 'davidemerritt' || profile.username == 'Oat'" height="60px"/>
+         <!--   <img src="/images/poop.gif" style="padding-bottom:10px" ng-show="profile.username  == 'Nrblanks' || profile.username  == 'Stevie' || profile.username == 'davidemerritt' || profile.username == 'Oat'" height="60px"/>
 
-        <img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:2px" ng-show="profile.username == 'sparker'" height="60px"/>
+        <img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:2px" ng-show="profile.username == 'sparker'" height="60px"/> -->
         </span>
           <span ng-show="view_tab == 'tabC'" class="name">Queue for {{ profile.username }}
-             <img src="/images/poop.gif" style="padding-bottom:10px" ng-show="profile.username  == 'Nrblanks' || profile.username  == 'Stevie' || profile.username == 'davidemerritt' || profile.username == 'Oat'" height="60px"/>
-        <img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:2px" ng-show="profile.username == 'sparker'" height="60px"/>
+            <!--  <img src="/images/poop.gif" style="padding-bottom:10px" ng-show="profile.username  == 'Nrblanks' || profile.username  == 'Stevie' || profile.username == 'davidemerritt' || profile.username == 'Oat'" height="60px"/>
+        <img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:2px" ng-show="profile.username == 'sparker'" height="60px"/> -->
           </span>
 
  <!--       <p>
@@ -169,7 +169,7 @@
    </div>    
    <small><b>posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator}}</b>
 
- <img src="/images/poop.gif" style="padding-bottom:10px; padding-left:2px; height: 50px; width: auto;  display:inline-block;" ng-show="user.profile.group_id == 1 && post.creator == 'Nrblanks' || post.creator == 'Stevie' || post.creator == 'davidemerritt' || post.creator == 'Oat'"height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:2px;height: 30px; width: auto;display:inline-block;" ng-show="user.profile.group_id == 1 && post.creator == 'sparker'"/>
+ <!-- <img src="/images/poop.gif" style="padding-bottom:10px; padding-left:2px; height: 50px; width: auto;  display:inline-block;" ng-show="user.profile.group_id == 1 && post.creator == 'Nrblanks' || post.creator == 'Stevie' || post.creator == 'davidemerritt' || post.creator == 'Oat'"height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:2px;height: 30px; width: auto;display:inline-block;" ng-show="user.profile.group_id == 1 && post.creator == 'sparker'"/> -->
 
    </a> <i>{{post.date | timeAgo}}</i></small>
 

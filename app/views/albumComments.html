@@ -48,7 +48,7 @@ TODO: stack instead of two views -->
   </div>
 
   <div>  <small><b>posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator}}</b>
-   <img src="/images/poop.gif" style="padding-bottom:10px; padding-left:3px" ng-show="post.creator == 'Nrblanks' || post.creator == 'Stevie' || post.creator == 'davidemerritt' || post.creator == 'Oat'" height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:6px" ng-show="post.creator == 'sparker'" height="30px"/>
+  <!--  <img src="/images/poop.gif" style="padding-bottom:10px; padding-left:3px" ng-show="post.creator == 'Nrblanks' || post.creator == 'Stevie' || post.creator == 'davidemerritt' || post.creator == 'Oat'" height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:6px" ng-show="post.creator == 'sparker'" height="30px"/> -->
 
   </a> <a ng-click="deletePost(post)" ng-show="user.uid === post.creatorUID">&mdash; delete</a></small>
 
@@ -98,7 +98,7 @@ TODO: stack instead of two views -->
     <a ng-href="#/users/{{ comment.creatorUID }}">
       {{ comment.creator }}
 
-      <img src="/images/poop.gif" style="padding-bottom:10px; padding-left:2px" ng-show="comment.creator  == 'Nrblanks' || comment.creator   == 'Stevie' || comment.creator == 'davidemerritt' || comment.creator == 'Oat'" height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:2px" ng-show="comment.creator == 'sparker'" height="30px"/>
+     <!--  <img src="/images/poop.gif" style="padding-bottom:10px; padding-left:2px" ng-show="comment.creator  == 'Nrblanks' || comment.creator   == 'Stevie' || comment.creator == 'davidemerritt' || comment.creator == 'Oat'" height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:2px" ng-show="comment.creator == 'sparker'" height="30px"/> -->
 
 
     </a>{{comment.datetime_ts | timeAgo}}
@@ -242,7 +242,7 @@ TODO: stack instead of two views -->
     <a ng-href="#/users/{{ comment.creatorUID }}">
       {{ comment.creator }}
 
-      <img src="/images/poop.gif" style="padding-bottom:10px; padding-left:2px" ng-show="comment.creator  == 'Nrblanks' || comment.creator   == 'Stevie' || comment.creator == 'davidemerritt' || comment.creator == 'Oat'" height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:2px" ng-show="comment.creator == 'sparker'" height="30px"/>
+   <!--    <img src="/images/poop.gif" style="padding-bottom:10px; padding-left:2px" ng-show="comment.creator  == 'Nrblanks' || comment.creator   == 'Stevie' || comment.creator == 'davidemerritt' || comment.creator == 'Oat'" height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:2px" ng-show="comment.creator == 'sparker'" height="30px"/> -->
 
 
     </a>{{comment.datetime_ts | timeAgo}}

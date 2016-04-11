@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "ad361b1102d8a41fc733"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "2261dff65f9c032cca1f"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -80250,6 +80250,7 @@
 	 
 	 $scope.filterByTag = function(tag){
 	  $scope.loadingBar = true;
+	  $scope.allTime();
 	  $scope.tagFilters.push(tag); 
 	  $scope.tagText += tag + " ";
 	  $timeout(function () { $scope.loadingBar = false; }, 3000); 

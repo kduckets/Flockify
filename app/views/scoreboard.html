@@ -13,7 +13,8 @@
     <tbody>
       <tr ng-repeat="user in users | orderBy:'-weekly_scores.album_score'">
         <th scope="row">{{$index + 1}}</th>
-        <td>{{user.$id}} <img src="/images/poop.gif" style="padding-bottom:4px" ng-show="user.$id == 'Nrblanks' || user.$id == 'Stevie' || user.$id == 'davidemerritt' || user.$id == 'Oat'" height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:3px" ng-show="user.$id == 'sparker'" height="30px"/></td>
+        <td>{{user.$id}} <!-- <img src="/images/poop.gif" style="padding-bottom:4px" ng-show="user.$id == 'Nrblanks' || user.$id == 'Stevie' || user.$id == 'davidemerritt' || user.$id == 'Oat'" height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:3px" ng-show="user.$id == 'sparker'" height="30px"/> -->
+        </td>
         <td>{{user.weekly_scores.album_score}}</td>      
       </tr>
     </tbody>

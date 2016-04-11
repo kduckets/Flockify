@@ -41,23 +41,30 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
 
 
  var tags = $firebase(ref.child('tags')).$asArray();
-  $scope.filter_start_date = moment().startOf('isoweek') 
-  $scope.filter_end_date = moment();
+
 
  $scope.sorter = '-';
  $scope.tagText = '';
  $scope.tagFilters = [];
+
  $scope.week = true;
+ $scope.last = false;
  $scope.month = false;
  $scope.allPosts = false;
+
+ $scope.filter_start_date = moment().startOf('isoweek') 
+ $scope.filter_end_date = moment();
+
  $scope.loadingBar = false;
- $scope.albumPosts = {};
- angular.forEach($scope.posts, function(item, key) {
-  if ($scope.post.media_type == 'spotify') { $scope.albumPosts[key] = item; };
-});
+
+//  $scope.albumPosts = {};
+//  angular.forEach($scope.posts, function(item, key) {
+//   if ($scope.post.media_type == 'spotify') { $scope.albumPosts[key] = item; };
+// });
  
  $scope.filterByTag = function(tag){
   $scope.loadingBar = true;
+  $scope.allTime();
   $scope.tagFilters.push(tag); 
   $scope.tagText += tag + " ";
   $timeout(function () { $scope.loadingBar = false; }, 3000); 
@@ -104,11 +111,28 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
     // var month_start = moment().startOf('month');
     var month_start = moment().subtract(30, 'days').startOf('day');
     var this_monday = moment().startOf('isoweek');
-    //TODO: use moment().range
    $scope.filter_start_date = month_start;
    $scope.filter_end_date = this_monday;
    $scope.sorter = ['-votes','-stars'];
+   $scope.last = false;
    $scope.month = true;
+   $scope.week = false;
+   $scope.allPosts = false;
+   $scope.totalDisplayed = 10;
+ };
+
+   $scope.lastWeek = function(){
+    $scope.loadingBar = true;
+    $timeout(function () { $scope.loadingBar = false; }, 2000); 
+    var last_monday = GetLastWeekStart(); 
+    // var month_start = moment().startOf('month');
+    var month_start = moment().subtract(30, 'days').startOf('day');
+    var this_monday = moment().startOf('isoweek');
+   $scope.filter_start_date = last_monday;
+   $scope.filter_end_date = this_monday;
+   $scope.sorter = ['-votes','-stars'];
+   $scope.last = true;
+   $scope.month = false;
    $scope.week = false;
    $scope.allPosts = false;
    $scope.totalDisplayed = 10;
@@ -123,7 +147,9 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
   $scope.allPosts = true;
   $scope.week = false;
   $scope.last = false;
+  $scope.last = false;
   $scope.totalDisplayed = 10;
+
 
 };
 
