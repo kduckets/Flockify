@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "2261dff65f9c032cca1f"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "9d5977c0ff4965a3fe8b"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -80233,20 +80233,26 @@
 	
 	
 	 var tags = $firebase(ref.child('tags')).$asArray();
-	  $scope.filter_start_date = moment().startOf('isoweek') 
-	  $scope.filter_end_date = moment();
+	
 	
 	 $scope.sorter = '-';
 	 $scope.tagText = '';
 	 $scope.tagFilters = [];
+	
 	 $scope.week = true;
+	 $scope.last = false;
 	 $scope.month = false;
 	 $scope.allPosts = false;
+	
+	 $scope.filter_start_date = moment().startOf('isoweek') 
+	 $scope.filter_end_date = moment();
+	
 	 $scope.loadingBar = false;
-	 $scope.albumPosts = {};
-	 angular.forEach($scope.posts, function(item, key) {
-	  if ($scope.post.media_type == 'spotify') { $scope.albumPosts[key] = item; };
-	});
+	
+	//  $scope.albumPosts = {};
+	//  angular.forEach($scope.posts, function(item, key) {
+	//   if ($scope.post.media_type == 'spotify') { $scope.albumPosts[key] = item; };
+	// });
 	 
 	 $scope.filterByTag = function(tag){
 	  $scope.loadingBar = true;
@@ -80297,11 +80303,27 @@
 	    // var month_start = moment().startOf('month');
 	    var month_start = moment().subtract(30, 'days').startOf('day');
 	    var this_monday = moment().startOf('isoweek');
-	    //TODO: use moment().range
 	   $scope.filter_start_date = month_start;
 	   $scope.filter_end_date = this_monday;
 	   $scope.sorter = ['-votes','-stars'];
+	   $scope.last = false;
 	   $scope.month = true;
+	   $scope.week = false;
+	   $scope.allPosts = false;
+	   $scope.totalDisplayed = 10;
+	 };
+	
+	   $scope.lastWeek = function(){
+	    $scope.loadingBar = true;
+	    $timeout(function () { $scope.loadingBar = false; }, 2000); 
+	    var last_monday = GetLastWeekStart(); 
+	    // var month_start = moment().startOf('month');
+	    var this_monday = moment().startOf('isoweek');
+	   $scope.filter_start_date = last_monday;
+	   $scope.filter_end_date = this_monday;
+	   $scope.sorter = ['-votes','-stars'];
+	   $scope.last = true;
+	   $scope.month = false;
 	   $scope.week = false;
 	   $scope.allPosts = false;
 	   $scope.totalDisplayed = 10;
@@ -80316,7 +80338,9 @@
 	  $scope.allPosts = true;
 	  $scope.week = false;
 	  $scope.last = false;
+	  $scope.last = false;
 	  $scope.totalDisplayed = 10;
+	
 	
 	};
 	
@@ -81194,10 +81218,10 @@
 /***/ function(module, exports) {
 
 	module.exports = function() {
-	  return function(items, startDate) {;
+	  return function(items, startDate, endDate) {;
 	    // Using ES6 filter method
 	    return items.filter(function(item){
-	      return moment(item.date).isAfter(startDate);
+	      return moment(item.date).isBetween(startDate, endDate);
 	    });
 	  };
 	};

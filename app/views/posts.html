@@ -60,6 +60,7 @@
 <div align="center">
   <md-tabs md-center-tabs="true" md-dynamic-height md-border-bottom>
    <md-tab ng-click="thisWeek()" aria-label="week" ng-class="week ? 'md-raised md-primary':'md-raised'">this week</md-tab>
+    <md-tab ng-click="lastWeek()" aria-label="last" ng-class="last ? 'md-raised md-primary':'md-raised'">last week</md-tab>
    <md-tab ng-click="thisMonth()" aria-label="month" ng-class="month ? 'md-raised md-primary':'md-raised'">past month</md-tab>
    <md-tab type="button" ng-click="allTime()" aria-label="all" ng-class="allPosts ? 'md-raised md-primary':'md-raised'">all time</md-tab>
  </md-tabs>
@@ -84,7 +85,7 @@
 <!--   <a href ng-click="batchUpdate()">batch</a>  -->
 <p ng-show="filteredItems.length == 0" align="center" style="padding-top: 20px"><i>Looks like there are no albums here yet</i></p>
 <div class="post" ng-repeat="post in filteredItems=(posts | orderBy:sorter | filter:'spotify' | 
-isAfter:filter_start_date:filter_end_date | byText:textFilter | byText:tagText) | limitTo:totalDisplayed trackby post.$id" align="center"> 
+isAfter:filter_start_date:filter_end_date | byText:textFilter | byText:tagText) | limitTo:totalDisplayed track by post.$id" align="center"> 
 
 
 <!-- mobile -->

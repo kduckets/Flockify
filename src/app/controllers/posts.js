@@ -126,7 +126,6 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
     $timeout(function () { $scope.loadingBar = false; }, 2000); 
     var last_monday = GetLastWeekStart(); 
     // var month_start = moment().startOf('month');
-    var month_start = moment().subtract(30, 'days').startOf('day');
     var this_monday = moment().startOf('isoweek');
    $scope.filter_start_date = last_monday;
    $scope.filter_end_date = this_monday;
