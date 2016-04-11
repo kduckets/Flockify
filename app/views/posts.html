@@ -4,7 +4,7 @@
    <h2>Welcome to flockify</h2>
    <p><a href="/#/login">Sign in</a> to get started</p>
  </div> -->
- <div ng-show="signedIn()">
+ <div ng-show="signedIn()" ng-cloak>
 
  <md-button aria-label="Search" 
  style="top:12px;right:48px;position:fixed;z-index:2;" ng-click="showSearch = !showSearch; allTime()">
