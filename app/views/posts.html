@@ -49,12 +49,13 @@
 </div>
 </div>
 
-<div class="list-group" ng-repeat="result in results" align="left">
-  <button type="button" class="list-group-item" ng-click="viewAlbum(result.href, $event)">
+<md-list ng-repeat="result in results" align="left">
+<md-list-item class="md-2-line" ng-click="viewAlbum(result.href, $event)">
     <img ng-src="{{result.images[2].url}}"/>
     <small>{{result.name}}</small>
-  </button>
-</div>
+  </md-list-item>
+   <md-divider ></md-divider>
+</md-list>
 
 <!--  <back-top scroll-speed=600 button-theme="light"> <ng-md-icon icon="clear"></ng-md-icon></back-top> -->
 <div align="center">
