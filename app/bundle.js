@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "6baf76d8745633d561f1"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "ad361b1102d8a41fc733"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -80195,7 +80195,6 @@
 	 $scope.signedIn = Auth.signedIn;
 	 $scope.user = Auth.user;
 	 $scope.filteredItems = [];
-	 console.log($scope.filteredItems, $scope.filteredItems.length);
 	 $scope.posts = Post.all;
 	 $scope.post = {artist: '', album: '', votes: 0, comments: 0, stars:0};
 	 $scope.logout = Auth.logout;
@@ -81194,10 +81193,10 @@
 /***/ function(module, exports) {
 
 	module.exports = function() {
-	  return function(items, startDate, endDate) {;
+	  return function(items, startDate) {;
 	    // Using ES6 filter method
 	    return items.filter(function(item){
-	      return moment(item.date).isBetween(startDate, endDate);
+	      return moment(item.date).isAfter(startDate);
 	    });
 	  };
 	};

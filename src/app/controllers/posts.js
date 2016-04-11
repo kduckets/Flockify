@@ -3,7 +3,6 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
  $scope.signedIn = Auth.signedIn;
  $scope.user = Auth.user;
  $scope.filteredItems = [];
- console.log($scope.filteredItems, $scope.filteredItems.length);
  $scope.posts = Post.all;
  $scope.post = {artist: '', album: '', votes: 0, comments: 0, stars:0};
  $scope.logout = Auth.logout;
