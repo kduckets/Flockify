@@ -4,7 +4,7 @@
    <h2>Welcome to flockify</h2>
    <p><a href="/#/login">Sign in</a> to get started</p>
  </div> -->
- <div ng-show="signedIn()" id="top">
+ <div ng-show="signedIn()">
 
  <md-button aria-label="Search" 
  style="top:12px;right:48px;position:fixed;z-index:2;" ng-click="showSearch = !showSearch; allTime()">
@@ -231,13 +231,15 @@ isAfter:filter_start_date:filter_end_date | byText:textFilter | byText:tagText) 
 
   </md-card> 
 </div>
+
 <div align="center" ng-show="!loadingCircle">
 <md-button ng-click="loadMore()" ng-show="filteredItems.length > totalDisplayed" >load more albums</md-button>
 </div>
  <div ng-show="loadingCircle" align="center">
  <md-progress-circular md-mode='indeterminate' md-diameter="132"></md-progress-circular>
  </div>
-</div>
 
+</div>
+</div>
 
 
