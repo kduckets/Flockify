@@ -1,7 +1,7 @@
 <!-- mobile
 TODO: stack instead of two views -->
 
-<div ng-show="signedIn()" class="container" ng-cloak show-xs hide-gt-xs>
+<div ng-show="signedIn()" class="container" ng-cloak hide-md hide-gt-md show-xs show-sm>
 <div align="center">
  
     <a ng-href="{{post.spotify_uri}}" target="_blank">
@@ -141,7 +141,7 @@ TODO: stack instead of two views -->
 
 <!-- desktop -->
 
-<div ng-show="signedIn()" flex ng-cloak layout="row" layout-xs="column" hide-xs>
+<div ng-show="signedIn()" flex ng-cloak layout="row" layout-xs="column" hide-xs hide-sm>
  
     <div flex align="center">
  <div style="position: fixed;">
