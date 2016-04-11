@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "7ad44ea2bd520957981a"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "6c988247c1a69f0bb58a"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -80791,8 +80791,7 @@
 	  'spotify',
 	  'ui.bootstrap',
 	  'yaru22.angular-timeago',
-	  'ngMdIcons',
-	  'ionic'
+	  'ngMdIcons'
 	]);
 	app.config(function($mdThemingProvider) {
 	  $mdThemingProvider.theme('default').primaryPalette('grey', {

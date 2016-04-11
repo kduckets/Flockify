@@ -35,8 +35,7 @@ var app = angular.module('flockifyApp', [
   'spotify',
   'ui.bootstrap',
   'yaru22.angular-timeago',
-  'ngMdIcons',
-  'ionic'
+  'ngMdIcons'
 ]);
 app.config(function($mdThemingProvider) {
   $mdThemingProvider.theme('default').primaryPalette('grey', {
