@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "77b86d1d77e5e3b152ba"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "dacda0e6a23da6615558"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -80506,11 +80506,6 @@
 	  $scope.logout = Auth.logout;
 	  $scope.posts = Post.all;
 	  $scope.loading = true;
-	  $scope.totalDisplayed = 10;
-	  $scope.loadMore = function () {
-	  $scope.totalDisplayed += 10; 
-	};
-	
 	
 	  var uid = $routeParams.userId;
 	  $scope.profile = Profile.get(uid);
@@ -80769,9 +80764,9 @@
 	__webpack_require__(23);
 	__webpack_require__(25);
 	__webpack_require__(17);
-	// require('angular-loading-bar');
-	// require('moment-range');
 	
+	// require('./../../app/bower_components/ionic-material/ionic.min.js');
+	// require('./../../app/bower_components/ionic-material/dist/ionic.material.min.js');
 	//firebase connectivity
 	__webpack_require__(10);
 	__webpack_require__(8);
@@ -80796,8 +80791,7 @@
 	  'spotify',
 	  'ui.bootstrap',
 	  'yaru22.angular-timeago',
-	  'ngMdIcons'
-	
+	  'ngMdIcons',
 	]);
 	app.config(function($mdThemingProvider) {
 	  $mdThemingProvider.theme('default').primaryPalette('grey', {

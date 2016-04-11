@@ -8,9 +8,9 @@ require('angular-resource');
 require('angular-route');
 require('angular-sanitize');
 require('angular-material-icons');
-// require('angular-loading-bar');
-// require('moment-range');
 
+// require('./../../app/bower_components/ionic-material/ionic.min.js');
+// require('./../../app/bower_components/ionic-material/dist/ionic.material.min.js');
 //firebase connectivity
 require('./../../app/bower_components/firebase/firebase.js');
 require('./../../app/bower_components/angularfire/dist/angularfire.min.js');
@@ -35,8 +35,7 @@ var app = angular.module('flockifyApp', [
   'spotify',
   'ui.bootstrap',
   'yaru22.angular-timeago',
-  'ngMdIcons'
-
+  'ngMdIcons',
 ]);
 app.config(function($mdThemingProvider) {
   $mdThemingProvider.theme('default').primaryPalette('grey', {
