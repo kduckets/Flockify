@@ -8,6 +8,8 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
  $scope.filteredItems = [];
  var ref = new Firebase(FIREBASE_URL);
  var chatRef = new Firebase(FIREBASE_URL+"/comments/flock_groupchat");
+ $scope.loadingCircle = true;
+ $timeout(function () { $scope.loadingCircle = false; }, 3000); 
 
  chatRef.limitToLast(1).on("child_added", function(snap) {
   if($scope.signedIn()){
@@ -33,8 +35,6 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
 
   $scope.totalDisplayed = 10;
   $scope.loadMore = function () {
-  $scope.loadingCircle = true;
-  $timeout(function () { $scope.loadingCircle = false; }, 1000); 
   $scope.totalDisplayed += 10; 
 };
 

@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "82c775fa661bd76ea336"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "ffd98fcf867f7ccb3185"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -80200,6 +80200,8 @@
 	 $scope.filteredItems = [];
 	 var ref = new Firebase(FIREBASE_URL);
 	 var chatRef = new Firebase(FIREBASE_URL+"/comments/flock_groupchat");
+	 $scope.loadingCircle = true;
+	 $timeout(function () { $scope.loadingCircle = false; }, 3000); 
 	
 	 chatRef.limitToLast(1).on("child_added", function(snap) {
 	  if($scope.signedIn()){
@@ -80222,16 +80224,9 @@
 	   };
 	  });
 	
-	 if($scope.showSearch){
-	  $scope.allTime();
-	 };
-	
-	
 	
 	  $scope.totalDisplayed = 10;
 	  $scope.loadMore = function () {
-	  $scope.loadingCircle = true;
-	  $timeout(function () { $scope.loadingCircle = false; }, 1000); 
 	  $scope.totalDisplayed += 10; 
 	};
 	
