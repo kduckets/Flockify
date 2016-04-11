@@ -79,7 +79,8 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
     if (index > -1) {
     $scope.tagFilters.splice(index, 1);
     }
-    $scope.tagText = $scope.tagText.replace(tag," ");  
+    $scope.tagText = $scope.tagText.replace(tag," "); 
+    $scope.thisWeek(); 
   };
 
  $scope.getPostLink = function(post){

@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "9d5977c0ff4965a3fe8b"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "77b86d1d77e5e3b152ba"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -80271,7 +80271,8 @@
 	    if (index > -1) {
 	    $scope.tagFilters.splice(index, 1);
 	    }
-	    $scope.tagText = $scope.tagText.replace(tag," ");  
+	    $scope.tagText = $scope.tagText.replace(tag," "); 
+	    $scope.thisWeek(); 
 	  };
 	
 	 $scope.getPostLink = function(post){
@@ -80505,6 +80506,11 @@
 	  $scope.logout = Auth.logout;
 	  $scope.posts = Post.all;
 	  $scope.loading = true;
+	  $scope.totalDisplayed = 10;
+	  $scope.loadMore = function () {
+	  $scope.totalDisplayed += 10; 
+	};
+	
 	
 	  var uid = $routeParams.userId;
 	  $scope.profile = Profile.get(uid);
