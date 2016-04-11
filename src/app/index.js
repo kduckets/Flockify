@@ -36,6 +36,7 @@ var app = angular.module('flockifyApp', [
   'ui.bootstrap',
   'yaru22.angular-timeago',
   'ngMdIcons',
+  'ionic'
 ]);
 app.config(function($mdThemingProvider) {
   $mdThemingProvider.theme('default').primaryPalette('grey', {
