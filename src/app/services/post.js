@@ -1,13 +1,13 @@
-module.exports = function ($firebase, FIREBASE_URL) {
+module.exports = function ($firebaseArray, $firebaseObject, FIREBASE_URL) {
   var ref = new Firebase(FIREBASE_URL);
-  var posts = $firebase(ref.child('posts')).$asArray();
+  var posts = $firebaseArray(ref.child('posts'));
 
   var Post = {
     all: posts,
 
     create: function (post) {
       return posts.$add(post).then(function(postRef) {
-        $firebase(ref.child('user_posts').child(post.creatorUID)).$push(postRef.name());
+        ref.child('user_posts').child(post.creatorUID).push(postRef.name());
         return postRef;
       });
     },
@@ -33,11 +33,11 @@ module.exports = function ($firebase, FIREBASE_URL) {
     },
 
     get: function (postId) {
-      return $firebase(ref.child('posts').child(postId)).$asObject();
+      return $firebaseObject(ref.child('posts').child(postId));
     },
 
     get_reference: function(postId){
-      return $firebase(ref.child('posts').child(postId));
+     return ref.child('posts').child(postId);
     },
 
     delete: function (post) {

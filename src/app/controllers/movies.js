@@ -1,8 +1,11 @@
 module.exports = function($scope, $route, $location, $window, Post, Auth, Spotify, $uibModal,
-  Profile, $firebase, $filter, $http) {
+  Profile, $filter, $http, Users) {
 
   $scope.posts = Post.all;
-  $scope.user = Auth.user;
+   if(Auth.$getAuth()){
+    $scope.user = Users.getProfile(Auth.$getAuth().uid);
+    $scope.username = Users.getUsername(Auth.$getAuth().uid);
+    };
   $scope.post = {
     artist: '',
     album: '',
@@ -10,8 +13,6 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
     comments: 0,
     stars: 0
   };
-  $scope.signedIn = Auth.signedIn;
-  $scope.logout = Auth.logout;
   var ref = new Firebase("https://flockify.firebaseio.com");
   $scope.sorter = '-';
 

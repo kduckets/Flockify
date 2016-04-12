@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "6c988247c1a69f0bb58a"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "0aad2f1a69bc1d6d1534"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -573,7 +573,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(41);
-	module.exports = __webpack_require__(71);
+	module.exports = __webpack_require__(66);
 
 
 /***/ },
@@ -10428,7 +10428,7 @@
 /* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(11);
+	__webpack_require__(8);
 	module.exports = 'ngAnimate';
 
 
@@ -10436,7 +10436,7 @@
 /* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(26);
+	__webpack_require__(23);
 	module.exports = angular;
 
 
@@ -10676,460 +10676,6 @@
 
 /***/ },
 /* 8 */
-/***/ function(module, exports) {
-
-	/*!
-	 * AngularFire is the officially supported AngularJS binding for Firebase. Firebase
-	 * is a full backend so you don't need servers to build your Angular app. AngularFire
-	 * provides you with the $firebase service which allows you to easily keep your $scope
-	 * variables in sync with your Firebase backend.
-	 *
-	 * AngularFire 0.0.0
-	 * https://github.com/firebase/angularfire/
-	 * Date: 08/28/2014
-	 * License: MIT
-	 */
-	!function(a){"use strict";angular.module("firebase",[]).value("Firebase",a.Firebase).value("firebaseBatchDelay",50)}(window),function(){"use strict";angular.module("firebase").factory("$FirebaseArray",["$log","$firebaseUtils",function(a,b){function c(a,c,d){var e=this;return this._observers=[],this.$list=[],this._inst=a,this._promise=d,this._destroyFn=c,b.getPublicMethods(e,function(a,b){e.$list[b]=a.bind(e)}),this.$list}return c.prototype={$add:function(a){return this._assertNotDestroyed("$add"),this.$inst().$push(b.toJSON(a))},$save:function(a){this._assertNotDestroyed("$save");var c=this,d=c._resolveItem(a),e=c.$keyAt(d);return null!==e?c.$inst().$set(e,b.toJSON(d)).then(function(a){return c._notify("child_changed",e),a}):b.reject("Invalid record; could determine its key: "+a)},$remove:function(a){this._assertNotDestroyed("$remove");var c=this.$keyAt(a);return null!==c?this.$inst().$remove(c):b.reject("Invalid record; could not find key: "+a)},$keyAt:function(a){var b=this._resolveItem(a);return this._getKey(b)},$indexFor:function(a){var b=this;return this.$list.findIndex(function(c){return b._getKey(c)===a})},$loaded:function(a,b){var c=this._promise;return arguments.length&&(c=c.then.call(c,a,b)),c},$inst:function(){return this._inst},$watch:function(a,b){var c=this._observers;return c.push([a,b]),function(){var d=c.findIndex(function(c){return c[0]===a&&c[1]===b});d>-1&&c.splice(d,1)}},$destroy:function(b){this._isDestroyed||(this._isDestroyed=!0,this.$list.length=0,a.debug("destroy called for FirebaseArray: "+this.$inst().$ref().toString()),this._destroyFn(b))},$getRecord:function(a){var b=this.$indexFor(a);return b>-1?this.$list[b]:null},$$added:function(a,c){var d=this.$indexFor(a.name());if(-1===d){var e=a.val();angular.isObject(e)||(e={$value:e}),e.$id=a.name(),e.$priority=a.getPriority(),b.applyDefaults(e,this.$$defaults),this._process("child_added",e,c)}},$$removed:function(a){var b=this.$getRecord(a.name());angular.isObject(b)&&this._process("child_removed",b)},$$updated:function(a){var c=this.$getRecord(a.name());if(angular.isObject(c)){var d=b.updateRec(c,a);b.applyDefaults(c,this.$$defaults),d&&this._process("child_changed",c)}},$$moved:function(a,b){var c=this.$getRecord(a.name());angular.isObject(c)&&(c.$priority=a.getPriority(),this._process("child_moved",c,b))},$$error:function(b){a.error(b),this.$destroy(b)},_getKey:function(a){return angular.isObject(a)?a.$id:null},_process:function(a,b,c){var d,e=this._getKey(b),f=!1;switch(a){case"child_added":d=this.$indexFor(e);break;case"child_moved":d=this.$indexFor(e),this._spliceOut(e);break;case"child_removed":f=null!==this._spliceOut(e);break;case"child_changed":f=!0}return angular.isDefined(d)&&(f=this._addAfter(b,c)!==d),f&&this._notify(a,e,c),f},_notify:function(a,b,c){var d={event:a,key:b};angular.isDefined(c)&&(d.prevChild=c),angular.forEach(this._observers,function(a){a[0].call(a[1],d)})},_addAfter:function(a,b){var c;return null===b?c=0:(c=this.$indexFor(b)+1,0===c&&(c=this.$list.length)),this.$list.splice(c,0,a),c},_spliceOut:function(a){var b=this.$indexFor(a);return b>-1?this.$list.splice(b,1)[0]:null},_resolveItem:function(a){var b=this.$list;if(angular.isNumber(a)&&a>=0&&b.length>=a)return b[a];if(angular.isObject(a))for(var c=b.length;c--;)if(b[c]===a)return a;return null},_assertNotDestroyed:function(a){if(this._isDestroyed)throw new Error("Cannot call "+a+" method on a destroyed $FirebaseArray object")}},c.$extendFactory=function(a,d){return 1===arguments.length&&angular.isObject(a)&&(d=a,a=function(){return c.apply(this,arguments)}),b.inherit(a,c,d)},c}])}(),function(){"use strict";angular.module("firebase").factory("$FirebaseObject",["$parse","$firebaseUtils","$log","$interval",function(a,b,c,d){function e(a,c,d){this.$$conf={promise:d,inst:a,binding:new f(this),destroyFn:c,listeners:[]},Object.defineProperty(this,"$$conf",{value:this.$$conf}),this.$id=a.$ref().ref().name(),this.$priority=null,b.applyDefaults(this,this.$$defaults)}function f(a){this.subs=[],this.scope=null,this.name=null,this.rec=a}return e.prototype={$save:function(){var a=this;return a.$inst().$set(b.toJSON(a)).then(function(b){return a.$$notify(),b})},$loaded:function(a,b){var c=this.$$conf.promise;return arguments.length&&(c=c.then.call(c,a,b)),c},$inst:function(){return this.$$conf.inst},$bindTo:function(a,b){var c=this;return c.$loaded().then(function(){return c.$$conf.binding.bindTo(a,b)})},$watch:function(a,b){var c=this.$$conf.listeners;return c.push([a,b]),function(){var d=c.findIndex(function(c){return c[0]===a&&c[1]===b});d>-1&&c.splice(d,1)}},$destroy:function(a){var c=this;c.$isDestroyed||(c.$isDestroyed=!0,c.$$conf.binding.destroy(),b.each(c,function(a,b){delete c[b]}),c.$$conf.destroyFn(a))},$$updated:function(a){var c=b.updateRec(this,a);b.applyDefaults(this,this.$$defaults),c&&this.$$notify()},$$error:function(a){c.error(a),this.$destroy(a)},$$scopeUpdated:function(a){return this.$inst().$set(b.toJSON(a))},$$notify:function(){var a=this,b=this.$$conf.listeners.slice();angular.forEach(b,function(b){b[0].call(b[1],{event:"value",key:a.$id})})},forEach:function(a,c){return b.each(this,a,c)}},e.$extendFactory=function(a,c){return 1===arguments.length&&angular.isObject(a)&&(c=a,a=function(){e.apply(this,arguments)}),b.inherit(a,e,c)},f.prototype={assertNotBound:function(a){if(this.scope){var d="Cannot bind to "+a+" because this instance is already bound to "+this.name+"; one binding per instance (call unbind method or create another $firebase instance)";return c.error(d),b.reject(d)}},bindTo:function(c,e){function f(f){function g(a){var c=h(),d=b.scopeData(a);return angular.equals(c,d)&&c.$priority===a.$priority&&c.$value===a.$value}function h(){return b.scopeData(l(c))}function i(a){l.assign(c,b.scopeData(a))}function j(){var a=l(c);(a.$value!==m.$value||a.$priority!==m.$priority)&&n()}var k=!1,l=a(e),m=f.rec;f.scope=c,f.varName=e;var n=function(){var a=b.debounce(function(){m.$$scopeUpdated(h())["finally"](function(){k=!1})},50,500);g(m)||(k=!0,a())},o=function(){k||g(m)||i(m)};return function(){var a="_firebaseCounterForVar"+e;c[a]=0;var b=d(function(){c[a]++},51,0,!1);f.subs.push(c.$watch(a,j)),f.subs.push(function(){d.cancel(b),delete c[a]})}(),i(m),f.subs.push(c.$on("$destroy",f.unbind.bind(f))),f.subs.push(c.$watch(e,n,!0)),f.subs.push(m.$watch(o)),f.unbind.bind(f)}return this.assertNotBound(e)||f(this)},unbind:function(){this.scope&&(angular.forEach(this.subs,function(a){a()}),this.subs=[],this.scope=null,this.name=null)},destroy:function(){this.unbind(),this.rec=null}},e}])}(),function(){"use strict";angular.module("firebase").factory("$firebase",["$firebaseUtils","$firebaseConfig",function(a,b){function c(a,d){return this instanceof c?(this._config=b(d),this._ref=a,this._arraySync=null,this._objectSync=null,void this._assertValidConfig(a,this._config)):new c(a,d)}function d(b,c){function d(a){q.isDestroyed=!0;var c=b.$ref();c.off("child_added",k),c.off("child_moved",m),c.off("child_changed",l),c.off("child_removed",n),i=null,p(a||"destroyed")}function e(){var a=b.$ref();a.on("child_added",k,o),a.on("child_moved",m,o),a.on("child_changed",l,o),a.on("child_removed",n,o),a.once("value",function(){p(null)},p)}function f(a){h&&(a?h.reject(a):h.resolve(i),h=null)}function g(a){if(!angular.isArray(a)){var b=Object.prototype.toString.call(a);throw new Error('arrayFactory must return a valid array that passes angular.isArray and Array.isArray, but received "'+b+'"')}}var h=a.defer(),i=new c(b,d,h.promise),j=a.batch(),k=j(i.$$added,i),l=j(i.$$updated,i),m=j(i.$$moved,i),n=j(i.$$removed,i),o=j(i.$$error,i),p=j(f),q=this;q.isDestroyed=!1,q.getArray=function(){return i},g(i),e()}function e(b,c){function d(a){n.isDestroyed=!0,i.off("value",k),h=null,m(a||"destroyed")}function e(){i.on("value",k,l),i.once("value",function(){m(null)},m)}function f(a){g&&(a?g.reject(a):g.resolve(h),g=null)}var g=a.defer(),h=new c(b,d,g.promise),i=b.$ref(),j=a.batch(),k=j(h.$$updated,h),l=j(h.$$error,h),m=j(f),n=this;n.isDestroyed=!1,n.getObject=function(){return h},e()}return c.prototype={$ref:function(){return this._ref},$push:function(b){var c=a.defer(),d=this._ref.ref().push(),e=this._handle(c,d);return arguments.length>0?d.set(b,e):e(),c.promise},$set:function(b,c){var d=this._ref,e=a.defer();if(arguments.length>1?d=d.ref().child(b):c=b,angular.isFunction(d.set)||!angular.isObject(c))d.ref().set(c,this._handle(e,d));else{var f=angular.extend({},c);d.once("value",function(a){a.forEach(function(a){f.hasOwnProperty(a.name())||(f[a.name()]=null)}),d.ref().update(f,this._handle(e,d))},this)}return e.promise},$remove:function(b){var c,d=this._ref,e=this,f=a.defer();if(arguments.length>0&&(d=d.ref().child(b)),angular.isFunction(d.remove))d.remove(e._handle(f,d)),c=f.promise;else{var g=[];d.once("value",function(b){b.forEach(function(b){var c=a.defer();g.push(c),b.ref().remove(e._handle(c,b.ref()))},e)}),c=a.allPromises(g).then(function(){return d})}return c},$update:function(b,c){var d=this._ref.ref(),e=a.defer();return arguments.length>1?d=d.child(b):c=b,d.update(c,this._handle(e,d)),e.promise},$transaction:function(b,c,d){var e=this._ref.ref();angular.isFunction(b)?(d=c,c=b):e=e.child(b),d=!!d;var f=a.defer();return e.transaction(c,function(a,b,c){a?f.reject(a):f.resolve(b?c:null)},d),f.promise},$asObject:function(){return(!this._objectSync||this._objectSync.isDestroyed)&&(this._objectSync=new e(this,this._config.objectFactory)),this._objectSync.getObject()},$asArray:function(){return(!this._arraySync||this._arraySync.isDestroyed)&&(this._arraySync=new d(this,this._config.arrayFactory)),this._arraySync.getArray()},_handle:function(a){var b=Array.prototype.slice.call(arguments,1);return function(c){c?a.reject(c):a.resolve.apply(a,b)}},_assertValidConfig:function(b,c){if(a.assertValidRef(b,"Must pass a valid Firebase reference to $firebase (not a string or URL)"),!angular.isFunction(c.arrayFactory))throw new Error("config.arrayFactory must be a valid function");if(!angular.isFunction(c.objectFactory))throw new Error("config.objectFactory must be a valid function")}},c}])}(),function(){"use strict";var a;angular.module("firebase").factory("$firebaseSimpleLogin",["$q","$timeout","$rootScope",function(b,c,d){return function(e){var f=new a(b,c,d,e);return f.construct()}}]),a=function(a,b,c,d){if(this._q=a,this._timeout=b,this._rootScope=c,this._loginDeferred=null,this._getCurrentUserDeferred=[],this._currentUserData=void 0,"string"==typeof d)throw new Error("Please provide a Firebase reference instead of a URL, eg: new Firebase(url)");this._fRef=d},a.prototype={construct:function(){var a={user:null,$login:this.login.bind(this),$logout:this.logout.bind(this),$createUser:this.createUser.bind(this),$changePassword:this.changePassword.bind(this),$removeUser:this.removeUser.bind(this),$getCurrentUser:this.getCurrentUser.bind(this),$sendPasswordResetEmail:this.sendPasswordResetEmail.bind(this)};if(this._object=a,!window.FirebaseSimpleLogin){var b=new Error("FirebaseSimpleLogin is undefined. Did you forget to include firebase-simple-login.js?");throw this._rootScope.$broadcast("$firebaseSimpleLogin:error",b),b}var c=new FirebaseSimpleLogin(this._fRef,this._onLoginEvent.bind(this));return this._authClient=c,this._object},login:function(a,b){var c=this._q.defer(),d=this;return this.getCurrentUser().then(function(){d._loginDeferred=c,d._authClient.login(a,b)}),c.promise},logout:function(){this._authClient.logout(),delete this._currentUserData},createUser:function(a,b){var c=this,d=this._q.defer();return c._authClient.createUser(a,b,function(a,b){a?(c._rootScope.$broadcast("$firebaseSimpleLogin:error",a),d.reject(a)):d.resolve(b)}),d.promise},changePassword:function(a,b,c){var d=this,e=this._q.defer();return d._authClient.changePassword(a,b,c,function(a){a?(d._rootScope.$broadcast("$firebaseSimpleLogin:error",a),e.reject(a)):e.resolve()}),e.promise},getCurrentUser:function(){var a=this,b=this._q.defer();return void 0!==a._currentUserData?b.resolve(a._currentUserData):a._getCurrentUserDeferred.push(b),b.promise},removeUser:function(a,b){var c=this,d=this._q.defer();return c._authClient.removeUser(a,b,function(a){a?(c._rootScope.$broadcast("$firebaseSimpleLogin:error",a),d.reject(a)):d.resolve()}),d.promise},sendPasswordResetEmail:function(a){var b=this,c=this._q.defer();return b._authClient.sendPasswordResetEmail(a,function(a){a?(b._rootScope.$broadcast("$firebaseSimpleLogin:error",a),c.reject(a)):c.resolve()}),c.promise},_onLoginEvent:function(a,b){if(this._currentUserData!==b||null!==a){var c=this;a?(c._loginDeferred&&(c._loginDeferred.reject(a),c._loginDeferred=null),c._rootScope.$broadcast("$firebaseSimpleLogin:error",a)):(this._currentUserData=b,c._timeout(function(){for(c._object.user=b,b?c._rootScope.$broadcast("$firebaseSimpleLogin:login",b):c._rootScope.$broadcast("$firebaseSimpleLogin:logout"),c._loginDeferred&&(c._loginDeferred.resolve(b),c._loginDeferred=null);c._getCurrentUserDeferred.length>0;){var a=c._getCurrentUserDeferred.pop();a.resolve(b)}}))}}}}(),Array.prototype.indexOf||(Array.prototype.indexOf=function(a,b){if(void 0===this||null===this)throw new TypeError("'this' is null or not defined");var c=this.length>>>0;for(b=+b||0,1/0===Math.abs(b)&&(b=0),0>b&&(b+=c,0>b&&(b=0));c>b;b++)if(this[b]===a)return b;return-1}),Function.prototype.bind||(Function.prototype.bind=function(a){if("function"!=typeof this)throw new TypeError("Function.prototype.bind - what is trying to be bound is not callable");var b=Array.prototype.slice.call(arguments,1),c=this,d=function(){},e=function(){return c.apply(this instanceof d&&a?this:a,b.concat(Array.prototype.slice.call(arguments)))};return d.prototype=this.prototype,e.prototype=new d,e}),Array.prototype.findIndex||Object.defineProperty(Array.prototype,"findIndex",{enumerable:!1,configurable:!0,writable:!0,value:function(a){if(null==this)throw new TypeError("Array.prototype.find called on null or undefined");if("function"!=typeof a)throw new TypeError("predicate must be a function");for(var b,c=Object(this),d=c.length>>>0,e=arguments[1],f=0;d>f;f++)if(f in c&&(b=c[f],a.call(e,b,f,c)))return f;return-1}}),"function"!=typeof Object.create&&!function(){var a=function(){};Object.create=function(b){if(arguments.length>1)throw new Error("Second argument not supported");if(null===b)throw new Error("Cannot set a null [[Prototype]]");if("object"!=typeof b)throw new TypeError("Argument must be an object");return a.prototype=b,new a}}(),Object.keys||(Object.keys=function(){"use strict";var a=Object.prototype.hasOwnProperty,b=!{toString:null}.propertyIsEnumerable("toString"),c=["toString","toLocaleString","valueOf","hasOwnProperty","isPrototypeOf","propertyIsEnumerable","constructor"],d=c.length;return function(e){if("object"!=typeof e&&("function"!=typeof e||null===e))throw new TypeError("Object.keys called on non-object");var f,g,h=[];for(f in e)a.call(e,f)&&h.push(f);if(b)for(g=0;d>g;g++)a.call(e,c[g])&&h.push(c[g]);return h}}()),"function"!=typeof Object.getPrototypeOf&&(Object.getPrototypeOf="object"==typeof"test".__proto__?function(a){return a.__proto__}:function(a){return a.constructor.prototype}),function(){"use strict";function a(b){if(!angular.isObject(b))return b;var c=angular.isArray(b)?[]:{};return angular.forEach(b,function(b,d){("string"!=typeof d||"$"!==d.charAt(0))&&(c[d]=a(b))}),c}angular.module("firebase").factory("$firebaseConfig",["$FirebaseArray","$FirebaseObject","$injector",function(a,b,c){return function(d){var e=angular.extend({},d);return"string"==typeof e.objectFactory&&(e.objectFactory=c.get(e.objectFactory)),"string"==typeof e.arrayFactory&&(e.arrayFactory=c.get(e.arrayFactory)),angular.extend({arrayFactory:a,objectFactory:b},e)}}]).factory("$firebaseUtils",["$q","$timeout","firebaseBatchDelay",function(b,c,d){var e={batch:function(a,b){function c(a,b){if("function"!=typeof a)throw new Error("Must provide a function to be batched. Got "+a);return function(){var c=Array.prototype.slice.call(arguments,0);j.push([a,b,c]),f()}}function f(){i&&(i(),i=null),h&&Date.now()-h>b?e.compile(g):(h||(h=Date.now()),i=e.wait(g,a))}function g(){i=null,h=null;var a=j.slice(0);j=[],angular.forEach(a,function(a){a[0].apply(a[1],a[2])})}a=d,b||(b=10*a||100);var h,i,j=[];return c},debounce:function(a,b,c,d){function f(){j&&(j(),j=null),i&&Date.now()-i>d?e.compile(g):(i||(i=Date.now()),j=e.wait(g,c))}function g(){j=null,i=null,a.apply(b,k)}function h(){k=Array.prototype.slice.call(arguments,0),f()}var i,j,k;if("number"==typeof b&&(d=c,c=b,b=null),"number"!=typeof c)throw new Error("Must provide a valid integer for wait. Try 0 for a default");if("function"!=typeof a)throw new Error("Must provide a valid function to debounce");return d||(d=10*c||100),h.running=function(){return i>0},h},assertValidRef:function(a,b){if(!angular.isObject(a)||"function"!=typeof a.ref||"function"!=typeof a.ref().transaction)throw new Error(b||"Invalid Firebase reference")},inherit:function(a,b,c){var d=a.prototype;return a.prototype=Object.create(b.prototype),a.prototype.constructor=a,angular.forEach(Object.keys(d),function(b){a.prototype[b]=d[b]}),angular.isObject(c)&&angular.extend(a.prototype,c),a},getPrototypeMethods:function(a,b,c){for(var d={},e=Object.getPrototypeOf({}),f=angular.isFunction(a)&&angular.isObject(a.prototype)?a.prototype:Object.getPrototypeOf(a);f&&f!==e;){for(var g in f)f.hasOwnProperty(g)&&!d.hasOwnProperty(g)&&(d[g]=!0,b.call(c,f[g],g,f));f=Object.getPrototypeOf(f)}},getPublicMethods:function(a,b,c){e.getPrototypeMethods(a,function(a,d){"function"==typeof a&&"_"!==d.charAt(0)&&b.call(c,a,d)})},defer:function(){return b.defer()},reject:function(a){var b=e.defer();return b.reject(a),b.promise},resolve:function(){var a=e.defer();return a.resolve.apply(a,arguments),a.promise},wait:function(a,b){var d=c(a,b||0);return function(){d&&(c.cancel(d),d=null)}},compile:function(a){return c(a||function(){})},deepCopy:function(a){if(!angular.isObject(a))return a;var b=angular.isArray(a)?a.slice():angular.extend({},a);for(var c in b)b.hasOwnProperty(c)&&angular.isObject(b[c])&&(b[c]=e.deepCopy(b[c]));return b},trimKeys:function(a,b){e.each(a,function(c,d){b.hasOwnProperty(d)||delete a[d]})},extendData:function(a,b){return e.each(b,function(b,c){a[c]=e.deepCopy(b)}),a},scopeData:function(a){var b={$id:a.$id,$priority:a.$priority};return a.hasOwnProperty("$value")&&(b.$value=a.$value),e.extendData(b,a)},updateRec:function(a,b){var c=b.val(),d=angular.extend({},a);return angular.isObject(c)?delete a.$value:(a.$value=c,c={}),e.trimKeys(a,c),angular.extend(a,c),a.$priority=b.getPriority(),!angular.equals(d,a)||d.$value!==a.$value||d.$priority!==a.$priority},applyDefaults:function(a,b){return angular.isObject(b)&&angular.forEach(b,function(b,c){a.hasOwnProperty(c)||(a[c]=b)}),a},dataKeys:function(a){var b=[];return e.each(a,function(a,c){b.push(c)}),b},each:function(a,b,c){if(angular.isObject(a)){for(var d in a)if(a.hasOwnProperty(d)){var e=d.charAt(0);"_"!==e&&"$"!==e&&"."!==e&&b.call(c,a[d],d,a)}}else if(angular.isArray(a))for(var f=0,g=a.length;g>f;f++)b.call(c,a[f],f,a);return a},toJSON:function(b){var c;return angular.isObject(b)||(b={$value:b}),angular.isFunction(b.toJSON)?c=b.toJSON():(c={},e.each(b,function(b,d){c[d]=a(b)})),angular.isDefined(b.$value)&&0===Object.keys(c).length&&null!==b.$value&&(c[".value"]=b.$value),angular.isDefined(b.$priority)&&Object.keys(c).length>0&&null!==b.$priority&&(c[".priority"]=b.$priority),angular.forEach(c,function(a,b){if(b.match(/[.$\[\]#\/]/)&&".value"!==b&&".priority"!==b)throw new Error("Invalid key "+b+" (cannot contain .$[]#)");if(angular.isUndefined(a))throw new Error("Key "+b+" was undefined. Cannot pass undefined in JSON. Use null instead.")}),c},batchDelay:d,allPromises:b.all.bind(b)};return e}])}();
-
-/***/ },
-/* 9 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(process) {(function() {var COMPILED=!0,goog=goog||{};goog.global=this;goog.exportPath_=function(a,d,e){a=a.split(".");e=e||goog.global;a[0]in e||!e.execScript||e.execScript("var "+a[0]);for(var f;a.length&&(f=a.shift());)a.length||void 0===d?e=e[f]?e[f]:e[f]={}:e[f]=d};goog.define=function(a,d){var e=d;COMPILED||goog.global.CLOSURE_DEFINES&&Object.prototype.hasOwnProperty.call(goog.global.CLOSURE_DEFINES,a)&&(e=goog.global.CLOSURE_DEFINES[a]);goog.exportPath_(a,e)};goog.DEBUG=!0;goog.LOCALE="en";goog.TRUSTED_SITE=!0;
-	goog.provide=function(a){if(!COMPILED){if(goog.isProvided_(a))throw Error('Namespace "'+a+'" already declared.');delete goog.implicitNamespaces_[a];for(var d=a;(d=d.substring(0,d.lastIndexOf(".")))&&!goog.getObjectByName(d);)goog.implicitNamespaces_[d]=!0}goog.exportPath_(a)};goog.setTestOnly=function(a){if(COMPILED&&!goog.DEBUG)throw a=a||"",Error( true?": "+a:".");};goog.forwardDeclare=function(a){};
-	COMPILED||(goog.isProvided_=function(a){return!goog.implicitNamespaces_[a]&&goog.isDefAndNotNull(goog.getObjectByName(a))},goog.implicitNamespaces_={});goog.getObjectByName=function(a,d){for(var e=a.split("."),f=d||goog.global,g;g=e.shift();)if(goog.isDefAndNotNull(f[g]))f=f[g];else return null;return f};goog.globalize=function(a,d){var e=d||goog.global,f;for(f in a)e[f]=a[f]};
-	goog.addDependency=function(a,d,e){if(goog.DEPENDENCIES_ENABLED){var f;a=a.replace(/\\/g,"/");for(var g=goog.dependencies_,h=0;f=d[h];h++)g.nameToPath[f]=a,a in g.pathToNames||(g.pathToNames[a]={}),g.pathToNames[a][f]=!0;for(f=0;d=e[f];f++)a in g.requires||(g.requires[a]={}),g.requires[a][d]=!0}};goog.ENABLE_DEBUG_LOADER=!0;
-	goog.require=function(a){if(!COMPILED&&!goog.isProvided_(a)){if(goog.ENABLE_DEBUG_LOADER){var d=goog.getPathFromDeps_(a);if(d){goog.included_[d]=!0;goog.writeScripts_();return}}a="goog.require could not find: "+a;goog.global.console&&goog.global.console.error(a);throw Error(a);}};goog.basePath="";goog.nullFunction=function(){};goog.identityFunction=function(a,d){return a};goog.abstractMethod=function(){throw Error("unimplemented abstract method");};
-	goog.addSingletonGetter=function(a){a.getInstance=function(){if(a.instance_)return a.instance_;goog.DEBUG&&(goog.instantiatedSingletons_[goog.instantiatedSingletons_.length]=a);return a.instance_=new a}};goog.instantiatedSingletons_=[];goog.DEPENDENCIES_ENABLED=!COMPILED&&goog.ENABLE_DEBUG_LOADER;
-	goog.DEPENDENCIES_ENABLED&&(goog.included_={},goog.dependencies_={pathToNames:{},nameToPath:{},requires:{},visited:{},written:{}},goog.inHtmlDocument_=function(){var a=goog.global.document;return"undefined"!=typeof a&&"write"in a},goog.findBasePath_=function(){if(goog.global.CLOSURE_BASE_PATH)goog.basePath=goog.global.CLOSURE_BASE_PATH;else if(goog.inHtmlDocument_())for(var a=goog.global.document.getElementsByTagName("script"),d=a.length-1;0<=d;--d){var e=a[d].src,f=e.lastIndexOf("?"),f=-1==f?e.length:
-	f;if("base.js"==e.substr(f-7,7)){goog.basePath=e.substr(0,f-7);break}}},goog.importScript_=function(a){var d=goog.global.CLOSURE_IMPORT_SCRIPT||goog.writeScriptTag_;!goog.dependencies_.written[a]&&d(a)&&(goog.dependencies_.written[a]=!0)},goog.writeScriptTag_=function(a){if(goog.inHtmlDocument_()){var d=goog.global.document;if("complete"==d.readyState){if(/\bdeps.js$/.test(a))return!1;throw Error('Cannot write "'+a+'" after document load');}d.write('<script type="text/javascript" src="'+a+'">\x3c/script>');
-	return!0}return!1},goog.writeScripts_=function(){function a(g){if(!(g in f.written)){if(!(g in f.visited)&&(f.visited[g]=!0,g in f.requires))for(var k in f.requires[g])if(!goog.isProvided_(k))if(k in f.nameToPath)a(f.nameToPath[k]);else throw Error("Undefined nameToPath for "+k);g in e||(e[g]=!0,d.push(g))}}var d=[],e={},f=goog.dependencies_,g;for(g in goog.included_)f.written[g]||a(g);for(g=0;g<d.length;g++)if(d[g])goog.importScript_(goog.basePath+d[g]);else throw Error("Undefined script input");
-	},goog.getPathFromDeps_=function(a){return a in goog.dependencies_.nameToPath?goog.dependencies_.nameToPath[a]:null},goog.findBasePath_(),goog.global.CLOSURE_NO_DEPS||goog.importScript_(goog.basePath+"deps.js"));
-	goog.typeOf=function(a){var d=typeof a;if("object"==d)if(a){if(a instanceof Array)return"array";if(a instanceof Object)return d;var e=Object.prototype.toString.call(a);if("[object Window]"==e)return"object";if("[object Array]"==e||"number"==typeof a.length&&"undefined"!=typeof a.splice&&"undefined"!=typeof a.propertyIsEnumerable&&!a.propertyIsEnumerable("splice"))return"array";if("[object Function]"==e||"undefined"!=typeof a.call&&"undefined"!=typeof a.propertyIsEnumerable&&!a.propertyIsEnumerable("call"))return"function"}else return"null";
-	else if("function"==d&&"undefined"==typeof a.call)return"object";return d};goog.isDef=function(a){return void 0!==a};goog.isNull=function(a){return null===a};goog.isDefAndNotNull=function(a){return null!=a};goog.isArray=function(a){return"array"==goog.typeOf(a)};goog.isArrayLike=function(a){var d=goog.typeOf(a);return"array"==d||"object"==d&&"number"==typeof a.length};goog.isDateLike=function(a){return goog.isObject(a)&&"function"==typeof a.getFullYear};goog.isString=function(a){return"string"==typeof a};
-	goog.isBoolean=function(a){return"boolean"==typeof a};goog.isNumber=function(a){return"number"==typeof a};goog.isFunction=function(a){return"function"==goog.typeOf(a)};goog.isObject=function(a){var d=typeof a;return"object"==d&&null!=a||"function"==d};goog.getUid=function(a){return a[goog.UID_PROPERTY_]||(a[goog.UID_PROPERTY_]=++goog.uidCounter_)};goog.hasUid=function(a){return!!a[goog.UID_PROPERTY_]};goog.removeUid=function(a){"removeAttribute"in a&&a.removeAttribute(goog.UID_PROPERTY_);try{delete a[goog.UID_PROPERTY_]}catch(d){}};
-	goog.UID_PROPERTY_="closure_uid_"+(1E9*Math.random()>>>0);goog.uidCounter_=0;goog.getHashCode=goog.getUid;goog.removeHashCode=goog.removeUid;goog.cloneObject=function(a){var d=goog.typeOf(a);if("object"==d||"array"==d){if(a.clone)return a.clone();var d="array"==d?[]:{},e;for(e in a)d[e]=goog.cloneObject(a[e]);return d}return a};goog.bindNative_=function(a,d,e){return a.call.apply(a.bind,arguments)};
-	goog.bindJs_=function(a,d,e){if(!a)throw Error();if(2<arguments.length){var f=Array.prototype.slice.call(arguments,2);return function(){var e=Array.prototype.slice.call(arguments);Array.prototype.unshift.apply(e,f);return a.apply(d,e)}}return function(){return a.apply(d,arguments)}};goog.bind=function(a,d,e){Function.prototype.bind&&-1!=Function.prototype.bind.toString().indexOf("native code")?goog.bind=goog.bindNative_:goog.bind=goog.bindJs_;return goog.bind.apply(null,arguments)};
-	goog.partial=function(a,d){var e=Array.prototype.slice.call(arguments,1);return function(){var d=e.slice();d.push.apply(d,arguments);return a.apply(this,d)}};goog.mixin=function(a,d){for(var e in d)a[e]=d[e]};goog.now=goog.TRUSTED_SITE&&Date.now||function(){return+new Date};
-	goog.globalEval=function(a){if(goog.global.execScript)goog.global.execScript(a,"JavaScript");else if(goog.global.eval)if(null==goog.evalWorksForGlobals_&&(goog.global.eval("var _et_ = 1;"),"undefined"!=typeof goog.global._et_?(delete goog.global._et_,goog.evalWorksForGlobals_=!0):goog.evalWorksForGlobals_=!1),goog.evalWorksForGlobals_)goog.global.eval(a);else{var d=goog.global.document,e=d.createElement("script");e.type="text/javascript";e.defer=!1;e.appendChild(d.createTextNode(a));d.body.appendChild(e);
-	d.body.removeChild(e)}else throw Error("goog.globalEval not available");};goog.evalWorksForGlobals_=null;goog.getCssName=function(a,d){var e=function(a){return goog.cssNameMapping_[a]||a},f=function(a){a=a.split("-");for(var d=[],f=0;f<a.length;f++)d.push(e(a[f]));return d.join("-")},f=goog.cssNameMapping_?"BY_WHOLE"==goog.cssNameMappingStyle_?e:f:function(a){return a};return d?a+"-"+f(d):f(a)};goog.setCssNameMapping=function(a,d){goog.cssNameMapping_=a;goog.cssNameMappingStyle_=d};
-	!COMPILED&&goog.global.CLOSURE_CSS_NAME_MAPPING&&(goog.cssNameMapping_=goog.global.CLOSURE_CSS_NAME_MAPPING);goog.getMsg=function(a,d){var e=d||{},f;for(f in e){var g=(""+e[f]).replace(/\$/g,"$$$$");a=a.replace(RegExp("\\{\\$"+f+"\\}","gi"),g)}return a};goog.getMsgWithFallback=function(a,d){return a};goog.exportSymbol=function(a,d,e){goog.exportPath_(a,d,e)};goog.exportProperty=function(a,d,e){a[d]=e};
-	goog.inherits=function(a,d){function e(){}e.prototype=d.prototype;a.superClass_=d.prototype;a.prototype=new e;a.prototype.constructor=a;a.base=function(a,e,h){var k=Array.prototype.slice.call(arguments,2);return d.prototype[e].apply(a,k)}};
-	goog.base=function(a,d,e){var f=arguments.callee.caller;if(goog.DEBUG&&!f)throw Error("arguments.caller not defined.  goog.base() expects not to be running in strict mode. See http://www.ecma-international.org/ecma-262/5.1/#sec-C");if(f.superClass_)return f.superClass_.constructor.apply(a,Array.prototype.slice.call(arguments,1));for(var g=Array.prototype.slice.call(arguments,2),h=!1,k=a.constructor;k;k=k.superClass_&&k.superClass_.constructor)if(k.prototype[d]===f)h=!0;else if(h)return k.prototype[d].apply(a,
-	g);if(a[d]===f)return a.constructor.prototype[d].apply(a,g);throw Error("goog.base called from a method of one name to a method of a different name");};goog.scope=function(a){a.call(goog.global)};var fb={simplelogin:{}};fb.simplelogin.Vars_=function(){this.apiHost="https://auth.firebase.com"};fb.simplelogin.Vars_.prototype.setApiHost=function(a){this.apiHost=a};fb.simplelogin.Vars_.prototype.getApiHost=function(){return this.apiHost};fb.simplelogin.Vars=new fb.simplelogin.Vars_;goog.json={};goog.json.USE_NATIVE_JSON=!1;goog.json.isValid_=function(a){return/^\s*$/.test(a)?!1:/^[\],:{}\s\u2028\u2029]*$/.test(a.replace(/\\["\\\/bfnrtu]/g,"@").replace(/"[^"\\\n\r\u2028\u2029\x00-\x08\x0a-\x1f]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g,"]").replace(/(?:^|:|,)(?:[\s\u2028\u2029]*\[)+/g,""))};
-	goog.json.parse=goog.json.USE_NATIVE_JSON?goog.global.JSON.parse:function(a){a=String(a);if(goog.json.isValid_(a))try{return eval("("+a+")")}catch(d){}throw Error("Invalid JSON string: "+a);};goog.json.unsafeParse=goog.json.USE_NATIVE_JSON?goog.global.JSON.parse:function(a){return eval("("+a+")")};goog.json.serialize=goog.json.USE_NATIVE_JSON?goog.global.JSON.stringify:function(a,d){return(new goog.json.Serializer(d)).serialize(a)};goog.json.Serializer=function(a){this.replacer_=a};
-	goog.json.Serializer.prototype.serialize=function(a){var d=[];this.serialize_(a,d);return d.join("")};
-	goog.json.Serializer.prototype.serialize_=function(a,d){switch(typeof a){case "string":this.serializeString_(a,d);break;case "number":this.serializeNumber_(a,d);break;case "boolean":d.push(a);break;case "undefined":d.push("null");break;case "object":if(null==a){d.push("null");break}if(goog.isArray(a)){this.serializeArray(a,d);break}this.serializeObject_(a,d);break;case "function":break;default:throw Error("Unknown type: "+typeof a);}};
-	goog.json.Serializer.charToJsonCharCache_={'"':'\\"',"\\":"\\\\","/":"\\/","\b":"\\b","\f":"\\f","\n":"\\n","\r":"\\r","\t":"\\t","\x0B":"\\u000b"};goog.json.Serializer.charsToReplace_=/\uffff/.test("\uffff")?/[\\\"\x00-\x1f\x7f-\uffff]/g:/[\\\"\x00-\x1f\x7f-\xff]/g;
-	goog.json.Serializer.prototype.serializeString_=function(a,d){d.push('"',a.replace(goog.json.Serializer.charsToReplace_,function(a){if(a in goog.json.Serializer.charToJsonCharCache_)return goog.json.Serializer.charToJsonCharCache_[a];var d=a.charCodeAt(0),g="\\u";16>d?g+="000":256>d?g+="00":4096>d&&(g+="0");return goog.json.Serializer.charToJsonCharCache_[a]=g+d.toString(16)}),'"')};goog.json.Serializer.prototype.serializeNumber_=function(a,d){d.push(isFinite(a)&&!isNaN(a)?a:"null")};
-	goog.json.Serializer.prototype.serializeArray=function(a,d){var e=a.length;d.push("[");for(var f="",g=0;g<e;g++)d.push(f),f=a[g],this.serialize_(this.replacer_?this.replacer_.call(a,String(g),f):f,d),f=",";d.push("]")};
-	goog.json.Serializer.prototype.serializeObject_=function(a,d){d.push("{");var e="",f;for(f in a)if(Object.prototype.hasOwnProperty.call(a,f)){var g=a[f];"function"!=typeof g&&(d.push(e),this.serializeString_(f,d),d.push(":"),this.serialize_(this.replacer_?this.replacer_.call(a,f,g):g,d),e=",")}d.push("}")};fb.simplelogin.util={};fb.simplelogin.util.json={};fb.simplelogin.util.json.parse=function(a){return"undefined"!==typeof JSON&&goog.isDef(JSON.parse)?JSON.parse(a):goog.json.parse(a)};fb.simplelogin.util.json.stringify=function(a){return"undefined"!==typeof JSON&&goog.isDef(JSON.stringify)?JSON.stringify(a):goog.json.serialize(a)};fb.simplelogin.transports={};fb.simplelogin.transports.Transport={};fb.simplelogin.Transport=function(){};fb.simplelogin.Transport.prototype.open=function(a,d,e){};fb.simplelogin.transports.Popup={};fb.simplelogin.Popup=function(){};fb.simplelogin.Popup.prototype.open=function(a,d,e){};fb.simplelogin.util.misc={};fb.simplelogin.util.misc.parseUrl=function(a){var d=document.createElement("a");d.href=a;return{protocol:d.protocol.replace(":",""),host:d.hostname,port:d.port,query:d.search,params:fb.simplelogin.util.misc.parseQuerystring(d.search),hash:d.hash.replace("#",""),path:d.pathname.replace(/^([^\/])/,"/$1")}};fb.simplelogin.util.misc.parseQuerystring=function(a){var d={};a=a.replace(/^\?/,"").split("&");for(var e=0;e<a.length;e++)if(a[e]){var f=a[e].split("=");d[f[0]]=f[1]}return d};
-	fb.simplelogin.util.misc.parseSubdomain=function(a){var d="";try{var e=fb.simplelogin.util.misc.parseUrl(a).host.split(".");2<e.length&&(d=e.slice(0,-2).join("."))}catch(f){}return d};fb.simplelogin.util.misc.warn=function(a){"undefined"!==typeof console&&("undefined"!==typeof console.warn?console.warn(a):console.log(a))};var popupTimeout=12E4;fb.simplelogin.transports.CordovaInAppBrowser_=function(){};
-	fb.simplelogin.transports.CordovaInAppBrowser_.prototype.open=function(a,d,e){callbackInvoked=!1;var f=function(){var a=Array.prototype.slice.apply(arguments);callbackInvoked||(callbackInvoked=!0,e.apply(null,a))},g=window.open(a+"&transport=internal-redirect-hash","blank","location=no");g.addEventListener("loadstop",function(a){var d;if(a&&a.url&&(a=fb.simplelogin.util.misc.parseUrl(a.url),"/blank/page.html"===a.path)){g.close();try{var e=fb.simplelogin.util.misc.parseQuerystring(a.hash);a={};for(var n in e)a[n]=
-	fb.simplelogin.util.json.parse(decodeURIComponent(e[n]));d=a}catch(q){}d&&d.token&&d.user?f(null,d):d&&d.error?f(d.error):f({code:"RESPONSE_PAYLOAD_ERROR",message:"Unable to parse response payload for PhoneGap."})}});g.addEventListener("exit",function(a){f({code:"USER_DENIED",message:"User cancelled the authentication request."})});setTimeout(function(){g&&g.close&&g.close()},popupTimeout)};fb.simplelogin.transports.CordovaInAppBrowser=new fb.simplelogin.transports.CordovaInAppBrowser_;fb.simplelogin.Errors={};var messagePrefix="FirebaseSimpleLogin: ",errors={UNKNOWN_ERROR:"An unknown error occurred.",INVALID_EMAIL:"Invalid email specified.",INVALID_PASSWORD:"Invalid password specified.",USER_DENIED:"User cancelled the authentication request.",RESPONSE_PAYLOAD_ERROR:"Unable to parse response payload.",TRIGGER_IO_TABS:'The "forge.tabs" module required when using Firebase Simple Login and                               Trigger.io. Without this module included and enabled, login attempts to                               OAuth authentication providers will not be able to complete.'};
-	fb.simplelogin.Errors.format=function(a,d){var e,f,g={},h=arguments;if(2===h.length)e=h[0],f=h[1];else if(1===h.length)if("object"===typeof h[0]&&h[0].code&&h[0].message){if(0===h[0].message.indexOf(messagePrefix))return h[0];e=h[0].code;f=h[0].message;g=h[0].data}else"string"===typeof h[0]&&(e=h[0],f=errors[e]);else e="UNKNOWN_ERROR",f=errors[e];f=Error(messagePrefix+f);f.code=e;g&&(f.data=g);return f};var RELAY_FRAME_NAME="__winchan_relay_frame",CLOSE_CMD="die";function addListener(a,d,e){a.attachEvent?a.attachEvent("on"+d,e):a.addEventListener&&a.addEventListener(d,e,!1)}function removeListener(a,d,e){a.detachEvent?a.detachEvent("on"+d,e):a.removeEventListener&&a.removeEventListener(d,e,!1)}function extractOrigin(a){/^https?:\/\//.test(a)||(a=window.location.href);var d=/^(https?:\/\/[\-_a-zA-Z\.0-9:]+)/.exec(a);return d?d[1]:a}
-	function findRelay(){for(var a=window.location,d=window.opener.frames,a=a.protocol+"//"+a.host,e=d.length-1;0<=e;e--)try{if(0===d[e].location.href.indexOf(a)&&d[e].name===RELAY_FRAME_NAME)return d[e]}catch(f){}}
-	var isInternetExplorer=function(){var a,d=-1,e=navigator.userAgent;"Microsoft Internet Explorer"===navigator.appName?(a=/MSIE ([0-9]{1,}[\.0-9]{0,})/,(a=e.match(a))&&1<a.length&&(d=parseFloat(a[1]))):-1<e.indexOf("Trident")&&(a=/rv:([0-9]{2,2}[\.0-9]{0,})/,(a=e.match(a))&&1<a.length&&(d=parseFloat(a[1])));return 8<=d}();fb.simplelogin.transports.WinChan_=function(){};
-	fb.simplelogin.transports.WinChan_.prototype.open=function(a,d,e){function f(a){k&&document.body.removeChild(k);k=void 0;s&&(s=clearInterval(s));removeListener(window,"message",g);removeListener(window,"unload",f);if(q&&!a)try{q.close()}catch(d){n.postMessage(CLOSE_CMD,l)}q=n=void 0}function g(a){if(a.origin===l)try{var d=fb.simplelogin.util.json.parse(a.data);"ready"===d.a?n.postMessage(m,l):"error"===d.a?(f(),e&&(e(d.d),e=null)):"response"===d.a&&(f(d.forceKeepWindowOpen),e&&(e(null,d.d),e=null))}catch(g){}}
-	if(!e)throw"missing required callback argument";d.url=a;var h;d.url||(h="missing required 'url' parameter");d.relay_url||(h="missing required 'relay_url' parameter");h&&setTimeout(function(){e(h)},0);d.window_name||(d.window_name=null);if(!d.window_features||fb.simplelogin.util.env.isFennec())d.window_features=void 0;var k,l=extractOrigin(d.url);if(l!==extractOrigin(d.relay_url))return setTimeout(function(){e("invalid arguments: origin of url and relay_url must match")},0);var n;isInternetExplorer&&
-	(k=document.createElement("iframe"),k.setAttribute("src",d.relay_url),k.style.display="none",k.setAttribute("name",RELAY_FRAME_NAME),document.body.appendChild(k),n=k.contentWindow);var q=window.open(d.url,d.window_name,d.window_features);n||(n=q);var s=setInterval(function(){q&&q.closed&&(f(),e&&(e("unknown closed window"),e=null))},500),m=fb.simplelogin.util.json.stringify({a:"request",d:d.params});addListener(window,"unload",f);addListener(window,"message",g);return{close:f,focus:function(){if(q)try{q.focus()}catch(a){}}}};
-	goog.exportSymbol("fb.simplelogin.transports.WinChan_.prototype.open",fb.simplelogin.transports.WinChan_.prototype.open);
-	fb.simplelogin.transports.WinChan_.prototype.onOpen=function(a){function d(a){a=fb.simplelogin.util.json.stringify(a);isInternetExplorer?h.doPost(a,g):h.postMessage(a,g)}function e(f){var h;try{h=fb.simplelogin.util.json.parse(f.data)}catch(n){}h&&"request"===h.a&&(removeListener(window,"message",e),g=f.origin,a&&setTimeout(function(){a(g,h.d,function(e,f){k=!f;a=void 0;d({a:"response",d:e,forceKeepWindowOpen:f})})},0))}function f(a){if(k&&a.data===CLOSE_CMD)try{window.close()}catch(d){}}var g="*",
-	h=isInternetExplorer?findRelay():window.opener,k=!0;if(!h)throw"can't find relay frame";addListener(isInternetExplorer?h:window,"message",e);addListener(isInternetExplorer?h:window,"message",f);try{d({a:"ready"})}catch(l){addListener(h,"load",function(a){d({a:"ready"})})}var n=function(){try{removeListener(isInternetExplorer?h:window,"message",f)}catch(e){}a&&d({a:"error",d:"client closed window"});a=void 0;try{window.close()}catch(g){}};addListener(window,"unload",n);return{detach:function(){removeListener(window,
-	"unload",n)}}};goog.exportSymbol("fb.simplelogin.transports.WinChan_.prototype.onOpen",fb.simplelogin.transports.WinChan_.prototype.onOpen);fb.simplelogin.transports.WinChan_.prototype.isAvailable=function(){return fb.simplelogin.util.json&&fb.simplelogin.util.json.parse&&fb.simplelogin.util.json.stringify&&window.postMessage};fb.simplelogin.transports.WinChan=new fb.simplelogin.transports.WinChan_;fb.simplelogin.transports.TriggerIoTab_=function(){};
-	fb.simplelogin.transports.TriggerIoTab_.prototype.open=function(a,d,e){callbackInvoked=!1;var f=function(){var a=Array.prototype.slice.apply(arguments);callbackInvoked||(callbackInvoked=!0,e.apply(null,a))};forge.tabs.openWithOptions({url:a+"&transport=internal-redirect-hash",pattern:fb.simplelogin.Vars.getApiHost()+"/blank/page*"},function(a){var d;if(a&&a.url)try{var e=fb.simplelogin.util.misc.parseUrl(a.url),l=fb.simplelogin.util.misc.parseQuerystring(e.hash);a={};for(var n in l)a[n]=fb.simplelogin.util.json.parse(decodeURIComponent(l[n]));
-	d=a}catch(q){}d&&d.token&&d.user?f(null,d):d&&d.error?f(d.error):f({code:"RESPONSE_PAYLOAD_ERROR",message:"Unable to parse response payload for Trigger.io."})},function(a){f({code:"UNKNOWN_ERROR",message:"An unknown error occurred for Trigger.io."})})};fb.simplelogin.transports.TriggerIoTab=new fb.simplelogin.transports.TriggerIoTab_;var b,c;
-	!function(){var a={},d={};b=function(d,f,g){a[d]={deps:f,callback:g}};c=function(e){function f(a){if("."!==a.charAt(0))return a;a=a.split("/");for(var d=e.split("/").slice(0,-1),f=0,g=a.length;g>f;f++){var k=a[f];".."===k?d.pop():"."!==k&&d.push(k)}return d.join("/")}if(d[e])return d[e];if(d[e]={},!a[e])throw Error("Could not find module "+e);for(var g,h=a[e],k=h.deps,h=h.callback,l=[],n=0,q=k.length;q>n;n++)l.push("exports"===k[n]?g={}:c(f(k[n])));k=h.apply(this,l);return d[e]=g||k};c.entries=a}();
-	b("rsvp/all-settled",["./promise","./utils","exports"],function(a,d,e){var f=a["default"],g=d.isArray,h=d.isNonThenable;e["default"]=function(a,d){return new f(function(d){function e(a){return function(d){m(a,{state:"fulfilled",value:d})}}function l(a){return function(d){m(a,{state:"rejected",reason:d})}}function m(a,e){u[a]=e;0===--r&&d(u)}if(!g(a))throw new TypeError("You must pass an array to allSettled.");var p,r=a.length;if(0===r)return void d([]);for(var u=Array(r),v=0;v<a.length;v++)p=a[v],
-	h(p)?m(v,{state:"fulfilled",value:p}):f.resolve(p).then(e(v),l(v))},d)}});b("rsvp/all",["./promise","exports"],function(a,d){var e=a["default"];d["default"]=function(a,d){return e.all(a,d)}});
-	b("rsvp/asap",["exports"],function(a){function d(){return function(){process.nextTick(g)}}function e(){var a=0,d=new k(g),e=document.createTextNode("");return d.observe(e,{characterData:!0}),function(){e.data=a=++a%2}}function f(){return function(){setTimeout(g,1)}}function g(){for(var a=0;a<l.length;a++){var d=l[a];(0,d[0])(d[1])}l.length=0}a["default"]=function(a,d){1===l.push([a,d])&&h()};var h;a="undefined"!=typeof window?window:{};var k=a.MutationObserver||a.WebKitMutationObserver,l=[];h="undefined"!=
-	typeof process&&"[object process]"==={}.toString.call(process)?d():k?e():f()});b("rsvp/config",["./events","exports"],function(a,d){var e={instrument:!1};a["default"].mixin(e);d.config=e;d.configure=function(a,d){return"onerror"===a?void e.on("error",d):2!==arguments.length?e[a]:void(e[a]=d)}});b("rsvp/defer",["./promise","exports"],function(a,d){var e=a["default"];d["default"]=function(a){var d={};return d.promise=new e(function(a,e){d.resolve=a;d.reject=e},a),d}});
-	b("rsvp/events",["exports"],function(a){function d(a,d){for(var e=0,k=a.length;k>e;e++)if(a[e]===d)return e;return-1}function e(a){var d=a._promiseCallbacks;return d||(d=a._promiseCallbacks={}),d}a["default"]={mixin:function(a){return a.on=this.on,a.off=this.off,a.trigger=this.trigger,a._promiseCallbacks=void 0,a},on:function(a,g){var h,k=e(this);(h=k[a])||(h=k[a]=[]);-1===d(h,g)&&h.push(g)},off:function(a,g){var h,k,l=e(this);return g?(h=l[a],k=d(h,g),void(-1!==k&&h.splice(k,1))):void(l[a]=[])},
-	trigger:function(a,d){var h;if(h=e(this)[a])for(var k=0;k<h.length;k++)(0,h[k])(d)}}});
-	b("rsvp/filter",["./promise","./utils","exports"],function(a,d,e){var f=a["default"],g=d.isFunction;e["default"]=function(a,d,e){return f.all(a,e).then(function(a){if(!g(d))throw new TypeError("You must pass a function as filter's second argument.");for(var h=a.length,s=Array(h),m=0;h>m;m++)s[m]=d(a[m]);return f.all(s,e).then(function(d){for(var e=Array(h),f=0,g=0;h>g;g++)!0===d[g]&&(e[f]=a[g],f++);return e.length=f,e})})}});
-	b("rsvp/hash-settled",["./promise","./utils","exports"],function(a,d,e){var f=a["default"],g=d.isNonThenable,h=d.keysOf;e["default"]=function(a){return new f(function(d){function e(a){return function(d){s(a,{state:"fulfilled",value:d})}}function q(a){return function(d){s(a,{state:"rejected",reason:d})}}function s(a,e){r[a]=e;0===--v&&d(r)}var m,p,r={},u=h(a),v=u.length;if(0===v)return void d(r);for(var t=0;t<u.length;t++)p=u[t],m=a[p],g(m)?s(p,{state:"fulfilled",value:m}):f.resolve(m).then(e(p),q(p))})}});
-	b("rsvp/hash",["./promise","./utils","exports"],function(a,d,e){var f=a["default"],g=d.isNonThenable,h=d.keysOf;e["default"]=function(a){return new f(function(d,e){function q(a){return function(e){r[a]=e;0===--v&&d(r)}}function s(a){v=0;e(a)}var m,p,r={},u=h(a),v=u.length;if(0===v)return void d(r);for(var t=0;t<u.length;t++)p=u[t],m=a[p],g(m)?(r[p]=m,0===--v&&d(r)):f.resolve(m).then(q(p),s)})}});
-	b("rsvp/instrument",["./config","./utils","exports"],function(a,d,e){var f=a.config,g=d.now;e["default"]=function(a,d,e){try{f.trigger(a,{guid:d._guidKey+d._id,eventName:a,detail:d._detail,childGuid:e&&d._guidKey+e._id,label:d._label,timeStamp:g(),stack:Error(d._label).stack})}catch(n){setTimeout(function(){throw n;},0)}}});
-	b("rsvp/map",["./promise","./utils","exports"],function(a,d,e){var f=a["default"],g=(d.isArray,d.isFunction);e["default"]=function(a,d,e){return f.all(a,e).then(function(a){if(!g(d))throw new TypeError("You must pass a function as map's second argument.");for(var h=a.length,s=Array(h),m=0;h>m;m++)s[m]=d(a[m]);return f.all(s,e)})}});
-	b("rsvp/node",["./promise","./utils","exports"],function(a,d,e){var f=a["default"],g=d.isArray;e["default"]=function(a,d){function e(){for(var g=arguments.length,m=Array(g),l=0;g>l;l++)m[l]=arguments[l];var r;return n||q||!d?r=this:(console.warn('Deprecation: RSVP.denodeify() doesn\'t allow setting the "this" binding anymore. Use yourFunction.bind(yourThis) instead.'),r=d),f.all(m).then(function(e){return new f(function(f,g){e.push(function(){for(var a=arguments.length,e=Array(a),h=0;a>h;h++)e[h]=
-	arguments[h];a=e[0];h=e[1];if(a)g(a);else if(n)f(e.slice(1));else if(q){for(var a={},l=e.slice(1),h=0;h<d.length;h++)e=d[h],a[e]=l[h];f(a)}else f(h)});a.apply(r,e)})})}var n=!0===d,q=g(d);return e.__proto__=a,e}});
-	b("rsvp/promise","./config ./events ./instrument ./utils ./promise/cast ./promise/all ./promise/race ./promise/resolve ./promise/reject exports".split(" "),function(a,d,e,f,g,h,k,l,n,q){function s(){}function m(a,d){if(!B(a))throw new TypeError("You must pass a resolver function as the first argument to the promise constructor");if(!(this instanceof m))throw new TypeError("Failed to construct 'Promise': Please use the 'new' operator, this object constructor cannot be called as a function.");this._id=
-	H++;this._label=d;this._subscribers=[];z.instrument&&C("created",this);s!==a&&p(a,this)}function p(a,d){function e(a){y(d,a)}function f(a){x(d,a)}try{a(e,f)}catch(g){f(g)}}function r(a,d,e,f){a=a._subscribers;var g=a.length;a[g]=d;a[g+A]=e;a[g+D]=f}function u(a,d){var e,f,g=a._subscribers,h=a._detail;z.instrument&&C(d===A?"fulfilled":"rejected",a);for(var k=0;k<g.length;k+=3)e=g[k],f=g[k+d],v(d,e,f,h);a._subscribers=null}function v(a,d,e,f){var g,h,k,l,m=B(e);if(m)try{g=e(f),k=!0}catch(n){l=!0,h=
-	n}else g=f,k=!0;t(d,g)||(m&&k?y(d,g):l?x(d,h):a===A?y(d,g):a===D&&x(d,g))}function t(a,d){var e,f=null;try{if(a===d)throw new TypeError("A promises callback cannot return that same promise.");if(I(d)&&(f=d.then,B(f)))return f.call(d,function(f){return e?!0:(e=!0,void(d!==f?y(a,f):w(a,f)))},function(d){return e?!0:(e=!0,void x(a,d))},"Settle: "+(a._label||" unknown promise")),!0}catch(g){return e?!0:(x(a,g),!0)}return!1}function y(a,d){a===d?w(a,d):t(a,d)||w(a,d)}function w(a,d){a._state===E&&(a._state=
-	F,a._detail=d,z.async(G,a))}function x(a,d){a._state===E&&(a._state=F,a._detail=d,z.async(J,a))}function G(a){u(a,a._state=A)}function J(a){a._onerror&&a._onerror(a._detail);u(a,a._state=D)}var z=a.config,C=(d["default"],e["default"]),I=f.objectOrFunction,B=f.isFunction;a=f.now;g=g["default"];h=h["default"];k=k["default"];l=l["default"];n=n["default"];a="rsvp_"+a()+"-";var H=0;q["default"]=m;m.cast=g;m.all=h;m.race=k;m.resolve=l;m.reject=n;var E=void 0,F=0,A=1,D=2;m.prototype={constructor:m,_id:void 0,
-	_guidKey:a,_label:void 0,_state:void 0,_detail:void 0,_subscribers:void 0,_onerror:function(a){z.trigger("error",a)},then:function(a,d,e){var f=this;this._onerror=null;var g=new this.constructor(s,e);if(this._state){var h=arguments;z.async(function(){v(f._state,g,h[f._state-1],f._detail)})}else r(this,g,a,d);return z.instrument&&C("chained",f,g),g},"catch":function(a,d){return this.then(null,a,d)},"finally":function(a,d){var e=this.constructor;return this.then(function(d){return e.resolve(a()).then(function(){return d})},
-	function(d){return e.resolve(a()).then(function(){throw d;})},d)}}});
-	b("rsvp/promise/all",["../utils","exports"],function(a,d){var e=a.isArray,f=a.isNonThenable;d["default"]=function(a,d){var k=this;return new k(function(d,h){function q(a){return function(e){r[a]=e;0===--p&&d(r)}}function s(a){p=0;h(a)}if(!e(a))throw new TypeError("You must pass an array to all.");var m,p=a.length,r=Array(p);if(0===p)return void d(r);for(var u=0;u<a.length;u++)m=a[u],f(m)?(r[u]=m,0===--p&&d(r)):k.resolve(m).then(q(u),s)},d)}});
-	b("rsvp/promise/cast",["exports"],function(a){a["default"]=function(a,e){return a&&"object"==typeof a&&a.constructor===this?a:new this(function(e){e(a)},e)}});
-	b("rsvp/promise/race",["../utils","exports"],function(a,d){var e=a.isArray,f=(a.isFunction,a.isNonThenable);d["default"]=function(a,d){var k,l=this;return new l(function(d,h){function s(a){p&&(p=!1,d(a))}function m(a){p&&(p=!1,h(a))}if(!e(a))throw new TypeError("You must pass an array to race.");for(var p=!0,r=0;r<a.length;r++){if(k=a[r],f(k))return p=!1,void d(k);l.resolve(k).then(s,m)}},d)}});
-	b("rsvp/promise/reject",["exports"],function(a){a["default"]=function(a,e){return new this(function(e,g){g(a)},e)}});b("rsvp/promise/resolve",["exports"],function(a){a["default"]=function(a,e){return a&&"object"==typeof a&&a.constructor===this?a:new this(function(e){e(a)},e)}});b("rsvp/race",["./promise","exports"],function(a,d){var e=a["default"];d["default"]=function(a,d){return e.race(a,d)}});
-	b("rsvp/reject",["./promise","exports"],function(a,d){var e=a["default"];d["default"]=function(a,d){return e.reject(a,d)}});b("rsvp/resolve",["./promise","exports"],function(a,d){var e=a["default"];d["default"]=function(a,d){return e.resolve(a,d)}});b("rsvp/rethrow",["exports"],function(a){a["default"]=function(a){throw setTimeout(function(){throw a;}),a;}});
-	b("rsvp/utils",["exports"],function(a){function d(a){return"function"==typeof a||"object"==typeof a&&null!==a}a.objectOrFunction=d;a.isFunction=function(a){return"function"==typeof a};a.isNonThenable=function(a){return!d(a)};a.isArray=Array.isArray?Array.isArray:function(a){return"[object Array]"===Object.prototype.toString.call(a)};a.now=Date.now||function(){return(new Date).getTime()};a.keysOf=Object.keys||function(a){var d=[],g;for(g in a)d.push(g);return d}});
-	b("rsvp","./rsvp/promise ./rsvp/events ./rsvp/node ./rsvp/all ./rsvp/all-settled ./rsvp/race ./rsvp/hash ./rsvp/hash-settled ./rsvp/rethrow ./rsvp/defer ./rsvp/config ./rsvp/map ./rsvp/resolve ./rsvp/reject ./rsvp/filter ./rsvp/asap exports".split(" "),function(a,d,e,f,g,h,k,l,n,q,s,m,p,r,u,v,t){function y(){w.on.apply(w,arguments)}a=a["default"];d=d["default"];e=e["default"];f=f["default"];g=g["default"];h=h["default"];k=k["default"];l=l["default"];n=n["default"];q=q["default"];var w=s.config;s=
-	s.configure;m=m["default"];p=p["default"];r=r["default"];u=u["default"];if(w.async=v["default"],"undefined"!=typeof window&&"object"==typeof window.__PROMISE_INSTRUMENTATION__){v=window.__PROMISE_INSTRUMENTATION__;s("instrument",!0);for(var x in v)v.hasOwnProperty(x)&&y(x,v[x])}t.Promise=a;t.EventTarget=d;t.all=f;t.allSettled=g;t.race=h;t.hash=k;t.hashSettled=l;t.rethrow=n;t.defer=q;t.denodeify=e;t.configure=s;t.on=y;t.off=function(){w.off.apply(w,arguments)};t.resolve=p;t.reject=r;t.async=function(a,
-	d){w.async(a,d)};t.map=m;t.filter=u});fb.simplelogin.util.RSVP=c("rsvp");fb.simplelogin.util.env={};fb.simplelogin.util.env.hasLocalStorage=function(a){try{if(localStorage){localStorage.setItem("firebase-sentinel","test");var d=localStorage.getItem("firebase-sentinel");localStorage.removeItem("firebase-sentinel");return"test"===d}}catch(e){}return!1};
-	fb.simplelogin.util.env.hasSessionStorage=function(a){try{if(sessionStorage){sessionStorage.setItem("firebase-sentinel","test");var d=sessionStorage.getItem("firebase-sentinel");sessionStorage.removeItem("firebase-sentinel");return"test"===d}}catch(e){}return!1};fb.simplelogin.util.env.isMobileCordovaInAppBrowser=function(){return(window.cordova||window.CordovaInAppBrowser||window.phonegap)&&/ios|iphone|ipod|ipad|android/i.test(navigator.userAgent)};
-	fb.simplelogin.util.env.isMobileTriggerIoTab=function(){return window.forge&&/ios|iphone|ipod|ipad|android/i.test(navigator.userAgent)};fb.simplelogin.util.env.isWindowsMetro=function(){return!!window.Windows&&/^ms-appx:/.test(location.href)};fb.simplelogin.util.env.isChromeiOS=function(){return!!navigator.userAgent.match(/CriOS/)};fb.simplelogin.util.env.isTwitteriOS=function(){return!!navigator.userAgent.match(/Twitter for iPhone/)};fb.simplelogin.util.env.isFacebookiOS=function(){return!!navigator.userAgent.match(/FBAN\/FBIOS/)};
-	fb.simplelogin.util.env.isWindowsPhone=function(){return!!navigator.userAgent.match(/Windows Phone/)};fb.simplelogin.util.env.isStandaloneiOS=function(){return!!window.navigator.standalone};fb.simplelogin.util.env.isPhantomJS=function(){return!!navigator.userAgent.match(/PhantomJS/)};
-	fb.simplelogin.util.env.isIeLT10=function(){var a,d=-1,e=navigator.userAgent;return"Microsoft Internet Explorer"===navigator.appName&&(a=/MSIE ([0-9]{1,}[\.0-9]{0,})/,(a=e.match(a))&&1<a.length&&(d=parseFloat(a[1])),10>d)?!0:!1};fb.simplelogin.util.env.isFennec=function(){try{var a=navigator.userAgent;return-1!=a.indexOf("Fennec/")||-1!=a.indexOf("Firefox/")&&-1!=a.indexOf("Android")}catch(d){}return!1};fb.simplelogin.transports.XHR_=function(){};
-	fb.simplelogin.transports.XHR_.prototype.open=function(a,d,e){var f={contentType:"application/json"},g=new XMLHttpRequest,h=(f.method||"GET").toUpperCase(),k=f.contentType||"application/x-www-form-urlencoded",l=!1,n;g.onreadystatechange=function(){if(!l&&4===g.readyState){var a,d;l=!0;if(200<=g.status&&300>g.status||304==g.status||1223==g.status)try{a=fb.simplelogin.util.json.parse(g.responseText),d=a.error||null,delete a.error}catch(f){d="UNKNOWN_ERROR"}else d="RESPONSE_PAYLOAD_ERROR";return e&&
-	e(d,a)}};d&&("GET"===h?(-1===a.indexOf("?")&&(a+="?"),a+=this.formatQueryString(d),d=null):("application/json"===k&&(d=fb.simplelogin.util.json.stringify(d)),"application/x-www-form-urlencoded"===k&&(d=this.formatQueryString(d))));g.open(h,a,!0);a={"X-Requested-With":"XMLHttpRequest",Accept:"application/json;text/plain","Content-Type":k};f.headers=f.headers||{};for(n in f.headers)a[n]=f.headers[n];for(n in a)g.setRequestHeader(n,a[n]);g.send(d)};
-	fb.simplelogin.transports.XHR_.prototype.isAvailable=function(){return window.XMLHttpRequest&&"function"===typeof window.XMLHttpRequest&&!fb.simplelogin.util.env.isIeLT10()};fb.simplelogin.transports.XHR_.prototype.formatQueryString=function(a){if(!a)return"";var d=[],e;for(e in a)d.push(encodeURIComponent(e)+"="+encodeURIComponent(a[e]));return d.join("&")};fb.simplelogin.transports.XHR=new fb.simplelogin.transports.XHR_;fb.simplelogin.util.validation={};var VALID_EMAIL_REGEX_=/^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,6})+$/;fb.simplelogin.util.validation.validateArgCount=function(a,d,e,f){var g;f<d?g="at least "+d:f>e&&(g=0===e?"none":"no more than "+e);if(g)throw Error(a+" failed: Was called with "+f+(1===f?" argument.":" arguments.")+" Expects "+g+".");};fb.simplelogin.util.validation.isValidEmail=function(a){return goog.isString(a)&&VALID_EMAIL_REGEX_.test(a)};
-	fb.simplelogin.util.validation.isValidPassword=function(a){return goog.isString(a)};fb.simplelogin.util.validation.isValidNamespace=function(a){return goog.isString(a)};
-	fb.simplelogin.util.validation.errorPrefix_=function(a,d,e){var f="";switch(d){case 1:f=e?"first":"First";break;case 2:f=e?"second":"Second";break;case 3:f=e?"third":"Third";break;case 4:f=e?"fourth":"Fourth";break;default:fb.core.util.validation.assert(!1,"errorPrefix_ called with argumentNumber > 4.  Need to update it?")}return a=a+" failed: "+(f+" argument ")};
-	fb.simplelogin.util.validation.validateNamespace=function(a,d,e,f){if((!f||goog.isDef(e))&&!goog.isString(e))throw Error(fb.simplelogin.util.validation.errorPrefix_(a,d,f)+"must be a valid firebase namespace.");};fb.simplelogin.util.validation.validateCallback=function(a,d,e,f){if((!f||goog.isDef(e))&&!goog.isFunction(e))throw Error(fb.simplelogin.util.validation.errorPrefix_(a,d,f)+"must be a valid function.");};
-	fb.simplelogin.util.validation.validateString=function(a,d,e,f){if((!f||goog.isDef(e))&&!goog.isString(e))throw Error(fb.simplelogin.util.validation.errorPrefix_(a,d,f)+"must be a valid string.");};fb.simplelogin.util.validation.validateContextObject=function(a,d,e,f){if(!f||goog.isDef(e))if(!goog.isObject(e)||null===e)throw Error(fb.simplelogin.util.validation.errorPrefix_(a,d,f)+"must be a valid context object.");};var CALLBACK_NAMESPACE="_FirebaseSimpleLoginJSONP";fb.simplelogin.transports.JSONP_=function(){window[CALLBACK_NAMESPACE]=window[CALLBACK_NAMESPACE]||{}};fb.simplelogin.transports.JSONP_.prototype.open=function(a,d,e){a+=/\?/.test(a)?"":"?";a+="&transport=jsonp";for(var f in d)a+="&"+encodeURIComponent(f)+"="+encodeURIComponent(d[f]);d=this.generateRequestId_();a+="&callback="+encodeURIComponent(CALLBACK_NAMESPACE+"."+d);this.registerCallback_(d,e);this.writeScriptTag_(d,a,e)};
-	fb.simplelogin.transports.JSONP_.prototype.generateRequestId_=function(){return"_FirebaseJSONP"+(new Date).getTime()+Math.floor(100*Math.random())};fb.simplelogin.transports.JSONP_.prototype.registerCallback_=function(a,d){var e=this;window[CALLBACK_NAMESPACE][a]=function(f){var g=f.error||null;delete f.error;d(g,f);e.removeCallback_(a)}};
-	fb.simplelogin.transports.JSONP_.prototype.removeCallback_=function(a){setTimeout(function(){delete window[CALLBACK_NAMESPACE][a];var d=document.getElementById(a);d&&d.parentNode.removeChild(d)},0)};
-	fb.simplelogin.transports.JSONP_.prototype.writeScriptTag_=function(a,d,e){var f=this;setTimeout(function(){try{var g=document.createElement("script");g.type="text/javascript";g.id=a;g.async=!0;g.src=d;g.onerror=function(){var d=document.getElementById(a);null!==d&&d.parentNode.removeChild(d);e&&e(f.formatError_({code:"SERVER_ERROR",message:"An unknown server error occurred."}))};document.getElementsByTagName("head")[0].appendChild(g)}catch(h){e&&e(f.formatError_({code:"SERVER_ERROR",message:"An unknown server error occurred."}))}},
-	0)};fb.simplelogin.transports.JSONP_.prototype.formatError_=function(a){var d;a?(d=Error(a.message),d.code=a.code||"UNKNOWN_ERROR"):(d=Error(),d.code="UNKNOWN_ERROR");return d};fb.simplelogin.transports.JSONP=new fb.simplelogin.transports.JSONP_;fb.simplelogin.providers={};fb.simplelogin.providers.Password_=function(){};fb.simplelogin.providers.Password_.prototype.getTransport_=function(){return fb.simplelogin.transports.XHR.isAvailable()?fb.simplelogin.transports.XHR:fb.simplelogin.transports.JSONP};
-	fb.simplelogin.providers.Password_.prototype.login=function(a,d){var e=fb.simplelogin.Vars.getApiHost()+"/auth/firebase";if(!fb.simplelogin.util.validation.isValidNamespace(a.firebase))return d&&d("INVALID_FIREBASE");this.getTransport_().open(e,a,d)};
-	fb.simplelogin.providers.Password_.prototype.createUser=function(a,d){var e=fb.simplelogin.Vars.getApiHost()+"/auth/firebase/create";if(!fb.simplelogin.util.validation.isValidNamespace(a.firebase))return d&&d("INVALID_FIREBASE");if(!fb.simplelogin.util.validation.isValidEmail(a.email))return d&&d("INVALID_EMAIL");if(!fb.simplelogin.util.validation.isValidPassword(a.password))return d&&d("INVALID_PASSWORD");this.getTransport_().open(e,a,d)};
-	fb.simplelogin.providers.Password_.prototype.changePassword=function(a,d){var e=fb.simplelogin.Vars.getApiHost()+"/auth/firebase/update";if(!fb.simplelogin.util.validation.isValidNamespace(a.firebase))return d&&d("INVALID_FIREBASE");if(!fb.simplelogin.util.validation.isValidEmail(a.email))return d&&d("INVALID_EMAIL");if(!fb.simplelogin.util.validation.isValidPassword(a.newPassword))return d&&d("INVALID_PASSWORD");this.getTransport_().open(e,a,d)};
-	fb.simplelogin.providers.Password_.prototype.removeUser=function(a,d){var e=fb.simplelogin.Vars.getApiHost()+"/auth/firebase/remove";if(!fb.simplelogin.util.validation.isValidNamespace(a.firebase))return d&&d("INVALID_FIREBASE");if(!fb.simplelogin.util.validation.isValidEmail(a.email))return d&&d("INVALID_EMAIL");if(!fb.simplelogin.util.validation.isValidPassword(a.password))return d&&d("INVALID_PASSWORD");this.getTransport_().open(e,a,d)};
-	fb.simplelogin.providers.Password_.prototype.sendPasswordResetEmail=function(a,d){var e=fb.simplelogin.Vars.getApiHost()+"/auth/firebase/reset_password";if(!fb.simplelogin.util.validation.isValidNamespace(a.firebase))return d&&d("INVALID_FIREBASE");if(!fb.simplelogin.util.validation.isValidEmail(a.email))return d&&d("INVALID_EMAIL");this.getTransport_().open(e,a,d)};fb.simplelogin.providers.Password=new fb.simplelogin.providers.Password_;fb.simplelogin.transports.WindowsMetroAuthBroker_=function(){};
-	fb.simplelogin.transports.WindowsMetroAuthBroker_.prototype.open=function(a,d,e){var f,g,h,k,l,n;try{f=window.Windows.Foundation.Uri,g=window.Windows.Security.Authentication.Web.WebAuthenticationOptions,h=window.Windows.Security.Authentication.Web.WebAuthenticationBroker,k=h.authenticateAsync}catch(q){return e({code:"WINDOWS_METRO",message:'"Windows.Security.Authentication.Web.WebAuthenticationBroker" required when using Firebase Simple Login in Windows Metro context'})}l=!1;n=function(){var a=Array.prototype.slice.apply(arguments);
-	l||(l=!0,e.apply(null,a))};a=new f(a+"&transport=internal-redirect-hash");f=new f(fb.simplelogin.Vars.getApiHost()+"/blank/page.html");k(g.none,a,f).done(function(a){var d;if(a&&a.responseData)try{var e=fb.simplelogin.util.misc.parseUrl(a.responseData),f=fb.simplelogin.util.misc.parseQuerystring(e.hash);a={};for(var g in f)a[g]=fb.simplelogin.util.json.parse(decodeURIComponent(f[g]));d=a}catch(h){}d&&d.token&&d.user?n(null,d):d&&d.error?n(d.error):n({code:"RESPONSE_PAYLOAD_ERROR",message:"Unable to parse response payload for Windows."})},
-	function(a){n({code:"UNKNOWN_ERROR",message:"An unknown error occurred for Windows."})})};fb.simplelogin.transports.WindowsMetroAuthBroker=new fb.simplelogin.transports.WindowsMetroAuthBroker_;goog.string={};goog.string.Unicode={NBSP:"\u00a0"};goog.string.startsWith=function(a,d){return 0==a.lastIndexOf(d,0)};goog.string.endsWith=function(a,d){var e=a.length-d.length;return 0<=e&&a.indexOf(d,e)==e};goog.string.caseInsensitiveStartsWith=function(a,d){return 0==goog.string.caseInsensitiveCompare(d,a.substr(0,d.length))};goog.string.caseInsensitiveEndsWith=function(a,d){return 0==goog.string.caseInsensitiveCompare(d,a.substr(a.length-d.length,d.length))};
-	goog.string.caseInsensitiveEquals=function(a,d){return a.toLowerCase()==d.toLowerCase()};goog.string.subs=function(a,d){for(var e=a.split("%s"),f="",g=Array.prototype.slice.call(arguments,1);g.length&&1<e.length;)f+=e.shift()+g.shift();return f+e.join("%s")};goog.string.collapseWhitespace=function(a){return a.replace(/[\s\xa0]+/g," ").replace(/^\s+|\s+$/g,"")};goog.string.isEmpty=function(a){return/^[\s\xa0]*$/.test(a)};goog.string.isEmptySafe=function(a){return goog.string.isEmpty(goog.string.makeSafe(a))};
-	goog.string.isBreakingWhitespace=function(a){return!/[^\t\n\r ]/.test(a)};goog.string.isAlpha=function(a){return!/[^a-zA-Z]/.test(a)};goog.string.isNumeric=function(a){return!/[^0-9]/.test(a)};goog.string.isAlphaNumeric=function(a){return!/[^a-zA-Z0-9]/.test(a)};goog.string.isSpace=function(a){return" "==a};goog.string.isUnicodeChar=function(a){return 1==a.length&&" "<=a&&"~">=a||"\u0080"<=a&&"\ufffd">=a};goog.string.stripNewlines=function(a){return a.replace(/(\r\n|\r|\n)+/g," ")};
-	goog.string.canonicalizeNewlines=function(a){return a.replace(/(\r\n|\r|\n)/g,"\n")};goog.string.normalizeWhitespace=function(a){return a.replace(/\xa0|\s/g," ")};goog.string.normalizeSpaces=function(a){return a.replace(/\xa0|[ \t]+/g," ")};goog.string.collapseBreakingSpaces=function(a){return a.replace(/[\t\r\n ]+/g," ").replace(/^[\t\r\n ]+|[\t\r\n ]+$/g,"")};goog.string.trim=function(a){return a.replace(/^[\s\xa0]+|[\s\xa0]+$/g,"")};
-	goog.string.trimLeft=function(a){return a.replace(/^[\s\xa0]+/,"")};goog.string.trimRight=function(a){return a.replace(/[\s\xa0]+$/,"")};goog.string.caseInsensitiveCompare=function(a,d){var e=String(a).toLowerCase(),f=String(d).toLowerCase();return e<f?-1:e==f?0:1};goog.string.numerateCompareRegExp_=/(\.\d+)|(\d+)|(\D+)/g;
-	goog.string.numerateCompare=function(a,d){if(a==d)return 0;if(!a)return-1;if(!d)return 1;for(var e=a.toLowerCase().match(goog.string.numerateCompareRegExp_),f=d.toLowerCase().match(goog.string.numerateCompareRegExp_),g=Math.min(e.length,f.length),h=0;h<g;h++){var k=e[h],l=f[h];if(k!=l)return e=parseInt(k,10),!isNaN(e)&&(f=parseInt(l,10),!isNaN(f)&&e-f)?e-f:k<l?-1:1}return e.length!=f.length?e.length-f.length:a<d?-1:1};goog.string.urlEncode=function(a){return encodeURIComponent(String(a))};
-	goog.string.urlDecode=function(a){return decodeURIComponent(a.replace(/\+/g," "))};goog.string.newLineToBr=function(a,d){return a.replace(/(\r\n|\r|\n)/g,d?"<br />":"<br>")};
-	goog.string.htmlEscape=function(a,d){if(d)return a.replace(goog.string.amperRe_,"&amp;").replace(goog.string.ltRe_,"&lt;").replace(goog.string.gtRe_,"&gt;").replace(goog.string.quotRe_,"&quot;").replace(goog.string.singleQuoteRe_,"&#39;");if(!goog.string.allRe_.test(a))return a;-1!=a.indexOf("&")&&(a=a.replace(goog.string.amperRe_,"&amp;"));-1!=a.indexOf("<")&&(a=a.replace(goog.string.ltRe_,"&lt;"));-1!=a.indexOf(">")&&(a=a.replace(goog.string.gtRe_,"&gt;"));-1!=a.indexOf('"')&&(a=a.replace(goog.string.quotRe_,
-	"&quot;"));-1!=a.indexOf("'")&&(a=a.replace(goog.string.singleQuoteRe_,"&#39;"));return a};goog.string.amperRe_=/&/g;goog.string.ltRe_=/</g;goog.string.gtRe_=/>/g;goog.string.quotRe_=/"/g;goog.string.singleQuoteRe_=/'/g;goog.string.allRe_=/[&<>"']/;goog.string.unescapeEntities=function(a){return goog.string.contains(a,"&")?"document"in goog.global?goog.string.unescapeEntitiesUsingDom_(a):goog.string.unescapePureXmlEntities_(a):a};
-	goog.string.unescapeEntitiesWithDocument=function(a,d){return goog.string.contains(a,"&")?goog.string.unescapeEntitiesUsingDom_(a,d):a};
-	goog.string.unescapeEntitiesUsingDom_=function(a,d){var e={"&amp;":"&","&lt;":"<","&gt;":">","&quot;":'"'},f;f=d?d.createElement("div"):document.createElement("div");return a.replace(goog.string.HTML_ENTITY_PATTERN_,function(a,d){var k=e[a];if(k)return k;if("#"==d.charAt(0)){var l=Number("0"+d.substr(1));isNaN(l)||(k=String.fromCharCode(l))}k||(f.innerHTML=a+" ",k=f.firstChild.nodeValue.slice(0,-1));return e[a]=k})};
-	goog.string.unescapePureXmlEntities_=function(a){return a.replace(/&([^;]+);/g,function(a,e){switch(e){case "amp":return"&";case "lt":return"<";case "gt":return">";case "quot":return'"';default:if("#"==e.charAt(0)){var f=Number("0"+e.substr(1));if(!isNaN(f))return String.fromCharCode(f)}return a}})};goog.string.HTML_ENTITY_PATTERN_=/&([^;\s<&]+);?/g;goog.string.whitespaceEscape=function(a,d){return goog.string.newLineToBr(a.replace(/  /g," &#160;"),d)};
-	goog.string.stripQuotes=function(a,d){for(var e=d.length,f=0;f<e;f++){var g=1==e?d:d.charAt(f);if(a.charAt(0)==g&&a.charAt(a.length-1)==g)return a.substring(1,a.length-1)}return a};goog.string.truncate=function(a,d,e){e&&(a=goog.string.unescapeEntities(a));a.length>d&&(a=a.substring(0,d-3)+"...");e&&(a=goog.string.htmlEscape(a));return a};
-	goog.string.truncateMiddle=function(a,d,e,f){e&&(a=goog.string.unescapeEntities(a));if(f&&a.length>d){f>d&&(f=d);var g=a.length-f;a=a.substring(0,d-f)+"..."+a.substring(g)}else a.length>d&&(f=Math.floor(d/2),g=a.length-f,a=a.substring(0,f+d%2)+"..."+a.substring(g));e&&(a=goog.string.htmlEscape(a));return a};goog.string.specialEscapeChars_={"\x00":"\\0","\b":"\\b","\f":"\\f","\n":"\\n","\r":"\\r","\t":"\\t","\x0B":"\\x0B",'"':'\\"',"\\":"\\\\"};goog.string.jsEscapeCache_={"'":"\\'"};
-	goog.string.quote=function(a){a=String(a);if(a.quote)return a.quote();for(var d=['"'],e=0;e<a.length;e++){var f=a.charAt(e),g=f.charCodeAt(0);d[e+1]=goog.string.specialEscapeChars_[f]||(31<g&&127>g?f:goog.string.escapeChar(f))}d.push('"');return d.join("")};goog.string.escapeString=function(a){for(var d=[],e=0;e<a.length;e++)d[e]=goog.string.escapeChar(a.charAt(e));return d.join("")};
-	goog.string.escapeChar=function(a){if(a in goog.string.jsEscapeCache_)return goog.string.jsEscapeCache_[a];if(a in goog.string.specialEscapeChars_)return goog.string.jsEscapeCache_[a]=goog.string.specialEscapeChars_[a];var d=a,e=a.charCodeAt(0);if(31<e&&127>e)d=a;else{if(256>e){if(d="\\x",16>e||256<e)d+="0"}else d="\\u",4096>e&&(d+="0");d+=e.toString(16).toUpperCase()}return goog.string.jsEscapeCache_[a]=d};goog.string.toMap=function(a){for(var d={},e=0;e<a.length;e++)d[a.charAt(e)]=!0;return d};
-	goog.string.contains=function(a,d){return-1!=a.indexOf(d)};goog.string.countOf=function(a,d){return a&&d?a.split(d).length-1:0};goog.string.removeAt=function(a,d,e){var f=a;0<=d&&d<a.length&&0<e&&(f=a.substr(0,d)+a.substr(d+e,a.length-d-e));return f};goog.string.remove=function(a,d){var e=RegExp(goog.string.regExpEscape(d),"");return a.replace(e,"")};goog.string.removeAll=function(a,d){var e=RegExp(goog.string.regExpEscape(d),"g");return a.replace(e,"")};
-	goog.string.regExpEscape=function(a){return String(a).replace(/([-()\[\]{}+?*.$\^|,:#<!\\])/g,"\\$1").replace(/\x08/g,"\\x08")};goog.string.repeat=function(a,d){return Array(d+1).join(a)};goog.string.padNumber=function(a,d,e){a=goog.isDef(e)?a.toFixed(e):String(a);e=a.indexOf(".");-1==e&&(e=a.length);return goog.string.repeat("0",Math.max(0,d-e))+a};goog.string.makeSafe=function(a){return null==a?"":String(a)};goog.string.buildString=function(a){return Array.prototype.join.call(arguments,"")};
-	goog.string.getRandomString=function(){return Math.floor(2147483648*Math.random()).toString(36)+Math.abs(Math.floor(2147483648*Math.random())^goog.now()).toString(36)};
-	goog.string.compareVersions=function(a,d){for(var e=0,f=goog.string.trim(String(a)).split("."),g=goog.string.trim(String(d)).split("."),h=Math.max(f.length,g.length),k=0;0==e&&k<h;k++){var l=f[k]||"",n=g[k]||"",q=RegExp("(\\d*)(\\D*)","g"),s=RegExp("(\\d*)(\\D*)","g");do{var m=q.exec(l)||["","",""],p=s.exec(n)||["","",""];if(0==m[0].length&&0==p[0].length)break;var e=0==m[1].length?0:parseInt(m[1],10),r=0==p[1].length?0:parseInt(p[1],10),e=goog.string.compareElements_(e,r)||goog.string.compareElements_(0==
-	m[2].length,0==p[2].length)||goog.string.compareElements_(m[2],p[2])}while(0==e)}return e};goog.string.compareElements_=function(a,d){return a<d?-1:a>d?1:0};goog.string.HASHCODE_MAX_=4294967296;goog.string.hashCode=function(a){for(var d=0,e=0;e<a.length;++e)d=31*d+a.charCodeAt(e),d%=goog.string.HASHCODE_MAX_;return d};goog.string.uniqueStringCounter_=2147483648*Math.random()|0;goog.string.createUniqueString=function(){return"goog_"+goog.string.uniqueStringCounter_++};
-	goog.string.toNumber=function(a){var d=Number(a);return 0==d&&goog.string.isEmpty(a)?NaN:d};goog.string.isLowerCamelCase=function(a){return/^[a-z]+([A-Z][a-z]*)*$/.test(a)};goog.string.isUpperCamelCase=function(a){return/^([A-Z][a-z]*)+$/.test(a)};goog.string.toCamelCase=function(a){return String(a).replace(/\-([a-z])/g,function(a,e){return e.toUpperCase()})};goog.string.toSelectorCase=function(a){return String(a).replace(/([A-Z])/g,"-$1").toLowerCase()};
-	goog.string.toTitleCase=function(a,d){var e=goog.isString(d)?goog.string.regExpEscape(d):"\\s";return a.replace(RegExp("(^"+(e?"|["+e+"]+":"")+")([a-z])","g"),function(a,d,e){return d+e.toUpperCase()})};goog.string.parseInt=function(a){isFinite(a)&&(a=String(a));return goog.isString(a)?/^\s*-?0x/i.test(a)?parseInt(a,16):parseInt(a,10):NaN};goog.string.splitLimit=function(a,d,e){a=a.split(d);for(var f=[];0<e&&a.length;)f.push(a.shift()),e--;a.length&&f.push(a.join(d));return f};var sessionPersistentStorageKey="firebaseSession",hasLocalStorage=fb.simplelogin.util.env.hasLocalStorage();fb.simplelogin.SessionStore_=function(){};fb.simplelogin.SessionStore_.prototype.set=function(a,d){if(hasLocalStorage)try{localStorage.setItem(sessionPersistentStorageKey,fb.simplelogin.util.json.stringify(a))}catch(e){}};fb.simplelogin.SessionStore_.prototype.get=function(){if(hasLocalStorage){try{var a=localStorage.getItem(sessionPersistentStorageKey);if(a)return fb.simplelogin.util.json.parse(a)}catch(d){}return null}};
-	fb.simplelogin.SessionStore_.prototype.clear=function(){hasLocalStorage&&localStorage.removeItem(sessionPersistentStorageKey)};fb.simplelogin.SessionStore=new fb.simplelogin.SessionStore_;var CLIENT_VERSION="1.6.4";
-	fb.simplelogin.client=function(a,d,e,f){function g(a,d,e){setTimeout(function(){a(d,e)},0)}this.mRef=a;this.mNamespace=fb.simplelogin.util.misc.parseSubdomain(a.toString());this.sessionLengthDays=null;window._FirebaseSimpleLogin=window._FirebaseSimpleLogin||{};window._FirebaseSimpleLogin.callbacks=window._FirebaseSimpleLogin.callbacks||[];window._FirebaseSimpleLogin.callbacks.push({cb:d,ctx:e});"file:"!==window.location.protocol||fb.simplelogin.util.env.isPhantomJS()||fb.simplelogin.util.env.isMobileCordovaInAppBrowser()||fb.simplelogin.util.misc.warn("FirebaseSimpleLogin(): Due to browser security restrictions, loading applications via `file://*` URLs will prevent popup-based authentication providers from working properly. When testing locally, you'll need to run a barebones webserver on your machine rather than loading your test files via `file://*`. The easiest way to run a barebones server on your local machine is to `cd` to the root directory of your code and run `python -m SimpleHTTPServer`, which will allow you to access your content via `http://127.0.0.1:8000/*`.");
-	f&&fb.simplelogin.Vars.setApiHost(f);this.mLoginStateChange=function(a,d){var e=window._FirebaseSimpleLogin.callbacks||[];Array.prototype.slice.apply(arguments);for(var f=0;f<e.length;f++){var q=e[f],s=!!a||"undefined"===typeof q.user;if(!s){var m,p;q.user&&q.user.firebaseAuthToken&&(m=q.user.firebaseAuthToken);d&&d.firebaseAuthToken&&(p=d.firebaseAuthToken);s=(m||p)&&m!==p}window._FirebaseSimpleLogin.callbacks[f].user=d||null;s&&g(goog.bind(q.cb,q.ctx),a,d)}};this.resumeSession()};
-	fb.simplelogin.client.prototype.setApiHost=function(a){fb.simplelogin.Vars.setApiHost(a)};goog.exportSymbol("fb.simplelogin.client.prototype.setApiHost",fb.simplelogin.client.prototype.setApiHost);
-	fb.simplelogin.client.prototype.resumeSession=function(){var a=this,d;try{d=sessionStorage.getItem("firebaseRequestId"),sessionStorage.removeItem("firebaseRequestId")}catch(e){}if(d){var f=fb.simplelogin.transports.JSONP;fb.simplelogin.transports.XHR.isAvailable()&&(f=fb.simplelogin.transports.XHR);f.open(fb.simplelogin.Vars.getApiHost()+"/auth/session",{requestId:d,firebase:a.mNamespace},function(d,e){e&&e.token&&e.user?a.attemptAuth(e.token,e.user,!0):d?(fb.simplelogin.SessionStore.clear(),a.mLoginStateChange(d)):
-	(fb.simplelogin.SessionStore.clear(),a.mLoginStateChange(null,null))})}else(d=fb.simplelogin.SessionStore.get())&&d.token&&d.user?a.attemptAuth(d.token,d.user,!1):a.mLoginStateChange(null,null)};
-	fb.simplelogin.client.prototype.attemptAuth=function(a,d,e,f,g){var h=this;this.mRef.auth(a,function(k,l){k?(fb.simplelogin.SessionStore.clear(),h.mLoginStateChange(null,null),g&&g()):(e&&fb.simplelogin.SessionStore.set({token:a,user:d,sessionKey:d.sessionKey},h.sessionLengthDays),"function"==typeof l&&l(),delete d.sessionKey,d.firebaseAuthToken=a,h.mLoginStateChange(null,d),f&&f(d))},function(a){fb.simplelogin.SessionStore.clear();h.mLoginStateChange(null,null);g&&g()})};
-	fb.simplelogin.client.prototype.login=function(){fb.simplelogin.util.validation.validateString("FirebaseSimpleLogin.login()",1,arguments[0],!1);fb.simplelogin.util.validation.validateArgCount("FirebaseSimpleLogin.login()",1,2,arguments.length);var a=arguments[0].toLowerCase(),d=arguments[1]||{};this.sessionLengthDays=d.rememberMe?30:null;switch(a){case "anonymous":return this.loginAnonymously(d);case "facebook-token":return this.loginWithFacebookToken(d);case "github":return this.loginWithGithub(d);
-	case "google-token":return this.loginWithGoogleToken(d);case "password":return this.loginWithPassword(d);case "twitter-token":return this.loginWithTwitterToken(d);case "facebook":return d.access_token?this.loginWithFacebookToken(d):this.loginWithFacebook(d);case "google":return d.access_token?this.loginWithGoogleToken(d):this.loginWithGoogle(d);case "twitter":return d.oauth_token&&d.oauth_token_secret?this.loginWithTwitterToken(d):this.loginWithTwitter(d);default:throw Error("FirebaseSimpleLogin.login("+
-	a+") failed: unrecognized authentication provider");}};goog.exportSymbol("fb.simplelogin.client.prototype.login",fb.simplelogin.client.prototype.login);
-	fb.simplelogin.client.prototype.loginAnonymously=function(a){var d=this;return new fb.simplelogin.util.RSVP.Promise(function(e,f){a.firebase=d.mNamespace;a.v=CLIENT_VERSION;fb.simplelogin.transports.JSONP.open(fb.simplelogin.Vars.getApiHost()+"/auth/anonymous",a,function(a,h){if(a||!h.token){var k=fb.simplelogin.Errors.format(a);d.mLoginStateChange(k,null);f(k)}else d.attemptAuth(h.token,h.user,!0,e,f)})})};
-	fb.simplelogin.client.prototype.loginWithPassword=function(a){var d=this;return new fb.simplelogin.util.RSVP.Promise(function(e,f){a.firebase=d.mNamespace;a.v=CLIENT_VERSION;fb.simplelogin.providers.Password.login(a,function(a,h){if(a||!h.token){var k=fb.simplelogin.Errors.format(a);d.mLoginStateChange(k,null);f(k)}else d.attemptAuth(h.token,h.user,!0,e,f)})})};fb.simplelogin.client.prototype.loginWithGithub=function(a){a.height=850;a.width=950;return this.loginViaOAuth("github",a)};
-	fb.simplelogin.client.prototype.loginWithGoogle=function(a){a.height=650;a.width=575;return this.loginViaOAuth("google",a)};fb.simplelogin.client.prototype.loginWithFacebook=function(a){a.height=400;a.width=535;return this.loginViaOAuth("facebook",a)};fb.simplelogin.client.prototype.loginWithTwitter=function(a){return this.loginViaOAuth("twitter",a)};fb.simplelogin.client.prototype.loginWithFacebookToken=function(a){return this.loginViaToken("facebook",a)};
-	fb.simplelogin.client.prototype.loginWithGoogleToken=function(a){return this.loginViaToken("google",a)};fb.simplelogin.client.prototype.loginWithTwitterToken=function(a){return this.loginViaToken("twitter",a)};fb.simplelogin.client.prototype.logout=function(){fb.simplelogin.SessionStore.clear();this.mRef.unauth();this.mLoginStateChange(null,null)};goog.exportSymbol("fb.simplelogin.client.prototype.logout",fb.simplelogin.client.prototype.logout);
-	fb.simplelogin.client.prototype.loginViaToken=function(a,d,e){d=d||{};d.v=CLIENT_VERSION;var f=this,g=fb.simplelogin.Vars.getApiHost()+"/auth/"+a+"/token?firebase="+f.mNamespace;return new fb.simplelogin.util.RSVP.Promise(function(a,e){fb.simplelogin.transports.JSONP.open(g,d,function(d,g){if(!d&&g.token&&g.user)f.attemptAuth(g.token,g.user,!0,a,e);else{var q=fb.simplelogin.Errors.format(d);f.mLoginStateChange(q);e(q)}})})};
-	fb.simplelogin.client.prototype.loginViaOAuth=function(a,d,e){d=d||{};var f=this,g=fb.simplelogin.Vars.getApiHost()+"/auth/"+a+"?firebase="+f.mNamespace;d.scope&&(g+="&scope="+d.scope);g+="&v="+encodeURIComponent(CLIENT_VERSION);a={menubar:0,location:0,resizable:0,scrollbars:1,status:0,dialog:1,width:700,height:375};d.height&&(a.height=d.height,delete d.height);d.width&&(a.width=d.width,delete d.width);e=fb.simplelogin.util.env.isMobileCordovaInAppBrowser()?"mobile-phonegap":fb.simplelogin.util.env.isMobileTriggerIoTab()?
-	"mobile-triggerio":fb.simplelogin.util.env.isWindowsMetro()?"windows-metro":"desktop";var h;if("desktop"===e){h=fb.simplelogin.transports.WinChan;e=[];for(var k in a)e.push(k+"="+a[k]);d.url+="&transport=winchan";d.relay_url=fb.simplelogin.Vars.getApiHost()+"/auth/channel";d.window_features=e.join(",")}else"mobile-phonegap"===e?h=fb.simplelogin.transports.CordovaInAppBrowser:"mobile-triggerio"===e?h=fb.simplelogin.transports.TriggerIoTab:"windows-metro"===e&&(h=fb.simplelogin.transports.WindowsMetroAuthBroker);
-	if(d.preferRedirect||fb.simplelogin.util.env.isChromeiOS()||fb.simplelogin.util.env.isWindowsPhone()||fb.simplelogin.util.env.isStandaloneiOS()||fb.simplelogin.util.env.isTwitteriOS()||fb.simplelogin.util.env.isFacebookiOS()){k=goog.string.getRandomString()+goog.string.getRandomString();try{sessionStorage.setItem("firebaseRequestId",k)}catch(l){}g+="&requestId="+k+"&fb_redirect_uri="+encodeURIComponent(window.location.href);window.location=g}else return new fb.simplelogin.util.RSVP.Promise(function(a,
-	e){h.open(g,d,function(d,g){if(g&&g.token&&g.user)f.attemptAuth(g.token,g.user,!0,a,e);else{var h=d||{code:"UNKNOWN_ERROR",message:"An unknown error occurred."};"unknown closed window"===d?h={code:"USER_DENIED",message:"User cancelled the authentication request."}:g&&g.error&&(h=g.error);h=fb.simplelogin.Errors.format(h);f.mLoginStateChange(h);e(h)}})})};
-	fb.simplelogin.client.prototype.manageFirebaseUsers=function(a,d,e){d.firebase=this.mNamespace;return new fb.simplelogin.util.RSVP.Promise(function(f,g){fb.simplelogin.providers.Password[a](d,function(a,d){if(a){var l=fb.simplelogin.Errors.format(a);g(l);return e&&e(l,null)}f(d);return e&&e(null,d)})})};fb.simplelogin.client.prototype.createUser=function(a,d,e){return this.manageFirebaseUsers("createUser",{email:a,password:d},e)};goog.exportSymbol("fb.simplelogin.client.prototype.createUser",fb.simplelogin.client.prototype.createUser);
-	fb.simplelogin.client.prototype.changePassword=function(a,d,e,f){return this.manageFirebaseUsers("changePassword",{email:a,oldPassword:d,newPassword:e},function(a){return f&&f(a)})};goog.exportSymbol("fb.simplelogin.client.prototype.changePassword",fb.simplelogin.client.prototype.changePassword);fb.simplelogin.client.prototype.removeUser=function(a,d,e){return this.manageFirebaseUsers("removeUser",{email:a,password:d},function(a){return e&&e(a)})};
-	goog.exportSymbol("fb.simplelogin.client.prototype.removeUser",fb.simplelogin.client.prototype.removeUser);fb.simplelogin.client.prototype.sendPasswordResetEmail=function(a,d){return this.manageFirebaseUsers("sendPasswordResetEmail",{email:a},function(a){return d&&d(a)})};goog.exportSymbol("fb.simplelogin.client.prototype.sendPasswordResetEmail",fb.simplelogin.client.prototype.sendPasswordResetEmail);fb.simplelogin.client.onOpen=function(a){fb.simplelogin.transports.WinChan.onOpen(a)};
-	goog.exportSymbol("fb.simplelogin.client.onOpen",fb.simplelogin.client.onOpen);fb.simplelogin.client.VERSION=function(){return CLIENT_VERSION};goog.exportSymbol("fb.simplelogin.client.VERSION",fb.simplelogin.client.VERSION);var FirebaseSimpleLogin=function(a,d,e,f){fb.simplelogin.util.validation.validateArgCount("new FirebaseSimpleLogin",1,4,arguments.length);fb.simplelogin.util.validation.validateCallback("new FirebaseSimpleLogin",2,d,!1);if(goog.isString(a))throw Error("new FirebaseSimpleLogin(): Oops, it looks like you passed a string instead of a Firebase reference (i.e. new Firebase(<firebaseURL>)).");var g=fb.simplelogin.util.misc.parseSubdomain(a.toString());if(!goog.isString(g))throw Error("new FirebaseSimpleLogin(): First argument must be a valid Firebase reference (i.e. new Firebase(<firebaseURL>)).");
-	var h=new fb.simplelogin.client(a,d,e,f);return{setApiHost:function(a){fb.simplelogin.util.validation.validateArgCount("FirebaseSimpleLogin.setApiHost",1,1,arguments.length);return h.setApiHost(a)},login:function(){return h.login.apply(h,arguments)},logout:function(){fb.simplelogin.util.validation.validateArgCount("FirebaseSimpleLogin.logout",0,0,arguments.length);return h.logout()},createUser:function(a,d,e){fb.simplelogin.util.validation.validateArgCount("FirebaseSimpleLogin.createUser",2,3,arguments.length);
-	fb.simplelogin.util.validation.validateCallback("FirebaseSimpleLogin.createUser",3,e,!0);return h.createUser(a,d,e)},changePassword:function(a,d,e,f){fb.simplelogin.util.validation.validateArgCount("FirebaseSimpleLogin.changePassword",3,4,arguments.length);fb.simplelogin.util.validation.validateCallback("FirebaseSimpleLogin.changePassword",4,f,!0);return h.changePassword(a,d,e,f)},removeUser:function(a,d,e){fb.simplelogin.util.validation.validateArgCount("FirebaseSimpleLogin.removeUser",2,3,arguments.length);
-	fb.simplelogin.util.validation.validateCallback("FirebaseSimpleLogin.removeUser",3,e,!0);return h.removeUser(a,d,e)},sendPasswordResetEmail:function(a,d){fb.simplelogin.util.validation.validateArgCount("FirebaseSimpleLogin.sendPasswordResetEmail",1,2,arguments.length);fb.simplelogin.util.validation.validateCallback("FirebaseSimpleLogin.sendPasswordResetEmail",2,d,!0);return h.sendPasswordResetEmail(a,d)}}};goog.exportSymbol("FirebaseSimpleLogin",FirebaseSimpleLogin);FirebaseSimpleLogin.onOpen=function(a){fb.simplelogin.client.onOpen(a)};
-	goog.exportProperty(FirebaseSimpleLogin,"onOpen",FirebaseSimpleLogin.onOpen);FirebaseSimpleLogin.VERSION=fb.simplelogin.client.VERSION();})();
-	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(53)))
-
-/***/ },
-/* 10 */
-/***/ function(module, exports) {
-
-	/*! @license Firebase v2.4.2
-	    License: https://www.firebase.com/terms/terms-of-service.html */
-	(function() {var h,n=this;function p(a){return void 0!==a}function aa(){}function ba(a){a.yb=function(){return a.zf?a.zf:a.zf=new a}}
-	function ca(a){var b=typeof a;if("object"==b)if(a){if(a instanceof Array)return"array";if(a instanceof Object)return b;var c=Object.prototype.toString.call(a);if("[object Window]"==c)return"object";if("[object Array]"==c||"number"==typeof a.length&&"undefined"!=typeof a.splice&&"undefined"!=typeof a.propertyIsEnumerable&&!a.propertyIsEnumerable("splice"))return"array";if("[object Function]"==c||"undefined"!=typeof a.call&&"undefined"!=typeof a.propertyIsEnumerable&&!a.propertyIsEnumerable("call"))return"function"}else return"null";
-	else if("function"==b&&"undefined"==typeof a.call)return"object";return b}function da(a){return"array"==ca(a)}function ea(a){var b=ca(a);return"array"==b||"object"==b&&"number"==typeof a.length}function q(a){return"string"==typeof a}function fa(a){return"number"==typeof a}function r(a){return"function"==ca(a)}function ga(a){var b=typeof a;return"object"==b&&null!=a||"function"==b}function ha(a,b,c){return a.call.apply(a.bind,arguments)}
-	function ia(a,b,c){if(!a)throw Error();if(2<arguments.length){var d=Array.prototype.slice.call(arguments,2);return function(){var c=Array.prototype.slice.call(arguments);Array.prototype.unshift.apply(c,d);return a.apply(b,c)}}return function(){return a.apply(b,arguments)}}function u(a,b,c){u=Function.prototype.bind&&-1!=Function.prototype.bind.toString().indexOf("native code")?ha:ia;return u.apply(null,arguments)}var ja=Date.now||function(){return+new Date};
-	function ka(a,b){function c(){}c.prototype=b.prototype;a.ph=b.prototype;a.prototype=new c;a.prototype.constructor=a;a.lh=function(a,c,f){for(var g=Array(arguments.length-2),k=2;k<arguments.length;k++)g[k-2]=arguments[k];return b.prototype[c].apply(a,g)}};function la(a){if(Error.captureStackTrace)Error.captureStackTrace(this,la);else{var b=Error().stack;b&&(this.stack=b)}a&&(this.message=String(a))}ka(la,Error);la.prototype.name="CustomError";function v(a,b){for(var c in a)b.call(void 0,a[c],c,a)}function ma(a,b){var c={},d;for(d in a)c[d]=b.call(void 0,a[d],d,a);return c}function na(a,b){for(var c in a)if(!b.call(void 0,a[c],c,a))return!1;return!0}function oa(a){var b=0,c;for(c in a)b++;return b}function pa(a){for(var b in a)return b}function qa(a){var b=[],c=0,d;for(d in a)b[c++]=a[d];return b}function ra(a){var b=[],c=0,d;for(d in a)b[c++]=d;return b}function sa(a,b){for(var c in a)if(a[c]==b)return!0;return!1}
-	function ta(a,b,c){for(var d in a)if(b.call(c,a[d],d,a))return d}function ua(a,b){var c=ta(a,b,void 0);return c&&a[c]}function va(a){for(var b in a)return!1;return!0}function wa(a){var b={},c;for(c in a)b[c]=a[c];return b}var xa="constructor hasOwnProperty isPrototypeOf propertyIsEnumerable toLocaleString toString valueOf".split(" ");
-	function ya(a,b){for(var c,d,e=1;e<arguments.length;e++){d=arguments[e];for(c in d)a[c]=d[c];for(var f=0;f<xa.length;f++)c=xa[f],Object.prototype.hasOwnProperty.call(d,c)&&(a[c]=d[c])}};function za(a){a=String(a);if(/^\s*$/.test(a)?0:/^[\],:{}\s\u2028\u2029]*$/.test(a.replace(/\\["\\\/bfnrtu]/g,"@").replace(/"[^"\\\n\r\u2028\u2029\x00-\x08\x0a-\x1f]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g,"]").replace(/(?:^|:|,)(?:[\s\u2028\u2029]*\[)+/g,"")))try{return eval("("+a+")")}catch(b){}throw Error("Invalid JSON string: "+a);}function Aa(){this.Vd=void 0}
-	function Ba(a,b,c){switch(typeof b){case "string":Ca(b,c);break;case "number":c.push(isFinite(b)&&!isNaN(b)?b:"null");break;case "boolean":c.push(b);break;case "undefined":c.push("null");break;case "object":if(null==b){c.push("null");break}if(da(b)){var d=b.length;c.push("[");for(var e="",f=0;f<d;f++)c.push(e),e=b[f],Ba(a,a.Vd?a.Vd.call(b,String(f),e):e,c),e=",";c.push("]");break}c.push("{");d="";for(f in b)Object.prototype.hasOwnProperty.call(b,f)&&(e=b[f],"function"!=typeof e&&(c.push(d),Ca(f,c),
-	c.push(":"),Ba(a,a.Vd?a.Vd.call(b,f,e):e,c),d=","));c.push("}");break;case "function":break;default:throw Error("Unknown type: "+typeof b);}}var Da={'"':'\\"',"\\":"\\\\","/":"\\/","\b":"\\b","\f":"\\f","\n":"\\n","\r":"\\r","\t":"\\t","\x0B":"\\u000b"},Ea=/\uffff/.test("\uffff")?/[\\\"\x00-\x1f\x7f-\uffff]/g:/[\\\"\x00-\x1f\x7f-\xff]/g;
-	function Ca(a,b){b.push('"',a.replace(Ea,function(a){if(a in Da)return Da[a];var b=a.charCodeAt(0),e="\\u";16>b?e+="000":256>b?e+="00":4096>b&&(e+="0");return Da[a]=e+b.toString(16)}),'"')};function Fa(){return Math.floor(2147483648*Math.random()).toString(36)+Math.abs(Math.floor(2147483648*Math.random())^ja()).toString(36)};var w;a:{var Ga=n.navigator;if(Ga){var Ha=Ga.userAgent;if(Ha){w=Ha;break a}}w=""};function Ia(){this.Ya=-1};function Ja(){this.Ya=-1;this.Ya=64;this.P=[];this.pe=[];this.eg=[];this.Od=[];this.Od[0]=128;for(var a=1;a<this.Ya;++a)this.Od[a]=0;this.ge=this.ec=0;this.reset()}ka(Ja,Ia);Ja.prototype.reset=function(){this.P[0]=1732584193;this.P[1]=4023233417;this.P[2]=2562383102;this.P[3]=271733878;this.P[4]=3285377520;this.ge=this.ec=0};
-	function Ka(a,b,c){c||(c=0);var d=a.eg;if(q(b))for(var e=0;16>e;e++)d[e]=b.charCodeAt(c)<<24|b.charCodeAt(c+1)<<16|b.charCodeAt(c+2)<<8|b.charCodeAt(c+3),c+=4;else for(e=0;16>e;e++)d[e]=b[c]<<24|b[c+1]<<16|b[c+2]<<8|b[c+3],c+=4;for(e=16;80>e;e++){var f=d[e-3]^d[e-8]^d[e-14]^d[e-16];d[e]=(f<<1|f>>>31)&4294967295}b=a.P[0];c=a.P[1];for(var g=a.P[2],k=a.P[3],m=a.P[4],l,e=0;80>e;e++)40>e?20>e?(f=k^c&(g^k),l=1518500249):(f=c^g^k,l=1859775393):60>e?(f=c&g|k&(c|g),l=2400959708):(f=c^g^k,l=3395469782),f=(b<<
-	5|b>>>27)+f+m+l+d[e]&4294967295,m=k,k=g,g=(c<<30|c>>>2)&4294967295,c=b,b=f;a.P[0]=a.P[0]+b&4294967295;a.P[1]=a.P[1]+c&4294967295;a.P[2]=a.P[2]+g&4294967295;a.P[3]=a.P[3]+k&4294967295;a.P[4]=a.P[4]+m&4294967295}
-	Ja.prototype.update=function(a,b){if(null!=a){p(b)||(b=a.length);for(var c=b-this.Ya,d=0,e=this.pe,f=this.ec;d<b;){if(0==f)for(;d<=c;)Ka(this,a,d),d+=this.Ya;if(q(a))for(;d<b;){if(e[f]=a.charCodeAt(d),++f,++d,f==this.Ya){Ka(this,e);f=0;break}}else for(;d<b;)if(e[f]=a[d],++f,++d,f==this.Ya){Ka(this,e);f=0;break}}this.ec=f;this.ge+=b}};var x=Array.prototype,La=x.indexOf?function(a,b,c){return x.indexOf.call(a,b,c)}:function(a,b,c){c=null==c?0:0>c?Math.max(0,a.length+c):c;if(q(a))return q(b)&&1==b.length?a.indexOf(b,c):-1;for(;c<a.length;c++)if(c in a&&a[c]===b)return c;return-1},Ma=x.forEach?function(a,b,c){x.forEach.call(a,b,c)}:function(a,b,c){for(var d=a.length,e=q(a)?a.split(""):a,f=0;f<d;f++)f in e&&b.call(c,e[f],f,a)},Na=x.filter?function(a,b,c){return x.filter.call(a,b,c)}:function(a,b,c){for(var d=a.length,e=[],f=0,g=q(a)?
-	a.split(""):a,k=0;k<d;k++)if(k in g){var m=g[k];b.call(c,m,k,a)&&(e[f++]=m)}return e},Oa=x.map?function(a,b,c){return x.map.call(a,b,c)}:function(a,b,c){for(var d=a.length,e=Array(d),f=q(a)?a.split(""):a,g=0;g<d;g++)g in f&&(e[g]=b.call(c,f[g],g,a));return e},Pa=x.reduce?function(a,b,c,d){for(var e=[],f=1,g=arguments.length;f<g;f++)e.push(arguments[f]);d&&(e[0]=u(b,d));return x.reduce.apply(a,e)}:function(a,b,c,d){var e=c;Ma(a,function(c,g){e=b.call(d,e,c,g,a)});return e},Qa=x.every?function(a,b,
-	c){return x.every.call(a,b,c)}:function(a,b,c){for(var d=a.length,e=q(a)?a.split(""):a,f=0;f<d;f++)if(f in e&&!b.call(c,e[f],f,a))return!1;return!0};function Ra(a,b){var c=Sa(a,b,void 0);return 0>c?null:q(a)?a.charAt(c):a[c]}function Sa(a,b,c){for(var d=a.length,e=q(a)?a.split(""):a,f=0;f<d;f++)if(f in e&&b.call(c,e[f],f,a))return f;return-1}function Ta(a,b){var c=La(a,b);0<=c&&x.splice.call(a,c,1)}function Ua(a,b,c){return 2>=arguments.length?x.slice.call(a,b):x.slice.call(a,b,c)}
-	function Va(a,b){a.sort(b||Wa)}function Wa(a,b){return a>b?1:a<b?-1:0};function Xa(a){n.setTimeout(function(){throw a;},0)}var Ya;
-	function Za(){var a=n.MessageChannel;"undefined"===typeof a&&"undefined"!==typeof window&&window.postMessage&&window.addEventListener&&-1==w.indexOf("Presto")&&(a=function(){var a=document.createElement("iframe");a.style.display="none";a.src="";document.documentElement.appendChild(a);var b=a.contentWindow,a=b.document;a.open();a.write("");a.close();var c="callImmediate"+Math.random(),d="file:"==b.location.protocol?"*":b.location.protocol+"//"+b.location.host,a=u(function(a){if(("*"==d||a.origin==
-	d)&&a.data==c)this.port1.onmessage()},this);b.addEventListener("message",a,!1);this.port1={};this.port2={postMessage:function(){b.postMessage(c,d)}}});if("undefined"!==typeof a&&-1==w.indexOf("Trident")&&-1==w.indexOf("MSIE")){var b=new a,c={},d=c;b.port1.onmessage=function(){if(p(c.next)){c=c.next;var a=c.hb;c.hb=null;a()}};return function(a){d.next={hb:a};d=d.next;b.port2.postMessage(0)}}return"undefined"!==typeof document&&"onreadystatechange"in document.createElement("script")?function(a){var b=
-	document.createElement("script");b.onreadystatechange=function(){b.onreadystatechange=null;b.parentNode.removeChild(b);b=null;a();a=null};document.documentElement.appendChild(b)}:function(a){n.setTimeout(a,0)}};function $a(a,b){ab||bb();cb||(ab(),cb=!0);db.push(new eb(a,b))}var ab;function bb(){if(n.Promise&&n.Promise.resolve){var a=n.Promise.resolve();ab=function(){a.then(fb)}}else ab=function(){var a=fb;!r(n.setImmediate)||n.Window&&n.Window.prototype&&n.Window.prototype.setImmediate==n.setImmediate?(Ya||(Ya=Za()),Ya(a)):n.setImmediate(a)}}var cb=!1,db=[];[].push(function(){cb=!1;db=[]});
-	function fb(){for(;db.length;){var a=db;db=[];for(var b=0;b<a.length;b++){var c=a[b];try{c.yg.call(c.scope)}catch(d){Xa(d)}}}cb=!1}function eb(a,b){this.yg=a;this.scope=b};var gb=-1!=w.indexOf("Opera")||-1!=w.indexOf("OPR"),hb=-1!=w.indexOf("Trident")||-1!=w.indexOf("MSIE"),ib=-1!=w.indexOf("Gecko")&&-1==w.toLowerCase().indexOf("webkit")&&!(-1!=w.indexOf("Trident")||-1!=w.indexOf("MSIE")),jb=-1!=w.toLowerCase().indexOf("webkit");
-	(function(){var a="",b;if(gb&&n.opera)return a=n.opera.version,r(a)?a():a;ib?b=/rv\:([^\);]+)(\)|;)/:hb?b=/\b(?:MSIE|rv)[: ]([^\);]+)(\)|;)/:jb&&(b=/WebKit\/(\S+)/);b&&(a=(a=b.exec(w))?a[1]:"");return hb&&(b=(b=n.document)?b.documentMode:void 0,b>parseFloat(a))?String(b):a})();var kb=null,lb=null,mb=null;function nb(a,b){if(!ea(a))throw Error("encodeByteArray takes an array as a parameter");ob();for(var c=b?lb:kb,d=[],e=0;e<a.length;e+=3){var f=a[e],g=e+1<a.length,k=g?a[e+1]:0,m=e+2<a.length,l=m?a[e+2]:0,t=f>>2,f=(f&3)<<4|k>>4,k=(k&15)<<2|l>>6,l=l&63;m||(l=64,g||(k=64));d.push(c[t],c[f],c[k],c[l])}return d.join("")}
-	function ob(){if(!kb){kb={};lb={};mb={};for(var a=0;65>a;a++)kb[a]="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=".charAt(a),lb[a]="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_.".charAt(a),mb[lb[a]]=a,62<=a&&(mb["ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=".charAt(a)]=a)}};function pb(a,b){this.N=qb;this.Rf=void 0;this.Ba=this.Ha=null;this.yd=this.ye=!1;if(a==rb)sb(this,tb,b);else try{var c=this;a.call(b,function(a){sb(c,tb,a)},function(a){if(!(a instanceof ub))try{if(a instanceof Error)throw a;throw Error("Promise rejected.");}catch(b){}sb(c,vb,a)})}catch(d){sb(this,vb,d)}}var qb=0,tb=2,vb=3;function rb(){}pb.prototype.then=function(a,b,c){return wb(this,r(a)?a:null,r(b)?b:null,c)};pb.prototype.then=pb.prototype.then;pb.prototype.$goog_Thenable=!0;h=pb.prototype;
-	h.gh=function(a,b){return wb(this,null,a,b)};h.cancel=function(a){this.N==qb&&$a(function(){var b=new ub(a);xb(this,b)},this)};function xb(a,b){if(a.N==qb)if(a.Ha){var c=a.Ha;if(c.Ba){for(var d=0,e=-1,f=0,g;g=c.Ba[f];f++)if(g=g.o)if(d++,g==a&&(e=f),0<=e&&1<d)break;0<=e&&(c.N==qb&&1==d?xb(c,b):(d=c.Ba.splice(e,1)[0],yb(c,d,vb,b)))}a.Ha=null}else sb(a,vb,b)}function zb(a,b){a.Ba&&a.Ba.length||a.N!=tb&&a.N!=vb||Ab(a);a.Ba||(a.Ba=[]);a.Ba.push(b)}
-	function wb(a,b,c,d){var e={o:null,Hf:null,Jf:null};e.o=new pb(function(a,g){e.Hf=b?function(c){try{var e=b.call(d,c);a(e)}catch(l){g(l)}}:a;e.Jf=c?function(b){try{var e=c.call(d,b);!p(e)&&b instanceof ub?g(b):a(e)}catch(l){g(l)}}:g});e.o.Ha=a;zb(a,e);return e.o}h.Yf=function(a){this.N=qb;sb(this,tb,a)};h.Zf=function(a){this.N=qb;sb(this,vb,a)};
-	function sb(a,b,c){if(a.N==qb){if(a==c)b=vb,c=new TypeError("Promise cannot resolve to itself");else{var d;if(c)try{d=!!c.$goog_Thenable}catch(e){d=!1}else d=!1;if(d){a.N=1;c.then(a.Yf,a.Zf,a);return}if(ga(c))try{var f=c.then;if(r(f)){Bb(a,c,f);return}}catch(g){b=vb,c=g}}a.Rf=c;a.N=b;a.Ha=null;Ab(a);b!=vb||c instanceof ub||Cb(a,c)}}function Bb(a,b,c){function d(b){f||(f=!0,a.Zf(b))}function e(b){f||(f=!0,a.Yf(b))}a.N=1;var f=!1;try{c.call(b,e,d)}catch(g){d(g)}}
-	function Ab(a){a.ye||(a.ye=!0,$a(a.wg,a))}h.wg=function(){for(;this.Ba&&this.Ba.length;){var a=this.Ba;this.Ba=null;for(var b=0;b<a.length;b++)yb(this,a[b],this.N,this.Rf)}this.ye=!1};function yb(a,b,c,d){if(c==tb)b.Hf(d);else{if(b.o)for(;a&&a.yd;a=a.Ha)a.yd=!1;b.Jf(d)}}function Cb(a,b){a.yd=!0;$a(function(){a.yd&&Db.call(null,b)})}var Db=Xa;function ub(a){la.call(this,a)}ka(ub,la);ub.prototype.name="cancel";var Eb=Eb||"2.4.2";function y(a,b){return Object.prototype.hasOwnProperty.call(a,b)}function z(a,b){if(Object.prototype.hasOwnProperty.call(a,b))return a[b]}function Fb(a,b){for(var c in a)Object.prototype.hasOwnProperty.call(a,c)&&b(c,a[c])}function Gb(a){var b={};Fb(a,function(a,d){b[a]=d});return b}function Hb(a){return"object"===typeof a&&null!==a};function Ib(a){var b=[];Fb(a,function(a,d){da(d)?Ma(d,function(d){b.push(encodeURIComponent(a)+"="+encodeURIComponent(d))}):b.push(encodeURIComponent(a)+"="+encodeURIComponent(d))});return b.length?"&"+b.join("&"):""}function Jb(a){var b={};a=a.replace(/^\?/,"").split("&");Ma(a,function(a){a&&(a=a.split("="),b[a[0]]=a[1])});return b};function Kb(a,b){if(!a)throw Lb(b);}function Lb(a){return Error("Firebase ("+Eb+") INTERNAL ASSERT FAILED: "+a)};var Mb=n.Promise||pb;pb.prototype["catch"]=pb.prototype.gh;function B(){var a=this;this.reject=this.resolve=null;this.D=new Mb(function(b,c){a.resolve=b;a.reject=c})}function C(a,b){return function(c,d){c?a.reject(c):a.resolve(d);r(b)&&(Nb(a.D),1===b.length?b(c):b(c,d))}}function Nb(a){a.then(void 0,aa)};function Ob(a){for(var b=[],c=0,d=0;d<a.length;d++){var e=a.charCodeAt(d);55296<=e&&56319>=e&&(e-=55296,d++,Kb(d<a.length,"Surrogate pair missing trail surrogate."),e=65536+(e<<10)+(a.charCodeAt(d)-56320));128>e?b[c++]=e:(2048>e?b[c++]=e>>6|192:(65536>e?b[c++]=e>>12|224:(b[c++]=e>>18|240,b[c++]=e>>12&63|128),b[c++]=e>>6&63|128),b[c++]=e&63|128)}return b}function Pb(a){for(var b=0,c=0;c<a.length;c++){var d=a.charCodeAt(c);128>d?b++:2048>d?b+=2:55296<=d&&56319>=d?(b+=4,c++):b+=3}return b};function D(a,b,c,d){var e;d<b?e="at least "+b:d>c&&(e=0===c?"none":"no more than "+c);if(e)throw Error(a+" failed: Was called with "+d+(1===d?" argument.":" arguments.")+" Expects "+e+".");}function E(a,b,c){var d="";switch(b){case 1:d=c?"first":"First";break;case 2:d=c?"second":"Second";break;case 3:d=c?"third":"Third";break;case 4:d=c?"fourth":"Fourth";break;default:throw Error("errorPrefix called with argumentNumber > 4.  Need to update it?");}return a=a+" failed: "+(d+" argument ")}
-	function F(a,b,c,d){if((!d||p(c))&&!r(c))throw Error(E(a,b,d)+"must be a valid function.");}function Qb(a,b,c){if(p(c)&&(!ga(c)||null===c))throw Error(E(a,b,!0)+"must be a valid context object.");};function Rb(a){return"undefined"!==typeof JSON&&p(JSON.parse)?JSON.parse(a):za(a)}function G(a){if("undefined"!==typeof JSON&&p(JSON.stringify))a=JSON.stringify(a);else{var b=[];Ba(new Aa,a,b);a=b.join("")}return a};function Sb(){this.Zd=H}Sb.prototype.j=function(a){return this.Zd.S(a)};Sb.prototype.toString=function(){return this.Zd.toString()};function Tb(){}Tb.prototype.uf=function(){return null};Tb.prototype.Ce=function(){return null};var Ub=new Tb;function Vb(a,b,c){this.bg=a;this.Oa=b;this.Nd=c}Vb.prototype.uf=function(a){var b=this.Oa.Q;if(Wb(b,a))return b.j().T(a);b=null!=this.Nd?new Xb(this.Nd,!0,!1):this.Oa.w();return this.bg.Bc(a,b)};Vb.prototype.Ce=function(a,b,c){var d=null!=this.Nd?this.Nd:Yb(this.Oa);a=this.bg.qe(d,b,1,c,a);return 0===a.length?null:a[0]};function Zb(){this.xb=[]}function $b(a,b){for(var c=null,d=0;d<b.length;d++){var e=b[d],f=e.cc();null===c||f.ea(c.cc())||(a.xb.push(c),c=null);null===c&&(c=new ac(f));c.add(e)}c&&a.xb.push(c)}function bc(a,b,c){$b(a,c);cc(a,function(a){return a.ea(b)})}function dc(a,b,c){$b(a,c);cc(a,function(a){return a.contains(b)||b.contains(a)})}
-	function cc(a,b){for(var c=!0,d=0;d<a.xb.length;d++){var e=a.xb[d];if(e)if(e=e.cc(),b(e)){for(var e=a.xb[d],f=0;f<e.xd.length;f++){var g=e.xd[f];if(null!==g){e.xd[f]=null;var k=g.Zb();ec&&fc("event: "+g.toString());gc(k)}}a.xb[d]=null}else c=!1}c&&(a.xb=[])}function ac(a){this.ta=a;this.xd=[]}ac.prototype.add=function(a){this.xd.push(a)};ac.prototype.cc=function(){return this.ta};function J(a,b,c,d){this.type=a;this.Na=b;this.Za=c;this.Oe=d;this.Td=void 0}function hc(a){return new J(ic,a)}var ic="value";function jc(a,b,c,d){this.xe=b;this.be=c;this.Td=d;this.wd=a}jc.prototype.cc=function(){var a=this.be.Mb();return"value"===this.wd?a.path:a.parent().path};jc.prototype.De=function(){return this.wd};jc.prototype.Zb=function(){return this.xe.Zb(this)};jc.prototype.toString=function(){return this.cc().toString()+":"+this.wd+":"+G(this.be.qf())};function kc(a,b,c){this.xe=a;this.error=b;this.path=c}kc.prototype.cc=function(){return this.path};kc.prototype.De=function(){return"cancel"};
-	kc.prototype.Zb=function(){return this.xe.Zb(this)};kc.prototype.toString=function(){return this.path.toString()+":cancel"};function Xb(a,b,c){this.A=a;this.ga=b;this.Yb=c}function lc(a){return a.ga}function mc(a){return a.Yb}function nc(a,b){return b.e()?a.ga&&!a.Yb:Wb(a,K(b))}function Wb(a,b){return a.ga&&!a.Yb||a.A.Fa(b)}Xb.prototype.j=function(){return this.A};function oc(a){this.pg=a;this.Gd=null}oc.prototype.get=function(){var a=this.pg.get(),b=wa(a);if(this.Gd)for(var c in this.Gd)b[c]-=this.Gd[c];this.Gd=a;return b};function pc(a,b){this.Vf={};this.hd=new oc(a);this.da=b;var c=1E4+2E4*Math.random();setTimeout(u(this.Of,this),Math.floor(c))}pc.prototype.Of=function(){var a=this.hd.get(),b={},c=!1,d;for(d in a)0<a[d]&&y(this.Vf,d)&&(b[d]=a[d],c=!0);c&&this.da.Ye(b);setTimeout(u(this.Of,this),Math.floor(6E5*Math.random()))};function qc(){this.Hc={}}function rc(a,b,c){p(c)||(c=1);y(a.Hc,b)||(a.Hc[b]=0);a.Hc[b]+=c}qc.prototype.get=function(){return wa(this.Hc)};var sc={},tc={};function uc(a){a=a.toString();sc[a]||(sc[a]=new qc);return sc[a]}function vc(a,b){var c=a.toString();tc[c]||(tc[c]=b());return tc[c]};function L(a,b){this.name=a;this.U=b}function wc(a,b){return new L(a,b)};function xc(a,b){return yc(a.name,b.name)}function zc(a,b){return yc(a,b)};function Ac(a,b,c){this.type=Bc;this.source=a;this.path=b;this.Ja=c}Ac.prototype.$c=function(a){return this.path.e()?new Ac(this.source,M,this.Ja.T(a)):new Ac(this.source,N(this.path),this.Ja)};Ac.prototype.toString=function(){return"Operation("+this.path+": "+this.source.toString()+" overwrite: "+this.Ja.toString()+")"};function Cc(a,b){this.type=Dc;this.source=a;this.path=b}Cc.prototype.$c=function(){return this.path.e()?new Cc(this.source,M):new Cc(this.source,N(this.path))};Cc.prototype.toString=function(){return"Operation("+this.path+": "+this.source.toString()+" listen_complete)"};function Ec(a,b){this.Pa=a;this.xa=b?b:Fc}h=Ec.prototype;h.Sa=function(a,b){return new Ec(this.Pa,this.xa.Sa(a,b,this.Pa).$(null,null,!1,null,null))};h.remove=function(a){return new Ec(this.Pa,this.xa.remove(a,this.Pa).$(null,null,!1,null,null))};h.get=function(a){for(var b,c=this.xa;!c.e();){b=this.Pa(a,c.key);if(0===b)return c.value;0>b?c=c.left:0<b&&(c=c.right)}return null};
-	function Gc(a,b){for(var c,d=a.xa,e=null;!d.e();){c=a.Pa(b,d.key);if(0===c){if(d.left.e())return e?e.key:null;for(d=d.left;!d.right.e();)d=d.right;return d.key}0>c?d=d.left:0<c&&(e=d,d=d.right)}throw Error("Attempted to find predecessor key for a nonexistent key.  What gives?");}h.e=function(){return this.xa.e()};h.count=function(){return this.xa.count()};h.Vc=function(){return this.xa.Vc()};h.jc=function(){return this.xa.jc()};h.ka=function(a){return this.xa.ka(a)};
-	h.ac=function(a){return new Hc(this.xa,null,this.Pa,!1,a)};h.bc=function(a,b){return new Hc(this.xa,a,this.Pa,!1,b)};h.dc=function(a,b){return new Hc(this.xa,a,this.Pa,!0,b)};h.xf=function(a){return new Hc(this.xa,null,this.Pa,!0,a)};function Hc(a,b,c,d,e){this.Xd=e||null;this.Je=d;this.Ta=[];for(e=1;!a.e();)if(e=b?c(a.key,b):1,d&&(e*=-1),0>e)a=this.Je?a.left:a.right;else if(0===e){this.Ta.push(a);break}else this.Ta.push(a),a=this.Je?a.right:a.left}
-	function Ic(a){if(0===a.Ta.length)return null;var b=a.Ta.pop(),c;c=a.Xd?a.Xd(b.key,b.value):{key:b.key,value:b.value};if(a.Je)for(b=b.left;!b.e();)a.Ta.push(b),b=b.right;else for(b=b.right;!b.e();)a.Ta.push(b),b=b.left;return c}function Jc(a){if(0===a.Ta.length)return null;var b;b=a.Ta;b=b[b.length-1];return a.Xd?a.Xd(b.key,b.value):{key:b.key,value:b.value}}function Kc(a,b,c,d,e){this.key=a;this.value=b;this.color=null!=c?c:!0;this.left=null!=d?d:Fc;this.right=null!=e?e:Fc}h=Kc.prototype;
-	h.$=function(a,b,c,d,e){return new Kc(null!=a?a:this.key,null!=b?b:this.value,null!=c?c:this.color,null!=d?d:this.left,null!=e?e:this.right)};h.count=function(){return this.left.count()+1+this.right.count()};h.e=function(){return!1};h.ka=function(a){return this.left.ka(a)||a(this.key,this.value)||this.right.ka(a)};function Lc(a){return a.left.e()?a:Lc(a.left)}h.Vc=function(){return Lc(this).key};h.jc=function(){return this.right.e()?this.key:this.right.jc()};
-	h.Sa=function(a,b,c){var d,e;e=this;d=c(a,e.key);e=0>d?e.$(null,null,null,e.left.Sa(a,b,c),null):0===d?e.$(null,b,null,null,null):e.$(null,null,null,null,e.right.Sa(a,b,c));return Mc(e)};function Nc(a){if(a.left.e())return Fc;a.left.ha()||a.left.left.ha()||(a=Oc(a));a=a.$(null,null,null,Nc(a.left),null);return Mc(a)}
-	h.remove=function(a,b){var c,d;c=this;if(0>b(a,c.key))c.left.e()||c.left.ha()||c.left.left.ha()||(c=Oc(c)),c=c.$(null,null,null,c.left.remove(a,b),null);else{c.left.ha()&&(c=Pc(c));c.right.e()||c.right.ha()||c.right.left.ha()||(c=Qc(c),c.left.left.ha()&&(c=Pc(c),c=Qc(c)));if(0===b(a,c.key)){if(c.right.e())return Fc;d=Lc(c.right);c=c.$(d.key,d.value,null,null,Nc(c.right))}c=c.$(null,null,null,null,c.right.remove(a,b))}return Mc(c)};h.ha=function(){return this.color};
-	function Mc(a){a.right.ha()&&!a.left.ha()&&(a=Rc(a));a.left.ha()&&a.left.left.ha()&&(a=Pc(a));a.left.ha()&&a.right.ha()&&(a=Qc(a));return a}function Oc(a){a=Qc(a);a.right.left.ha()&&(a=a.$(null,null,null,null,Pc(a.right)),a=Rc(a),a=Qc(a));return a}function Rc(a){return a.right.$(null,null,a.color,a.$(null,null,!0,null,a.right.left),null)}function Pc(a){return a.left.$(null,null,a.color,null,a.$(null,null,!0,a.left.right,null))}
-	function Qc(a){return a.$(null,null,!a.color,a.left.$(null,null,!a.left.color,null,null),a.right.$(null,null,!a.right.color,null,null))}function Sc(){}h=Sc.prototype;h.$=function(){return this};h.Sa=function(a,b){return new Kc(a,b,null)};h.remove=function(){return this};h.count=function(){return 0};h.e=function(){return!0};h.ka=function(){return!1};h.Vc=function(){return null};h.jc=function(){return null};h.ha=function(){return!1};var Fc=new Sc;function Tc(a,b){return a&&"object"===typeof a?(O(".sv"in a,"Unexpected leaf node or priority contents"),b[a[".sv"]]):a}function Uc(a,b){var c=new Vc;Wc(a,new P(""),function(a,e){c.rc(a,Xc(e,b))});return c}function Xc(a,b){var c=a.C().J(),c=Tc(c,b),d;if(a.L()){var e=Tc(a.Ea(),b);return e!==a.Ea()||c!==a.C().J()?new Yc(e,Q(c)):a}d=a;c!==a.C().J()&&(d=d.ia(new Yc(c)));a.R(R,function(a,c){var e=Xc(c,b);e!==c&&(d=d.W(a,e))});return d};function Zc(){this.Ac={}}Zc.prototype.set=function(a,b){null==b?delete this.Ac[a]:this.Ac[a]=b};Zc.prototype.get=function(a){return y(this.Ac,a)?this.Ac[a]:null};Zc.prototype.remove=function(a){delete this.Ac[a]};Zc.prototype.Af=!0;function $c(a){this.Ic=a;this.Sd="firebase:"}h=$c.prototype;h.set=function(a,b){null==b?this.Ic.removeItem(this.Sd+a):this.Ic.setItem(this.Sd+a,G(b))};h.get=function(a){a=this.Ic.getItem(this.Sd+a);return null==a?null:Rb(a)};h.remove=function(a){this.Ic.removeItem(this.Sd+a)};h.Af=!1;h.toString=function(){return this.Ic.toString()};function ad(a){try{if("undefined"!==typeof window&&"undefined"!==typeof window[a]){var b=window[a];b.setItem("firebase:sentinel","cache");b.removeItem("firebase:sentinel");return new $c(b)}}catch(c){}return new Zc}var bd=ad("localStorage"),cd=ad("sessionStorage");function dd(a,b,c,d,e){this.host=a.toLowerCase();this.domain=this.host.substr(this.host.indexOf(".")+1);this.ob=b;this.lc=c;this.jh=d;this.Rd=e||"";this.ab=bd.get("host:"+a)||this.host}function ed(a,b){b!==a.ab&&(a.ab=b,"s-"===a.ab.substr(0,2)&&bd.set("host:"+a.host,a.ab))}
-	function fd(a,b,c){O("string"===typeof b,"typeof type must == string");O("object"===typeof c,"typeof params must == object");if(b===gd)b=(a.ob?"wss://":"ws://")+a.ab+"/.ws?";else if(b===hd)b=(a.ob?"https://":"http://")+a.ab+"/.lp?";else throw Error("Unknown connection type: "+b);a.host!==a.ab&&(c.ns=a.lc);var d=[];v(c,function(a,b){d.push(b+"="+a)});return b+d.join("&")}dd.prototype.toString=function(){var a=(this.ob?"https://":"http://")+this.host;this.Rd&&(a+="<"+this.Rd+">");return a};var id=function(){var a=1;return function(){return a++}}(),O=Kb,jd=Lb;
-	function kd(a){try{var b;if("undefined"!==typeof atob)b=atob(a);else{ob();for(var c=mb,d=[],e=0;e<a.length;){var f=c[a.charAt(e++)],g=e<a.length?c[a.charAt(e)]:0;++e;var k=e<a.length?c[a.charAt(e)]:64;++e;var m=e<a.length?c[a.charAt(e)]:64;++e;if(null==f||null==g||null==k||null==m)throw Error();d.push(f<<2|g>>4);64!=k&&(d.push(g<<4&240|k>>2),64!=m&&d.push(k<<6&192|m))}if(8192>d.length)b=String.fromCharCode.apply(null,d);else{a="";for(c=0;c<d.length;c+=8192)a+=String.fromCharCode.apply(null,Ua(d,c,
-	c+8192));b=a}}return b}catch(l){fc("base64Decode failed: ",l)}return null}function ld(a){var b=Ob(a);a=new Ja;a.update(b);var b=[],c=8*a.ge;56>a.ec?a.update(a.Od,56-a.ec):a.update(a.Od,a.Ya-(a.ec-56));for(var d=a.Ya-1;56<=d;d--)a.pe[d]=c&255,c/=256;Ka(a,a.pe);for(d=c=0;5>d;d++)for(var e=24;0<=e;e-=8)b[c]=a.P[d]>>e&255,++c;return nb(b)}
-	function md(a){for(var b="",c=0;c<arguments.length;c++)b=ea(arguments[c])?b+md.apply(null,arguments[c]):"object"===typeof arguments[c]?b+G(arguments[c]):b+arguments[c],b+=" ";return b}var ec=null,nd=!0;
-	function od(a,b){Kb(!b||!0===a||!1===a,"Can't turn on custom loggers persistently.");!0===a?("undefined"!==typeof console&&("function"===typeof console.log?ec=u(console.log,console):"object"===typeof console.log&&(ec=function(a){console.log(a)})),b&&cd.set("logging_enabled",!0)):r(a)?ec=a:(ec=null,cd.remove("logging_enabled"))}function fc(a){!0===nd&&(nd=!1,null===ec&&!0===cd.get("logging_enabled")&&od(!0));if(ec){var b=md.apply(null,arguments);ec(b)}}
-	function pd(a){return function(){fc(a,arguments)}}function qd(a){if("undefined"!==typeof console){var b="FIREBASE INTERNAL ERROR: "+md.apply(null,arguments);"undefined"!==typeof console.error?console.error(b):console.log(b)}}function rd(a){var b=md.apply(null,arguments);throw Error("FIREBASE FATAL ERROR: "+b);}function S(a){if("undefined"!==typeof console){var b="FIREBASE WARNING: "+md.apply(null,arguments);"undefined"!==typeof console.warn?console.warn(b):console.log(b)}}
-	function sd(a){var b="",c="",d="",e="",f=!0,g="https",k=443;if(q(a)){var m=a.indexOf("//");0<=m&&(g=a.substring(0,m-1),a=a.substring(m+2));m=a.indexOf("/");-1===m&&(m=a.length);b=a.substring(0,m);e="";a=a.substring(m).split("/");for(m=0;m<a.length;m++)if(0<a[m].length){var l=a[m];try{l=decodeURIComponent(l.replace(/\+/g," "))}catch(t){}e+="/"+l}a=b.split(".");3===a.length?(c=a[1],d=a[0].toLowerCase()):2===a.length&&(c=a[0]);m=b.indexOf(":");0<=m&&(f="https"===g||"wss"===g,k=b.substring(m+1),isFinite(k)&&
-	(k=String(k)),k=q(k)?/^\s*-?0x/i.test(k)?parseInt(k,16):parseInt(k,10):NaN)}return{host:b,port:k,domain:c,fh:d,ob:f,scheme:g,bd:e}}function td(a){return fa(a)&&(a!=a||a==Number.POSITIVE_INFINITY||a==Number.NEGATIVE_INFINITY)}
-	function ud(a){if("complete"===document.readyState)a();else{var b=!1,c=function(){document.body?b||(b=!0,a()):setTimeout(c,Math.floor(10))};document.addEventListener?(document.addEventListener("DOMContentLoaded",c,!1),window.addEventListener("load",c,!1)):document.attachEvent&&(document.attachEvent("onreadystatechange",function(){"complete"===document.readyState&&c()}),window.attachEvent("onload",c))}}
-	function yc(a,b){if(a===b)return 0;if("[MIN_NAME]"===a||"[MAX_NAME]"===b)return-1;if("[MIN_NAME]"===b||"[MAX_NAME]"===a)return 1;var c=vd(a),d=vd(b);return null!==c?null!==d?0==c-d?a.length-b.length:c-d:-1:null!==d?1:a<b?-1:1}function wd(a,b){if(b&&a in b)return b[a];throw Error("Missing required key ("+a+") in object: "+G(b));}
-	function xd(a){if("object"!==typeof a||null===a)return G(a);var b=[],c;for(c in a)b.push(c);b.sort();c="{";for(var d=0;d<b.length;d++)0!==d&&(c+=","),c+=G(b[d]),c+=":",c+=xd(a[b[d]]);return c+"}"}function yd(a,b){if(a.length<=b)return[a];for(var c=[],d=0;d<a.length;d+=b)d+b>a?c.push(a.substring(d,a.length)):c.push(a.substring(d,d+b));return c}function zd(a,b){if(da(a))for(var c=0;c<a.length;++c)b(c,a[c]);else v(a,b)}
-	function Ad(a){O(!td(a),"Invalid JSON number");var b,c,d,e;0===a?(d=c=0,b=-Infinity===1/a?1:0):(b=0>a,a=Math.abs(a),a>=Math.pow(2,-1022)?(d=Math.min(Math.floor(Math.log(a)/Math.LN2),1023),c=d+1023,d=Math.round(a*Math.pow(2,52-d)-Math.pow(2,52))):(c=0,d=Math.round(a/Math.pow(2,-1074))));e=[];for(a=52;a;--a)e.push(d%2?1:0),d=Math.floor(d/2);for(a=11;a;--a)e.push(c%2?1:0),c=Math.floor(c/2);e.push(b?1:0);e.reverse();b=e.join("");c="";for(a=0;64>a;a+=8)d=parseInt(b.substr(a,8),2).toString(16),1===d.length&&
-	(d="0"+d),c+=d;return c.toLowerCase()}var Bd=/^-?\d{1,10}$/;function vd(a){return Bd.test(a)&&(a=Number(a),-2147483648<=a&&2147483647>=a)?a:null}function gc(a){try{a()}catch(b){setTimeout(function(){S("Exception was thrown by user callback.",b.stack||"");throw b;},Math.floor(0))}}function T(a,b){if(r(a)){var c=Array.prototype.slice.call(arguments,1).slice();gc(function(){a.apply(null,c)})}};function Cd(a){var b={},c={},d={},e="";try{var f=a.split("."),b=Rb(kd(f[0])||""),c=Rb(kd(f[1])||""),e=f[2],d=c.d||{};delete c.d}catch(g){}return{mh:b,Ec:c,data:d,bh:e}}function Dd(a){a=Cd(a).Ec;return"object"===typeof a&&a.hasOwnProperty("iat")?z(a,"iat"):null}function Ed(a){a=Cd(a);var b=a.Ec;return!!a.bh&&!!b&&"object"===typeof b&&b.hasOwnProperty("iat")};function Fd(a){this.Y=a;this.g=a.n.g}function Gd(a,b,c,d){var e=[],f=[];Ma(b,function(b){"child_changed"===b.type&&a.g.Dd(b.Oe,b.Na)&&f.push(new J("child_moved",b.Na,b.Za))});Hd(a,e,"child_removed",b,d,c);Hd(a,e,"child_added",b,d,c);Hd(a,e,"child_moved",f,d,c);Hd(a,e,"child_changed",b,d,c);Hd(a,e,ic,b,d,c);return e}function Hd(a,b,c,d,e,f){d=Na(d,function(a){return a.type===c});Va(d,u(a.qg,a));Ma(d,function(c){var d=Id(a,c,f);Ma(e,function(e){e.Qf(c.type)&&b.push(e.createEvent(d,a.Y))})})}
-	function Id(a,b,c){"value"!==b.type&&"child_removed"!==b.type&&(b.Td=c.wf(b.Za,b.Na,a.g));return b}Fd.prototype.qg=function(a,b){if(null==a.Za||null==b.Za)throw jd("Should only compare child_ events.");return this.g.compare(new L(a.Za,a.Na),new L(b.Za,b.Na))};function Jd(){this.ib={}}
-	function Kd(a,b){var c=b.type,d=b.Za;O("child_added"==c||"child_changed"==c||"child_removed"==c,"Only child changes supported for tracking");O(".priority"!==d,"Only non-priority child changes can be tracked.");var e=z(a.ib,d);if(e){var f=e.type;if("child_added"==c&&"child_removed"==f)a.ib[d]=new J("child_changed",b.Na,d,e.Na);else if("child_removed"==c&&"child_added"==f)delete a.ib[d];else if("child_removed"==c&&"child_changed"==f)a.ib[d]=new J("child_removed",e.Oe,d);else if("child_changed"==c&&
-	"child_added"==f)a.ib[d]=new J("child_added",b.Na,d);else if("child_changed"==c&&"child_changed"==f)a.ib[d]=new J("child_changed",b.Na,d,e.Oe);else throw jd("Illegal combination of changes: "+b+" occurred after "+e);}else a.ib[d]=b};function Ld(a){this.g=a}h=Ld.prototype;h.H=function(a,b,c,d,e,f){O(a.Mc(this.g),"A node must be indexed if only a child is updated");e=a.T(b);if(e.S(d).ea(c.S(d))&&e.e()==c.e())return a;null!=f&&(c.e()?a.Fa(b)?Kd(f,new J("child_removed",e,b)):O(a.L(),"A child remove without an old child only makes sense on a leaf node"):e.e()?Kd(f,new J("child_added",c,b)):Kd(f,new J("child_changed",c,b,e)));return a.L()&&c.e()?a:a.W(b,c).pb(this.g)};
-	h.ya=function(a,b,c){null!=c&&(a.L()||a.R(R,function(a,e){b.Fa(a)||Kd(c,new J("child_removed",e,a))}),b.L()||b.R(R,function(b,e){if(a.Fa(b)){var f=a.T(b);f.ea(e)||Kd(c,new J("child_changed",e,b,f))}else Kd(c,new J("child_added",e,b))}));return b.pb(this.g)};h.ia=function(a,b){return a.e()?H:a.ia(b)};h.Ra=function(){return!1};h.$b=function(){return this};function Md(a){this.Fe=new Ld(a.g);this.g=a.g;var b;a.oa?(b=Nd(a),b=a.g.Sc(Od(a),b)):b=a.g.Wc();this.gd=b;a.ra?(b=Pd(a),a=a.g.Sc(Rd(a),b)):a=a.g.Tc();this.Jc=a}h=Md.prototype;h.matches=function(a){return 0>=this.g.compare(this.gd,a)&&0>=this.g.compare(a,this.Jc)};h.H=function(a,b,c,d,e,f){this.matches(new L(b,c))||(c=H);return this.Fe.H(a,b,c,d,e,f)};
-	h.ya=function(a,b,c){b.L()&&(b=H);var d=b.pb(this.g),d=d.ia(H),e=this;b.R(R,function(a,b){e.matches(new L(a,b))||(d=d.W(a,H))});return this.Fe.ya(a,d,c)};h.ia=function(a){return a};h.Ra=function(){return!0};h.$b=function(){return this.Fe};function Sd(a){this.ua=new Md(a);this.g=a.g;O(a.la,"Only valid if limit has been set");this.ma=a.ma;this.Nb=!Td(a)}h=Sd.prototype;h.H=function(a,b,c,d,e,f){this.ua.matches(new L(b,c))||(c=H);return a.T(b).ea(c)?a:a.Hb()<this.ma?this.ua.$b().H(a,b,c,d,e,f):Ud(this,a,b,c,e,f)};
-	h.ya=function(a,b,c){var d;if(b.L()||b.e())d=H.pb(this.g);else if(2*this.ma<b.Hb()&&b.Mc(this.g)){d=H.pb(this.g);b=this.Nb?b.dc(this.ua.Jc,this.g):b.bc(this.ua.gd,this.g);for(var e=0;0<b.Ta.length&&e<this.ma;){var f=Ic(b),g;if(g=this.Nb?0>=this.g.compare(this.ua.gd,f):0>=this.g.compare(f,this.ua.Jc))d=d.W(f.name,f.U),e++;else break}}else{d=b.pb(this.g);d=d.ia(H);var k,m,l;if(this.Nb){b=d.xf(this.g);k=this.ua.Jc;m=this.ua.gd;var t=Vd(this.g);l=function(a,b){return t(b,a)}}else b=d.ac(this.g),k=this.ua.gd,
-	m=this.ua.Jc,l=Vd(this.g);for(var e=0,A=!1;0<b.Ta.length;)f=Ic(b),!A&&0>=l(k,f)&&(A=!0),(g=A&&e<this.ma&&0>=l(f,m))?e++:d=d.W(f.name,H)}return this.ua.$b().ya(a,d,c)};h.ia=function(a){return a};h.Ra=function(){return!0};h.$b=function(){return this.ua.$b()};
-	function Ud(a,b,c,d,e,f){var g;if(a.Nb){var k=Vd(a.g);g=function(a,b){return k(b,a)}}else g=Vd(a.g);O(b.Hb()==a.ma,"");var m=new L(c,d),l=a.Nb?Wd(b,a.g):Xd(b,a.g),t=a.ua.matches(m);if(b.Fa(c)){for(var A=b.T(c),l=e.Ce(a.g,l,a.Nb);null!=l&&(l.name==c||b.Fa(l.name));)l=e.Ce(a.g,l,a.Nb);e=null==l?1:g(l,m);if(t&&!d.e()&&0<=e)return null!=f&&Kd(f,new J("child_changed",d,c,A)),b.W(c,d);null!=f&&Kd(f,new J("child_removed",A,c));b=b.W(c,H);return null!=l&&a.ua.matches(l)?(null!=f&&Kd(f,new J("child_added",
-	l.U,l.name)),b.W(l.name,l.U)):b}return d.e()?b:t&&0<=g(l,m)?(null!=f&&(Kd(f,new J("child_removed",l.U,l.name)),Kd(f,new J("child_added",d,c))),b.W(c,d).W(l.name,H)):b};function Yd(a,b){this.me=a;this.og=b}function Zd(a){this.X=a}
-	Zd.prototype.gb=function(a,b,c,d){var e=new Jd,f;if(b.type===Bc)b.source.Ae?c=$d(this,a,b.path,b.Ja,c,d,e):(O(b.source.tf,"Unknown source."),f=b.source.ef||mc(a.w())&&!b.path.e(),c=ae(this,a,b.path,b.Ja,c,d,f,e));else if(b.type===be)b.source.Ae?c=ce(this,a,b.path,b.children,c,d,e):(O(b.source.tf,"Unknown source."),f=b.source.ef||mc(a.w()),c=de(this,a,b.path,b.children,c,d,f,e));else if(b.type===ee)if(b.Yd)if(b=b.path,null!=c.xc(b))c=a;else{f=new Vb(c,a,d);d=a.Q.j();if(b.e()||".priority"===K(b))lc(a.w())?
-	b=c.Aa(Yb(a)):(b=a.w().j(),O(b instanceof fe,"serverChildren would be complete if leaf node"),b=c.Cc(b)),b=this.X.ya(d,b,e);else{var g=K(b),k=c.Bc(g,a.w());null==k&&Wb(a.w(),g)&&(k=d.T(g));b=null!=k?this.X.H(d,g,k,N(b),f,e):a.Q.j().Fa(g)?this.X.H(d,g,H,N(b),f,e):d;b.e()&&lc(a.w())&&(d=c.Aa(Yb(a)),d.L()&&(b=this.X.ya(b,d,e)))}d=lc(a.w())||null!=c.xc(M);c=ge(a,b,d,this.X.Ra())}else c=he(this,a,b.path,b.Ub,c,d,e);else if(b.type===Dc)d=b.path,b=a.w(),f=b.j(),g=b.ga||d.e(),c=ie(this,new je(a.Q,new Xb(f,
-	g,b.Yb)),d,c,Ub,e);else throw jd("Unknown operation type: "+b.type);e=qa(e.ib);d=c;b=d.Q;b.ga&&(f=b.j().L()||b.j().e(),g=ke(a),(0<e.length||!a.Q.ga||f&&!b.j().ea(g)||!b.j().C().ea(g.C()))&&e.push(hc(ke(d))));return new Yd(c,e)};
-	function ie(a,b,c,d,e,f){var g=b.Q;if(null!=d.xc(c))return b;var k;if(c.e())O(lc(b.w()),"If change path is empty, we must have complete server data"),mc(b.w())?(e=Yb(b),d=d.Cc(e instanceof fe?e:H)):d=d.Aa(Yb(b)),f=a.X.ya(b.Q.j(),d,f);else{var m=K(c);if(".priority"==m)O(1==le(c),"Can't have a priority with additional path components"),f=g.j(),k=b.w().j(),d=d.nd(c,f,k),f=null!=d?a.X.ia(f,d):g.j();else{var l=N(c);Wb(g,m)?(k=b.w().j(),d=d.nd(c,g.j(),k),d=null!=d?g.j().T(m).H(l,d):g.j().T(m)):d=d.Bc(m,
-	b.w());f=null!=d?a.X.H(g.j(),m,d,l,e,f):g.j()}}return ge(b,f,g.ga||c.e(),a.X.Ra())}function ae(a,b,c,d,e,f,g,k){var m=b.w();g=g?a.X:a.X.$b();if(c.e())d=g.ya(m.j(),d,null);else if(g.Ra()&&!m.Yb)d=m.j().H(c,d),d=g.ya(m.j(),d,null);else{var l=K(c);if(!nc(m,c)&&1<le(c))return b;var t=N(c);d=m.j().T(l).H(t,d);d=".priority"==l?g.ia(m.j(),d):g.H(m.j(),l,d,t,Ub,null)}m=m.ga||c.e();b=new je(b.Q,new Xb(d,m,g.Ra()));return ie(a,b,c,e,new Vb(e,b,f),k)}
-	function $d(a,b,c,d,e,f,g){var k=b.Q;e=new Vb(e,b,f);if(c.e())g=a.X.ya(b.Q.j(),d,g),a=ge(b,g,!0,a.X.Ra());else if(f=K(c),".priority"===f)g=a.X.ia(b.Q.j(),d),a=ge(b,g,k.ga,k.Yb);else{c=N(c);var m=k.j().T(f);if(!c.e()){var l=e.uf(f);d=null!=l?".priority"===me(c)&&l.S(c.parent()).e()?l:l.H(c,d):H}m.ea(d)?a=b:(g=a.X.H(k.j(),f,d,c,e,g),a=ge(b,g,k.ga,a.X.Ra()))}return a}
-	function ce(a,b,c,d,e,f,g){var k=b;ne(d,function(d,l){var t=c.o(d);Wb(b.Q,K(t))&&(k=$d(a,k,t,l,e,f,g))});ne(d,function(d,l){var t=c.o(d);Wb(b.Q,K(t))||(k=$d(a,k,t,l,e,f,g))});return k}function oe(a,b){ne(b,function(b,d){a=a.H(b,d)});return a}
-	function de(a,b,c,d,e,f,g,k){if(b.w().j().e()&&!lc(b.w()))return b;var m=b;c=c.e()?d:pe(qe,c,d);var l=b.w().j();c.children.ka(function(c,d){if(l.Fa(c)){var I=b.w().j().T(c),I=oe(I,d);m=ae(a,m,new P(c),I,e,f,g,k)}});c.children.ka(function(c,d){var I=!Wb(b.w(),c)&&null==d.value;l.Fa(c)||I||(I=b.w().j().T(c),I=oe(I,d),m=ae(a,m,new P(c),I,e,f,g,k))});return m}
-	function he(a,b,c,d,e,f,g){if(null!=e.xc(c))return b;var k=mc(b.w()),m=b.w();if(null!=d.value){if(c.e()&&m.ga||nc(m,c))return ae(a,b,c,m.j().S(c),e,f,k,g);if(c.e()){var l=qe;m.j().R(re,function(a,b){l=l.set(new P(a),b)});return de(a,b,c,l,e,f,k,g)}return b}l=qe;ne(d,function(a){var b=c.o(a);nc(m,b)&&(l=l.set(a,m.j().S(b)))});return de(a,b,c,l,e,f,k,g)};function se(){}var te={};function Vd(a){return u(a.compare,a)}se.prototype.Dd=function(a,b){return 0!==this.compare(new L("[MIN_NAME]",a),new L("[MIN_NAME]",b))};se.prototype.Wc=function(){return ue};function ve(a){O(!a.e()&&".priority"!==K(a),"Can't create PathIndex with empty path or .priority key");this.gc=a}ka(ve,se);h=ve.prototype;h.Lc=function(a){return!a.S(this.gc).e()};h.compare=function(a,b){var c=a.U.S(this.gc),d=b.U.S(this.gc),c=c.Gc(d);return 0===c?yc(a.name,b.name):c};
-	h.Sc=function(a,b){var c=Q(a),c=H.H(this.gc,c);return new L(b,c)};h.Tc=function(){var a=H.H(this.gc,we);return new L("[MAX_NAME]",a)};h.toString=function(){return this.gc.slice().join("/")};function xe(){}ka(xe,se);h=xe.prototype;h.compare=function(a,b){var c=a.U.C(),d=b.U.C(),c=c.Gc(d);return 0===c?yc(a.name,b.name):c};h.Lc=function(a){return!a.C().e()};h.Dd=function(a,b){return!a.C().ea(b.C())};h.Wc=function(){return ue};h.Tc=function(){return new L("[MAX_NAME]",new Yc("[PRIORITY-POST]",we))};
-	h.Sc=function(a,b){var c=Q(a);return new L(b,new Yc("[PRIORITY-POST]",c))};h.toString=function(){return".priority"};var R=new xe;function ye(){}ka(ye,se);h=ye.prototype;h.compare=function(a,b){return yc(a.name,b.name)};h.Lc=function(){throw jd("KeyIndex.isDefinedOn not expected to be called.");};h.Dd=function(){return!1};h.Wc=function(){return ue};h.Tc=function(){return new L("[MAX_NAME]",H)};h.Sc=function(a){O(q(a),"KeyIndex indexValue must always be a string.");return new L(a,H)};h.toString=function(){return".key"};
-	var re=new ye;function ze(){}ka(ze,se);h=ze.prototype;h.compare=function(a,b){var c=a.U.Gc(b.U);return 0===c?yc(a.name,b.name):c};h.Lc=function(){return!0};h.Dd=function(a,b){return!a.ea(b)};h.Wc=function(){return ue};h.Tc=function(){return Ae};h.Sc=function(a,b){var c=Q(a);return new L(b,c)};h.toString=function(){return".value"};var Be=new ze;function Ce(){this.Xb=this.ra=this.Pb=this.oa=this.la=!1;this.ma=0;this.Rb="";this.ic=null;this.Bb="";this.fc=null;this.zb="";this.g=R}var De=new Ce;function Td(a){return""===a.Rb?a.oa:"l"===a.Rb}function Od(a){O(a.oa,"Only valid if start has been set");return a.ic}function Nd(a){O(a.oa,"Only valid if start has been set");return a.Pb?a.Bb:"[MIN_NAME]"}function Rd(a){O(a.ra,"Only valid if end has been set");return a.fc}
-	function Pd(a){O(a.ra,"Only valid if end has been set");return a.Xb?a.zb:"[MAX_NAME]"}function Ee(a){var b=new Ce;b.la=a.la;b.ma=a.ma;b.oa=a.oa;b.ic=a.ic;b.Pb=a.Pb;b.Bb=a.Bb;b.ra=a.ra;b.fc=a.fc;b.Xb=a.Xb;b.zb=a.zb;b.g=a.g;return b}h=Ce.prototype;h.Le=function(a){var b=Ee(this);b.la=!0;b.ma=a;b.Rb="";return b};h.Me=function(a){var b=Ee(this);b.la=!0;b.ma=a;b.Rb="l";return b};h.Ne=function(a){var b=Ee(this);b.la=!0;b.ma=a;b.Rb="r";return b};
-	h.ce=function(a,b){var c=Ee(this);c.oa=!0;p(a)||(a=null);c.ic=a;null!=b?(c.Pb=!0,c.Bb=b):(c.Pb=!1,c.Bb="");return c};h.vd=function(a,b){var c=Ee(this);c.ra=!0;p(a)||(a=null);c.fc=a;p(b)?(c.Xb=!0,c.zb=b):(c.oh=!1,c.zb="");return c};function Fe(a,b){var c=Ee(a);c.g=b;return c}function Ge(a){var b={};a.oa&&(b.sp=a.ic,a.Pb&&(b.sn=a.Bb));a.ra&&(b.ep=a.fc,a.Xb&&(b.en=a.zb));if(a.la){b.l=a.ma;var c=a.Rb;""===c&&(c=Td(a)?"l":"r");b.vf=c}a.g!==R&&(b.i=a.g.toString());return b}
-	function He(a){return!(a.oa||a.ra||a.la)}function Ie(a){return He(a)&&a.g==R}function Je(a){var b={};if(Ie(a))return b;var c;a.g===R?c="$priority":a.g===Be?c="$value":a.g===re?c="$key":(O(a.g instanceof ve,"Unrecognized index type!"),c=a.g.toString());b.orderBy=G(c);a.oa&&(b.startAt=G(a.ic),a.Pb&&(b.startAt+=","+G(a.Bb)));a.ra&&(b.endAt=G(a.fc),a.Xb&&(b.endAt+=","+G(a.zb)));a.la&&(Td(a)?b.limitToFirst=a.ma:b.limitToLast=a.ma);return b}h.toString=function(){return G(Ge(this))};function Ke(a,b){this.Ed=a;this.hc=b}Ke.prototype.get=function(a){var b=z(this.Ed,a);if(!b)throw Error("No index defined for "+a);return b===te?null:b};function Le(a,b,c){var d=ma(a.Ed,function(d,f){var g=z(a.hc,f);O(g,"Missing index implementation for "+f);if(d===te){if(g.Lc(b.U)){for(var k=[],m=c.ac(wc),l=Ic(m);l;)l.name!=b.name&&k.push(l),l=Ic(m);k.push(b);return Me(k,Vd(g))}return te}g=c.get(b.name);k=d;g&&(k=k.remove(new L(b.name,g)));return k.Sa(b,b.U)});return new Ke(d,a.hc)}
-	function Ne(a,b,c){var d=ma(a.Ed,function(a){if(a===te)return a;var d=c.get(b.name);return d?a.remove(new L(b.name,d)):a});return new Ke(d,a.hc)}var Oe=new Ke({".priority":te},{".priority":R});function Yc(a,b){this.B=a;O(p(this.B)&&null!==this.B,"LeafNode shouldn't be created with null/undefined value.");this.ca=b||H;Pe(this.ca);this.Gb=null}var Qe=["object","boolean","number","string"];h=Yc.prototype;h.L=function(){return!0};h.C=function(){return this.ca};h.ia=function(a){return new Yc(this.B,a)};h.T=function(a){return".priority"===a?this.ca:H};h.S=function(a){return a.e()?this:".priority"===K(a)?this.ca:H};h.Fa=function(){return!1};h.wf=function(){return null};
-	h.W=function(a,b){return".priority"===a?this.ia(b):b.e()&&".priority"!==a?this:H.W(a,b).ia(this.ca)};h.H=function(a,b){var c=K(a);if(null===c)return b;if(b.e()&&".priority"!==c)return this;O(".priority"!==c||1===le(a),".priority must be the last token in a path");return this.W(c,H.H(N(a),b))};h.e=function(){return!1};h.Hb=function(){return 0};h.R=function(){return!1};h.J=function(a){return a&&!this.C().e()?{".value":this.Ea(),".priority":this.C().J()}:this.Ea()};
-	h.hash=function(){if(null===this.Gb){var a="";this.ca.e()||(a+="priority:"+Re(this.ca.J())+":");var b=typeof this.B,a=a+(b+":"),a="number"===b?a+Ad(this.B):a+this.B;this.Gb=ld(a)}return this.Gb};h.Ea=function(){return this.B};h.Gc=function(a){if(a===H)return 1;if(a instanceof fe)return-1;O(a.L(),"Unknown node type");var b=typeof a.B,c=typeof this.B,d=La(Qe,b),e=La(Qe,c);O(0<=d,"Unknown leaf type: "+b);O(0<=e,"Unknown leaf type: "+c);return d===e?"object"===c?0:this.B<a.B?-1:this.B===a.B?0:1:e-d};
-	h.pb=function(){return this};h.Mc=function(){return!0};h.ea=function(a){return a===this?!0:a.L()?this.B===a.B&&this.ca.ea(a.ca):!1};h.toString=function(){return G(this.J(!0))};function fe(a,b,c){this.m=a;(this.ca=b)&&Pe(this.ca);a.e()&&O(!this.ca||this.ca.e(),"An empty node cannot have a priority");this.Ab=c;this.Gb=null}h=fe.prototype;h.L=function(){return!1};h.C=function(){return this.ca||H};h.ia=function(a){return this.m.e()?this:new fe(this.m,a,this.Ab)};h.T=function(a){if(".priority"===a)return this.C();a=this.m.get(a);return null===a?H:a};h.S=function(a){var b=K(a);return null===b?this:this.T(b).S(N(a))};h.Fa=function(a){return null!==this.m.get(a)};
-	h.W=function(a,b){O(b,"We should always be passing snapshot nodes");if(".priority"===a)return this.ia(b);var c=new L(a,b),d,e;b.e()?(d=this.m.remove(a),c=Ne(this.Ab,c,this.m)):(d=this.m.Sa(a,b),c=Le(this.Ab,c,this.m));e=d.e()?H:this.ca;return new fe(d,e,c)};h.H=function(a,b){var c=K(a);if(null===c)return b;O(".priority"!==K(a)||1===le(a),".priority must be the last token in a path");var d=this.T(c).H(N(a),b);return this.W(c,d)};h.e=function(){return this.m.e()};h.Hb=function(){return this.m.count()};
-	var Se=/^(0|[1-9]\d*)$/;h=fe.prototype;h.J=function(a){if(this.e())return null;var b={},c=0,d=0,e=!0;this.R(R,function(f,g){b[f]=g.J(a);c++;e&&Se.test(f)?d=Math.max(d,Number(f)):e=!1});if(!a&&e&&d<2*c){var f=[],g;for(g in b)f[g]=b[g];return f}a&&!this.C().e()&&(b[".priority"]=this.C().J());return b};h.hash=function(){if(null===this.Gb){var a="";this.C().e()||(a+="priority:"+Re(this.C().J())+":");this.R(R,function(b,c){var d=c.hash();""!==d&&(a+=":"+b+":"+d)});this.Gb=""===a?"":ld(a)}return this.Gb};
-	h.wf=function(a,b,c){return(c=Te(this,c))?(a=Gc(c,new L(a,b)))?a.name:null:Gc(this.m,a)};function Wd(a,b){var c;c=(c=Te(a,b))?(c=c.Vc())&&c.name:a.m.Vc();return c?new L(c,a.m.get(c)):null}function Xd(a,b){var c;c=(c=Te(a,b))?(c=c.jc())&&c.name:a.m.jc();return c?new L(c,a.m.get(c)):null}h.R=function(a,b){var c=Te(this,a);return c?c.ka(function(a){return b(a.name,a.U)}):this.m.ka(b)};h.ac=function(a){return this.bc(a.Wc(),a)};
-	h.bc=function(a,b){var c=Te(this,b);if(c)return c.bc(a,function(a){return a});for(var c=this.m.bc(a.name,wc),d=Jc(c);null!=d&&0>b.compare(d,a);)Ic(c),d=Jc(c);return c};h.xf=function(a){return this.dc(a.Tc(),a)};h.dc=function(a,b){var c=Te(this,b);if(c)return c.dc(a,function(a){return a});for(var c=this.m.dc(a.name,wc),d=Jc(c);null!=d&&0<b.compare(d,a);)Ic(c),d=Jc(c);return c};h.Gc=function(a){return this.e()?a.e()?0:-1:a.L()||a.e()?1:a===we?-1:0};
-	h.pb=function(a){if(a===re||sa(this.Ab.hc,a.toString()))return this;var b=this.Ab,c=this.m;O(a!==re,"KeyIndex always exists and isn't meant to be added to the IndexMap.");for(var d=[],e=!1,c=c.ac(wc),f=Ic(c);f;)e=e||a.Lc(f.U),d.push(f),f=Ic(c);d=e?Me(d,Vd(a)):te;e=a.toString();c=wa(b.hc);c[e]=a;a=wa(b.Ed);a[e]=d;return new fe(this.m,this.ca,new Ke(a,c))};h.Mc=function(a){return a===re||sa(this.Ab.hc,a.toString())};
-	h.ea=function(a){if(a===this)return!0;if(a.L())return!1;if(this.C().ea(a.C())&&this.m.count()===a.m.count()){var b=this.ac(R);a=a.ac(R);for(var c=Ic(b),d=Ic(a);c&&d;){if(c.name!==d.name||!c.U.ea(d.U))return!1;c=Ic(b);d=Ic(a)}return null===c&&null===d}return!1};function Te(a,b){return b===re?null:a.Ab.get(b.toString())}h.toString=function(){return G(this.J(!0))};function Q(a,b){if(null===a)return H;var c=null;"object"===typeof a&&".priority"in a?c=a[".priority"]:"undefined"!==typeof b&&(c=b);O(null===c||"string"===typeof c||"number"===typeof c||"object"===typeof c&&".sv"in c,"Invalid priority type found: "+typeof c);"object"===typeof a&&".value"in a&&null!==a[".value"]&&(a=a[".value"]);if("object"!==typeof a||".sv"in a)return new Yc(a,Q(c));if(a instanceof Array){var d=H,e=a;v(e,function(a,b){if(y(e,b)&&"."!==b.substring(0,1)){var c=Q(a);if(c.L()||!c.e())d=
-	d.W(b,c)}});return d.ia(Q(c))}var f=[],g=!1,k=a;Fb(k,function(a){if("string"!==typeof a||"."!==a.substring(0,1)){var b=Q(k[a]);b.e()||(g=g||!b.C().e(),f.push(new L(a,b)))}});if(0==f.length)return H;var m=Me(f,xc,function(a){return a.name},zc);if(g){var l=Me(f,Vd(R));return new fe(m,Q(c),new Ke({".priority":l},{".priority":R}))}return new fe(m,Q(c),Oe)}var Ue=Math.log(2);
-	function Ve(a){this.count=parseInt(Math.log(a+1)/Ue,10);this.nf=this.count-1;this.ng=a+1&parseInt(Array(this.count+1).join("1"),2)}function We(a){var b=!(a.ng&1<<a.nf);a.nf--;return b}
-	function Me(a,b,c,d){function e(b,d){var f=d-b;if(0==f)return null;if(1==f){var l=a[b],t=c?c(l):l;return new Kc(t,l.U,!1,null,null)}var l=parseInt(f/2,10)+b,f=e(b,l),A=e(l+1,d),l=a[l],t=c?c(l):l;return new Kc(t,l.U,!1,f,A)}a.sort(b);var f=function(b){function d(b,g){var k=t-b,A=t;t-=b;var A=e(k+1,A),k=a[k],I=c?c(k):k,A=new Kc(I,k.U,g,null,A);f?f.left=A:l=A;f=A}for(var f=null,l=null,t=a.length,A=0;A<b.count;++A){var I=We(b),Qd=Math.pow(2,b.count-(A+1));I?d(Qd,!1):(d(Qd,!1),d(Qd,!0))}return l}(new Ve(a.length));
-	return null!==f?new Ec(d||b,f):new Ec(d||b)}function Re(a){return"number"===typeof a?"number:"+Ad(a):"string:"+a}function Pe(a){if(a.L()){var b=a.J();O("string"===typeof b||"number"===typeof b||"object"===typeof b&&y(b,".sv"),"Priority must be a string or number.")}else O(a===we||a.e(),"priority of unexpected type.");O(a===we||a.C().e(),"Priority nodes can't have a priority of their own.")}var H=new fe(new Ec(zc),null,Oe);function Xe(){fe.call(this,new Ec(zc),H,Oe)}ka(Xe,fe);h=Xe.prototype;
-	h.Gc=function(a){return a===this?0:1};h.ea=function(a){return a===this};h.C=function(){return this};h.T=function(){return H};h.e=function(){return!1};var we=new Xe,ue=new L("[MIN_NAME]",H),Ae=new L("[MAX_NAME]",we);function je(a,b){this.Q=a;this.ae=b}function ge(a,b,c,d){return new je(new Xb(b,c,d),a.ae)}function ke(a){return a.Q.ga?a.Q.j():null}je.prototype.w=function(){return this.ae};function Yb(a){return a.ae.ga?a.ae.j():null};function Ye(a,b){this.Y=a;var c=a.n,d=new Ld(c.g),c=He(c)?new Ld(c.g):c.la?new Sd(c):new Md(c);this.Nf=new Zd(c);var e=b.w(),f=b.Q,g=d.ya(H,e.j(),null),k=c.ya(H,f.j(),null);this.Oa=new je(new Xb(k,f.ga,c.Ra()),new Xb(g,e.ga,d.Ra()));this.$a=[];this.ug=new Fd(a)}function Ze(a){return a.Y}h=Ye.prototype;h.w=function(){return this.Oa.w().j()};h.kb=function(a){var b=Yb(this.Oa);return b&&(He(this.Y.n)||!a.e()&&!b.T(K(a)).e())?b.S(a):null};h.e=function(){return 0===this.$a.length};h.Tb=function(a){this.$a.push(a)};
-	h.nb=function(a,b){var c=[];if(b){O(null==a,"A cancel should cancel all event registrations.");var d=this.Y.path;Ma(this.$a,function(a){(a=a.lf(b,d))&&c.push(a)})}if(a){for(var e=[],f=0;f<this.$a.length;++f){var g=this.$a[f];if(!g.matches(a))e.push(g);else if(a.yf()){e=e.concat(this.$a.slice(f+1));break}}this.$a=e}else this.$a=[];return c};
-	h.gb=function(a,b,c){a.type===be&&null!==a.source.Lb&&(O(Yb(this.Oa),"We should always have a full cache before handling merges"),O(ke(this.Oa),"Missing event cache, even though we have a server cache"));var d=this.Oa;a=this.Nf.gb(d,a,b,c);b=this.Nf;c=a.me;O(c.Q.j().Mc(b.X.g),"Event snap not indexed");O(c.w().j().Mc(b.X.g),"Server snap not indexed");O(lc(a.me.w())||!lc(d.w()),"Once a server snap is complete, it should never go back");this.Oa=a.me;return $e(this,a.og,a.me.Q.j(),null)};
-	function af(a,b){var c=a.Oa.Q,d=[];c.j().L()||c.j().R(R,function(a,b){d.push(new J("child_added",b,a))});c.ga&&d.push(hc(c.j()));return $e(a,d,c.j(),b)}function $e(a,b,c,d){return Gd(a.ug,b,c,d?[d]:a.$a)};function bf(a,b,c){this.type=be;this.source=a;this.path=b;this.children=c}bf.prototype.$c=function(a){if(this.path.e())return a=this.children.subtree(new P(a)),a.e()?null:a.value?new Ac(this.source,M,a.value):new bf(this.source,M,a);O(K(this.path)===a,"Can't get a merge for a child not on the path of the operation");return new bf(this.source,N(this.path),this.children)};bf.prototype.toString=function(){return"Operation("+this.path+": "+this.source.toString()+" merge: "+this.children.toString()+")"};function cf(a,b){this.f=pd("p:rest:");this.G=a;this.Kb=b;this.Ca=null;this.ba={}}function df(a,b){if(p(b))return"tag$"+b;O(Ie(a.n),"should have a tag if it's not a default query.");return a.path.toString()}h=cf.prototype;
-	h.Cf=function(a,b,c,d){var e=a.path.toString();this.f("Listen called for "+e+" "+a.wa());var f=df(a,c),g={};this.ba[f]=g;a=Je(a.n);var k=this;ef(this,e+".json",a,function(a,b){var t=b;404===a&&(a=t=null);null===a&&k.Kb(e,t,!1,c);z(k.ba,f)===g&&d(a?401==a?"permission_denied":"rest_error:"+a:"ok",null)})};h.$f=function(a,b){var c=df(a,b);delete this.ba[c]};h.O=function(a,b){this.Ca=a;var c=Cd(a),d=c.data,c=c.Ec&&c.Ec.exp;b&&b("ok",{auth:d,expires:c})};h.je=function(a){this.Ca=null;a("ok",null)};
-	h.Qe=function(){};h.Gf=function(){};h.Md=function(){};h.put=function(){};h.Df=function(){};h.Ye=function(){};
-	function ef(a,b,c,d){c=c||{};c.format="export";a.Ca&&(c.auth=a.Ca);var e=(a.G.ob?"https://":"http://")+a.G.host+b+"?"+Ib(c);a.f("Sending REST request for "+e);var f=new XMLHttpRequest;f.onreadystatechange=function(){if(d&&4===f.readyState){a.f("REST Response for "+e+" received. status:",f.status,"response:",f.responseText);var b=null;if(200<=f.status&&300>f.status){try{b=Rb(f.responseText)}catch(c){S("Failed to parse JSON response for "+e+": "+f.responseText)}d(null,b)}else 401!==f.status&&404!==
-	f.status&&S("Got unsuccessful REST response for "+e+" Status: "+f.status),d(f.status);d=null}};f.open("GET",e,!0);f.send()};function ff(a){O(da(a)&&0<a.length,"Requires a non-empty array");this.fg=a;this.Rc={}}ff.prototype.ie=function(a,b){var c;c=this.Rc[a]||[];var d=c.length;if(0<d){for(var e=Array(d),f=0;f<d;f++)e[f]=c[f];c=e}else c=[];for(d=0;d<c.length;d++)c[d].Dc.apply(c[d].Qa,Array.prototype.slice.call(arguments,1))};ff.prototype.Ib=function(a,b,c){gf(this,a);this.Rc[a]=this.Rc[a]||[];this.Rc[a].push({Dc:b,Qa:c});(a=this.Ee(a))&&b.apply(c,a)};
-	ff.prototype.mc=function(a,b,c){gf(this,a);a=this.Rc[a]||[];for(var d=0;d<a.length;d++)if(a[d].Dc===b&&(!c||c===a[d].Qa)){a.splice(d,1);break}};function gf(a,b){O(Ra(a.fg,function(a){return a===b}),"Unknown event: "+b)};var hf=function(){var a=0,b=[];return function(c){var d=c===a;a=c;for(var e=Array(8),f=7;0<=f;f--)e[f]="-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz".charAt(c%64),c=Math.floor(c/64);O(0===c,"Cannot push at time == 0");c=e.join("");if(d){for(f=11;0<=f&&63===b[f];f--)b[f]=0;b[f]++}else for(f=0;12>f;f++)b[f]=Math.floor(64*Math.random());for(f=0;12>f;f++)c+="-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz".charAt(b[f]);O(20===c.length,"nextPushId: Length should be 20.");
-	return c}}();function jf(){ff.call(this,["online"]);this.oc=!0;if("undefined"!==typeof window&&"undefined"!==typeof window.addEventListener){var a=this;window.addEventListener("online",function(){a.oc||(a.oc=!0,a.ie("online",!0))},!1);window.addEventListener("offline",function(){a.oc&&(a.oc=!1,a.ie("online",!1))},!1)}}ka(jf,ff);jf.prototype.Ee=function(a){O("online"===a,"Unknown event type: "+a);return[this.oc]};ba(jf);function kf(){ff.call(this,["visible"]);var a,b;"undefined"!==typeof document&&"undefined"!==typeof document.addEventListener&&("undefined"!==typeof document.hidden?(b="visibilitychange",a="hidden"):"undefined"!==typeof document.mozHidden?(b="mozvisibilitychange",a="mozHidden"):"undefined"!==typeof document.msHidden?(b="msvisibilitychange",a="msHidden"):"undefined"!==typeof document.webkitHidden&&(b="webkitvisibilitychange",a="webkitHidden"));this.Sb=!0;if(b){var c=this;document.addEventListener(b,
-	function(){var b=!document[a];b!==c.Sb&&(c.Sb=b,c.ie("visible",b))},!1)}}ka(kf,ff);kf.prototype.Ee=function(a){O("visible"===a,"Unknown event type: "+a);return[this.Sb]};ba(kf);function P(a,b){if(1==arguments.length){this.u=a.split("/");for(var c=0,d=0;d<this.u.length;d++)0<this.u[d].length&&(this.u[c]=this.u[d],c++);this.u.length=c;this.aa=0}else this.u=a,this.aa=b}function lf(a,b){var c=K(a);if(null===c)return b;if(c===K(b))return lf(N(a),N(b));throw Error("INTERNAL ERROR: innerPath ("+b+") is not within outerPath ("+a+")");}
-	function mf(a,b){for(var c=a.slice(),d=b.slice(),e=0;e<c.length&&e<d.length;e++){var f=yc(c[e],d[e]);if(0!==f)return f}return c.length===d.length?0:c.length<d.length?-1:1}function K(a){return a.aa>=a.u.length?null:a.u[a.aa]}function le(a){return a.u.length-a.aa}function N(a){var b=a.aa;b<a.u.length&&b++;return new P(a.u,b)}function me(a){return a.aa<a.u.length?a.u[a.u.length-1]:null}h=P.prototype;
-	h.toString=function(){for(var a="",b=this.aa;b<this.u.length;b++)""!==this.u[b]&&(a+="/"+this.u[b]);return a||"/"};h.slice=function(a){return this.u.slice(this.aa+(a||0))};h.parent=function(){if(this.aa>=this.u.length)return null;for(var a=[],b=this.aa;b<this.u.length-1;b++)a.push(this.u[b]);return new P(a,0)};
-	h.o=function(a){for(var b=[],c=this.aa;c<this.u.length;c++)b.push(this.u[c]);if(a instanceof P)for(c=a.aa;c<a.u.length;c++)b.push(a.u[c]);else for(a=a.split("/"),c=0;c<a.length;c++)0<a[c].length&&b.push(a[c]);return new P(b,0)};h.e=function(){return this.aa>=this.u.length};h.ea=function(a){if(le(this)!==le(a))return!1;for(var b=this.aa,c=a.aa;b<=this.u.length;b++,c++)if(this.u[b]!==a.u[c])return!1;return!0};
-	h.contains=function(a){var b=this.aa,c=a.aa;if(le(this)>le(a))return!1;for(;b<this.u.length;){if(this.u[b]!==a.u[c])return!1;++b;++c}return!0};var M=new P("");function nf(a,b){this.Ua=a.slice();this.Ka=Math.max(1,this.Ua.length);this.pf=b;for(var c=0;c<this.Ua.length;c++)this.Ka+=Pb(this.Ua[c]);of(this)}nf.prototype.push=function(a){0<this.Ua.length&&(this.Ka+=1);this.Ua.push(a);this.Ka+=Pb(a);of(this)};nf.prototype.pop=function(){var a=this.Ua.pop();this.Ka-=Pb(a);0<this.Ua.length&&--this.Ka};
-	function of(a){if(768<a.Ka)throw Error(a.pf+"has a key path longer than 768 bytes ("+a.Ka+").");if(32<a.Ua.length)throw Error(a.pf+"path specified exceeds the maximum depth that can be written (32) or object contains a cycle "+pf(a));}function pf(a){return 0==a.Ua.length?"":"in property '"+a.Ua.join(".")+"'"};function qf(a,b){this.value=a;this.children=b||rf}var rf=new Ec(function(a,b){return a===b?0:a<b?-1:1});function sf(a){var b=qe;v(a,function(a,d){b=b.set(new P(d),a)});return b}h=qf.prototype;h.e=function(){return null===this.value&&this.children.e()};function tf(a,b,c){if(null!=a.value&&c(a.value))return{path:M,value:a.value};if(b.e())return null;var d=K(b);a=a.children.get(d);return null!==a?(b=tf(a,N(b),c),null!=b?{path:(new P(d)).o(b.path),value:b.value}:null):null}
-	function uf(a,b){return tf(a,b,function(){return!0})}h.subtree=function(a){if(a.e())return this;var b=this.children.get(K(a));return null!==b?b.subtree(N(a)):qe};h.set=function(a,b){if(a.e())return new qf(b,this.children);var c=K(a),d=(this.children.get(c)||qe).set(N(a),b),c=this.children.Sa(c,d);return new qf(this.value,c)};
-	h.remove=function(a){if(a.e())return this.children.e()?qe:new qf(null,this.children);var b=K(a),c=this.children.get(b);return c?(a=c.remove(N(a)),b=a.e()?this.children.remove(b):this.children.Sa(b,a),null===this.value&&b.e()?qe:new qf(this.value,b)):this};h.get=function(a){if(a.e())return this.value;var b=this.children.get(K(a));return b?b.get(N(a)):null};
-	function pe(a,b,c){if(b.e())return c;var d=K(b);b=pe(a.children.get(d)||qe,N(b),c);d=b.e()?a.children.remove(d):a.children.Sa(d,b);return new qf(a.value,d)}function vf(a,b){return wf(a,M,b)}function wf(a,b,c){var d={};a.children.ka(function(a,f){d[a]=wf(f,b.o(a),c)});return c(b,a.value,d)}function xf(a,b,c){return yf(a,b,M,c)}function yf(a,b,c,d){var e=a.value?d(c,a.value):!1;if(e)return e;if(b.e())return null;e=K(b);return(a=a.children.get(e))?yf(a,N(b),c.o(e),d):null}
-	function zf(a,b,c){Af(a,b,M,c)}function Af(a,b,c,d){if(b.e())return a;a.value&&d(c,a.value);var e=K(b);return(a=a.children.get(e))?Af(a,N(b),c.o(e),d):qe}function ne(a,b){Bf(a,M,b)}function Bf(a,b,c){a.children.ka(function(a,e){Bf(e,b.o(a),c)});a.value&&c(b,a.value)}function Cf(a,b){a.children.ka(function(a,d){d.value&&b(a,d.value)})}var qe=new qf(null);qf.prototype.toString=function(){var a={};ne(this,function(b,c){a[b.toString()]=c.toString()});return G(a)};function Df(a,b,c){this.type=ee;this.source=Ef;this.path=a;this.Ub=b;this.Yd=c}Df.prototype.$c=function(a){if(this.path.e()){if(null!=this.Ub.value)return O(this.Ub.children.e(),"affectedTree should not have overlapping affected paths."),this;a=this.Ub.subtree(new P(a));return new Df(M,a,this.Yd)}O(K(this.path)===a,"operationForChild called for unrelated child.");return new Df(N(this.path),this.Ub,this.Yd)};
-	Df.prototype.toString=function(){return"Operation("+this.path+": "+this.source.toString()+" ack write revert="+this.Yd+" affectedTree="+this.Ub+")"};var Bc=0,be=1,ee=2,Dc=3;function Ff(a,b,c,d){this.Ae=a;this.tf=b;this.Lb=c;this.ef=d;O(!d||b,"Tagged queries must be from server.")}var Ef=new Ff(!0,!1,null,!1),Gf=new Ff(!1,!0,null,!1);Ff.prototype.toString=function(){return this.Ae?"user":this.ef?"server(queryID="+this.Lb+")":"server"};function Hf(a){this.Z=a}var If=new Hf(new qf(null));function Jf(a,b,c){if(b.e())return new Hf(new qf(c));var d=uf(a.Z,b);if(null!=d){var e=d.path,d=d.value;b=lf(e,b);d=d.H(b,c);return new Hf(a.Z.set(e,d))}a=pe(a.Z,b,new qf(c));return new Hf(a)}function Kf(a,b,c){var d=a;Fb(c,function(a,c){d=Jf(d,b.o(a),c)});return d}Hf.prototype.Ud=function(a){if(a.e())return If;a=pe(this.Z,a,qe);return new Hf(a)};function Lf(a,b){var c=uf(a.Z,b);return null!=c?a.Z.get(c.path).S(lf(c.path,b)):null}
-	function Mf(a){var b=[],c=a.Z.value;null!=c?c.L()||c.R(R,function(a,c){b.push(new L(a,c))}):a.Z.children.ka(function(a,c){null!=c.value&&b.push(new L(a,c.value))});return b}function Nf(a,b){if(b.e())return a;var c=Lf(a,b);return null!=c?new Hf(new qf(c)):new Hf(a.Z.subtree(b))}Hf.prototype.e=function(){return this.Z.e()};Hf.prototype.apply=function(a){return Of(M,this.Z,a)};
-	function Of(a,b,c){if(null!=b.value)return c.H(a,b.value);var d=null;b.children.ka(function(b,f){".priority"===b?(O(null!==f.value,"Priority writes must always be leaf nodes"),d=f.value):c=Of(a.o(b),f,c)});c.S(a).e()||null===d||(c=c.H(a.o(".priority"),d));return c};function Pf(){this.V=If;this.pa=[];this.Pc=-1}function Qf(a,b){for(var c=0;c<a.pa.length;c++){var d=a.pa[c];if(d.md===b)return d}return null}h=Pf.prototype;
-	h.Ud=function(a){var b=Sa(this.pa,function(b){return b.md===a});O(0<=b,"removeWrite called with nonexistent writeId.");var c=this.pa[b];this.pa.splice(b,1);for(var d=c.visible,e=!1,f=this.pa.length-1;d&&0<=f;){var g=this.pa[f];g.visible&&(f>=b&&Rf(g,c.path)?d=!1:c.path.contains(g.path)&&(e=!0));f--}if(d){if(e)this.V=Sf(this.pa,Tf,M),this.Pc=0<this.pa.length?this.pa[this.pa.length-1].md:-1;else if(c.Ja)this.V=this.V.Ud(c.path);else{var k=this;v(c.children,function(a,b){k.V=k.V.Ud(c.path.o(b))})}return!0}return!1};
-	h.Aa=function(a,b,c,d){if(c||d){var e=Nf(this.V,a);return!d&&e.e()?b:d||null!=b||null!=Lf(e,M)?(e=Sf(this.pa,function(b){return(b.visible||d)&&(!c||!(0<=La(c,b.md)))&&(b.path.contains(a)||a.contains(b.path))},a),b=b||H,e.apply(b)):null}e=Lf(this.V,a);if(null!=e)return e;e=Nf(this.V,a);return e.e()?b:null!=b||null!=Lf(e,M)?(b=b||H,e.apply(b)):null};
-	h.Cc=function(a,b){var c=H,d=Lf(this.V,a);if(d)d.L()||d.R(R,function(a,b){c=c.W(a,b)});else if(b){var e=Nf(this.V,a);b.R(R,function(a,b){var d=Nf(e,new P(a)).apply(b);c=c.W(a,d)});Ma(Mf(e),function(a){c=c.W(a.name,a.U)})}else e=Nf(this.V,a),Ma(Mf(e),function(a){c=c.W(a.name,a.U)});return c};h.nd=function(a,b,c,d){O(c||d,"Either existingEventSnap or existingServerSnap must exist");a=a.o(b);if(null!=Lf(this.V,a))return null;a=Nf(this.V,a);return a.e()?d.S(b):a.apply(d.S(b))};
-	h.Bc=function(a,b,c){a=a.o(b);var d=Lf(this.V,a);return null!=d?d:Wb(c,b)?Nf(this.V,a).apply(c.j().T(b)):null};h.xc=function(a){return Lf(this.V,a)};h.qe=function(a,b,c,d,e,f){var g;a=Nf(this.V,a);g=Lf(a,M);if(null==g)if(null!=b)g=a.apply(b);else return[];g=g.pb(f);if(g.e()||g.L())return[];b=[];a=Vd(f);e=e?g.dc(c,f):g.bc(c,f);for(f=Ic(e);f&&b.length<d;)0!==a(f,c)&&b.push(f),f=Ic(e);return b};
-	function Rf(a,b){return a.Ja?a.path.contains(b):!!ta(a.children,function(c,d){return a.path.o(d).contains(b)})}function Tf(a){return a.visible}
-	function Sf(a,b,c){for(var d=If,e=0;e<a.length;++e){var f=a[e];if(b(f)){var g=f.path;if(f.Ja)c.contains(g)?(g=lf(c,g),d=Jf(d,g,f.Ja)):g.contains(c)&&(g=lf(g,c),d=Jf(d,M,f.Ja.S(g)));else if(f.children)if(c.contains(g))g=lf(c,g),d=Kf(d,g,f.children);else{if(g.contains(c))if(g=lf(g,c),g.e())d=Kf(d,M,f.children);else if(f=z(f.children,K(g)))f=f.S(N(g)),d=Jf(d,M,f)}else throw jd("WriteRecord should have .snap or .children");}}return d}function Uf(a,b){this.Qb=a;this.Z=b}h=Uf.prototype;
-	h.Aa=function(a,b,c){return this.Z.Aa(this.Qb,a,b,c)};h.Cc=function(a){return this.Z.Cc(this.Qb,a)};h.nd=function(a,b,c){return this.Z.nd(this.Qb,a,b,c)};h.xc=function(a){return this.Z.xc(this.Qb.o(a))};h.qe=function(a,b,c,d,e){return this.Z.qe(this.Qb,a,b,c,d,e)};h.Bc=function(a,b){return this.Z.Bc(this.Qb,a,b)};h.o=function(a){return new Uf(this.Qb.o(a),this.Z)};function Vf(){this.children={};this.pd=0;this.value=null}function Wf(a,b,c){this.Jd=a?a:"";this.Ha=b?b:null;this.A=c?c:new Vf}function Xf(a,b){for(var c=b instanceof P?b:new P(b),d=a,e;null!==(e=K(c));)d=new Wf(e,d,z(d.A.children,e)||new Vf),c=N(c);return d}h=Wf.prototype;h.Ea=function(){return this.A.value};function Yf(a,b){O("undefined"!==typeof b,"Cannot set value to undefined");a.A.value=b;Zf(a)}h.clear=function(){this.A.value=null;this.A.children={};this.A.pd=0;Zf(this)};
-	h.zd=function(){return 0<this.A.pd};h.e=function(){return null===this.Ea()&&!this.zd()};h.R=function(a){var b=this;v(this.A.children,function(c,d){a(new Wf(d,b,c))})};function $f(a,b,c,d){c&&!d&&b(a);a.R(function(a){$f(a,b,!0,d)});c&&d&&b(a)}function ag(a,b){for(var c=a.parent();null!==c&&!b(c);)c=c.parent()}h.path=function(){return new P(null===this.Ha?this.Jd:this.Ha.path()+"/"+this.Jd)};h.name=function(){return this.Jd};h.parent=function(){return this.Ha};
-	function Zf(a){if(null!==a.Ha){var b=a.Ha,c=a.Jd,d=a.e(),e=y(b.A.children,c);d&&e?(delete b.A.children[c],b.A.pd--,Zf(b)):d||e||(b.A.children[c]=a.A,b.A.pd++,Zf(b))}};var bg=/[\[\].#$\/\u0000-\u001F\u007F]/,cg=/[\[\].#$\u0000-\u001F\u007F]/,dg=/^[a-zA-Z][a-zA-Z._\-+]+$/;function eg(a){return q(a)&&0!==a.length&&!bg.test(a)}function fg(a){return null===a||q(a)||fa(a)&&!td(a)||ga(a)&&y(a,".sv")}function gg(a,b,c,d){d&&!p(b)||hg(E(a,1,d),b,c)}
-	function hg(a,b,c){c instanceof P&&(c=new nf(c,a));if(!p(b))throw Error(a+"contains undefined "+pf(c));if(r(b))throw Error(a+"contains a function "+pf(c)+" with contents: "+b.toString());if(td(b))throw Error(a+"contains "+b.toString()+" "+pf(c));if(q(b)&&b.length>10485760/3&&10485760<Pb(b))throw Error(a+"contains a string greater than 10485760 utf8 bytes "+pf(c)+" ('"+b.substring(0,50)+"...')");if(ga(b)){var d=!1,e=!1;Fb(b,function(b,g){if(".value"===b)d=!0;else if(".priority"!==b&&".sv"!==b&&(e=
-	!0,!eg(b)))throw Error(a+" contains an invalid key ("+b+") "+pf(c)+'.  Keys must be non-empty strings and can\'t contain ".", "#", "$", "/", "[", or "]"');c.push(b);hg(a,g,c);c.pop()});if(d&&e)throw Error(a+' contains ".value" child '+pf(c)+" in addition to actual children.");}}
-	function ig(a,b){var c,d;for(c=0;c<b.length;c++){d=b[c];for(var e=d.slice(),f=0;f<e.length;f++)if((".priority"!==e[f]||f!==e.length-1)&&!eg(e[f]))throw Error(a+"contains an invalid key ("+e[f]+") in path "+d.toString()+'. Keys must be non-empty strings and can\'t contain ".", "#", "$", "/", "[", or "]"');}b.sort(mf);e=null;for(c=0;c<b.length;c++){d=b[c];if(null!==e&&e.contains(d))throw Error(a+"contains a path "+e.toString()+" that is ancestor of another path "+d.toString());e=d}}
-	function jg(a,b,c){var d=E(a,1,!1);if(!ga(b)||da(b))throw Error(d+" must be an object containing the children to replace.");var e=[];Fb(b,function(a,b){var k=new P(a);hg(d,b,c.o(k));if(".priority"===me(k)&&!fg(b))throw Error(d+"contains an invalid value for '"+k.toString()+"', which must be a valid Firebase priority (a string, finite number, server value, or null).");e.push(k)});ig(d,e)}
-	function kg(a,b,c){if(td(c))throw Error(E(a,b,!1)+"is "+c.toString()+", but must be a valid Firebase priority (a string, finite number, server value, or null).");if(!fg(c))throw Error(E(a,b,!1)+"must be a valid Firebase priority (a string, finite number, server value, or null).");}
-	function lg(a,b,c){if(!c||p(b))switch(b){case "value":case "child_added":case "child_removed":case "child_changed":case "child_moved":break;default:throw Error(E(a,1,c)+'must be a valid event type: "value", "child_added", "child_removed", "child_changed", or "child_moved".');}}function mg(a,b){if(p(b)&&!eg(b))throw Error(E(a,2,!0)+'was an invalid key: "'+b+'".  Firebase keys must be non-empty strings and can\'t contain ".", "#", "$", "/", "[", or "]").');}
-	function ng(a,b){if(!q(b)||0===b.length||cg.test(b))throw Error(E(a,1,!1)+'was an invalid path: "'+b+'". Paths must be non-empty strings and can\'t contain ".", "#", "$", "[", or "]"');}function og(a,b){if(".info"===K(b))throw Error(a+" failed: Can't modify data under /.info/");}function pg(a,b){if(!q(b))throw Error(E(a,1,!1)+"must be a valid credential (a string).");}function qg(a,b,c){if(!q(c))throw Error(E(a,b,!1)+"must be a valid string.");}
-	function rg(a,b){qg(a,1,b);if(!dg.test(b))throw Error(E(a,1,!1)+"'"+b+"' is not a valid authentication provider.");}function sg(a,b,c,d){if(!d||p(c))if(!ga(c)||null===c)throw Error(E(a,b,d)+"must be a valid object.");}function tg(a,b,c){if(!ga(b)||!y(b,c))throw Error(E(a,1,!1)+'must contain the key "'+c+'"');if(!q(z(b,c)))throw Error(E(a,1,!1)+'must contain the key "'+c+'" with type "string"');};function ug(){this.set={}}h=ug.prototype;h.add=function(a,b){this.set[a]=null!==b?b:!0};h.contains=function(a){return y(this.set,a)};h.get=function(a){return this.contains(a)?this.set[a]:void 0};h.remove=function(a){delete this.set[a]};h.clear=function(){this.set={}};h.e=function(){return va(this.set)};h.count=function(){return oa(this.set)};function vg(a,b){v(a.set,function(a,d){b(d,a)})}h.keys=function(){var a=[];v(this.set,function(b,c){a.push(c)});return a};function Vc(){this.m=this.B=null}Vc.prototype.find=function(a){if(null!=this.B)return this.B.S(a);if(a.e()||null==this.m)return null;var b=K(a);a=N(a);return this.m.contains(b)?this.m.get(b).find(a):null};Vc.prototype.rc=function(a,b){if(a.e())this.B=b,this.m=null;else if(null!==this.B)this.B=this.B.H(a,b);else{null==this.m&&(this.m=new ug);var c=K(a);this.m.contains(c)||this.m.add(c,new Vc);c=this.m.get(c);a=N(a);c.rc(a,b)}};
-	function wg(a,b){if(b.e())return a.B=null,a.m=null,!0;if(null!==a.B){if(a.B.L())return!1;var c=a.B;a.B=null;c.R(R,function(b,c){a.rc(new P(b),c)});return wg(a,b)}return null!==a.m?(c=K(b),b=N(b),a.m.contains(c)&&wg(a.m.get(c),b)&&a.m.remove(c),a.m.e()?(a.m=null,!0):!1):!0}function Wc(a,b,c){null!==a.B?c(b,a.B):a.R(function(a,e){var f=new P(b.toString()+"/"+a);Wc(e,f,c)})}Vc.prototype.R=function(a){null!==this.m&&vg(this.m,function(b,c){a(b,c)})};var xg="auth.firebase.com";function yg(a,b,c){this.qd=a||{};this.he=b||{};this.fb=c||{};this.qd.remember||(this.qd.remember="default")}var zg=["remember","redirectTo"];function Ag(a){var b={},c={};Fb(a||{},function(a,e){0<=La(zg,a)?b[a]=e:c[a]=e});return new yg(b,{},c)};function Bg(a,b){this.Ue=["session",a.Rd,a.lc].join(":");this.ee=b}Bg.prototype.set=function(a,b){if(!b)if(this.ee.length)b=this.ee[0];else throw Error("fb.login.SessionManager : No storage options available!");b.set(this.Ue,a)};Bg.prototype.get=function(){var a=Oa(this.ee,u(this.Bg,this)),a=Na(a,function(a){return null!==a});Va(a,function(a,c){return Dd(c.token)-Dd(a.token)});return 0<a.length?a.shift():null};Bg.prototype.Bg=function(a){try{var b=a.get(this.Ue);if(b&&b.token)return b}catch(c){}return null};
-	Bg.prototype.clear=function(){var a=this;Ma(this.ee,function(b){b.remove(a.Ue)})};function Cg(){return"undefined"!==typeof navigator&&"string"===typeof navigator.userAgent?navigator.userAgent:""}function Dg(){return"undefined"!==typeof window&&!!(window.cordova||window.phonegap||window.PhoneGap)&&/ios|iphone|ipod|ipad|android|blackberry|iemobile/i.test(Cg())}function Eg(){return"undefined"!==typeof location&&/^file:\//.test(location.href)}
-	function Fg(a){var b=Cg();if(""===b)return!1;if("Microsoft Internet Explorer"===navigator.appName){if((b=b.match(/MSIE ([0-9]{1,}[\.0-9]{0,})/))&&1<b.length)return parseFloat(b[1])>=a}else if(-1<b.indexOf("Trident")&&(b=b.match(/rv:([0-9]{2,2}[\.0-9]{0,})/))&&1<b.length)return parseFloat(b[1])>=a;return!1};function Gg(){var a=window.opener.frames,b;for(b=a.length-1;0<=b;b--)try{if(a[b].location.protocol===window.location.protocol&&a[b].location.host===window.location.host&&"__winchan_relay_frame"===a[b].name)return a[b]}catch(c){}return null}function Hg(a,b,c){a.attachEvent?a.attachEvent("on"+b,c):a.addEventListener&&a.addEventListener(b,c,!1)}function Ig(a,b,c){a.detachEvent?a.detachEvent("on"+b,c):a.removeEventListener&&a.removeEventListener(b,c,!1)}
-	function Jg(a){/^https?:\/\//.test(a)||(a=window.location.href);var b=/^(https?:\/\/[\-_a-zA-Z\.0-9:]+)/.exec(a);return b?b[1]:a}function Kg(a){var b="";try{a=a.replace(/.*\?/,"");var c=Jb(a);c&&y(c,"__firebase_request_key")&&(b=z(c,"__firebase_request_key"))}catch(d){}return b}function Lg(){try{var a=document.location.hash.replace(/&__firebase_request_key=([a-zA-z0-9]*)/,""),a=a.replace(/\?$/,""),a=a.replace(/^#+$/,"");document.location.hash=a}catch(b){}}
-	function Mg(){var a=sd(xg);return a.scheme+"://"+a.host+"/v2"}function Ng(a){return Mg()+"/"+a+"/auth/channel"};function Og(a){var b=this;this.hb=a;this.fe="*";Fg(8)?this.Uc=this.Cd=Gg():(this.Uc=window.opener,this.Cd=window);if(!b.Uc)throw"Unable to find relay frame";Hg(this.Cd,"message",u(this.nc,this));Hg(this.Cd,"message",u(this.Ff,this));try{Pg(this,{a:"ready"})}catch(c){Hg(this.Uc,"load",function(){Pg(b,{a:"ready"})})}Hg(window,"unload",u(this.Ng,this))}function Pg(a,b){b=G(b);Fg(8)?a.Uc.doPost(b,a.fe):a.Uc.postMessage(b,a.fe)}
-	Og.prototype.nc=function(a){var b=this,c;try{c=Rb(a.data)}catch(d){}c&&"request"===c.a&&(Ig(window,"message",this.nc),this.fe=a.origin,this.hb&&setTimeout(function(){b.hb(b.fe,c.d,function(a,c){b.mg=!c;b.hb=void 0;Pg(b,{a:"response",d:a,forceKeepWindowOpen:c})})},0))};Og.prototype.Ng=function(){try{Ig(this.Cd,"message",this.Ff)}catch(a){}this.hb&&(Pg(this,{a:"error",d:"unknown closed window"}),this.hb=void 0);try{window.close()}catch(b){}};Og.prototype.Ff=function(a){if(this.mg&&"die"===a.data)try{window.close()}catch(b){}};function Qg(a){this.tc=Fa()+Fa()+Fa();this.Kf=a}Qg.prototype.open=function(a,b){cd.set("redirect_request_id",this.tc);cd.set("redirect_request_id",this.tc);b.requestId=this.tc;b.redirectTo=b.redirectTo||window.location.href;a+=(/\?/.test(a)?"":"?")+Ib(b);window.location=a};Qg.isAvailable=function(){return!Eg()&&!Dg()};Qg.prototype.Fc=function(){return"redirect"};var Rg={NETWORK_ERROR:"Unable to contact the Firebase server.",SERVER_ERROR:"An unknown server error occurred.",TRANSPORT_UNAVAILABLE:"There are no login transports available for the requested method.",REQUEST_INTERRUPTED:"The browser redirected the page before the login request could complete.",USER_CANCELLED:"The user cancelled authentication."};function Sg(a){var b=Error(z(Rg,a),a);b.code=a;return b};function Tg(a){var b;(b=!a.window_features)||(b=Cg(),b=-1!==b.indexOf("Fennec/")||-1!==b.indexOf("Firefox/")&&-1!==b.indexOf("Android"));b&&(a.window_features=void 0);a.window_name||(a.window_name="_blank");this.options=a}
-	Tg.prototype.open=function(a,b,c){function d(a){g&&(document.body.removeChild(g),g=void 0);t&&(t=clearInterval(t));Ig(window,"message",e);Ig(window,"unload",d);if(l&&!a)try{l.close()}catch(b){k.postMessage("die",m)}l=k=void 0}function e(a){if(a.origin===m)try{var b=Rb(a.data);"ready"===b.a?k.postMessage(A,m):"error"===b.a?(d(!1),c&&(c(b.d),c=null)):"response"===b.a&&(d(b.forceKeepWindowOpen),c&&(c(null,b.d),c=null))}catch(e){}}var f=Fg(8),g,k;if(!this.options.relay_url)return c(Error("invalid arguments: origin of url and relay_url must match"));
-	var m=Jg(a);if(m!==Jg(this.options.relay_url))c&&setTimeout(function(){c(Error("invalid arguments: origin of url and relay_url must match"))},0);else{f&&(g=document.createElement("iframe"),g.setAttribute("src",this.options.relay_url),g.style.display="none",g.setAttribute("name","__winchan_relay_frame"),document.body.appendChild(g),k=g.contentWindow);a+=(/\?/.test(a)?"":"?")+Ib(b);var l=window.open(a,this.options.window_name,this.options.window_features);k||(k=l);var t=setInterval(function(){l&&l.closed&&
-	(d(!1),c&&(c(Sg("USER_CANCELLED")),c=null))},500),A=G({a:"request",d:b});Hg(window,"unload",d);Hg(window,"message",e)}};
-	Tg.isAvailable=function(){var a;if(a="postMessage"in window&&!Eg())(a=Dg()||"undefined"!==typeof navigator&&(!!Cg().match(/Windows Phone/)||!!window.Windows&&/^ms-appx:/.test(location.href)))||(a=Cg(),a="undefined"!==typeof navigator&&"undefined"!==typeof window&&!!(a.match(/(iPhone|iPod|iPad).*AppleWebKit(?!.*Safari)/i)||a.match(/CriOS/)||a.match(/Twitter for iPhone/)||a.match(/FBAN\/FBIOS/)||window.navigator.standalone)),a=!a;return a&&!Cg().match(/PhantomJS/)};Tg.prototype.Fc=function(){return"popup"};function Ug(a){a.method||(a.method="GET");a.headers||(a.headers={});a.headers.content_type||(a.headers.content_type="application/json");a.headers.content_type=a.headers.content_type.toLowerCase();this.options=a}
-	Ug.prototype.open=function(a,b,c){function d(){c&&(c(Sg("REQUEST_INTERRUPTED")),c=null)}var e=new XMLHttpRequest,f=this.options.method.toUpperCase(),g;Hg(window,"beforeunload",d);e.onreadystatechange=function(){if(c&&4===e.readyState){var a;if(200<=e.status&&300>e.status){try{a=Rb(e.responseText)}catch(b){}c(null,a)}else 500<=e.status&&600>e.status?c(Sg("SERVER_ERROR")):c(Sg("NETWORK_ERROR"));c=null;Ig(window,"beforeunload",d)}};if("GET"===f)a+=(/\?/.test(a)?"":"?")+Ib(b),g=null;else{var k=this.options.headers.content_type;
-	"application/json"===k&&(g=G(b));"application/x-www-form-urlencoded"===k&&(g=Ib(b))}e.open(f,a,!0);a={"X-Requested-With":"XMLHttpRequest",Accept:"application/json;text/plain"};ya(a,this.options.headers);for(var m in a)e.setRequestHeader(m,a[m]);e.send(g)};Ug.isAvailable=function(){var a;if(a=!!window.XMLHttpRequest)a=Cg(),a=!(a.match(/MSIE/)||a.match(/Trident/))||Fg(10);return a};Ug.prototype.Fc=function(){return"json"};function Vg(a){this.tc=Fa()+Fa()+Fa();this.Kf=a}
-	Vg.prototype.open=function(a,b,c){function d(){c&&(c(Sg("USER_CANCELLED")),c=null)}var e=this,f=sd(xg),g;b.requestId=this.tc;b.redirectTo=f.scheme+"://"+f.host+"/blank/page.html";a+=/\?/.test(a)?"":"?";a+=Ib(b);(g=window.open(a,"_blank","location=no"))&&r(g.addEventListener)?(g.addEventListener("loadstart",function(a){var b;if(b=a&&a.url)a:{try{var l=document.createElement("a");l.href=a.url;b=l.host===f.host&&"/blank/page.html"===l.pathname;break a}catch(t){}b=!1}b&&(a=Kg(a.url),g.removeEventListener("exit",
-	d),g.close(),a=new yg(null,null,{requestId:e.tc,requestKey:a}),e.Kf.requestWithCredential("/auth/session",a,c),c=null)}),g.addEventListener("exit",d)):c(Sg("TRANSPORT_UNAVAILABLE"))};Vg.isAvailable=function(){return Dg()};Vg.prototype.Fc=function(){return"redirect"};function Wg(a){a.callback_parameter||(a.callback_parameter="callback");this.options=a;window.__firebase_auth_jsonp=window.__firebase_auth_jsonp||{}}
-	Wg.prototype.open=function(a,b,c){function d(){c&&(c(Sg("REQUEST_INTERRUPTED")),c=null)}function e(){setTimeout(function(){window.__firebase_auth_jsonp[f]=void 0;va(window.__firebase_auth_jsonp)&&(window.__firebase_auth_jsonp=void 0);try{var a=document.getElementById(f);a&&a.parentNode.removeChild(a)}catch(b){}},1);Ig(window,"beforeunload",d)}var f="fn"+(new Date).getTime()+Math.floor(99999*Math.random());b[this.options.callback_parameter]="__firebase_auth_jsonp."+f;a+=(/\?/.test(a)?"":"?")+Ib(b);
-	Hg(window,"beforeunload",d);window.__firebase_auth_jsonp[f]=function(a){c&&(c(null,a),c=null);e()};Xg(f,a,c)};
-	function Xg(a,b,c){setTimeout(function(){try{var d=document.createElement("script");d.type="text/javascript";d.id=a;d.async=!0;d.src=b;d.onerror=function(){var b=document.getElementById(a);null!==b&&b.parentNode.removeChild(b);c&&c(Sg("NETWORK_ERROR"))};var e=document.getElementsByTagName("head");(e&&0!=e.length?e[0]:document.documentElement).appendChild(d)}catch(f){c&&c(Sg("NETWORK_ERROR"))}},0)}Wg.isAvailable=function(){return"undefined"!==typeof document&&null!=document.createElement};
-	Wg.prototype.Fc=function(){return"json"};function Yg(a,b,c,d){ff.call(this,["auth_status"]);this.G=a;this.hf=b;this.ih=c;this.Pe=d;this.wc=new Bg(a,[bd,cd]);this.qb=null;this.We=!1;Zg(this)}ka(Yg,ff);h=Yg.prototype;h.Be=function(){return this.qb||null};function Zg(a){cd.get("redirect_request_id")&&$g(a);var b=a.wc.get();b&&b.token?(ah(a,b),a.hf(b.token,function(c,d){bh(a,c,d,!1,b.token,b)},function(b,d){ch(a,"resumeSession()",b,d)})):ah(a,null)}
-	function dh(a,b,c,d,e,f){"firebaseio-demo.com"===a.G.domain&&S("Firebase authentication is not supported on demo Firebases (*.firebaseio-demo.com). To secure your Firebase, create a production Firebase at https://www.firebase.com.");a.hf(b,function(f,k){bh(a,f,k,!0,b,c,d||{},e)},function(b,c){ch(a,"auth()",b,c,f)})}function eh(a,b){a.wc.clear();ah(a,null);a.ih(function(a,d){if("ok"===a)T(b,null);else{var e=(a||"error").toUpperCase(),f=e;d&&(f+=": "+d);f=Error(f);f.code=e;T(b,f)}})}
-	function bh(a,b,c,d,e,f,g,k){"ok"===b?(d&&(b=c.auth,f.auth=b,f.expires=c.expires,f.token=Ed(e)?e:"",c=null,b&&y(b,"uid")?c=z(b,"uid"):y(f,"uid")&&(c=z(f,"uid")),f.uid=c,c="custom",b&&y(b,"provider")?c=z(b,"provider"):y(f,"provider")&&(c=z(f,"provider")),f.provider=c,a.wc.clear(),Ed(e)&&(g=g||{},c=bd,"sessionOnly"===g.remember&&(c=cd),"none"!==g.remember&&a.wc.set(f,c)),ah(a,f)),T(k,null,f)):(a.wc.clear(),ah(a,null),f=a=(b||"error").toUpperCase(),c&&(f+=": "+c),f=Error(f),f.code=a,T(k,f))}
-	function ch(a,b,c,d,e){S(b+" was canceled: "+d);a.wc.clear();ah(a,null);a=Error(d);a.code=c.toUpperCase();T(e,a)}function fh(a,b,c,d,e){gh(a);c=new yg(d||{},{},c||{});hh(a,[Ug,Wg],"/auth/"+b,c,e)}
-	function ih(a,b,c,d){gh(a);var e=[Tg,Vg];c=Ag(c);var f=625;"anonymous"===b||"password"===b?setTimeout(function(){T(d,Sg("TRANSPORT_UNAVAILABLE"))},0):("github"===b&&(f=1025),c.he.window_features="menubar=yes,modal=yes,alwaysRaised=yeslocation=yes,resizable=yes,scrollbars=yes,status=yes,height=625,width="+f+",top="+("object"===typeof screen?.5*(screen.height-625):0)+",left="+("object"===typeof screen?.5*(screen.width-f):0),c.he.relay_url=Ng(a.G.lc),c.he.requestWithCredential=u(a.uc,a),hh(a,e,"/auth/"+
-	b,c,d))}function $g(a){var b=cd.get("redirect_request_id");if(b){var c=cd.get("redirect_client_options");cd.remove("redirect_request_id");cd.remove("redirect_client_options");var d=[Ug,Wg],b={requestId:b,requestKey:Kg(document.location.hash)},c=new yg(c,{},b);a.We=!0;Lg();hh(a,d,"/auth/session",c,function(){this.We=!1}.bind(a))}}h.ve=function(a,b){gh(this);var c=Ag(a);c.fb._method="POST";this.uc("/users",c,function(a,c){a?T(b,a):T(b,a,c)})};
-	h.Xe=function(a,b){var c=this;gh(this);var d="/users/"+encodeURIComponent(a.email),e=Ag(a);e.fb._method="DELETE";this.uc(d,e,function(a,d){!a&&d&&d.uid&&c.qb&&c.qb.uid&&c.qb.uid===d.uid&&eh(c);T(b,a)})};h.se=function(a,b){gh(this);var c="/users/"+encodeURIComponent(a.email)+"/password",d=Ag(a);d.fb._method="PUT";d.fb.password=a.newPassword;this.uc(c,d,function(a){T(b,a)})};
-	h.re=function(a,b){gh(this);var c="/users/"+encodeURIComponent(a.oldEmail)+"/email",d=Ag(a);d.fb._method="PUT";d.fb.email=a.newEmail;d.fb.password=a.password;this.uc(c,d,function(a){T(b,a)})};h.Ze=function(a,b){gh(this);var c="/users/"+encodeURIComponent(a.email)+"/password",d=Ag(a);d.fb._method="POST";this.uc(c,d,function(a){T(b,a)})};h.uc=function(a,b,c){jh(this,[Ug,Wg],a,b,c)};
-	function hh(a,b,c,d,e){jh(a,b,c,d,function(b,c){!b&&c&&c.token&&c.uid?dh(a,c.token,c,d.qd,function(a,b){a?T(e,a):T(e,null,b)}):T(e,b||Sg("UNKNOWN_ERROR"))})}
-	function jh(a,b,c,d,e){b=Na(b,function(a){return"function"===typeof a.isAvailable&&a.isAvailable()});0===b.length?setTimeout(function(){T(e,Sg("TRANSPORT_UNAVAILABLE"))},0):(b=new (b.shift())(d.he),d=Gb(d.fb),d.v="js-"+Eb,d.transport=b.Fc(),d.suppress_status_codes=!0,a=Mg()+"/"+a.G.lc+c,b.open(a,d,function(a,b){if(a)T(e,a);else if(b&&b.error){var c=Error(b.error.message);c.code=b.error.code;c.details=b.error.details;T(e,c)}else T(e,null,b)}))}
-	function ah(a,b){var c=null!==a.qb||null!==b;a.qb=b;c&&a.ie("auth_status",b);a.Pe(null!==b)}h.Ee=function(a){O("auth_status"===a,'initial event must be of type "auth_status"');return this.We?null:[this.qb]};function gh(a){var b=a.G;if("firebaseio.com"!==b.domain&&"firebaseio-demo.com"!==b.domain&&"auth.firebase.com"===xg)throw Error("This custom Firebase server ('"+a.G.domain+"') does not support delegated login.");};var gd="websocket",hd="long_polling";function kh(a){this.nc=a;this.Qd=[];this.Wb=0;this.te=-1;this.Jb=null}function lh(a,b,c){a.te=b;a.Jb=c;a.te<a.Wb&&(a.Jb(),a.Jb=null)}function mh(a,b,c){for(a.Qd[b]=c;a.Qd[a.Wb];){var d=a.Qd[a.Wb];delete a.Qd[a.Wb];for(var e=0;e<d.length;++e)if(d[e]){var f=a;gc(function(){f.nc(d[e])})}if(a.Wb===a.te){a.Jb&&(clearTimeout(a.Jb),a.Jb(),a.Jb=null);break}a.Wb++}};function nh(a,b,c,d){this.ue=a;this.f=pd(a);this.rb=this.sb=0;this.Xa=uc(b);this.Xf=c;this.Kc=!1;this.Fb=d;this.ld=function(a){return fd(b,hd,a)}}var oh,ph;
-	nh.prototype.open=function(a,b){this.mf=0;this.na=b;this.Ef=new kh(a);this.Db=!1;var c=this;this.ub=setTimeout(function(){c.f("Timed out trying to connect.");c.bb();c.ub=null},Math.floor(3E4));ud(function(){if(!c.Db){c.Wa=new qh(function(a,b,d,k,m){rh(c,arguments);if(c.Wa)if(c.ub&&(clearTimeout(c.ub),c.ub=null),c.Kc=!0,"start"==a)c.id=b,c.Mf=d;else if("close"===a)b?(c.Wa.$d=!1,lh(c.Ef,b,function(){c.bb()})):c.bb();else throw Error("Unrecognized command received: "+a);},function(a,b){rh(c,arguments);
-	mh(c.Ef,a,b)},function(){c.bb()},c.ld);var a={start:"t"};a.ser=Math.floor(1E8*Math.random());c.Wa.ke&&(a.cb=c.Wa.ke);a.v="5";c.Xf&&(a.s=c.Xf);c.Fb&&(a.ls=c.Fb);"undefined"!==typeof location&&location.href&&-1!==location.href.indexOf("firebaseio.com")&&(a.r="f");a=c.ld(a);c.f("Connecting via long-poll to "+a);sh(c.Wa,a,function(){})}})};
-	nh.prototype.start=function(){var a=this.Wa,b=this.Mf;a.Gg=this.id;a.Hg=b;for(a.oe=!0;th(a););a=this.id;b=this.Mf;this.kc=document.createElement("iframe");var c={dframe:"t"};c.id=a;c.pw=b;this.kc.src=this.ld(c);this.kc.style.display="none";document.body.appendChild(this.kc)};
-	nh.isAvailable=function(){return oh||!ph&&"undefined"!==typeof document&&null!=document.createElement&&!("object"===typeof window&&window.chrome&&window.chrome.extension&&!/^chrome/.test(window.location.href))&&!("object"===typeof Windows&&"object"===typeof Windows.kh)&&!0};h=nh.prototype;h.Hd=function(){};h.fd=function(){this.Db=!0;this.Wa&&(this.Wa.close(),this.Wa=null);this.kc&&(document.body.removeChild(this.kc),this.kc=null);this.ub&&(clearTimeout(this.ub),this.ub=null)};
-	h.bb=function(){this.Db||(this.f("Longpoll is closing itself"),this.fd(),this.na&&(this.na(this.Kc),this.na=null))};h.close=function(){this.Db||(this.f("Longpoll is being closed."),this.fd())};h.send=function(a){a=G(a);this.sb+=a.length;rc(this.Xa,"bytes_sent",a.length);a=Ob(a);a=nb(a,!0);a=yd(a,1840);for(var b=0;b<a.length;b++){var c=this.Wa;c.cd.push({Yg:this.mf,hh:a.length,of:a[b]});c.oe&&th(c);this.mf++}};function rh(a,b){var c=G(b).length;a.rb+=c;rc(a.Xa,"bytes_received",c)}
-	function qh(a,b,c,d){this.ld=d;this.lb=c;this.Te=new ug;this.cd=[];this.we=Math.floor(1E8*Math.random());this.$d=!0;this.ke=id();window["pLPCommand"+this.ke]=a;window["pRTLPCB"+this.ke]=b;a=document.createElement("iframe");a.style.display="none";if(document.body){document.body.appendChild(a);try{a.contentWindow.document||fc("No IE domain setting required")}catch(e){a.src="javascript:void((function(){document.open();document.domain='"+document.domain+"';document.close();})())"}}else throw"Document body has not initialized. Wait to initialize Firebase until after the document is ready.";
-	a.contentDocument?a.jb=a.contentDocument:a.contentWindow?a.jb=a.contentWindow.document:a.document&&(a.jb=a.document);this.Ga=a;a="";this.Ga.src&&"javascript:"===this.Ga.src.substr(0,11)&&(a='<script>document.domain="'+document.domain+'";\x3c/script>');a="<html><body>"+a+"</body></html>";try{this.Ga.jb.open(),this.Ga.jb.write(a),this.Ga.jb.close()}catch(f){fc("frame writing exception"),f.stack&&fc(f.stack),fc(f)}}
-	qh.prototype.close=function(){this.oe=!1;if(this.Ga){this.Ga.jb.body.innerHTML="";var a=this;setTimeout(function(){null!==a.Ga&&(document.body.removeChild(a.Ga),a.Ga=null)},Math.floor(0))}var b=this.lb;b&&(this.lb=null,b())};
-	function th(a){if(a.oe&&a.$d&&a.Te.count()<(0<a.cd.length?2:1)){a.we++;var b={};b.id=a.Gg;b.pw=a.Hg;b.ser=a.we;for(var b=a.ld(b),c="",d=0;0<a.cd.length;)if(1870>=a.cd[0].of.length+30+c.length){var e=a.cd.shift(),c=c+"&seg"+d+"="+e.Yg+"&ts"+d+"="+e.hh+"&d"+d+"="+e.of;d++}else break;uh(a,b+c,a.we);return!0}return!1}function uh(a,b,c){function d(){a.Te.remove(c);th(a)}a.Te.add(c,1);var e=setTimeout(d,Math.floor(25E3));sh(a,b,function(){clearTimeout(e);d()})}
-	function sh(a,b,c){setTimeout(function(){try{if(a.$d){var d=a.Ga.jb.createElement("script");d.type="text/javascript";d.async=!0;d.src=b;d.onload=d.onreadystatechange=function(){var a=d.readyState;a&&"loaded"!==a&&"complete"!==a||(d.onload=d.onreadystatechange=null,d.parentNode&&d.parentNode.removeChild(d),c())};d.onerror=function(){fc("Long-poll script failed to load: "+b);a.$d=!1;a.close()};a.Ga.jb.body.appendChild(d)}}catch(e){}},Math.floor(1))};var vh=null;"undefined"!==typeof MozWebSocket?vh=MozWebSocket:"undefined"!==typeof WebSocket&&(vh=WebSocket);function wh(a,b,c,d){this.ue=a;this.f=pd(this.ue);this.frames=this.Nc=null;this.rb=this.sb=this.ff=0;this.Xa=uc(b);a={v:"5"};"undefined"!==typeof location&&location.href&&-1!==location.href.indexOf("firebaseio.com")&&(a.r="f");c&&(a.s=c);d&&(a.ls=d);this.jf=fd(b,gd,a)}var xh;
-	wh.prototype.open=function(a,b){this.lb=b;this.Lg=a;this.f("Websocket connecting to "+this.jf);this.Kc=!1;bd.set("previous_websocket_failure",!0);try{this.La=new vh(this.jf)}catch(c){this.f("Error instantiating WebSocket.");var d=c.message||c.data;d&&this.f(d);this.bb();return}var e=this;this.La.onopen=function(){e.f("Websocket connected.");e.Kc=!0};this.La.onclose=function(){e.f("Websocket connection was disconnected.");e.La=null;e.bb()};this.La.onmessage=function(a){if(null!==e.La)if(a=a.data,e.rb+=
-	a.length,rc(e.Xa,"bytes_received",a.length),yh(e),null!==e.frames)zh(e,a);else{a:{O(null===e.frames,"We already have a frame buffer");if(6>=a.length){var b=Number(a);if(!isNaN(b)){e.ff=b;e.frames=[];a=null;break a}}e.ff=1;e.frames=[]}null!==a&&zh(e,a)}};this.La.onerror=function(a){e.f("WebSocket error.  Closing connection.");(a=a.message||a.data)&&e.f(a);e.bb()}};wh.prototype.start=function(){};
-	wh.isAvailable=function(){var a=!1;if("undefined"!==typeof navigator&&navigator.userAgent){var b=navigator.userAgent.match(/Android ([0-9]{0,}\.[0-9]{0,})/);b&&1<b.length&&4.4>parseFloat(b[1])&&(a=!0)}return!a&&null!==vh&&!xh};wh.responsesRequiredToBeHealthy=2;wh.healthyTimeout=3E4;h=wh.prototype;h.Hd=function(){bd.remove("previous_websocket_failure")};function zh(a,b){a.frames.push(b);if(a.frames.length==a.ff){var c=a.frames.join("");a.frames=null;c=Rb(c);a.Lg(c)}}
-	h.send=function(a){yh(this);a=G(a);this.sb+=a.length;rc(this.Xa,"bytes_sent",a.length);a=yd(a,16384);1<a.length&&Ah(this,String(a.length));for(var b=0;b<a.length;b++)Ah(this,a[b])};h.fd=function(){this.Db=!0;this.Nc&&(clearInterval(this.Nc),this.Nc=null);this.La&&(this.La.close(),this.La=null)};h.bb=function(){this.Db||(this.f("WebSocket is closing itself"),this.fd(),this.lb&&(this.lb(this.Kc),this.lb=null))};h.close=function(){this.Db||(this.f("WebSocket is being closed"),this.fd())};
-	function yh(a){clearInterval(a.Nc);a.Nc=setInterval(function(){a.La&&Ah(a,"0");yh(a)},Math.floor(45E3))}function Ah(a,b){try{a.La.send(b)}catch(c){a.f("Exception thrown from WebSocket.send():",c.message||c.data,"Closing connection."),setTimeout(u(a.bb,a),0)}};function Bh(a){Ch(this,a)}var Dh=[nh,wh];function Ch(a,b){var c=wh&&wh.isAvailable(),d=c&&!(bd.Af||!0===bd.get("previous_websocket_failure"));b.jh&&(c||S("wss:// URL used, but browser isn't known to support websockets.  Trying anyway."),d=!0);if(d)a.jd=[wh];else{var e=a.jd=[];zd(Dh,function(a,b){b&&b.isAvailable()&&e.push(b)})}}function Eh(a){if(0<a.jd.length)return a.jd[0];throw Error("No transports available");};function Fh(a,b,c,d,e,f,g){this.id=a;this.f=pd("c:"+this.id+":");this.nc=c;this.Zc=d;this.na=e;this.Re=f;this.G=b;this.Pd=[];this.kf=0;this.Wf=new Bh(b);this.N=0;this.Fb=g;this.f("Connection created");Gh(this)}
-	function Gh(a){var b=Eh(a.Wf);a.K=new b("c:"+a.id+":"+a.kf++,a.G,void 0,a.Fb);a.Ve=b.responsesRequiredToBeHealthy||0;var c=Hh(a,a.K),d=Ih(a,a.K);a.kd=a.K;a.ed=a.K;a.F=null;a.Eb=!1;setTimeout(function(){a.K&&a.K.open(c,d)},Math.floor(0));b=b.healthyTimeout||0;0<b&&(a.Bd=setTimeout(function(){a.Bd=null;a.Eb||(a.K&&102400<a.K.rb?(a.f("Connection exceeded healthy timeout but has received "+a.K.rb+" bytes.  Marking connection healthy."),a.Eb=!0,a.K.Hd()):a.K&&10240<a.K.sb?a.f("Connection exceeded healthy timeout but has sent "+
-	a.K.sb+" bytes.  Leaving connection alive."):(a.f("Closing unhealthy connection after timeout."),a.close()))},Math.floor(b)))}function Ih(a,b){return function(c){b===a.K?(a.K=null,c||0!==a.N?1===a.N&&a.f("Realtime connection lost."):(a.f("Realtime connection failed."),"s-"===a.G.ab.substr(0,2)&&(bd.remove("host:"+a.G.host),a.G.ab=a.G.host)),a.close()):b===a.F?(a.f("Secondary connection lost."),c=a.F,a.F=null,a.kd!==c&&a.ed!==c||a.close()):a.f("closing an old connection")}}
-	function Hh(a,b){return function(c){if(2!=a.N)if(b===a.ed){var d=wd("t",c);c=wd("d",c);if("c"==d){if(d=wd("t",c),"d"in c)if(c=c.d,"h"===d){var d=c.ts,e=c.v,f=c.h;a.Uf=c.s;ed(a.G,f);0==a.N&&(a.K.start(),Jh(a,a.K,d),"5"!==e&&S("Protocol version mismatch detected"),c=a.Wf,(c=1<c.jd.length?c.jd[1]:null)&&Kh(a,c))}else if("n"===d){a.f("recvd end transmission on primary");a.ed=a.F;for(c=0;c<a.Pd.length;++c)a.Ld(a.Pd[c]);a.Pd=[];Lh(a)}else"s"===d?(a.f("Connection shutdown command received. Shutting down..."),
-	a.Re&&(a.Re(c),a.Re=null),a.na=null,a.close()):"r"===d?(a.f("Reset packet received.  New host: "+c),ed(a.G,c),1===a.N?a.close():(Mh(a),Gh(a))):"e"===d?qd("Server Error: "+c):"o"===d?(a.f("got pong on primary."),Nh(a),Oh(a)):qd("Unknown control packet command: "+d)}else"d"==d&&a.Ld(c)}else if(b===a.F)if(d=wd("t",c),c=wd("d",c),"c"==d)"t"in c&&(c=c.t,"a"===c?Ph(a):"r"===c?(a.f("Got a reset on secondary, closing it"),a.F.close(),a.kd!==a.F&&a.ed!==a.F||a.close()):"o"===c&&(a.f("got pong on secondary."),
-	a.Tf--,Ph(a)));else if("d"==d)a.Pd.push(c);else throw Error("Unknown protocol layer: "+d);else a.f("message on old connection")}}Fh.prototype.Ia=function(a){Qh(this,{t:"d",d:a})};function Lh(a){a.kd===a.F&&a.ed===a.F&&(a.f("cleaning up and promoting a connection: "+a.F.ue),a.K=a.F,a.F=null)}
-	function Ph(a){0>=a.Tf?(a.f("Secondary connection is healthy."),a.Eb=!0,a.F.Hd(),a.F.start(),a.f("sending client ack on secondary"),a.F.send({t:"c",d:{t:"a",d:{}}}),a.f("Ending transmission on primary"),a.K.send({t:"c",d:{t:"n",d:{}}}),a.kd=a.F,Lh(a)):(a.f("sending ping on secondary."),a.F.send({t:"c",d:{t:"p",d:{}}}))}Fh.prototype.Ld=function(a){Nh(this);this.nc(a)};function Nh(a){a.Eb||(a.Ve--,0>=a.Ve&&(a.f("Primary connection is healthy."),a.Eb=!0,a.K.Hd()))}
-	function Kh(a,b){a.F=new b("c:"+a.id+":"+a.kf++,a.G,a.Uf);a.Tf=b.responsesRequiredToBeHealthy||0;a.F.open(Hh(a,a.F),Ih(a,a.F));setTimeout(function(){a.F&&(a.f("Timed out trying to upgrade."),a.F.close())},Math.floor(6E4))}function Jh(a,b,c){a.f("Realtime connection established.");a.K=b;a.N=1;a.Zc&&(a.Zc(c,a.Uf),a.Zc=null);0===a.Ve?(a.f("Primary connection is healthy."),a.Eb=!0):setTimeout(function(){Oh(a)},Math.floor(5E3))}
-	function Oh(a){a.Eb||1!==a.N||(a.f("sending ping on primary."),Qh(a,{t:"c",d:{t:"p",d:{}}}))}function Qh(a,b){if(1!==a.N)throw"Connection is not connected";a.kd.send(b)}Fh.prototype.close=function(){2!==this.N&&(this.f("Closing realtime connection."),this.N=2,Mh(this),this.na&&(this.na(),this.na=null))};function Mh(a){a.f("Shutting down all connections");a.K&&(a.K.close(),a.K=null);a.F&&(a.F.close(),a.F=null);a.Bd&&(clearTimeout(a.Bd),a.Bd=null)};function Rh(a,b,c,d){this.id=Sh++;this.f=pd("p:"+this.id+":");this.Bf=this.Ie=!1;this.ba={};this.sa=[];this.ad=0;this.Yc=[];this.qa=!1;this.eb=1E3;this.Id=3E5;this.Kb=b;this.Xc=c;this.Se=d;this.G=a;this.wb=this.Ca=this.Ma=this.Fb=this.$e=null;this.Sb=!1;this.Wd={};this.Xg=0;this.rf=!0;this.Oc=this.Ke=null;Th(this,0);kf.yb().Ib("visible",this.Og,this);-1===a.host.indexOf("fblocal")&&jf.yb().Ib("online",this.Mg,this)}var Sh=0,Uh=0;h=Rh.prototype;
-	h.Ia=function(a,b,c){var d=++this.Xg;a={r:d,a:a,b:b};this.f(G(a));O(this.qa,"sendRequest call when we're not connected not allowed.");this.Ma.Ia(a);c&&(this.Wd[d]=c)};h.Cf=function(a,b,c,d){var e=a.wa(),f=a.path.toString();this.f("Listen called for "+f+" "+e);this.ba[f]=this.ba[f]||{};O(Ie(a.n)||!He(a.n),"listen() called for non-default but complete query");O(!this.ba[f][e],"listen() called twice for same path/queryId.");a={I:d,Ad:b,Ug:a,tag:c};this.ba[f][e]=a;this.qa&&Vh(this,a)};
-	function Vh(a,b){var c=b.Ug,d=c.path.toString(),e=c.wa();a.f("Listen on "+d+" for "+e);var f={p:d};b.tag&&(f.q=Ge(c.n),f.t=b.tag);f.h=b.Ad();a.Ia("q",f,function(f){var k=f.d,m=f.s;if(k&&"object"===typeof k&&y(k,"w")){var l=z(k,"w");da(l)&&0<=La(l,"no_index")&&S("Using an unspecified index. Consider adding "+('".indexOn": "'+c.n.g.toString()+'"')+" at "+c.path.toString()+" to your security rules for better performance")}(a.ba[d]&&a.ba[d][e])===b&&(a.f("listen response",f),"ok"!==m&&Wh(a,d,e),b.I&&
-	b.I(m,k))})}h.O=function(a,b,c){this.Ca={rg:a,sf:!1,Dc:b,od:c};this.f("Authenticating using credential: "+a);Xh(this);(b=40==a.length)||(a=Cd(a).Ec,b="object"===typeof a&&!0===z(a,"admin"));b&&(this.f("Admin auth credential detected.  Reducing max reconnect time."),this.Id=3E4)};h.je=function(a){this.Ca=null;this.qa&&this.Ia("unauth",{},function(b){a(b.s,b.d)})};
-	function Xh(a){var b=a.Ca;a.qa&&b&&a.Ia("auth",{cred:b.rg},function(c){var d=c.s;c=c.d||"error";"ok"!==d&&a.Ca===b&&(a.Ca=null);b.sf?"ok"!==d&&b.od&&b.od(d,c):(b.sf=!0,b.Dc&&b.Dc(d,c))})}h.$f=function(a,b){var c=a.path.toString(),d=a.wa();this.f("Unlisten called for "+c+" "+d);O(Ie(a.n)||!He(a.n),"unlisten() called for non-default but complete query");if(Wh(this,c,d)&&this.qa){var e=Ge(a.n);this.f("Unlisten on "+c+" for "+d);c={p:c};b&&(c.q=e,c.t=b);this.Ia("n",c)}};
-	h.Qe=function(a,b,c){this.qa?Yh(this,"o",a,b,c):this.Yc.push({bd:a,action:"o",data:b,I:c})};h.Gf=function(a,b,c){this.qa?Yh(this,"om",a,b,c):this.Yc.push({bd:a,action:"om",data:b,I:c})};h.Md=function(a,b){this.qa?Yh(this,"oc",a,null,b):this.Yc.push({bd:a,action:"oc",data:null,I:b})};function Yh(a,b,c,d,e){c={p:c,d:d};a.f("onDisconnect "+b,c);a.Ia(b,c,function(a){e&&setTimeout(function(){e(a.s,a.d)},Math.floor(0))})}h.put=function(a,b,c,d){Zh(this,"p",a,b,c,d)};
-	h.Df=function(a,b,c,d){Zh(this,"m",a,b,c,d)};function Zh(a,b,c,d,e,f){d={p:c,d:d};p(f)&&(d.h=f);a.sa.push({action:b,Pf:d,I:e});a.ad++;b=a.sa.length-1;a.qa?$h(a,b):a.f("Buffering put: "+c)}function $h(a,b){var c=a.sa[b].action,d=a.sa[b].Pf,e=a.sa[b].I;a.sa[b].Vg=a.qa;a.Ia(c,d,function(d){a.f(c+" response",d);delete a.sa[b];a.ad--;0===a.ad&&(a.sa=[]);e&&e(d.s,d.d)})}
-	h.Ye=function(a){this.qa&&(a={c:a},this.f("reportStats",a),this.Ia("s",a,function(a){"ok"!==a.s&&this.f("reportStats","Error sending stats: "+a.d)}))};
-	h.Ld=function(a){if("r"in a){this.f("from server: "+G(a));var b=a.r,c=this.Wd[b];c&&(delete this.Wd[b],c(a.b))}else{if("error"in a)throw"A server-side error has occurred: "+a.error;"a"in a&&(b=a.a,c=a.b,this.f("handleServerMessage",b,c),"d"===b?this.Kb(c.p,c.d,!1,c.t):"m"===b?this.Kb(c.p,c.d,!0,c.t):"c"===b?ai(this,c.p,c.q):"ac"===b?(a=c.s,b=c.d,c=this.Ca,this.Ca=null,c&&c.od&&c.od(a,b)):"sd"===b?this.$e?this.$e(c):"msg"in c&&"undefined"!==typeof console&&console.log("FIREBASE: "+c.msg.replace("\n",
-	"\nFIREBASE: ")):qd("Unrecognized action received from server: "+G(b)+"\nAre you using the latest client?"))}};h.Zc=function(a,b){this.f("connection ready");this.qa=!0;this.Oc=(new Date).getTime();this.Se({serverTimeOffset:a-(new Date).getTime()});this.Fb=b;if(this.rf){var c={};c["sdk.js."+Eb.replace(/\./g,"-")]=1;Dg()?c["framework.cordova"]=1:"object"===typeof navigator&&"ReactNative"===navigator.product&&(c["framework.reactnative"]=1);this.Ye(c)}bi(this);this.rf=!1;this.Xc(!0)};
-	function Th(a,b){O(!a.Ma,"Scheduling a connect when we're already connected/ing?");a.wb&&clearTimeout(a.wb);a.wb=setTimeout(function(){a.wb=null;ci(a)},Math.floor(b))}h.Og=function(a){a&&!this.Sb&&this.eb===this.Id&&(this.f("Window became visible.  Reducing delay."),this.eb=1E3,this.Ma||Th(this,0));this.Sb=a};h.Mg=function(a){a?(this.f("Browser went online."),this.eb=1E3,this.Ma||Th(this,0)):(this.f("Browser went offline.  Killing connection."),this.Ma&&this.Ma.close())};
-	h.If=function(){this.f("data client disconnected");this.qa=!1;this.Ma=null;for(var a=0;a<this.sa.length;a++){var b=this.sa[a];b&&"h"in b.Pf&&b.Vg&&(b.I&&b.I("disconnect"),delete this.sa[a],this.ad--)}0===this.ad&&(this.sa=[]);this.Wd={};di(this)&&(this.Sb?this.Oc&&(3E4<(new Date).getTime()-this.Oc&&(this.eb=1E3),this.Oc=null):(this.f("Window isn't visible.  Delaying reconnect."),this.eb=this.Id,this.Ke=(new Date).getTime()),a=Math.max(0,this.eb-((new Date).getTime()-this.Ke)),a*=Math.random(),this.f("Trying to reconnect in "+
-	a+"ms"),Th(this,a),this.eb=Math.min(this.Id,1.3*this.eb));this.Xc(!1)};function ci(a){if(di(a)){a.f("Making a connection attempt");a.Ke=(new Date).getTime();a.Oc=null;var b=u(a.Ld,a),c=u(a.Zc,a),d=u(a.If,a),e=a.id+":"+Uh++;a.Ma=new Fh(e,a.G,b,c,d,function(b){S(b+" ("+a.G.toString()+")");a.Bf=!0},a.Fb)}}h.Cb=function(){this.Ie=!0;this.Ma?this.Ma.close():(this.wb&&(clearTimeout(this.wb),this.wb=null),this.qa&&this.If())};h.vc=function(){this.Ie=!1;this.eb=1E3;this.Ma||Th(this,0)};
-	function ai(a,b,c){c=c?Oa(c,function(a){return xd(a)}).join("$"):"default";(a=Wh(a,b,c))&&a.I&&a.I("permission_denied")}function Wh(a,b,c){b=(new P(b)).toString();var d;p(a.ba[b])?(d=a.ba[b][c],delete a.ba[b][c],0===oa(a.ba[b])&&delete a.ba[b]):d=void 0;return d}function bi(a){Xh(a);v(a.ba,function(b){v(b,function(b){Vh(a,b)})});for(var b=0;b<a.sa.length;b++)a.sa[b]&&$h(a,b);for(;a.Yc.length;)b=a.Yc.shift(),Yh(a,b.action,b.bd,b.data,b.I)}function di(a){var b;b=jf.yb().oc;return!a.Bf&&!a.Ie&&b};var U={zg:function(){oh=xh=!0}};U.forceLongPolling=U.zg;U.Ag=function(){ph=!0};U.forceWebSockets=U.Ag;U.Eg=function(){return wh.isAvailable()};U.isWebSocketsAvailable=U.Eg;U.ah=function(a,b){a.k.Va.$e=b};U.setSecurityDebugCallback=U.ah;U.bf=function(a,b){a.k.bf(b)};U.stats=U.bf;U.cf=function(a,b){a.k.cf(b)};U.statsIncrementCounter=U.cf;U.ud=function(a){return a.k.ud};U.dataUpdateCount=U.ud;U.Dg=function(a,b){a.k.He=b};U.interceptServerData=U.Dg;U.Kg=function(a){new Og(a)};U.onPopupOpen=U.Kg;
-	U.Zg=function(a){xg=a};U.setAuthenticationServer=U.Zg;function ei(a,b){this.committed=a;this.snapshot=b};function V(a,b){this.dd=a;this.ta=b}V.prototype.cancel=function(a){D("Firebase.onDisconnect().cancel",0,1,arguments.length);F("Firebase.onDisconnect().cancel",1,a,!0);var b=new B;this.dd.Md(this.ta,C(b,a));return b.D};V.prototype.cancel=V.prototype.cancel;V.prototype.remove=function(a){D("Firebase.onDisconnect().remove",0,1,arguments.length);og("Firebase.onDisconnect().remove",this.ta);F("Firebase.onDisconnect().remove",1,a,!0);var b=new B;fi(this.dd,this.ta,null,C(b,a));return b.D};
-	V.prototype.remove=V.prototype.remove;V.prototype.set=function(a,b){D("Firebase.onDisconnect().set",1,2,arguments.length);og("Firebase.onDisconnect().set",this.ta);gg("Firebase.onDisconnect().set",a,this.ta,!1);F("Firebase.onDisconnect().set",2,b,!0);var c=new B;fi(this.dd,this.ta,a,C(c,b));return c.D};V.prototype.set=V.prototype.set;
-	V.prototype.Ob=function(a,b,c){D("Firebase.onDisconnect().setWithPriority",2,3,arguments.length);og("Firebase.onDisconnect().setWithPriority",this.ta);gg("Firebase.onDisconnect().setWithPriority",a,this.ta,!1);kg("Firebase.onDisconnect().setWithPriority",2,b);F("Firebase.onDisconnect().setWithPriority",3,c,!0);var d=new B;gi(this.dd,this.ta,a,b,C(d,c));return d.D};V.prototype.setWithPriority=V.prototype.Ob;
-	V.prototype.update=function(a,b){D("Firebase.onDisconnect().update",1,2,arguments.length);og("Firebase.onDisconnect().update",this.ta);if(da(a)){for(var c={},d=0;d<a.length;++d)c[""+d]=a[d];a=c;S("Passing an Array to Firebase.onDisconnect().update() is deprecated. Use set() if you want to overwrite the existing data, or an Object with integer keys if you really do want to only update some of the children.")}jg("Firebase.onDisconnect().update",a,this.ta);F("Firebase.onDisconnect().update",2,b,!0);
-	c=new B;hi(this.dd,this.ta,a,C(c,b));return c.D};V.prototype.update=V.prototype.update;function W(a,b,c){this.A=a;this.Y=b;this.g=c}W.prototype.J=function(){D("Firebase.DataSnapshot.val",0,0,arguments.length);return this.A.J()};W.prototype.val=W.prototype.J;W.prototype.qf=function(){D("Firebase.DataSnapshot.exportVal",0,0,arguments.length);return this.A.J(!0)};W.prototype.exportVal=W.prototype.qf;W.prototype.xg=function(){D("Firebase.DataSnapshot.exists",0,0,arguments.length);return!this.A.e()};W.prototype.exists=W.prototype.xg;
-	W.prototype.o=function(a){D("Firebase.DataSnapshot.child",0,1,arguments.length);fa(a)&&(a=String(a));ng("Firebase.DataSnapshot.child",a);var b=new P(a),c=this.Y.o(b);return new W(this.A.S(b),c,R)};W.prototype.child=W.prototype.o;W.prototype.Fa=function(a){D("Firebase.DataSnapshot.hasChild",1,1,arguments.length);ng("Firebase.DataSnapshot.hasChild",a);var b=new P(a);return!this.A.S(b).e()};W.prototype.hasChild=W.prototype.Fa;
-	W.prototype.C=function(){D("Firebase.DataSnapshot.getPriority",0,0,arguments.length);return this.A.C().J()};W.prototype.getPriority=W.prototype.C;W.prototype.forEach=function(a){D("Firebase.DataSnapshot.forEach",1,1,arguments.length);F("Firebase.DataSnapshot.forEach",1,a,!1);if(this.A.L())return!1;var b=this;return!!this.A.R(this.g,function(c,d){return a(new W(d,b.Y.o(c),R))})};W.prototype.forEach=W.prototype.forEach;
-	W.prototype.zd=function(){D("Firebase.DataSnapshot.hasChildren",0,0,arguments.length);return this.A.L()?!1:!this.A.e()};W.prototype.hasChildren=W.prototype.zd;W.prototype.name=function(){S("Firebase.DataSnapshot.name() being deprecated. Please use Firebase.DataSnapshot.key() instead.");D("Firebase.DataSnapshot.name",0,0,arguments.length);return this.key()};W.prototype.name=W.prototype.name;W.prototype.key=function(){D("Firebase.DataSnapshot.key",0,0,arguments.length);return this.Y.key()};
-	W.prototype.key=W.prototype.key;W.prototype.Hb=function(){D("Firebase.DataSnapshot.numChildren",0,0,arguments.length);return this.A.Hb()};W.prototype.numChildren=W.prototype.Hb;W.prototype.Mb=function(){D("Firebase.DataSnapshot.ref",0,0,arguments.length);return this.Y};W.prototype.ref=W.prototype.Mb;function ii(a,b,c){this.Vb=a;this.tb=b;this.vb=c||null}h=ii.prototype;h.Qf=function(a){return"value"===a};h.createEvent=function(a,b){var c=b.n.g;return new jc("value",this,new W(a.Na,b.Mb(),c))};h.Zb=function(a){var b=this.vb;if("cancel"===a.De()){O(this.tb,"Raising a cancel event on a listener with no cancel callback");var c=this.tb;return function(){c.call(b,a.error)}}var d=this.Vb;return function(){d.call(b,a.be)}};h.lf=function(a,b){return this.tb?new kc(this,a,b):null};
-	h.matches=function(a){return a instanceof ii?a.Vb&&this.Vb?a.Vb===this.Vb&&a.vb===this.vb:!0:!1};h.yf=function(){return null!==this.Vb};function ji(a,b,c){this.ja=a;this.tb=b;this.vb=c}h=ji.prototype;h.Qf=function(a){a="children_added"===a?"child_added":a;return("children_removed"===a?"child_removed":a)in this.ja};h.lf=function(a,b){return this.tb?new kc(this,a,b):null};
-	h.createEvent=function(a,b){O(null!=a.Za,"Child events should have a childName.");var c=b.Mb().o(a.Za);return new jc(a.type,this,new W(a.Na,c,b.n.g),a.Td)};h.Zb=function(a){var b=this.vb;if("cancel"===a.De()){O(this.tb,"Raising a cancel event on a listener with no cancel callback");var c=this.tb;return function(){c.call(b,a.error)}}var d=this.ja[a.wd];return function(){d.call(b,a.be,a.Td)}};
-	h.matches=function(a){if(a instanceof ji){if(!this.ja||!a.ja)return!0;if(this.vb===a.vb){var b=oa(a.ja);if(b===oa(this.ja)){if(1===b){var b=pa(a.ja),c=pa(this.ja);return c===b&&(!a.ja[b]||!this.ja[c]||a.ja[b]===this.ja[c])}return na(this.ja,function(b,c){return a.ja[c]===b})}}}return!1};h.yf=function(){return null!==this.ja};function ki(){this.za={}}h=ki.prototype;h.e=function(){return va(this.za)};h.gb=function(a,b,c){var d=a.source.Lb;if(null!==d)return d=z(this.za,d),O(null!=d,"SyncTree gave us an op for an invalid query."),d.gb(a,b,c);var e=[];v(this.za,function(d){e=e.concat(d.gb(a,b,c))});return e};h.Tb=function(a,b,c,d,e){var f=a.wa(),g=z(this.za,f);if(!g){var g=c.Aa(e?d:null),k=!1;g?k=!0:(g=d instanceof fe?c.Cc(d):H,k=!1);g=new Ye(a,new je(new Xb(g,k,!1),new Xb(d,e,!1)));this.za[f]=g}g.Tb(b);return af(g,b)};
-	h.nb=function(a,b,c){var d=a.wa(),e=[],f=[],g=null!=li(this);if("default"===d){var k=this;v(this.za,function(a,d){f=f.concat(a.nb(b,c));a.e()&&(delete k.za[d],He(a.Y.n)||e.push(a.Y))})}else{var m=z(this.za,d);m&&(f=f.concat(m.nb(b,c)),m.e()&&(delete this.za[d],He(m.Y.n)||e.push(m.Y)))}g&&null==li(this)&&e.push(new X(a.k,a.path));return{Wg:e,vg:f}};function mi(a){return Na(qa(a.za),function(a){return!He(a.Y.n)})}h.kb=function(a){var b=null;v(this.za,function(c){b=b||c.kb(a)});return b};
-	function ni(a,b){if(He(b.n))return li(a);var c=b.wa();return z(a.za,c)}function li(a){return ua(a.za,function(a){return He(a.Y.n)})||null};function oi(a){this.va=qe;this.mb=new Pf;this.df={};this.qc={};this.Qc=a}function pi(a,b,c,d,e){var f=a.mb,g=e;O(d>f.Pc,"Stacking an older write on top of newer ones");p(g)||(g=!0);f.pa.push({path:b,Ja:c,md:d,visible:g});g&&(f.V=Jf(f.V,b,c));f.Pc=d;return e?qi(a,new Ac(Ef,b,c)):[]}function ri(a,b,c,d){var e=a.mb;O(d>e.Pc,"Stacking an older merge on top of newer ones");e.pa.push({path:b,children:c,md:d,visible:!0});e.V=Kf(e.V,b,c);e.Pc=d;c=sf(c);return qi(a,new bf(Ef,b,c))}
-	function si(a,b,c){c=c||!1;var d=Qf(a.mb,b);if(a.mb.Ud(b)){var e=qe;null!=d.Ja?e=e.set(M,!0):Fb(d.children,function(a,b){e=e.set(new P(a),b)});return qi(a,new Df(d.path,e,c))}return[]}function ti(a,b,c){c=sf(c);return qi(a,new bf(Gf,b,c))}function ui(a,b,c,d){d=vi(a,d);if(null!=d){var e=wi(d);d=e.path;e=e.Lb;b=lf(d,b);c=new Ac(new Ff(!1,!0,e,!0),b,c);return xi(a,d,c)}return[]}
-	function yi(a,b,c,d){if(d=vi(a,d)){var e=wi(d);d=e.path;e=e.Lb;b=lf(d,b);c=sf(c);c=new bf(new Ff(!1,!0,e,!0),b,c);return xi(a,d,c)}return[]}
-	oi.prototype.Tb=function(a,b){var c=a.path,d=null,e=!1;zf(this.va,c,function(a,b){var f=lf(a,c);d=d||b.kb(f);e=e||null!=li(b)});var f=this.va.get(c);f?(e=e||null!=li(f),d=d||f.kb(M)):(f=new ki,this.va=this.va.set(c,f));var g;null!=d?g=!0:(g=!1,d=H,Cf(this.va.subtree(c),function(a,b){var c=b.kb(M);c&&(d=d.W(a,c))}));var k=null!=ni(f,a);if(!k&&!He(a.n)){var m=zi(a);O(!(m in this.qc),"View does not exist, but we have a tag");var l=Ai++;this.qc[m]=l;this.df["_"+l]=m}g=f.Tb(a,b,new Uf(c,this.mb),d,g);
-	k||e||(f=ni(f,a),g=g.concat(Bi(this,a,f)));return g};
-	oi.prototype.nb=function(a,b,c){var d=a.path,e=this.va.get(d),f=[];if(e&&("default"===a.wa()||null!=ni(e,a))){f=e.nb(a,b,c);e.e()&&(this.va=this.va.remove(d));e=f.Wg;f=f.vg;b=-1!==Sa(e,function(a){return He(a.n)});var g=xf(this.va,d,function(a,b){return null!=li(b)});if(b&&!g&&(d=this.va.subtree(d),!d.e()))for(var d=Ci(d),k=0;k<d.length;++k){var m=d[k],l=m.Y,m=Di(this,m);this.Qc.af(Ei(l),Fi(this,l),m.Ad,m.I)}if(!g&&0<e.length&&!c)if(b)this.Qc.de(Ei(a),null);else{var t=this;Ma(e,function(a){a.wa();
-	var b=t.qc[zi(a)];t.Qc.de(Ei(a),b)})}Gi(this,e)}return f};oi.prototype.Aa=function(a,b){var c=this.mb,d=xf(this.va,a,function(b,c){var d=lf(b,a);if(d=c.kb(d))return d});return c.Aa(a,d,b,!0)};function Ci(a){return vf(a,function(a,c,d){if(c&&null!=li(c))return[li(c)];var e=[];c&&(e=mi(c));v(d,function(a){e=e.concat(a)});return e})}function Gi(a,b){for(var c=0;c<b.length;++c){var d=b[c];if(!He(d.n)){var d=zi(d),e=a.qc[d];delete a.qc[d];delete a.df["_"+e]}}}
-	function Ei(a){return He(a.n)&&!Ie(a.n)?a.Mb():a}function Bi(a,b,c){var d=b.path,e=Fi(a,b);c=Di(a,c);b=a.Qc.af(Ei(b),e,c.Ad,c.I);d=a.va.subtree(d);if(e)O(null==li(d.value),"If we're adding a query, it shouldn't be shadowed");else for(e=vf(d,function(a,b,c){if(!a.e()&&b&&null!=li(b))return[Ze(li(b))];var d=[];b&&(d=d.concat(Oa(mi(b),function(a){return a.Y})));v(c,function(a){d=d.concat(a)});return d}),d=0;d<e.length;++d)c=e[d],a.Qc.de(Ei(c),Fi(a,c));return b}
-	function Di(a,b){var c=b.Y,d=Fi(a,c);return{Ad:function(){return(b.w()||H).hash()},I:function(b){if("ok"===b){if(d){var f=c.path;if(b=vi(a,d)){var g=wi(b);b=g.path;g=g.Lb;f=lf(b,f);f=new Cc(new Ff(!1,!0,g,!0),f);b=xi(a,b,f)}else b=[]}else b=qi(a,new Cc(Gf,c.path));return b}f="Unknown Error";"too_big"===b?f="The data requested exceeds the maximum size that can be accessed with a single request.":"permission_denied"==b?f="Client doesn't have permission to access the desired data.":"unavailable"==b&&
-	(f="The service is unavailable");f=Error(b+" at "+c.path.toString()+": "+f);f.code=b.toUpperCase();return a.nb(c,null,f)}}}function zi(a){return a.path.toString()+"$"+a.wa()}function wi(a){var b=a.indexOf("$");O(-1!==b&&b<a.length-1,"Bad queryKey.");return{Lb:a.substr(b+1),path:new P(a.substr(0,b))}}function vi(a,b){var c=a.df,d="_"+b;return d in c?c[d]:void 0}function Fi(a,b){var c=zi(b);return z(a.qc,c)}var Ai=1;
-	function xi(a,b,c){var d=a.va.get(b);O(d,"Missing sync point for query tag that we're tracking");return d.gb(c,new Uf(b,a.mb),null)}function qi(a,b){return Hi(a,b,a.va,null,new Uf(M,a.mb))}function Hi(a,b,c,d,e){if(b.path.e())return Ii(a,b,c,d,e);var f=c.get(M);null==d&&null!=f&&(d=f.kb(M));var g=[],k=K(b.path),m=b.$c(k);if((c=c.children.get(k))&&m)var l=d?d.T(k):null,k=e.o(k),g=g.concat(Hi(a,m,c,l,k));f&&(g=g.concat(f.gb(b,e,d)));return g}
-	function Ii(a,b,c,d,e){var f=c.get(M);null==d&&null!=f&&(d=f.kb(M));var g=[];c.children.ka(function(c,f){var l=d?d.T(c):null,t=e.o(c),A=b.$c(c);A&&(g=g.concat(Ii(a,A,f,l,t)))});f&&(g=g.concat(f.gb(b,e,d)));return g};function Ji(a,b){this.G=a;this.Xa=uc(a);this.hd=null;this.fa=new Zb;this.Kd=1;this.Va=null;b||0<=("object"===typeof window&&window.navigator&&window.navigator.userAgent||"").search(/googlebot|google webmaster tools|bingbot|yahoo! slurp|baiduspider|yandexbot|duckduckbot/i)?(this.da=new cf(this.G,u(this.Kb,this)),setTimeout(u(this.Xc,this,!0),0)):this.da=this.Va=new Rh(this.G,u(this.Kb,this),u(this.Xc,this),u(this.Se,this));this.eh=vc(a,u(function(){return new pc(this.Xa,this.da)},this));this.yc=new Wf;
-	this.Ge=new Sb;var c=this;this.Fd=new oi({af:function(a,b,f,g){b=[];f=c.Ge.j(a.path);f.e()||(b=qi(c.Fd,new Ac(Gf,a.path,f)),setTimeout(function(){g("ok")},0));return b},de:aa});Ki(this,"connected",!1);this.na=new Vc;this.O=new Yg(a,u(this.da.O,this.da),u(this.da.je,this.da),u(this.Pe,this));this.ud=0;this.He=null;this.M=new oi({af:function(a,b,f,g){c.da.Cf(a,f,b,function(b,e){var f=g(b,e);dc(c.fa,a.path,f)});return[]},de:function(a,b){c.da.$f(a,b)}})}h=Ji.prototype;
-	h.toString=function(){return(this.G.ob?"https://":"http://")+this.G.host};h.name=function(){return this.G.lc};function Li(a){a=a.Ge.j(new P(".info/serverTimeOffset")).J()||0;return(new Date).getTime()+a}function Mi(a){a=a={timestamp:Li(a)};a.timestamp=a.timestamp||(new Date).getTime();return a}
-	h.Kb=function(a,b,c,d){this.ud++;var e=new P(a);b=this.He?this.He(a,b):b;a=[];d?c?(b=ma(b,function(a){return Q(a)}),a=yi(this.M,e,b,d)):(b=Q(b),a=ui(this.M,e,b,d)):c?(d=ma(b,function(a){return Q(a)}),a=ti(this.M,e,d)):(d=Q(b),a=qi(this.M,new Ac(Gf,e,d)));d=e;0<a.length&&(d=Ni(this,e));dc(this.fa,d,a)};h.Xc=function(a){Ki(this,"connected",a);!1===a&&Oi(this)};h.Se=function(a){var b=this;zd(a,function(a,d){Ki(b,d,a)})};h.Pe=function(a){Ki(this,"authenticated",a)};
-	function Ki(a,b,c){b=new P("/.info/"+b);c=Q(c);var d=a.Ge;d.Zd=d.Zd.H(b,c);c=qi(a.Fd,new Ac(Gf,b,c));dc(a.fa,b,c)}h.Ob=function(a,b,c,d){this.f("set",{path:a.toString(),value:b,nh:c});var e=Mi(this);b=Q(b,c);var e=Xc(b,e),f=this.Kd++,e=pi(this.M,a,e,f,!0);$b(this.fa,e);var g=this;this.da.put(a.toString(),b.J(!0),function(b,c){var e="ok"===b;e||S("set at "+a+" failed: "+b);e=si(g.M,f,!e);dc(g.fa,a,e);Pi(d,b,c)});e=Qi(this,a);Ni(this,e);dc(this.fa,e,[])};
-	h.update=function(a,b,c){this.f("update",{path:a.toString(),value:b});var d=!0,e=Mi(this),f={};v(b,function(a,b){d=!1;var c=Q(a);f[b]=Xc(c,e)});if(d)fc("update() called with empty data.  Don't do anything."),Pi(c,"ok");else{var g=this.Kd++,k=ri(this.M,a,f,g);$b(this.fa,k);var m=this;this.da.Df(a.toString(),b,function(b,d){var e="ok"===b;e||S("update at "+a+" failed: "+b);var e=si(m.M,g,!e),f=a;0<e.length&&(f=Ni(m,a));dc(m.fa,f,e);Pi(c,b,d)});b=Qi(this,a);Ni(this,b);dc(this.fa,a,[])}};
-	function Oi(a){a.f("onDisconnectEvents");var b=Mi(a),c=[];Wc(Uc(a.na,b),M,function(b,e){c=c.concat(qi(a.M,new Ac(Gf,b,e)));var f=Qi(a,b);Ni(a,f)});a.na=new Vc;dc(a.fa,M,c)}h.Md=function(a,b){var c=this;this.da.Md(a.toString(),function(d,e){"ok"===d&&wg(c.na,a);Pi(b,d,e)})};function fi(a,b,c,d){var e=Q(c);a.da.Qe(b.toString(),e.J(!0),function(c,g){"ok"===c&&a.na.rc(b,e);Pi(d,c,g)})}function gi(a,b,c,d,e){var f=Q(c,d);a.da.Qe(b.toString(),f.J(!0),function(c,d){"ok"===c&&a.na.rc(b,f);Pi(e,c,d)})}
-	function hi(a,b,c,d){var e=!0,f;for(f in c)e=!1;e?(fc("onDisconnect().update() called with empty data.  Don't do anything."),Pi(d,"ok")):a.da.Gf(b.toString(),c,function(e,f){if("ok"===e)for(var m in c){var l=Q(c[m]);a.na.rc(b.o(m),l)}Pi(d,e,f)})}function Ri(a,b,c){c=".info"===K(b.path)?a.Fd.Tb(b,c):a.M.Tb(b,c);bc(a.fa,b.path,c)}h.Cb=function(){this.Va&&this.Va.Cb()};h.vc=function(){this.Va&&this.Va.vc()};
-	h.bf=function(a){if("undefined"!==typeof console){a?(this.hd||(this.hd=new oc(this.Xa)),a=this.hd.get()):a=this.Xa.get();var b=Pa(ra(a),function(a,b){return Math.max(b.length,a)},0),c;for(c in a){for(var d=a[c],e=c.length;e<b+2;e++)c+=" ";console.log(c+d)}}};h.cf=function(a){rc(this.Xa,a);this.eh.Vf[a]=!0};h.f=function(a){var b="";this.Va&&(b=this.Va.id+":");fc(b,arguments)};
-	function Pi(a,b,c){a&&gc(function(){if("ok"==b)a(null);else{var d=(b||"error").toUpperCase(),e=d;c&&(e+=": "+c);e=Error(e);e.code=d;a(e)}})};function Si(a,b,c,d,e){function f(){}a.f("transaction on "+b);var g=new X(a,b);g.Ib("value",f);c={path:b,update:c,I:d,status:null,Lf:id(),gf:e,Sf:0,le:function(){g.mc("value",f)},ne:null,Da:null,rd:null,sd:null,td:null};d=a.M.Aa(b,void 0)||H;c.rd=d;d=c.update(d.J());if(p(d)){hg("transaction failed: Data returned ",d,c.path);c.status=1;e=Xf(a.yc,b);var k=e.Ea()||[];k.push(c);Yf(e,k);"object"===typeof d&&null!==d&&y(d,".priority")?(k=z(d,".priority"),O(fg(k),"Invalid priority returned by transaction. Priority must be a valid string, finite number, server value, or null.")):
-	k=(a.M.Aa(b)||H).C().J();e=Mi(a);d=Q(d,k);e=Xc(d,e);c.sd=d;c.td=e;c.Da=a.Kd++;c=pi(a.M,b,e,c.Da,c.gf);dc(a.fa,b,c);Ti(a)}else c.le(),c.sd=null,c.td=null,c.I&&(a=new W(c.rd,new X(a,c.path),R),c.I(null,!1,a))}function Ti(a,b){var c=b||a.yc;b||Ui(a,c);if(null!==c.Ea()){var d=Vi(a,c);O(0<d.length,"Sending zero length transaction queue");Qa(d,function(a){return 1===a.status})&&Wi(a,c.path(),d)}else c.zd()&&c.R(function(b){Ti(a,b)})}
-	function Wi(a,b,c){for(var d=Oa(c,function(a){return a.Da}),e=a.M.Aa(b,d)||H,d=e,e=e.hash(),f=0;f<c.length;f++){var g=c[f];O(1===g.status,"tryToSendTransactionQueue_: items in queue should all be run.");g.status=2;g.Sf++;var k=lf(b,g.path),d=d.H(k,g.sd)}d=d.J(!0);a.da.put(b.toString(),d,function(d){a.f("transaction put response",{path:b.toString(),status:d});var e=[];if("ok"===d){d=[];for(f=0;f<c.length;f++){c[f].status=3;e=e.concat(si(a.M,c[f].Da));if(c[f].I){var g=c[f].td,k=new X(a,c[f].path);d.push(u(c[f].I,
-	null,null,!0,new W(g,k,R)))}c[f].le()}Ui(a,Xf(a.yc,b));Ti(a);dc(a.fa,b,e);for(f=0;f<d.length;f++)gc(d[f])}else{if("datastale"===d)for(f=0;f<c.length;f++)c[f].status=4===c[f].status?5:1;else for(S("transaction at "+b.toString()+" failed: "+d),f=0;f<c.length;f++)c[f].status=5,c[f].ne=d;Ni(a,b)}},e)}function Ni(a,b){var c=Xi(a,b),d=c.path(),c=Vi(a,c);Yi(a,c,d);return d}
-	function Yi(a,b,c){if(0!==b.length){for(var d=[],e=[],f=Na(b,function(a){return 1===a.status}),f=Oa(f,function(a){return a.Da}),g=0;g<b.length;g++){var k=b[g],m=lf(c,k.path),l=!1,t;O(null!==m,"rerunTransactionsUnderNode_: relativePath should not be null.");if(5===k.status)l=!0,t=k.ne,e=e.concat(si(a.M,k.Da,!0));else if(1===k.status)if(25<=k.Sf)l=!0,t="maxretry",e=e.concat(si(a.M,k.Da,!0));else{var A=a.M.Aa(k.path,f)||H;k.rd=A;var I=b[g].update(A.J());p(I)?(hg("transaction failed: Data returned ",
-	I,k.path),m=Q(I),"object"===typeof I&&null!=I&&y(I,".priority")||(m=m.ia(A.C())),A=k.Da,I=Mi(a),I=Xc(m,I),k.sd=m,k.td=I,k.Da=a.Kd++,Ta(f,A),e=e.concat(pi(a.M,k.path,I,k.Da,k.gf)),e=e.concat(si(a.M,A,!0))):(l=!0,t="nodata",e=e.concat(si(a.M,k.Da,!0)))}dc(a.fa,c,e);e=[];l&&(b[g].status=3,setTimeout(b[g].le,Math.floor(0)),b[g].I&&("nodata"===t?(k=new X(a,b[g].path),d.push(u(b[g].I,null,null,!1,new W(b[g].rd,k,R)))):d.push(u(b[g].I,null,Error(t),!1,null))))}Ui(a,a.yc);for(g=0;g<d.length;g++)gc(d[g]);
-	Ti(a)}}function Xi(a,b){for(var c,d=a.yc;null!==(c=K(b))&&null===d.Ea();)d=Xf(d,c),b=N(b);return d}function Vi(a,b){var c=[];Zi(a,b,c);c.sort(function(a,b){return a.Lf-b.Lf});return c}function Zi(a,b,c){var d=b.Ea();if(null!==d)for(var e=0;e<d.length;e++)c.push(d[e]);b.R(function(b){Zi(a,b,c)})}function Ui(a,b){var c=b.Ea();if(c){for(var d=0,e=0;e<c.length;e++)3!==c[e].status&&(c[d]=c[e],d++);c.length=d;Yf(b,0<c.length?c:null)}b.R(function(b){Ui(a,b)})}
-	function Qi(a,b){var c=Xi(a,b).path(),d=Xf(a.yc,b);ag(d,function(b){$i(a,b)});$i(a,d);$f(d,function(b){$i(a,b)});return c}
-	function $i(a,b){var c=b.Ea();if(null!==c){for(var d=[],e=[],f=-1,g=0;g<c.length;g++)4!==c[g].status&&(2===c[g].status?(O(f===g-1,"All SENT items should be at beginning of queue."),f=g,c[g].status=4,c[g].ne="set"):(O(1===c[g].status,"Unexpected transaction status in abort"),c[g].le(),e=e.concat(si(a.M,c[g].Da,!0)),c[g].I&&d.push(u(c[g].I,null,Error("set"),!1,null))));-1===f?Yf(b,null):c.length=f+1;dc(a.fa,b.path(),e);for(g=0;g<d.length;g++)gc(d[g])}};function aj(){this.sc={};this.ag=!1}aj.prototype.Cb=function(){for(var a in this.sc)this.sc[a].Cb()};aj.prototype.vc=function(){for(var a in this.sc)this.sc[a].vc()};aj.prototype.ze=function(){this.ag=!0};ba(aj);aj.prototype.interrupt=aj.prototype.Cb;aj.prototype.resume=aj.prototype.vc;function Y(a,b,c,d){this.k=a;this.path=b;this.n=c;this.pc=d}
-	function bj(a){var b=null,c=null;a.oa&&(b=Od(a));a.ra&&(c=Rd(a));if(a.g===re){if(a.oa){if("[MIN_NAME]"!=Nd(a))throw Error("Query: When ordering by key, you may only pass one argument to startAt(), endAt(), or equalTo().");if("string"!==typeof b)throw Error("Query: When ordering by key, the argument passed to startAt(), endAt(),or equalTo() must be a string.");}if(a.ra){if("[MAX_NAME]"!=Pd(a))throw Error("Query: When ordering by key, you may only pass one argument to startAt(), endAt(), or equalTo().");if("string"!==
-	typeof c)throw Error("Query: When ordering by key, the argument passed to startAt(), endAt(),or equalTo() must be a string.");}}else if(a.g===R){if(null!=b&&!fg(b)||null!=c&&!fg(c))throw Error("Query: When ordering by priority, the first argument passed to startAt(), endAt(), or equalTo() must be a valid priority value (null, a number, or a string).");}else if(O(a.g instanceof ve||a.g===Be,"unknown index type."),null!=b&&"object"===typeof b||null!=c&&"object"===typeof c)throw Error("Query: First argument passed to startAt(), endAt(), or equalTo() cannot be an object.");
-	}function cj(a){if(a.oa&&a.ra&&a.la&&(!a.la||""===a.Rb))throw Error("Query: Can't combine startAt(), endAt(), and limit(). Use limitToFirst() or limitToLast() instead.");}function dj(a,b){if(!0===a.pc)throw Error(b+": You can't combine multiple orderBy calls.");}h=Y.prototype;h.Mb=function(){D("Query.ref",0,0,arguments.length);return new X(this.k,this.path)};
-	h.Ib=function(a,b,c,d){D("Query.on",2,4,arguments.length);lg("Query.on",a,!1);F("Query.on",2,b,!1);var e=ej("Query.on",c,d);if("value"===a)Ri(this.k,this,new ii(b,e.cancel||null,e.Qa||null));else{var f={};f[a]=b;Ri(this.k,this,new ji(f,e.cancel,e.Qa))}return b};
-	h.mc=function(a,b,c){D("Query.off",0,3,arguments.length);lg("Query.off",a,!0);F("Query.off",2,b,!0);Qb("Query.off",3,c);var d=null,e=null;"value"===a?d=new ii(b||null,null,c||null):a&&(b&&(e={},e[a]=b),d=new ji(e,null,c||null));e=this.k;d=".info"===K(this.path)?e.Fd.nb(this,d):e.M.nb(this,d);bc(e.fa,this.path,d)};
-	h.Pg=function(a,b){function c(k){f&&(f=!1,e.mc(a,c),b&&b.call(d.Qa,k),g.resolve(k))}D("Query.once",1,4,arguments.length);lg("Query.once",a,!1);F("Query.once",2,b,!0);var d=ej("Query.once",arguments[2],arguments[3]),e=this,f=!0,g=new B;Nb(g.D);this.Ib(a,c,function(b){e.mc(a,c);d.cancel&&d.cancel.call(d.Qa,b);g.reject(b)});return g.D};
-	h.Le=function(a){S("Query.limit() being deprecated. Please use Query.limitToFirst() or Query.limitToLast() instead.");D("Query.limit",1,1,arguments.length);if(!fa(a)||Math.floor(a)!==a||0>=a)throw Error("Query.limit: First argument must be a positive integer.");if(this.n.la)throw Error("Query.limit: Limit was already set (by another call to limit, limitToFirst, orlimitToLast.");var b=this.n.Le(a);cj(b);return new Y(this.k,this.path,b,this.pc)};
-	h.Me=function(a){D("Query.limitToFirst",1,1,arguments.length);if(!fa(a)||Math.floor(a)!==a||0>=a)throw Error("Query.limitToFirst: First argument must be a positive integer.");if(this.n.la)throw Error("Query.limitToFirst: Limit was already set (by another call to limit, limitToFirst, or limitToLast).");return new Y(this.k,this.path,this.n.Me(a),this.pc)};
-	h.Ne=function(a){D("Query.limitToLast",1,1,arguments.length);if(!fa(a)||Math.floor(a)!==a||0>=a)throw Error("Query.limitToLast: First argument must be a positive integer.");if(this.n.la)throw Error("Query.limitToLast: Limit was already set (by another call to limit, limitToFirst, or limitToLast).");return new Y(this.k,this.path,this.n.Ne(a),this.pc)};
-	h.Qg=function(a){D("Query.orderByChild",1,1,arguments.length);if("$key"===a)throw Error('Query.orderByChild: "$key" is invalid.  Use Query.orderByKey() instead.');if("$priority"===a)throw Error('Query.orderByChild: "$priority" is invalid.  Use Query.orderByPriority() instead.');if("$value"===a)throw Error('Query.orderByChild: "$value" is invalid.  Use Query.orderByValue() instead.');ng("Query.orderByChild",a);dj(this,"Query.orderByChild");var b=new P(a);if(b.e())throw Error("Query.orderByChild: cannot pass in empty path.  Use Query.orderByValue() instead.");
-	b=new ve(b);b=Fe(this.n,b);bj(b);return new Y(this.k,this.path,b,!0)};h.Rg=function(){D("Query.orderByKey",0,0,arguments.length);dj(this,"Query.orderByKey");var a=Fe(this.n,re);bj(a);return new Y(this.k,this.path,a,!0)};h.Sg=function(){D("Query.orderByPriority",0,0,arguments.length);dj(this,"Query.orderByPriority");var a=Fe(this.n,R);bj(a);return new Y(this.k,this.path,a,!0)};
-	h.Tg=function(){D("Query.orderByValue",0,0,arguments.length);dj(this,"Query.orderByValue");var a=Fe(this.n,Be);bj(a);return new Y(this.k,this.path,a,!0)};h.ce=function(a,b){D("Query.startAt",0,2,arguments.length);gg("Query.startAt",a,this.path,!0);mg("Query.startAt",b);var c=this.n.ce(a,b);cj(c);bj(c);if(this.n.oa)throw Error("Query.startAt: Starting point was already set (by another call to startAt or equalTo).");p(a)||(b=a=null);return new Y(this.k,this.path,c,this.pc)};
-	h.vd=function(a,b){D("Query.endAt",0,2,arguments.length);gg("Query.endAt",a,this.path,!0);mg("Query.endAt",b);var c=this.n.vd(a,b);cj(c);bj(c);if(this.n.ra)throw Error("Query.endAt: Ending point was already set (by another call to endAt or equalTo).");return new Y(this.k,this.path,c,this.pc)};
-	h.tg=function(a,b){D("Query.equalTo",1,2,arguments.length);gg("Query.equalTo",a,this.path,!1);mg("Query.equalTo",b);if(this.n.oa)throw Error("Query.equalTo: Starting point was already set (by another call to endAt or equalTo).");if(this.n.ra)throw Error("Query.equalTo: Ending point was already set (by another call to endAt or equalTo).");return this.ce(a,b).vd(a,b)};
-	h.toString=function(){D("Query.toString",0,0,arguments.length);for(var a=this.path,b="",c=a.aa;c<a.u.length;c++)""!==a.u[c]&&(b+="/"+encodeURIComponent(String(a.u[c])));return this.k.toString()+(b||"/")};h.wa=function(){var a=xd(Ge(this.n));return"{}"===a?"default":a};
-	function ej(a,b,c){var d={cancel:null,Qa:null};if(b&&c)d.cancel=b,F(a,3,d.cancel,!0),d.Qa=c,Qb(a,4,d.Qa);else if(b)if("object"===typeof b&&null!==b)d.Qa=b;else if("function"===typeof b)d.cancel=b;else throw Error(E(a,3,!0)+" must either be a cancel callback or a context object.");return d}Y.prototype.ref=Y.prototype.Mb;Y.prototype.on=Y.prototype.Ib;Y.prototype.off=Y.prototype.mc;Y.prototype.once=Y.prototype.Pg;Y.prototype.limit=Y.prototype.Le;Y.prototype.limitToFirst=Y.prototype.Me;
-	Y.prototype.limitToLast=Y.prototype.Ne;Y.prototype.orderByChild=Y.prototype.Qg;Y.prototype.orderByKey=Y.prototype.Rg;Y.prototype.orderByPriority=Y.prototype.Sg;Y.prototype.orderByValue=Y.prototype.Tg;Y.prototype.startAt=Y.prototype.ce;Y.prototype.endAt=Y.prototype.vd;Y.prototype.equalTo=Y.prototype.tg;Y.prototype.toString=Y.prototype.toString;var Z={};Z.zc=Rh;Z.DataConnection=Z.zc;Rh.prototype.dh=function(a,b){this.Ia("q",{p:a},b)};Z.zc.prototype.simpleListen=Z.zc.prototype.dh;Rh.prototype.sg=function(a,b){this.Ia("echo",{d:a},b)};Z.zc.prototype.echo=Z.zc.prototype.sg;Rh.prototype.interrupt=Rh.prototype.Cb;Z.dg=Fh;Z.RealTimeConnection=Z.dg;Fh.prototype.sendRequest=Fh.prototype.Ia;Fh.prototype.close=Fh.prototype.close;
-	Z.Cg=function(a){var b=Rh.prototype.put;Rh.prototype.put=function(c,d,e,f){p(f)&&(f=a());b.call(this,c,d,e,f)};return function(){Rh.prototype.put=b}};Z.hijackHash=Z.Cg;Z.cg=dd;Z.ConnectionTarget=Z.cg;Z.wa=function(a){return a.wa()};Z.queryIdentifier=Z.wa;Z.Fg=function(a){return a.k.Va.ba};Z.listens=Z.Fg;Z.ze=function(a){a.ze()};Z.forceRestClient=Z.ze;function X(a,b){var c,d,e;if(a instanceof Ji)c=a,d=b;else{D("new Firebase",1,2,arguments.length);d=sd(arguments[0]);c=d.fh;"firebase"===d.domain&&rd(d.host+" is no longer supported. Please use <YOUR FIREBASE>.firebaseio.com instead");c&&"undefined"!=c||rd("Cannot parse Firebase url. Please use https://<YOUR FIREBASE>.firebaseio.com");d.ob||"undefined"!==typeof window&&window.location&&window.location.protocol&&-1!==window.location.protocol.indexOf("https:")&&S("Insecure Firebase access from a secure page. Please use https in calls to new Firebase().");
-	c=new dd(d.host,d.ob,c,"ws"===d.scheme||"wss"===d.scheme);d=new P(d.bd);e=d.toString();var f;!(f=!q(c.host)||0===c.host.length||!eg(c.lc))&&(f=0!==e.length)&&(e&&(e=e.replace(/^\/*\.info(\/|$)/,"/")),f=!(q(e)&&0!==e.length&&!cg.test(e)));if(f)throw Error(E("new Firebase",1,!1)+'must be a valid firebase URL and the path can\'t contain ".", "#", "$", "[", or "]".');if(b)if(b instanceof aj)e=b;else if(q(b))e=aj.yb(),c.Rd=b;else throw Error("Expected a valid Firebase.Context for second argument to new Firebase()");
-	else e=aj.yb();f=c.toString();var g=z(e.sc,f);g||(g=new Ji(c,e.ag),e.sc[f]=g);c=g}Y.call(this,c,d,De,!1);this.then=void 0;this["catch"]=void 0}ka(X,Y);var fj=X,gj=["Firebase"],hj=n;gj[0]in hj||!hj.execScript||hj.execScript("var "+gj[0]);for(var ij;gj.length&&(ij=gj.shift());)!gj.length&&p(fj)?hj[ij]=fj:hj=hj[ij]?hj[ij]:hj[ij]={};X.goOffline=function(){D("Firebase.goOffline",0,0,arguments.length);aj.yb().Cb()};X.goOnline=function(){D("Firebase.goOnline",0,0,arguments.length);aj.yb().vc()};
-	X.enableLogging=od;X.ServerValue={TIMESTAMP:{".sv":"timestamp"}};X.SDK_VERSION=Eb;X.INTERNAL=U;X.Context=aj;X.TEST_ACCESS=Z;X.prototype.name=function(){S("Firebase.name() being deprecated. Please use Firebase.key() instead.");D("Firebase.name",0,0,arguments.length);return this.key()};X.prototype.name=X.prototype.name;X.prototype.key=function(){D("Firebase.key",0,0,arguments.length);return this.path.e()?null:me(this.path)};X.prototype.key=X.prototype.key;
-	X.prototype.o=function(a){D("Firebase.child",1,1,arguments.length);if(fa(a))a=String(a);else if(!(a instanceof P))if(null===K(this.path)){var b=a;b&&(b=b.replace(/^\/*\.info(\/|$)/,"/"));ng("Firebase.child",b)}else ng("Firebase.child",a);return new X(this.k,this.path.o(a))};X.prototype.child=X.prototype.o;X.prototype.parent=function(){D("Firebase.parent",0,0,arguments.length);var a=this.path.parent();return null===a?null:new X(this.k,a)};X.prototype.parent=X.prototype.parent;
-	X.prototype.root=function(){D("Firebase.ref",0,0,arguments.length);for(var a=this;null!==a.parent();)a=a.parent();return a};X.prototype.root=X.prototype.root;X.prototype.set=function(a,b){D("Firebase.set",1,2,arguments.length);og("Firebase.set",this.path);gg("Firebase.set",a,this.path,!1);F("Firebase.set",2,b,!0);var c=new B;this.k.Ob(this.path,a,null,C(c,b));return c.D};X.prototype.set=X.prototype.set;
-	X.prototype.update=function(a,b){D("Firebase.update",1,2,arguments.length);og("Firebase.update",this.path);if(da(a)){for(var c={},d=0;d<a.length;++d)c[""+d]=a[d];a=c;S("Passing an Array to Firebase.update() is deprecated. Use set() if you want to overwrite the existing data, or an Object with integer keys if you really do want to only update some of the children.")}jg("Firebase.update",a,this.path);F("Firebase.update",2,b,!0);c=new B;this.k.update(this.path,a,C(c,b));return c.D};
-	X.prototype.update=X.prototype.update;X.prototype.Ob=function(a,b,c){D("Firebase.setWithPriority",2,3,arguments.length);og("Firebase.setWithPriority",this.path);gg("Firebase.setWithPriority",a,this.path,!1);kg("Firebase.setWithPriority",2,b);F("Firebase.setWithPriority",3,c,!0);if(".length"===this.key()||".keys"===this.key())throw"Firebase.setWithPriority failed: "+this.key()+" is a read-only object.";var d=new B;this.k.Ob(this.path,a,b,C(d,c));return d.D};X.prototype.setWithPriority=X.prototype.Ob;
-	X.prototype.remove=function(a){D("Firebase.remove",0,1,arguments.length);og("Firebase.remove",this.path);F("Firebase.remove",1,a,!0);return this.set(null,a)};X.prototype.remove=X.prototype.remove;
-	X.prototype.transaction=function(a,b,c){D("Firebase.transaction",1,3,arguments.length);og("Firebase.transaction",this.path);F("Firebase.transaction",1,a,!1);F("Firebase.transaction",2,b,!0);if(p(c)&&"boolean"!=typeof c)throw Error(E("Firebase.transaction",3,!0)+"must be a boolean.");if(".length"===this.key()||".keys"===this.key())throw"Firebase.transaction failed: "+this.key()+" is a read-only object.";"undefined"===typeof c&&(c=!0);var d=new B;r(b)&&Nb(d.D);Si(this.k,this.path,a,function(a,c,g){a?
-	d.reject(a):d.resolve(new ei(c,g));r(b)&&b(a,c,g)},c);return d.D};X.prototype.transaction=X.prototype.transaction;X.prototype.$g=function(a,b){D("Firebase.setPriority",1,2,arguments.length);og("Firebase.setPriority",this.path);kg("Firebase.setPriority",1,a);F("Firebase.setPriority",2,b,!0);var c=new B;this.k.Ob(this.path.o(".priority"),a,null,C(c,b));return c.D};X.prototype.setPriority=X.prototype.$g;
-	X.prototype.push=function(a,b){D("Firebase.push",0,2,arguments.length);og("Firebase.push",this.path);gg("Firebase.push",a,this.path,!0);F("Firebase.push",2,b,!0);var c=Li(this.k),d=hf(c),c=this.o(d);if(null!=a){var e=this,f=c.set(a,b).then(function(){return e.o(d)});c.then=u(f.then,f);c["catch"]=u(f.then,f,void 0);r(b)&&Nb(f)}return c};X.prototype.push=X.prototype.push;X.prototype.lb=function(){og("Firebase.onDisconnect",this.path);return new V(this.k,this.path)};X.prototype.onDisconnect=X.prototype.lb;
-	X.prototype.O=function(a,b,c){S("FirebaseRef.auth() being deprecated. Please use FirebaseRef.authWithCustomToken() instead.");D("Firebase.auth",1,3,arguments.length);pg("Firebase.auth",a);F("Firebase.auth",2,b,!0);F("Firebase.auth",3,b,!0);var d=new B;dh(this.k.O,a,{},{remember:"none"},C(d,b),c);return d.D};X.prototype.auth=X.prototype.O;X.prototype.je=function(a){D("Firebase.unauth",0,1,arguments.length);F("Firebase.unauth",1,a,!0);var b=new B;eh(this.k.O,C(b,a));return b.D};X.prototype.unauth=X.prototype.je;
-	X.prototype.Be=function(){D("Firebase.getAuth",0,0,arguments.length);return this.k.O.Be()};X.prototype.getAuth=X.prototype.Be;X.prototype.Jg=function(a,b){D("Firebase.onAuth",1,2,arguments.length);F("Firebase.onAuth",1,a,!1);Qb("Firebase.onAuth",2,b);this.k.O.Ib("auth_status",a,b)};X.prototype.onAuth=X.prototype.Jg;X.prototype.Ig=function(a,b){D("Firebase.offAuth",1,2,arguments.length);F("Firebase.offAuth",1,a,!1);Qb("Firebase.offAuth",2,b);this.k.O.mc("auth_status",a,b)};X.prototype.offAuth=X.prototype.Ig;
-	X.prototype.hg=function(a,b,c){D("Firebase.authWithCustomToken",1,3,arguments.length);2===arguments.length&&Hb(b)&&(c=b,b=void 0);pg("Firebase.authWithCustomToken",a);F("Firebase.authWithCustomToken",2,b,!0);sg("Firebase.authWithCustomToken",3,c,!0);var d=new B;dh(this.k.O,a,{},c||{},C(d,b));return d.D};X.prototype.authWithCustomToken=X.prototype.hg;
-	X.prototype.ig=function(a,b,c){D("Firebase.authWithOAuthPopup",1,3,arguments.length);2===arguments.length&&Hb(b)&&(c=b,b=void 0);rg("Firebase.authWithOAuthPopup",a);F("Firebase.authWithOAuthPopup",2,b,!0);sg("Firebase.authWithOAuthPopup",3,c,!0);var d=new B;ih(this.k.O,a,c,C(d,b));return d.D};X.prototype.authWithOAuthPopup=X.prototype.ig;
-	X.prototype.jg=function(a,b,c){D("Firebase.authWithOAuthRedirect",1,3,arguments.length);2===arguments.length&&Hb(b)&&(c=b,b=void 0);rg("Firebase.authWithOAuthRedirect",a);F("Firebase.authWithOAuthRedirect",2,b,!1);sg("Firebase.authWithOAuthRedirect",3,c,!0);var d=new B,e=this.k.O,f=c,g=C(d,b);gh(e);var k=[Qg],f=Ag(f);"anonymous"===a||"firebase"===a?T(g,Sg("TRANSPORT_UNAVAILABLE")):(cd.set("redirect_client_options",f.qd),hh(e,k,"/auth/"+a,f,g));return d.D};X.prototype.authWithOAuthRedirect=X.prototype.jg;
-	X.prototype.kg=function(a,b,c,d){D("Firebase.authWithOAuthToken",2,4,arguments.length);3===arguments.length&&Hb(c)&&(d=c,c=void 0);rg("Firebase.authWithOAuthToken",a);F("Firebase.authWithOAuthToken",3,c,!0);sg("Firebase.authWithOAuthToken",4,d,!0);var e=new B;q(b)?(qg("Firebase.authWithOAuthToken",2,b),fh(this.k.O,a+"/token",{access_token:b},d,C(e,c))):(sg("Firebase.authWithOAuthToken",2,b,!1),fh(this.k.O,a+"/token",b,d,C(e,c)));return e.D};X.prototype.authWithOAuthToken=X.prototype.kg;
-	X.prototype.gg=function(a,b){D("Firebase.authAnonymously",0,2,arguments.length);1===arguments.length&&Hb(a)&&(b=a,a=void 0);F("Firebase.authAnonymously",1,a,!0);sg("Firebase.authAnonymously",2,b,!0);var c=new B;fh(this.k.O,"anonymous",{},b,C(c,a));return c.D};X.prototype.authAnonymously=X.prototype.gg;
-	X.prototype.lg=function(a,b,c){D("Firebase.authWithPassword",1,3,arguments.length);2===arguments.length&&Hb(b)&&(c=b,b=void 0);sg("Firebase.authWithPassword",1,a,!1);tg("Firebase.authWithPassword",a,"email");tg("Firebase.authWithPassword",a,"password");F("Firebase.authWithPassword",2,b,!0);sg("Firebase.authWithPassword",3,c,!0);var d=new B;fh(this.k.O,"password",a,c,C(d,b));return d.D};X.prototype.authWithPassword=X.prototype.lg;
-	X.prototype.ve=function(a,b){D("Firebase.createUser",1,2,arguments.length);sg("Firebase.createUser",1,a,!1);tg("Firebase.createUser",a,"email");tg("Firebase.createUser",a,"password");F("Firebase.createUser",2,b,!0);var c=new B;this.k.O.ve(a,C(c,b));return c.D};X.prototype.createUser=X.prototype.ve;
-	X.prototype.Xe=function(a,b){D("Firebase.removeUser",1,2,arguments.length);sg("Firebase.removeUser",1,a,!1);tg("Firebase.removeUser",a,"email");tg("Firebase.removeUser",a,"password");F("Firebase.removeUser",2,b,!0);var c=new B;this.k.O.Xe(a,C(c,b));return c.D};X.prototype.removeUser=X.prototype.Xe;
-	X.prototype.se=function(a,b){D("Firebase.changePassword",1,2,arguments.length);sg("Firebase.changePassword",1,a,!1);tg("Firebase.changePassword",a,"email");tg("Firebase.changePassword",a,"oldPassword");tg("Firebase.changePassword",a,"newPassword");F("Firebase.changePassword",2,b,!0);var c=new B;this.k.O.se(a,C(c,b));return c.D};X.prototype.changePassword=X.prototype.se;
-	X.prototype.re=function(a,b){D("Firebase.changeEmail",1,2,arguments.length);sg("Firebase.changeEmail",1,a,!1);tg("Firebase.changeEmail",a,"oldEmail");tg("Firebase.changeEmail",a,"newEmail");tg("Firebase.changeEmail",a,"password");F("Firebase.changeEmail",2,b,!0);var c=new B;this.k.O.re(a,C(c,b));return c.D};X.prototype.changeEmail=X.prototype.re;
-	X.prototype.Ze=function(a,b){D("Firebase.resetPassword",1,2,arguments.length);sg("Firebase.resetPassword",1,a,!1);tg("Firebase.resetPassword",a,"email");F("Firebase.resetPassword",2,b,!0);var c=new B;this.k.O.Ze(a,C(c,b));return c.D};X.prototype.resetPassword=X.prototype.Ze;})();
-	
-
-
-/***/ },
-/* 11 */
 /***/ function(module, exports) {
 
 	/**
@@ -15250,7 +14796,7 @@
 
 
 /***/ },
-/* 12 */
+/* 9 */
 /***/ function(module, exports) {
 
 	/**
@@ -15654,15 +15200,15 @@
 
 
 /***/ },
-/* 13 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(12);
+	__webpack_require__(9);
 	module.exports = 'ngAria';
 
 
 /***/ },
-/* 14 */
+/* 11 */
 /***/ function(module, exports) {
 
 	/**
@@ -15990,15 +15536,15 @@
 
 
 /***/ },
-/* 15 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(14);
+	__webpack_require__(11);
 	module.exports = 'ngCookies';
 
 
 /***/ },
-/* 16 */
+/* 13 */
 /***/ function(module, exports) {
 
 	/*
@@ -17222,15 +16768,15 @@
 
 
 /***/ },
-/* 17 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(16);
+	__webpack_require__(13);
 	module.exports = 'ngMdIcons';
 
 
 /***/ },
-/* 18 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(__webpack_provided_window_dot_jQuery) {/*!
@@ -42097,7 +41643,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 19 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// Should already be required, here for clarity
@@ -42105,17 +41651,17 @@
 	
 	// Load Angular and dependent libs
 	__webpack_require__(2);
-	__webpack_require__(13);
+	__webpack_require__(10);
 	
 	// Now load Angular Material
-	__webpack_require__(18);
+	__webpack_require__(15);
 	
 	// Export namespace
 	module.exports = 'ngMaterial';
 
 
 /***/ },
-/* 20 */
+/* 17 */
 /***/ function(module, exports) {
 
 	/**
@@ -42889,15 +42435,15 @@
 
 
 /***/ },
-/* 21 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(20);
+	__webpack_require__(17);
 	module.exports = 'ngResource';
 
 
 /***/ },
-/* 22 */
+/* 19 */
 /***/ function(module, exports) {
 
 	/**
@@ -43925,15 +43471,15 @@
 
 
 /***/ },
-/* 23 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(22);
+	__webpack_require__(19);
 	module.exports = 'ngRoute';
 
 
 /***/ },
-/* 24 */
+/* 21 */
 /***/ function(module, exports) {
 
 	/**
@@ -44656,15 +44202,15 @@
 
 
 /***/ },
-/* 25 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(24);
+	__webpack_require__(21);
 	module.exports = 'ngSanitize';
 
 
 /***/ },
-/* 26 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(__webpack_provided_window_dot_jQuery) {/**
@@ -75384,25 +74930,2377 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 27 */
+/* 24 */
+/***/ function(module, exports) {
+
+	/*!
+	 * AngularFire is the officially supported AngularJS binding for Firebase. Firebase
+	 * is a full backend so you don't need servers to build your Angular app. AngularFire
+	 * provides you with the $firebase service which allows you to easily keep your $scope
+	 * variables in sync with your Firebase backend.
+	 *
+	 * AngularFire 1.2.0
+	 * https://github.com/firebase/angularfire/
+	 * Date: 03/28/2016
+	 * License: MIT
+	 */
+	(function(exports) {
+	  "use strict";
+	
+	// Define the `firebase` module under which all AngularFire
+	// services will live.
+	  angular.module("firebase", [])
+	    //todo use $window
+	    .value("Firebase", exports.Firebase);
+	
+	})(window);
+	(function() {
+	  'use strict';
+	  /**
+	   * Creates and maintains a synchronized list of data. This is a pseudo-read-only array. One should
+	   * not call splice(), push(), pop(), et al directly on this array, but should instead use the
+	   * $remove and $add methods.
+	   *
+	   * It is acceptable to .sort() this array, but it is important to use this in conjunction with
+	   * $watch(), so that it will be re-sorted any time the server data changes. Examples of this are
+	   * included in the $watch documentation.
+	   *
+	   * Internally, the $firebase object depends on this class to provide several $$ (i.e. protected)
+	   * methods, which it invokes to notify the array whenever a change has been made at the server:
+	   *    $$added - called whenever a child_added event occurs
+	   *    $$updated - called whenever a child_changed event occurs
+	   *    $$moved - called whenever a child_moved event occurs
+	   *    $$removed - called whenever a child_removed event occurs
+	   *    $$error - called when listeners are canceled due to a security error
+	   *    $$process - called immediately after $$added/$$updated/$$moved/$$removed
+	   *                (assuming that these methods do not abort by returning false or null)
+	   *                to splice/manipulate the array and invoke $$notify
+	   *
+	   * Additionally, these methods may be of interest to devs extending this class:
+	   *    $$notify - triggers notifications to any $watch listeners, called by $$process
+	   *    $$getKey - determines how to look up a record's key (returns $id by default)
+	   *
+	   * Instead of directly modifying this class, one should generally use the $extend
+	   * method to add or change how methods behave. $extend modifies the prototype of
+	   * the array class by returning a clone of $firebaseArray.
+	   *
+	   * <pre><code>
+	   * var ExtendedArray = $firebaseArray.$extend({
+	   *    // add a new method to the prototype
+	   *    foo: function() { return 'bar'; },
+	   *
+	   *    // change how records are created
+	   *    $$added: function(snap, prevChild) {
+	   *       return new Widget(snap, prevChild);
+	   *    },
+	   *
+	   *    // change how records are updated
+	   *    $$updated: function(snap) {
+	   *      return this.$getRecord(snap.key()).update(snap);
+	   *    }
+	   * });
+	   *
+	   * var list = new ExtendedArray(ref);
+	   * </code></pre>
+	   */
+	  angular.module('firebase').factory('$firebaseArray', ["$log", "$firebaseUtils", "$q",
+	    function($log, $firebaseUtils, $q) {
+	      /**
+	       * This constructor should probably never be called manually. It is used internally by
+	       * <code>$firebase.$asArray()</code>.
+	       *
+	       * @param {Firebase} ref
+	       * @returns {Array}
+	       * @constructor
+	       */
+	      function FirebaseArray(ref) {
+	        if( !(this instanceof FirebaseArray) ) {
+	          return new FirebaseArray(ref);
+	        }
+	        var self = this;
+	        this._observers = [];
+	        this.$list = [];
+	        this._ref = ref;
+	        this._sync = new ArraySyncManager(this);
+	
+	        $firebaseUtils.assertValidRef(ref, 'Must pass a valid Firebase reference ' +
+	        'to $firebaseArray (not a string or URL)');
+	
+	        // indexCache is a weak hashmap (a lazy list) of keys to array indices,
+	        // items are not guaranteed to stay up to date in this list (since the data
+	        // array can be manually edited without calling the $ methods) and it should
+	        // always be used with skepticism regarding whether it is accurate
+	        // (see $indexFor() below for proper usage)
+	        this._indexCache = {};
+	
+	        // Array.isArray will not work on objects which extend the Array class.
+	        // So instead of extending the Array class, we just return an actual array.
+	        // However, it's still possible to extend FirebaseArray and have the public methods
+	        // appear on the array object. We do this by iterating the prototype and binding
+	        // any method that is not prefixed with an underscore onto the final array.
+	        $firebaseUtils.getPublicMethods(self, function(fn, key) {
+	          self.$list[key] = fn.bind(self);
+	        });
+	
+	        this._sync.init(this.$list);
+	
+	        return this.$list;
+	      }
+	
+	      FirebaseArray.prototype = {
+	        /**
+	         * Create a new record with a unique ID and add it to the end of the array.
+	         * This should be used instead of Array.prototype.push, since those changes will not be
+	         * synchronized with the server.
+	         *
+	         * Any value, including a primitive, can be added in this way. Note that when the record
+	         * is created, the primitive value would be stored in $value (records are always objects
+	         * by default).
+	         *
+	         * Returns a future which is resolved when the data has successfully saved to the server.
+	         * The resolve callback will be passed a Firebase ref representing the new data element.
+	         *
+	         * @param data
+	         * @returns a promise resolved after data is added
+	         */
+	        $add: function(data) {
+	          this._assertNotDestroyed('$add');
+	          var def = $firebaseUtils.defer();
+	          var ref = this.$ref().ref().push();
+	          ref.set($firebaseUtils.toJSON(data), $firebaseUtils.makeNodeResolver(def));
+	          return def.promise.then(function() {
+	            return ref;
+	          });
+	        },
+	
+	        /**
+	         * Pass either an item in the array or the index of an item and it will be saved back
+	         * to Firebase. While the array is read-only and its structure should not be changed,
+	         * it is okay to modify properties on the objects it contains and then save those back
+	         * individually.
+	         *
+	         * Returns a future which is resolved when the data has successfully saved to the server.
+	         * The resolve callback will be passed a Firebase ref representing the saved element.
+	         * If passed an invalid index or an object which is not a record in this array,
+	         * the promise will be rejected.
+	         *
+	         * @param {int|object} indexOrItem
+	         * @returns a promise resolved after data is saved
+	         */
+	        $save: function(indexOrItem) {
+	          this._assertNotDestroyed('$save');
+	          var self = this;
+	          var item = self._resolveItem(indexOrItem);
+	          var key = self.$keyAt(item);
+	          if( key !== null ) {
+	            var ref = self.$ref().ref().child(key);
+	            var data = $firebaseUtils.toJSON(item);
+	            return $firebaseUtils.doSet(ref, data).then(function() {
+	              self.$$notify('child_changed', key);
+	              return ref;
+	            });
+	          }
+	          else {
+	            return $firebaseUtils.reject('Invalid record; could determine key for '+indexOrItem);
+	          }
+	        },
+	
+	        /**
+	         * Pass either an existing item in this array or the index of that item and it will
+	         * be removed both locally and in Firebase. This should be used in place of
+	         * Array.prototype.splice for removing items out of the array, as calling splice
+	         * will not update the value on the server.
+	         *
+	         * Returns a future which is resolved when the data has successfully removed from the
+	         * server. The resolve callback will be passed a Firebase ref representing the deleted
+	         * element. If passed an invalid index or an object which is not a record in this array,
+	         * the promise will be rejected.
+	         *
+	         * @param {int|object} indexOrItem
+	         * @returns a promise which resolves after data is removed
+	         */
+	        $remove: function(indexOrItem) {
+	          this._assertNotDestroyed('$remove');
+	          var key = this.$keyAt(indexOrItem);
+	          if( key !== null ) {
+	            var ref = this.$ref().ref().child(key);
+	            return $firebaseUtils.doRemove(ref).then(function() {
+	              return ref;
+	            });
+	          }
+	          else {
+	            return $firebaseUtils.reject('Invalid record; could not determine key for '+indexOrItem);
+	          }
+	        },
+	
+	        /**
+	         * Given an item in this array or the index of an item in the array, this returns the
+	         * Firebase key (record.$id) for that record. If passed an invalid key or an item which
+	         * does not exist in this array, it will return null.
+	         *
+	         * @param {int|object} indexOrItem
+	         * @returns {null|string}
+	         */
+	        $keyAt: function(indexOrItem) {
+	          var item = this._resolveItem(indexOrItem);
+	          return this.$$getKey(item);
+	        },
+	
+	        /**
+	         * The inverse of $keyAt, this method takes a Firebase key (record.$id) and returns the
+	         * index in the array where that record is stored. If the record is not in the array,
+	         * this method returns -1.
+	         *
+	         * @param {String} key
+	         * @returns {int} -1 if not found
+	         */
+	        $indexFor: function(key) {
+	          var self = this;
+	          var cache = self._indexCache;
+	          // evaluate whether our key is cached and, if so, whether it is up to date
+	          if( !cache.hasOwnProperty(key) || self.$keyAt(cache[key]) !== key ) {
+	            // update the hashmap
+	            var pos = self.$list.findIndex(function(rec) { return self.$$getKey(rec) === key; });
+	            if( pos !== -1 ) {
+	              cache[key] = pos;
+	            }
+	          }
+	          return cache.hasOwnProperty(key)? cache[key] : -1;
+	        },
+	
+	        /**
+	         * The loaded method is invoked after the initial batch of data arrives from the server.
+	         * When this resolves, all data which existed prior to calling $asArray() is now cached
+	         * locally in the array.
+	         *
+	         * As a shortcut is also possible to pass resolve/reject methods directly into this
+	         * method just as they would be passed to .then()
+	         *
+	         * @param {Function} [resolve]
+	         * @param {Function} [reject]
+	         * @returns a promise
+	         */
+	        $loaded: function(resolve, reject) {
+	          var promise = this._sync.ready();
+	          if( arguments.length ) {
+	            // allow this method to be called just like .then
+	            // by passing any arguments on to .then
+	            promise = promise.then.call(promise, resolve, reject);
+	          }
+	          return promise;
+	        },
+	
+	        /**
+	         * @returns {Firebase} the original Firebase ref used to create this object.
+	         */
+	        $ref: function() { return this._ref; },
+	
+	        /**
+	         * Listeners passed into this method are notified whenever a new change (add, updated,
+	         * move, remove) is received from the server. Each invocation is sent an object
+	         * containing <code>{ type: 'child_added|child_updated|child_moved|child_removed',
+	         * key: 'key_of_item_affected'}</code>
+	         *
+	         * Additionally, added and moved events receive a prevChild parameter, containing the
+	         * key of the item before this one in the array.
+	         *
+	         * This method returns a function which can be invoked to stop observing events.
+	         *
+	         * @param {Function} cb
+	         * @param {Object} [context]
+	         * @returns {Function} used to stop observing
+	         */
+	        $watch: function(cb, context) {
+	          var list = this._observers;
+	          list.push([cb, context]);
+	          // an off function for cancelling the listener
+	          return function() {
+	            var i = list.findIndex(function(parts) {
+	              return parts[0] === cb && parts[1] === context;
+	            });
+	            if( i > -1 ) {
+	              list.splice(i, 1);
+	            }
+	          };
+	        },
+	
+	        /**
+	         * Informs $firebase to stop sending events and clears memory being used
+	         * by this array (delete's its local content).
+	         */
+	        $destroy: function(err) {
+	          if( !this._isDestroyed ) {
+	            this._isDestroyed = true;
+	            this._sync.destroy(err);
+	            this.$list.length = 0;
+	          }
+	        },
+	
+	        /**
+	         * Returns the record for a given Firebase key (record.$id). If the record is not found
+	         * then returns null.
+	         *
+	         * @param {string} key
+	         * @returns {Object|null} a record in this array
+	         */
+	        $getRecord: function(key) {
+	          var i = this.$indexFor(key);
+	          return i > -1? this.$list[i] : null;
+	        },
+	
+	        /**
+	         * Called to inform the array when a new item has been added at the server.
+	         * This method should return the record (an object) that will be passed into $$process
+	         * along with the add event. Alternately, the record will be skipped if this method returns
+	         * a falsey value.
+	         *
+	         * @param {object} snap a Firebase snapshot
+	         * @param {string} prevChild
+	         * @return {object} the record to be inserted into the array
+	         * @protected
+	         */
+	        $$added: function(snap/*, prevChild*/) {
+	          // check to make sure record does not exist
+	          var i = this.$indexFor($firebaseUtils.getKey(snap));
+	          if( i === -1 ) {
+	            // parse data and create record
+	            var rec = snap.val();
+	            if( !angular.isObject(rec) ) {
+	              rec = { $value: rec };
+	            }
+	            rec.$id = $firebaseUtils.getKey(snap);
+	            rec.$priority = snap.getPriority();
+	            $firebaseUtils.applyDefaults(rec, this.$$defaults);
+	
+	            return rec;
+	          }
+	          return false;
+	        },
+	
+	        /**
+	         * Called whenever an item is removed at the server.
+	         * This method does not physically remove the objects, but instead
+	         * returns a boolean indicating whether it should be removed (and
+	         * taking any other desired actions before the remove completes).
+	         *
+	         * @param {object} snap a Firebase snapshot
+	         * @return {boolean} true if item should be removed
+	         * @protected
+	         */
+	        $$removed: function(snap) {
+	          return this.$indexFor($firebaseUtils.getKey(snap)) > -1;
+	        },
+	
+	        /**
+	         * Called whenever an item is changed at the server.
+	         * This method should apply the changes, including changes to data
+	         * and to $priority, and then return true if any changes were made.
+	         *
+	         * If this method returns false, then $$process will not be invoked,
+	         * which means that $$notify will not take place and no $watch events
+	         * will be triggered.
+	         *
+	         * @param {object} snap a Firebase snapshot
+	         * @return {boolean} true if any data changed
+	         * @protected
+	         */
+	        $$updated: function(snap) {
+	          var changed = false;
+	          var rec = this.$getRecord($firebaseUtils.getKey(snap));
+	          if( angular.isObject(rec) ) {
+	            // apply changes to the record
+	            changed = $firebaseUtils.updateRec(rec, snap);
+	            $firebaseUtils.applyDefaults(rec, this.$$defaults);
+	          }
+	          return changed;
+	        },
+	
+	        /**
+	         * Called whenever an item changes order (moves) on the server.
+	         * This method should set $priority to the updated value and return true if
+	         * the record should actually be moved. It should not actually apply the move
+	         * operation.
+	         *
+	         * If this method returns false, then the record will not be moved in the array
+	         * and no $watch listeners will be notified. (When true, $$process is invoked
+	         * which invokes $$notify)
+	         *
+	         * @param {object} snap a Firebase snapshot
+	         * @param {string} prevChild
+	         * @protected
+	         */
+	        $$moved: function(snap/*, prevChild*/) {
+	          var rec = this.$getRecord($firebaseUtils.getKey(snap));
+	          if( angular.isObject(rec) ) {
+	            rec.$priority = snap.getPriority();
+	            return true;
+	          }
+	          return false;
+	        },
+	
+	        /**
+	         * Called whenever a security error or other problem causes the listeners to become
+	         * invalid. This is generally an unrecoverable error.
+	         *
+	         * @param {Object} err which will have a `code` property and possibly a `message`
+	         * @protected
+	         */
+	        $$error: function(err) {
+	          $log.error(err);
+	          this.$destroy(err);
+	        },
+	
+	        /**
+	         * Returns ID for a given record
+	         * @param {object} rec
+	         * @returns {string||null}
+	         * @protected
+	         */
+	        $$getKey: function(rec) {
+	          return angular.isObject(rec)? rec.$id : null;
+	        },
+	
+	        /**
+	         * Handles placement of recs in the array, sending notifications,
+	         * and other internals. Called by the synchronization process
+	         * after $$added, $$updated, $$moved, and $$removed return a truthy value.
+	         *
+	         * @param {string} event one of child_added, child_removed, child_moved, or child_changed
+	         * @param {object} rec
+	         * @param {string} [prevChild]
+	         * @protected
+	         */
+	        $$process: function(event, rec, prevChild) {
+	          var key = this.$$getKey(rec);
+	          var changed = false;
+	          var curPos;
+	          switch(event) {
+	            case 'child_added':
+	              curPos = this.$indexFor(key);
+	              break;
+	            case 'child_moved':
+	              curPos = this.$indexFor(key);
+	              this._spliceOut(key);
+	              break;
+	            case 'child_removed':
+	              // remove record from the array
+	              changed = this._spliceOut(key) !== null;
+	              break;
+	            case 'child_changed':
+	              changed = true;
+	              break;
+	            default:
+	              throw new Error('Invalid event type: ' + event);
+	          }
+	          if( angular.isDefined(curPos) ) {
+	            // add it to the array
+	            changed = this._addAfter(rec, prevChild) !== curPos;
+	          }
+	          if( changed ) {
+	            // send notifications to anybody monitoring $watch
+	            this.$$notify(event, key, prevChild);
+	          }
+	          return changed;
+	        },
+	
+	        /**
+	         * Used to trigger notifications for listeners registered using $watch. This method is
+	         * typically invoked internally by the $$process method.
+	         *
+	         * @param {string} event
+	         * @param {string} key
+	         * @param {string} [prevChild]
+	         * @protected
+	         */
+	        $$notify: function(event, key, prevChild) {
+	          var eventData = {event: event, key: key};
+	          if( angular.isDefined(prevChild) ) {
+	            eventData.prevChild = prevChild;
+	          }
+	          angular.forEach(this._observers, function(parts) {
+	            parts[0].call(parts[1], eventData);
+	          });
+	        },
+	
+	        /**
+	         * Used to insert a new record into the array at a specific position. If prevChild is
+	         * null, is inserted first, if prevChild is not found, it is inserted last, otherwise,
+	         * it goes immediately after prevChild.
+	         *
+	         * @param {object} rec
+	         * @param {string|null} prevChild
+	         * @private
+	         */
+	        _addAfter: function(rec, prevChild) {
+	          var i;
+	          if( prevChild === null ) {
+	            i = 0;
+	          }
+	          else {
+	            i = this.$indexFor(prevChild)+1;
+	            if( i === 0 ) { i = this.$list.length; }
+	          }
+	          this.$list.splice(i, 0, rec);
+	          this._indexCache[this.$$getKey(rec)] = i;
+	          return i;
+	        },
+	
+	        /**
+	         * Removes a record from the array by calling splice. If the item is found
+	         * this method returns it. Otherwise, this method returns null.
+	         *
+	         * @param {string} key
+	         * @returns {object|null}
+	         * @private
+	         */
+	        _spliceOut: function(key) {
+	          var i = this.$indexFor(key);
+	          if( i > -1 ) {
+	            delete this._indexCache[key];
+	            return this.$list.splice(i, 1)[0];
+	          }
+	          return null;
+	        },
+	
+	        /**
+	         * Resolves a variable which may contain an integer or an item that exists in this array.
+	         * Returns the item or null if it does not exist.
+	         *
+	         * @param indexOrItem
+	         * @returns {*}
+	         * @private
+	         */
+	        _resolveItem: function(indexOrItem) {
+	          var list = this.$list;
+	          if( angular.isNumber(indexOrItem) && indexOrItem >= 0 && list.length >= indexOrItem ) {
+	            return list[indexOrItem];
+	          }
+	          else if( angular.isObject(indexOrItem) ) {
+	            // it must be an item in this array; it's not sufficient for it just to have
+	            // a $id or even a $id that is in the array, it must be an actual record
+	            // the fastest way to determine this is to use $getRecord (to avoid iterating all recs)
+	            // and compare the two
+	            var key = this.$$getKey(indexOrItem);
+	            var rec = this.$getRecord(key);
+	            return rec === indexOrItem? rec : null;
+	          }
+	          return null;
+	        },
+	
+	        /**
+	         * Throws an error if $destroy has been called. Should be used for any function
+	         * which tries to write data back to $firebase.
+	         * @param {string} method
+	         * @private
+	         */
+	        _assertNotDestroyed: function(method) {
+	          if( this._isDestroyed ) {
+	            throw new Error('Cannot call ' + method + ' method on a destroyed $firebaseArray object');
+	          }
+	        }
+	      };
+	
+	      /**
+	       * This method allows FirebaseArray to be inherited by child classes. Methods passed into this
+	       * function will be added onto the array's prototype. They can override existing methods as
+	       * well.
+	       *
+	       * In addition to passing additional methods, it is also possible to pass in a class function.
+	       * The prototype on that class function will be preserved, and it will inherit from
+	       * FirebaseArray. It's also possible to do both, passing a class to inherit and additional
+	       * methods to add onto the prototype.
+	       *
+	       *  <pre><code>
+	       * var ExtendedArray = $firebaseArray.$extend({
+	       *    // add a method onto the prototype that sums all items in the array
+	       *    getSum: function() {
+	       *       var ct = 0;
+	       *       angular.forEach(this.$list, function(rec) { ct += rec.x; });
+	        *      return ct;
+	       *    }
+	       * });
+	       *
+	       * // use our new factory in place of $firebaseArray
+	       * var list = new ExtendedArray(ref);
+	       * </code></pre>
+	       *
+	       * @param {Function} [ChildClass] a child class which should inherit FirebaseArray
+	       * @param {Object} [methods] a list of functions to add onto the prototype
+	       * @returns {Function} a child class suitable for use with $firebase (this will be ChildClass if provided)
+	       * @static
+	       */
+	      FirebaseArray.$extend = function(ChildClass, methods) {
+	        if( arguments.length === 1 && angular.isObject(ChildClass) ) {
+	          methods = ChildClass;
+	          ChildClass = function(ref) {
+	            if( !(this instanceof ChildClass) ) {
+	              return new ChildClass(ref);
+	            }
+	            FirebaseArray.apply(this, arguments);
+	            return this.$list;
+	          };
+	        }
+	        return $firebaseUtils.inherit(ChildClass, FirebaseArray, methods);
+	      };
+	
+	      function ArraySyncManager(firebaseArray) {
+	        function destroy(err) {
+	          if( !sync.isDestroyed ) {
+	            sync.isDestroyed = true;
+	            var ref = firebaseArray.$ref();
+	            ref.off('child_added', created);
+	            ref.off('child_moved', moved);
+	            ref.off('child_changed', updated);
+	            ref.off('child_removed', removed);
+	            firebaseArray = null;
+	            initComplete(err||'destroyed');
+	          }
+	        }
+	
+	        function init($list) {
+	          var ref = firebaseArray.$ref();
+	
+	          // listen for changes at the Firebase instance
+	          ref.on('child_added', created, error);
+	          ref.on('child_moved', moved, error);
+	          ref.on('child_changed', updated, error);
+	          ref.on('child_removed', removed, error);
+	
+	          // determine when initial load is completed
+	          ref.once('value', function(snap) {
+	            if (angular.isArray(snap.val())) {
+	              $log.warn('Storing data using array indices in Firebase can result in unexpected behavior. See https://www.firebase.com/docs/web/guide/understanding-data.html#section-arrays-in-firebase for more information.');
+	            }
+	
+	            initComplete(null, $list);
+	          }, initComplete);
+	        }
+	
+	        // call initComplete(), do not call this directly
+	        function _initComplete(err, result) {
+	          if( !isResolved ) {
+	            isResolved = true;
+	            if( err ) { def.reject(err); }
+	            else { def.resolve(result); }
+	          }
+	        }
+	
+	        var def     = $firebaseUtils.defer();
+	        var created = function(snap, prevChild) {
+	          waitForResolution(firebaseArray.$$added(snap, prevChild), function(rec) {
+	            firebaseArray.$$process('child_added', rec, prevChild);
+	          });
+	        };
+	        var updated = function(snap) {
+	          var rec = firebaseArray.$getRecord($firebaseUtils.getKey(snap));
+	          if( rec ) {
+	            waitForResolution(firebaseArray.$$updated(snap), function() {
+	              firebaseArray.$$process('child_changed', rec);
+	            });
+	          }
+	        };
+	        var moved   = function(snap, prevChild) {
+	          var rec = firebaseArray.$getRecord($firebaseUtils.getKey(snap));
+	          if( rec ) {
+	            waitForResolution(firebaseArray.$$moved(snap, prevChild), function() {
+	              firebaseArray.$$process('child_moved', rec, prevChild);
+	            });
+	          }
+	        };
+	        var removed = function(snap) {
+	          var rec = firebaseArray.$getRecord($firebaseUtils.getKey(snap));
+	          if( rec ) {
+	            waitForResolution(firebaseArray.$$removed(snap), function() {
+	               firebaseArray.$$process('child_removed', rec);
+	            });
+	          }
+	        };
+	
+	        function waitForResolution(maybePromise, callback) {
+	          var promise = $q.when(maybePromise);
+	          promise.then(function(result){
+	            if (result) {
+	              callback(result);
+	            }
+	          });
+	          if (!isResolved) {
+	            resolutionPromises.push(promise);
+	          }
+	        }
+	
+	        var resolutionPromises = [];
+	        var isResolved = false;
+	        var error   = $firebaseUtils.batch(function(err) {
+	          _initComplete(err);
+	          if( firebaseArray ) {
+	            firebaseArray.$$error(err);
+	          }
+	        });
+	        var initComplete = $firebaseUtils.batch(_initComplete);
+	
+	        var sync = {
+	          destroy: destroy,
+	          isDestroyed: false,
+	          init: init,
+	          ready: function() { return def.promise.then(function(result){
+	            return $q.all(resolutionPromises).then(function(){
+	              return result;
+	            });
+	          }); }
+	        };
+	
+	        return sync;
+	      }
+	
+	      return FirebaseArray;
+	    }
+	  ]);
+	
+	  /** @deprecated */
+	  angular.module('firebase').factory('$FirebaseArray', ['$log', '$firebaseArray',
+	    function($log, $firebaseArray) {
+	      return function() {
+	        $log.warn('$FirebaseArray has been renamed. Use $firebaseArray instead.');
+	        return $firebaseArray.apply(null, arguments);
+	      };
+	    }
+	  ]);
+	})();
+	
+	(function() {
+	  'use strict';
+	  var FirebaseAuth;
+	
+	  // Define a service which provides user authentication and management.
+	  angular.module('firebase').factory('$firebaseAuth', [
+	    '$q', '$firebaseUtils', function($q, $firebaseUtils) {
+	      /**
+	       * This factory returns an object allowing you to manage the client's authentication state.
+	       *
+	       * @param {Firebase} ref A Firebase reference to authenticate.
+	       * @return {object} An object containing methods for authenticating clients, retrieving
+	       * authentication state, and managing users.
+	       */
+	      return function(ref) {
+	        var auth = new FirebaseAuth($q, $firebaseUtils, ref);
+	        return auth.construct();
+	      };
+	    }
+	  ]);
+	
+	  FirebaseAuth = function($q, $firebaseUtils, ref) {
+	    this._q = $q;
+	    this._utils = $firebaseUtils;
+	    if (typeof ref === 'string') {
+	      throw new Error('Please provide a Firebase reference instead of a URL when creating a `$firebaseAuth` object.');
+	    }
+	    this._ref = ref;
+	    this._initialAuthResolver = this._initAuthResolver();
+	  };
+	
+	  FirebaseAuth.prototype = {
+	    construct: function() {
+	      this._object = {
+	        // Authentication methods
+	        $authWithCustomToken: this.authWithCustomToken.bind(this),
+	        $authAnonymously: this.authAnonymously.bind(this),
+	        $authWithPassword: this.authWithPassword.bind(this),
+	        $authWithOAuthPopup: this.authWithOAuthPopup.bind(this),
+	        $authWithOAuthRedirect: this.authWithOAuthRedirect.bind(this),
+	        $authWithOAuthToken: this.authWithOAuthToken.bind(this),
+	        $unauth: this.unauth.bind(this),
+	
+	        // Authentication state methods
+	        $onAuth: this.onAuth.bind(this),
+	        $getAuth: this.getAuth.bind(this),
+	        $requireAuth: this.requireAuth.bind(this),
+	        $waitForAuth: this.waitForAuth.bind(this),
+	
+	        // User management methods
+	        $createUser: this.createUser.bind(this),
+	        $changePassword: this.changePassword.bind(this),
+	        $changeEmail: this.changeEmail.bind(this),
+	        $removeUser: this.removeUser.bind(this),
+	        $resetPassword: this.resetPassword.bind(this)
+	      };
+	
+	      return this._object;
+	    },
+	
+	
+	    /********************/
+	    /*  Authentication  */
+	    /********************/
+	
+	    /**
+	     * Authenticates the Firebase reference with a custom authentication token.
+	     *
+	     * @param {string} authToken An authentication token or a Firebase Secret. A Firebase Secret
+	     * should only be used for authenticating a server process and provides full read / write
+	     * access to the entire Firebase.
+	     * @param {Object} [options] An object containing optional client arguments, such as configuring
+	     * session persistence.
+	     * @return {Promise<Object>} A promise fulfilled with an object containing authentication data.
+	     */
+	    authWithCustomToken: function(authToken, options) {
+	      var deferred = this._q.defer();
+	
+	      try {
+	        this._ref.authWithCustomToken(authToken, this._utils.makeNodeResolver(deferred), options);
+	      } catch (error) {
+	        deferred.reject(error);
+	      }
+	
+	      return deferred.promise;
+	    },
+	
+	    /**
+	     * Authenticates the Firebase reference anonymously.
+	     *
+	     * @param {Object} [options] An object containing optional client arguments, such as configuring
+	     * session persistence.
+	     * @return {Promise<Object>} A promise fulfilled with an object containing authentication data.
+	     */
+	    authAnonymously: function(options) {
+	      var deferred = this._q.defer();
+	
+	      try {
+	        this._ref.authAnonymously(this._utils.makeNodeResolver(deferred), options);
+	      } catch (error) {
+	        deferred.reject(error);
+	      }
+	
+	      return deferred.promise;
+	    },
+	
+	    /**
+	     * Authenticates the Firebase reference with an email/password user.
+	     *
+	     * @param {Object} credentials An object containing email and password attributes corresponding
+	     * to the user account.
+	     * @param {Object} [options] An object containing optional client arguments, such as configuring
+	     * session persistence.
+	     * @return {Promise<Object>} A promise fulfilled with an object containing authentication data.
+	     */
+	    authWithPassword: function(credentials, options) {
+	      var deferred = this._q.defer();
+	
+	      try {
+	        this._ref.authWithPassword(credentials, this._utils.makeNodeResolver(deferred), options);
+	      } catch (error) {
+	        deferred.reject(error);
+	      }
+	
+	      return deferred.promise;
+	    },
+	
+	    /**
+	     * Authenticates the Firebase reference with the OAuth popup flow.
+	     *
+	     * @param {string} provider The unique string identifying the OAuth provider to authenticate
+	     * with, e.g. google.
+	     * @param {Object} [options] An object containing optional client arguments, such as configuring
+	     * session persistence.
+	     * @return {Promise<Object>} A promise fulfilled with an object containing authentication data.
+	     */
+	    authWithOAuthPopup: function(provider, options) {
+	      var deferred = this._q.defer();
+	
+	      try {
+	        this._ref.authWithOAuthPopup(provider, this._utils.makeNodeResolver(deferred), options);
+	      } catch (error) {
+	        deferred.reject(error);
+	      }
+	
+	      return deferred.promise;
+	    },
+	
+	    /**
+	     * Authenticates the Firebase reference with the OAuth redirect flow.
+	     *
+	     * @param {string} provider The unique string identifying the OAuth provider to authenticate
+	     * with, e.g. google.
+	     * @param {Object} [options] An object containing optional client arguments, such as configuring
+	     * session persistence.
+	     * @return {Promise<Object>} A promise fulfilled with an object containing authentication data.
+	     */
+	    authWithOAuthRedirect: function(provider, options) {
+	      var deferred = this._q.defer();
+	
+	      try {
+	        this._ref.authWithOAuthRedirect(provider, this._utils.makeNodeResolver(deferred), options);
+	      } catch (error) {
+	        deferred.reject(error);
+	      }
+	
+	      return deferred.promise;
+	    },
+	
+	    /**
+	     * Authenticates the Firebase reference with an OAuth token.
+	     *
+	     * @param {string} provider The unique string identifying the OAuth provider to authenticate
+	     * with, e.g. google.
+	     * @param {string|Object} credentials Either a string, such as an OAuth 2.0 access token, or an
+	     * Object of key / value pairs, such as a set of OAuth 1.0a credentials.
+	     * @param {Object} [options] An object containing optional client arguments, such as configuring
+	     * session persistence.
+	     * @return {Promise<Object>} A promise fulfilled with an object containing authentication data.
+	     */
+	    authWithOAuthToken: function(provider, credentials, options) {
+	      var deferred = this._q.defer();
+	
+	      try {
+	        this._ref.authWithOAuthToken(provider, credentials, this._utils.makeNodeResolver(deferred), options);
+	      } catch (error) {
+	        deferred.reject(error);
+	      }
+	
+	      return deferred.promise;
+	    },
+	
+	    /**
+	     * Unauthenticates the Firebase reference.
+	     */
+	    unauth: function() {
+	      if (this.getAuth() !== null) {
+	        this._ref.unauth();
+	      }
+	    },
+	
+	
+	    /**************************/
+	    /*  Authentication State  */
+	    /**************************/
+	    /**
+	     * Asynchronously fires the provided callback with the current authentication data every time
+	     * the authentication data changes. It also fires as soon as the authentication data is
+	     * retrieved from the server.
+	     *
+	     * @param {function} callback A callback that fires when the client's authenticate state
+	     * changes. If authenticated, the callback will be passed an object containing authentication
+	     * data according to the provider used to authenticate. Otherwise, it will be passed null.
+	     * @param {string} [context] If provided, this object will be used as this when calling your
+	     * callback.
+	     * @return {function} A function which can be used to deregister the provided callback.
+	     */
+	    onAuth: function(callback, context) {
+	      var self = this;
+	
+	      var fn = this._utils.debounce(callback, context, 0);
+	      this._ref.onAuth(fn);
+	
+	      // Return a method to detach the `onAuth()` callback.
+	      return function() {
+	        self._ref.offAuth(fn);
+	      };
+	    },
+	
+	    /**
+	     * Synchronously retrieves the current authentication data.
+	     *
+	     * @return {Object} The client's authentication data.
+	     */
+	    getAuth: function() {
+	      return this._ref.getAuth();
+	    },
+	
+	    /**
+	     * Helper onAuth() callback method for the two router-related methods.
+	     *
+	     * @param {boolean} rejectIfAuthDataIsNull Determines if the returned promise should be
+	     * resolved or rejected upon an unauthenticated client.
+	     * @return {Promise<Object>} A promise fulfilled with the client's authentication state or
+	     * rejected if the client is unauthenticated and rejectIfAuthDataIsNull is true.
+	     */
+	    _routerMethodOnAuthPromise: function(rejectIfAuthDataIsNull) {
+	      var ref = this._ref, utils = this._utils;
+	      // wait for the initial auth state to resolve; on page load we have to request auth state
+	      // asynchronously so we don't want to resolve router methods or flash the wrong state
+	      return this._initialAuthResolver.then(function() {
+	        // auth state may change in the future so rather than depend on the initially resolved state
+	        // we also check the auth data (synchronously) if a new promise is requested, ensuring we resolve
+	        // to the current auth state and not a stale/initial state
+	        var authData = ref.getAuth(), res = null;
+	        if (rejectIfAuthDataIsNull && authData === null) {
+	          res = utils.reject("AUTH_REQUIRED");
+	        }
+	        else {
+	          res = utils.resolve(authData);
+	        }
+	        return res;
+	      });
+	    },
+	
+	    /**
+	     * Helper that returns a promise which resolves when the initial auth state has been
+	     * fetched from the Firebase server. This never rejects and resolves to undefined.
+	     *
+	     * @return {Promise<Object>} A promise fulfilled when the server returns initial auth state.
+	     */
+	    _initAuthResolver: function() {
+	      var ref = this._ref;
+	      return this._utils.promise(function(resolve) {
+	        function callback() {
+	          // Turn off this onAuth() callback since we just needed to get the authentication data once.
+	          ref.offAuth(callback);
+	          resolve();
+	        }
+	        ref.onAuth(callback);
+	      });
+	    },
+	
+	    /**
+	     * Utility method which can be used in a route's resolve() method to require that a route has
+	     * a logged in client.
+	     *
+	     * @returns {Promise<Object>} A promise fulfilled with the client's current authentication
+	     * state or rejected if the client is not authenticated.
+	     */
+	    requireAuth: function() {
+	      return this._routerMethodOnAuthPromise(true);
+	    },
+	
+	    /**
+	     * Utility method which can be used in a route's resolve() method to grab the current
+	     * authentication data.
+	     *
+	     * @returns {Promise<Object|null>} A promise fulfilled with the client's current authentication
+	     * state, which will be null if the client is not authenticated.
+	     */
+	    waitForAuth: function() {
+	      return this._routerMethodOnAuthPromise(false);
+	    },
+	
+	
+	    /*********************/
+	    /*  User Management  */
+	    /*********************/
+	    /**
+	     * Creates a new email/password user. Note that this function only creates the user, if you
+	     * wish to log in as the newly created user, call $authWithPassword() after the promise for
+	     * this method has been resolved.
+	     *
+	     * @param {Object} credentials An object containing the email and password of the user to create.
+	     * @return {Promise<Object>} A promise fulfilled with the user object, which contains the
+	     * uid of the created user.
+	     */
+	    createUser: function(credentials) {
+	      var deferred = this._q.defer();
+	
+	      // Throw an error if they are trying to pass in separate string arguments
+	      if (typeof credentials === "string") {
+	        throw new Error("$createUser() expects an object containing 'email' and 'password', but got a string.");
+	      }
+	
+	      try {
+	        this._ref.createUser(credentials, this._utils.makeNodeResolver(deferred));
+	      } catch (error) {
+	        deferred.reject(error);
+	      }
+	
+	      return deferred.promise;
+	    },
+	
+	    /**
+	     * Changes the password for an email/password user.
+	     *
+	     * @param {Object} credentials An object containing the email, old password, and new password of
+	     * the user whose password is to change.
+	     * @return {Promise<>} An empty promise fulfilled once the password change is complete.
+	     */
+	    changePassword: function(credentials) {
+	      var deferred = this._q.defer();
+	
+	      // Throw an error if they are trying to pass in separate string arguments
+	      if (typeof credentials === "string") {
+	        throw new Error("$changePassword() expects an object containing 'email', 'oldPassword', and 'newPassword', but got a string.");
+	      }
+	
+	      try {
+	        this._ref.changePassword(credentials, this._utils.makeNodeResolver(deferred));
+	      } catch (error) {
+	        deferred.reject(error);
+	      }
+	
+	      return deferred.promise;
+	    },
+	
+	    /**
+	     * Changes the email for an email/password user.
+	     *
+	     * @param {Object} credentials An object containing the old email, new email, and password of
+	     * the user whose email is to change.
+	     * @return {Promise<>} An empty promise fulfilled once the email change is complete.
+	     */
+	    changeEmail: function(credentials) {
+	      var deferred = this._q.defer();
+	
+	      if (typeof this._ref.changeEmail !== 'function') {
+	        throw new Error("$firebaseAuth.$changeEmail() requires Firebase version 2.1.0 or greater.");
+	      } else if (typeof credentials === 'string') {
+	        throw new Error("$changeEmail() expects an object containing 'oldEmail', 'newEmail', and 'password', but got a string.");
+	      }
+	
+	      try {
+	        this._ref.changeEmail(credentials, this._utils.makeNodeResolver(deferred));
+	      } catch (error) {
+	        deferred.reject(error);
+	      }
+	
+	      return deferred.promise;
+	    },
+	
+	    /**
+	     * Removes an email/password user.
+	     *
+	     * @param {Object} credentials An object containing the email and password of the user to remove.
+	     * @return {Promise<>} An empty promise fulfilled once the user is removed.
+	     */
+	    removeUser: function(credentials) {
+	      var deferred = this._q.defer();
+	
+	      // Throw an error if they are trying to pass in separate string arguments
+	      if (typeof credentials === "string") {
+	        throw new Error("$removeUser() expects an object containing 'email' and 'password', but got a string.");
+	      }
+	
+	      try {
+	        this._ref.removeUser(credentials, this._utils.makeNodeResolver(deferred));
+	      } catch (error) {
+	        deferred.reject(error);
+	      }
+	
+	      return deferred.promise;
+	    },
+	
+	
+	    /**
+	     * Sends a password reset email to an email/password user.
+	     *
+	     * @param {Object} credentials An object containing the email of the user to send a reset
+	     * password email to.
+	     * @return {Promise<>} An empty promise fulfilled once the reset password email is sent.
+	     */
+	    resetPassword: function(credentials) {
+	      var deferred = this._q.defer();
+	
+	      // Throw an error if they are trying to pass in a string argument
+	      if (typeof credentials === "string") {
+	        throw new Error("$resetPassword() expects an object containing 'email', but got a string.");
+	      }
+	
+	      try {
+	        this._ref.resetPassword(credentials, this._utils.makeNodeResolver(deferred));
+	      } catch (error) {
+	        deferred.reject(error);
+	      }
+	
+	      return deferred.promise;
+	    }
+	  };
+	})();
+	
+	(function() {
+	  'use strict';
+	  /**
+	   * Creates and maintains a synchronized object, with 2-way bindings between Angular and Firebase.
+	   *
+	   * Implementations of this class are contracted to provide the following internal methods,
+	   * which are used by the synchronization process and 3-way bindings:
+	   *    $$updated - called whenever a change occurs (a value event from Firebase)
+	   *    $$error - called when listeners are canceled due to a security error
+	   *    $$notify - called to update $watch listeners and trigger updates to 3-way bindings
+	   *    $ref - called to obtain the underlying Firebase reference
+	   *
+	   * Instead of directly modifying this class, one should generally use the $extend
+	   * method to add or change how methods behave:
+	   *
+	   * <pre><code>
+	   * var ExtendedObject = $firebaseObject.$extend({
+	   *    // add a new method to the prototype
+	   *    foo: function() { return 'bar'; },
+	   * });
+	   *
+	   * var obj = new ExtendedObject(ref);
+	   * </code></pre>
+	   */
+	  angular.module('firebase').factory('$firebaseObject', [
+	    '$parse', '$firebaseUtils', '$log',
+	    function($parse, $firebaseUtils, $log) {
+	      /**
+	       * Creates a synchronized object with 2-way bindings between Angular and Firebase.
+	       *
+	       * @param {Firebase} ref
+	       * @returns {FirebaseObject}
+	       * @constructor
+	       */
+	      function FirebaseObject(ref) {
+	        if( !(this instanceof FirebaseObject) ) {
+	          return new FirebaseObject(ref);
+	        }
+	        // These are private config props and functions used internally
+	        // they are collected here to reduce clutter in console.log and forEach
+	        this.$$conf = {
+	          // synchronizes data to Firebase
+	          sync: new ObjectSyncManager(this, ref),
+	          // stores the Firebase ref
+	          ref: ref,
+	          // synchronizes $scope variables with this object
+	          binding: new ThreeWayBinding(this),
+	          // stores observers registered with $watch
+	          listeners: []
+	        };
+	
+	        // this bit of magic makes $$conf non-enumerable and non-configurable
+	        // and non-writable (its properties are still writable but the ref cannot be replaced)
+	        // we redundantly assign it above so the IDE can relax
+	        Object.defineProperty(this, '$$conf', {
+	          value: this.$$conf
+	        });
+	
+	        this.$id = $firebaseUtils.getKey(ref.ref());
+	        this.$priority = null;
+	
+	        $firebaseUtils.applyDefaults(this, this.$$defaults);
+	
+	        // start synchronizing data with Firebase
+	        this.$$conf.sync.init();
+	      }
+	
+	      FirebaseObject.prototype = {
+	        /**
+	         * Saves all data on the FirebaseObject back to Firebase.
+	         * @returns a promise which will resolve after the save is completed.
+	         */
+	        $save: function () {
+	          var self = this;
+	          var ref = self.$ref();
+	          var data = $firebaseUtils.toJSON(self);
+	          return $firebaseUtils.doSet(ref, data).then(function() {
+	            self.$$notify();
+	            return self.$ref();
+	          });
+	        },
+	
+	        /**
+	         * Removes all keys from the FirebaseObject and also removes
+	         * the remote data from the server.
+	         *
+	         * @returns a promise which will resolve after the op completes
+	         */
+	        $remove: function() {
+	          var self = this;
+	          $firebaseUtils.trimKeys(self, {});
+	          self.$value = null;
+	          return $firebaseUtils.doRemove(self.$ref()).then(function() {
+	            self.$$notify();
+	            return self.$ref();
+	          });
+	        },
+	
+	        /**
+	         * The loaded method is invoked after the initial batch of data arrives from the server.
+	         * When this resolves, all data which existed prior to calling $asObject() is now cached
+	         * locally in the object.
+	         *
+	         * As a shortcut is also possible to pass resolve/reject methods directly into this
+	         * method just as they would be passed to .then()
+	         *
+	         * @param {Function} resolve
+	         * @param {Function} reject
+	         * @returns a promise which resolves after initial data is downloaded from Firebase
+	         */
+	        $loaded: function(resolve, reject) {
+	          var promise = this.$$conf.sync.ready();
+	          if (arguments.length) {
+	            // allow this method to be called just like .then
+	            // by passing any arguments on to .then
+	            promise = promise.then.call(promise, resolve, reject);
+	          }
+	          return promise;
+	        },
+	
+	        /**
+	         * @returns {Firebase} the original Firebase instance used to create this object.
+	         */
+	        $ref: function () {
+	          return this.$$conf.ref;
+	        },
+	
+	        /**
+	         * Creates a 3-way data sync between this object, the Firebase server, and a
+	         * scope variable. This means that any changes made to the scope variable are
+	         * pushed to Firebase, and vice versa.
+	         *
+	         * If scope emits a $destroy event, the binding is automatically severed. Otherwise,
+	         * it is possible to unbind the scope variable by using the `unbind` function
+	         * passed into the resolve method.
+	         *
+	         * Can only be bound to one scope variable at a time. If a second is attempted,
+	         * the promise will be rejected with an error.
+	         *
+	         * @param {object} scope
+	         * @param {string} varName
+	         * @returns a promise which resolves to an unbind method after data is set in scope
+	         */
+	        $bindTo: function (scope, varName) {
+	          var self = this;
+	          return self.$loaded().then(function () {
+	            return self.$$conf.binding.bindTo(scope, varName);
+	          });
+	        },
+	
+	        /**
+	         * Listeners passed into this method are notified whenever a new change is received
+	         * from the server. Each invocation is sent an object containing
+	         * <code>{ type: 'value', key: 'my_firebase_id' }</code>
+	         *
+	         * This method returns an unbind function that can be used to detach the listener.
+	         *
+	         * @param {Function} cb
+	         * @param {Object} [context]
+	         * @returns {Function} invoke to stop observing events
+	         */
+	        $watch: function (cb, context) {
+	          var list = this.$$conf.listeners;
+	          list.push([cb, context]);
+	          // an off function for cancelling the listener
+	          return function () {
+	            var i = list.findIndex(function (parts) {
+	              return parts[0] === cb && parts[1] === context;
+	            });
+	            if (i > -1) {
+	              list.splice(i, 1);
+	            }
+	          };
+	        },
+	
+	        /**
+	         * Informs $firebase to stop sending events and clears memory being used
+	         * by this object (delete's its local content).
+	         */
+	        $destroy: function(err) {
+	          var self = this;
+	          if (!self.$isDestroyed) {
+	            self.$isDestroyed = true;
+	            self.$$conf.sync.destroy(err);
+	            self.$$conf.binding.destroy();
+	            $firebaseUtils.each(self, function (v, k) {
+	              delete self[k];
+	            });
+	          }
+	        },
+	
+	        /**
+	         * Called by $firebase whenever an item is changed at the server.
+	         * This method must exist on any objectFactory passed into $firebase.
+	         *
+	         * It should return true if any changes were made, otherwise `$$notify` will
+	         * not be invoked.
+	         *
+	         * @param {object} snap a Firebase snapshot
+	         * @return {boolean} true if any changes were made.
+	         */
+	        $$updated: function (snap) {
+	          // applies new data to this object
+	          var changed = $firebaseUtils.updateRec(this, snap);
+	          // applies any defaults set using $$defaults
+	          $firebaseUtils.applyDefaults(this, this.$$defaults);
+	          // returning true here causes $$notify to be triggered
+	          return changed;
+	        },
+	
+	        /**
+	         * Called whenever a security error or other problem causes the listeners to become
+	         * invalid. This is generally an unrecoverable error.
+	         * @param {Object} err which will have a `code` property and possibly a `message`
+	         */
+	        $$error: function (err) {
+	          // prints an error to the console (via Angular's logger)
+	          $log.error(err);
+	          // frees memory and cancels any remaining listeners
+	          this.$destroy(err);
+	        },
+	
+	        /**
+	         * Called internally by $bindTo when data is changed in $scope.
+	         * Should apply updates to this record but should not call
+	         * notify().
+	         */
+	        $$scopeUpdated: function(newData) {
+	          // we use a one-directional loop to avoid feedback with 3-way bindings
+	          // since set() is applied locally anyway, this is still performant
+	          var def = $firebaseUtils.defer();
+	          this.$ref().set($firebaseUtils.toJSON(newData), $firebaseUtils.makeNodeResolver(def));
+	          return def.promise;
+	        },
+	
+	        /**
+	         * Updates any bound scope variables and
+	         * notifies listeners registered with $watch
+	         */
+	        $$notify: function() {
+	          var self = this, list = this.$$conf.listeners.slice();
+	          // be sure to do this after setting up data and init state
+	          angular.forEach(list, function (parts) {
+	            parts[0].call(parts[1], {event: 'value', key: self.$id});
+	          });
+	        },
+	
+	        /**
+	         * Overrides how Angular.forEach iterates records on this object so that only
+	         * fields stored in Firebase are part of the iteration. To include meta fields like
+	         * $id and $priority in the iteration, utilize for(key in obj) instead.
+	         */
+	        forEach: function(iterator, context) {
+	          return $firebaseUtils.each(this, iterator, context);
+	        }
+	      };
+	
+	      /**
+	       * This method allows FirebaseObject to be copied into a new factory. Methods passed into this
+	       * function will be added onto the object's prototype. They can override existing methods as
+	       * well.
+	       *
+	       * In addition to passing additional methods, it is also possible to pass in a class function.
+	       * The prototype on that class function will be preserved, and it will inherit from
+	       * FirebaseObject. It's also possible to do both, passing a class to inherit and additional
+	       * methods to add onto the prototype.
+	       *
+	       * Once a factory is obtained by this method, it can be passed into $firebase as the
+	       * `objectFactory` parameter:
+	       *
+	       * <pre><code>
+	       * var MyFactory = $firebaseObject.$extend({
+	       *    // add a method onto the prototype that prints a greeting
+	       *    getGreeting: function() {
+	       *       return 'Hello ' + this.first_name + ' ' + this.last_name + '!';
+	       *    }
+	       * });
+	       *
+	       * // use our new factory in place of $firebaseObject
+	       * var obj = $firebase(ref, {objectFactory: MyFactory}).$asObject();
+	       * </code></pre>
+	       *
+	       * @param {Function} [ChildClass] a child class which should inherit FirebaseObject
+	       * @param {Object} [methods] a list of functions to add onto the prototype
+	       * @returns {Function} a new factory suitable for use with $firebase
+	       */
+	      FirebaseObject.$extend = function(ChildClass, methods) {
+	        if( arguments.length === 1 && angular.isObject(ChildClass) ) {
+	          methods = ChildClass;
+	          ChildClass = function(ref) {
+	            if( !(this instanceof ChildClass) ) {
+	              return new ChildClass(ref);
+	            }
+	            FirebaseObject.apply(this, arguments);
+	          };
+	        }
+	        return $firebaseUtils.inherit(ChildClass, FirebaseObject, methods);
+	      };
+	
+	      /**
+	       * Creates a three-way data binding on a scope variable.
+	       *
+	       * @param {FirebaseObject} rec
+	       * @returns {*}
+	       * @constructor
+	       */
+	      function ThreeWayBinding(rec) {
+	        this.subs = [];
+	        this.scope = null;
+	        this.key = null;
+	        this.rec = rec;
+	      }
+	
+	      ThreeWayBinding.prototype = {
+	        assertNotBound: function(varName) {
+	          if( this.scope ) {
+	            var msg = 'Cannot bind to ' + varName + ' because this instance is already bound to ' +
+	              this.key + '; one binding per instance ' +
+	              '(call unbind method or create another FirebaseObject instance)';
+	            $log.error(msg);
+	            return $firebaseUtils.reject(msg);
+	          }
+	        },
+	
+	        bindTo: function(scope, varName) {
+	          function _bind(self) {
+	            var sending = false;
+	            var parsed = $parse(varName);
+	            var rec = self.rec;
+	            self.scope = scope;
+	            self.varName = varName;
+	
+	            function equals(scopeValue) {
+	              return angular.equals(scopeValue, rec) &&
+	                scopeValue.$priority === rec.$priority &&
+	                scopeValue.$value === rec.$value;
+	            }
+	
+	            function setScope(rec) {
+	              parsed.assign(scope, $firebaseUtils.scopeData(rec));
+	            }
+	
+	            var send = $firebaseUtils.debounce(function(val) {
+	              var scopeData = $firebaseUtils.scopeData(val);
+	              rec.$$scopeUpdated(scopeData)
+	                ['finally'](function() {
+	                  sending = false;
+	                  if(!scopeData.hasOwnProperty('$value')){
+	                    delete rec.$value;
+	                    delete parsed(scope).$value;
+	                  }
+	                  setScope(rec);
+	                }
+	              );
+	            }, 50, 500);
+	
+	            var scopeUpdated = function(newVal) {
+	              newVal = newVal[0];
+	              if( !equals(newVal) ) {
+	                sending = true;
+	                send(newVal);
+	              }
+	            };
+	
+	            var recUpdated = function() {
+	              if( !sending && !equals(parsed(scope)) ) {
+	                setScope(rec);
+	              }
+	            };
+	
+	            // $watch will not check any vars prefixed with $, so we
+	            // manually check $priority and $value using this method
+	            function watchExp(){
+	              var obj = parsed(scope);
+	              return [obj, obj.$priority, obj.$value];
+	            }
+	
+	            setScope(rec);
+	            self.subs.push(scope.$on('$destroy', self.unbind.bind(self)));
+	
+	            // monitor scope for any changes
+	            self.subs.push(scope.$watch(watchExp, scopeUpdated, true));
+	
+	            // monitor the object for changes
+	            self.subs.push(rec.$watch(recUpdated));
+	
+	            return self.unbind.bind(self);
+	          }
+	
+	          return this.assertNotBound(varName) || _bind(this);
+	        },
+	
+	        unbind: function() {
+	          if( this.scope ) {
+	            angular.forEach(this.subs, function(unbind) {
+	              unbind();
+	            });
+	            this.subs = [];
+	            this.scope = null;
+	            this.key = null;
+	          }
+	        },
+	
+	        destroy: function() {
+	          this.unbind();
+	          this.rec = null;
+	        }
+	      };
+	
+	      function ObjectSyncManager(firebaseObject, ref) {
+	        function destroy(err) {
+	          if( !sync.isDestroyed ) {
+	            sync.isDestroyed = true;
+	            ref.off('value', applyUpdate);
+	            firebaseObject = null;
+	            initComplete(err||'destroyed');
+	          }
+	        }
+	
+	        function init() {
+	          ref.on('value', applyUpdate, error);
+	          ref.once('value', function(snap) {
+	            if (angular.isArray(snap.val())) {
+	              $log.warn('Storing data using array indices in Firebase can result in unexpected behavior. See https://www.firebase.com/docs/web/guide/understanding-data.html#section-arrays-in-firebase for more information. Also note that you probably wanted $firebaseArray and not $firebaseObject.');
+	            }
+	
+	            initComplete(null);
+	          }, initComplete);
+	        }
+	
+	        // call initComplete(); do not call this directly
+	        function _initComplete(err) {
+	          if( !isResolved ) {
+	            isResolved = true;
+	            if( err ) { def.reject(err); }
+	            else { def.resolve(firebaseObject); }
+	          }
+	        }
+	
+	        var isResolved = false;
+	        var def = $firebaseUtils.defer();
+	        var applyUpdate = $firebaseUtils.batch(function(snap) {
+	          var changed = firebaseObject.$$updated(snap);
+	          if( changed ) {
+	            // notifies $watch listeners and
+	            // updates $scope if bound to a variable
+	            firebaseObject.$$notify();
+	          }
+	        });
+	        var error = $firebaseUtils.batch(function(err) {
+	          _initComplete(err);
+	          if( firebaseObject ) {
+	            firebaseObject.$$error(err);
+	          }
+	        });
+	        var initComplete = $firebaseUtils.batch(_initComplete);
+	
+	        var sync = {
+	          isDestroyed: false,
+	          destroy: destroy,
+	          init: init,
+	          ready: function() { return def.promise; }
+	        };
+	        return sync;
+	      }
+	
+	      return FirebaseObject;
+	    }
+	  ]);
+	
+	  /** @deprecated */
+	  angular.module('firebase').factory('$FirebaseObject', ['$log', '$firebaseObject',
+	    function($log, $firebaseObject) {
+	      return function() {
+	        $log.warn('$FirebaseObject has been renamed. Use $firebaseObject instead.');
+	        return $firebaseObject.apply(null, arguments);
+	      };
+	    }
+	  ]);
+	})();
+	
+	(function() {
+	  'use strict';
+	
+	  angular.module("firebase")
+	
+	    /** @deprecated */
+	    .factory("$firebase", function() {
+	      return function() {
+	        throw new Error('$firebase has been removed. You may instantiate $firebaseArray and $firebaseObject ' +
+	        'directly now. For simple write operations, just use the Firebase ref directly. ' +
+	        'See the AngularFire 1.0.0 changelog for details: https://www.firebase.com/docs/web/libraries/angular/changelog.html');
+	      };
+	    });
+	
+	})();
+	
+	(function() {
+	  "use strict";
+	
+	  function FirebaseAuthService($firebaseAuth, $firebaseRef) {
+	    return $firebaseAuth($firebaseRef.default);
+	  }
+	  FirebaseAuthService.$inject = ['$firebaseAuth', '$firebaseRef'];
+	
+	  angular.module('firebase')
+	    .factory('$firebaseAuthService', FirebaseAuthService);
+	
+	})();
+	
+	(function() {
+	  "use strict";
+	
+	  function FirebaseRef() {
+	    this.urls = null;
+	    this.registerUrl = function registerUrl(urlOrConfig) {
+	
+	      if (typeof urlOrConfig === 'string') {
+	        this.urls = {};
+	        this.urls.default = urlOrConfig;
+	      }
+	
+	      if (angular.isObject(urlOrConfig)) {
+	        this.urls = urlOrConfig;
+	      }
+	
+	    };
+	
+	    this.$$checkUrls = function $$checkUrls(urlConfig) {
+	      if (!urlConfig) {
+	        return new Error('No Firebase URL registered. Use firebaseRefProvider.registerUrl() in the config phase. This is required if you are using $firebaseAuthService.');
+	      }
+	      if (!urlConfig.default) {
+	        return new Error('No default Firebase URL registered. Use firebaseRefProvider.registerUrl({ default: "https://<my-firebase-app>.firebaseio.com/"}).');
+	      }
+	    };
+	
+	    this.$$createRefsFromUrlConfig = function $$createMultipleRefs(urlConfig) {
+	      var refs = {};
+	      var error = this.$$checkUrls(urlConfig);
+	      if (error) { throw error; }
+	      angular.forEach(urlConfig, function(value, key) {
+	        refs[key] = new Firebase(value);
+	      });
+	      return refs;
+	    };
+	
+	    this.$get = function FirebaseRef_$get() {
+	      return this.$$createRefsFromUrlConfig(this.urls);
+	    };
+	  }
+	
+	  angular.module('firebase')
+	    .provider('$firebaseRef', FirebaseRef);
+	
+	})();
+	
+	'use strict';
+	
+	// Shim Array.indexOf for IE compatibility.
+	if (!Array.prototype.indexOf) {
+	  Array.prototype.indexOf = function (searchElement, fromIndex) {
+	    if (this === undefined || this === null) {
+	      throw new TypeError("'this' is null or not defined");
+	    }
+	    // Hack to convert object.length to a UInt32
+	    // jshint -W016
+	    var length = this.length >>> 0;
+	    fromIndex = +fromIndex || 0;
+	    // jshint +W016
+	
+	    if (Math.abs(fromIndex) === Infinity) {
+	      fromIndex = 0;
+	    }
+	
+	    if (fromIndex < 0) {
+	      fromIndex += length;
+	      if (fromIndex < 0) {
+	        fromIndex = 0;
+	      }
+	    }
+	
+	    for (;fromIndex < length; fromIndex++) {
+	      if (this[fromIndex] === searchElement) {
+	        return fromIndex;
+	      }
+	    }
+	
+	    return -1;
+	  };
+	}
+	
+	// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind
+	if (!Function.prototype.bind) {
+	  Function.prototype.bind = function (oThis) {
+	    if (typeof this !== "function") {
+	      // closest thing possible to the ECMAScript 5
+	      // internal IsCallable function
+	      throw new TypeError("Function.prototype.bind - what is trying to be bound is not callable");
+	    }
+	
+	    var aArgs = Array.prototype.slice.call(arguments, 1),
+	      fToBind = this,
+	      fNOP = function () {},
+	      fBound = function () {
+	        return fToBind.apply(this instanceof fNOP && oThis
+	            ? this
+	            : oThis,
+	          aArgs.concat(Array.prototype.slice.call(arguments)));
+	      };
+	
+	    fNOP.prototype = this.prototype;
+	    fBound.prototype = new fNOP();
+	
+	    return fBound;
+	  };
+	}
+	
+	// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/findIndex
+	if (!Array.prototype.findIndex) {
+	  Object.defineProperty(Array.prototype, 'findIndex', {
+	    enumerable: false,
+	    configurable: true,
+	    writable: true,
+	    value: function(predicate) {
+	      if (this == null) {
+	        throw new TypeError('Array.prototype.find called on null or undefined');
+	      }
+	      if (typeof predicate !== 'function') {
+	        throw new TypeError('predicate must be a function');
+	      }
+	      var list = Object(this);
+	      var length = list.length >>> 0;
+	      var thisArg = arguments[1];
+	      var value;
+	
+	      for (var i = 0; i < length; i++) {
+	        if (i in list) {
+	          value = list[i];
+	          if (predicate.call(thisArg, value, i, list)) {
+	            return i;
+	          }
+	        }
+	      }
+	      return -1;
+	    }
+	  });
+	}
+	
+	// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create
+	if (typeof Object.create != 'function') {
+	  (function () {
+	    var F = function () {};
+	    Object.create = function (o) {
+	      if (arguments.length > 1) {
+	        throw new Error('Second argument not supported');
+	      }
+	      if (o === null) {
+	        throw new Error('Cannot set a null [[Prototype]]');
+	      }
+	      if (typeof o != 'object') {
+	        throw new TypeError('Argument must be an object');
+	      }
+	      F.prototype = o;
+	      return new F();
+	    };
+	  })();
+	}
+	
+	// From https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
+	if (!Object.keys) {
+	  Object.keys = (function () {
+	    'use strict';
+	    var hasOwnProperty = Object.prototype.hasOwnProperty,
+	      hasDontEnumBug = !({toString: null}).propertyIsEnumerable('toString'),
+	      dontEnums = [
+	        'toString',
+	        'toLocaleString',
+	        'valueOf',
+	        'hasOwnProperty',
+	        'isPrototypeOf',
+	        'propertyIsEnumerable',
+	        'constructor'
+	      ],
+	      dontEnumsLength = dontEnums.length;
+	
+	    return function (obj) {
+	      if (typeof obj !== 'object' && (typeof obj !== 'function' || obj === null)) {
+	        throw new TypeError('Object.keys called on non-object');
+	      }
+	
+	      var result = [], prop, i;
+	
+	      for (prop in obj) {
+	        if (hasOwnProperty.call(obj, prop)) {
+	          result.push(prop);
+	        }
+	      }
+	
+	      if (hasDontEnumBug) {
+	        for (i = 0; i < dontEnumsLength; i++) {
+	          if (hasOwnProperty.call(obj, dontEnums[i])) {
+	            result.push(dontEnums[i]);
+	          }
+	        }
+	      }
+	      return result;
+	    };
+	  }());
+	}
+	
+	// http://ejohn.org/blog/objectgetprototypeof/
+	if ( typeof Object.getPrototypeOf !== "function" ) {
+	  if ( typeof "test".__proto__ === "object" ) {
+	    Object.getPrototypeOf = function(object){
+	      return object.__proto__;
+	    };
+	  } else {
+	    Object.getPrototypeOf = function(object){
+	      // May break if the constructor has been tampered with
+	      return object.constructor.prototype;
+	    };
+	  }
+	}
+	
+	(function() {
+	  'use strict';
+	
+	  angular.module('firebase')
+	    .factory('$firebaseConfig', ["$firebaseArray", "$firebaseObject", "$injector",
+	      function($firebaseArray, $firebaseObject, $injector) {
+	        return function(configOpts) {
+	          // make a copy we can modify
+	          var opts = angular.extend({}, configOpts);
+	          // look up factories if passed as string names
+	          if( typeof opts.objectFactory === 'string' ) {
+	            opts.objectFactory = $injector.get(opts.objectFactory);
+	          }
+	          if( typeof opts.arrayFactory === 'string' ) {
+	            opts.arrayFactory = $injector.get(opts.arrayFactory);
+	          }
+	          // extend defaults and return
+	          return angular.extend({
+	            arrayFactory: $firebaseArray,
+	            objectFactory: $firebaseObject
+	          }, opts);
+	        };
+	      }
+	    ])
+	
+	    .factory('$firebaseUtils', ["$q", "$timeout", "$rootScope",
+	      function($q, $timeout, $rootScope) {
+	
+	        // ES6 style promises polyfill for angular 1.2.x
+	        // Copied from angular 1.3.x implementation: https://github.com/angular/angular.js/blob/v1.3.5/src/ng/q.js#L539
+	        function Q(resolver) {
+	          if (!angular.isFunction(resolver)) {
+	            throw new Error('missing resolver function');
+	          }
+	
+	          var deferred = $q.defer();
+	
+	          function resolveFn(value) {
+	            deferred.resolve(value);
+	          }
+	
+	          function rejectFn(reason) {
+	            deferred.reject(reason);
+	          }
+	
+	          resolver(resolveFn, rejectFn);
+	
+	          return deferred.promise;
+	        }
+	
+	        var utils = {
+	          /**
+	           * Returns a function which, each time it is invoked, will gather up the values until
+	           * the next "tick" in the Angular compiler process. Then they are all run at the same
+	           * time to avoid multiple cycles of the digest loop. Internally, this is done using $evalAsync()
+	           *
+	           * @param {Function} action
+	           * @param {Object} [context]
+	           * @returns {Function}
+	           */
+	          batch: function(action, context) {
+	            return function() {
+	              var args = Array.prototype.slice.call(arguments, 0);
+	              utils.compile(function() {
+	                action.apply(context, args);
+	              });
+	            };
+	          },
+	
+	          /**
+	           * A rudimentary debounce method
+	           * @param {function} fn the function to debounce
+	           * @param {object} [ctx] the `this` context to set in fn
+	           * @param {int} wait number of milliseconds to pause before sending out after each invocation
+	           * @param {int} [maxWait] max milliseconds to wait before sending out, defaults to wait * 10 or 100
+	           */
+	          debounce: function(fn, ctx, wait, maxWait) {
+	            var start, cancelTimer, args, runScheduledForNextTick;
+	            if( typeof(ctx) === 'number' ) {
+	              maxWait = wait;
+	              wait = ctx;
+	              ctx = null;
+	            }
+	
+	            if( typeof wait !== 'number' ) {
+	              throw new Error('Must provide a valid integer for wait. Try 0 for a default');
+	            }
+	            if( typeof(fn) !== 'function' ) {
+	              throw new Error('Must provide a valid function to debounce');
+	            }
+	            if( !maxWait ) { maxWait = wait*10 || 100; }
+	
+	            // clears the current wait timer and creates a new one
+	            // however, if maxWait is exceeded, calls runNow() on the next tick.
+	            function resetTimer() {
+	              if( cancelTimer ) {
+	                cancelTimer();
+	                cancelTimer = null;
+	              }
+	              if( start && Date.now() - start > maxWait ) {
+	                if(!runScheduledForNextTick){
+	                  runScheduledForNextTick = true;
+	                  utils.compile(runNow);
+	                }
+	              }
+	              else {
+	                if( !start ) { start = Date.now(); }
+	                cancelTimer = utils.wait(runNow, wait);
+	              }
+	            }
+	
+	            // Clears the queue and invokes the debounced function with the most recent arguments
+	            function runNow() {
+	              cancelTimer = null;
+	              start = null;
+	              runScheduledForNextTick = false;
+	              fn.apply(ctx, args);
+	            }
+	
+	            function debounced() {
+	              args = Array.prototype.slice.call(arguments, 0);
+	              resetTimer();
+	            }
+	            debounced.running = function() {
+	              return start > 0;
+	            };
+	
+	            return debounced;
+	          },
+	
+	          assertValidRef: function(ref, msg) {
+	            if( !angular.isObject(ref) ||
+	              typeof(ref.ref) !== 'function' ||
+	              typeof(ref.ref().transaction) !== 'function' ) {
+	              throw new Error(msg || 'Invalid Firebase reference');
+	            }
+	          },
+	
+	          // http://stackoverflow.com/questions/7509831/alternative-for-the-deprecated-proto
+	          // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create
+	          inherit: function(ChildClass, ParentClass, methods) {
+	            var childMethods = ChildClass.prototype;
+	            ChildClass.prototype = Object.create(ParentClass.prototype);
+	            ChildClass.prototype.constructor = ChildClass; // restoring proper constructor for child class
+	            angular.forEach(Object.keys(childMethods), function(k) {
+	              ChildClass.prototype[k] = childMethods[k];
+	            });
+	            if( angular.isObject(methods) ) {
+	              angular.extend(ChildClass.prototype, methods);
+	            }
+	            return ChildClass;
+	          },
+	
+	          getPrototypeMethods: function(inst, iterator, context) {
+	            var methods = {};
+	            var objProto = Object.getPrototypeOf({});
+	            var proto = angular.isFunction(inst) && angular.isObject(inst.prototype)?
+	              inst.prototype : Object.getPrototypeOf(inst);
+	            while(proto && proto !== objProto) {
+	              for (var key in proto) {
+	                // we only invoke each key once; if a super is overridden it's skipped here
+	                if (proto.hasOwnProperty(key) && !methods.hasOwnProperty(key)) {
+	                  methods[key] = true;
+	                  iterator.call(context, proto[key], key, proto);
+	                }
+	              }
+	              proto = Object.getPrototypeOf(proto);
+	            }
+	          },
+	
+	          getPublicMethods: function(inst, iterator, context) {
+	            utils.getPrototypeMethods(inst, function(m, k) {
+	              if( typeof(m) === 'function' && k.charAt(0) !== '_' ) {
+	                iterator.call(context, m, k);
+	              }
+	            });
+	          },
+	
+	          defer: $q.defer,
+	
+	          reject: $q.reject,
+	
+	          resolve: $q.when,
+	
+	          //TODO: Remove false branch and use only angular implementation when we drop angular 1.2.x support.
+	          promise: angular.isFunction($q) ? $q : Q,
+	
+	          makeNodeResolver:function(deferred){
+	            return function(err,result){
+	              if(err === null){
+	                if(arguments.length > 2){
+	                  result = Array.prototype.slice.call(arguments,1);
+	                }
+	                deferred.resolve(result);
+	              }
+	              else {
+	                deferred.reject(err);
+	              }
+	            };
+	          },
+	
+	          wait: function(fn, wait) {
+	            var to = $timeout(fn, wait||0);
+	            return function() {
+	              if( to ) {
+	                $timeout.cancel(to);
+	                to = null;
+	              }
+	            };
+	          },
+	
+	          compile: function(fn) {
+	            return $rootScope.$evalAsync(fn||function() {});
+	          },
+	
+	          deepCopy: function(obj) {
+	            if( !angular.isObject(obj) ) { return obj; }
+	            var newCopy = angular.isArray(obj) ? obj.slice() : angular.extend({}, obj);
+	            for (var key in newCopy) {
+	              if (newCopy.hasOwnProperty(key)) {
+	                if (angular.isObject(newCopy[key])) {
+	                  newCopy[key] = utils.deepCopy(newCopy[key]);
+	                }
+	              }
+	            }
+	            return newCopy;
+	          },
+	
+	          trimKeys: function(dest, source) {
+	            utils.each(dest, function(v,k) {
+	              if( !source.hasOwnProperty(k) ) {
+	                delete dest[k];
+	              }
+	            });
+	          },
+	
+	          scopeData: function(dataOrRec) {
+	            var data = {
+	              $id: dataOrRec.$id,
+	              $priority: dataOrRec.$priority
+	            };
+	            var hasPublicProp = false;
+	            utils.each(dataOrRec, function(v,k) {
+	              hasPublicProp = true;
+	              data[k] = utils.deepCopy(v);
+	            });
+	            if(!hasPublicProp && dataOrRec.hasOwnProperty('$value')){
+	              data.$value = dataOrRec.$value;
+	            }
+	            return data;
+	          },
+	
+	          updateRec: function(rec, snap) {
+	            var data = snap.val();
+	            var oldData = angular.extend({}, rec);
+	
+	            // deal with primitives
+	            if( !angular.isObject(data) ) {
+	              rec.$value = data;
+	              data = {};
+	            }
+	            else {
+	              delete rec.$value;
+	            }
+	
+	            // apply changes: remove old keys, insert new data, set priority
+	            utils.trimKeys(rec, data);
+	            angular.extend(rec, data);
+	            rec.$priority = snap.getPriority();
+	
+	            return !angular.equals(oldData, rec) ||
+	              oldData.$value !== rec.$value ||
+	              oldData.$priority !== rec.$priority;
+	          },
+	
+	          applyDefaults: function(rec, defaults) {
+	            if( angular.isObject(defaults) ) {
+	              angular.forEach(defaults, function(v,k) {
+	                if( !rec.hasOwnProperty(k) ) {
+	                  rec[k] = v;
+	                }
+	              });
+	            }
+	            return rec;
+	          },
+	
+	          dataKeys: function(obj) {
+	            var out = [];
+	            utils.each(obj, function(v,k) {
+	              out.push(k);
+	            });
+	            return out;
+	          },
+	
+	          each: function(obj, iterator, context) {
+	            if(angular.isObject(obj)) {
+	              for (var k in obj) {
+	                if (obj.hasOwnProperty(k)) {
+	                  var c = k.charAt(0);
+	                  if( c !== '_' && c !== '$' && c !== '.' ) {
+	                    iterator.call(context, obj[k], k, obj);
+	                  }
+	                }
+	              }
+	            }
+	            else if(angular.isArray(obj)) {
+	              for(var i = 0, len = obj.length; i < len; i++) {
+	                iterator.call(context, obj[i], i, obj);
+	              }
+	            }
+	            return obj;
+	          },
+	
+	          /**
+	           * A utility for retrieving a Firebase reference or DataSnapshot's
+	           * key name. This is backwards-compatible with `name()` from Firebase
+	           * 1.x.x and `key()` from Firebase 2.0.0+. Once support for Firebase
+	           * 1.x.x is dropped in AngularFire, this helper can be removed.
+	           */
+	          getKey: function(refOrSnapshot) {
+	            return (typeof refOrSnapshot.key === 'function') ? refOrSnapshot.key() : refOrSnapshot.name();
+	          },
+	
+	          /**
+	           * A utility for converting records to JSON objects
+	           * which we can save into Firebase. It asserts valid
+	           * keys and strips off any items prefixed with $.
+	           *
+	           * If the rec passed into this method has a toJSON()
+	           * method, that will be used in place of the custom
+	           * functionality here.
+	           *
+	           * @param rec
+	           * @returns {*}
+	           */
+	          toJSON: function(rec) {
+	            var dat;
+	            if( !angular.isObject(rec) ) {
+	              rec = {$value: rec};
+	            }
+	            if (angular.isFunction(rec.toJSON)) {
+	              dat = rec.toJSON();
+	            }
+	            else {
+	              dat = {};
+	              utils.each(rec, function (v, k) {
+	                dat[k] = stripDollarPrefixedKeys(v);
+	              });
+	            }
+	            if( angular.isDefined(rec.$value) && Object.keys(dat).length === 0 && rec.$value !== null ) {
+	              dat['.value'] = rec.$value;
+	            }
+	            if( angular.isDefined(rec.$priority) && Object.keys(dat).length > 0 && rec.$priority !== null ) {
+	              dat['.priority'] = rec.$priority;
+	            }
+	            angular.forEach(dat, function(v,k) {
+	              if (k.match(/[.$\[\]#\/]/) && k !== '.value' && k !== '.priority' ) {
+	                throw new Error('Invalid key ' + k + ' (cannot contain .$[]#)');
+	              }
+	              else if( angular.isUndefined(v) ) {
+	                throw new Error('Key '+k+' was undefined. Cannot pass undefined in JSON. Use null instead.');
+	              }
+	            });
+	            return dat;
+	          },
+	
+	          doSet: function(ref, data) {
+	            var def = utils.defer();
+	            if( angular.isFunction(ref.set) || !angular.isObject(data) ) {
+	              // this is not a query, just do a flat set
+	              ref.set(data, utils.makeNodeResolver(def));
+	            }
+	            else {
+	              var dataCopy = angular.extend({}, data);
+	              // this is a query, so we will replace all the elements
+	              // of this query with the value provided, but not blow away
+	              // the entire Firebase path
+	              ref.once('value', function(snap) {
+	                snap.forEach(function(ss) {
+	                  if( !dataCopy.hasOwnProperty(utils.getKey(ss)) ) {
+	                    dataCopy[utils.getKey(ss)] = null;
+	                  }
+	                });
+	                ref.ref().update(dataCopy, utils.makeNodeResolver(def));
+	              }, function(err) {
+	                def.reject(err);
+	              });
+	            }
+	            return def.promise;
+	          },
+	
+	          doRemove: function(ref) {
+	            var def = utils.defer();
+	            if( angular.isFunction(ref.remove) ) {
+	              // ref is not a query, just do a flat remove
+	              ref.remove(utils.makeNodeResolver(def));
+	            }
+	            else {
+	              // ref is a query so let's only remove the
+	              // items in the query and not the entire path
+	              ref.once('value', function(snap) {
+	                var promises = [];
+	                snap.forEach(function(ss) {
+	                  var d = utils.defer();
+	                  promises.push(d.promise);
+	                  ss.ref().remove(utils.makeNodeResolver(def));
+	                });
+	                utils.allPromises(promises)
+	                  .then(function() {
+	                    def.resolve(ref);
+	                  },
+	                  function(err){
+	                    def.reject(err);
+	                  }
+	                );
+	              }, function(err) {
+	                def.reject(err);
+	              });
+	            }
+	            return def.promise;
+	          },
+	
+	          /**
+	           * AngularFire version number.
+	           */
+	          VERSION: '1.2.0',
+	
+	          allPromises: $q.all.bind($q)
+	        };
+	
+	        return utils;
+	      }
+	    ]);
+	
+	    function stripDollarPrefixedKeys(data) {
+	      if( !angular.isObject(data) ) { return data; }
+	      var out = angular.isArray(data)? [] : {};
+	      angular.forEach(data, function(v,k) {
+	        if(typeof k !== 'string' || k.charAt(0) !== '$') {
+	          out[k] = stripDollarPrefixedKeys(v);
+	        }
+	      });
+	      return out;
+	    }
+	})();
+
+
+/***/ },
+/* 25 */
+/***/ function(module, exports, __webpack_require__) {
+
+	__webpack_require__(24);
+	module.exports = 'firebase';
+
+
+/***/ },
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// This file is autogenerated via the `commonjs` Grunt task. You can require() this file in a CommonJS environment.
-	__webpack_require__(39)
+	__webpack_require__(38)
+	__webpack_require__(28)
 	__webpack_require__(29)
 	__webpack_require__(30)
 	__webpack_require__(31)
 	__webpack_require__(32)
 	__webpack_require__(33)
+	__webpack_require__(37)
 	__webpack_require__(34)
-	__webpack_require__(38)
 	__webpack_require__(35)
 	__webpack_require__(36)
-	__webpack_require__(37)
-	__webpack_require__(28)
+	__webpack_require__(27)
 
 /***/ },
-/* 28 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
@@ -75571,7 +77469,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 29 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
@@ -75672,7 +77570,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 30 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
@@ -75799,7 +77697,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 31 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
@@ -76043,7 +77941,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 32 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
@@ -76261,7 +78159,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 33 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
@@ -76433,7 +78331,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 34 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
@@ -76777,7 +78675,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 35 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
@@ -76892,7 +78790,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 36 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
@@ -77071,7 +78969,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 37 */
+/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
@@ -77233,7 +79131,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 38 */
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
@@ -77754,7 +79652,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 39 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
@@ -77818,6 +79716,292 @@
 	}(jQuery);
 	
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+/***/ },
+/* 39 */
+/***/ function(module, exports) {
+
+	/*! @license Firebase v2.4.2
+	    License: https://www.firebase.com/terms/terms-of-service.html */
+	(function() {var h,n=this;function p(a){return void 0!==a}function aa(){}function ba(a){a.yb=function(){return a.zf?a.zf:a.zf=new a}}
+	function ca(a){var b=typeof a;if("object"==b)if(a){if(a instanceof Array)return"array";if(a instanceof Object)return b;var c=Object.prototype.toString.call(a);if("[object Window]"==c)return"object";if("[object Array]"==c||"number"==typeof a.length&&"undefined"!=typeof a.splice&&"undefined"!=typeof a.propertyIsEnumerable&&!a.propertyIsEnumerable("splice"))return"array";if("[object Function]"==c||"undefined"!=typeof a.call&&"undefined"!=typeof a.propertyIsEnumerable&&!a.propertyIsEnumerable("call"))return"function"}else return"null";
+	else if("function"==b&&"undefined"==typeof a.call)return"object";return b}function da(a){return"array"==ca(a)}function ea(a){var b=ca(a);return"array"==b||"object"==b&&"number"==typeof a.length}function q(a){return"string"==typeof a}function fa(a){return"number"==typeof a}function r(a){return"function"==ca(a)}function ga(a){var b=typeof a;return"object"==b&&null!=a||"function"==b}function ha(a,b,c){return a.call.apply(a.bind,arguments)}
+	function ia(a,b,c){if(!a)throw Error();if(2<arguments.length){var d=Array.prototype.slice.call(arguments,2);return function(){var c=Array.prototype.slice.call(arguments);Array.prototype.unshift.apply(c,d);return a.apply(b,c)}}return function(){return a.apply(b,arguments)}}function u(a,b,c){u=Function.prototype.bind&&-1!=Function.prototype.bind.toString().indexOf("native code")?ha:ia;return u.apply(null,arguments)}var ja=Date.now||function(){return+new Date};
+	function ka(a,b){function c(){}c.prototype=b.prototype;a.ph=b.prototype;a.prototype=new c;a.prototype.constructor=a;a.lh=function(a,c,f){for(var g=Array(arguments.length-2),k=2;k<arguments.length;k++)g[k-2]=arguments[k];return b.prototype[c].apply(a,g)}};function la(a){if(Error.captureStackTrace)Error.captureStackTrace(this,la);else{var b=Error().stack;b&&(this.stack=b)}a&&(this.message=String(a))}ka(la,Error);la.prototype.name="CustomError";function v(a,b){for(var c in a)b.call(void 0,a[c],c,a)}function ma(a,b){var c={},d;for(d in a)c[d]=b.call(void 0,a[d],d,a);return c}function na(a,b){for(var c in a)if(!b.call(void 0,a[c],c,a))return!1;return!0}function oa(a){var b=0,c;for(c in a)b++;return b}function pa(a){for(var b in a)return b}function qa(a){var b=[],c=0,d;for(d in a)b[c++]=a[d];return b}function ra(a){var b=[],c=0,d;for(d in a)b[c++]=d;return b}function sa(a,b){for(var c in a)if(a[c]==b)return!0;return!1}
+	function ta(a,b,c){for(var d in a)if(b.call(c,a[d],d,a))return d}function ua(a,b){var c=ta(a,b,void 0);return c&&a[c]}function va(a){for(var b in a)return!1;return!0}function wa(a){var b={},c;for(c in a)b[c]=a[c];return b}var xa="constructor hasOwnProperty isPrototypeOf propertyIsEnumerable toLocaleString toString valueOf".split(" ");
+	function ya(a,b){for(var c,d,e=1;e<arguments.length;e++){d=arguments[e];for(c in d)a[c]=d[c];for(var f=0;f<xa.length;f++)c=xa[f],Object.prototype.hasOwnProperty.call(d,c)&&(a[c]=d[c])}};function za(a){a=String(a);if(/^\s*$/.test(a)?0:/^[\],:{}\s\u2028\u2029]*$/.test(a.replace(/\\["\\\/bfnrtu]/g,"@").replace(/"[^"\\\n\r\u2028\u2029\x00-\x08\x0a-\x1f]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g,"]").replace(/(?:^|:|,)(?:[\s\u2028\u2029]*\[)+/g,"")))try{return eval("("+a+")")}catch(b){}throw Error("Invalid JSON string: "+a);}function Aa(){this.Vd=void 0}
+	function Ba(a,b,c){switch(typeof b){case "string":Ca(b,c);break;case "number":c.push(isFinite(b)&&!isNaN(b)?b:"null");break;case "boolean":c.push(b);break;case "undefined":c.push("null");break;case "object":if(null==b){c.push("null");break}if(da(b)){var d=b.length;c.push("[");for(var e="",f=0;f<d;f++)c.push(e),e=b[f],Ba(a,a.Vd?a.Vd.call(b,String(f),e):e,c),e=",";c.push("]");break}c.push("{");d="";for(f in b)Object.prototype.hasOwnProperty.call(b,f)&&(e=b[f],"function"!=typeof e&&(c.push(d),Ca(f,c),
+	c.push(":"),Ba(a,a.Vd?a.Vd.call(b,f,e):e,c),d=","));c.push("}");break;case "function":break;default:throw Error("Unknown type: "+typeof b);}}var Da={'"':'\\"',"\\":"\\\\","/":"\\/","\b":"\\b","\f":"\\f","\n":"\\n","\r":"\\r","\t":"\\t","\x0B":"\\u000b"},Ea=/\uffff/.test("\uffff")?/[\\\"\x00-\x1f\x7f-\uffff]/g:/[\\\"\x00-\x1f\x7f-\xff]/g;
+	function Ca(a,b){b.push('"',a.replace(Ea,function(a){if(a in Da)return Da[a];var b=a.charCodeAt(0),e="\\u";16>b?e+="000":256>b?e+="00":4096>b&&(e+="0");return Da[a]=e+b.toString(16)}),'"')};function Fa(){return Math.floor(2147483648*Math.random()).toString(36)+Math.abs(Math.floor(2147483648*Math.random())^ja()).toString(36)};var w;a:{var Ga=n.navigator;if(Ga){var Ha=Ga.userAgent;if(Ha){w=Ha;break a}}w=""};function Ia(){this.Ya=-1};function Ja(){this.Ya=-1;this.Ya=64;this.P=[];this.pe=[];this.eg=[];this.Od=[];this.Od[0]=128;for(var a=1;a<this.Ya;++a)this.Od[a]=0;this.ge=this.ec=0;this.reset()}ka(Ja,Ia);Ja.prototype.reset=function(){this.P[0]=1732584193;this.P[1]=4023233417;this.P[2]=2562383102;this.P[3]=271733878;this.P[4]=3285377520;this.ge=this.ec=0};
+	function Ka(a,b,c){c||(c=0);var d=a.eg;if(q(b))for(var e=0;16>e;e++)d[e]=b.charCodeAt(c)<<24|b.charCodeAt(c+1)<<16|b.charCodeAt(c+2)<<8|b.charCodeAt(c+3),c+=4;else for(e=0;16>e;e++)d[e]=b[c]<<24|b[c+1]<<16|b[c+2]<<8|b[c+3],c+=4;for(e=16;80>e;e++){var f=d[e-3]^d[e-8]^d[e-14]^d[e-16];d[e]=(f<<1|f>>>31)&4294967295}b=a.P[0];c=a.P[1];for(var g=a.P[2],k=a.P[3],m=a.P[4],l,e=0;80>e;e++)40>e?20>e?(f=k^c&(g^k),l=1518500249):(f=c^g^k,l=1859775393):60>e?(f=c&g|k&(c|g),l=2400959708):(f=c^g^k,l=3395469782),f=(b<<
+	5|b>>>27)+f+m+l+d[e]&4294967295,m=k,k=g,g=(c<<30|c>>>2)&4294967295,c=b,b=f;a.P[0]=a.P[0]+b&4294967295;a.P[1]=a.P[1]+c&4294967295;a.P[2]=a.P[2]+g&4294967295;a.P[3]=a.P[3]+k&4294967295;a.P[4]=a.P[4]+m&4294967295}
+	Ja.prototype.update=function(a,b){if(null!=a){p(b)||(b=a.length);for(var c=b-this.Ya,d=0,e=this.pe,f=this.ec;d<b;){if(0==f)for(;d<=c;)Ka(this,a,d),d+=this.Ya;if(q(a))for(;d<b;){if(e[f]=a.charCodeAt(d),++f,++d,f==this.Ya){Ka(this,e);f=0;break}}else for(;d<b;)if(e[f]=a[d],++f,++d,f==this.Ya){Ka(this,e);f=0;break}}this.ec=f;this.ge+=b}};var x=Array.prototype,La=x.indexOf?function(a,b,c){return x.indexOf.call(a,b,c)}:function(a,b,c){c=null==c?0:0>c?Math.max(0,a.length+c):c;if(q(a))return q(b)&&1==b.length?a.indexOf(b,c):-1;for(;c<a.length;c++)if(c in a&&a[c]===b)return c;return-1},Ma=x.forEach?function(a,b,c){x.forEach.call(a,b,c)}:function(a,b,c){for(var d=a.length,e=q(a)?a.split(""):a,f=0;f<d;f++)f in e&&b.call(c,e[f],f,a)},Na=x.filter?function(a,b,c){return x.filter.call(a,b,c)}:function(a,b,c){for(var d=a.length,e=[],f=0,g=q(a)?
+	a.split(""):a,k=0;k<d;k++)if(k in g){var m=g[k];b.call(c,m,k,a)&&(e[f++]=m)}return e},Oa=x.map?function(a,b,c){return x.map.call(a,b,c)}:function(a,b,c){for(var d=a.length,e=Array(d),f=q(a)?a.split(""):a,g=0;g<d;g++)g in f&&(e[g]=b.call(c,f[g],g,a));return e},Pa=x.reduce?function(a,b,c,d){for(var e=[],f=1,g=arguments.length;f<g;f++)e.push(arguments[f]);d&&(e[0]=u(b,d));return x.reduce.apply(a,e)}:function(a,b,c,d){var e=c;Ma(a,function(c,g){e=b.call(d,e,c,g,a)});return e},Qa=x.every?function(a,b,
+	c){return x.every.call(a,b,c)}:function(a,b,c){for(var d=a.length,e=q(a)?a.split(""):a,f=0;f<d;f++)if(f in e&&!b.call(c,e[f],f,a))return!1;return!0};function Ra(a,b){var c=Sa(a,b,void 0);return 0>c?null:q(a)?a.charAt(c):a[c]}function Sa(a,b,c){for(var d=a.length,e=q(a)?a.split(""):a,f=0;f<d;f++)if(f in e&&b.call(c,e[f],f,a))return f;return-1}function Ta(a,b){var c=La(a,b);0<=c&&x.splice.call(a,c,1)}function Ua(a,b,c){return 2>=arguments.length?x.slice.call(a,b):x.slice.call(a,b,c)}
+	function Va(a,b){a.sort(b||Wa)}function Wa(a,b){return a>b?1:a<b?-1:0};function Xa(a){n.setTimeout(function(){throw a;},0)}var Ya;
+	function Za(){var a=n.MessageChannel;"undefined"===typeof a&&"undefined"!==typeof window&&window.postMessage&&window.addEventListener&&-1==w.indexOf("Presto")&&(a=function(){var a=document.createElement("iframe");a.style.display="none";a.src="";document.documentElement.appendChild(a);var b=a.contentWindow,a=b.document;a.open();a.write("");a.close();var c="callImmediate"+Math.random(),d="file:"==b.location.protocol?"*":b.location.protocol+"//"+b.location.host,a=u(function(a){if(("*"==d||a.origin==
+	d)&&a.data==c)this.port1.onmessage()},this);b.addEventListener("message",a,!1);this.port1={};this.port2={postMessage:function(){b.postMessage(c,d)}}});if("undefined"!==typeof a&&-1==w.indexOf("Trident")&&-1==w.indexOf("MSIE")){var b=new a,c={},d=c;b.port1.onmessage=function(){if(p(c.next)){c=c.next;var a=c.hb;c.hb=null;a()}};return function(a){d.next={hb:a};d=d.next;b.port2.postMessage(0)}}return"undefined"!==typeof document&&"onreadystatechange"in document.createElement("script")?function(a){var b=
+	document.createElement("script");b.onreadystatechange=function(){b.onreadystatechange=null;b.parentNode.removeChild(b);b=null;a();a=null};document.documentElement.appendChild(b)}:function(a){n.setTimeout(a,0)}};function $a(a,b){ab||bb();cb||(ab(),cb=!0);db.push(new eb(a,b))}var ab;function bb(){if(n.Promise&&n.Promise.resolve){var a=n.Promise.resolve();ab=function(){a.then(fb)}}else ab=function(){var a=fb;!r(n.setImmediate)||n.Window&&n.Window.prototype&&n.Window.prototype.setImmediate==n.setImmediate?(Ya||(Ya=Za()),Ya(a)):n.setImmediate(a)}}var cb=!1,db=[];[].push(function(){cb=!1;db=[]});
+	function fb(){for(;db.length;){var a=db;db=[];for(var b=0;b<a.length;b++){var c=a[b];try{c.yg.call(c.scope)}catch(d){Xa(d)}}}cb=!1}function eb(a,b){this.yg=a;this.scope=b};var gb=-1!=w.indexOf("Opera")||-1!=w.indexOf("OPR"),hb=-1!=w.indexOf("Trident")||-1!=w.indexOf("MSIE"),ib=-1!=w.indexOf("Gecko")&&-1==w.toLowerCase().indexOf("webkit")&&!(-1!=w.indexOf("Trident")||-1!=w.indexOf("MSIE")),jb=-1!=w.toLowerCase().indexOf("webkit");
+	(function(){var a="",b;if(gb&&n.opera)return a=n.opera.version,r(a)?a():a;ib?b=/rv\:([^\);]+)(\)|;)/:hb?b=/\b(?:MSIE|rv)[: ]([^\);]+)(\)|;)/:jb&&(b=/WebKit\/(\S+)/);b&&(a=(a=b.exec(w))?a[1]:"");return hb&&(b=(b=n.document)?b.documentMode:void 0,b>parseFloat(a))?String(b):a})();var kb=null,lb=null,mb=null;function nb(a,b){if(!ea(a))throw Error("encodeByteArray takes an array as a parameter");ob();for(var c=b?lb:kb,d=[],e=0;e<a.length;e+=3){var f=a[e],g=e+1<a.length,k=g?a[e+1]:0,m=e+2<a.length,l=m?a[e+2]:0,t=f>>2,f=(f&3)<<4|k>>4,k=(k&15)<<2|l>>6,l=l&63;m||(l=64,g||(k=64));d.push(c[t],c[f],c[k],c[l])}return d.join("")}
+	function ob(){if(!kb){kb={};lb={};mb={};for(var a=0;65>a;a++)kb[a]="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=".charAt(a),lb[a]="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_.".charAt(a),mb[lb[a]]=a,62<=a&&(mb["ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=".charAt(a)]=a)}};function pb(a,b){this.N=qb;this.Rf=void 0;this.Ba=this.Ha=null;this.yd=this.ye=!1;if(a==rb)sb(this,tb,b);else try{var c=this;a.call(b,function(a){sb(c,tb,a)},function(a){if(!(a instanceof ub))try{if(a instanceof Error)throw a;throw Error("Promise rejected.");}catch(b){}sb(c,vb,a)})}catch(d){sb(this,vb,d)}}var qb=0,tb=2,vb=3;function rb(){}pb.prototype.then=function(a,b,c){return wb(this,r(a)?a:null,r(b)?b:null,c)};pb.prototype.then=pb.prototype.then;pb.prototype.$goog_Thenable=!0;h=pb.prototype;
+	h.gh=function(a,b){return wb(this,null,a,b)};h.cancel=function(a){this.N==qb&&$a(function(){var b=new ub(a);xb(this,b)},this)};function xb(a,b){if(a.N==qb)if(a.Ha){var c=a.Ha;if(c.Ba){for(var d=0,e=-1,f=0,g;g=c.Ba[f];f++)if(g=g.o)if(d++,g==a&&(e=f),0<=e&&1<d)break;0<=e&&(c.N==qb&&1==d?xb(c,b):(d=c.Ba.splice(e,1)[0],yb(c,d,vb,b)))}a.Ha=null}else sb(a,vb,b)}function zb(a,b){a.Ba&&a.Ba.length||a.N!=tb&&a.N!=vb||Ab(a);a.Ba||(a.Ba=[]);a.Ba.push(b)}
+	function wb(a,b,c,d){var e={o:null,Hf:null,Jf:null};e.o=new pb(function(a,g){e.Hf=b?function(c){try{var e=b.call(d,c);a(e)}catch(l){g(l)}}:a;e.Jf=c?function(b){try{var e=c.call(d,b);!p(e)&&b instanceof ub?g(b):a(e)}catch(l){g(l)}}:g});e.o.Ha=a;zb(a,e);return e.o}h.Yf=function(a){this.N=qb;sb(this,tb,a)};h.Zf=function(a){this.N=qb;sb(this,vb,a)};
+	function sb(a,b,c){if(a.N==qb){if(a==c)b=vb,c=new TypeError("Promise cannot resolve to itself");else{var d;if(c)try{d=!!c.$goog_Thenable}catch(e){d=!1}else d=!1;if(d){a.N=1;c.then(a.Yf,a.Zf,a);return}if(ga(c))try{var f=c.then;if(r(f)){Bb(a,c,f);return}}catch(g){b=vb,c=g}}a.Rf=c;a.N=b;a.Ha=null;Ab(a);b!=vb||c instanceof ub||Cb(a,c)}}function Bb(a,b,c){function d(b){f||(f=!0,a.Zf(b))}function e(b){f||(f=!0,a.Yf(b))}a.N=1;var f=!1;try{c.call(b,e,d)}catch(g){d(g)}}
+	function Ab(a){a.ye||(a.ye=!0,$a(a.wg,a))}h.wg=function(){for(;this.Ba&&this.Ba.length;){var a=this.Ba;this.Ba=null;for(var b=0;b<a.length;b++)yb(this,a[b],this.N,this.Rf)}this.ye=!1};function yb(a,b,c,d){if(c==tb)b.Hf(d);else{if(b.o)for(;a&&a.yd;a=a.Ha)a.yd=!1;b.Jf(d)}}function Cb(a,b){a.yd=!0;$a(function(){a.yd&&Db.call(null,b)})}var Db=Xa;function ub(a){la.call(this,a)}ka(ub,la);ub.prototype.name="cancel";var Eb=Eb||"2.4.2";function y(a,b){return Object.prototype.hasOwnProperty.call(a,b)}function z(a,b){if(Object.prototype.hasOwnProperty.call(a,b))return a[b]}function Fb(a,b){for(var c in a)Object.prototype.hasOwnProperty.call(a,c)&&b(c,a[c])}function Gb(a){var b={};Fb(a,function(a,d){b[a]=d});return b}function Hb(a){return"object"===typeof a&&null!==a};function Ib(a){var b=[];Fb(a,function(a,d){da(d)?Ma(d,function(d){b.push(encodeURIComponent(a)+"="+encodeURIComponent(d))}):b.push(encodeURIComponent(a)+"="+encodeURIComponent(d))});return b.length?"&"+b.join("&"):""}function Jb(a){var b={};a=a.replace(/^\?/,"").split("&");Ma(a,function(a){a&&(a=a.split("="),b[a[0]]=a[1])});return b};function Kb(a,b){if(!a)throw Lb(b);}function Lb(a){return Error("Firebase ("+Eb+") INTERNAL ASSERT FAILED: "+a)};var Mb=n.Promise||pb;pb.prototype["catch"]=pb.prototype.gh;function B(){var a=this;this.reject=this.resolve=null;this.D=new Mb(function(b,c){a.resolve=b;a.reject=c})}function C(a,b){return function(c,d){c?a.reject(c):a.resolve(d);r(b)&&(Nb(a.D),1===b.length?b(c):b(c,d))}}function Nb(a){a.then(void 0,aa)};function Ob(a){for(var b=[],c=0,d=0;d<a.length;d++){var e=a.charCodeAt(d);55296<=e&&56319>=e&&(e-=55296,d++,Kb(d<a.length,"Surrogate pair missing trail surrogate."),e=65536+(e<<10)+(a.charCodeAt(d)-56320));128>e?b[c++]=e:(2048>e?b[c++]=e>>6|192:(65536>e?b[c++]=e>>12|224:(b[c++]=e>>18|240,b[c++]=e>>12&63|128),b[c++]=e>>6&63|128),b[c++]=e&63|128)}return b}function Pb(a){for(var b=0,c=0;c<a.length;c++){var d=a.charCodeAt(c);128>d?b++:2048>d?b+=2:55296<=d&&56319>=d?(b+=4,c++):b+=3}return b};function D(a,b,c,d){var e;d<b?e="at least "+b:d>c&&(e=0===c?"none":"no more than "+c);if(e)throw Error(a+" failed: Was called with "+d+(1===d?" argument.":" arguments.")+" Expects "+e+".");}function E(a,b,c){var d="";switch(b){case 1:d=c?"first":"First";break;case 2:d=c?"second":"Second";break;case 3:d=c?"third":"Third";break;case 4:d=c?"fourth":"Fourth";break;default:throw Error("errorPrefix called with argumentNumber > 4.  Need to update it?");}return a=a+" failed: "+(d+" argument ")}
+	function F(a,b,c,d){if((!d||p(c))&&!r(c))throw Error(E(a,b,d)+"must be a valid function.");}function Qb(a,b,c){if(p(c)&&(!ga(c)||null===c))throw Error(E(a,b,!0)+"must be a valid context object.");};function Rb(a){return"undefined"!==typeof JSON&&p(JSON.parse)?JSON.parse(a):za(a)}function G(a){if("undefined"!==typeof JSON&&p(JSON.stringify))a=JSON.stringify(a);else{var b=[];Ba(new Aa,a,b);a=b.join("")}return a};function Sb(){this.Zd=H}Sb.prototype.j=function(a){return this.Zd.S(a)};Sb.prototype.toString=function(){return this.Zd.toString()};function Tb(){}Tb.prototype.uf=function(){return null};Tb.prototype.Ce=function(){return null};var Ub=new Tb;function Vb(a,b,c){this.bg=a;this.Oa=b;this.Nd=c}Vb.prototype.uf=function(a){var b=this.Oa.Q;if(Wb(b,a))return b.j().T(a);b=null!=this.Nd?new Xb(this.Nd,!0,!1):this.Oa.w();return this.bg.Bc(a,b)};Vb.prototype.Ce=function(a,b,c){var d=null!=this.Nd?this.Nd:Yb(this.Oa);a=this.bg.qe(d,b,1,c,a);return 0===a.length?null:a[0]};function Zb(){this.xb=[]}function $b(a,b){for(var c=null,d=0;d<b.length;d++){var e=b[d],f=e.cc();null===c||f.ea(c.cc())||(a.xb.push(c),c=null);null===c&&(c=new ac(f));c.add(e)}c&&a.xb.push(c)}function bc(a,b,c){$b(a,c);cc(a,function(a){return a.ea(b)})}function dc(a,b,c){$b(a,c);cc(a,function(a){return a.contains(b)||b.contains(a)})}
+	function cc(a,b){for(var c=!0,d=0;d<a.xb.length;d++){var e=a.xb[d];if(e)if(e=e.cc(),b(e)){for(var e=a.xb[d],f=0;f<e.xd.length;f++){var g=e.xd[f];if(null!==g){e.xd[f]=null;var k=g.Zb();ec&&fc("event: "+g.toString());gc(k)}}a.xb[d]=null}else c=!1}c&&(a.xb=[])}function ac(a){this.ta=a;this.xd=[]}ac.prototype.add=function(a){this.xd.push(a)};ac.prototype.cc=function(){return this.ta};function J(a,b,c,d){this.type=a;this.Na=b;this.Za=c;this.Oe=d;this.Td=void 0}function hc(a){return new J(ic,a)}var ic="value";function jc(a,b,c,d){this.xe=b;this.be=c;this.Td=d;this.wd=a}jc.prototype.cc=function(){var a=this.be.Mb();return"value"===this.wd?a.path:a.parent().path};jc.prototype.De=function(){return this.wd};jc.prototype.Zb=function(){return this.xe.Zb(this)};jc.prototype.toString=function(){return this.cc().toString()+":"+this.wd+":"+G(this.be.qf())};function kc(a,b,c){this.xe=a;this.error=b;this.path=c}kc.prototype.cc=function(){return this.path};kc.prototype.De=function(){return"cancel"};
+	kc.prototype.Zb=function(){return this.xe.Zb(this)};kc.prototype.toString=function(){return this.path.toString()+":cancel"};function Xb(a,b,c){this.A=a;this.ga=b;this.Yb=c}function lc(a){return a.ga}function mc(a){return a.Yb}function nc(a,b){return b.e()?a.ga&&!a.Yb:Wb(a,K(b))}function Wb(a,b){return a.ga&&!a.Yb||a.A.Fa(b)}Xb.prototype.j=function(){return this.A};function oc(a){this.pg=a;this.Gd=null}oc.prototype.get=function(){var a=this.pg.get(),b=wa(a);if(this.Gd)for(var c in this.Gd)b[c]-=this.Gd[c];this.Gd=a;return b};function pc(a,b){this.Vf={};this.hd=new oc(a);this.da=b;var c=1E4+2E4*Math.random();setTimeout(u(this.Of,this),Math.floor(c))}pc.prototype.Of=function(){var a=this.hd.get(),b={},c=!1,d;for(d in a)0<a[d]&&y(this.Vf,d)&&(b[d]=a[d],c=!0);c&&this.da.Ye(b);setTimeout(u(this.Of,this),Math.floor(6E5*Math.random()))};function qc(){this.Hc={}}function rc(a,b,c){p(c)||(c=1);y(a.Hc,b)||(a.Hc[b]=0);a.Hc[b]+=c}qc.prototype.get=function(){return wa(this.Hc)};var sc={},tc={};function uc(a){a=a.toString();sc[a]||(sc[a]=new qc);return sc[a]}function vc(a,b){var c=a.toString();tc[c]||(tc[c]=b());return tc[c]};function L(a,b){this.name=a;this.U=b}function wc(a,b){return new L(a,b)};function xc(a,b){return yc(a.name,b.name)}function zc(a,b){return yc(a,b)};function Ac(a,b,c){this.type=Bc;this.source=a;this.path=b;this.Ja=c}Ac.prototype.$c=function(a){return this.path.e()?new Ac(this.source,M,this.Ja.T(a)):new Ac(this.source,N(this.path),this.Ja)};Ac.prototype.toString=function(){return"Operation("+this.path+": "+this.source.toString()+" overwrite: "+this.Ja.toString()+")"};function Cc(a,b){this.type=Dc;this.source=a;this.path=b}Cc.prototype.$c=function(){return this.path.e()?new Cc(this.source,M):new Cc(this.source,N(this.path))};Cc.prototype.toString=function(){return"Operation("+this.path+": "+this.source.toString()+" listen_complete)"};function Ec(a,b){this.Pa=a;this.xa=b?b:Fc}h=Ec.prototype;h.Sa=function(a,b){return new Ec(this.Pa,this.xa.Sa(a,b,this.Pa).$(null,null,!1,null,null))};h.remove=function(a){return new Ec(this.Pa,this.xa.remove(a,this.Pa).$(null,null,!1,null,null))};h.get=function(a){for(var b,c=this.xa;!c.e();){b=this.Pa(a,c.key);if(0===b)return c.value;0>b?c=c.left:0<b&&(c=c.right)}return null};
+	function Gc(a,b){for(var c,d=a.xa,e=null;!d.e();){c=a.Pa(b,d.key);if(0===c){if(d.left.e())return e?e.key:null;for(d=d.left;!d.right.e();)d=d.right;return d.key}0>c?d=d.left:0<c&&(e=d,d=d.right)}throw Error("Attempted to find predecessor key for a nonexistent key.  What gives?");}h.e=function(){return this.xa.e()};h.count=function(){return this.xa.count()};h.Vc=function(){return this.xa.Vc()};h.jc=function(){return this.xa.jc()};h.ka=function(a){return this.xa.ka(a)};
+	h.ac=function(a){return new Hc(this.xa,null,this.Pa,!1,a)};h.bc=function(a,b){return new Hc(this.xa,a,this.Pa,!1,b)};h.dc=function(a,b){return new Hc(this.xa,a,this.Pa,!0,b)};h.xf=function(a){return new Hc(this.xa,null,this.Pa,!0,a)};function Hc(a,b,c,d,e){this.Xd=e||null;this.Je=d;this.Ta=[];for(e=1;!a.e();)if(e=b?c(a.key,b):1,d&&(e*=-1),0>e)a=this.Je?a.left:a.right;else if(0===e){this.Ta.push(a);break}else this.Ta.push(a),a=this.Je?a.right:a.left}
+	function Ic(a){if(0===a.Ta.length)return null;var b=a.Ta.pop(),c;c=a.Xd?a.Xd(b.key,b.value):{key:b.key,value:b.value};if(a.Je)for(b=b.left;!b.e();)a.Ta.push(b),b=b.right;else for(b=b.right;!b.e();)a.Ta.push(b),b=b.left;return c}function Jc(a){if(0===a.Ta.length)return null;var b;b=a.Ta;b=b[b.length-1];return a.Xd?a.Xd(b.key,b.value):{key:b.key,value:b.value}}function Kc(a,b,c,d,e){this.key=a;this.value=b;this.color=null!=c?c:!0;this.left=null!=d?d:Fc;this.right=null!=e?e:Fc}h=Kc.prototype;
+	h.$=function(a,b,c,d,e){return new Kc(null!=a?a:this.key,null!=b?b:this.value,null!=c?c:this.color,null!=d?d:this.left,null!=e?e:this.right)};h.count=function(){return this.left.count()+1+this.right.count()};h.e=function(){return!1};h.ka=function(a){return this.left.ka(a)||a(this.key,this.value)||this.right.ka(a)};function Lc(a){return a.left.e()?a:Lc(a.left)}h.Vc=function(){return Lc(this).key};h.jc=function(){return this.right.e()?this.key:this.right.jc()};
+	h.Sa=function(a,b,c){var d,e;e=this;d=c(a,e.key);e=0>d?e.$(null,null,null,e.left.Sa(a,b,c),null):0===d?e.$(null,b,null,null,null):e.$(null,null,null,null,e.right.Sa(a,b,c));return Mc(e)};function Nc(a){if(a.left.e())return Fc;a.left.ha()||a.left.left.ha()||(a=Oc(a));a=a.$(null,null,null,Nc(a.left),null);return Mc(a)}
+	h.remove=function(a,b){var c,d;c=this;if(0>b(a,c.key))c.left.e()||c.left.ha()||c.left.left.ha()||(c=Oc(c)),c=c.$(null,null,null,c.left.remove(a,b),null);else{c.left.ha()&&(c=Pc(c));c.right.e()||c.right.ha()||c.right.left.ha()||(c=Qc(c),c.left.left.ha()&&(c=Pc(c),c=Qc(c)));if(0===b(a,c.key)){if(c.right.e())return Fc;d=Lc(c.right);c=c.$(d.key,d.value,null,null,Nc(c.right))}c=c.$(null,null,null,null,c.right.remove(a,b))}return Mc(c)};h.ha=function(){return this.color};
+	function Mc(a){a.right.ha()&&!a.left.ha()&&(a=Rc(a));a.left.ha()&&a.left.left.ha()&&(a=Pc(a));a.left.ha()&&a.right.ha()&&(a=Qc(a));return a}function Oc(a){a=Qc(a);a.right.left.ha()&&(a=a.$(null,null,null,null,Pc(a.right)),a=Rc(a),a=Qc(a));return a}function Rc(a){return a.right.$(null,null,a.color,a.$(null,null,!0,null,a.right.left),null)}function Pc(a){return a.left.$(null,null,a.color,null,a.$(null,null,!0,a.left.right,null))}
+	function Qc(a){return a.$(null,null,!a.color,a.left.$(null,null,!a.left.color,null,null),a.right.$(null,null,!a.right.color,null,null))}function Sc(){}h=Sc.prototype;h.$=function(){return this};h.Sa=function(a,b){return new Kc(a,b,null)};h.remove=function(){return this};h.count=function(){return 0};h.e=function(){return!0};h.ka=function(){return!1};h.Vc=function(){return null};h.jc=function(){return null};h.ha=function(){return!1};var Fc=new Sc;function Tc(a,b){return a&&"object"===typeof a?(O(".sv"in a,"Unexpected leaf node or priority contents"),b[a[".sv"]]):a}function Uc(a,b){var c=new Vc;Wc(a,new P(""),function(a,e){c.rc(a,Xc(e,b))});return c}function Xc(a,b){var c=a.C().J(),c=Tc(c,b),d;if(a.L()){var e=Tc(a.Ea(),b);return e!==a.Ea()||c!==a.C().J()?new Yc(e,Q(c)):a}d=a;c!==a.C().J()&&(d=d.ia(new Yc(c)));a.R(R,function(a,c){var e=Xc(c,b);e!==c&&(d=d.W(a,e))});return d};function Zc(){this.Ac={}}Zc.prototype.set=function(a,b){null==b?delete this.Ac[a]:this.Ac[a]=b};Zc.prototype.get=function(a){return y(this.Ac,a)?this.Ac[a]:null};Zc.prototype.remove=function(a){delete this.Ac[a]};Zc.prototype.Af=!0;function $c(a){this.Ic=a;this.Sd="firebase:"}h=$c.prototype;h.set=function(a,b){null==b?this.Ic.removeItem(this.Sd+a):this.Ic.setItem(this.Sd+a,G(b))};h.get=function(a){a=this.Ic.getItem(this.Sd+a);return null==a?null:Rb(a)};h.remove=function(a){this.Ic.removeItem(this.Sd+a)};h.Af=!1;h.toString=function(){return this.Ic.toString()};function ad(a){try{if("undefined"!==typeof window&&"undefined"!==typeof window[a]){var b=window[a];b.setItem("firebase:sentinel","cache");b.removeItem("firebase:sentinel");return new $c(b)}}catch(c){}return new Zc}var bd=ad("localStorage"),cd=ad("sessionStorage");function dd(a,b,c,d,e){this.host=a.toLowerCase();this.domain=this.host.substr(this.host.indexOf(".")+1);this.ob=b;this.lc=c;this.jh=d;this.Rd=e||"";this.ab=bd.get("host:"+a)||this.host}function ed(a,b){b!==a.ab&&(a.ab=b,"s-"===a.ab.substr(0,2)&&bd.set("host:"+a.host,a.ab))}
+	function fd(a,b,c){O("string"===typeof b,"typeof type must == string");O("object"===typeof c,"typeof params must == object");if(b===gd)b=(a.ob?"wss://":"ws://")+a.ab+"/.ws?";else if(b===hd)b=(a.ob?"https://":"http://")+a.ab+"/.lp?";else throw Error("Unknown connection type: "+b);a.host!==a.ab&&(c.ns=a.lc);var d=[];v(c,function(a,b){d.push(b+"="+a)});return b+d.join("&")}dd.prototype.toString=function(){var a=(this.ob?"https://":"http://")+this.host;this.Rd&&(a+="<"+this.Rd+">");return a};var id=function(){var a=1;return function(){return a++}}(),O=Kb,jd=Lb;
+	function kd(a){try{var b;if("undefined"!==typeof atob)b=atob(a);else{ob();for(var c=mb,d=[],e=0;e<a.length;){var f=c[a.charAt(e++)],g=e<a.length?c[a.charAt(e)]:0;++e;var k=e<a.length?c[a.charAt(e)]:64;++e;var m=e<a.length?c[a.charAt(e)]:64;++e;if(null==f||null==g||null==k||null==m)throw Error();d.push(f<<2|g>>4);64!=k&&(d.push(g<<4&240|k>>2),64!=m&&d.push(k<<6&192|m))}if(8192>d.length)b=String.fromCharCode.apply(null,d);else{a="";for(c=0;c<d.length;c+=8192)a+=String.fromCharCode.apply(null,Ua(d,c,
+	c+8192));b=a}}return b}catch(l){fc("base64Decode failed: ",l)}return null}function ld(a){var b=Ob(a);a=new Ja;a.update(b);var b=[],c=8*a.ge;56>a.ec?a.update(a.Od,56-a.ec):a.update(a.Od,a.Ya-(a.ec-56));for(var d=a.Ya-1;56<=d;d--)a.pe[d]=c&255,c/=256;Ka(a,a.pe);for(d=c=0;5>d;d++)for(var e=24;0<=e;e-=8)b[c]=a.P[d]>>e&255,++c;return nb(b)}
+	function md(a){for(var b="",c=0;c<arguments.length;c++)b=ea(arguments[c])?b+md.apply(null,arguments[c]):"object"===typeof arguments[c]?b+G(arguments[c]):b+arguments[c],b+=" ";return b}var ec=null,nd=!0;
+	function od(a,b){Kb(!b||!0===a||!1===a,"Can't turn on custom loggers persistently.");!0===a?("undefined"!==typeof console&&("function"===typeof console.log?ec=u(console.log,console):"object"===typeof console.log&&(ec=function(a){console.log(a)})),b&&cd.set("logging_enabled",!0)):r(a)?ec=a:(ec=null,cd.remove("logging_enabled"))}function fc(a){!0===nd&&(nd=!1,null===ec&&!0===cd.get("logging_enabled")&&od(!0));if(ec){var b=md.apply(null,arguments);ec(b)}}
+	function pd(a){return function(){fc(a,arguments)}}function qd(a){if("undefined"!==typeof console){var b="FIREBASE INTERNAL ERROR: "+md.apply(null,arguments);"undefined"!==typeof console.error?console.error(b):console.log(b)}}function rd(a){var b=md.apply(null,arguments);throw Error("FIREBASE FATAL ERROR: "+b);}function S(a){if("undefined"!==typeof console){var b="FIREBASE WARNING: "+md.apply(null,arguments);"undefined"!==typeof console.warn?console.warn(b):console.log(b)}}
+	function sd(a){var b="",c="",d="",e="",f=!0,g="https",k=443;if(q(a)){var m=a.indexOf("//");0<=m&&(g=a.substring(0,m-1),a=a.substring(m+2));m=a.indexOf("/");-1===m&&(m=a.length);b=a.substring(0,m);e="";a=a.substring(m).split("/");for(m=0;m<a.length;m++)if(0<a[m].length){var l=a[m];try{l=decodeURIComponent(l.replace(/\+/g," "))}catch(t){}e+="/"+l}a=b.split(".");3===a.length?(c=a[1],d=a[0].toLowerCase()):2===a.length&&(c=a[0]);m=b.indexOf(":");0<=m&&(f="https"===g||"wss"===g,k=b.substring(m+1),isFinite(k)&&
+	(k=String(k)),k=q(k)?/^\s*-?0x/i.test(k)?parseInt(k,16):parseInt(k,10):NaN)}return{host:b,port:k,domain:c,fh:d,ob:f,scheme:g,bd:e}}function td(a){return fa(a)&&(a!=a||a==Number.POSITIVE_INFINITY||a==Number.NEGATIVE_INFINITY)}
+	function ud(a){if("complete"===document.readyState)a();else{var b=!1,c=function(){document.body?b||(b=!0,a()):setTimeout(c,Math.floor(10))};document.addEventListener?(document.addEventListener("DOMContentLoaded",c,!1),window.addEventListener("load",c,!1)):document.attachEvent&&(document.attachEvent("onreadystatechange",function(){"complete"===document.readyState&&c()}),window.attachEvent("onload",c))}}
+	function yc(a,b){if(a===b)return 0;if("[MIN_NAME]"===a||"[MAX_NAME]"===b)return-1;if("[MIN_NAME]"===b||"[MAX_NAME]"===a)return 1;var c=vd(a),d=vd(b);return null!==c?null!==d?0==c-d?a.length-b.length:c-d:-1:null!==d?1:a<b?-1:1}function wd(a,b){if(b&&a in b)return b[a];throw Error("Missing required key ("+a+") in object: "+G(b));}
+	function xd(a){if("object"!==typeof a||null===a)return G(a);var b=[],c;for(c in a)b.push(c);b.sort();c="{";for(var d=0;d<b.length;d++)0!==d&&(c+=","),c+=G(b[d]),c+=":",c+=xd(a[b[d]]);return c+"}"}function yd(a,b){if(a.length<=b)return[a];for(var c=[],d=0;d<a.length;d+=b)d+b>a?c.push(a.substring(d,a.length)):c.push(a.substring(d,d+b));return c}function zd(a,b){if(da(a))for(var c=0;c<a.length;++c)b(c,a[c]);else v(a,b)}
+	function Ad(a){O(!td(a),"Invalid JSON number");var b,c,d,e;0===a?(d=c=0,b=-Infinity===1/a?1:0):(b=0>a,a=Math.abs(a),a>=Math.pow(2,-1022)?(d=Math.min(Math.floor(Math.log(a)/Math.LN2),1023),c=d+1023,d=Math.round(a*Math.pow(2,52-d)-Math.pow(2,52))):(c=0,d=Math.round(a/Math.pow(2,-1074))));e=[];for(a=52;a;--a)e.push(d%2?1:0),d=Math.floor(d/2);for(a=11;a;--a)e.push(c%2?1:0),c=Math.floor(c/2);e.push(b?1:0);e.reverse();b=e.join("");c="";for(a=0;64>a;a+=8)d=parseInt(b.substr(a,8),2).toString(16),1===d.length&&
+	(d="0"+d),c+=d;return c.toLowerCase()}var Bd=/^-?\d{1,10}$/;function vd(a){return Bd.test(a)&&(a=Number(a),-2147483648<=a&&2147483647>=a)?a:null}function gc(a){try{a()}catch(b){setTimeout(function(){S("Exception was thrown by user callback.",b.stack||"");throw b;},Math.floor(0))}}function T(a,b){if(r(a)){var c=Array.prototype.slice.call(arguments,1).slice();gc(function(){a.apply(null,c)})}};function Cd(a){var b={},c={},d={},e="";try{var f=a.split("."),b=Rb(kd(f[0])||""),c=Rb(kd(f[1])||""),e=f[2],d=c.d||{};delete c.d}catch(g){}return{mh:b,Ec:c,data:d,bh:e}}function Dd(a){a=Cd(a).Ec;return"object"===typeof a&&a.hasOwnProperty("iat")?z(a,"iat"):null}function Ed(a){a=Cd(a);var b=a.Ec;return!!a.bh&&!!b&&"object"===typeof b&&b.hasOwnProperty("iat")};function Fd(a){this.Y=a;this.g=a.n.g}function Gd(a,b,c,d){var e=[],f=[];Ma(b,function(b){"child_changed"===b.type&&a.g.Dd(b.Oe,b.Na)&&f.push(new J("child_moved",b.Na,b.Za))});Hd(a,e,"child_removed",b,d,c);Hd(a,e,"child_added",b,d,c);Hd(a,e,"child_moved",f,d,c);Hd(a,e,"child_changed",b,d,c);Hd(a,e,ic,b,d,c);return e}function Hd(a,b,c,d,e,f){d=Na(d,function(a){return a.type===c});Va(d,u(a.qg,a));Ma(d,function(c){var d=Id(a,c,f);Ma(e,function(e){e.Qf(c.type)&&b.push(e.createEvent(d,a.Y))})})}
+	function Id(a,b,c){"value"!==b.type&&"child_removed"!==b.type&&(b.Td=c.wf(b.Za,b.Na,a.g));return b}Fd.prototype.qg=function(a,b){if(null==a.Za||null==b.Za)throw jd("Should only compare child_ events.");return this.g.compare(new L(a.Za,a.Na),new L(b.Za,b.Na))};function Jd(){this.ib={}}
+	function Kd(a,b){var c=b.type,d=b.Za;O("child_added"==c||"child_changed"==c||"child_removed"==c,"Only child changes supported for tracking");O(".priority"!==d,"Only non-priority child changes can be tracked.");var e=z(a.ib,d);if(e){var f=e.type;if("child_added"==c&&"child_removed"==f)a.ib[d]=new J("child_changed",b.Na,d,e.Na);else if("child_removed"==c&&"child_added"==f)delete a.ib[d];else if("child_removed"==c&&"child_changed"==f)a.ib[d]=new J("child_removed",e.Oe,d);else if("child_changed"==c&&
+	"child_added"==f)a.ib[d]=new J("child_added",b.Na,d);else if("child_changed"==c&&"child_changed"==f)a.ib[d]=new J("child_changed",b.Na,d,e.Oe);else throw jd("Illegal combination of changes: "+b+" occurred after "+e);}else a.ib[d]=b};function Ld(a){this.g=a}h=Ld.prototype;h.H=function(a,b,c,d,e,f){O(a.Mc(this.g),"A node must be indexed if only a child is updated");e=a.T(b);if(e.S(d).ea(c.S(d))&&e.e()==c.e())return a;null!=f&&(c.e()?a.Fa(b)?Kd(f,new J("child_removed",e,b)):O(a.L(),"A child remove without an old child only makes sense on a leaf node"):e.e()?Kd(f,new J("child_added",c,b)):Kd(f,new J("child_changed",c,b,e)));return a.L()&&c.e()?a:a.W(b,c).pb(this.g)};
+	h.ya=function(a,b,c){null!=c&&(a.L()||a.R(R,function(a,e){b.Fa(a)||Kd(c,new J("child_removed",e,a))}),b.L()||b.R(R,function(b,e){if(a.Fa(b)){var f=a.T(b);f.ea(e)||Kd(c,new J("child_changed",e,b,f))}else Kd(c,new J("child_added",e,b))}));return b.pb(this.g)};h.ia=function(a,b){return a.e()?H:a.ia(b)};h.Ra=function(){return!1};h.$b=function(){return this};function Md(a){this.Fe=new Ld(a.g);this.g=a.g;var b;a.oa?(b=Nd(a),b=a.g.Sc(Od(a),b)):b=a.g.Wc();this.gd=b;a.ra?(b=Pd(a),a=a.g.Sc(Rd(a),b)):a=a.g.Tc();this.Jc=a}h=Md.prototype;h.matches=function(a){return 0>=this.g.compare(this.gd,a)&&0>=this.g.compare(a,this.Jc)};h.H=function(a,b,c,d,e,f){this.matches(new L(b,c))||(c=H);return this.Fe.H(a,b,c,d,e,f)};
+	h.ya=function(a,b,c){b.L()&&(b=H);var d=b.pb(this.g),d=d.ia(H),e=this;b.R(R,function(a,b){e.matches(new L(a,b))||(d=d.W(a,H))});return this.Fe.ya(a,d,c)};h.ia=function(a){return a};h.Ra=function(){return!0};h.$b=function(){return this.Fe};function Sd(a){this.ua=new Md(a);this.g=a.g;O(a.la,"Only valid if limit has been set");this.ma=a.ma;this.Nb=!Td(a)}h=Sd.prototype;h.H=function(a,b,c,d,e,f){this.ua.matches(new L(b,c))||(c=H);return a.T(b).ea(c)?a:a.Hb()<this.ma?this.ua.$b().H(a,b,c,d,e,f):Ud(this,a,b,c,e,f)};
+	h.ya=function(a,b,c){var d;if(b.L()||b.e())d=H.pb(this.g);else if(2*this.ma<b.Hb()&&b.Mc(this.g)){d=H.pb(this.g);b=this.Nb?b.dc(this.ua.Jc,this.g):b.bc(this.ua.gd,this.g);for(var e=0;0<b.Ta.length&&e<this.ma;){var f=Ic(b),g;if(g=this.Nb?0>=this.g.compare(this.ua.gd,f):0>=this.g.compare(f,this.ua.Jc))d=d.W(f.name,f.U),e++;else break}}else{d=b.pb(this.g);d=d.ia(H);var k,m,l;if(this.Nb){b=d.xf(this.g);k=this.ua.Jc;m=this.ua.gd;var t=Vd(this.g);l=function(a,b){return t(b,a)}}else b=d.ac(this.g),k=this.ua.gd,
+	m=this.ua.Jc,l=Vd(this.g);for(var e=0,A=!1;0<b.Ta.length;)f=Ic(b),!A&&0>=l(k,f)&&(A=!0),(g=A&&e<this.ma&&0>=l(f,m))?e++:d=d.W(f.name,H)}return this.ua.$b().ya(a,d,c)};h.ia=function(a){return a};h.Ra=function(){return!0};h.$b=function(){return this.ua.$b()};
+	function Ud(a,b,c,d,e,f){var g;if(a.Nb){var k=Vd(a.g);g=function(a,b){return k(b,a)}}else g=Vd(a.g);O(b.Hb()==a.ma,"");var m=new L(c,d),l=a.Nb?Wd(b,a.g):Xd(b,a.g),t=a.ua.matches(m);if(b.Fa(c)){for(var A=b.T(c),l=e.Ce(a.g,l,a.Nb);null!=l&&(l.name==c||b.Fa(l.name));)l=e.Ce(a.g,l,a.Nb);e=null==l?1:g(l,m);if(t&&!d.e()&&0<=e)return null!=f&&Kd(f,new J("child_changed",d,c,A)),b.W(c,d);null!=f&&Kd(f,new J("child_removed",A,c));b=b.W(c,H);return null!=l&&a.ua.matches(l)?(null!=f&&Kd(f,new J("child_added",
+	l.U,l.name)),b.W(l.name,l.U)):b}return d.e()?b:t&&0<=g(l,m)?(null!=f&&(Kd(f,new J("child_removed",l.U,l.name)),Kd(f,new J("child_added",d,c))),b.W(c,d).W(l.name,H)):b};function Yd(a,b){this.me=a;this.og=b}function Zd(a){this.X=a}
+	Zd.prototype.gb=function(a,b,c,d){var e=new Jd,f;if(b.type===Bc)b.source.Ae?c=$d(this,a,b.path,b.Ja,c,d,e):(O(b.source.tf,"Unknown source."),f=b.source.ef||mc(a.w())&&!b.path.e(),c=ae(this,a,b.path,b.Ja,c,d,f,e));else if(b.type===be)b.source.Ae?c=ce(this,a,b.path,b.children,c,d,e):(O(b.source.tf,"Unknown source."),f=b.source.ef||mc(a.w()),c=de(this,a,b.path,b.children,c,d,f,e));else if(b.type===ee)if(b.Yd)if(b=b.path,null!=c.xc(b))c=a;else{f=new Vb(c,a,d);d=a.Q.j();if(b.e()||".priority"===K(b))lc(a.w())?
+	b=c.Aa(Yb(a)):(b=a.w().j(),O(b instanceof fe,"serverChildren would be complete if leaf node"),b=c.Cc(b)),b=this.X.ya(d,b,e);else{var g=K(b),k=c.Bc(g,a.w());null==k&&Wb(a.w(),g)&&(k=d.T(g));b=null!=k?this.X.H(d,g,k,N(b),f,e):a.Q.j().Fa(g)?this.X.H(d,g,H,N(b),f,e):d;b.e()&&lc(a.w())&&(d=c.Aa(Yb(a)),d.L()&&(b=this.X.ya(b,d,e)))}d=lc(a.w())||null!=c.xc(M);c=ge(a,b,d,this.X.Ra())}else c=he(this,a,b.path,b.Ub,c,d,e);else if(b.type===Dc)d=b.path,b=a.w(),f=b.j(),g=b.ga||d.e(),c=ie(this,new je(a.Q,new Xb(f,
+	g,b.Yb)),d,c,Ub,e);else throw jd("Unknown operation type: "+b.type);e=qa(e.ib);d=c;b=d.Q;b.ga&&(f=b.j().L()||b.j().e(),g=ke(a),(0<e.length||!a.Q.ga||f&&!b.j().ea(g)||!b.j().C().ea(g.C()))&&e.push(hc(ke(d))));return new Yd(c,e)};
+	function ie(a,b,c,d,e,f){var g=b.Q;if(null!=d.xc(c))return b;var k;if(c.e())O(lc(b.w()),"If change path is empty, we must have complete server data"),mc(b.w())?(e=Yb(b),d=d.Cc(e instanceof fe?e:H)):d=d.Aa(Yb(b)),f=a.X.ya(b.Q.j(),d,f);else{var m=K(c);if(".priority"==m)O(1==le(c),"Can't have a priority with additional path components"),f=g.j(),k=b.w().j(),d=d.nd(c,f,k),f=null!=d?a.X.ia(f,d):g.j();else{var l=N(c);Wb(g,m)?(k=b.w().j(),d=d.nd(c,g.j(),k),d=null!=d?g.j().T(m).H(l,d):g.j().T(m)):d=d.Bc(m,
+	b.w());f=null!=d?a.X.H(g.j(),m,d,l,e,f):g.j()}}return ge(b,f,g.ga||c.e(),a.X.Ra())}function ae(a,b,c,d,e,f,g,k){var m=b.w();g=g?a.X:a.X.$b();if(c.e())d=g.ya(m.j(),d,null);else if(g.Ra()&&!m.Yb)d=m.j().H(c,d),d=g.ya(m.j(),d,null);else{var l=K(c);if(!nc(m,c)&&1<le(c))return b;var t=N(c);d=m.j().T(l).H(t,d);d=".priority"==l?g.ia(m.j(),d):g.H(m.j(),l,d,t,Ub,null)}m=m.ga||c.e();b=new je(b.Q,new Xb(d,m,g.Ra()));return ie(a,b,c,e,new Vb(e,b,f),k)}
+	function $d(a,b,c,d,e,f,g){var k=b.Q;e=new Vb(e,b,f);if(c.e())g=a.X.ya(b.Q.j(),d,g),a=ge(b,g,!0,a.X.Ra());else if(f=K(c),".priority"===f)g=a.X.ia(b.Q.j(),d),a=ge(b,g,k.ga,k.Yb);else{c=N(c);var m=k.j().T(f);if(!c.e()){var l=e.uf(f);d=null!=l?".priority"===me(c)&&l.S(c.parent()).e()?l:l.H(c,d):H}m.ea(d)?a=b:(g=a.X.H(k.j(),f,d,c,e,g),a=ge(b,g,k.ga,a.X.Ra()))}return a}
+	function ce(a,b,c,d,e,f,g){var k=b;ne(d,function(d,l){var t=c.o(d);Wb(b.Q,K(t))&&(k=$d(a,k,t,l,e,f,g))});ne(d,function(d,l){var t=c.o(d);Wb(b.Q,K(t))||(k=$d(a,k,t,l,e,f,g))});return k}function oe(a,b){ne(b,function(b,d){a=a.H(b,d)});return a}
+	function de(a,b,c,d,e,f,g,k){if(b.w().j().e()&&!lc(b.w()))return b;var m=b;c=c.e()?d:pe(qe,c,d);var l=b.w().j();c.children.ka(function(c,d){if(l.Fa(c)){var I=b.w().j().T(c),I=oe(I,d);m=ae(a,m,new P(c),I,e,f,g,k)}});c.children.ka(function(c,d){var I=!Wb(b.w(),c)&&null==d.value;l.Fa(c)||I||(I=b.w().j().T(c),I=oe(I,d),m=ae(a,m,new P(c),I,e,f,g,k))});return m}
+	function he(a,b,c,d,e,f,g){if(null!=e.xc(c))return b;var k=mc(b.w()),m=b.w();if(null!=d.value){if(c.e()&&m.ga||nc(m,c))return ae(a,b,c,m.j().S(c),e,f,k,g);if(c.e()){var l=qe;m.j().R(re,function(a,b){l=l.set(new P(a),b)});return de(a,b,c,l,e,f,k,g)}return b}l=qe;ne(d,function(a){var b=c.o(a);nc(m,b)&&(l=l.set(a,m.j().S(b)))});return de(a,b,c,l,e,f,k,g)};function se(){}var te={};function Vd(a){return u(a.compare,a)}se.prototype.Dd=function(a,b){return 0!==this.compare(new L("[MIN_NAME]",a),new L("[MIN_NAME]",b))};se.prototype.Wc=function(){return ue};function ve(a){O(!a.e()&&".priority"!==K(a),"Can't create PathIndex with empty path or .priority key");this.gc=a}ka(ve,se);h=ve.prototype;h.Lc=function(a){return!a.S(this.gc).e()};h.compare=function(a,b){var c=a.U.S(this.gc),d=b.U.S(this.gc),c=c.Gc(d);return 0===c?yc(a.name,b.name):c};
+	h.Sc=function(a,b){var c=Q(a),c=H.H(this.gc,c);return new L(b,c)};h.Tc=function(){var a=H.H(this.gc,we);return new L("[MAX_NAME]",a)};h.toString=function(){return this.gc.slice().join("/")};function xe(){}ka(xe,se);h=xe.prototype;h.compare=function(a,b){var c=a.U.C(),d=b.U.C(),c=c.Gc(d);return 0===c?yc(a.name,b.name):c};h.Lc=function(a){return!a.C().e()};h.Dd=function(a,b){return!a.C().ea(b.C())};h.Wc=function(){return ue};h.Tc=function(){return new L("[MAX_NAME]",new Yc("[PRIORITY-POST]",we))};
+	h.Sc=function(a,b){var c=Q(a);return new L(b,new Yc("[PRIORITY-POST]",c))};h.toString=function(){return".priority"};var R=new xe;function ye(){}ka(ye,se);h=ye.prototype;h.compare=function(a,b){return yc(a.name,b.name)};h.Lc=function(){throw jd("KeyIndex.isDefinedOn not expected to be called.");};h.Dd=function(){return!1};h.Wc=function(){return ue};h.Tc=function(){return new L("[MAX_NAME]",H)};h.Sc=function(a){O(q(a),"KeyIndex indexValue must always be a string.");return new L(a,H)};h.toString=function(){return".key"};
+	var re=new ye;function ze(){}ka(ze,se);h=ze.prototype;h.compare=function(a,b){var c=a.U.Gc(b.U);return 0===c?yc(a.name,b.name):c};h.Lc=function(){return!0};h.Dd=function(a,b){return!a.ea(b)};h.Wc=function(){return ue};h.Tc=function(){return Ae};h.Sc=function(a,b){var c=Q(a);return new L(b,c)};h.toString=function(){return".value"};var Be=new ze;function Ce(){this.Xb=this.ra=this.Pb=this.oa=this.la=!1;this.ma=0;this.Rb="";this.ic=null;this.Bb="";this.fc=null;this.zb="";this.g=R}var De=new Ce;function Td(a){return""===a.Rb?a.oa:"l"===a.Rb}function Od(a){O(a.oa,"Only valid if start has been set");return a.ic}function Nd(a){O(a.oa,"Only valid if start has been set");return a.Pb?a.Bb:"[MIN_NAME]"}function Rd(a){O(a.ra,"Only valid if end has been set");return a.fc}
+	function Pd(a){O(a.ra,"Only valid if end has been set");return a.Xb?a.zb:"[MAX_NAME]"}function Ee(a){var b=new Ce;b.la=a.la;b.ma=a.ma;b.oa=a.oa;b.ic=a.ic;b.Pb=a.Pb;b.Bb=a.Bb;b.ra=a.ra;b.fc=a.fc;b.Xb=a.Xb;b.zb=a.zb;b.g=a.g;return b}h=Ce.prototype;h.Le=function(a){var b=Ee(this);b.la=!0;b.ma=a;b.Rb="";return b};h.Me=function(a){var b=Ee(this);b.la=!0;b.ma=a;b.Rb="l";return b};h.Ne=function(a){var b=Ee(this);b.la=!0;b.ma=a;b.Rb="r";return b};
+	h.ce=function(a,b){var c=Ee(this);c.oa=!0;p(a)||(a=null);c.ic=a;null!=b?(c.Pb=!0,c.Bb=b):(c.Pb=!1,c.Bb="");return c};h.vd=function(a,b){var c=Ee(this);c.ra=!0;p(a)||(a=null);c.fc=a;p(b)?(c.Xb=!0,c.zb=b):(c.oh=!1,c.zb="");return c};function Fe(a,b){var c=Ee(a);c.g=b;return c}function Ge(a){var b={};a.oa&&(b.sp=a.ic,a.Pb&&(b.sn=a.Bb));a.ra&&(b.ep=a.fc,a.Xb&&(b.en=a.zb));if(a.la){b.l=a.ma;var c=a.Rb;""===c&&(c=Td(a)?"l":"r");b.vf=c}a.g!==R&&(b.i=a.g.toString());return b}
+	function He(a){return!(a.oa||a.ra||a.la)}function Ie(a){return He(a)&&a.g==R}function Je(a){var b={};if(Ie(a))return b;var c;a.g===R?c="$priority":a.g===Be?c="$value":a.g===re?c="$key":(O(a.g instanceof ve,"Unrecognized index type!"),c=a.g.toString());b.orderBy=G(c);a.oa&&(b.startAt=G(a.ic),a.Pb&&(b.startAt+=","+G(a.Bb)));a.ra&&(b.endAt=G(a.fc),a.Xb&&(b.endAt+=","+G(a.zb)));a.la&&(Td(a)?b.limitToFirst=a.ma:b.limitToLast=a.ma);return b}h.toString=function(){return G(Ge(this))};function Ke(a,b){this.Ed=a;this.hc=b}Ke.prototype.get=function(a){var b=z(this.Ed,a);if(!b)throw Error("No index defined for "+a);return b===te?null:b};function Le(a,b,c){var d=ma(a.Ed,function(d,f){var g=z(a.hc,f);O(g,"Missing index implementation for "+f);if(d===te){if(g.Lc(b.U)){for(var k=[],m=c.ac(wc),l=Ic(m);l;)l.name!=b.name&&k.push(l),l=Ic(m);k.push(b);return Me(k,Vd(g))}return te}g=c.get(b.name);k=d;g&&(k=k.remove(new L(b.name,g)));return k.Sa(b,b.U)});return new Ke(d,a.hc)}
+	function Ne(a,b,c){var d=ma(a.Ed,function(a){if(a===te)return a;var d=c.get(b.name);return d?a.remove(new L(b.name,d)):a});return new Ke(d,a.hc)}var Oe=new Ke({".priority":te},{".priority":R});function Yc(a,b){this.B=a;O(p(this.B)&&null!==this.B,"LeafNode shouldn't be created with null/undefined value.");this.ca=b||H;Pe(this.ca);this.Gb=null}var Qe=["object","boolean","number","string"];h=Yc.prototype;h.L=function(){return!0};h.C=function(){return this.ca};h.ia=function(a){return new Yc(this.B,a)};h.T=function(a){return".priority"===a?this.ca:H};h.S=function(a){return a.e()?this:".priority"===K(a)?this.ca:H};h.Fa=function(){return!1};h.wf=function(){return null};
+	h.W=function(a,b){return".priority"===a?this.ia(b):b.e()&&".priority"!==a?this:H.W(a,b).ia(this.ca)};h.H=function(a,b){var c=K(a);if(null===c)return b;if(b.e()&&".priority"!==c)return this;O(".priority"!==c||1===le(a),".priority must be the last token in a path");return this.W(c,H.H(N(a),b))};h.e=function(){return!1};h.Hb=function(){return 0};h.R=function(){return!1};h.J=function(a){return a&&!this.C().e()?{".value":this.Ea(),".priority":this.C().J()}:this.Ea()};
+	h.hash=function(){if(null===this.Gb){var a="";this.ca.e()||(a+="priority:"+Re(this.ca.J())+":");var b=typeof this.B,a=a+(b+":"),a="number"===b?a+Ad(this.B):a+this.B;this.Gb=ld(a)}return this.Gb};h.Ea=function(){return this.B};h.Gc=function(a){if(a===H)return 1;if(a instanceof fe)return-1;O(a.L(),"Unknown node type");var b=typeof a.B,c=typeof this.B,d=La(Qe,b),e=La(Qe,c);O(0<=d,"Unknown leaf type: "+b);O(0<=e,"Unknown leaf type: "+c);return d===e?"object"===c?0:this.B<a.B?-1:this.B===a.B?0:1:e-d};
+	h.pb=function(){return this};h.Mc=function(){return!0};h.ea=function(a){return a===this?!0:a.L()?this.B===a.B&&this.ca.ea(a.ca):!1};h.toString=function(){return G(this.J(!0))};function fe(a,b,c){this.m=a;(this.ca=b)&&Pe(this.ca);a.e()&&O(!this.ca||this.ca.e(),"An empty node cannot have a priority");this.Ab=c;this.Gb=null}h=fe.prototype;h.L=function(){return!1};h.C=function(){return this.ca||H};h.ia=function(a){return this.m.e()?this:new fe(this.m,a,this.Ab)};h.T=function(a){if(".priority"===a)return this.C();a=this.m.get(a);return null===a?H:a};h.S=function(a){var b=K(a);return null===b?this:this.T(b).S(N(a))};h.Fa=function(a){return null!==this.m.get(a)};
+	h.W=function(a,b){O(b,"We should always be passing snapshot nodes");if(".priority"===a)return this.ia(b);var c=new L(a,b),d,e;b.e()?(d=this.m.remove(a),c=Ne(this.Ab,c,this.m)):(d=this.m.Sa(a,b),c=Le(this.Ab,c,this.m));e=d.e()?H:this.ca;return new fe(d,e,c)};h.H=function(a,b){var c=K(a);if(null===c)return b;O(".priority"!==K(a)||1===le(a),".priority must be the last token in a path");var d=this.T(c).H(N(a),b);return this.W(c,d)};h.e=function(){return this.m.e()};h.Hb=function(){return this.m.count()};
+	var Se=/^(0|[1-9]\d*)$/;h=fe.prototype;h.J=function(a){if(this.e())return null;var b={},c=0,d=0,e=!0;this.R(R,function(f,g){b[f]=g.J(a);c++;e&&Se.test(f)?d=Math.max(d,Number(f)):e=!1});if(!a&&e&&d<2*c){var f=[],g;for(g in b)f[g]=b[g];return f}a&&!this.C().e()&&(b[".priority"]=this.C().J());return b};h.hash=function(){if(null===this.Gb){var a="";this.C().e()||(a+="priority:"+Re(this.C().J())+":");this.R(R,function(b,c){var d=c.hash();""!==d&&(a+=":"+b+":"+d)});this.Gb=""===a?"":ld(a)}return this.Gb};
+	h.wf=function(a,b,c){return(c=Te(this,c))?(a=Gc(c,new L(a,b)))?a.name:null:Gc(this.m,a)};function Wd(a,b){var c;c=(c=Te(a,b))?(c=c.Vc())&&c.name:a.m.Vc();return c?new L(c,a.m.get(c)):null}function Xd(a,b){var c;c=(c=Te(a,b))?(c=c.jc())&&c.name:a.m.jc();return c?new L(c,a.m.get(c)):null}h.R=function(a,b){var c=Te(this,a);return c?c.ka(function(a){return b(a.name,a.U)}):this.m.ka(b)};h.ac=function(a){return this.bc(a.Wc(),a)};
+	h.bc=function(a,b){var c=Te(this,b);if(c)return c.bc(a,function(a){return a});for(var c=this.m.bc(a.name,wc),d=Jc(c);null!=d&&0>b.compare(d,a);)Ic(c),d=Jc(c);return c};h.xf=function(a){return this.dc(a.Tc(),a)};h.dc=function(a,b){var c=Te(this,b);if(c)return c.dc(a,function(a){return a});for(var c=this.m.dc(a.name,wc),d=Jc(c);null!=d&&0<b.compare(d,a);)Ic(c),d=Jc(c);return c};h.Gc=function(a){return this.e()?a.e()?0:-1:a.L()||a.e()?1:a===we?-1:0};
+	h.pb=function(a){if(a===re||sa(this.Ab.hc,a.toString()))return this;var b=this.Ab,c=this.m;O(a!==re,"KeyIndex always exists and isn't meant to be added to the IndexMap.");for(var d=[],e=!1,c=c.ac(wc),f=Ic(c);f;)e=e||a.Lc(f.U),d.push(f),f=Ic(c);d=e?Me(d,Vd(a)):te;e=a.toString();c=wa(b.hc);c[e]=a;a=wa(b.Ed);a[e]=d;return new fe(this.m,this.ca,new Ke(a,c))};h.Mc=function(a){return a===re||sa(this.Ab.hc,a.toString())};
+	h.ea=function(a){if(a===this)return!0;if(a.L())return!1;if(this.C().ea(a.C())&&this.m.count()===a.m.count()){var b=this.ac(R);a=a.ac(R);for(var c=Ic(b),d=Ic(a);c&&d;){if(c.name!==d.name||!c.U.ea(d.U))return!1;c=Ic(b);d=Ic(a)}return null===c&&null===d}return!1};function Te(a,b){return b===re?null:a.Ab.get(b.toString())}h.toString=function(){return G(this.J(!0))};function Q(a,b){if(null===a)return H;var c=null;"object"===typeof a&&".priority"in a?c=a[".priority"]:"undefined"!==typeof b&&(c=b);O(null===c||"string"===typeof c||"number"===typeof c||"object"===typeof c&&".sv"in c,"Invalid priority type found: "+typeof c);"object"===typeof a&&".value"in a&&null!==a[".value"]&&(a=a[".value"]);if("object"!==typeof a||".sv"in a)return new Yc(a,Q(c));if(a instanceof Array){var d=H,e=a;v(e,function(a,b){if(y(e,b)&&"."!==b.substring(0,1)){var c=Q(a);if(c.L()||!c.e())d=
+	d.W(b,c)}});return d.ia(Q(c))}var f=[],g=!1,k=a;Fb(k,function(a){if("string"!==typeof a||"."!==a.substring(0,1)){var b=Q(k[a]);b.e()||(g=g||!b.C().e(),f.push(new L(a,b)))}});if(0==f.length)return H;var m=Me(f,xc,function(a){return a.name},zc);if(g){var l=Me(f,Vd(R));return new fe(m,Q(c),new Ke({".priority":l},{".priority":R}))}return new fe(m,Q(c),Oe)}var Ue=Math.log(2);
+	function Ve(a){this.count=parseInt(Math.log(a+1)/Ue,10);this.nf=this.count-1;this.ng=a+1&parseInt(Array(this.count+1).join("1"),2)}function We(a){var b=!(a.ng&1<<a.nf);a.nf--;return b}
+	function Me(a,b,c,d){function e(b,d){var f=d-b;if(0==f)return null;if(1==f){var l=a[b],t=c?c(l):l;return new Kc(t,l.U,!1,null,null)}var l=parseInt(f/2,10)+b,f=e(b,l),A=e(l+1,d),l=a[l],t=c?c(l):l;return new Kc(t,l.U,!1,f,A)}a.sort(b);var f=function(b){function d(b,g){var k=t-b,A=t;t-=b;var A=e(k+1,A),k=a[k],I=c?c(k):k,A=new Kc(I,k.U,g,null,A);f?f.left=A:l=A;f=A}for(var f=null,l=null,t=a.length,A=0;A<b.count;++A){var I=We(b),Qd=Math.pow(2,b.count-(A+1));I?d(Qd,!1):(d(Qd,!1),d(Qd,!0))}return l}(new Ve(a.length));
+	return null!==f?new Ec(d||b,f):new Ec(d||b)}function Re(a){return"number"===typeof a?"number:"+Ad(a):"string:"+a}function Pe(a){if(a.L()){var b=a.J();O("string"===typeof b||"number"===typeof b||"object"===typeof b&&y(b,".sv"),"Priority must be a string or number.")}else O(a===we||a.e(),"priority of unexpected type.");O(a===we||a.C().e(),"Priority nodes can't have a priority of their own.")}var H=new fe(new Ec(zc),null,Oe);function Xe(){fe.call(this,new Ec(zc),H,Oe)}ka(Xe,fe);h=Xe.prototype;
+	h.Gc=function(a){return a===this?0:1};h.ea=function(a){return a===this};h.C=function(){return this};h.T=function(){return H};h.e=function(){return!1};var we=new Xe,ue=new L("[MIN_NAME]",H),Ae=new L("[MAX_NAME]",we);function je(a,b){this.Q=a;this.ae=b}function ge(a,b,c,d){return new je(new Xb(b,c,d),a.ae)}function ke(a){return a.Q.ga?a.Q.j():null}je.prototype.w=function(){return this.ae};function Yb(a){return a.ae.ga?a.ae.j():null};function Ye(a,b){this.Y=a;var c=a.n,d=new Ld(c.g),c=He(c)?new Ld(c.g):c.la?new Sd(c):new Md(c);this.Nf=new Zd(c);var e=b.w(),f=b.Q,g=d.ya(H,e.j(),null),k=c.ya(H,f.j(),null);this.Oa=new je(new Xb(k,f.ga,c.Ra()),new Xb(g,e.ga,d.Ra()));this.$a=[];this.ug=new Fd(a)}function Ze(a){return a.Y}h=Ye.prototype;h.w=function(){return this.Oa.w().j()};h.kb=function(a){var b=Yb(this.Oa);return b&&(He(this.Y.n)||!a.e()&&!b.T(K(a)).e())?b.S(a):null};h.e=function(){return 0===this.$a.length};h.Tb=function(a){this.$a.push(a)};
+	h.nb=function(a,b){var c=[];if(b){O(null==a,"A cancel should cancel all event registrations.");var d=this.Y.path;Ma(this.$a,function(a){(a=a.lf(b,d))&&c.push(a)})}if(a){for(var e=[],f=0;f<this.$a.length;++f){var g=this.$a[f];if(!g.matches(a))e.push(g);else if(a.yf()){e=e.concat(this.$a.slice(f+1));break}}this.$a=e}else this.$a=[];return c};
+	h.gb=function(a,b,c){a.type===be&&null!==a.source.Lb&&(O(Yb(this.Oa),"We should always have a full cache before handling merges"),O(ke(this.Oa),"Missing event cache, even though we have a server cache"));var d=this.Oa;a=this.Nf.gb(d,a,b,c);b=this.Nf;c=a.me;O(c.Q.j().Mc(b.X.g),"Event snap not indexed");O(c.w().j().Mc(b.X.g),"Server snap not indexed");O(lc(a.me.w())||!lc(d.w()),"Once a server snap is complete, it should never go back");this.Oa=a.me;return $e(this,a.og,a.me.Q.j(),null)};
+	function af(a,b){var c=a.Oa.Q,d=[];c.j().L()||c.j().R(R,function(a,b){d.push(new J("child_added",b,a))});c.ga&&d.push(hc(c.j()));return $e(a,d,c.j(),b)}function $e(a,b,c,d){return Gd(a.ug,b,c,d?[d]:a.$a)};function bf(a,b,c){this.type=be;this.source=a;this.path=b;this.children=c}bf.prototype.$c=function(a){if(this.path.e())return a=this.children.subtree(new P(a)),a.e()?null:a.value?new Ac(this.source,M,a.value):new bf(this.source,M,a);O(K(this.path)===a,"Can't get a merge for a child not on the path of the operation");return new bf(this.source,N(this.path),this.children)};bf.prototype.toString=function(){return"Operation("+this.path+": "+this.source.toString()+" merge: "+this.children.toString()+")"};function cf(a,b){this.f=pd("p:rest:");this.G=a;this.Kb=b;this.Ca=null;this.ba={}}function df(a,b){if(p(b))return"tag$"+b;O(Ie(a.n),"should have a tag if it's not a default query.");return a.path.toString()}h=cf.prototype;
+	h.Cf=function(a,b,c,d){var e=a.path.toString();this.f("Listen called for "+e+" "+a.wa());var f=df(a,c),g={};this.ba[f]=g;a=Je(a.n);var k=this;ef(this,e+".json",a,function(a,b){var t=b;404===a&&(a=t=null);null===a&&k.Kb(e,t,!1,c);z(k.ba,f)===g&&d(a?401==a?"permission_denied":"rest_error:"+a:"ok",null)})};h.$f=function(a,b){var c=df(a,b);delete this.ba[c]};h.O=function(a,b){this.Ca=a;var c=Cd(a),d=c.data,c=c.Ec&&c.Ec.exp;b&&b("ok",{auth:d,expires:c})};h.je=function(a){this.Ca=null;a("ok",null)};
+	h.Qe=function(){};h.Gf=function(){};h.Md=function(){};h.put=function(){};h.Df=function(){};h.Ye=function(){};
+	function ef(a,b,c,d){c=c||{};c.format="export";a.Ca&&(c.auth=a.Ca);var e=(a.G.ob?"https://":"http://")+a.G.host+b+"?"+Ib(c);a.f("Sending REST request for "+e);var f=new XMLHttpRequest;f.onreadystatechange=function(){if(d&&4===f.readyState){a.f("REST Response for "+e+" received. status:",f.status,"response:",f.responseText);var b=null;if(200<=f.status&&300>f.status){try{b=Rb(f.responseText)}catch(c){S("Failed to parse JSON response for "+e+": "+f.responseText)}d(null,b)}else 401!==f.status&&404!==
+	f.status&&S("Got unsuccessful REST response for "+e+" Status: "+f.status),d(f.status);d=null}};f.open("GET",e,!0);f.send()};function ff(a){O(da(a)&&0<a.length,"Requires a non-empty array");this.fg=a;this.Rc={}}ff.prototype.ie=function(a,b){var c;c=this.Rc[a]||[];var d=c.length;if(0<d){for(var e=Array(d),f=0;f<d;f++)e[f]=c[f];c=e}else c=[];for(d=0;d<c.length;d++)c[d].Dc.apply(c[d].Qa,Array.prototype.slice.call(arguments,1))};ff.prototype.Ib=function(a,b,c){gf(this,a);this.Rc[a]=this.Rc[a]||[];this.Rc[a].push({Dc:b,Qa:c});(a=this.Ee(a))&&b.apply(c,a)};
+	ff.prototype.mc=function(a,b,c){gf(this,a);a=this.Rc[a]||[];for(var d=0;d<a.length;d++)if(a[d].Dc===b&&(!c||c===a[d].Qa)){a.splice(d,1);break}};function gf(a,b){O(Ra(a.fg,function(a){return a===b}),"Unknown event: "+b)};var hf=function(){var a=0,b=[];return function(c){var d=c===a;a=c;for(var e=Array(8),f=7;0<=f;f--)e[f]="-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz".charAt(c%64),c=Math.floor(c/64);O(0===c,"Cannot push at time == 0");c=e.join("");if(d){for(f=11;0<=f&&63===b[f];f--)b[f]=0;b[f]++}else for(f=0;12>f;f++)b[f]=Math.floor(64*Math.random());for(f=0;12>f;f++)c+="-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz".charAt(b[f]);O(20===c.length,"nextPushId: Length should be 20.");
+	return c}}();function jf(){ff.call(this,["online"]);this.oc=!0;if("undefined"!==typeof window&&"undefined"!==typeof window.addEventListener){var a=this;window.addEventListener("online",function(){a.oc||(a.oc=!0,a.ie("online",!0))},!1);window.addEventListener("offline",function(){a.oc&&(a.oc=!1,a.ie("online",!1))},!1)}}ka(jf,ff);jf.prototype.Ee=function(a){O("online"===a,"Unknown event type: "+a);return[this.oc]};ba(jf);function kf(){ff.call(this,["visible"]);var a,b;"undefined"!==typeof document&&"undefined"!==typeof document.addEventListener&&("undefined"!==typeof document.hidden?(b="visibilitychange",a="hidden"):"undefined"!==typeof document.mozHidden?(b="mozvisibilitychange",a="mozHidden"):"undefined"!==typeof document.msHidden?(b="msvisibilitychange",a="msHidden"):"undefined"!==typeof document.webkitHidden&&(b="webkitvisibilitychange",a="webkitHidden"));this.Sb=!0;if(b){var c=this;document.addEventListener(b,
+	function(){var b=!document[a];b!==c.Sb&&(c.Sb=b,c.ie("visible",b))},!1)}}ka(kf,ff);kf.prototype.Ee=function(a){O("visible"===a,"Unknown event type: "+a);return[this.Sb]};ba(kf);function P(a,b){if(1==arguments.length){this.u=a.split("/");for(var c=0,d=0;d<this.u.length;d++)0<this.u[d].length&&(this.u[c]=this.u[d],c++);this.u.length=c;this.aa=0}else this.u=a,this.aa=b}function lf(a,b){var c=K(a);if(null===c)return b;if(c===K(b))return lf(N(a),N(b));throw Error("INTERNAL ERROR: innerPath ("+b+") is not within outerPath ("+a+")");}
+	function mf(a,b){for(var c=a.slice(),d=b.slice(),e=0;e<c.length&&e<d.length;e++){var f=yc(c[e],d[e]);if(0!==f)return f}return c.length===d.length?0:c.length<d.length?-1:1}function K(a){return a.aa>=a.u.length?null:a.u[a.aa]}function le(a){return a.u.length-a.aa}function N(a){var b=a.aa;b<a.u.length&&b++;return new P(a.u,b)}function me(a){return a.aa<a.u.length?a.u[a.u.length-1]:null}h=P.prototype;
+	h.toString=function(){for(var a="",b=this.aa;b<this.u.length;b++)""!==this.u[b]&&(a+="/"+this.u[b]);return a||"/"};h.slice=function(a){return this.u.slice(this.aa+(a||0))};h.parent=function(){if(this.aa>=this.u.length)return null;for(var a=[],b=this.aa;b<this.u.length-1;b++)a.push(this.u[b]);return new P(a,0)};
+	h.o=function(a){for(var b=[],c=this.aa;c<this.u.length;c++)b.push(this.u[c]);if(a instanceof P)for(c=a.aa;c<a.u.length;c++)b.push(a.u[c]);else for(a=a.split("/"),c=0;c<a.length;c++)0<a[c].length&&b.push(a[c]);return new P(b,0)};h.e=function(){return this.aa>=this.u.length};h.ea=function(a){if(le(this)!==le(a))return!1;for(var b=this.aa,c=a.aa;b<=this.u.length;b++,c++)if(this.u[b]!==a.u[c])return!1;return!0};
+	h.contains=function(a){var b=this.aa,c=a.aa;if(le(this)>le(a))return!1;for(;b<this.u.length;){if(this.u[b]!==a.u[c])return!1;++b;++c}return!0};var M=new P("");function nf(a,b){this.Ua=a.slice();this.Ka=Math.max(1,this.Ua.length);this.pf=b;for(var c=0;c<this.Ua.length;c++)this.Ka+=Pb(this.Ua[c]);of(this)}nf.prototype.push=function(a){0<this.Ua.length&&(this.Ka+=1);this.Ua.push(a);this.Ka+=Pb(a);of(this)};nf.prototype.pop=function(){var a=this.Ua.pop();this.Ka-=Pb(a);0<this.Ua.length&&--this.Ka};
+	function of(a){if(768<a.Ka)throw Error(a.pf+"has a key path longer than 768 bytes ("+a.Ka+").");if(32<a.Ua.length)throw Error(a.pf+"path specified exceeds the maximum depth that can be written (32) or object contains a cycle "+pf(a));}function pf(a){return 0==a.Ua.length?"":"in property '"+a.Ua.join(".")+"'"};function qf(a,b){this.value=a;this.children=b||rf}var rf=new Ec(function(a,b){return a===b?0:a<b?-1:1});function sf(a){var b=qe;v(a,function(a,d){b=b.set(new P(d),a)});return b}h=qf.prototype;h.e=function(){return null===this.value&&this.children.e()};function tf(a,b,c){if(null!=a.value&&c(a.value))return{path:M,value:a.value};if(b.e())return null;var d=K(b);a=a.children.get(d);return null!==a?(b=tf(a,N(b),c),null!=b?{path:(new P(d)).o(b.path),value:b.value}:null):null}
+	function uf(a,b){return tf(a,b,function(){return!0})}h.subtree=function(a){if(a.e())return this;var b=this.children.get(K(a));return null!==b?b.subtree(N(a)):qe};h.set=function(a,b){if(a.e())return new qf(b,this.children);var c=K(a),d=(this.children.get(c)||qe).set(N(a),b),c=this.children.Sa(c,d);return new qf(this.value,c)};
+	h.remove=function(a){if(a.e())return this.children.e()?qe:new qf(null,this.children);var b=K(a),c=this.children.get(b);return c?(a=c.remove(N(a)),b=a.e()?this.children.remove(b):this.children.Sa(b,a),null===this.value&&b.e()?qe:new qf(this.value,b)):this};h.get=function(a){if(a.e())return this.value;var b=this.children.get(K(a));return b?b.get(N(a)):null};
+	function pe(a,b,c){if(b.e())return c;var d=K(b);b=pe(a.children.get(d)||qe,N(b),c);d=b.e()?a.children.remove(d):a.children.Sa(d,b);return new qf(a.value,d)}function vf(a,b){return wf(a,M,b)}function wf(a,b,c){var d={};a.children.ka(function(a,f){d[a]=wf(f,b.o(a),c)});return c(b,a.value,d)}function xf(a,b,c){return yf(a,b,M,c)}function yf(a,b,c,d){var e=a.value?d(c,a.value):!1;if(e)return e;if(b.e())return null;e=K(b);return(a=a.children.get(e))?yf(a,N(b),c.o(e),d):null}
+	function zf(a,b,c){Af(a,b,M,c)}function Af(a,b,c,d){if(b.e())return a;a.value&&d(c,a.value);var e=K(b);return(a=a.children.get(e))?Af(a,N(b),c.o(e),d):qe}function ne(a,b){Bf(a,M,b)}function Bf(a,b,c){a.children.ka(function(a,e){Bf(e,b.o(a),c)});a.value&&c(b,a.value)}function Cf(a,b){a.children.ka(function(a,d){d.value&&b(a,d.value)})}var qe=new qf(null);qf.prototype.toString=function(){var a={};ne(this,function(b,c){a[b.toString()]=c.toString()});return G(a)};function Df(a,b,c){this.type=ee;this.source=Ef;this.path=a;this.Ub=b;this.Yd=c}Df.prototype.$c=function(a){if(this.path.e()){if(null!=this.Ub.value)return O(this.Ub.children.e(),"affectedTree should not have overlapping affected paths."),this;a=this.Ub.subtree(new P(a));return new Df(M,a,this.Yd)}O(K(this.path)===a,"operationForChild called for unrelated child.");return new Df(N(this.path),this.Ub,this.Yd)};
+	Df.prototype.toString=function(){return"Operation("+this.path+": "+this.source.toString()+" ack write revert="+this.Yd+" affectedTree="+this.Ub+")"};var Bc=0,be=1,ee=2,Dc=3;function Ff(a,b,c,d){this.Ae=a;this.tf=b;this.Lb=c;this.ef=d;O(!d||b,"Tagged queries must be from server.")}var Ef=new Ff(!0,!1,null,!1),Gf=new Ff(!1,!0,null,!1);Ff.prototype.toString=function(){return this.Ae?"user":this.ef?"server(queryID="+this.Lb+")":"server"};function Hf(a){this.Z=a}var If=new Hf(new qf(null));function Jf(a,b,c){if(b.e())return new Hf(new qf(c));var d=uf(a.Z,b);if(null!=d){var e=d.path,d=d.value;b=lf(e,b);d=d.H(b,c);return new Hf(a.Z.set(e,d))}a=pe(a.Z,b,new qf(c));return new Hf(a)}function Kf(a,b,c){var d=a;Fb(c,function(a,c){d=Jf(d,b.o(a),c)});return d}Hf.prototype.Ud=function(a){if(a.e())return If;a=pe(this.Z,a,qe);return new Hf(a)};function Lf(a,b){var c=uf(a.Z,b);return null!=c?a.Z.get(c.path).S(lf(c.path,b)):null}
+	function Mf(a){var b=[],c=a.Z.value;null!=c?c.L()||c.R(R,function(a,c){b.push(new L(a,c))}):a.Z.children.ka(function(a,c){null!=c.value&&b.push(new L(a,c.value))});return b}function Nf(a,b){if(b.e())return a;var c=Lf(a,b);return null!=c?new Hf(new qf(c)):new Hf(a.Z.subtree(b))}Hf.prototype.e=function(){return this.Z.e()};Hf.prototype.apply=function(a){return Of(M,this.Z,a)};
+	function Of(a,b,c){if(null!=b.value)return c.H(a,b.value);var d=null;b.children.ka(function(b,f){".priority"===b?(O(null!==f.value,"Priority writes must always be leaf nodes"),d=f.value):c=Of(a.o(b),f,c)});c.S(a).e()||null===d||(c=c.H(a.o(".priority"),d));return c};function Pf(){this.V=If;this.pa=[];this.Pc=-1}function Qf(a,b){for(var c=0;c<a.pa.length;c++){var d=a.pa[c];if(d.md===b)return d}return null}h=Pf.prototype;
+	h.Ud=function(a){var b=Sa(this.pa,function(b){return b.md===a});O(0<=b,"removeWrite called with nonexistent writeId.");var c=this.pa[b];this.pa.splice(b,1);for(var d=c.visible,e=!1,f=this.pa.length-1;d&&0<=f;){var g=this.pa[f];g.visible&&(f>=b&&Rf(g,c.path)?d=!1:c.path.contains(g.path)&&(e=!0));f--}if(d){if(e)this.V=Sf(this.pa,Tf,M),this.Pc=0<this.pa.length?this.pa[this.pa.length-1].md:-1;else if(c.Ja)this.V=this.V.Ud(c.path);else{var k=this;v(c.children,function(a,b){k.V=k.V.Ud(c.path.o(b))})}return!0}return!1};
+	h.Aa=function(a,b,c,d){if(c||d){var e=Nf(this.V,a);return!d&&e.e()?b:d||null!=b||null!=Lf(e,M)?(e=Sf(this.pa,function(b){return(b.visible||d)&&(!c||!(0<=La(c,b.md)))&&(b.path.contains(a)||a.contains(b.path))},a),b=b||H,e.apply(b)):null}e=Lf(this.V,a);if(null!=e)return e;e=Nf(this.V,a);return e.e()?b:null!=b||null!=Lf(e,M)?(b=b||H,e.apply(b)):null};
+	h.Cc=function(a,b){var c=H,d=Lf(this.V,a);if(d)d.L()||d.R(R,function(a,b){c=c.W(a,b)});else if(b){var e=Nf(this.V,a);b.R(R,function(a,b){var d=Nf(e,new P(a)).apply(b);c=c.W(a,d)});Ma(Mf(e),function(a){c=c.W(a.name,a.U)})}else e=Nf(this.V,a),Ma(Mf(e),function(a){c=c.W(a.name,a.U)});return c};h.nd=function(a,b,c,d){O(c||d,"Either existingEventSnap or existingServerSnap must exist");a=a.o(b);if(null!=Lf(this.V,a))return null;a=Nf(this.V,a);return a.e()?d.S(b):a.apply(d.S(b))};
+	h.Bc=function(a,b,c){a=a.o(b);var d=Lf(this.V,a);return null!=d?d:Wb(c,b)?Nf(this.V,a).apply(c.j().T(b)):null};h.xc=function(a){return Lf(this.V,a)};h.qe=function(a,b,c,d,e,f){var g;a=Nf(this.V,a);g=Lf(a,M);if(null==g)if(null!=b)g=a.apply(b);else return[];g=g.pb(f);if(g.e()||g.L())return[];b=[];a=Vd(f);e=e?g.dc(c,f):g.bc(c,f);for(f=Ic(e);f&&b.length<d;)0!==a(f,c)&&b.push(f),f=Ic(e);return b};
+	function Rf(a,b){return a.Ja?a.path.contains(b):!!ta(a.children,function(c,d){return a.path.o(d).contains(b)})}function Tf(a){return a.visible}
+	function Sf(a,b,c){for(var d=If,e=0;e<a.length;++e){var f=a[e];if(b(f)){var g=f.path;if(f.Ja)c.contains(g)?(g=lf(c,g),d=Jf(d,g,f.Ja)):g.contains(c)&&(g=lf(g,c),d=Jf(d,M,f.Ja.S(g)));else if(f.children)if(c.contains(g))g=lf(c,g),d=Kf(d,g,f.children);else{if(g.contains(c))if(g=lf(g,c),g.e())d=Kf(d,M,f.children);else if(f=z(f.children,K(g)))f=f.S(N(g)),d=Jf(d,M,f)}else throw jd("WriteRecord should have .snap or .children");}}return d}function Uf(a,b){this.Qb=a;this.Z=b}h=Uf.prototype;
+	h.Aa=function(a,b,c){return this.Z.Aa(this.Qb,a,b,c)};h.Cc=function(a){return this.Z.Cc(this.Qb,a)};h.nd=function(a,b,c){return this.Z.nd(this.Qb,a,b,c)};h.xc=function(a){return this.Z.xc(this.Qb.o(a))};h.qe=function(a,b,c,d,e){return this.Z.qe(this.Qb,a,b,c,d,e)};h.Bc=function(a,b){return this.Z.Bc(this.Qb,a,b)};h.o=function(a){return new Uf(this.Qb.o(a),this.Z)};function Vf(){this.children={};this.pd=0;this.value=null}function Wf(a,b,c){this.Jd=a?a:"";this.Ha=b?b:null;this.A=c?c:new Vf}function Xf(a,b){for(var c=b instanceof P?b:new P(b),d=a,e;null!==(e=K(c));)d=new Wf(e,d,z(d.A.children,e)||new Vf),c=N(c);return d}h=Wf.prototype;h.Ea=function(){return this.A.value};function Yf(a,b){O("undefined"!==typeof b,"Cannot set value to undefined");a.A.value=b;Zf(a)}h.clear=function(){this.A.value=null;this.A.children={};this.A.pd=0;Zf(this)};
+	h.zd=function(){return 0<this.A.pd};h.e=function(){return null===this.Ea()&&!this.zd()};h.R=function(a){var b=this;v(this.A.children,function(c,d){a(new Wf(d,b,c))})};function $f(a,b,c,d){c&&!d&&b(a);a.R(function(a){$f(a,b,!0,d)});c&&d&&b(a)}function ag(a,b){for(var c=a.parent();null!==c&&!b(c);)c=c.parent()}h.path=function(){return new P(null===this.Ha?this.Jd:this.Ha.path()+"/"+this.Jd)};h.name=function(){return this.Jd};h.parent=function(){return this.Ha};
+	function Zf(a){if(null!==a.Ha){var b=a.Ha,c=a.Jd,d=a.e(),e=y(b.A.children,c);d&&e?(delete b.A.children[c],b.A.pd--,Zf(b)):d||e||(b.A.children[c]=a.A,b.A.pd++,Zf(b))}};var bg=/[\[\].#$\/\u0000-\u001F\u007F]/,cg=/[\[\].#$\u0000-\u001F\u007F]/,dg=/^[a-zA-Z][a-zA-Z._\-+]+$/;function eg(a){return q(a)&&0!==a.length&&!bg.test(a)}function fg(a){return null===a||q(a)||fa(a)&&!td(a)||ga(a)&&y(a,".sv")}function gg(a,b,c,d){d&&!p(b)||hg(E(a,1,d),b,c)}
+	function hg(a,b,c){c instanceof P&&(c=new nf(c,a));if(!p(b))throw Error(a+"contains undefined "+pf(c));if(r(b))throw Error(a+"contains a function "+pf(c)+" with contents: "+b.toString());if(td(b))throw Error(a+"contains "+b.toString()+" "+pf(c));if(q(b)&&b.length>10485760/3&&10485760<Pb(b))throw Error(a+"contains a string greater than 10485760 utf8 bytes "+pf(c)+" ('"+b.substring(0,50)+"...')");if(ga(b)){var d=!1,e=!1;Fb(b,function(b,g){if(".value"===b)d=!0;else if(".priority"!==b&&".sv"!==b&&(e=
+	!0,!eg(b)))throw Error(a+" contains an invalid key ("+b+") "+pf(c)+'.  Keys must be non-empty strings and can\'t contain ".", "#", "$", "/", "[", or "]"');c.push(b);hg(a,g,c);c.pop()});if(d&&e)throw Error(a+' contains ".value" child '+pf(c)+" in addition to actual children.");}}
+	function ig(a,b){var c,d;for(c=0;c<b.length;c++){d=b[c];for(var e=d.slice(),f=0;f<e.length;f++)if((".priority"!==e[f]||f!==e.length-1)&&!eg(e[f]))throw Error(a+"contains an invalid key ("+e[f]+") in path "+d.toString()+'. Keys must be non-empty strings and can\'t contain ".", "#", "$", "/", "[", or "]"');}b.sort(mf);e=null;for(c=0;c<b.length;c++){d=b[c];if(null!==e&&e.contains(d))throw Error(a+"contains a path "+e.toString()+" that is ancestor of another path "+d.toString());e=d}}
+	function jg(a,b,c){var d=E(a,1,!1);if(!ga(b)||da(b))throw Error(d+" must be an object containing the children to replace.");var e=[];Fb(b,function(a,b){var k=new P(a);hg(d,b,c.o(k));if(".priority"===me(k)&&!fg(b))throw Error(d+"contains an invalid value for '"+k.toString()+"', which must be a valid Firebase priority (a string, finite number, server value, or null).");e.push(k)});ig(d,e)}
+	function kg(a,b,c){if(td(c))throw Error(E(a,b,!1)+"is "+c.toString()+", but must be a valid Firebase priority (a string, finite number, server value, or null).");if(!fg(c))throw Error(E(a,b,!1)+"must be a valid Firebase priority (a string, finite number, server value, or null).");}
+	function lg(a,b,c){if(!c||p(b))switch(b){case "value":case "child_added":case "child_removed":case "child_changed":case "child_moved":break;default:throw Error(E(a,1,c)+'must be a valid event type: "value", "child_added", "child_removed", "child_changed", or "child_moved".');}}function mg(a,b){if(p(b)&&!eg(b))throw Error(E(a,2,!0)+'was an invalid key: "'+b+'".  Firebase keys must be non-empty strings and can\'t contain ".", "#", "$", "/", "[", or "]").');}
+	function ng(a,b){if(!q(b)||0===b.length||cg.test(b))throw Error(E(a,1,!1)+'was an invalid path: "'+b+'". Paths must be non-empty strings and can\'t contain ".", "#", "$", "[", or "]"');}function og(a,b){if(".info"===K(b))throw Error(a+" failed: Can't modify data under /.info/");}function pg(a,b){if(!q(b))throw Error(E(a,1,!1)+"must be a valid credential (a string).");}function qg(a,b,c){if(!q(c))throw Error(E(a,b,!1)+"must be a valid string.");}
+	function rg(a,b){qg(a,1,b);if(!dg.test(b))throw Error(E(a,1,!1)+"'"+b+"' is not a valid authentication provider.");}function sg(a,b,c,d){if(!d||p(c))if(!ga(c)||null===c)throw Error(E(a,b,d)+"must be a valid object.");}function tg(a,b,c){if(!ga(b)||!y(b,c))throw Error(E(a,1,!1)+'must contain the key "'+c+'"');if(!q(z(b,c)))throw Error(E(a,1,!1)+'must contain the key "'+c+'" with type "string"');};function ug(){this.set={}}h=ug.prototype;h.add=function(a,b){this.set[a]=null!==b?b:!0};h.contains=function(a){return y(this.set,a)};h.get=function(a){return this.contains(a)?this.set[a]:void 0};h.remove=function(a){delete this.set[a]};h.clear=function(){this.set={}};h.e=function(){return va(this.set)};h.count=function(){return oa(this.set)};function vg(a,b){v(a.set,function(a,d){b(d,a)})}h.keys=function(){var a=[];v(this.set,function(b,c){a.push(c)});return a};function Vc(){this.m=this.B=null}Vc.prototype.find=function(a){if(null!=this.B)return this.B.S(a);if(a.e()||null==this.m)return null;var b=K(a);a=N(a);return this.m.contains(b)?this.m.get(b).find(a):null};Vc.prototype.rc=function(a,b){if(a.e())this.B=b,this.m=null;else if(null!==this.B)this.B=this.B.H(a,b);else{null==this.m&&(this.m=new ug);var c=K(a);this.m.contains(c)||this.m.add(c,new Vc);c=this.m.get(c);a=N(a);c.rc(a,b)}};
+	function wg(a,b){if(b.e())return a.B=null,a.m=null,!0;if(null!==a.B){if(a.B.L())return!1;var c=a.B;a.B=null;c.R(R,function(b,c){a.rc(new P(b),c)});return wg(a,b)}return null!==a.m?(c=K(b),b=N(b),a.m.contains(c)&&wg(a.m.get(c),b)&&a.m.remove(c),a.m.e()?(a.m=null,!0):!1):!0}function Wc(a,b,c){null!==a.B?c(b,a.B):a.R(function(a,e){var f=new P(b.toString()+"/"+a);Wc(e,f,c)})}Vc.prototype.R=function(a){null!==this.m&&vg(this.m,function(b,c){a(b,c)})};var xg="auth.firebase.com";function yg(a,b,c){this.qd=a||{};this.he=b||{};this.fb=c||{};this.qd.remember||(this.qd.remember="default")}var zg=["remember","redirectTo"];function Ag(a){var b={},c={};Fb(a||{},function(a,e){0<=La(zg,a)?b[a]=e:c[a]=e});return new yg(b,{},c)};function Bg(a,b){this.Ue=["session",a.Rd,a.lc].join(":");this.ee=b}Bg.prototype.set=function(a,b){if(!b)if(this.ee.length)b=this.ee[0];else throw Error("fb.login.SessionManager : No storage options available!");b.set(this.Ue,a)};Bg.prototype.get=function(){var a=Oa(this.ee,u(this.Bg,this)),a=Na(a,function(a){return null!==a});Va(a,function(a,c){return Dd(c.token)-Dd(a.token)});return 0<a.length?a.shift():null};Bg.prototype.Bg=function(a){try{var b=a.get(this.Ue);if(b&&b.token)return b}catch(c){}return null};
+	Bg.prototype.clear=function(){var a=this;Ma(this.ee,function(b){b.remove(a.Ue)})};function Cg(){return"undefined"!==typeof navigator&&"string"===typeof navigator.userAgent?navigator.userAgent:""}function Dg(){return"undefined"!==typeof window&&!!(window.cordova||window.phonegap||window.PhoneGap)&&/ios|iphone|ipod|ipad|android|blackberry|iemobile/i.test(Cg())}function Eg(){return"undefined"!==typeof location&&/^file:\//.test(location.href)}
+	function Fg(a){var b=Cg();if(""===b)return!1;if("Microsoft Internet Explorer"===navigator.appName){if((b=b.match(/MSIE ([0-9]{1,}[\.0-9]{0,})/))&&1<b.length)return parseFloat(b[1])>=a}else if(-1<b.indexOf("Trident")&&(b=b.match(/rv:([0-9]{2,2}[\.0-9]{0,})/))&&1<b.length)return parseFloat(b[1])>=a;return!1};function Gg(){var a=window.opener.frames,b;for(b=a.length-1;0<=b;b--)try{if(a[b].location.protocol===window.location.protocol&&a[b].location.host===window.location.host&&"__winchan_relay_frame"===a[b].name)return a[b]}catch(c){}return null}function Hg(a,b,c){a.attachEvent?a.attachEvent("on"+b,c):a.addEventListener&&a.addEventListener(b,c,!1)}function Ig(a,b,c){a.detachEvent?a.detachEvent("on"+b,c):a.removeEventListener&&a.removeEventListener(b,c,!1)}
+	function Jg(a){/^https?:\/\//.test(a)||(a=window.location.href);var b=/^(https?:\/\/[\-_a-zA-Z\.0-9:]+)/.exec(a);return b?b[1]:a}function Kg(a){var b="";try{a=a.replace(/.*\?/,"");var c=Jb(a);c&&y(c,"__firebase_request_key")&&(b=z(c,"__firebase_request_key"))}catch(d){}return b}function Lg(){try{var a=document.location.hash.replace(/&__firebase_request_key=([a-zA-z0-9]*)/,""),a=a.replace(/\?$/,""),a=a.replace(/^#+$/,"");document.location.hash=a}catch(b){}}
+	function Mg(){var a=sd(xg);return a.scheme+"://"+a.host+"/v2"}function Ng(a){return Mg()+"/"+a+"/auth/channel"};function Og(a){var b=this;this.hb=a;this.fe="*";Fg(8)?this.Uc=this.Cd=Gg():(this.Uc=window.opener,this.Cd=window);if(!b.Uc)throw"Unable to find relay frame";Hg(this.Cd,"message",u(this.nc,this));Hg(this.Cd,"message",u(this.Ff,this));try{Pg(this,{a:"ready"})}catch(c){Hg(this.Uc,"load",function(){Pg(b,{a:"ready"})})}Hg(window,"unload",u(this.Ng,this))}function Pg(a,b){b=G(b);Fg(8)?a.Uc.doPost(b,a.fe):a.Uc.postMessage(b,a.fe)}
+	Og.prototype.nc=function(a){var b=this,c;try{c=Rb(a.data)}catch(d){}c&&"request"===c.a&&(Ig(window,"message",this.nc),this.fe=a.origin,this.hb&&setTimeout(function(){b.hb(b.fe,c.d,function(a,c){b.mg=!c;b.hb=void 0;Pg(b,{a:"response",d:a,forceKeepWindowOpen:c})})},0))};Og.prototype.Ng=function(){try{Ig(this.Cd,"message",this.Ff)}catch(a){}this.hb&&(Pg(this,{a:"error",d:"unknown closed window"}),this.hb=void 0);try{window.close()}catch(b){}};Og.prototype.Ff=function(a){if(this.mg&&"die"===a.data)try{window.close()}catch(b){}};function Qg(a){this.tc=Fa()+Fa()+Fa();this.Kf=a}Qg.prototype.open=function(a,b){cd.set("redirect_request_id",this.tc);cd.set("redirect_request_id",this.tc);b.requestId=this.tc;b.redirectTo=b.redirectTo||window.location.href;a+=(/\?/.test(a)?"":"?")+Ib(b);window.location=a};Qg.isAvailable=function(){return!Eg()&&!Dg()};Qg.prototype.Fc=function(){return"redirect"};var Rg={NETWORK_ERROR:"Unable to contact the Firebase server.",SERVER_ERROR:"An unknown server error occurred.",TRANSPORT_UNAVAILABLE:"There are no login transports available for the requested method.",REQUEST_INTERRUPTED:"The browser redirected the page before the login request could complete.",USER_CANCELLED:"The user cancelled authentication."};function Sg(a){var b=Error(z(Rg,a),a);b.code=a;return b};function Tg(a){var b;(b=!a.window_features)||(b=Cg(),b=-1!==b.indexOf("Fennec/")||-1!==b.indexOf("Firefox/")&&-1!==b.indexOf("Android"));b&&(a.window_features=void 0);a.window_name||(a.window_name="_blank");this.options=a}
+	Tg.prototype.open=function(a,b,c){function d(a){g&&(document.body.removeChild(g),g=void 0);t&&(t=clearInterval(t));Ig(window,"message",e);Ig(window,"unload",d);if(l&&!a)try{l.close()}catch(b){k.postMessage("die",m)}l=k=void 0}function e(a){if(a.origin===m)try{var b=Rb(a.data);"ready"===b.a?k.postMessage(A,m):"error"===b.a?(d(!1),c&&(c(b.d),c=null)):"response"===b.a&&(d(b.forceKeepWindowOpen),c&&(c(null,b.d),c=null))}catch(e){}}var f=Fg(8),g,k;if(!this.options.relay_url)return c(Error("invalid arguments: origin of url and relay_url must match"));
+	var m=Jg(a);if(m!==Jg(this.options.relay_url))c&&setTimeout(function(){c(Error("invalid arguments: origin of url and relay_url must match"))},0);else{f&&(g=document.createElement("iframe"),g.setAttribute("src",this.options.relay_url),g.style.display="none",g.setAttribute("name","__winchan_relay_frame"),document.body.appendChild(g),k=g.contentWindow);a+=(/\?/.test(a)?"":"?")+Ib(b);var l=window.open(a,this.options.window_name,this.options.window_features);k||(k=l);var t=setInterval(function(){l&&l.closed&&
+	(d(!1),c&&(c(Sg("USER_CANCELLED")),c=null))},500),A=G({a:"request",d:b});Hg(window,"unload",d);Hg(window,"message",e)}};
+	Tg.isAvailable=function(){var a;if(a="postMessage"in window&&!Eg())(a=Dg()||"undefined"!==typeof navigator&&(!!Cg().match(/Windows Phone/)||!!window.Windows&&/^ms-appx:/.test(location.href)))||(a=Cg(),a="undefined"!==typeof navigator&&"undefined"!==typeof window&&!!(a.match(/(iPhone|iPod|iPad).*AppleWebKit(?!.*Safari)/i)||a.match(/CriOS/)||a.match(/Twitter for iPhone/)||a.match(/FBAN\/FBIOS/)||window.navigator.standalone)),a=!a;return a&&!Cg().match(/PhantomJS/)};Tg.prototype.Fc=function(){return"popup"};function Ug(a){a.method||(a.method="GET");a.headers||(a.headers={});a.headers.content_type||(a.headers.content_type="application/json");a.headers.content_type=a.headers.content_type.toLowerCase();this.options=a}
+	Ug.prototype.open=function(a,b,c){function d(){c&&(c(Sg("REQUEST_INTERRUPTED")),c=null)}var e=new XMLHttpRequest,f=this.options.method.toUpperCase(),g;Hg(window,"beforeunload",d);e.onreadystatechange=function(){if(c&&4===e.readyState){var a;if(200<=e.status&&300>e.status){try{a=Rb(e.responseText)}catch(b){}c(null,a)}else 500<=e.status&&600>e.status?c(Sg("SERVER_ERROR")):c(Sg("NETWORK_ERROR"));c=null;Ig(window,"beforeunload",d)}};if("GET"===f)a+=(/\?/.test(a)?"":"?")+Ib(b),g=null;else{var k=this.options.headers.content_type;
+	"application/json"===k&&(g=G(b));"application/x-www-form-urlencoded"===k&&(g=Ib(b))}e.open(f,a,!0);a={"X-Requested-With":"XMLHttpRequest",Accept:"application/json;text/plain"};ya(a,this.options.headers);for(var m in a)e.setRequestHeader(m,a[m]);e.send(g)};Ug.isAvailable=function(){var a;if(a=!!window.XMLHttpRequest)a=Cg(),a=!(a.match(/MSIE/)||a.match(/Trident/))||Fg(10);return a};Ug.prototype.Fc=function(){return"json"};function Vg(a){this.tc=Fa()+Fa()+Fa();this.Kf=a}
+	Vg.prototype.open=function(a,b,c){function d(){c&&(c(Sg("USER_CANCELLED")),c=null)}var e=this,f=sd(xg),g;b.requestId=this.tc;b.redirectTo=f.scheme+"://"+f.host+"/blank/page.html";a+=/\?/.test(a)?"":"?";a+=Ib(b);(g=window.open(a,"_blank","location=no"))&&r(g.addEventListener)?(g.addEventListener("loadstart",function(a){var b;if(b=a&&a.url)a:{try{var l=document.createElement("a");l.href=a.url;b=l.host===f.host&&"/blank/page.html"===l.pathname;break a}catch(t){}b=!1}b&&(a=Kg(a.url),g.removeEventListener("exit",
+	d),g.close(),a=new yg(null,null,{requestId:e.tc,requestKey:a}),e.Kf.requestWithCredential("/auth/session",a,c),c=null)}),g.addEventListener("exit",d)):c(Sg("TRANSPORT_UNAVAILABLE"))};Vg.isAvailable=function(){return Dg()};Vg.prototype.Fc=function(){return"redirect"};function Wg(a){a.callback_parameter||(a.callback_parameter="callback");this.options=a;window.__firebase_auth_jsonp=window.__firebase_auth_jsonp||{}}
+	Wg.prototype.open=function(a,b,c){function d(){c&&(c(Sg("REQUEST_INTERRUPTED")),c=null)}function e(){setTimeout(function(){window.__firebase_auth_jsonp[f]=void 0;va(window.__firebase_auth_jsonp)&&(window.__firebase_auth_jsonp=void 0);try{var a=document.getElementById(f);a&&a.parentNode.removeChild(a)}catch(b){}},1);Ig(window,"beforeunload",d)}var f="fn"+(new Date).getTime()+Math.floor(99999*Math.random());b[this.options.callback_parameter]="__firebase_auth_jsonp."+f;a+=(/\?/.test(a)?"":"?")+Ib(b);
+	Hg(window,"beforeunload",d);window.__firebase_auth_jsonp[f]=function(a){c&&(c(null,a),c=null);e()};Xg(f,a,c)};
+	function Xg(a,b,c){setTimeout(function(){try{var d=document.createElement("script");d.type="text/javascript";d.id=a;d.async=!0;d.src=b;d.onerror=function(){var b=document.getElementById(a);null!==b&&b.parentNode.removeChild(b);c&&c(Sg("NETWORK_ERROR"))};var e=document.getElementsByTagName("head");(e&&0!=e.length?e[0]:document.documentElement).appendChild(d)}catch(f){c&&c(Sg("NETWORK_ERROR"))}},0)}Wg.isAvailable=function(){return"undefined"!==typeof document&&null!=document.createElement};
+	Wg.prototype.Fc=function(){return"json"};function Yg(a,b,c,d){ff.call(this,["auth_status"]);this.G=a;this.hf=b;this.ih=c;this.Pe=d;this.wc=new Bg(a,[bd,cd]);this.qb=null;this.We=!1;Zg(this)}ka(Yg,ff);h=Yg.prototype;h.Be=function(){return this.qb||null};function Zg(a){cd.get("redirect_request_id")&&$g(a);var b=a.wc.get();b&&b.token?(ah(a,b),a.hf(b.token,function(c,d){bh(a,c,d,!1,b.token,b)},function(b,d){ch(a,"resumeSession()",b,d)})):ah(a,null)}
+	function dh(a,b,c,d,e,f){"firebaseio-demo.com"===a.G.domain&&S("Firebase authentication is not supported on demo Firebases (*.firebaseio-demo.com). To secure your Firebase, create a production Firebase at https://www.firebase.com.");a.hf(b,function(f,k){bh(a,f,k,!0,b,c,d||{},e)},function(b,c){ch(a,"auth()",b,c,f)})}function eh(a,b){a.wc.clear();ah(a,null);a.ih(function(a,d){if("ok"===a)T(b,null);else{var e=(a||"error").toUpperCase(),f=e;d&&(f+=": "+d);f=Error(f);f.code=e;T(b,f)}})}
+	function bh(a,b,c,d,e,f,g,k){"ok"===b?(d&&(b=c.auth,f.auth=b,f.expires=c.expires,f.token=Ed(e)?e:"",c=null,b&&y(b,"uid")?c=z(b,"uid"):y(f,"uid")&&(c=z(f,"uid")),f.uid=c,c="custom",b&&y(b,"provider")?c=z(b,"provider"):y(f,"provider")&&(c=z(f,"provider")),f.provider=c,a.wc.clear(),Ed(e)&&(g=g||{},c=bd,"sessionOnly"===g.remember&&(c=cd),"none"!==g.remember&&a.wc.set(f,c)),ah(a,f)),T(k,null,f)):(a.wc.clear(),ah(a,null),f=a=(b||"error").toUpperCase(),c&&(f+=": "+c),f=Error(f),f.code=a,T(k,f))}
+	function ch(a,b,c,d,e){S(b+" was canceled: "+d);a.wc.clear();ah(a,null);a=Error(d);a.code=c.toUpperCase();T(e,a)}function fh(a,b,c,d,e){gh(a);c=new yg(d||{},{},c||{});hh(a,[Ug,Wg],"/auth/"+b,c,e)}
+	function ih(a,b,c,d){gh(a);var e=[Tg,Vg];c=Ag(c);var f=625;"anonymous"===b||"password"===b?setTimeout(function(){T(d,Sg("TRANSPORT_UNAVAILABLE"))},0):("github"===b&&(f=1025),c.he.window_features="menubar=yes,modal=yes,alwaysRaised=yeslocation=yes,resizable=yes,scrollbars=yes,status=yes,height=625,width="+f+",top="+("object"===typeof screen?.5*(screen.height-625):0)+",left="+("object"===typeof screen?.5*(screen.width-f):0),c.he.relay_url=Ng(a.G.lc),c.he.requestWithCredential=u(a.uc,a),hh(a,e,"/auth/"+
+	b,c,d))}function $g(a){var b=cd.get("redirect_request_id");if(b){var c=cd.get("redirect_client_options");cd.remove("redirect_request_id");cd.remove("redirect_client_options");var d=[Ug,Wg],b={requestId:b,requestKey:Kg(document.location.hash)},c=new yg(c,{},b);a.We=!0;Lg();hh(a,d,"/auth/session",c,function(){this.We=!1}.bind(a))}}h.ve=function(a,b){gh(this);var c=Ag(a);c.fb._method="POST";this.uc("/users",c,function(a,c){a?T(b,a):T(b,a,c)})};
+	h.Xe=function(a,b){var c=this;gh(this);var d="/users/"+encodeURIComponent(a.email),e=Ag(a);e.fb._method="DELETE";this.uc(d,e,function(a,d){!a&&d&&d.uid&&c.qb&&c.qb.uid&&c.qb.uid===d.uid&&eh(c);T(b,a)})};h.se=function(a,b){gh(this);var c="/users/"+encodeURIComponent(a.email)+"/password",d=Ag(a);d.fb._method="PUT";d.fb.password=a.newPassword;this.uc(c,d,function(a){T(b,a)})};
+	h.re=function(a,b){gh(this);var c="/users/"+encodeURIComponent(a.oldEmail)+"/email",d=Ag(a);d.fb._method="PUT";d.fb.email=a.newEmail;d.fb.password=a.password;this.uc(c,d,function(a){T(b,a)})};h.Ze=function(a,b){gh(this);var c="/users/"+encodeURIComponent(a.email)+"/password",d=Ag(a);d.fb._method="POST";this.uc(c,d,function(a){T(b,a)})};h.uc=function(a,b,c){jh(this,[Ug,Wg],a,b,c)};
+	function hh(a,b,c,d,e){jh(a,b,c,d,function(b,c){!b&&c&&c.token&&c.uid?dh(a,c.token,c,d.qd,function(a,b){a?T(e,a):T(e,null,b)}):T(e,b||Sg("UNKNOWN_ERROR"))})}
+	function jh(a,b,c,d,e){b=Na(b,function(a){return"function"===typeof a.isAvailable&&a.isAvailable()});0===b.length?setTimeout(function(){T(e,Sg("TRANSPORT_UNAVAILABLE"))},0):(b=new (b.shift())(d.he),d=Gb(d.fb),d.v="js-"+Eb,d.transport=b.Fc(),d.suppress_status_codes=!0,a=Mg()+"/"+a.G.lc+c,b.open(a,d,function(a,b){if(a)T(e,a);else if(b&&b.error){var c=Error(b.error.message);c.code=b.error.code;c.details=b.error.details;T(e,c)}else T(e,null,b)}))}
+	function ah(a,b){var c=null!==a.qb||null!==b;a.qb=b;c&&a.ie("auth_status",b);a.Pe(null!==b)}h.Ee=function(a){O("auth_status"===a,'initial event must be of type "auth_status"');return this.We?null:[this.qb]};function gh(a){var b=a.G;if("firebaseio.com"!==b.domain&&"firebaseio-demo.com"!==b.domain&&"auth.firebase.com"===xg)throw Error("This custom Firebase server ('"+a.G.domain+"') does not support delegated login.");};var gd="websocket",hd="long_polling";function kh(a){this.nc=a;this.Qd=[];this.Wb=0;this.te=-1;this.Jb=null}function lh(a,b,c){a.te=b;a.Jb=c;a.te<a.Wb&&(a.Jb(),a.Jb=null)}function mh(a,b,c){for(a.Qd[b]=c;a.Qd[a.Wb];){var d=a.Qd[a.Wb];delete a.Qd[a.Wb];for(var e=0;e<d.length;++e)if(d[e]){var f=a;gc(function(){f.nc(d[e])})}if(a.Wb===a.te){a.Jb&&(clearTimeout(a.Jb),a.Jb(),a.Jb=null);break}a.Wb++}};function nh(a,b,c,d){this.ue=a;this.f=pd(a);this.rb=this.sb=0;this.Xa=uc(b);this.Xf=c;this.Kc=!1;this.Fb=d;this.ld=function(a){return fd(b,hd,a)}}var oh,ph;
+	nh.prototype.open=function(a,b){this.mf=0;this.na=b;this.Ef=new kh(a);this.Db=!1;var c=this;this.ub=setTimeout(function(){c.f("Timed out trying to connect.");c.bb();c.ub=null},Math.floor(3E4));ud(function(){if(!c.Db){c.Wa=new qh(function(a,b,d,k,m){rh(c,arguments);if(c.Wa)if(c.ub&&(clearTimeout(c.ub),c.ub=null),c.Kc=!0,"start"==a)c.id=b,c.Mf=d;else if("close"===a)b?(c.Wa.$d=!1,lh(c.Ef,b,function(){c.bb()})):c.bb();else throw Error("Unrecognized command received: "+a);},function(a,b){rh(c,arguments);
+	mh(c.Ef,a,b)},function(){c.bb()},c.ld);var a={start:"t"};a.ser=Math.floor(1E8*Math.random());c.Wa.ke&&(a.cb=c.Wa.ke);a.v="5";c.Xf&&(a.s=c.Xf);c.Fb&&(a.ls=c.Fb);"undefined"!==typeof location&&location.href&&-1!==location.href.indexOf("firebaseio.com")&&(a.r="f");a=c.ld(a);c.f("Connecting via long-poll to "+a);sh(c.Wa,a,function(){})}})};
+	nh.prototype.start=function(){var a=this.Wa,b=this.Mf;a.Gg=this.id;a.Hg=b;for(a.oe=!0;th(a););a=this.id;b=this.Mf;this.kc=document.createElement("iframe");var c={dframe:"t"};c.id=a;c.pw=b;this.kc.src=this.ld(c);this.kc.style.display="none";document.body.appendChild(this.kc)};
+	nh.isAvailable=function(){return oh||!ph&&"undefined"!==typeof document&&null!=document.createElement&&!("object"===typeof window&&window.chrome&&window.chrome.extension&&!/^chrome/.test(window.location.href))&&!("object"===typeof Windows&&"object"===typeof Windows.kh)&&!0};h=nh.prototype;h.Hd=function(){};h.fd=function(){this.Db=!0;this.Wa&&(this.Wa.close(),this.Wa=null);this.kc&&(document.body.removeChild(this.kc),this.kc=null);this.ub&&(clearTimeout(this.ub),this.ub=null)};
+	h.bb=function(){this.Db||(this.f("Longpoll is closing itself"),this.fd(),this.na&&(this.na(this.Kc),this.na=null))};h.close=function(){this.Db||(this.f("Longpoll is being closed."),this.fd())};h.send=function(a){a=G(a);this.sb+=a.length;rc(this.Xa,"bytes_sent",a.length);a=Ob(a);a=nb(a,!0);a=yd(a,1840);for(var b=0;b<a.length;b++){var c=this.Wa;c.cd.push({Yg:this.mf,hh:a.length,of:a[b]});c.oe&&th(c);this.mf++}};function rh(a,b){var c=G(b).length;a.rb+=c;rc(a.Xa,"bytes_received",c)}
+	function qh(a,b,c,d){this.ld=d;this.lb=c;this.Te=new ug;this.cd=[];this.we=Math.floor(1E8*Math.random());this.$d=!0;this.ke=id();window["pLPCommand"+this.ke]=a;window["pRTLPCB"+this.ke]=b;a=document.createElement("iframe");a.style.display="none";if(document.body){document.body.appendChild(a);try{a.contentWindow.document||fc("No IE domain setting required")}catch(e){a.src="javascript:void((function(){document.open();document.domain='"+document.domain+"';document.close();})())"}}else throw"Document body has not initialized. Wait to initialize Firebase until after the document is ready.";
+	a.contentDocument?a.jb=a.contentDocument:a.contentWindow?a.jb=a.contentWindow.document:a.document&&(a.jb=a.document);this.Ga=a;a="";this.Ga.src&&"javascript:"===this.Ga.src.substr(0,11)&&(a='<script>document.domain="'+document.domain+'";\x3c/script>');a="<html><body>"+a+"</body></html>";try{this.Ga.jb.open(),this.Ga.jb.write(a),this.Ga.jb.close()}catch(f){fc("frame writing exception"),f.stack&&fc(f.stack),fc(f)}}
+	qh.prototype.close=function(){this.oe=!1;if(this.Ga){this.Ga.jb.body.innerHTML="";var a=this;setTimeout(function(){null!==a.Ga&&(document.body.removeChild(a.Ga),a.Ga=null)},Math.floor(0))}var b=this.lb;b&&(this.lb=null,b())};
+	function th(a){if(a.oe&&a.$d&&a.Te.count()<(0<a.cd.length?2:1)){a.we++;var b={};b.id=a.Gg;b.pw=a.Hg;b.ser=a.we;for(var b=a.ld(b),c="",d=0;0<a.cd.length;)if(1870>=a.cd[0].of.length+30+c.length){var e=a.cd.shift(),c=c+"&seg"+d+"="+e.Yg+"&ts"+d+"="+e.hh+"&d"+d+"="+e.of;d++}else break;uh(a,b+c,a.we);return!0}return!1}function uh(a,b,c){function d(){a.Te.remove(c);th(a)}a.Te.add(c,1);var e=setTimeout(d,Math.floor(25E3));sh(a,b,function(){clearTimeout(e);d()})}
+	function sh(a,b,c){setTimeout(function(){try{if(a.$d){var d=a.Ga.jb.createElement("script");d.type="text/javascript";d.async=!0;d.src=b;d.onload=d.onreadystatechange=function(){var a=d.readyState;a&&"loaded"!==a&&"complete"!==a||(d.onload=d.onreadystatechange=null,d.parentNode&&d.parentNode.removeChild(d),c())};d.onerror=function(){fc("Long-poll script failed to load: "+b);a.$d=!1;a.close()};a.Ga.jb.body.appendChild(d)}}catch(e){}},Math.floor(1))};var vh=null;"undefined"!==typeof MozWebSocket?vh=MozWebSocket:"undefined"!==typeof WebSocket&&(vh=WebSocket);function wh(a,b,c,d){this.ue=a;this.f=pd(this.ue);this.frames=this.Nc=null;this.rb=this.sb=this.ff=0;this.Xa=uc(b);a={v:"5"};"undefined"!==typeof location&&location.href&&-1!==location.href.indexOf("firebaseio.com")&&(a.r="f");c&&(a.s=c);d&&(a.ls=d);this.jf=fd(b,gd,a)}var xh;
+	wh.prototype.open=function(a,b){this.lb=b;this.Lg=a;this.f("Websocket connecting to "+this.jf);this.Kc=!1;bd.set("previous_websocket_failure",!0);try{this.La=new vh(this.jf)}catch(c){this.f("Error instantiating WebSocket.");var d=c.message||c.data;d&&this.f(d);this.bb();return}var e=this;this.La.onopen=function(){e.f("Websocket connected.");e.Kc=!0};this.La.onclose=function(){e.f("Websocket connection was disconnected.");e.La=null;e.bb()};this.La.onmessage=function(a){if(null!==e.La)if(a=a.data,e.rb+=
+	a.length,rc(e.Xa,"bytes_received",a.length),yh(e),null!==e.frames)zh(e,a);else{a:{O(null===e.frames,"We already have a frame buffer");if(6>=a.length){var b=Number(a);if(!isNaN(b)){e.ff=b;e.frames=[];a=null;break a}}e.ff=1;e.frames=[]}null!==a&&zh(e,a)}};this.La.onerror=function(a){e.f("WebSocket error.  Closing connection.");(a=a.message||a.data)&&e.f(a);e.bb()}};wh.prototype.start=function(){};
+	wh.isAvailable=function(){var a=!1;if("undefined"!==typeof navigator&&navigator.userAgent){var b=navigator.userAgent.match(/Android ([0-9]{0,}\.[0-9]{0,})/);b&&1<b.length&&4.4>parseFloat(b[1])&&(a=!0)}return!a&&null!==vh&&!xh};wh.responsesRequiredToBeHealthy=2;wh.healthyTimeout=3E4;h=wh.prototype;h.Hd=function(){bd.remove("previous_websocket_failure")};function zh(a,b){a.frames.push(b);if(a.frames.length==a.ff){var c=a.frames.join("");a.frames=null;c=Rb(c);a.Lg(c)}}
+	h.send=function(a){yh(this);a=G(a);this.sb+=a.length;rc(this.Xa,"bytes_sent",a.length);a=yd(a,16384);1<a.length&&Ah(this,String(a.length));for(var b=0;b<a.length;b++)Ah(this,a[b])};h.fd=function(){this.Db=!0;this.Nc&&(clearInterval(this.Nc),this.Nc=null);this.La&&(this.La.close(),this.La=null)};h.bb=function(){this.Db||(this.f("WebSocket is closing itself"),this.fd(),this.lb&&(this.lb(this.Kc),this.lb=null))};h.close=function(){this.Db||(this.f("WebSocket is being closed"),this.fd())};
+	function yh(a){clearInterval(a.Nc);a.Nc=setInterval(function(){a.La&&Ah(a,"0");yh(a)},Math.floor(45E3))}function Ah(a,b){try{a.La.send(b)}catch(c){a.f("Exception thrown from WebSocket.send():",c.message||c.data,"Closing connection."),setTimeout(u(a.bb,a),0)}};function Bh(a){Ch(this,a)}var Dh=[nh,wh];function Ch(a,b){var c=wh&&wh.isAvailable(),d=c&&!(bd.Af||!0===bd.get("previous_websocket_failure"));b.jh&&(c||S("wss:// URL used, but browser isn't known to support websockets.  Trying anyway."),d=!0);if(d)a.jd=[wh];else{var e=a.jd=[];zd(Dh,function(a,b){b&&b.isAvailable()&&e.push(b)})}}function Eh(a){if(0<a.jd.length)return a.jd[0];throw Error("No transports available");};function Fh(a,b,c,d,e,f,g){this.id=a;this.f=pd("c:"+this.id+":");this.nc=c;this.Zc=d;this.na=e;this.Re=f;this.G=b;this.Pd=[];this.kf=0;this.Wf=new Bh(b);this.N=0;this.Fb=g;this.f("Connection created");Gh(this)}
+	function Gh(a){var b=Eh(a.Wf);a.K=new b("c:"+a.id+":"+a.kf++,a.G,void 0,a.Fb);a.Ve=b.responsesRequiredToBeHealthy||0;var c=Hh(a,a.K),d=Ih(a,a.K);a.kd=a.K;a.ed=a.K;a.F=null;a.Eb=!1;setTimeout(function(){a.K&&a.K.open(c,d)},Math.floor(0));b=b.healthyTimeout||0;0<b&&(a.Bd=setTimeout(function(){a.Bd=null;a.Eb||(a.K&&102400<a.K.rb?(a.f("Connection exceeded healthy timeout but has received "+a.K.rb+" bytes.  Marking connection healthy."),a.Eb=!0,a.K.Hd()):a.K&&10240<a.K.sb?a.f("Connection exceeded healthy timeout but has sent "+
+	a.K.sb+" bytes.  Leaving connection alive."):(a.f("Closing unhealthy connection after timeout."),a.close()))},Math.floor(b)))}function Ih(a,b){return function(c){b===a.K?(a.K=null,c||0!==a.N?1===a.N&&a.f("Realtime connection lost."):(a.f("Realtime connection failed."),"s-"===a.G.ab.substr(0,2)&&(bd.remove("host:"+a.G.host),a.G.ab=a.G.host)),a.close()):b===a.F?(a.f("Secondary connection lost."),c=a.F,a.F=null,a.kd!==c&&a.ed!==c||a.close()):a.f("closing an old connection")}}
+	function Hh(a,b){return function(c){if(2!=a.N)if(b===a.ed){var d=wd("t",c);c=wd("d",c);if("c"==d){if(d=wd("t",c),"d"in c)if(c=c.d,"h"===d){var d=c.ts,e=c.v,f=c.h;a.Uf=c.s;ed(a.G,f);0==a.N&&(a.K.start(),Jh(a,a.K,d),"5"!==e&&S("Protocol version mismatch detected"),c=a.Wf,(c=1<c.jd.length?c.jd[1]:null)&&Kh(a,c))}else if("n"===d){a.f("recvd end transmission on primary");a.ed=a.F;for(c=0;c<a.Pd.length;++c)a.Ld(a.Pd[c]);a.Pd=[];Lh(a)}else"s"===d?(a.f("Connection shutdown command received. Shutting down..."),
+	a.Re&&(a.Re(c),a.Re=null),a.na=null,a.close()):"r"===d?(a.f("Reset packet received.  New host: "+c),ed(a.G,c),1===a.N?a.close():(Mh(a),Gh(a))):"e"===d?qd("Server Error: "+c):"o"===d?(a.f("got pong on primary."),Nh(a),Oh(a)):qd("Unknown control packet command: "+d)}else"d"==d&&a.Ld(c)}else if(b===a.F)if(d=wd("t",c),c=wd("d",c),"c"==d)"t"in c&&(c=c.t,"a"===c?Ph(a):"r"===c?(a.f("Got a reset on secondary, closing it"),a.F.close(),a.kd!==a.F&&a.ed!==a.F||a.close()):"o"===c&&(a.f("got pong on secondary."),
+	a.Tf--,Ph(a)));else if("d"==d)a.Pd.push(c);else throw Error("Unknown protocol layer: "+d);else a.f("message on old connection")}}Fh.prototype.Ia=function(a){Qh(this,{t:"d",d:a})};function Lh(a){a.kd===a.F&&a.ed===a.F&&(a.f("cleaning up and promoting a connection: "+a.F.ue),a.K=a.F,a.F=null)}
+	function Ph(a){0>=a.Tf?(a.f("Secondary connection is healthy."),a.Eb=!0,a.F.Hd(),a.F.start(),a.f("sending client ack on secondary"),a.F.send({t:"c",d:{t:"a",d:{}}}),a.f("Ending transmission on primary"),a.K.send({t:"c",d:{t:"n",d:{}}}),a.kd=a.F,Lh(a)):(a.f("sending ping on secondary."),a.F.send({t:"c",d:{t:"p",d:{}}}))}Fh.prototype.Ld=function(a){Nh(this);this.nc(a)};function Nh(a){a.Eb||(a.Ve--,0>=a.Ve&&(a.f("Primary connection is healthy."),a.Eb=!0,a.K.Hd()))}
+	function Kh(a,b){a.F=new b("c:"+a.id+":"+a.kf++,a.G,a.Uf);a.Tf=b.responsesRequiredToBeHealthy||0;a.F.open(Hh(a,a.F),Ih(a,a.F));setTimeout(function(){a.F&&(a.f("Timed out trying to upgrade."),a.F.close())},Math.floor(6E4))}function Jh(a,b,c){a.f("Realtime connection established.");a.K=b;a.N=1;a.Zc&&(a.Zc(c,a.Uf),a.Zc=null);0===a.Ve?(a.f("Primary connection is healthy."),a.Eb=!0):setTimeout(function(){Oh(a)},Math.floor(5E3))}
+	function Oh(a){a.Eb||1!==a.N||(a.f("sending ping on primary."),Qh(a,{t:"c",d:{t:"p",d:{}}}))}function Qh(a,b){if(1!==a.N)throw"Connection is not connected";a.kd.send(b)}Fh.prototype.close=function(){2!==this.N&&(this.f("Closing realtime connection."),this.N=2,Mh(this),this.na&&(this.na(),this.na=null))};function Mh(a){a.f("Shutting down all connections");a.K&&(a.K.close(),a.K=null);a.F&&(a.F.close(),a.F=null);a.Bd&&(clearTimeout(a.Bd),a.Bd=null)};function Rh(a,b,c,d){this.id=Sh++;this.f=pd("p:"+this.id+":");this.Bf=this.Ie=!1;this.ba={};this.sa=[];this.ad=0;this.Yc=[];this.qa=!1;this.eb=1E3;this.Id=3E5;this.Kb=b;this.Xc=c;this.Se=d;this.G=a;this.wb=this.Ca=this.Ma=this.Fb=this.$e=null;this.Sb=!1;this.Wd={};this.Xg=0;this.rf=!0;this.Oc=this.Ke=null;Th(this,0);kf.yb().Ib("visible",this.Og,this);-1===a.host.indexOf("fblocal")&&jf.yb().Ib("online",this.Mg,this)}var Sh=0,Uh=0;h=Rh.prototype;
+	h.Ia=function(a,b,c){var d=++this.Xg;a={r:d,a:a,b:b};this.f(G(a));O(this.qa,"sendRequest call when we're not connected not allowed.");this.Ma.Ia(a);c&&(this.Wd[d]=c)};h.Cf=function(a,b,c,d){var e=a.wa(),f=a.path.toString();this.f("Listen called for "+f+" "+e);this.ba[f]=this.ba[f]||{};O(Ie(a.n)||!He(a.n),"listen() called for non-default but complete query");O(!this.ba[f][e],"listen() called twice for same path/queryId.");a={I:d,Ad:b,Ug:a,tag:c};this.ba[f][e]=a;this.qa&&Vh(this,a)};
+	function Vh(a,b){var c=b.Ug,d=c.path.toString(),e=c.wa();a.f("Listen on "+d+" for "+e);var f={p:d};b.tag&&(f.q=Ge(c.n),f.t=b.tag);f.h=b.Ad();a.Ia("q",f,function(f){var k=f.d,m=f.s;if(k&&"object"===typeof k&&y(k,"w")){var l=z(k,"w");da(l)&&0<=La(l,"no_index")&&S("Using an unspecified index. Consider adding "+('".indexOn": "'+c.n.g.toString()+'"')+" at "+c.path.toString()+" to your security rules for better performance")}(a.ba[d]&&a.ba[d][e])===b&&(a.f("listen response",f),"ok"!==m&&Wh(a,d,e),b.I&&
+	b.I(m,k))})}h.O=function(a,b,c){this.Ca={rg:a,sf:!1,Dc:b,od:c};this.f("Authenticating using credential: "+a);Xh(this);(b=40==a.length)||(a=Cd(a).Ec,b="object"===typeof a&&!0===z(a,"admin"));b&&(this.f("Admin auth credential detected.  Reducing max reconnect time."),this.Id=3E4)};h.je=function(a){this.Ca=null;this.qa&&this.Ia("unauth",{},function(b){a(b.s,b.d)})};
+	function Xh(a){var b=a.Ca;a.qa&&b&&a.Ia("auth",{cred:b.rg},function(c){var d=c.s;c=c.d||"error";"ok"!==d&&a.Ca===b&&(a.Ca=null);b.sf?"ok"!==d&&b.od&&b.od(d,c):(b.sf=!0,b.Dc&&b.Dc(d,c))})}h.$f=function(a,b){var c=a.path.toString(),d=a.wa();this.f("Unlisten called for "+c+" "+d);O(Ie(a.n)||!He(a.n),"unlisten() called for non-default but complete query");if(Wh(this,c,d)&&this.qa){var e=Ge(a.n);this.f("Unlisten on "+c+" for "+d);c={p:c};b&&(c.q=e,c.t=b);this.Ia("n",c)}};
+	h.Qe=function(a,b,c){this.qa?Yh(this,"o",a,b,c):this.Yc.push({bd:a,action:"o",data:b,I:c})};h.Gf=function(a,b,c){this.qa?Yh(this,"om",a,b,c):this.Yc.push({bd:a,action:"om",data:b,I:c})};h.Md=function(a,b){this.qa?Yh(this,"oc",a,null,b):this.Yc.push({bd:a,action:"oc",data:null,I:b})};function Yh(a,b,c,d,e){c={p:c,d:d};a.f("onDisconnect "+b,c);a.Ia(b,c,function(a){e&&setTimeout(function(){e(a.s,a.d)},Math.floor(0))})}h.put=function(a,b,c,d){Zh(this,"p",a,b,c,d)};
+	h.Df=function(a,b,c,d){Zh(this,"m",a,b,c,d)};function Zh(a,b,c,d,e,f){d={p:c,d:d};p(f)&&(d.h=f);a.sa.push({action:b,Pf:d,I:e});a.ad++;b=a.sa.length-1;a.qa?$h(a,b):a.f("Buffering put: "+c)}function $h(a,b){var c=a.sa[b].action,d=a.sa[b].Pf,e=a.sa[b].I;a.sa[b].Vg=a.qa;a.Ia(c,d,function(d){a.f(c+" response",d);delete a.sa[b];a.ad--;0===a.ad&&(a.sa=[]);e&&e(d.s,d.d)})}
+	h.Ye=function(a){this.qa&&(a={c:a},this.f("reportStats",a),this.Ia("s",a,function(a){"ok"!==a.s&&this.f("reportStats","Error sending stats: "+a.d)}))};
+	h.Ld=function(a){if("r"in a){this.f("from server: "+G(a));var b=a.r,c=this.Wd[b];c&&(delete this.Wd[b],c(a.b))}else{if("error"in a)throw"A server-side error has occurred: "+a.error;"a"in a&&(b=a.a,c=a.b,this.f("handleServerMessage",b,c),"d"===b?this.Kb(c.p,c.d,!1,c.t):"m"===b?this.Kb(c.p,c.d,!0,c.t):"c"===b?ai(this,c.p,c.q):"ac"===b?(a=c.s,b=c.d,c=this.Ca,this.Ca=null,c&&c.od&&c.od(a,b)):"sd"===b?this.$e?this.$e(c):"msg"in c&&"undefined"!==typeof console&&console.log("FIREBASE: "+c.msg.replace("\n",
+	"\nFIREBASE: ")):qd("Unrecognized action received from server: "+G(b)+"\nAre you using the latest client?"))}};h.Zc=function(a,b){this.f("connection ready");this.qa=!0;this.Oc=(new Date).getTime();this.Se({serverTimeOffset:a-(new Date).getTime()});this.Fb=b;if(this.rf){var c={};c["sdk.js."+Eb.replace(/\./g,"-")]=1;Dg()?c["framework.cordova"]=1:"object"===typeof navigator&&"ReactNative"===navigator.product&&(c["framework.reactnative"]=1);this.Ye(c)}bi(this);this.rf=!1;this.Xc(!0)};
+	function Th(a,b){O(!a.Ma,"Scheduling a connect when we're already connected/ing?");a.wb&&clearTimeout(a.wb);a.wb=setTimeout(function(){a.wb=null;ci(a)},Math.floor(b))}h.Og=function(a){a&&!this.Sb&&this.eb===this.Id&&(this.f("Window became visible.  Reducing delay."),this.eb=1E3,this.Ma||Th(this,0));this.Sb=a};h.Mg=function(a){a?(this.f("Browser went online."),this.eb=1E3,this.Ma||Th(this,0)):(this.f("Browser went offline.  Killing connection."),this.Ma&&this.Ma.close())};
+	h.If=function(){this.f("data client disconnected");this.qa=!1;this.Ma=null;for(var a=0;a<this.sa.length;a++){var b=this.sa[a];b&&"h"in b.Pf&&b.Vg&&(b.I&&b.I("disconnect"),delete this.sa[a],this.ad--)}0===this.ad&&(this.sa=[]);this.Wd={};di(this)&&(this.Sb?this.Oc&&(3E4<(new Date).getTime()-this.Oc&&(this.eb=1E3),this.Oc=null):(this.f("Window isn't visible.  Delaying reconnect."),this.eb=this.Id,this.Ke=(new Date).getTime()),a=Math.max(0,this.eb-((new Date).getTime()-this.Ke)),a*=Math.random(),this.f("Trying to reconnect in "+
+	a+"ms"),Th(this,a),this.eb=Math.min(this.Id,1.3*this.eb));this.Xc(!1)};function ci(a){if(di(a)){a.f("Making a connection attempt");a.Ke=(new Date).getTime();a.Oc=null;var b=u(a.Ld,a),c=u(a.Zc,a),d=u(a.If,a),e=a.id+":"+Uh++;a.Ma=new Fh(e,a.G,b,c,d,function(b){S(b+" ("+a.G.toString()+")");a.Bf=!0},a.Fb)}}h.Cb=function(){this.Ie=!0;this.Ma?this.Ma.close():(this.wb&&(clearTimeout(this.wb),this.wb=null),this.qa&&this.If())};h.vc=function(){this.Ie=!1;this.eb=1E3;this.Ma||Th(this,0)};
+	function ai(a,b,c){c=c?Oa(c,function(a){return xd(a)}).join("$"):"default";(a=Wh(a,b,c))&&a.I&&a.I("permission_denied")}function Wh(a,b,c){b=(new P(b)).toString();var d;p(a.ba[b])?(d=a.ba[b][c],delete a.ba[b][c],0===oa(a.ba[b])&&delete a.ba[b]):d=void 0;return d}function bi(a){Xh(a);v(a.ba,function(b){v(b,function(b){Vh(a,b)})});for(var b=0;b<a.sa.length;b++)a.sa[b]&&$h(a,b);for(;a.Yc.length;)b=a.Yc.shift(),Yh(a,b.action,b.bd,b.data,b.I)}function di(a){var b;b=jf.yb().oc;return!a.Bf&&!a.Ie&&b};var U={zg:function(){oh=xh=!0}};U.forceLongPolling=U.zg;U.Ag=function(){ph=!0};U.forceWebSockets=U.Ag;U.Eg=function(){return wh.isAvailable()};U.isWebSocketsAvailable=U.Eg;U.ah=function(a,b){a.k.Va.$e=b};U.setSecurityDebugCallback=U.ah;U.bf=function(a,b){a.k.bf(b)};U.stats=U.bf;U.cf=function(a,b){a.k.cf(b)};U.statsIncrementCounter=U.cf;U.ud=function(a){return a.k.ud};U.dataUpdateCount=U.ud;U.Dg=function(a,b){a.k.He=b};U.interceptServerData=U.Dg;U.Kg=function(a){new Og(a)};U.onPopupOpen=U.Kg;
+	U.Zg=function(a){xg=a};U.setAuthenticationServer=U.Zg;function ei(a,b){this.committed=a;this.snapshot=b};function V(a,b){this.dd=a;this.ta=b}V.prototype.cancel=function(a){D("Firebase.onDisconnect().cancel",0,1,arguments.length);F("Firebase.onDisconnect().cancel",1,a,!0);var b=new B;this.dd.Md(this.ta,C(b,a));return b.D};V.prototype.cancel=V.prototype.cancel;V.prototype.remove=function(a){D("Firebase.onDisconnect().remove",0,1,arguments.length);og("Firebase.onDisconnect().remove",this.ta);F("Firebase.onDisconnect().remove",1,a,!0);var b=new B;fi(this.dd,this.ta,null,C(b,a));return b.D};
+	V.prototype.remove=V.prototype.remove;V.prototype.set=function(a,b){D("Firebase.onDisconnect().set",1,2,arguments.length);og("Firebase.onDisconnect().set",this.ta);gg("Firebase.onDisconnect().set",a,this.ta,!1);F("Firebase.onDisconnect().set",2,b,!0);var c=new B;fi(this.dd,this.ta,a,C(c,b));return c.D};V.prototype.set=V.prototype.set;
+	V.prototype.Ob=function(a,b,c){D("Firebase.onDisconnect().setWithPriority",2,3,arguments.length);og("Firebase.onDisconnect().setWithPriority",this.ta);gg("Firebase.onDisconnect().setWithPriority",a,this.ta,!1);kg("Firebase.onDisconnect().setWithPriority",2,b);F("Firebase.onDisconnect().setWithPriority",3,c,!0);var d=new B;gi(this.dd,this.ta,a,b,C(d,c));return d.D};V.prototype.setWithPriority=V.prototype.Ob;
+	V.prototype.update=function(a,b){D("Firebase.onDisconnect().update",1,2,arguments.length);og("Firebase.onDisconnect().update",this.ta);if(da(a)){for(var c={},d=0;d<a.length;++d)c[""+d]=a[d];a=c;S("Passing an Array to Firebase.onDisconnect().update() is deprecated. Use set() if you want to overwrite the existing data, or an Object with integer keys if you really do want to only update some of the children.")}jg("Firebase.onDisconnect().update",a,this.ta);F("Firebase.onDisconnect().update",2,b,!0);
+	c=new B;hi(this.dd,this.ta,a,C(c,b));return c.D};V.prototype.update=V.prototype.update;function W(a,b,c){this.A=a;this.Y=b;this.g=c}W.prototype.J=function(){D("Firebase.DataSnapshot.val",0,0,arguments.length);return this.A.J()};W.prototype.val=W.prototype.J;W.prototype.qf=function(){D("Firebase.DataSnapshot.exportVal",0,0,arguments.length);return this.A.J(!0)};W.prototype.exportVal=W.prototype.qf;W.prototype.xg=function(){D("Firebase.DataSnapshot.exists",0,0,arguments.length);return!this.A.e()};W.prototype.exists=W.prototype.xg;
+	W.prototype.o=function(a){D("Firebase.DataSnapshot.child",0,1,arguments.length);fa(a)&&(a=String(a));ng("Firebase.DataSnapshot.child",a);var b=new P(a),c=this.Y.o(b);return new W(this.A.S(b),c,R)};W.prototype.child=W.prototype.o;W.prototype.Fa=function(a){D("Firebase.DataSnapshot.hasChild",1,1,arguments.length);ng("Firebase.DataSnapshot.hasChild",a);var b=new P(a);return!this.A.S(b).e()};W.prototype.hasChild=W.prototype.Fa;
+	W.prototype.C=function(){D("Firebase.DataSnapshot.getPriority",0,0,arguments.length);return this.A.C().J()};W.prototype.getPriority=W.prototype.C;W.prototype.forEach=function(a){D("Firebase.DataSnapshot.forEach",1,1,arguments.length);F("Firebase.DataSnapshot.forEach",1,a,!1);if(this.A.L())return!1;var b=this;return!!this.A.R(this.g,function(c,d){return a(new W(d,b.Y.o(c),R))})};W.prototype.forEach=W.prototype.forEach;
+	W.prototype.zd=function(){D("Firebase.DataSnapshot.hasChildren",0,0,arguments.length);return this.A.L()?!1:!this.A.e()};W.prototype.hasChildren=W.prototype.zd;W.prototype.name=function(){S("Firebase.DataSnapshot.name() being deprecated. Please use Firebase.DataSnapshot.key() instead.");D("Firebase.DataSnapshot.name",0,0,arguments.length);return this.key()};W.prototype.name=W.prototype.name;W.prototype.key=function(){D("Firebase.DataSnapshot.key",0,0,arguments.length);return this.Y.key()};
+	W.prototype.key=W.prototype.key;W.prototype.Hb=function(){D("Firebase.DataSnapshot.numChildren",0,0,arguments.length);return this.A.Hb()};W.prototype.numChildren=W.prototype.Hb;W.prototype.Mb=function(){D("Firebase.DataSnapshot.ref",0,0,arguments.length);return this.Y};W.prototype.ref=W.prototype.Mb;function ii(a,b,c){this.Vb=a;this.tb=b;this.vb=c||null}h=ii.prototype;h.Qf=function(a){return"value"===a};h.createEvent=function(a,b){var c=b.n.g;return new jc("value",this,new W(a.Na,b.Mb(),c))};h.Zb=function(a){var b=this.vb;if("cancel"===a.De()){O(this.tb,"Raising a cancel event on a listener with no cancel callback");var c=this.tb;return function(){c.call(b,a.error)}}var d=this.Vb;return function(){d.call(b,a.be)}};h.lf=function(a,b){return this.tb?new kc(this,a,b):null};
+	h.matches=function(a){return a instanceof ii?a.Vb&&this.Vb?a.Vb===this.Vb&&a.vb===this.vb:!0:!1};h.yf=function(){return null!==this.Vb};function ji(a,b,c){this.ja=a;this.tb=b;this.vb=c}h=ji.prototype;h.Qf=function(a){a="children_added"===a?"child_added":a;return("children_removed"===a?"child_removed":a)in this.ja};h.lf=function(a,b){return this.tb?new kc(this,a,b):null};
+	h.createEvent=function(a,b){O(null!=a.Za,"Child events should have a childName.");var c=b.Mb().o(a.Za);return new jc(a.type,this,new W(a.Na,c,b.n.g),a.Td)};h.Zb=function(a){var b=this.vb;if("cancel"===a.De()){O(this.tb,"Raising a cancel event on a listener with no cancel callback");var c=this.tb;return function(){c.call(b,a.error)}}var d=this.ja[a.wd];return function(){d.call(b,a.be,a.Td)}};
+	h.matches=function(a){if(a instanceof ji){if(!this.ja||!a.ja)return!0;if(this.vb===a.vb){var b=oa(a.ja);if(b===oa(this.ja)){if(1===b){var b=pa(a.ja),c=pa(this.ja);return c===b&&(!a.ja[b]||!this.ja[c]||a.ja[b]===this.ja[c])}return na(this.ja,function(b,c){return a.ja[c]===b})}}}return!1};h.yf=function(){return null!==this.ja};function ki(){this.za={}}h=ki.prototype;h.e=function(){return va(this.za)};h.gb=function(a,b,c){var d=a.source.Lb;if(null!==d)return d=z(this.za,d),O(null!=d,"SyncTree gave us an op for an invalid query."),d.gb(a,b,c);var e=[];v(this.za,function(d){e=e.concat(d.gb(a,b,c))});return e};h.Tb=function(a,b,c,d,e){var f=a.wa(),g=z(this.za,f);if(!g){var g=c.Aa(e?d:null),k=!1;g?k=!0:(g=d instanceof fe?c.Cc(d):H,k=!1);g=new Ye(a,new je(new Xb(g,k,!1),new Xb(d,e,!1)));this.za[f]=g}g.Tb(b);return af(g,b)};
+	h.nb=function(a,b,c){var d=a.wa(),e=[],f=[],g=null!=li(this);if("default"===d){var k=this;v(this.za,function(a,d){f=f.concat(a.nb(b,c));a.e()&&(delete k.za[d],He(a.Y.n)||e.push(a.Y))})}else{var m=z(this.za,d);m&&(f=f.concat(m.nb(b,c)),m.e()&&(delete this.za[d],He(m.Y.n)||e.push(m.Y)))}g&&null==li(this)&&e.push(new X(a.k,a.path));return{Wg:e,vg:f}};function mi(a){return Na(qa(a.za),function(a){return!He(a.Y.n)})}h.kb=function(a){var b=null;v(this.za,function(c){b=b||c.kb(a)});return b};
+	function ni(a,b){if(He(b.n))return li(a);var c=b.wa();return z(a.za,c)}function li(a){return ua(a.za,function(a){return He(a.Y.n)})||null};function oi(a){this.va=qe;this.mb=new Pf;this.df={};this.qc={};this.Qc=a}function pi(a,b,c,d,e){var f=a.mb,g=e;O(d>f.Pc,"Stacking an older write on top of newer ones");p(g)||(g=!0);f.pa.push({path:b,Ja:c,md:d,visible:g});g&&(f.V=Jf(f.V,b,c));f.Pc=d;return e?qi(a,new Ac(Ef,b,c)):[]}function ri(a,b,c,d){var e=a.mb;O(d>e.Pc,"Stacking an older merge on top of newer ones");e.pa.push({path:b,children:c,md:d,visible:!0});e.V=Kf(e.V,b,c);e.Pc=d;c=sf(c);return qi(a,new bf(Ef,b,c))}
+	function si(a,b,c){c=c||!1;var d=Qf(a.mb,b);if(a.mb.Ud(b)){var e=qe;null!=d.Ja?e=e.set(M,!0):Fb(d.children,function(a,b){e=e.set(new P(a),b)});return qi(a,new Df(d.path,e,c))}return[]}function ti(a,b,c){c=sf(c);return qi(a,new bf(Gf,b,c))}function ui(a,b,c,d){d=vi(a,d);if(null!=d){var e=wi(d);d=e.path;e=e.Lb;b=lf(d,b);c=new Ac(new Ff(!1,!0,e,!0),b,c);return xi(a,d,c)}return[]}
+	function yi(a,b,c,d){if(d=vi(a,d)){var e=wi(d);d=e.path;e=e.Lb;b=lf(d,b);c=sf(c);c=new bf(new Ff(!1,!0,e,!0),b,c);return xi(a,d,c)}return[]}
+	oi.prototype.Tb=function(a,b){var c=a.path,d=null,e=!1;zf(this.va,c,function(a,b){var f=lf(a,c);d=d||b.kb(f);e=e||null!=li(b)});var f=this.va.get(c);f?(e=e||null!=li(f),d=d||f.kb(M)):(f=new ki,this.va=this.va.set(c,f));var g;null!=d?g=!0:(g=!1,d=H,Cf(this.va.subtree(c),function(a,b){var c=b.kb(M);c&&(d=d.W(a,c))}));var k=null!=ni(f,a);if(!k&&!He(a.n)){var m=zi(a);O(!(m in this.qc),"View does not exist, but we have a tag");var l=Ai++;this.qc[m]=l;this.df["_"+l]=m}g=f.Tb(a,b,new Uf(c,this.mb),d,g);
+	k||e||(f=ni(f,a),g=g.concat(Bi(this,a,f)));return g};
+	oi.prototype.nb=function(a,b,c){var d=a.path,e=this.va.get(d),f=[];if(e&&("default"===a.wa()||null!=ni(e,a))){f=e.nb(a,b,c);e.e()&&(this.va=this.va.remove(d));e=f.Wg;f=f.vg;b=-1!==Sa(e,function(a){return He(a.n)});var g=xf(this.va,d,function(a,b){return null!=li(b)});if(b&&!g&&(d=this.va.subtree(d),!d.e()))for(var d=Ci(d),k=0;k<d.length;++k){var m=d[k],l=m.Y,m=Di(this,m);this.Qc.af(Ei(l),Fi(this,l),m.Ad,m.I)}if(!g&&0<e.length&&!c)if(b)this.Qc.de(Ei(a),null);else{var t=this;Ma(e,function(a){a.wa();
+	var b=t.qc[zi(a)];t.Qc.de(Ei(a),b)})}Gi(this,e)}return f};oi.prototype.Aa=function(a,b){var c=this.mb,d=xf(this.va,a,function(b,c){var d=lf(b,a);if(d=c.kb(d))return d});return c.Aa(a,d,b,!0)};function Ci(a){return vf(a,function(a,c,d){if(c&&null!=li(c))return[li(c)];var e=[];c&&(e=mi(c));v(d,function(a){e=e.concat(a)});return e})}function Gi(a,b){for(var c=0;c<b.length;++c){var d=b[c];if(!He(d.n)){var d=zi(d),e=a.qc[d];delete a.qc[d];delete a.df["_"+e]}}}
+	function Ei(a){return He(a.n)&&!Ie(a.n)?a.Mb():a}function Bi(a,b,c){var d=b.path,e=Fi(a,b);c=Di(a,c);b=a.Qc.af(Ei(b),e,c.Ad,c.I);d=a.va.subtree(d);if(e)O(null==li(d.value),"If we're adding a query, it shouldn't be shadowed");else for(e=vf(d,function(a,b,c){if(!a.e()&&b&&null!=li(b))return[Ze(li(b))];var d=[];b&&(d=d.concat(Oa(mi(b),function(a){return a.Y})));v(c,function(a){d=d.concat(a)});return d}),d=0;d<e.length;++d)c=e[d],a.Qc.de(Ei(c),Fi(a,c));return b}
+	function Di(a,b){var c=b.Y,d=Fi(a,c);return{Ad:function(){return(b.w()||H).hash()},I:function(b){if("ok"===b){if(d){var f=c.path;if(b=vi(a,d)){var g=wi(b);b=g.path;g=g.Lb;f=lf(b,f);f=new Cc(new Ff(!1,!0,g,!0),f);b=xi(a,b,f)}else b=[]}else b=qi(a,new Cc(Gf,c.path));return b}f="Unknown Error";"too_big"===b?f="The data requested exceeds the maximum size that can be accessed with a single request.":"permission_denied"==b?f="Client doesn't have permission to access the desired data.":"unavailable"==b&&
+	(f="The service is unavailable");f=Error(b+" at "+c.path.toString()+": "+f);f.code=b.toUpperCase();return a.nb(c,null,f)}}}function zi(a){return a.path.toString()+"$"+a.wa()}function wi(a){var b=a.indexOf("$");O(-1!==b&&b<a.length-1,"Bad queryKey.");return{Lb:a.substr(b+1),path:new P(a.substr(0,b))}}function vi(a,b){var c=a.df,d="_"+b;return d in c?c[d]:void 0}function Fi(a,b){var c=zi(b);return z(a.qc,c)}var Ai=1;
+	function xi(a,b,c){var d=a.va.get(b);O(d,"Missing sync point for query tag that we're tracking");return d.gb(c,new Uf(b,a.mb),null)}function qi(a,b){return Hi(a,b,a.va,null,new Uf(M,a.mb))}function Hi(a,b,c,d,e){if(b.path.e())return Ii(a,b,c,d,e);var f=c.get(M);null==d&&null!=f&&(d=f.kb(M));var g=[],k=K(b.path),m=b.$c(k);if((c=c.children.get(k))&&m)var l=d?d.T(k):null,k=e.o(k),g=g.concat(Hi(a,m,c,l,k));f&&(g=g.concat(f.gb(b,e,d)));return g}
+	function Ii(a,b,c,d,e){var f=c.get(M);null==d&&null!=f&&(d=f.kb(M));var g=[];c.children.ka(function(c,f){var l=d?d.T(c):null,t=e.o(c),A=b.$c(c);A&&(g=g.concat(Ii(a,A,f,l,t)))});f&&(g=g.concat(f.gb(b,e,d)));return g};function Ji(a,b){this.G=a;this.Xa=uc(a);this.hd=null;this.fa=new Zb;this.Kd=1;this.Va=null;b||0<=("object"===typeof window&&window.navigator&&window.navigator.userAgent||"").search(/googlebot|google webmaster tools|bingbot|yahoo! slurp|baiduspider|yandexbot|duckduckbot/i)?(this.da=new cf(this.G,u(this.Kb,this)),setTimeout(u(this.Xc,this,!0),0)):this.da=this.Va=new Rh(this.G,u(this.Kb,this),u(this.Xc,this),u(this.Se,this));this.eh=vc(a,u(function(){return new pc(this.Xa,this.da)},this));this.yc=new Wf;
+	this.Ge=new Sb;var c=this;this.Fd=new oi({af:function(a,b,f,g){b=[];f=c.Ge.j(a.path);f.e()||(b=qi(c.Fd,new Ac(Gf,a.path,f)),setTimeout(function(){g("ok")},0));return b},de:aa});Ki(this,"connected",!1);this.na=new Vc;this.O=new Yg(a,u(this.da.O,this.da),u(this.da.je,this.da),u(this.Pe,this));this.ud=0;this.He=null;this.M=new oi({af:function(a,b,f,g){c.da.Cf(a,f,b,function(b,e){var f=g(b,e);dc(c.fa,a.path,f)});return[]},de:function(a,b){c.da.$f(a,b)}})}h=Ji.prototype;
+	h.toString=function(){return(this.G.ob?"https://":"http://")+this.G.host};h.name=function(){return this.G.lc};function Li(a){a=a.Ge.j(new P(".info/serverTimeOffset")).J()||0;return(new Date).getTime()+a}function Mi(a){a=a={timestamp:Li(a)};a.timestamp=a.timestamp||(new Date).getTime();return a}
+	h.Kb=function(a,b,c,d){this.ud++;var e=new P(a);b=this.He?this.He(a,b):b;a=[];d?c?(b=ma(b,function(a){return Q(a)}),a=yi(this.M,e,b,d)):(b=Q(b),a=ui(this.M,e,b,d)):c?(d=ma(b,function(a){return Q(a)}),a=ti(this.M,e,d)):(d=Q(b),a=qi(this.M,new Ac(Gf,e,d)));d=e;0<a.length&&(d=Ni(this,e));dc(this.fa,d,a)};h.Xc=function(a){Ki(this,"connected",a);!1===a&&Oi(this)};h.Se=function(a){var b=this;zd(a,function(a,d){Ki(b,d,a)})};h.Pe=function(a){Ki(this,"authenticated",a)};
+	function Ki(a,b,c){b=new P("/.info/"+b);c=Q(c);var d=a.Ge;d.Zd=d.Zd.H(b,c);c=qi(a.Fd,new Ac(Gf,b,c));dc(a.fa,b,c)}h.Ob=function(a,b,c,d){this.f("set",{path:a.toString(),value:b,nh:c});var e=Mi(this);b=Q(b,c);var e=Xc(b,e),f=this.Kd++,e=pi(this.M,a,e,f,!0);$b(this.fa,e);var g=this;this.da.put(a.toString(),b.J(!0),function(b,c){var e="ok"===b;e||S("set at "+a+" failed: "+b);e=si(g.M,f,!e);dc(g.fa,a,e);Pi(d,b,c)});e=Qi(this,a);Ni(this,e);dc(this.fa,e,[])};
+	h.update=function(a,b,c){this.f("update",{path:a.toString(),value:b});var d=!0,e=Mi(this),f={};v(b,function(a,b){d=!1;var c=Q(a);f[b]=Xc(c,e)});if(d)fc("update() called with empty data.  Don't do anything."),Pi(c,"ok");else{var g=this.Kd++,k=ri(this.M,a,f,g);$b(this.fa,k);var m=this;this.da.Df(a.toString(),b,function(b,d){var e="ok"===b;e||S("update at "+a+" failed: "+b);var e=si(m.M,g,!e),f=a;0<e.length&&(f=Ni(m,a));dc(m.fa,f,e);Pi(c,b,d)});b=Qi(this,a);Ni(this,b);dc(this.fa,a,[])}};
+	function Oi(a){a.f("onDisconnectEvents");var b=Mi(a),c=[];Wc(Uc(a.na,b),M,function(b,e){c=c.concat(qi(a.M,new Ac(Gf,b,e)));var f=Qi(a,b);Ni(a,f)});a.na=new Vc;dc(a.fa,M,c)}h.Md=function(a,b){var c=this;this.da.Md(a.toString(),function(d,e){"ok"===d&&wg(c.na,a);Pi(b,d,e)})};function fi(a,b,c,d){var e=Q(c);a.da.Qe(b.toString(),e.J(!0),function(c,g){"ok"===c&&a.na.rc(b,e);Pi(d,c,g)})}function gi(a,b,c,d,e){var f=Q(c,d);a.da.Qe(b.toString(),f.J(!0),function(c,d){"ok"===c&&a.na.rc(b,f);Pi(e,c,d)})}
+	function hi(a,b,c,d){var e=!0,f;for(f in c)e=!1;e?(fc("onDisconnect().update() called with empty data.  Don't do anything."),Pi(d,"ok")):a.da.Gf(b.toString(),c,function(e,f){if("ok"===e)for(var m in c){var l=Q(c[m]);a.na.rc(b.o(m),l)}Pi(d,e,f)})}function Ri(a,b,c){c=".info"===K(b.path)?a.Fd.Tb(b,c):a.M.Tb(b,c);bc(a.fa,b.path,c)}h.Cb=function(){this.Va&&this.Va.Cb()};h.vc=function(){this.Va&&this.Va.vc()};
+	h.bf=function(a){if("undefined"!==typeof console){a?(this.hd||(this.hd=new oc(this.Xa)),a=this.hd.get()):a=this.Xa.get();var b=Pa(ra(a),function(a,b){return Math.max(b.length,a)},0),c;for(c in a){for(var d=a[c],e=c.length;e<b+2;e++)c+=" ";console.log(c+d)}}};h.cf=function(a){rc(this.Xa,a);this.eh.Vf[a]=!0};h.f=function(a){var b="";this.Va&&(b=this.Va.id+":");fc(b,arguments)};
+	function Pi(a,b,c){a&&gc(function(){if("ok"==b)a(null);else{var d=(b||"error").toUpperCase(),e=d;c&&(e+=": "+c);e=Error(e);e.code=d;a(e)}})};function Si(a,b,c,d,e){function f(){}a.f("transaction on "+b);var g=new X(a,b);g.Ib("value",f);c={path:b,update:c,I:d,status:null,Lf:id(),gf:e,Sf:0,le:function(){g.mc("value",f)},ne:null,Da:null,rd:null,sd:null,td:null};d=a.M.Aa(b,void 0)||H;c.rd=d;d=c.update(d.J());if(p(d)){hg("transaction failed: Data returned ",d,c.path);c.status=1;e=Xf(a.yc,b);var k=e.Ea()||[];k.push(c);Yf(e,k);"object"===typeof d&&null!==d&&y(d,".priority")?(k=z(d,".priority"),O(fg(k),"Invalid priority returned by transaction. Priority must be a valid string, finite number, server value, or null.")):
+	k=(a.M.Aa(b)||H).C().J();e=Mi(a);d=Q(d,k);e=Xc(d,e);c.sd=d;c.td=e;c.Da=a.Kd++;c=pi(a.M,b,e,c.Da,c.gf);dc(a.fa,b,c);Ti(a)}else c.le(),c.sd=null,c.td=null,c.I&&(a=new W(c.rd,new X(a,c.path),R),c.I(null,!1,a))}function Ti(a,b){var c=b||a.yc;b||Ui(a,c);if(null!==c.Ea()){var d=Vi(a,c);O(0<d.length,"Sending zero length transaction queue");Qa(d,function(a){return 1===a.status})&&Wi(a,c.path(),d)}else c.zd()&&c.R(function(b){Ti(a,b)})}
+	function Wi(a,b,c){for(var d=Oa(c,function(a){return a.Da}),e=a.M.Aa(b,d)||H,d=e,e=e.hash(),f=0;f<c.length;f++){var g=c[f];O(1===g.status,"tryToSendTransactionQueue_: items in queue should all be run.");g.status=2;g.Sf++;var k=lf(b,g.path),d=d.H(k,g.sd)}d=d.J(!0);a.da.put(b.toString(),d,function(d){a.f("transaction put response",{path:b.toString(),status:d});var e=[];if("ok"===d){d=[];for(f=0;f<c.length;f++){c[f].status=3;e=e.concat(si(a.M,c[f].Da));if(c[f].I){var g=c[f].td,k=new X(a,c[f].path);d.push(u(c[f].I,
+	null,null,!0,new W(g,k,R)))}c[f].le()}Ui(a,Xf(a.yc,b));Ti(a);dc(a.fa,b,e);for(f=0;f<d.length;f++)gc(d[f])}else{if("datastale"===d)for(f=0;f<c.length;f++)c[f].status=4===c[f].status?5:1;else for(S("transaction at "+b.toString()+" failed: "+d),f=0;f<c.length;f++)c[f].status=5,c[f].ne=d;Ni(a,b)}},e)}function Ni(a,b){var c=Xi(a,b),d=c.path(),c=Vi(a,c);Yi(a,c,d);return d}
+	function Yi(a,b,c){if(0!==b.length){for(var d=[],e=[],f=Na(b,function(a){return 1===a.status}),f=Oa(f,function(a){return a.Da}),g=0;g<b.length;g++){var k=b[g],m=lf(c,k.path),l=!1,t;O(null!==m,"rerunTransactionsUnderNode_: relativePath should not be null.");if(5===k.status)l=!0,t=k.ne,e=e.concat(si(a.M,k.Da,!0));else if(1===k.status)if(25<=k.Sf)l=!0,t="maxretry",e=e.concat(si(a.M,k.Da,!0));else{var A=a.M.Aa(k.path,f)||H;k.rd=A;var I=b[g].update(A.J());p(I)?(hg("transaction failed: Data returned ",
+	I,k.path),m=Q(I),"object"===typeof I&&null!=I&&y(I,".priority")||(m=m.ia(A.C())),A=k.Da,I=Mi(a),I=Xc(m,I),k.sd=m,k.td=I,k.Da=a.Kd++,Ta(f,A),e=e.concat(pi(a.M,k.path,I,k.Da,k.gf)),e=e.concat(si(a.M,A,!0))):(l=!0,t="nodata",e=e.concat(si(a.M,k.Da,!0)))}dc(a.fa,c,e);e=[];l&&(b[g].status=3,setTimeout(b[g].le,Math.floor(0)),b[g].I&&("nodata"===t?(k=new X(a,b[g].path),d.push(u(b[g].I,null,null,!1,new W(b[g].rd,k,R)))):d.push(u(b[g].I,null,Error(t),!1,null))))}Ui(a,a.yc);for(g=0;g<d.length;g++)gc(d[g]);
+	Ti(a)}}function Xi(a,b){for(var c,d=a.yc;null!==(c=K(b))&&null===d.Ea();)d=Xf(d,c),b=N(b);return d}function Vi(a,b){var c=[];Zi(a,b,c);c.sort(function(a,b){return a.Lf-b.Lf});return c}function Zi(a,b,c){var d=b.Ea();if(null!==d)for(var e=0;e<d.length;e++)c.push(d[e]);b.R(function(b){Zi(a,b,c)})}function Ui(a,b){var c=b.Ea();if(c){for(var d=0,e=0;e<c.length;e++)3!==c[e].status&&(c[d]=c[e],d++);c.length=d;Yf(b,0<c.length?c:null)}b.R(function(b){Ui(a,b)})}
+	function Qi(a,b){var c=Xi(a,b).path(),d=Xf(a.yc,b);ag(d,function(b){$i(a,b)});$i(a,d);$f(d,function(b){$i(a,b)});return c}
+	function $i(a,b){var c=b.Ea();if(null!==c){for(var d=[],e=[],f=-1,g=0;g<c.length;g++)4!==c[g].status&&(2===c[g].status?(O(f===g-1,"All SENT items should be at beginning of queue."),f=g,c[g].status=4,c[g].ne="set"):(O(1===c[g].status,"Unexpected transaction status in abort"),c[g].le(),e=e.concat(si(a.M,c[g].Da,!0)),c[g].I&&d.push(u(c[g].I,null,Error("set"),!1,null))));-1===f?Yf(b,null):c.length=f+1;dc(a.fa,b.path(),e);for(g=0;g<d.length;g++)gc(d[g])}};function aj(){this.sc={};this.ag=!1}aj.prototype.Cb=function(){for(var a in this.sc)this.sc[a].Cb()};aj.prototype.vc=function(){for(var a in this.sc)this.sc[a].vc()};aj.prototype.ze=function(){this.ag=!0};ba(aj);aj.prototype.interrupt=aj.prototype.Cb;aj.prototype.resume=aj.prototype.vc;function Y(a,b,c,d){this.k=a;this.path=b;this.n=c;this.pc=d}
+	function bj(a){var b=null,c=null;a.oa&&(b=Od(a));a.ra&&(c=Rd(a));if(a.g===re){if(a.oa){if("[MIN_NAME]"!=Nd(a))throw Error("Query: When ordering by key, you may only pass one argument to startAt(), endAt(), or equalTo().");if("string"!==typeof b)throw Error("Query: When ordering by key, the argument passed to startAt(), endAt(),or equalTo() must be a string.");}if(a.ra){if("[MAX_NAME]"!=Pd(a))throw Error("Query: When ordering by key, you may only pass one argument to startAt(), endAt(), or equalTo().");if("string"!==
+	typeof c)throw Error("Query: When ordering by key, the argument passed to startAt(), endAt(),or equalTo() must be a string.");}}else if(a.g===R){if(null!=b&&!fg(b)||null!=c&&!fg(c))throw Error("Query: When ordering by priority, the first argument passed to startAt(), endAt(), or equalTo() must be a valid priority value (null, a number, or a string).");}else if(O(a.g instanceof ve||a.g===Be,"unknown index type."),null!=b&&"object"===typeof b||null!=c&&"object"===typeof c)throw Error("Query: First argument passed to startAt(), endAt(), or equalTo() cannot be an object.");
+	}function cj(a){if(a.oa&&a.ra&&a.la&&(!a.la||""===a.Rb))throw Error("Query: Can't combine startAt(), endAt(), and limit(). Use limitToFirst() or limitToLast() instead.");}function dj(a,b){if(!0===a.pc)throw Error(b+": You can't combine multiple orderBy calls.");}h=Y.prototype;h.Mb=function(){D("Query.ref",0,0,arguments.length);return new X(this.k,this.path)};
+	h.Ib=function(a,b,c,d){D("Query.on",2,4,arguments.length);lg("Query.on",a,!1);F("Query.on",2,b,!1);var e=ej("Query.on",c,d);if("value"===a)Ri(this.k,this,new ii(b,e.cancel||null,e.Qa||null));else{var f={};f[a]=b;Ri(this.k,this,new ji(f,e.cancel,e.Qa))}return b};
+	h.mc=function(a,b,c){D("Query.off",0,3,arguments.length);lg("Query.off",a,!0);F("Query.off",2,b,!0);Qb("Query.off",3,c);var d=null,e=null;"value"===a?d=new ii(b||null,null,c||null):a&&(b&&(e={},e[a]=b),d=new ji(e,null,c||null));e=this.k;d=".info"===K(this.path)?e.Fd.nb(this,d):e.M.nb(this,d);bc(e.fa,this.path,d)};
+	h.Pg=function(a,b){function c(k){f&&(f=!1,e.mc(a,c),b&&b.call(d.Qa,k),g.resolve(k))}D("Query.once",1,4,arguments.length);lg("Query.once",a,!1);F("Query.once",2,b,!0);var d=ej("Query.once",arguments[2],arguments[3]),e=this,f=!0,g=new B;Nb(g.D);this.Ib(a,c,function(b){e.mc(a,c);d.cancel&&d.cancel.call(d.Qa,b);g.reject(b)});return g.D};
+	h.Le=function(a){S("Query.limit() being deprecated. Please use Query.limitToFirst() or Query.limitToLast() instead.");D("Query.limit",1,1,arguments.length);if(!fa(a)||Math.floor(a)!==a||0>=a)throw Error("Query.limit: First argument must be a positive integer.");if(this.n.la)throw Error("Query.limit: Limit was already set (by another call to limit, limitToFirst, orlimitToLast.");var b=this.n.Le(a);cj(b);return new Y(this.k,this.path,b,this.pc)};
+	h.Me=function(a){D("Query.limitToFirst",1,1,arguments.length);if(!fa(a)||Math.floor(a)!==a||0>=a)throw Error("Query.limitToFirst: First argument must be a positive integer.");if(this.n.la)throw Error("Query.limitToFirst: Limit was already set (by another call to limit, limitToFirst, or limitToLast).");return new Y(this.k,this.path,this.n.Me(a),this.pc)};
+	h.Ne=function(a){D("Query.limitToLast",1,1,arguments.length);if(!fa(a)||Math.floor(a)!==a||0>=a)throw Error("Query.limitToLast: First argument must be a positive integer.");if(this.n.la)throw Error("Query.limitToLast: Limit was already set (by another call to limit, limitToFirst, or limitToLast).");return new Y(this.k,this.path,this.n.Ne(a),this.pc)};
+	h.Qg=function(a){D("Query.orderByChild",1,1,arguments.length);if("$key"===a)throw Error('Query.orderByChild: "$key" is invalid.  Use Query.orderByKey() instead.');if("$priority"===a)throw Error('Query.orderByChild: "$priority" is invalid.  Use Query.orderByPriority() instead.');if("$value"===a)throw Error('Query.orderByChild: "$value" is invalid.  Use Query.orderByValue() instead.');ng("Query.orderByChild",a);dj(this,"Query.orderByChild");var b=new P(a);if(b.e())throw Error("Query.orderByChild: cannot pass in empty path.  Use Query.orderByValue() instead.");
+	b=new ve(b);b=Fe(this.n,b);bj(b);return new Y(this.k,this.path,b,!0)};h.Rg=function(){D("Query.orderByKey",0,0,arguments.length);dj(this,"Query.orderByKey");var a=Fe(this.n,re);bj(a);return new Y(this.k,this.path,a,!0)};h.Sg=function(){D("Query.orderByPriority",0,0,arguments.length);dj(this,"Query.orderByPriority");var a=Fe(this.n,R);bj(a);return new Y(this.k,this.path,a,!0)};
+	h.Tg=function(){D("Query.orderByValue",0,0,arguments.length);dj(this,"Query.orderByValue");var a=Fe(this.n,Be);bj(a);return new Y(this.k,this.path,a,!0)};h.ce=function(a,b){D("Query.startAt",0,2,arguments.length);gg("Query.startAt",a,this.path,!0);mg("Query.startAt",b);var c=this.n.ce(a,b);cj(c);bj(c);if(this.n.oa)throw Error("Query.startAt: Starting point was already set (by another call to startAt or equalTo).");p(a)||(b=a=null);return new Y(this.k,this.path,c,this.pc)};
+	h.vd=function(a,b){D("Query.endAt",0,2,arguments.length);gg("Query.endAt",a,this.path,!0);mg("Query.endAt",b);var c=this.n.vd(a,b);cj(c);bj(c);if(this.n.ra)throw Error("Query.endAt: Ending point was already set (by another call to endAt or equalTo).");return new Y(this.k,this.path,c,this.pc)};
+	h.tg=function(a,b){D("Query.equalTo",1,2,arguments.length);gg("Query.equalTo",a,this.path,!1);mg("Query.equalTo",b);if(this.n.oa)throw Error("Query.equalTo: Starting point was already set (by another call to endAt or equalTo).");if(this.n.ra)throw Error("Query.equalTo: Ending point was already set (by another call to endAt or equalTo).");return this.ce(a,b).vd(a,b)};
+	h.toString=function(){D("Query.toString",0,0,arguments.length);for(var a=this.path,b="",c=a.aa;c<a.u.length;c++)""!==a.u[c]&&(b+="/"+encodeURIComponent(String(a.u[c])));return this.k.toString()+(b||"/")};h.wa=function(){var a=xd(Ge(this.n));return"{}"===a?"default":a};
+	function ej(a,b,c){var d={cancel:null,Qa:null};if(b&&c)d.cancel=b,F(a,3,d.cancel,!0),d.Qa=c,Qb(a,4,d.Qa);else if(b)if("object"===typeof b&&null!==b)d.Qa=b;else if("function"===typeof b)d.cancel=b;else throw Error(E(a,3,!0)+" must either be a cancel callback or a context object.");return d}Y.prototype.ref=Y.prototype.Mb;Y.prototype.on=Y.prototype.Ib;Y.prototype.off=Y.prototype.mc;Y.prototype.once=Y.prototype.Pg;Y.prototype.limit=Y.prototype.Le;Y.prototype.limitToFirst=Y.prototype.Me;
+	Y.prototype.limitToLast=Y.prototype.Ne;Y.prototype.orderByChild=Y.prototype.Qg;Y.prototype.orderByKey=Y.prototype.Rg;Y.prototype.orderByPriority=Y.prototype.Sg;Y.prototype.orderByValue=Y.prototype.Tg;Y.prototype.startAt=Y.prototype.ce;Y.prototype.endAt=Y.prototype.vd;Y.prototype.equalTo=Y.prototype.tg;Y.prototype.toString=Y.prototype.toString;var Z={};Z.zc=Rh;Z.DataConnection=Z.zc;Rh.prototype.dh=function(a,b){this.Ia("q",{p:a},b)};Z.zc.prototype.simpleListen=Z.zc.prototype.dh;Rh.prototype.sg=function(a,b){this.Ia("echo",{d:a},b)};Z.zc.prototype.echo=Z.zc.prototype.sg;Rh.prototype.interrupt=Rh.prototype.Cb;Z.dg=Fh;Z.RealTimeConnection=Z.dg;Fh.prototype.sendRequest=Fh.prototype.Ia;Fh.prototype.close=Fh.prototype.close;
+	Z.Cg=function(a){var b=Rh.prototype.put;Rh.prototype.put=function(c,d,e,f){p(f)&&(f=a());b.call(this,c,d,e,f)};return function(){Rh.prototype.put=b}};Z.hijackHash=Z.Cg;Z.cg=dd;Z.ConnectionTarget=Z.cg;Z.wa=function(a){return a.wa()};Z.queryIdentifier=Z.wa;Z.Fg=function(a){return a.k.Va.ba};Z.listens=Z.Fg;Z.ze=function(a){a.ze()};Z.forceRestClient=Z.ze;function X(a,b){var c,d,e;if(a instanceof Ji)c=a,d=b;else{D("new Firebase",1,2,arguments.length);d=sd(arguments[0]);c=d.fh;"firebase"===d.domain&&rd(d.host+" is no longer supported. Please use <YOUR FIREBASE>.firebaseio.com instead");c&&"undefined"!=c||rd("Cannot parse Firebase url. Please use https://<YOUR FIREBASE>.firebaseio.com");d.ob||"undefined"!==typeof window&&window.location&&window.location.protocol&&-1!==window.location.protocol.indexOf("https:")&&S("Insecure Firebase access from a secure page. Please use https in calls to new Firebase().");
+	c=new dd(d.host,d.ob,c,"ws"===d.scheme||"wss"===d.scheme);d=new P(d.bd);e=d.toString();var f;!(f=!q(c.host)||0===c.host.length||!eg(c.lc))&&(f=0!==e.length)&&(e&&(e=e.replace(/^\/*\.info(\/|$)/,"/")),f=!(q(e)&&0!==e.length&&!cg.test(e)));if(f)throw Error(E("new Firebase",1,!1)+'must be a valid firebase URL and the path can\'t contain ".", "#", "$", "[", or "]".');if(b)if(b instanceof aj)e=b;else if(q(b))e=aj.yb(),c.Rd=b;else throw Error("Expected a valid Firebase.Context for second argument to new Firebase()");
+	else e=aj.yb();f=c.toString();var g=z(e.sc,f);g||(g=new Ji(c,e.ag),e.sc[f]=g);c=g}Y.call(this,c,d,De,!1);this.then=void 0;this["catch"]=void 0}ka(X,Y);var fj=X,gj=["Firebase"],hj=n;gj[0]in hj||!hj.execScript||hj.execScript("var "+gj[0]);for(var ij;gj.length&&(ij=gj.shift());)!gj.length&&p(fj)?hj[ij]=fj:hj=hj[ij]?hj[ij]:hj[ij]={};X.goOffline=function(){D("Firebase.goOffline",0,0,arguments.length);aj.yb().Cb()};X.goOnline=function(){D("Firebase.goOnline",0,0,arguments.length);aj.yb().vc()};
+	X.enableLogging=od;X.ServerValue={TIMESTAMP:{".sv":"timestamp"}};X.SDK_VERSION=Eb;X.INTERNAL=U;X.Context=aj;X.TEST_ACCESS=Z;X.prototype.name=function(){S("Firebase.name() being deprecated. Please use Firebase.key() instead.");D("Firebase.name",0,0,arguments.length);return this.key()};X.prototype.name=X.prototype.name;X.prototype.key=function(){D("Firebase.key",0,0,arguments.length);return this.path.e()?null:me(this.path)};X.prototype.key=X.prototype.key;
+	X.prototype.o=function(a){D("Firebase.child",1,1,arguments.length);if(fa(a))a=String(a);else if(!(a instanceof P))if(null===K(this.path)){var b=a;b&&(b=b.replace(/^\/*\.info(\/|$)/,"/"));ng("Firebase.child",b)}else ng("Firebase.child",a);return new X(this.k,this.path.o(a))};X.prototype.child=X.prototype.o;X.prototype.parent=function(){D("Firebase.parent",0,0,arguments.length);var a=this.path.parent();return null===a?null:new X(this.k,a)};X.prototype.parent=X.prototype.parent;
+	X.prototype.root=function(){D("Firebase.ref",0,0,arguments.length);for(var a=this;null!==a.parent();)a=a.parent();return a};X.prototype.root=X.prototype.root;X.prototype.set=function(a,b){D("Firebase.set",1,2,arguments.length);og("Firebase.set",this.path);gg("Firebase.set",a,this.path,!1);F("Firebase.set",2,b,!0);var c=new B;this.k.Ob(this.path,a,null,C(c,b));return c.D};X.prototype.set=X.prototype.set;
+	X.prototype.update=function(a,b){D("Firebase.update",1,2,arguments.length);og("Firebase.update",this.path);if(da(a)){for(var c={},d=0;d<a.length;++d)c[""+d]=a[d];a=c;S("Passing an Array to Firebase.update() is deprecated. Use set() if you want to overwrite the existing data, or an Object with integer keys if you really do want to only update some of the children.")}jg("Firebase.update",a,this.path);F("Firebase.update",2,b,!0);c=new B;this.k.update(this.path,a,C(c,b));return c.D};
+	X.prototype.update=X.prototype.update;X.prototype.Ob=function(a,b,c){D("Firebase.setWithPriority",2,3,arguments.length);og("Firebase.setWithPriority",this.path);gg("Firebase.setWithPriority",a,this.path,!1);kg("Firebase.setWithPriority",2,b);F("Firebase.setWithPriority",3,c,!0);if(".length"===this.key()||".keys"===this.key())throw"Firebase.setWithPriority failed: "+this.key()+" is a read-only object.";var d=new B;this.k.Ob(this.path,a,b,C(d,c));return d.D};X.prototype.setWithPriority=X.prototype.Ob;
+	X.prototype.remove=function(a){D("Firebase.remove",0,1,arguments.length);og("Firebase.remove",this.path);F("Firebase.remove",1,a,!0);return this.set(null,a)};X.prototype.remove=X.prototype.remove;
+	X.prototype.transaction=function(a,b,c){D("Firebase.transaction",1,3,arguments.length);og("Firebase.transaction",this.path);F("Firebase.transaction",1,a,!1);F("Firebase.transaction",2,b,!0);if(p(c)&&"boolean"!=typeof c)throw Error(E("Firebase.transaction",3,!0)+"must be a boolean.");if(".length"===this.key()||".keys"===this.key())throw"Firebase.transaction failed: "+this.key()+" is a read-only object.";"undefined"===typeof c&&(c=!0);var d=new B;r(b)&&Nb(d.D);Si(this.k,this.path,a,function(a,c,g){a?
+	d.reject(a):d.resolve(new ei(c,g));r(b)&&b(a,c,g)},c);return d.D};X.prototype.transaction=X.prototype.transaction;X.prototype.$g=function(a,b){D("Firebase.setPriority",1,2,arguments.length);og("Firebase.setPriority",this.path);kg("Firebase.setPriority",1,a);F("Firebase.setPriority",2,b,!0);var c=new B;this.k.Ob(this.path.o(".priority"),a,null,C(c,b));return c.D};X.prototype.setPriority=X.prototype.$g;
+	X.prototype.push=function(a,b){D("Firebase.push",0,2,arguments.length);og("Firebase.push",this.path);gg("Firebase.push",a,this.path,!0);F("Firebase.push",2,b,!0);var c=Li(this.k),d=hf(c),c=this.o(d);if(null!=a){var e=this,f=c.set(a,b).then(function(){return e.o(d)});c.then=u(f.then,f);c["catch"]=u(f.then,f,void 0);r(b)&&Nb(f)}return c};X.prototype.push=X.prototype.push;X.prototype.lb=function(){og("Firebase.onDisconnect",this.path);return new V(this.k,this.path)};X.prototype.onDisconnect=X.prototype.lb;
+	X.prototype.O=function(a,b,c){S("FirebaseRef.auth() being deprecated. Please use FirebaseRef.authWithCustomToken() instead.");D("Firebase.auth",1,3,arguments.length);pg("Firebase.auth",a);F("Firebase.auth",2,b,!0);F("Firebase.auth",3,b,!0);var d=new B;dh(this.k.O,a,{},{remember:"none"},C(d,b),c);return d.D};X.prototype.auth=X.prototype.O;X.prototype.je=function(a){D("Firebase.unauth",0,1,arguments.length);F("Firebase.unauth",1,a,!0);var b=new B;eh(this.k.O,C(b,a));return b.D};X.prototype.unauth=X.prototype.je;
+	X.prototype.Be=function(){D("Firebase.getAuth",0,0,arguments.length);return this.k.O.Be()};X.prototype.getAuth=X.prototype.Be;X.prototype.Jg=function(a,b){D("Firebase.onAuth",1,2,arguments.length);F("Firebase.onAuth",1,a,!1);Qb("Firebase.onAuth",2,b);this.k.O.Ib("auth_status",a,b)};X.prototype.onAuth=X.prototype.Jg;X.prototype.Ig=function(a,b){D("Firebase.offAuth",1,2,arguments.length);F("Firebase.offAuth",1,a,!1);Qb("Firebase.offAuth",2,b);this.k.O.mc("auth_status",a,b)};X.prototype.offAuth=X.prototype.Ig;
+	X.prototype.hg=function(a,b,c){D("Firebase.authWithCustomToken",1,3,arguments.length);2===arguments.length&&Hb(b)&&(c=b,b=void 0);pg("Firebase.authWithCustomToken",a);F("Firebase.authWithCustomToken",2,b,!0);sg("Firebase.authWithCustomToken",3,c,!0);var d=new B;dh(this.k.O,a,{},c||{},C(d,b));return d.D};X.prototype.authWithCustomToken=X.prototype.hg;
+	X.prototype.ig=function(a,b,c){D("Firebase.authWithOAuthPopup",1,3,arguments.length);2===arguments.length&&Hb(b)&&(c=b,b=void 0);rg("Firebase.authWithOAuthPopup",a);F("Firebase.authWithOAuthPopup",2,b,!0);sg("Firebase.authWithOAuthPopup",3,c,!0);var d=new B;ih(this.k.O,a,c,C(d,b));return d.D};X.prototype.authWithOAuthPopup=X.prototype.ig;
+	X.prototype.jg=function(a,b,c){D("Firebase.authWithOAuthRedirect",1,3,arguments.length);2===arguments.length&&Hb(b)&&(c=b,b=void 0);rg("Firebase.authWithOAuthRedirect",a);F("Firebase.authWithOAuthRedirect",2,b,!1);sg("Firebase.authWithOAuthRedirect",3,c,!0);var d=new B,e=this.k.O,f=c,g=C(d,b);gh(e);var k=[Qg],f=Ag(f);"anonymous"===a||"firebase"===a?T(g,Sg("TRANSPORT_UNAVAILABLE")):(cd.set("redirect_client_options",f.qd),hh(e,k,"/auth/"+a,f,g));return d.D};X.prototype.authWithOAuthRedirect=X.prototype.jg;
+	X.prototype.kg=function(a,b,c,d){D("Firebase.authWithOAuthToken",2,4,arguments.length);3===arguments.length&&Hb(c)&&(d=c,c=void 0);rg("Firebase.authWithOAuthToken",a);F("Firebase.authWithOAuthToken",3,c,!0);sg("Firebase.authWithOAuthToken",4,d,!0);var e=new B;q(b)?(qg("Firebase.authWithOAuthToken",2,b),fh(this.k.O,a+"/token",{access_token:b},d,C(e,c))):(sg("Firebase.authWithOAuthToken",2,b,!1),fh(this.k.O,a+"/token",b,d,C(e,c)));return e.D};X.prototype.authWithOAuthToken=X.prototype.kg;
+	X.prototype.gg=function(a,b){D("Firebase.authAnonymously",0,2,arguments.length);1===arguments.length&&Hb(a)&&(b=a,a=void 0);F("Firebase.authAnonymously",1,a,!0);sg("Firebase.authAnonymously",2,b,!0);var c=new B;fh(this.k.O,"anonymous",{},b,C(c,a));return c.D};X.prototype.authAnonymously=X.prototype.gg;
+	X.prototype.lg=function(a,b,c){D("Firebase.authWithPassword",1,3,arguments.length);2===arguments.length&&Hb(b)&&(c=b,b=void 0);sg("Firebase.authWithPassword",1,a,!1);tg("Firebase.authWithPassword",a,"email");tg("Firebase.authWithPassword",a,"password");F("Firebase.authWithPassword",2,b,!0);sg("Firebase.authWithPassword",3,c,!0);var d=new B;fh(this.k.O,"password",a,c,C(d,b));return d.D};X.prototype.authWithPassword=X.prototype.lg;
+	X.prototype.ve=function(a,b){D("Firebase.createUser",1,2,arguments.length);sg("Firebase.createUser",1,a,!1);tg("Firebase.createUser",a,"email");tg("Firebase.createUser",a,"password");F("Firebase.createUser",2,b,!0);var c=new B;this.k.O.ve(a,C(c,b));return c.D};X.prototype.createUser=X.prototype.ve;
+	X.prototype.Xe=function(a,b){D("Firebase.removeUser",1,2,arguments.length);sg("Firebase.removeUser",1,a,!1);tg("Firebase.removeUser",a,"email");tg("Firebase.removeUser",a,"password");F("Firebase.removeUser",2,b,!0);var c=new B;this.k.O.Xe(a,C(c,b));return c.D};X.prototype.removeUser=X.prototype.Xe;
+	X.prototype.se=function(a,b){D("Firebase.changePassword",1,2,arguments.length);sg("Firebase.changePassword",1,a,!1);tg("Firebase.changePassword",a,"email");tg("Firebase.changePassword",a,"oldPassword");tg("Firebase.changePassword",a,"newPassword");F("Firebase.changePassword",2,b,!0);var c=new B;this.k.O.se(a,C(c,b));return c.D};X.prototype.changePassword=X.prototype.se;
+	X.prototype.re=function(a,b){D("Firebase.changeEmail",1,2,arguments.length);sg("Firebase.changeEmail",1,a,!1);tg("Firebase.changeEmail",a,"oldEmail");tg("Firebase.changeEmail",a,"newEmail");tg("Firebase.changeEmail",a,"password");F("Firebase.changeEmail",2,b,!0);var c=new B;this.k.O.re(a,C(c,b));return c.D};X.prototype.changeEmail=X.prototype.re;
+	X.prototype.Ze=function(a,b){D("Firebase.resetPassword",1,2,arguments.length);sg("Firebase.resetPassword",1,a,!1);tg("Firebase.resetPassword",a,"email");F("Firebase.resetPassword",2,b,!0);var c=new B;this.k.O.Ze(a,C(c,b));return c.D};X.prototype.resetPassword=X.prototype.Ze;})();
+	
+	module.exports = Firebase;
+
 
 /***/ },
 /* 40 */
@@ -78909,110 +81093,20 @@
 /* 53 */
 /***/ function(module, exports) {
 
-	// shim for using process in browser
-	
-	var process = module.exports = {};
-	var queue = [];
-	var draining = false;
-	var currentQueue;
-	var queueIndex = -1;
-	
-	function cleanUpNextTick() {
-	    draining = false;
-	    if (currentQueue.length) {
-	        queue = currentQueue.concat(queue);
-	    } else {
-	        queueIndex = -1;
-	    }
-	    if (queue.length) {
-	        drainQueue();
-	    }
-	}
-	
-	function drainQueue() {
-	    if (draining) {
-	        return;
-	    }
-	    var timeout = setTimeout(cleanUpNextTick);
-	    draining = true;
-	
-	    var len = queue.length;
-	    while(len) {
-	        currentQueue = queue;
-	        queue = [];
-	        while (++queueIndex < len) {
-	            if (currentQueue) {
-	                currentQueue[queueIndex].run();
-	            }
-	        }
-	        queueIndex = -1;
-	        len = queue.length;
-	    }
-	    currentQueue = null;
-	    draining = false;
-	    clearTimeout(timeout);
-	}
-	
-	process.nextTick = function (fun) {
-	    var args = new Array(arguments.length - 1);
-	    if (arguments.length > 1) {
-	        for (var i = 1; i < arguments.length; i++) {
-	            args[i - 1] = arguments[i];
-	        }
-	    }
-	    queue.push(new Item(fun, args));
-	    if (queue.length === 1 && !draining) {
-	        setTimeout(drainQueue, 0);
-	    }
-	};
-	
-	// v8 likes predictible objects
-	function Item(fun, array) {
-	    this.fun = fun;
-	    this.array = array;
-	}
-	Item.prototype.run = function () {
-	    this.fun.apply(null, this.array);
-	};
-	process.title = 'browser';
-	process.browser = true;
-	process.env = {};
-	process.argv = [];
-	process.version = ''; // empty string to avoid regexp issues
-	process.versions = {};
-	
-	function noop() {}
-	
-	process.on = noop;
-	process.addListener = noop;
-	process.once = noop;
-	process.off = noop;
-	process.removeListener = noop;
-	process.removeAllListeners = noop;
-	process.emit = noop;
-	
-	process.binding = function (name) {
-	    throw new Error('process.binding is not supported');
-	};
-	
-	process.cwd = function () { return '/' };
-	process.chdir = function (dir) {
-	    throw new Error('process.chdir is not supported');
-	};
-	process.umask = function() { return 0; };
-
-
-/***/ },
-/* 54 */
-/***/ function(module, exports) {
-
-	module.exports = function ($scope, $routeParams, Post, Auth, Comment, $firebase, Profile, $http, $filter, $sce, $location, 
-	  $uibModal, Action, $mdToast, FIREBASE_URL, $firebase, $mdConstant, $mdDialog) {
+	module.exports = function ($scope, $routeParams, Post, Auth, Comment, $firebaseArray, Profile, $http, $filter, $sce, $location, 
+	  $uibModal, Action, $mdToast, FIREBASE_URL, $mdConstant, $mdDialog, Users) {
 	  var post_id = $routeParams.postId;
-	  $scope.user = Auth.user;
-	  $scope.signedIn = Auth.signedIn;
-	  $scope.logout = Auth.logout;
-	  // $scope.posts = Post.all;
+	  var authData = Auth.$getAuth();
+	  if (authData) {
+	     console.log("User " + authData.uid + " is logged in with " + authData.provider);
+	     $scope.user = Users.getProfile(authData.uid);
+	     $scope.username = $scope.user.username;
+	  } else {
+	    $scope.user = null;
+	    $scope.username = null;
+	    $location.path('/login');
+	    console.log("User is logged out");
+	  }
 	  $scope.post = Post.get(post_id);
 	  var postRef = new Firebase(FIREBASE_URL+"/posts/"+ post_id);
 	  postRef.once('value', function(dataSnapshot) {
@@ -79023,7 +81117,7 @@
 	  $scope.loadingCircle = false;
 	
 	  var ref = new Firebase(FIREBASE_URL);
-	  var tags = $firebase(ref.child('tags')).$asArray();
+	  var tags = $firebaseArray(ref.child('tags'));
 	
 	
 	    $scope.readonly = false;
@@ -79103,7 +81197,7 @@
 	  };
 	
 	  $scope.save = function(post) {
-	    if($scope.signedIn() && $scope.user.uid != post.creatorUID){
+	    if($scope.user && Auth.$getAuth().uid != post.creatorUID){
 	      Profile.savePost($scope.user.uid, post.$id, 'yes');
 	         $mdToast.show(
 	            $mdToast.simple()
@@ -79154,15 +81248,15 @@
 
 
 /***/ },
-/* 55 */
+/* 54 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $route, $location, $window, Post, Auth, $http, $cookies, album, $sce, $filter,
-	  $timeout, $q, $mdDialog, FIREBASE_URL, $firebase, $mdConstant) {
+	  $timeout, $q, $mdDialog, FIREBASE_URL, $mdConstant, Users, $firebaseArray) {
 	
 	   var ref = new $window.Firebase(FIREBASE_URL);
 	   var tagsRef = new $window.Firebase(FIREBASE_URL+"/tags");
-	   var tags = $firebase(ref.child('tags')).$asArray();
+	   var tags = $firebaseArray(ref.child('tags'));
 	
 	    $scope.readonly = false;
 	    $scope.selectedItem = null;
@@ -79174,9 +81268,13 @@
 	    $scope.transformChip = transformChip;
 	    $scope.keys = [$mdConstant.KEY_CODE.COMMA, $mdConstant.KEY_CODE.ENTER];
 	
-	  $scope.user = Auth.user;
-	  $scope.signedIn = Auth.signedIn;
-	  $scope.logout = Auth.logout;
+	    if (Auth.$getAuth()) {
+	     $scope.user = Users.getProfile(Auth.$getAuth().uid);
+	     $scope.username = Users.getUsername(Auth.$getAuth().uid);
+	    } else {
+	    $scope.user = null;
+	    console.log("User is logged out");
+	  };
 	  $scope.album = album;
 	  // $scope.posts = Post.all;
 	
@@ -79257,9 +81355,9 @@
 	    $scope.loadingBar = true;
 	    $timeout(function () { $scope.loadingBar = false; }, 2000); 
 	
-	    $scope.post.creator = $scope.user.profile.username || null,
+	    $scope.post.creator = $scope.username || null,
 	    $scope.post.summary = $scope.summary;
-	    $scope.post.creatorUID = $scope.user.uid;
+	    $scope.post.creatorUID = $scope.user.$id;
 	    $scope.post.album = $scope.album;
 	    $scope.post.artist = $scope.artist;
 	    //$scope.post.image_large= $scope.image_large;
@@ -79270,7 +81368,7 @@
 	    $scope.post.spotify_uri = $scope.spotify_uri;
 	    $scope.post.embed_uri = $scope.embed_uri;
 	    $scope.post.comments = 0;
-	    $scope.post.date = $filter('date')(new Date(), 'yyyy-MM-dd HH:mm:ss');
+	    $scope.post.date = moment.utc().format();
 	    $scope.post.release_date = $scope.release_date;
 	    $scope.post.latest_comment = 9999;
 	
@@ -79295,301 +81393,55 @@
 
 
 /***/ },
+/* 55 */
+/***/ function(module, exports) {
+
+	module.exports = function ($scope, $location, Auth, $cookieStore, $rootScope) {
+	var authCtrl = this;
+	
+	    $scope.user = {
+	      email: '',
+	      password: ''
+	    };
+	
+	  $scope.login = function (){
+	    Auth.$authWithPassword($scope.user).then(function (auth){
+	      //todo:use auth token instead of id
+	      $location.path('/');
+	  }, function (error){
+	    $scope.error = error;
+	  });
+	};
+	
+	  $scope.register = function (){
+	    Auth.$createUser($scope.user).then(function (user){
+	    $scope.login();
+	  }, function (error){
+	    $scope.error = error;
+	  });
+	};
+	
+	};
+
+
+/***/ },
 /* 56 */
 /***/ function(module, exports) {
 
-	module.exports = function ($scope, $location, Auth, user, $cookieStore) {
-	  if (user) {
-	    $location.path('/');
-	  }
-	
-	
-	
-	  $scope.login = function () {
-	    Auth.login($scope.user).then(function () {
-	      $cookieStore.put('login', $scope.user);
-	      $location.path('/');
-	    }, function (error) {
-	      $scope.error = error.toString();
-	    });
-	  };
-	
-	$scope.register = function () {
-	
-	  Auth.register($scope.user).then(function(user) {
-	    return Auth.login($scope.user).then(function() {
-	      user.username = $scope.user.username;
-	      return Auth.createProfile(user);
-	    }).then(function() {
-	      $location.path('/');
-	    });
-	  }, function(error) {
-	    $scope.error = error.toString();
-	  });
-	};
-	
-	};
-
-
-/***/ },
-/* 57 */
-/***/ function(module, exports) {
-
-	module.exports = function($scope, $route, $location, $window, Post, Auth, $http, $cookies, $modalInstance, book) {
-	
-	    $scope.user = Auth.user;
-	    $scope.signedIn = Auth.signedIn;
-	    $scope.logout = Auth.logout;
-	    $scope.book = book;
-	    $scope.date = new Date();
-	
-	
-	    $scope.cancel = function() {
-	      $modalInstance.close();
-	
-	
-	    };
-	
-	    $scope.submitPost = function() {
-	      $scope.post.creator = $scope.user.profile.username;
-	      $scope.post.summary = $scope.summary;
-	      $scope.post.creatorUID = $scope.user.uid;
-	      $scope.post.title = $scope.book.trackName;
-	      $scope.post.album = $scope.book.trackName;
-	      $scope.post.artist = $scope.book.artistName;
-	      $scope.post.image_medium = $scope.book.artworkUrl100;
-	      $scope.post.image_small = $scope.book.artworkUrl60;
-	      $scope.post.link = $scope.book.trackViewUrl
-	      $scope.post.comments = 0;
-	      $scope.post.media_type = 'ebook';
-	      $scope.post.date = $scope.date;
-	      $scope.post.release_date = $scope.book.releaseDate;
-	      $scope.post.latest_comment = 9999;
-	      //$scope.post.genre = $scope.movie.primaryGenreName;
-	
-	
-	      Post.create($scope.post).then(function(ref) {
-	        //$location.path('/posts/' + ref.name());
-	        $modalInstance.close();
-	
-	        $route.reload();
-	        $scope.post = {
-	          artist: '',
-	          album: ''
-	        };
-	      });
-	    };
-	
-	    $scope.openInItunes = function() {
-	      $window.open($scope.movie.trackViewUrl, '_blank');
-	    };
-	  };
-
-
-/***/ },
-/* 58 */
-/***/ function(module, exports) {
-
-	module.exports = function($scope, $route, $location, $window, Post, Auth, Spotify, $uibModal,
-	Profile, $firebase, $filter, $http) {
-	
-	$scope.posts = Post.all;
-	$scope.user = Auth.user;
-	
-	$scope.post = {
-	  artist: '',
-	  album: '',
-	  votes: 0,
-	  comments: 0,
-	  stars: 0
-	};
-	$scope.signedIn = Auth.signedIn;
-	$scope.logout = Auth.logout;
-	var ref = new Firebase("https://flockify.firebaseio.com");
-	$scope.sorter = '-';
-	
-	
-	$scope.getNumber = function(num) {
-	  return new Array(num);
-	};
-	
-	$scope.search = function() {
-	  $scope.mediaResults = [];
-	  $scope.searching = true;
-	  var type = "ebook";
-	  $http
-	    .jsonp('https://itunes.apple.com/search', {
-	      params: {
-	        term: $scope.searchTerm,
-	        entity: type,
-	        limit: 10,
-	        callback: 'JSON_CALLBACK'
-	      }
-	    })
-	    .success(function(response) {
-	
-	      $scope.results = response.results;
-	      console.log($scope.results);
-	
-	
-	    })
-	    .finally(function() {
-	      $scope.searching = false;
-	    });
-	};
-	
-	$scope.viewBook = function(book) {
-	  var modalInstance = $uibModal.open({
-	    templateUrl: 'views/bookPost.html',
-	    scope: $scope,
-	    controller: 'BookCtrl',
-	    resolve: {
-	      book: function() {
-	        return book;
-	      }
-	    }
-	  });
-	
-	};
-	
-	//   $scope.starPost = function(post){
-	//      if($scope.signedIn() && $scope.user.uid != post.creatorUID){
-	//  var modalInstance = $uibModal.open({
-	//     templateUrl: 'views/star.html',
-	//     scope: $scope,
-	//     controller: 'StarCtrl',
-	//     resolve: {
-	//       post: function () {
-	//         return post;
-	//       }
-	//     }
-	// });
-	// }
-	//  };
-	
-	$scope.starPost = function(post) {
-	  if ($scope.signedIn() && $scope.user.uid != post.creatorUID) {
-	
-	    ref.child('user_scores').child(post.creator).child('book_score').on("value", function(snapshot) {
-	      $scope.score = snapshot.val();
-	    });
-	
-	    ref.child('user_scores').child(post.creator).child('stars').on("value", function(snapshot) {
-	      $scope.user_stars = snapshot.val();
-	    });
-	
-	    $scope.current_vote = $firebase(ref.child('user_votes').child($scope.user.uid).child(post.$id).child('star')).$asObject();
-	    $scope.current_vote.$loaded().then(function(res) {
-	
-	      if (res.$value == 'gold') {
-	        $scope.text = "looks like you already gave this album a star";
-	      };
-	      if (!res.$value) {
-	        post.votes += 2;
-	        Post.vote(post.$id, post.votes);
-	        post.stars += 1;
-	        Post.star(post.$id, post.stars);
-	        Profile.setStar($scope.user.uid, post.$id, 'gold');
-	        $scope.score = $scope.score + 2;
-	        $scope.user_stars = $scope.user_stars + 1;
-	        ref.child("user_scores").child(post.creator).update({
-	          'book_score': $scope.score
-	        });
-	        ref.child("user_scores").child(post.creator).update({
-	          'stars': $scope.user_stars
-	        });
-	
-	      };
-	
-	    });
-	  };
-	
-	};
-	
-	$scope.clearResults = function() {
-	
-	  $route.reload();
-	};
-	
-	$scope.deletePost = function(post) {
-	  Post.delete(post);
-	};
-	
-	$scope.upvote = function(post) {
-	  if ($scope.signedIn() && $scope.user.uid != post.creatorUID) {
-	
-	    ref.child('user_scores').child(post.creator).child('book_score').on("value", function(snapshot) {
-	      $scope.score = snapshot.val();
-	    });
-	
-	    $scope.current_vote = $firebase(ref.child('user_votes').child($scope.user.uid).child(post.$id).child('vote')).$asObject();
-	    $scope.current_vote.$loaded().then(function(res) {
-	
-	      if (res.$value == 'up') {
-	        //do nothing
-	      };
-	      if (res.$value == 'down' || !res.$value) {
-	        post.votes += 1;
-	        Post.vote(post.$id, post.votes);
-	        Profile.setVote($scope.user.uid, post.$id, 'up');
-	        $scope.score = $scope.score + 1;
-	        ref.child("user_scores").child(post.creator).update({
-	          'book_score': $scope.score
-	        });
-	        // ref.child("user_scores").child(post.creatorUID).update({'score': $scope.score});
-	      };
-	
-	    });
-	  };
-	
-	};
-	
-	$scope.downvote = function(post) {
-	
-	  if ($scope.signedIn() && $scope.user.uid != post.creatorUID) {
-	
-	    ref.child('user_scores').child(post.creator).child('book_score').on("value", function(snapshot) {
-	      $scope.score = snapshot.val();
-	    });
-	
-	    $scope.current_vote = $firebase(ref.child('user_votes').child($scope.user.uid).child(post.$id).child('vote')).$asObject();
-	    $scope.current_vote.$loaded().then(function(res) {
-	      if (res.$value == 'down') {
-	        //do nothing
-	      };
-	
-	      if (res.$value == 'up' || !res.$value) {
-	        post.votes -= 1;
-	        Post.vote(post.$id, post.votes);
-	        Profile.setVote($scope.user.uid, post.$id, 'down');
-	        $scope.score = $scope.score - 1;
-	        ref.child("user_scores").child(post.creator).update({
-	          'book_score': $scope.score
-	        });
-	        // ref.child("user_scores").child(post.creatorUID).update({'score': $scope.score});
-	
-	      };
-	
-	    });
-	  };
-	
-	};
-	
-	
-	
-	};
-
-
-/***/ },
-/* 59 */
-/***/ function(module, exports) {
-
-	module.exports = function ($scope, $routeParams, Post, Auth, Comment, $firebase, Profile, $http, $filter, $sce, 
-	  $route, $uibModal, FIREBASE_URL) {
+	module.exports = function ($scope, $routeParams, Post, Auth, Comment, Profile, $http, $filter, $sce, 
+	  $route, $uibModal, FIREBASE_URL, Users) {
 	  var ref = new Firebase(FIREBASE_URL);
-	  $scope.user = Auth.user;
-	  $scope.signedIn = Auth.signedIn;
-	  $scope.logout = Auth.logout;
+	  var authData = Auth.$getAuth();
+	  if (authData) {
+	     console.log("User " + authData.uid + " is logged in with " + authData.provider);
+	     $scope.user = Users.getProfile(authData.uid);
+	     $scope.username = $scope.user.username;
+	  } else {
+	    $scope.user = null;
+	    $scope.username = null;
+	    $location.path('/login');
+	    console.log("User is logged out");
+	  }
 	  $scope.posts = Post.all;
 	  $scope.gifSearchText = '';
 	  $scope.viewby = 12;
@@ -79652,15 +81504,25 @@
 
 
 /***/ },
-/* 60 */
+/* 57 */
 /***/ function(module, exports) {
 
-	module.exports = function ($scope, $routeParams, Post, Auth, Comment, $firebase, Profile, $location, $http, $filter, $sce, $uibModal, FIREBASE_URL) {
+	module.exports = function ($scope, $routeParams, Post, Auth, Comment, Profile, $location, $http, $filter, $sce, 
+	  $uibModal, FIREBASE_URL, Users) {
 	  var ref = new Firebase(FIREBASE_URL);
 	  var post_id = $routeParams.postId;
-	  $scope.user = Auth.user;
-	  $scope.signedIn = Auth.signedIn;
-	  $scope.logout = Auth.logout;
+	  ref.onAuth(function(authData) {
+	  if (authData) {
+	    //set login cookie
+	     console.log("User " + authData.uid + " is logged in with " + authData.provider);
+	     $scope.user = Users.getProfile(Auth.$getAuth().uid);
+	     $scope.username = Users.getUsername(Auth.$getAuth().uid);
+	  } else {
+	    $scope.user = null;
+	    $scope.username = null;
+	    console.log("User is logged out");
+	  }
+	});
 	  $scope.posts = Post.all;
 	  $scope.post = Post.get(post_id);
 	  $scope.comments = Comment.get_comments_for_post(post_id);
@@ -79714,211 +81576,25 @@
 
 
 /***/ },
-/* 61 */
-/***/ function(module, exports) {
-
-	module.exports = function($scope, $route, $location, $window, Post, Auth, Spotify, $uibModal,
-	  Profile, $firebase, $filter, $http) {
-	
-	  $scope.posts = Post.all;
-	  $scope.user = Auth.user;
-	  $scope.post = {
-	    artist: '',
-	    album: '',
-	    votes: 0,
-	    comments: 0,
-	    stars: 0
-	  };
-	  $scope.signedIn = Auth.signedIn;
-	  $scope.logout = Auth.logout;
-	  var ref = new Firebase("https://flockify.firebaseio.com");
-	  $scope.sorter = '-';
-	
-	
-	  $scope.getNumber = function(num) {
-	    return new Array(num);
-	  };
-	
-	
-	
-	  $scope.search = function() {
-	    $http({
-	      method: 'GET',
-	      url: 'https://www.omdbapi.com/?s=' + $scope.searchTerm + "&r=json&tomatoes=true&apikey=973fea0"
-	    }).then(function successCallback(response) {
-	      $scope.results = response.data.Search;
-	
-	    }, function errorCallback(response) {});
-	
-	    // $scope.mediaResults = [];
-	    //  $scope.searching = true;
-	    //  var type = "movie";
-	    //  $http
-	    //    .jsonp('https://itunes.apple.com/search', { params: { term: $scope.searchTerm, entity: type, limit: 10, callback: 'JSON_CALLBACK' } })
-	    //    .success(function (resp) {
-	
-	    //      $scope.itunes_data = resp.results[0];
-	    //      $scope.movie.image = $scope.itunes_data.artworkUrl100;
-	
-	
-	
-	    //    })
-	    //   .finally(function () { $scope.searching = false; });
-	
-	  };
-	
-	  $scope.viewMovie = function(movie) {
-	    var modalInstance = $uibModal.open({
-	      templateUrl: 'views/moviePost.html',
-	      scope: $scope,
-	      controller: 'MovieCtrl',
-	      resolve: {
-	        movie: function() {
-	          return movie;
-	        }
-	      }
-	    });
-	
-	  };
-	
-	  //   $scope.starPost = function(post){
-	  //      if($scope.signedIn() && $scope.user.uid != post.creatorUID){
-	  //  var modalInstance = $uibModal.open({
-	  //     templateUrl: 'views/star.html',
-	  //     scope: $scope,
-	  //     controller: 'StarCtrl',
-	  //     resolve: {
-	  //       post: function () {
-	  //         return post;
-	  //       }
-	  //     }
-	  // });
-	  // }
-	  //  };
-	
-	  $scope.starPost = function(post) {
-	    if ($scope.signedIn() && $scope.user.uid != post.creatorUID) {
-	
-	      ref.child('user_scores').child(post.creator).child('movie_score').on("value", function(snapshot) {
-	        $scope.score = snapshot.val();
-	      });
-	
-	      ref.child('user_scores').child(post.creator).child('stars').on("value", function(snapshot) {
-	        $scope.user_stars = snapshot.val();
-	      });
-	
-	      $scope.current_vote = $firebase(ref.child('user_votes').child($scope.user.uid).child(post.$id).child('star')).$asObject();
-	      $scope.current_vote.$loaded().then(function(res) {
-	
-	        if (res.$value == 'gold') {
-	          $scope.text = "looks like you already gave this album a star";
-	        };
-	        if (!res.$value) {
-	          post.votes += 2;
-	          Post.vote(post.$id, post.votes);
-	          post.stars += 1;
-	          Post.star(post.$id, post.stars);
-	          Profile.setStar($scope.user.uid, post.$id, 'gold');
-	          $scope.score = $scope.score + 2;
-	          $scope.user_stars = $scope.user_stars + 1;
-	          ref.child("user_scores").child(post.creator).update({
-	            'movie_score': $scope.score
-	          });
-	          ref.child("user_scores").child(post.creator).update({
-	            'stars': $scope.user_stars
-	          });
-	
-	        };
-	
-	      });
-	    };
-	
-	  };
-	
-	  $scope.clearResults = function() {
-	
-	    $route.reload();
-	  };
-	
-	  $scope.deletePost = function(post) {
-	    Post.delete(post);
-	  };
-	
-	  $scope.upvote = function(post) {
-	    if ($scope.signedIn() && $scope.user.uid != post.creatorUID) {
-	
-	      ref.child('user_scores').child(post.creator).child('movie_score').on("value", function(snapshot) {
-	        $scope.score = snapshot.val();
-	      });
-	
-	      $scope.current_vote = $firebase(ref.child('user_votes').child($scope.user.uid).child(post.$id).child('vote')).$asObject();
-	      $scope.current_vote.$loaded().then(function(res) {
-	
-	        if (res.$value == 'up') {
-	          //do nothing
-	        };
-	        if (res.$value == 'down' || !res.$value) {
-	          post.votes += 1;
-	          Post.vote(post.$id, post.votes);
-	          Profile.setVote($scope.user.uid, post.$id, 'up');
-	          $scope.score = $scope.score + 1;
-	          ref.child("user_scores").child(post.creator).update({
-	            'movie_score': $scope.score
-	          });
-	          // ref.child("user_scores").child(post.creatorUID).update({'score': $scope.score});
-	        };
-	
-	      });
-	    };
-	
-	  };
-	
-	  $scope.downvote = function(post) {
-	
-	    if ($scope.signedIn() && $scope.user.uid != post.creatorUID) {
-	
-	      ref.child('user_scores').child(post.creator).child('movie_score').on("value", function(snapshot) {
-	        $scope.score = snapshot.val();
-	      });
-	
-	      $scope.current_vote = $firebase(ref.child('user_votes').child($scope.user.uid).child(post.$id).child('vote')).$asObject();
-	      $scope.current_vote.$loaded().then(function(res) {
-	        if (res.$value == 'down') {
-	          //do nothing
-	        };
-	
-	        if (res.$value == 'up' || !res.$value) {
-	          post.votes -= 1;
-	          Post.vote(post.$id, post.votes);
-	          Profile.setVote($scope.user.uid, post.$id, 'down');
-	          $scope.score = $scope.score - 1;
-	          ref.child("user_scores").child(post.creator).update({
-	            'movie_score': $scope.score
-	          });
-	          // ref.child("user_scores").child(post.creatorUID).update({'score': $scope.score});
-	
-	        };
-	
-	      });
-	    };
-	
-	  };
-	
-	
-	
-	};
-
-
-/***/ },
-/* 62 */
+/* 58 */
 /***/ function(module, exports) {
 
 	module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootScope, $timeout, $mdSidenav, 
-	  $anchorScroll, $window, $mdToast, FIREBASE_URL, $rootScope) {
+	  $anchorScroll, $window, $mdToast, FIREBASE_URL, $rootScope, Users) {
 	
+	  var ref = new Firebase(FIREBASE_URL);
 	  $scope.post = {artist: '', album: ''};
-	  $scope.user = Auth.user;
-	  $scope.signedIn = Auth.signedIn;
+	  ref.onAuth(function(authData) {
+	  if (authData) {
+	    //set login cookie
+	     $scope.user = Users.getProfile(authData.uid);
+	     // $scope.username = Users.getUsername(authData.uid);
+	  } else {
+	    $scope.user = null;
+	    // $scope.username = null;
+	    console.log("User is logged out");
+	  }
+	});
 	  $scope.toggleMenu = buildToggler('right');
 	  // var postsRef = new Firebase(FIREBASE_URL+"/posts");
 	
@@ -79956,7 +81632,9 @@
 	  
 	      };
 	      
-	    $scope.logout = Auth.logout;
+	    $scope.logout = function(){
+	      ref.unauth();
+	    };
 	
 	    var history = [];
 	
@@ -79973,246 +81651,44 @@
 
 
 /***/ },
-/* 63 */
-/***/ function(module, exports) {
-
-	module.exports = function($scope, $route, $location, $window, Post, Auth, Spotify, $uibModal,
-	  Profile, $firebase, $filter, $http, FIREBASE_URL) {
-	  $scope.posts = Post.all;
-	  $scope.user = Auth.user;
-	
-	  $scope.post = {
-	    artist: '',
-	    album: '',
-	    votes: 0,
-	    comments: 0,
-	    stars: 0
-	  };
-	  $scope.signedIn = Auth.signedIn;
-	  $scope.logout = Auth.logout;
-	  var ref = new Firebase(FIREBASE_URL);
-	  $scope.sorter = '-';
-	
-	
-	  $scope.getNumber = function(num) {
-	    return new Array(num);
-	  };
-	
-	  $scope.search = function() {
-	    $scope.mediaResults = [];
-	    $scope.searching = true;
-	    var type = "podcast";
-	    $http
-	      .jsonp('https://itunes.apple.com/search', {
-	        params: {
-	          term: $scope.searchTerm,
-	          entity: type,
-	          limit: 15,
-	          callback: 'JSON_CALLBACK'
-	        }
-	      })
-	      .success(function(response) {
-	
-	        $scope.results = response.results;
-	        console.log($scope.results);
-	
-	
-	      })
-	      .finally(function() {
-	        $scope.searching = false;
-	      });
-	
-	    //     var body = {'search': $scope.searchTerm};
-	    // $http.post('/api/podcastsearch', body)
-	
-	    //        .success(function(data) {
-	
-	    //            $scope.results = data.results;
-	    //            console.log($scope.results);
-	
-	    //        })
-	    //        .error(function(data) {
-	    //            console.log('Error: ' + data);
-	    //        });
-	
-	  };
-	
-	  $scope.viewPodcast = function(podcast) {
-	    var modalInstance = $uibModal.open({
-	      templateUrl: 'views/podcastPost.html',
-	      scope: $scope,
-	      controller: 'PodcastCtrl',
-	      resolve: {
-	        podcast: function() {
-	          return podcast;
-	        }
-	      }
-	    });
-	
-	  };
-	
-	  //   $scope.starPost = function(post){
-	  //      if($scope.signedIn() && $scope.user.uid != post.creatorUID){
-	  //  var modalInstance = $uibModal.open({
-	  //     templateUrl: 'views/star.html',
-	  //     scope: $scope,
-	  //     controller: 'StarCtrl',
-	  //     resolve: {
-	  //       post: function () {
-	  //         return post;
-	  //       }
-	  //     }
-	  // });
-	  // }
-	  //  };
-	
-	  $scope.starPost = function(post) {
-	    if ($scope.signedIn() && $scope.user.uid != post.creatorUID) {
-	
-	      ref.child('user_scores').child(post.creator).child('podcast_score').on("value", function(snapshot) {
-	        $scope.score = snapshot.val();
-	      });
-	
-	      ref.child('user_scores').child(post.creator).child('stars').on("value", function(snapshot) {
-	        $scope.user_stars = snapshot.val();
-	      });
-	
-	      $scope.current_vote = $firebase(ref.child('user_votes').child($scope.user.uid).child(post.$id).child('star')).$asObject();
-	      $scope.current_vote.$loaded().then(function(res) {
-	
-	        if (res.$value == 'gold') {
-	          $scope.text = "looks like you already gave this album a star";
-	        };
-	        if (!res.$value) {
-	          post.votes += 2;
-	          Post.vote(post.$id, post.votes);
-	          post.stars += 1;
-	          Post.star(post.$id, post.stars);
-	          Profile.setStar($scope.user.uid, post.$id, 'gold');
-	          $scope.score = $scope.score + 2;
-	          $scope.user_stars = $scope.user_stars + 1;
-	          ref.child("user_scores").child(post.creator).update({
-	            'podcast_score': $scope.score
-	          });
-	          ref.child("user_scores").child(post.creator).update({
-	            'stars': $scope.user_stars
-	          });
-	
-	        };
-	
-	      });
-	    };
-	
-	  };
-	
-	  $scope.addCategory = function() {
-	    ref.child("categories").child($scope.new_category).update({
-	      'description': $scope.new_description
-	    });
-	
-	  };
-	
-	  $scope.clearResults = function() {
-	
-	    $route.reload();
-	  };
-	
-	  $scope.deletePost = function(post) {
-	    Post.delete(post);
-	  };
-	
-	  $scope.upvote = function(post) {
-	    if ($scope.signedIn() && $scope.user.uid != post.creatorUID) {
-	
-	      ref.child('user_scores').child(post.creator).child('podcast_score').on("value", function(snapshot) {
-	        $scope.score = snapshot.val();
-	      });
-	
-	      $scope.current_vote = $firebase(ref.child('user_votes').child($scope.user.uid).child(post.$id).child('vote')).$asObject();
-	      $scope.current_vote.$loaded().then(function(res) {
-	
-	        if (res.$value == 'up') {
-	          //do nothing
-	        };
-	        if (res.$value == 'down' || !res.$value) {
-	          post.votes += 1;
-	          Post.vote(post.$id, post.votes);
-	          Profile.setVote($scope.user.uid, post.$id, 'up');
-	          $scope.score = $scope.score + 1;
-	          ref.child("user_scores").child(post.creator).update({
-	            'podcast_score': $scope.score
-	          });
-	          // ref.child("user_scores").child(post.creatorUID).update({'score': $scope.score});
-	        };
-	
-	      });
-	    };
-	
-	  };
-	
-	  $scope.downvote = function(post) {
-	
-	    if ($scope.signedIn() && $scope.user.uid != post.creatorUID) {
-	
-	      ref.child('user_scores').child(post.creator).child('podcast_score').on("value", function(snapshot) {
-	        $scope.score = snapshot.val();
-	      });
-	
-	      $scope.current_vote = $firebase(ref.child('user_votes').child($scope.user.uid).child(post.$id).child('vote')).$asObject();
-	      $scope.current_vote.$loaded().then(function(res) {
-	        if (res.$value == 'down') {
-	          //do nothing
-	        };
-	
-	        if (res.$value == 'up' || !res.$value) {
-	          post.votes -= 1;
-	          Post.vote(post.$id, post.votes);
-	          Profile.setVote($scope.user.uid, post.$id, 'down');
-	          $scope.score = $scope.score - 1;
-	          ref.child("user_scores").child(post.creator).update({
-	            'podcast_score': $scope.score
-	          });
-	          // ref.child("user_scores").child(post.creatorUID).update({'score': $scope.score});
-	
-	        };
-	
-	      });
-	    };
-	
-	  };
-	
-	
-	
-	};
-
-
-/***/ },
-/* 64 */
+/* 59 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function($) {module.exports = function($scope, $route, $location, $window, Post, Auth, Spotify,$uibModal, Profile, $firebase, 
-	  $filter, FIREBASE_URL, Action, $mdToast, $mdDialog, $mdMedia, $timeout, $anchorScroll, $mdConstant, $rootScope,$cookieStore){
-	 $scope.signedIn = Auth.signedIn;
-	 $scope.user = Auth.user;
+	/* WEBPACK VAR INJECTION */(function($) {module.exports = function($scope, $route, $location, $window, Post, Auth, Spotify,$uibModal, Profile, $firebaseArray, $firebaseAuth,
+	  $filter, FIREBASE_URL, Action, Users, $mdToast, $mdDialog, $mdMedia, $timeout, $anchorScroll, $mdConstant, $rootScope,$cookieStore){
+	
+	 var ref = new Firebase(FIREBASE_URL);
+	 var chatRef = new Firebase(FIREBASE_URL+"/comments/flock_groupchat");
+	 var authData = Auth.$getAuth();
+	  if (authData) {
+	     console.log("User " + authData.uid + " is logged in with " + authData.provider);
+	     $scope.user = Users.getProfile(authData.uid);
+	     $scope.username = $scope.user.username;
+	  } else {
+	    $scope.user = null;
+	    $scope.username = null;
+	    $location.path('/login');
+	    console.log("User is logged out");
+	  }
+	
+	
 	 $scope.filteredItems = [];
 	 $scope.posts = Post.all;
 	 $scope.post = {artist: '', album: '', votes: 0, comments: 0, stars:0};
 	 $scope.logout = Auth.logout;
 	
-	 var ref = new Firebase(FIREBASE_URL);
-	 var chatRef = new Firebase(FIREBASE_URL+"/comments/flock_groupchat");
 	 $scope.loadingCircle = true;
 	 $timeout(function () { $scope.loadingCircle = false; }, 3000); 
 	
 	 chatRef.limitToLast(1).on("child_added", function(snap) {
-	  if($scope.signedIn()){
+	  if($scope.user){
 	   if($cookieStore.get('last_chat') == snap.key()) {
 	       return;
 	   }
 	   else {
 	    $cookieStore.put('last_chat', snap.key());
 	    //TODO: don't show notification if chat was from current user
-	     if(snap.key().creator != $scope.user.profile.username){
+	     if(snap.key().creator != $scope.username){
 	     $mdToast.show(
 	          $mdToast.simple()
 	          .textContent('New chat message from ' + snap.val().creator)
@@ -80232,7 +81708,7 @@
 	};
 	
 	
-	 var tags = $firebase(ref.child('tags')).$asArray();
+	 var tags = $firebaseArray(ref.child('tags'));
 	
 	
 	 $scope.sorter = '-';
@@ -80245,7 +81721,7 @@
 	 $scope.allPosts = false;
 	
 	 $scope.filter_start_date = moment().startOf('isoweek') 
-	 $scope.filter_end_date = moment();
+	 $scope.filter_end_date = moment.utc();
 	
 	 $scope.loadingBar = false;
 	
@@ -80288,7 +81764,7 @@
 	   $scope.loadingBar = true;
 	   $timeout(function () { $scope.loadingBar = false; }, 2000); 
 	   $scope.filter_start_date = moment().startOf('isoweek') 
-	   $scope.filter_end_date = moment();
+	   $scope.filter_end_date = moment.utc();
 	   $scope.sorter = '-';
 	   $scope.week = true;
 	   $scope.last = false;
@@ -80334,7 +81810,7 @@
 	   $scope.loadingBar = true;
 	   $timeout(function () { $scope.loadingBar = false; }, 3000); 
 	  $scope.filter_start_date = moment('2016-01-01 16:07:35')
-	  $scope.filter_end_date = moment();
+	  $scope.filter_end_date = moment.utc();
 	  $scope.sorter = ['-votes','-stars'];
 	  $scope.allPosts = true;
 	  $scope.week = false;
@@ -80460,7 +81936,7 @@
 	          };
 	
 	    var init = function () {
-	    if($scope.signedIn()){
+	    if($scope.user){
 	      chatRef.limitToLast(1).on("child_added", function(snap) {
 	      if($cookieStore.get('last_chat') == snap.key()){
 	        return;
@@ -80495,15 +81971,25 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 65 */
+/* 60 */
 /***/ function(module, exports) {
 
-	module.exports = function ($scope, $routeParams, Profile, Post, Auth, $firebase, $uibModal, FIREBASE_URL, $location,$mdToast) {
+	module.exports = function ($scope, $routeParams, Profile, Post, Auth, Users, $uibModal, FIREBASE_URL, $location,$mdToast) {
 	  var ref = new Firebase(FIREBASE_URL);
+	  var authData = Auth.$getAuth();
+	  if (authData) {
+	     console.log("User " + authData.uid + " is logged in with " + authData.provider);
+	     $scope.user = Users.getProfile(authData.uid);
+	     $scope.username = $scope.user.username;
+	  } else {
+	    $scope.user = null;
+	    $scope.username = null;
+	    $location.path('/login');
+	    console.log("User is logged out");
+	  }
+	
 	  $scope.sorter = '-';
-	  $scope.user = Auth.user;
-	  $scope.signedIn = Auth.signedIn;
-	  $scope.logout = Auth.logout;
+	 
 	  $scope.posts = Post.all;
 	  $scope.loading = true;
 	
@@ -80579,23 +82065,32 @@
 	};
 
 /***/ },
-/* 66 */
+/* 61 */
 /***/ function(module, exports) {
 
-	module.exports = function ($scope, $routeParams, Profile, Post, Auth, $firebase, FIREBASE_URL) {
+	module.exports = function ($scope, $routeParams, Profile, Post, Auth, $firebaseArray, FIREBASE_URL, Users) {
 	  var ref = new Firebase(FIREBASE_URL);
-	  $scope.user = Auth.user;
-	  $scope.signedIn = Auth.signedIn;
-	  $scope.logout = Auth.logout;
+	  var authData = Auth.$getAuth();
+	  if (authData) {
+	     console.log("User " + authData.uid + " is logged in with " + authData.provider);
+	     $scope.user = Users.getProfile(authData.uid);
+	     $scope.username = $scope.user.username;
+	  } else {
+	    $scope.user = null;
+	    $scope.username = null;
+	    $location.path('/login');
+	    console.log("User is logged out");
+	  }
 	  $scope.sorter = '-album_score';
-	  $scope.users = $firebase(ref.child('user_scores')).$asArray();
+	  $scope.users = $firebaseArray(ref.child('user_scores'));
 	  var monday = moment().startOf('isoweek');
 	  $scope.week_start = monday.format('YYYY-MM-DD');
 	};
+	
 
 
 /***/ },
-/* 67 */
+/* 62 */
 /***/ function(module, exports) {
 
 	module.exports = function() {
@@ -80677,7 +82172,7 @@
 
 
 /***/ },
-/* 68 */
+/* 63 */
 /***/ function(module, exports) {
 
 	module.exports =  function($timeout,$parse) {
@@ -80701,7 +82196,7 @@
 	};
 
 /***/ },
-/* 69 */
+/* 64 */
 /***/ function(module, exports) {
 
 	module.exports = function(){
@@ -80736,7 +82231,7 @@
 
 
 /***/ },
-/* 70 */
+/* 65 */
 /***/ function(module, exports) {
 
 	module.exports = function(){
@@ -80751,30 +82246,24 @@
 
 
 /***/ },
-/* 71 */
+/* 66 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var angular = __webpack_require__(3);
-	__webpack_require__(27);
+	__webpack_require__(26);
 	
 	__webpack_require__(2);
-	__webpack_require__(15);
-	__webpack_require__(19);
-	__webpack_require__(21);
-	__webpack_require__(23);
+	__webpack_require__(12);
+	__webpack_require__(16);
+	__webpack_require__(18);
+	__webpack_require__(20);
+	__webpack_require__(22);
+	__webpack_require__(14);
+	__webpack_require__(39);
 	__webpack_require__(25);
-	__webpack_require__(17);
-	
-	// require('./../../app/bower_components/ionic-material/ionic.min.js');
-	// require('./../../app/bower_components/ionic-material/dist/ionic.material.min.js');
-	//firebase connectivity
-	__webpack_require__(10);
-	__webpack_require__(8);
-	__webpack_require__(9);
 	
 	__webpack_require__(6);
 	__webpack_require__(5);
-	// require('./../../app/bower_components/angular-loading-spinner/angular-loading-spinner');
 	__webpack_require__(7);
 	
 	//var pluginManager = require('./../plugins/pluginManager');
@@ -80828,39 +82317,59 @@
 	      templateUrl: 'views/scoreboardHistory.html',
 	      controller: 'ScoreCtrl'
 	    })
-	    .when('/movies', {
-	      templateUrl: 'views/movies.html',
-	      controller: 'MoviesCtrl'
-	    })
-	    .when('/books', {
-	      templateUrl: 'views/books.html',
-	      controller: 'BooksCtrl'
-	    })
-	    .when('/podcasts', {
-	      templateUrl: 'views/podcasts.html',
-	      controller: 'PodcastsCtrl'
-	    })
+	    // .when('/movies', {
+	    //   templateUrl: 'views/movies.html',
+	    //   controller: 'MoviesCtrl'
+	    // })
+	    // .when('/books', {
+	    //   templateUrl: 'views/books.html',
+	    //   controller: 'BooksCtrl'
+	    // })
+	    // .when('/podcasts', {
+	    //   templateUrl: 'views/podcasts.html',
+	    //   controller: 'PodcastsCtrl'
+	    // })
 	    .when('/register', {
 	      templateUrl: 'views/register.html',
 	      controller: 'AuthCtrl',
-	      resolve: {
-	        user: function(Auth) {
-	          return Auth.resolveUser();
-	        }
-	      }
+	    //   resolve: {
+	    //       requireNoAuth: function($location, Auth){
+	    //        return Auth.$requireAuth().then(function(auth){
+	    //          $location.path('/');
+	    //     }, function(error){
+	    //   return;
+	    //     });
+	    //   }
+	    // }
 	    })
 	    .when('/login', {
 	      templateUrl: 'views/login.html',
 	      controller: 'AuthCtrl',
-	      resolve: {
-	        user: function(Auth) {
-	          return Auth.resolveUser();
-	        }
-	      }
+	    //   resolve: {
+	    //       requireNoAuth: function($location, Auth){
+	    //        return Auth.$requireAuth().then(function(auth){
+	    //          $location.path('/');
+	    //     }, function(error){
+	    //   return;
+	    //     });
+	    //   }
+	    // }
 	    })
 	    .when('/users/:userId', {
 	      templateUrl: 'views/profile.html',
 	      controller: 'ProfileCtrl'
+	  //     resolve: {
+	  //         auth: function($location, Users, Auth){
+	  //         return Auth.$requireAuth().catch(function(){
+	  //           location.path('/');
+	  //     });
+	  //   },
+	  //         profile: function(Users, Auth){
+	  //           return Auth.$requireAuth().then(function(auth){
+	  //           return Users.getProfile(auth.uid).$loaded();
+	  //     });
+	  //   }
+	  // }
 	    })
 	    .otherwise({
 	      redirectTo: '/'
@@ -80868,36 +82377,37 @@
 	});
 	//test
 	//
-	app.factory('Action', __webpack_require__(72));
-	app.factory('Auth', __webpack_require__(73));
-	app.factory('Comment', __webpack_require__(74));
-	app.factory('Post', __webpack_require__(76));
-	app.factory('Profile', __webpack_require__(77));
+	app.factory('Action', __webpack_require__(67));
+	app.factory('Auth', __webpack_require__(68));
+	app.factory('Comment', __webpack_require__(69));
+	app.factory('Post', __webpack_require__(71));
+	app.factory('Profile', __webpack_require__(72));
+	app.factory('Users', __webpack_require__(75));
 	
-	app.filter('isAfter', __webpack_require__(75));
-	app.filter('byText', __webpack_require__(79));
-	app.filter('byTags', __webpack_require__(78));
+	app.filter('isAfter', __webpack_require__(70));
+	app.filter('byText', __webpack_require__(74));
+	app.filter('byTags', __webpack_require__(73));
 	
-	app.directive("keepScroll", __webpack_require__(69));
-	app.directive("scrollItem", __webpack_require__(70));
-	app.directive("backTop", __webpack_require__(67));
-	app.directive("focus", __webpack_require__(68));
+	app.directive("keepScroll", __webpack_require__(64));
+	app.directive("scrollItem", __webpack_require__(65));
+	app.directive("backTop", __webpack_require__(62));
+	app.directive("focus", __webpack_require__(63));
 	
-	app.controller('AlbumCommentsCtrl', __webpack_require__(54));
-	app.controller('AlbumCtrl', __webpack_require__(55));
-	app.controller('AuthCtrl', __webpack_require__(56));
+	app.controller('AlbumCommentsCtrl', __webpack_require__(53));
+	app.controller('AlbumCtrl', __webpack_require__(54));
+	app.controller('AuthCtrl', __webpack_require__(55));
 	
-	app.controller('BooksCtrl', __webpack_require__(58));
-	app.controller('BookCtrl', __webpack_require__(57));
+	// app.controller('BooksCtrl', require('./controllers/books'));
+	// app.controller('BookCtrl', require('./controllers/bookPost'));
 	
-	app.controller('ChatCtrl', __webpack_require__(59));
-	app.controller('CommentsCtrl', __webpack_require__(60));
-	app.controller('MoviesCtrl', __webpack_require__(61));
-	app.controller('NavCtrl', __webpack_require__(62));
-	app.controller('PodcastsCtrl', __webpack_require__(63));
-	app.controller('PostsCtrl', __webpack_require__(64));
-	app.controller('ProfileCtrl', __webpack_require__(65));
-	app.controller('ScoreCtrl', __webpack_require__(66));
+	app.controller('ChatCtrl', __webpack_require__(56));
+	app.controller('CommentsCtrl', __webpack_require__(57));
+	// app.controller('MoviesCtrl', require('./controllers/movies'));
+	app.controller('NavCtrl', __webpack_require__(58));
+	// app.controller('PodcastsCtrl', require('./controllers/podcasts'));
+	app.controller('PostsCtrl', __webpack_require__(59));
+	app.controller('ProfileCtrl', __webpack_require__(60));
+	app.controller('ScoreCtrl', __webpack_require__(61));
 	
 	// var plugins = pluginManager.getPlugins();
 	// angular.forEach(plugins, function(plugin, key){
@@ -80905,15 +82415,15 @@
 	// });
 	
 	app.constant('FIREBASE_URL', globals.firebase_url);
-	app.run(function($cookieStore, Auth) {
-	    if ($cookieStore.get('login')) {
-	        var user = $cookieStore.get('login');
-	 Auth.login(user);
-	    }
-	    else {
-	        //do nothing
-	    }
-	});
+	// app.run(function($cookieStore, Auth) {
+	//     if ($cookieStore.get('login')) {
+	//         var user = $cookieStore.get('login');
+	//  Auth.login(user);
+	//     }
+	//     else {
+	//         //do nothing
+	//     }
+	// });
 	
 	
 	//hot loader refresh
@@ -80926,23 +82436,22 @@
 
 
 /***/ },
-/* 72 */
+/* 67 */
 /***/ function(module, exports) {
 
-	module.exports = function($firebase, FIREBASE_URL, Auth, Post, Profile, $q) {
+	module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Auth, Post, Users, Profile, $q) {
 	  var ref = new Firebase(FIREBASE_URL);
-	  var posts = $firebase(ref.child('posts')).$asArray();
-	  var signedIn = Auth.signedIn;
-	  var user = Auth.user;
-	
+	  var posts = $firebaseArray(ref.child('posts'));
 	
 	  var actionResult = {
+	
 	    upvote: function(post, media_type) {
+	
+	        var user = Users.getProfile(Auth.$getAuth().uid);
+	        var username = Users.getUsername(Auth.$getAuth().uid);
 	        var defer = $q.defer();
 	
-	      if (signedIn() && user.uid != post.creatorUID) {
-	
-	       
+	      if (user && user.$id != post.creatorUID) {
 	
 	        ref.child('user_scores').child(post.creator).once("value", function(snapshot) {
 	          //TODO: use media_type
@@ -80950,7 +82459,7 @@
 	          var weekly_score = snapshot.val().weekly_scores.album_score;
 	
 	
-	          var current_vote = $firebase(ref.child('user_votes').child(user.uid).child(post.$id).child('vote')).$asObject();
+	          var current_vote = $firebaseObject(ref.child('user_votes').child(user.$id).child(post.$id).child('vote'));
 	          current_vote.$loaded().then(function(res) {
 	            if (res.$value == 'up') {
 	              //already upvoted
@@ -80961,7 +82470,7 @@
 	            if (res.$value == 'down' || !res.$value) {
 	              post.votes += 1;
 	              Post.vote(post.$id, post.votes);
-	              Profile.setVote(user.uid, post.$id, 'up');
+	              Profile.setVote(user.$id, post.$id, 'up');
 	              score = score + 1;
 	              weekly_score = weekly_score + 1;
 	
@@ -80971,7 +82480,6 @@
 	              });
 	
 	              var monday = moment().startOf('isoweek');
-	              console.log(monday.format('YYYY-MM-DD'));
 	              if (moment(post.date) > monday) {
 	                //todo: use media_type
 	                ref.child("user_scores").child(post.creator).child('weekly_scores').update({
@@ -80992,14 +82500,17 @@
 	    },
 	
 	    downvote: function(post, media_type) {
+	
+	        var user = Users.getProfile(Auth.$getAuth().uid);
+	        var username = Users.getUsername(Auth.$getAuth().uid);
 	        var defer = $q.defer();
 	
-	      if (signedIn() && user.uid != post.creatorUID) {
+	      if (user && user.$id != post.creatorUID) {
 	
 	        ref.child('user_scores').child(post.creator).once("value", function(snapshot) {
 	          var score = snapshot.val().album_score;
 	          var weekly_score = snapshot.val().weekly_scores.album_score;
-	          var current_vote = $firebase(ref.child('user_votes').child(user.uid).child(post.$id).child('vote')).$asObject();
+	          var current_vote = $firebaseObject(ref.child('user_votes').child(user.$id).child(post.$id).child('vote'));
 	          current_vote.$loaded().then(function(res) {
 	            if (res.$value == 'down') {
 	              //already downvoted
@@ -81009,7 +82520,7 @@
 	            if (res.$value == 'up' || !res.$value) {
 	              post.votes -= 1;
 	              Post.vote(post.$id, post.votes);
-	              Profile.setVote(user.uid, post.$id, 'down');
+	              Profile.setVote(user.$id, post.$id, 'down');
 	              score = score - 1;
 	              weekly_score = weekly_score - 1;
 	              ref.child("user_scores").child(post.creator).update({
@@ -81037,8 +82548,11 @@
 	    },
 	
 	    starPost: function(post, media_type) {
-	      var defer = $q.defer();
-	      if (signedIn() && user.uid != post.creatorUID) {
+	
+	       var user = Users.getProfile(Auth.$getAuth().uid);
+	       var username = Users.getUsername(Auth.$getAuth().uid);
+	       var defer = $q.defer();
+	      if (user && user.$id != post.creatorUID) {
 	
 	        ref.child('user_scores').child(post.creator).once("value", function(snapshot) {
 	
@@ -81048,7 +82562,7 @@
 	          var weekly_score = snapshot.val().weekly_scores.album_score;
 	
 	
-	          var current_vote = $firebase(ref.child('user_votes').child(user.uid).child(post.$id).child('star')).$asObject();
+	          var current_vote = $firebaseObject(ref.child('user_votes').child(user.$id).child(post.$id).child('star'));
 	          current_vote.$loaded().then(function(res) {
 	
 	            if (res.$value == 'gold') {
@@ -81061,7 +82575,7 @@
 	              Post.vote(post.$id, post.votes);
 	              post.stars += 1;
 	              Post.star(post.$id, post.stars);
-	              Profile.setStar(user.uid, post.$id, 'gold');
+	              Profile.setStar(user.$id, post.$id, 'gold');
 	              score = score + 2;
 	              user_stars = user_stars + 1;
 	              weekly_score = weekly_score + 2;
@@ -81104,81 +82618,37 @@
 
 
 /***/ },
-/* 73 */
+/* 68 */
 /***/ function(module, exports) {
 
-	module.exports = function ($firebaseSimpleLogin, FIREBASE_URL, $rootScope, $firebase, $cookieStore) {
-	  var ref = new Firebase(FIREBASE_URL);
-	  var auth = $firebaseSimpleLogin(ref);
+	module.exports = function ($firebaseAuth, FIREBASE_URL, $rootScope, $firebase, $cookieStore) {
+	    var ref = new Firebase(FIREBASE_URL);
+	    var auth = $firebaseAuth(ref);
 	
-	  var Auth = {
-	    register: function (user) {
-	      return auth.$createUser(user.email, user.password);
-	    },
-	    createProfile: function (user) {
-	      var profile = {
-	        username: user.username,
-	        md5_hash: user.md5_hash
-	      };
-	      var profileRef = $firebase(ref.child('profile'));
-	      return profileRef.$set(user.uid, profile);
-	    },
-	    login: function (user) {
-	      return auth.$login('password', user);
-	    },
-	    logout: function () {
-	      if($cookieStore.get('login')){
-	        $cookieStore.remove('login');
-	      };
-	      auth.$logout();
-	    },
-	    resolveUser: function() {
-	      return auth.$getCurrentUser();
-	    },
-	    signedIn: function() {
-	      return !!Auth.user.provider;
-	    },
-	    user: {}
-	  };
-	
-	  $rootScope.$on('$firebaseSimpleLogin:login', function(e, user) {
-	    angular.copy(user, Auth.user);
-	    Auth.user.profile = $firebase(ref.child('profile').child(Auth.user.uid)).$asObject();
-	
-	  });
-	  $rootScope.$on('$firebaseSimpleLogin:logout', function() {
-	    console.log('logged out');
-	
-	    if(Auth.user && Auth.user.profile) {
-	      Auth.user.profile.$destroy();
-	    }
-	    angular.copy({}, Auth.user);
-	  });
-	
-	  return Auth;
+	    return auth;
 	};
 
 
 /***/ },
-/* 74 */
+/* 69 */
 /***/ function(module, exports) {
 
-	module.exports = function ($firebase, FIREBASE_URL, Auth, Post, $filter) {
+	module.exports = function ($firebaseArray, FIREBASE_URL, Auth, Post, $filter, Users) {
 	  var ref = new Firebase(FIREBASE_URL);
-	  var user = Auth.user;
 	  //var group_id = user.current_group;
 	  //var comments = $firebase(ref.child('comments').child(group_id));
-	  var comments = $firebase(ref.child('comments')).$asArray();
-	
+	  var comments = $firebaseArray(ref.child('comments'));
 	  return {
 	
 	    all: comments,
 	
 	    get_comments_for_post: function(post_id) {
-	      return $firebase(ref.child('comments').child(post_id)).$asArray();
+	      return $firebaseArray(ref.child('comments').child(post_id));
 	    },
 	
 	    add_comment: function(comments_scope_array, post_id, comment) {
+	      var user = Users.getProfile(Auth.$getAuth().uid);
+	      var username = Users.getUsername(Auth.$getAuth().uid);
 	      // TODO: figure out how we want to store dates
 	      var date = new Date();
 	      date.setMinutes(date.getTimezoneOffset());
@@ -81187,15 +82657,15 @@
 	      var new_comment = {
 	        text: comment,
 	        type: type,
-	        creator: user.profile.username || null,
-	        creatorUID: user.uid,
-	        datetime_ts: today
+	        creator: username || null,
+	        creatorUID: user.$id,
+	        datetime_ts: moment.utc().format()
 	      };
 	      comments_scope_array.$add(new_comment);
 	
 	      var post = Post.get(post_id);
 	      post.$loaded().then(function(){
-	        post.latest_comment = today;
+	        post.latest_comment = moment.utc().format();
 	        post.comments = (post.comments || 0) + 1;
 	        post.$save()
 	      });
@@ -81204,7 +82674,7 @@
 	    delete_comment: function(comments_scope_array, post_id, comment){
 	      comments_scope_array.$remove(comment);
 	      comments_scope_array.$loaded().then(function(comments){
-	        Post.get_reference(post_id).$update({'comments': comments.length - 1});
+	        Post.get_reference(post_id).update({'comments': comments.length});
 	      });
 	    }
 	
@@ -81214,7 +82684,7 @@
 
 
 /***/ },
-/* 75 */
+/* 70 */
 /***/ function(module, exports) {
 
 	module.exports = function() {
@@ -81228,19 +82698,19 @@
 
 
 /***/ },
-/* 76 */
+/* 71 */
 /***/ function(module, exports) {
 
-	module.exports = function ($firebase, FIREBASE_URL) {
+	module.exports = function ($firebaseArray, $firebaseObject, FIREBASE_URL) {
 	  var ref = new Firebase(FIREBASE_URL);
-	  var posts = $firebase(ref.child('posts')).$asArray();
+	  var posts = $firebaseArray(ref.child('posts'));
 	
 	  var Post = {
 	    all: posts,
 	
 	    create: function (post) {
 	      return posts.$add(post).then(function(postRef) {
-	        $firebase(ref.child('user_posts').child(post.creatorUID)).$push(postRef.name());
+	        ref.child('user_posts').child(post.creatorUID).push(postRef.name());
 	        return postRef;
 	      });
 	    },
@@ -81266,11 +82736,11 @@
 	    },
 	
 	    get: function (postId) {
-	      return $firebase(ref.child('posts').child(postId)).$asObject();
+	      return $firebaseObject(ref.child('posts').child(postId));
 	    },
 	
 	    get_reference: function(postId){
-	      return $firebase(ref.child('posts').child(postId));
+	     return ref.child('posts').child(postId);
 	    },
 	
 	    delete: function (post) {
@@ -81283,15 +82753,15 @@
 
 
 /***/ },
-/* 77 */
+/* 72 */
 /***/ function(module, exports) {
 
-	module.exports = function ($window, FIREBASE_URL, $firebase, Post, $q) {
+	module.exports = function ($window, FIREBASE_URL, $firebaseArray, $firebaseObject, Post, $q) {
 	  var ref = new $window.Firebase(FIREBASE_URL);
 	
 	  var profile = {
 	    get: function (userId) {
-	      return $firebase(ref.child('profile').child(userId)).$asObject();
+	      return $firebaseObject(ref.child('profile').child(userId));
 	    },
 	
 	    setVote: function(userId, postId, vote){
@@ -81315,8 +82785,7 @@
 	   getPosts: function(userId) {
 	    var defer = $q.defer();
 	
-	    $firebase(ref.child('user_posts').child(userId))
-	    .$asArray()
+	    $firebaseArray(ref.child('user_posts').child(userId))
 	    .$loaded()
 	    .then(function(data) {
 	      var posts = {};
@@ -81335,8 +82804,7 @@
 	  },
 	  getLikes: function(userId) {
 	    var defer = $q.defer();
-	    $firebase(ref.child('user_votes').child(userId))
-	    .$asArray()
+	    $firebaseArray(ref.child('user_votes').child(userId))
 	    .$loaded()
 	    .then(function(data) {
 	        data.reverse();
@@ -81360,8 +82828,7 @@
 	
 	  getQueue: function(userId) {
 	    var defer = $q.defer();
-	    $firebase(ref.child('user_votes').child(userId))
-	    .$asArray()
+	    $firebaseArray(ref.child('user_votes').child(userId))
 	    .$loaded()
 	    .then(function(data) {
 	
@@ -81387,7 +82854,7 @@
 
 
 /***/ },
-/* 78 */
+/* 73 */
 /***/ function(module, exports) {
 
 	module.exports = function () {
@@ -81406,7 +82873,7 @@
 	};
 
 /***/ },
-/* 79 */
+/* 74 */
 /***/ function(module, exports) {
 
 	module.exports = function ($filter) {
@@ -81423,6 +82890,27 @@
 	
 	      return filteredCollection;
 	    };
+	  };
+
+/***/ },
+/* 75 */
+/***/ function(module, exports) {
+
+	module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL){
+	    var usersRef = new Firebase(FIREBASE_URL+'/profile');
+	    var users = $firebaseArray(usersRef);
+	
+	    var Users = {
+	  		getProfile: function(uid){
+	   			 return $firebaseObject(usersRef.child(uid));
+	  		},
+	  		getUsername: function(uid){
+	    		 return users.$getRecord(uid).username;
+	  		},
+	  			all: users
+			};
+	
+	    return Users;
 	  };
 
 /***/ }

@@ -8,17 +8,11 @@ require('angular-resource');
 require('angular-route');
 require('angular-sanitize');
 require('angular-material-icons');
-
-// require('./../../app/bower_components/ionic-material/ionic.min.js');
-// require('./../../app/bower_components/ionic-material/dist/ionic.material.min.js');
-//firebase connectivity
-require('./../../app/bower_components/firebase/firebase.js');
-require('./../../app/bower_components/angularfire/dist/angularfire.min.js');
-require('./../../app/bower_components/firebase-simple-login/firebase-simple-login');
+require('firebase');
+require('angularfire');
 
 require('./../../app/bower_components/angular-spotify/dist/angular-spotify.min');
 require('./../../app/bower_components/angular-bootstrap/ui-bootstrap-tpls.min');
-// require('./../../app/bower_components/angular-loading-spinner/angular-loading-spinner');
 require('./../../app/bower_components/angular-timeago/angular-timeago.min');
 
 //var pluginManager = require('./../plugins/pluginManager');
@@ -72,39 +66,59 @@ app.config(function($routeProvider) { //TODO: move to routes module
       templateUrl: 'views/scoreboardHistory.html',
       controller: 'ScoreCtrl'
     })
-    .when('/movies', {
-      templateUrl: 'views/movies.html',
-      controller: 'MoviesCtrl'
-    })
-    .when('/books', {
-      templateUrl: 'views/books.html',
-      controller: 'BooksCtrl'
-    })
-    .when('/podcasts', {
-      templateUrl: 'views/podcasts.html',
-      controller: 'PodcastsCtrl'
-    })
+    // .when('/movies', {
+    //   templateUrl: 'views/movies.html',
+    //   controller: 'MoviesCtrl'
+    // })
+    // .when('/books', {
+    //   templateUrl: 'views/books.html',
+    //   controller: 'BooksCtrl'
+    // })
+    // .when('/podcasts', {
+    //   templateUrl: 'views/podcasts.html',
+    //   controller: 'PodcastsCtrl'
+    // })
     .when('/register', {
       templateUrl: 'views/register.html',
       controller: 'AuthCtrl',
-      resolve: {
-        user: function(Auth) {
-          return Auth.resolveUser();
-        }
-      }
+    //   resolve: {
+    //       requireNoAuth: function($location, Auth){
+    //        return Auth.$requireAuth().then(function(auth){
+    //          $location.path('/');
+    //     }, function(error){
+    //   return;
+    //     });
+    //   }
+    // }
     })
     .when('/login', {
       templateUrl: 'views/login.html',
       controller: 'AuthCtrl',
-      resolve: {
-        user: function(Auth) {
-          return Auth.resolveUser();
-        }
-      }
+    //   resolve: {
+    //       requireNoAuth: function($location, Auth){
+    //        return Auth.$requireAuth().then(function(auth){
+    //          $location.path('/');
+    //     }, function(error){
+    //   return;
+    //     });
+    //   }
+    // }
     })
     .when('/users/:userId', {
       templateUrl: 'views/profile.html',
       controller: 'ProfileCtrl'
+  //     resolve: {
+  //         auth: function($location, Users, Auth){
+  //         return Auth.$requireAuth().catch(function(){
+  //           location.path('/');
+  //     });
+  //   },
+  //         profile: function(Users, Auth){
+  //           return Auth.$requireAuth().then(function(auth){
+  //           return Users.getProfile(auth.uid).$loaded();
+  //     });
+  //   }
+  // }
     })
     .otherwise({
       redirectTo: '/'
@@ -117,6 +131,7 @@ app.factory('Auth', require('./services/auth'));
 app.factory('Comment', require('./services/comments'));
 app.factory('Post', require('./services/post'));
 app.factory('Profile', require('./services/profile'));
+app.factory('Users', require('./services/users'));
 
 app.filter('isAfter', require('./services/dateFilter'));
 app.filter('byText', require('./services/textFilter'));
@@ -131,14 +146,14 @@ app.controller('AlbumCommentsCtrl', require('./controllers/albumComments'));
 app.controller('AlbumCtrl', require('./controllers/albumPost'));
 app.controller('AuthCtrl', require('./controllers/auth'));
 
-app.controller('BooksCtrl', require('./controllers/books'));
-app.controller('BookCtrl', require('./controllers/bookPost'));
+// app.controller('BooksCtrl', require('./controllers/books'));
+// app.controller('BookCtrl', require('./controllers/bookPost'));
 
 app.controller('ChatCtrl', require('./controllers/chat'));
 app.controller('CommentsCtrl', require('./controllers/comments'));
-app.controller('MoviesCtrl', require('./controllers/movies'));
+// app.controller('MoviesCtrl', require('./controllers/movies'));
 app.controller('NavCtrl', require('./controllers/nav'));
-app.controller('PodcastsCtrl', require('./controllers/podcasts'));
+// app.controller('PodcastsCtrl', require('./controllers/podcasts'));
 app.controller('PostsCtrl', require('./controllers/posts'));
 app.controller('ProfileCtrl', require('./controllers/profile'));
 app.controller('ScoreCtrl', require('./controllers/scoreboard'));
@@ -149,15 +164,15 @@ app.controller('ScoreCtrl', require('./controllers/scoreboard'));
 // });
 
 app.constant('FIREBASE_URL', globals.firebase_url);
-app.run(function($cookieStore, Auth) {
-    if ($cookieStore.get('login')) {
-        var user = $cookieStore.get('login');
- Auth.login(user);
-    }
-    else {
-        //do nothing
-    }
-});
+// app.run(function($cookieStore, Auth) {
+//     if ($cookieStore.get('login')) {
+//         var user = $cookieStore.get('login');
+//  Auth.login(user);
+//     }
+//     else {
+//         //do nothing
+//     }
+// });
 
 
 //hot loader refresh

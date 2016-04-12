@@ -1,9 +1,19 @@
-module.exports = function ($scope, $routeParams, Post, Auth, Comment, $firebase, Profile, $location, $http, $filter, $sce, $uibModal, FIREBASE_URL) {
+module.exports = function ($scope, $routeParams, Post, Auth, Comment, Profile, $location, $http, $filter, $sce, 
+  $uibModal, FIREBASE_URL, Users) {
   var ref = new Firebase(FIREBASE_URL);
   var post_id = $routeParams.postId;
-  $scope.user = Auth.user;
-  $scope.signedIn = Auth.signedIn;
-  $scope.logout = Auth.logout;
+  ref.onAuth(function(authData) {
+  if (authData) {
+    //set login cookie
+     console.log("User " + authData.uid + " is logged in with " + authData.provider);
+     $scope.user = Users.getProfile(Auth.$getAuth().uid);
+     $scope.username = Users.getUsername(Auth.$getAuth().uid);
+  } else {
+    $scope.user = null;
+    $scope.username = null;
+    console.log("User is logged out");
+  }
+});
   $scope.posts = Post.all;
   $scope.post = Post.get(post_id);
   $scope.comments = Comment.get_comments_for_post(post_id);

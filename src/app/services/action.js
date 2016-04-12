@@ -1,17 +1,16 @@
-module.exports = function($firebase, FIREBASE_URL, Auth, Post, Profile, $q) {
+module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Auth, Post, Users, Profile, $q) {
   var ref = new Firebase(FIREBASE_URL);
-  var posts = $firebase(ref.child('posts')).$asArray();
-  var signedIn = Auth.signedIn;
-  var user = Auth.user;
-
+  var posts = $firebaseArray(ref.child('posts'));
 
   var actionResult = {
+
     upvote: function(post, media_type) {
+
+        var user = Users.getProfile(Auth.$getAuth().uid);
+        var username = Users.getUsername(Auth.$getAuth().uid);
         var defer = $q.defer();
 
-      if (signedIn() && user.uid != post.creatorUID) {
-
-       
+      if (user && user.$id != post.creatorUID) {
 
         ref.child('user_scores').child(post.creator).once("value", function(snapshot) {
           //TODO: use media_type
@@ -19,7 +18,7 @@ module.exports = function($firebase, FIREBASE_URL, Auth, Post, Profile, $q) {
           var weekly_score = snapshot.val().weekly_scores.album_score;
 
 
-          var current_vote = $firebase(ref.child('user_votes').child(user.uid).child(post.$id).child('vote')).$asObject();
+          var current_vote = $firebaseObject(ref.child('user_votes').child(user.$id).child(post.$id).child('vote'));
           current_vote.$loaded().then(function(res) {
             if (res.$value == 'up') {
               //already upvoted
@@ -30,7 +29,7 @@ module.exports = function($firebase, FIREBASE_URL, Auth, Post, Profile, $q) {
             if (res.$value == 'down' || !res.$value) {
               post.votes += 1;
               Post.vote(post.$id, post.votes);
-              Profile.setVote(user.uid, post.$id, 'up');
+              Profile.setVote(user.$id, post.$id, 'up');
               score = score + 1;
               weekly_score = weekly_score + 1;
 
@@ -40,7 +39,6 @@ module.exports = function($firebase, FIREBASE_URL, Auth, Post, Profile, $q) {
               });
 
               var monday = moment().startOf('isoweek');
-              console.log(monday.format('YYYY-MM-DD'));
               if (moment(post.date) > monday) {
                 //todo: use media_type
                 ref.child("user_scores").child(post.creator).child('weekly_scores').update({
@@ -61,14 +59,17 @@ module.exports = function($firebase, FIREBASE_URL, Auth, Post, Profile, $q) {
     },
 
     downvote: function(post, media_type) {
+
+        var user = Users.getProfile(Auth.$getAuth().uid);
+        var username = Users.getUsername(Auth.$getAuth().uid);
         var defer = $q.defer();
 
-      if (signedIn() && user.uid != post.creatorUID) {
+      if (user && user.$id != post.creatorUID) {
 
         ref.child('user_scores').child(post.creator).once("value", function(snapshot) {
           var score = snapshot.val().album_score;
           var weekly_score = snapshot.val().weekly_scores.album_score;
-          var current_vote = $firebase(ref.child('user_votes').child(user.uid).child(post.$id).child('vote')).$asObject();
+          var current_vote = $firebaseObject(ref.child('user_votes').child(user.$id).child(post.$id).child('vote'));
           current_vote.$loaded().then(function(res) {
             if (res.$value == 'down') {
               //already downvoted
@@ -78,7 +79,7 @@ module.exports = function($firebase, FIREBASE_URL, Auth, Post, Profile, $q) {
             if (res.$value == 'up' || !res.$value) {
               post.votes -= 1;
               Post.vote(post.$id, post.votes);
-              Profile.setVote(user.uid, post.$id, 'down');
+              Profile.setVote(user.$id, post.$id, 'down');
               score = score - 1;
               weekly_score = weekly_score - 1;
               ref.child("user_scores").child(post.creator).update({
@@ -106,8 +107,11 @@ module.exports = function($firebase, FIREBASE_URL, Auth, Post, Profile, $q) {
     },
 
     starPost: function(post, media_type) {
-      var defer = $q.defer();
-      if (signedIn() && user.uid != post.creatorUID) {
+
+       var user = Users.getProfile(Auth.$getAuth().uid);
+       var username = Users.getUsername(Auth.$getAuth().uid);
+       var defer = $q.defer();
+      if (user && user.$id != post.creatorUID) {
 
         ref.child('user_scores').child(post.creator).once("value", function(snapshot) {
 
@@ -117,7 +121,7 @@ module.exports = function($firebase, FIREBASE_URL, Auth, Post, Profile, $q) {
           var weekly_score = snapshot.val().weekly_scores.album_score;
 
 
-          var current_vote = $firebase(ref.child('user_votes').child(user.uid).child(post.$id).child('star')).$asObject();
+          var current_vote = $firebaseObject(ref.child('user_votes').child(user.$id).child(post.$id).child('star'));
           current_vote.$loaded().then(function(res) {
 
             if (res.$value == 'gold') {
@@ -130,7 +134,7 @@ module.exports = function($firebase, FIREBASE_URL, Auth, Post, Profile, $q) {
               Post.vote(post.$id, post.votes);
               post.stars += 1;
               Post.star(post.$id, post.stars);
-              Profile.setStar(user.uid, post.$id, 'gold');
+              Profile.setStar(user.$id, post.$id, 'gold');
               score = score + 2;
               user_stars = user_stars + 1;
               weekly_score = weekly_score + 2;

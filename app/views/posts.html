@@ -1,10 +1,10 @@
 <div style="padding-bottom:10px">
- <md-progress-linear ng-show="loadingBar" md-mode="indeterminate" style="position:fixed;z-index:1000"></md-progress-linear>
-<!--   <div ng-show="!signedIn() && !loadingCircle" align="center">
+ <md-progress-linear ng-show="loadingBar" md-mode="indeterminate"></md-progress-linear>
+<!--   <div ng-show="!user && !loadingCircle" align="center">
    <h2>Welcome to flockify</h2>
    <p><a href="/#/login">Sign in</a> to get started</p>
  </div> -->
- <div ng-show="signedIn()" ng-cloak>
+ <div ng-show="user" ng-cloak>
 
  <md-button aria-label="Search" 
  style="top:12px;right:48px;position:fixed;z-index:2;" ng-click="showSearch = !showSearch; allTime()">
@@ -101,7 +101,7 @@ isAfter:filter_start_date:filter_end_date | byText:textFilter | byText:tagText) 
    <div>   
     <div>
    <img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" class="star" />
-   <a href="" ng-show="user.profile.group_id == 1" ng-click="starPost(post)">
+   <a href="" ng-click="starPost(post)">
     <img ng-src="/images/empty-star.png" class="star" /></a>
     </div>
      <a ng-href="#/albums/{{post.$id}}" >
@@ -131,14 +131,14 @@ isAfter:filter_start_date:filter_end_date | byText:textFilter | byText:tagText) 
    </a> <i>{{post.date | timeAgo}}</i></small>
 
 <div layout="row" layout-align="center center" style="position:relative;right:0;bottom:0;">
-   <md-button class="md-icon-button" ng-show="user.profile.group_id == 1" ng-click="save(post)" aria-label="Save" >
+   <md-button class="md-icon-button" ng-click="save(post)" aria-label="Save" >
   <ng-md-icon icon="save" class="arrow" size="28"></ng-md-icon>
  </md-button>
      
-  <md-button class="md-icon-button" ng-show="user.profile.group_id == 1" ng-click="upvote(post)" aria-label="Upvote" >
+  <md-button class="md-icon-button" ng-click="upvote(post)" aria-label="Upvote" >
  <ng-md-icon icon="arrow_upwards" class="arrow" size="28"></ng-md-icon>
  </md-button>
- <md-button class="md-icon-button"  ng-show="user.profile.group_id == 1" ng-click="downvote(post)" aria-label="Downvote" >
+ <md-button class="md-icon-button" ng-click="downvote(post)" aria-label="Downvote" >
  <ng-md-icon icon="arrow_downward" class="arrow" size="28"></ng-md-icon>
  </md-button> 
 
@@ -170,7 +170,7 @@ isAfter:filter_start_date:filter_end_date | byText:textFilter | byText:tagText) 
  {{ post.album | limitTo: 22 }}{{post.album.length > 22 ? '..' : ''}} ({{post.release_date | limitTo: 4}})</span></a>
     <div>
    <img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" class="star" />
-   <a href="" ng-show="user.profile.group_id == 1" ng-click="starPost(post)">
+   <a href="" ng-click="starPost(post)">
     <img ng-src="/images/empty-star.png" class="star" /></a>
     </div>
  </md-card-title-text>
@@ -207,14 +207,14 @@ isAfter:filter_start_date:filter_end_date | byText:textFilter | byText:tagText) 
  <md-button class="md-fab md-raised md-hue-1" style=" z-index:1"><b style="font-size:22pt">{{ post.votes }}</b> </md-button>
 
 
-   <md-button class="md-icon-button" ng-show="user.profile.group_id == 1" ng-click="save(post)" aria-label="Save" >
+   <md-button class="md-icon-button" ng-click="save(post)" aria-label="Save" >
   <ng-md-icon icon="save" class="arrow" size="32"></ng-md-icon>
  </md-button>
      
-  <md-button class="md-icon-button" ng-show="user.profile.group_id == 1" ng-click="upvote(post)" aria-label="Upvote" >
+  <md-button class="md-icon-button" ng-click="upvote(post)" aria-label="Upvote" >
  <ng-md-icon icon="arrow_upwards" class="arrow" size="32"></ng-md-icon>
  </md-button>
- <md-button class="md-icon-button"  ng-show="user.profile.group_id == 1" ng-click="downvote(post)" aria-label="Downvote" >
+ <md-button class="md-icon-button" ng-click="downvote(post)" aria-label="Downvote" >
  <ng-md-icon icon="arrow_downward" class="arrow" size="32"></ng-md-icon>
  </md-button> 
 

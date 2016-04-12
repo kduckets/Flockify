@@ -1,8 +1,9 @@
-module.exports = function($scope, $route, $location, $window, Post, Auth, $http, $cookies, $modalInstance, podcast) {
+module.exports = function($scope, $route, $location, $window, Post, Auth, $http, $cookies, $modalInstance, podcast, Users) {
 
-  $scope.user = Auth.user;
-  $scope.signedIn = Auth.signedIn;
-  $scope.logout = Auth.logout;
+ if(Auth.$getAuth()){
+    $scope.user = Users.getProfile(Auth.$getAuth().uid);
+    $scope.username = Users.getUsername(Auth.$getAuth().uid);
+    };
   $scope.podcast = podcast;
   $scope.feedUrl = $scope.podcast.feedUrl;
   $scope.date = new Date();
@@ -32,9 +33,9 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
   };
 
   $scope.submitPost = function(episode) {
-    $scope.post.creator = $scope.user.profile.username;
+    $scope.post.creator = $scope.username;
     $scope.post.summary = episode.user_description
-    $scope.post.creatorUID = $scope.user.uid;
+    $scope.post.creatorUID = $scope.user.$id;
     $scope.post.title = episode.title;
     $scope.post.album = $scope.podcast.trackName;
     $scope.post.artist = $scope.podcast.artistName;

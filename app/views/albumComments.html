@@ -1,7 +1,7 @@
 <!-- mobile
 TODO: stack instead of two views -->
 
-<div ng-show="signedIn()" class="container" ng-cloak hide-md hide-gt-md show-xs show-sm>
+<div ng-show="user" class="container" ng-cloak hide-md hide-gt-md show-xs show-sm>
 <div align="center">
  
     <a ng-href="{{post.spotify_uri}}" target="_blank">
@@ -20,15 +20,15 @@ TODO: stack instead of two views -->
 
    <div layout="row" layout-align="center center" >
 
-   <md-button class="md-icon-button" ng-show="user.profile.group_id == 1" ng-click="save(post)" aria-label="Save" >
+   <md-button class="md-icon-button" ng-click="save(post)" aria-label="Save" >
   <ng-md-icon icon="save" class="arrow" size="32"></ng-md-icon>
  </md-button>
      
-  <md-button class="md-icon-button" ng-show="user.profile.group_id == 1" ng-click="upvote(post)" aria-label="Upvote" >
+  <md-button class="md-icon-button" ng-click="upvote(post)" aria-label="Upvote" >
  <ng-md-icon icon="arrow_upwards" class="arrow" size="32"></ng-md-icon>
  </md-button>
  <md-button class="md-fab md-raised md-hue-1" style=" z-index:1"><b style="font-size:22pt">{{ post.votes }}</b> </md-button>
- <md-button class="md-icon-button"  ng-show="user.profile.group_id == 1" ng-click="downvote(post)" aria-label="Downvote" >
+ <md-button class="md-icon-button" ng-click="downvote(post)" aria-label="Downvote" >
  <ng-md-icon icon="arrow_downward" class="arrow" size="32"></ng-md-icon>
  </md-button> 
  <md-button style="top:11px; left:2px; overflow:visible !important;" ng-href="#/albums/{{post.$id}}" aria-label="Comments" >
@@ -50,7 +50,7 @@ TODO: stack instead of two views -->
   <div>  <small><b>posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator}}</b>
   <!--  <img src="/images/poop.gif" style="padding-bottom:10px; padding-left:3px" ng-show="post.creator == 'Nrblanks' || post.creator == 'Stevie' || post.creator == 'davidemerritt' || post.creator == 'Oat'" height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:6px" ng-show="post.creator == 'sparker'" height="30px"/> -->
 
-  </a> <a ng-click="deletePost(post)" ng-show="user.uid === post.creatorUID">&mdash; delete</a></small>
+  </a> <a ng-click="deletePost(post)" ng-show="user.$id === post.creatorUID">&mdash; delete</a></small>
 
   </div>
 
@@ -67,8 +67,8 @@ TODO: stack instead of two views -->
     </md-chips>
     </div>
 
- <div ng-show="user.uid === post.creatorUID" layout="row" layout-align="center center">
- <md-chips ng-show="user.uid === post.creatorUID"
+ <div ng-show="user.$id === post.creatorUID" layout="row" layout-align="center center">
+ <md-chips ng-show="user.$id === post.creatorUID"
               ng-model="selectedTags" md-autocomplete-snap
               md-transform-chip="transformChip(post,$chip)"
               md-require-match="false"
@@ -104,7 +104,7 @@ TODO: stack instead of two views -->
     </a>{{comment.datetime_ts | timeAgo}}
     <a ng-href=""
     ng-click="deleteComment(comment)"
-    ng-show="signedIn() && comment.creatorUID === user.uid">
+    ng-show="user && comment.creatorUID === user.$id">
     (delete)
   </a>
 </p>
@@ -112,11 +112,11 @@ TODO: stack instead of two views -->
 </div>
 
 <div class="cmt-form">
-  <div ng-hide="signedIn()">
+  <div ng-hide="user">
     <p><a href="#/login">Sign in</a> to post a comment</p>
   </div>
 
-  <form ng-show="signedIn()" ng-submit="gifsearch()">
+  <form ng-show="user" ng-submit="gifsearch()">
     <input type="text" ng-model="gifSearchText" placeholder="search for gif"/>
     <input type="submit" value="search" class="btn btn-secondary" />
   </form>
@@ -125,7 +125,7 @@ TODO: stack instead of two views -->
         <input ng-model="">
       </md-input-container> -->
   or
-  <form ng-show="signedIn()" ng-submit="addComment(gifLink)">
+  <form ng-show="user" ng-submit="addComment(gifLink)">
     <input type="text" ng-model="gifLink" placeholder="paste gif link"/>
     <input type="submit" value="post" class="btn btn-secondary" />
   </form>
@@ -141,7 +141,7 @@ TODO: stack instead of two views -->
 
 <!-- desktop -->
 
-<div ng-show="signedIn()" flex ng-cloak layout="row" layout-xs="column" hide-xs hide-sm>
+<div ng-show="user" flex ng-cloak layout="row" layout-xs="column" hide-xs hide-sm>
  
     <div flex align="center">
  <div style="position: fixed;">
@@ -162,15 +162,15 @@ TODO: stack instead of two views -->
 
    <div layout="row" layout-align="center center" >
 
-   <md-button class="md-icon-button" ng-show="user.profile.group_id == 1" ng-click="save(post)" aria-label="Save" >
+   <md-button class="md-icon-button" ng-click="save(post)" aria-label="Save" >
   <ng-md-icon icon="save" class="arrow" size="32"></ng-md-icon>
  </md-button>
      
-  <md-button class="md-icon-button" ng-show="user.profile.group_id == 1" ng-click="upvote(post)" aria-label="Upvote" >
+  <md-button class="md-icon-button" ng-click="upvote(post)" aria-label="Upvote" >
  <ng-md-icon icon="arrow_upwards" class="arrow" size="32"></ng-md-icon>
  </md-button>
  <md-button class="md-fab md-raised md-hue-1" style=" z-index:1"><b style="font-size:22pt">{{ post.votes }}</b> </md-button>
- <md-button class="md-icon-button"  ng-show="user.profile.group_id == 1" ng-click="downvote(post)" aria-label="Downvote" >
+ <md-button class="md-icon-button" ng-click="downvote(post)" aria-label="Downvote" >
  <ng-md-icon icon="arrow_downward" class="arrow" size="32"></ng-md-icon>
  </md-button> 
  <md-button style="top:11px; left:2px; overflow:visible !important;" ng-href="#/albums/{{post.$id}}" aria-label="Comments" >
@@ -192,9 +192,9 @@ TODO: stack instead of two views -->
   </div>
 
   <div>  <small><b>posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator}}</b>
-   <img src="/images/poop.gif" style="padding-bottom:10px; padding-left:3px" ng-show="post.creator == 'Nrblanks' || post.creator == 'Stevie' || post.creator == 'davidemerritt' || post.creator == 'Oat'" height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:6px" ng-show="post.creator == 'sparker'" height="30px"/>
+  <!--  <img src="/images/poop.gif" style="padding-bottom:10px; padding-left:3px" ng-show="post.creator == 'Nrblanks' || post.creator == 'Stevie' || post.creator == 'davidemerritt' || post.creator == 'Oat'" height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:6px" ng-show="post.creator == 'sparker'" height="30px"/> -->
 
-  </a> <a ng-click="deletePost(post)" ng-show="user.uid === post.creatorUID">&mdash; delete</a></small>
+  </a> <a ng-click="deletePost(post)" ng-show="user.$id === post.creatorUID">&mdash; delete</a></small>
 
   </div>
 
@@ -211,8 +211,8 @@ TODO: stack instead of two views -->
     </md-chips>
     </div>
 
- <div ng-show="user.uid === post.creatorUID" layout="row" layout-align="center center">
- <md-chips ng-show="user.uid === post.creatorUID"
+ <div ng-show="user.$id === post.creatorUID" layout="row" layout-align="center center">
+ <md-chips ng-show="user.$id === post.creatorUID"
               ng-model="selectedTags" md-autocomplete-snap
               md-transform-chip="transformChip(post,$chip)"
               md-require-match="false"
@@ -248,7 +248,7 @@ TODO: stack instead of two views -->
     </a>{{comment.datetime_ts | timeAgo}}
     <a ng-href=""
     ng-click="deleteComment(comment)"
-    ng-show="signedIn() && comment.creatorUID === user.uid">
+    ng-show="user && comment.creatorUID === user.$id">
     (delete)
   </a>
 </p>
@@ -256,19 +256,19 @@ TODO: stack instead of two views -->
 </div>
 
 <div class="cmt-form">
-  <div ng-hide="signedIn()">
+  <div ng-hide="user">
     <p><a href="#/login">Sign in</a> to post a comment</p>
   </div>
   <small>Add a gif comment:</small>
 <div layout-gt-sm="row" layout-padding>
 
- <form ng-show="signedIn()" ng-submit="gifsearch()">
+ <form ng-show="user" ng-submit="gifsearch()">
    <md-input-container>
    <label>Search for a gif</label>
    <input ng-model="gifSearchText">
     </md-input-container>
  </form>
-  <form ng-show="signedIn()" ng-submit="addComment(gifLink)">
+  <form ng-show="user" ng-submit="addComment(gifLink)">
   <md-input-container>
   <label>Paste gif link</label>
     <input ng-model="gifLink"/>

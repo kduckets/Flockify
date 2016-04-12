@@ -1,7 +1,10 @@
 module.exports = function($scope, $route, $location, $window, Post, Auth, Spotify, $uibModal,
-  Profile, $firebase, $filter, $http, FIREBASE_URL) {
+  Profile, $firebase, $filter, $http, FIREBASE_URL, Users) {
   $scope.posts = Post.all;
-  $scope.user = Auth.user;
+   if(Auth.$getAuth()){
+    $scope.user = Users.getProfile(Auth.$getAuth().uid);
+    $scope.username = Users.getUsername(Auth.$getAuth().uid);
+    };
 
   $scope.post = {
     artist: '',
@@ -10,8 +13,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
     comments: 0,
     stars: 0
   };
-  $scope.signedIn = Auth.signedIn;
-  $scope.logout = Auth.logout;
+  
   var ref = new Firebase(FIREBASE_URL);
   $scope.sorter = '-';
 

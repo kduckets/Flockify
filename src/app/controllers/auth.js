@@ -1,30 +1,25 @@
-module.exports = function ($scope, $location, Auth, user, $cookieStore) {
-  if (user) {
-    $location.path('/');
-  }
+module.exports = function ($scope, $location, Auth, $cookieStore, $rootScope) {
+var authCtrl = this;
 
+    $scope.user = {
+      email: '',
+      password: ''
+    };
 
-
-  $scope.login = function () {
-    Auth.login($scope.user).then(function () {
-      $cookieStore.put('login', $scope.user);
+  $scope.login = function (){
+    Auth.$authWithPassword($scope.user).then(function (auth){
+      //todo:use auth token instead of id
       $location.path('/');
-    }, function (error) {
-      $scope.error = error.toString();
-    });
-  };
+  }, function (error){
+    $scope.error = error;
+  });
+};
 
-$scope.register = function () {
-
-  Auth.register($scope.user).then(function(user) {
-    return Auth.login($scope.user).then(function() {
-      user.username = $scope.user.username;
-      return Auth.createProfile(user);
-    }).then(function() {
-      $location.path('/');
-    });
-  }, function(error) {
-    $scope.error = error.toString();
+  $scope.register = function (){
+    Auth.$createUser($scope.user).then(function (user){
+    $scope.login();
+  }, function (error){
+    $scope.error = error;
   });
 };
 

@@ -1,4 +1,4 @@
-<div class="container" ng-show="signedIn()" flex ng-cloak>
+<div class="container" ng-show="user" flex ng-cloak>
 
   <h2 align="center">Flockify Huddle</h2>
 
@@ -19,11 +19,11 @@
   <pre>Page: {{currentPage}} / {{numPages}}</pre>
 
   <div class="cmt-form">
-<!--     <div ng-hide="signedIn()">
+<!--     <div ng-hide="user">
       <p><a href="#/login">Sign in</a> to chat</p>
     </div> -->
 
-    <form ng-show="signedIn()" ng-submit="addComment(commentText)">
+    <form ng-show="user" ng-submit="addComment(commentText)">
       <textarea
       ng-model="commentText"
       placeholder="chat box"
@@ -32,12 +32,12 @@
     </form>
 
     <p>
-      <form ng-show="signedIn()" ng-submit="gifsearch()">
+      <form ng-show="user" ng-submit="gifsearch()">
         <input type="text" ng-model="gifSearchText" placeholder="search for gif"/>
         <input type="submit" value="search" class="btn btn-secondary" /> 
       </form>
       or
-      <form ng-show="signedIn()" ng-submit="addGif(gifLink)">
+      <form ng-show="user" ng-submit="addGif(gifLink)">
         <input type="text" ng-model="gifLink" placeholder="paste gif link"/>
         <input type="submit" value="post" class="btn btn-secondary" /> 
       </form>

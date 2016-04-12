@@ -1,10 +1,17 @@
-module.exports = function ($scope, $routeParams, Post, Auth, Comment, $firebase, Profile, $http, $filter, $sce, $location, 
-  $uibModal, Action, $mdToast, FIREBASE_URL, $firebase, $mdConstant, $mdDialog) {
+module.exports = function ($scope, $routeParams, Post, Auth, Comment, $firebaseArray, Profile, $http, $filter, $sce, $location, 
+  $uibModal, Action, $mdToast, FIREBASE_URL, $mdConstant, $mdDialog, Users) {
   var post_id = $routeParams.postId;
-  $scope.user = Auth.user;
-  $scope.signedIn = Auth.signedIn;
-  $scope.logout = Auth.logout;
-  // $scope.posts = Post.all;
+  var authData = Auth.$getAuth();
+  if (authData) {
+     console.log("User " + authData.uid + " is logged in with " + authData.provider);
+     $scope.user = Users.getProfile(authData.uid);
+     $scope.username = $scope.user.username;
+  } else {
+    $scope.user = null;
+    $scope.username = null;
+    $location.path('/login');
+    console.log("User is logged out");
+  }
   $scope.post = Post.get(post_id);
   var postRef = new Firebase(FIREBASE_URL+"/posts/"+ post_id);
   postRef.once('value', function(dataSnapshot) {
@@ -15,7 +22,7 @@ module.exports = function ($scope, $routeParams, Post, Auth, Comment, $firebase,
   $scope.loadingCircle = false;
 
   var ref = new Firebase(FIREBASE_URL);
-  var tags = $firebase(ref.child('tags')).$asArray();
+  var tags = $firebaseArray(ref.child('tags'));
 
 
     $scope.readonly = false;
@@ -95,7 +102,7 @@ module.exports = function ($scope, $routeParams, Post, Auth, Comment, $firebase,
   };
 
   $scope.save = function(post) {
-    if($scope.signedIn() && $scope.user.uid != post.creatorUID){
+    if($scope.user && Auth.$getAuth().uid != post.creatorUID){
       Profile.savePost($scope.user.uid, post.$id, 'yes');
          $mdToast.show(
             $mdToast.simple()

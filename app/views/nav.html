@@ -9,52 +9,52 @@
       </md-toolbar>
       
        <span flex></span>
-  <!--       <p><a ng-show="!signedIn()" href="/#/login">Sign in</a></p> -->
+  <!--       <p><a ng-show="!user" href="/#/login">Sign in</a></p> -->
           
-        <p ng-show="!signedIn()"><a ng-href="#/login">
-        <md-button ng-show="!signedIn()" class="md-icon-button" aria-label="Chat">
+        <p ng-show="!user"><a ng-href="#/login">
+        <md-button ng-show="!user" class="md-icon-button" aria-label="Chat">
         <i class="fa fa-key fa-2x"></i>    
         </md-button>Sign in</a></p>
 
-        <p ng-show="signedIn()"><a ng-href="#/chat">
+        <p ng-show="user"><a ng-href="#/chat">
         <md-button class="md-icon-button" aria-label="Chat">
         <i class="fa fa-wechat fa-2x"></i>    
         </md-button>Chat</a></p>
 
-        <p ng-show="signedIn()"><a ng-href="#/scoreboard">
-        <md-button ng-show="signedIn()" class="md-icon-button" aria-label="Scoreboard">
+        <p ng-show="user"><a ng-href="#/scoreboard">
+        <md-button ng-show="user" class="md-icon-button" aria-label="Scoreboard">
         <i class="fa fa-trophy fa-2x"></i>
         </md-button>Leaderboard</a></p>
 
-        <p ng-show="signedIn()"><a ng-href="#/users/{{ user.uid }}">
-        <md-button ng-show="signedIn()" class="md-icon-button" aria-label="Profile">
+        <p ng-show="user"><a ng-href="#/users/{{ user.$id }}">
+        <md-button ng-show="user" class="md-icon-button" aria-label="Profile">
         <i class="fa fa-user fa-2x"></i>
         </md-button>My Profile</a></p>
 
-        <p ng-show="signedIn()"><a href="/#/" ng-click="logout()">
-        <md-button ng-show="signedIn()" class="md-icon-button" aria-label="Logout">
+        <p ng-show="user"><a href="/#/" ng-click="logout()">
+        <md-button ng-show="user" class="md-icon-button" aria-label="Logout">
         <i class="fa fa-sign-out fa-2x"></i>
         </md-button>Logout</a></p>
 
          <md-divider/>
 
-          <p ng-show="signedIn()"><a href="/#/">
-          <md-button ng-show="signedIn()" class="md-icon-button" aria-label="Albums">
+          <p ng-show="user"><a href="/#/">
+          <md-button ng-show="user" class="md-icon-button" aria-label="Albums">
           <ng-md-icon icon="album"></ng-md-icon>
           </md-button>Albums</a></p>
 
-          <p ng-show="signedIn()"><a href="/#/podcasts">
-          <md-button ng-show="signedIn()" class="md-icon-button" aria-label="Podcasts">
+          <p ng-show="user"><a href="/#/podcasts">
+          <md-button ng-show="user" class="md-icon-button" aria-label="Podcasts">
           <ng-md-icon icon="mic"></ng-md-icon>
           </md-button>Podcasts</a></p>
 
-          <p ng-show="signedIn()"><a href="/#/movies">
-          <md-button ng-show="signedIn()" class="md-icon-button" aria-label="Movies">
+          <p ng-show="user"><a href="/#/movies">
+          <md-button ng-show="user" class="md-icon-button" aria-label="Movies">
           <ng-md-icon icon="movie"></ng-md-icon>
           </md-button>Movies</a></p>
       
-          <p ng-show="signedIn()"><a href="/#/books">
-          <md-button ng-show="signedIn()" class="md-icon-button" aria-label="Books">
+          <p ng-show="user"><a href="/#/books">
+          <md-button ng-show="user" class="md-icon-button" aria-label="Books">
           <ng-md-icon icon="book"></ng-md-icon>
           </md-button>Books</a></p>
        
@@ -74,8 +74,8 @@
      
         
       
-         <!--  <li ng-hide="signedIn()"><a class="nav-link" href="#/login"><i class="fa fa-sign-in"></i></a></li>
-          <li ng-hide="signedIn()"><a class="nav-link" href="#/register"><i class="fa fa-pencil-square-o"></i></a></li> -->      
+         <!--  <li ng-hide="user"><a class="nav-link" href="#/login"><i class="fa fa-sign-in"></i></a></li>
+          <li ng-hide="user"><a class="nav-link" href="#/register"><i class="fa fa-pencil-square-o"></i></a></li> -->      
     </div>   
 </md-toolbar>
 

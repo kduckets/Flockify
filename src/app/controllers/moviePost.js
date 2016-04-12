@@ -1,8 +1,9 @@
-module.exports = function($scope, $route, $location, $window, Post, Auth, $http, $cookies, $modalInstance, movie) {
+module.exports = function($scope, $route, $location, $window, Post, Auth, $http, $cookies, $modalInstance, Users, movie) {
 
-  $scope.user = Auth.user;
-  $scope.signedIn = Auth.signedIn;
-  $scope.logout = Auth.logout;
+  if(Auth.$getAuth()){
+    $scope.user = Users.getProfile(Auth.$getAuth().uid);
+    $scope.username = Users.getUsername(Auth.$getAuth().uid);
+    };
   $scope.movie = movie;
   $scope.date = new Date();
 
@@ -28,9 +29,9 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
   };
 
   $scope.submitPost = function() {
-    $scope.post.creator = $scope.user.profile.username;
+    $scope.post.creator = $scope.username;
     $scope.post.summary = $scope.summary;
-    $scope.post.creatorUID = $scope.user.uid;
+    $scope.post.creatorUID = $scope.user.$id;
     $scope.post.title = $scope.omdb.Title;
     $scope.post.album = $scope.omdb.Title;
     $scope.post.artist = $scope.omdb.Director;

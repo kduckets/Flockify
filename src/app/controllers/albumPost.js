@@ -1,9 +1,9 @@
 module.exports = function($scope, $route, $location, $window, Post, Auth, $http, $cookies, album, $sce, $filter,
-  $timeout, $q, $mdDialog, FIREBASE_URL, $firebase, $mdConstant) {
+  $timeout, $q, $mdDialog, FIREBASE_URL, $mdConstant, Users, $firebaseArray) {
 
    var ref = new $window.Firebase(FIREBASE_URL);
    var tagsRef = new $window.Firebase(FIREBASE_URL+"/tags");
-   var tags = $firebase(ref.child('tags')).$asArray();
+   var tags = $firebaseArray(ref.child('tags'));
 
     $scope.readonly = false;
     $scope.selectedItem = null;
@@ -15,9 +15,13 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
     $scope.transformChip = transformChip;
     $scope.keys = [$mdConstant.KEY_CODE.COMMA, $mdConstant.KEY_CODE.ENTER];
 
-  $scope.user = Auth.user;
-  $scope.signedIn = Auth.signedIn;
-  $scope.logout = Auth.logout;
+    if (Auth.$getAuth()) {
+     $scope.user = Users.getProfile(Auth.$getAuth().uid);
+     $scope.username = Users.getUsername(Auth.$getAuth().uid);
+    } else {
+    $scope.user = null;
+    console.log("User is logged out");
+  };
   $scope.album = album;
   // $scope.posts = Post.all;
 
@@ -98,9 +102,9 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
     $scope.loadingBar = true;
     $timeout(function () { $scope.loadingBar = false; }, 2000); 
 
-    $scope.post.creator = $scope.user.profile.username || null,
+    $scope.post.creator = $scope.username || null,
     $scope.post.summary = $scope.summary;
-    $scope.post.creatorUID = $scope.user.uid;
+    $scope.post.creatorUID = $scope.user.$id;
     $scope.post.album = $scope.album;
     $scope.post.artist = $scope.artist;
     //$scope.post.image_large= $scope.image_large;
@@ -111,7 +115,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
     $scope.post.spotify_uri = $scope.spotify_uri;
     $scope.post.embed_uri = $scope.embed_uri;
     $scope.post.comments = 0;
-    $scope.post.date = $filter('date')(new Date(), 'yyyy-MM-dd HH:mm:ss');
+    $scope.post.date = moment.utc().format();
     $scope.post.release_date = $scope.release_date;
     $scope.post.latest_comment = 9999;
 

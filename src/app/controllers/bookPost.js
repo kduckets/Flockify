@@ -1,8 +1,8 @@
-module.exports = function($scope, $route, $location, $window, Post, Auth, $http, $cookies, $modalInstance, book) {
-
-    $scope.user = Auth.user;
-    $scope.signedIn = Auth.signedIn;
-    $scope.logout = Auth.logout;
+module.exports = function($scope, $route, $location, $window, Post, Auth, $http, $cookies, $modalInstance, book, User) {
+  if(Auth.$getAuth()){
+    $scope.user = Users.getProfile(Auth.$getAuth().uid);
+    $scope.username = Users.getUsername(Auth.$getAuth().uid);
+    };
     $scope.book = book;
     $scope.date = new Date();
 
@@ -14,9 +14,9 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
     };
 
     $scope.submitPost = function() {
-      $scope.post.creator = $scope.user.profile.username;
+      $scope.post.creator = $scope.username;
       $scope.post.summary = $scope.summary;
-      $scope.post.creatorUID = $scope.user.uid;
+      $scope.post.creatorUID = $scope.user.$id;
       $scope.post.title = $scope.book.trackName;
       $scope.post.album = $scope.book.trackName;
       $scope.post.artist = $scope.book.artistName;

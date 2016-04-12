@@ -1,9 +1,9 @@
-module.exports = function ($window, FIREBASE_URL, $firebase, Post, $q) {
+module.exports = function ($window, FIREBASE_URL, $firebaseArray, $firebaseObject, Post, $q) {
   var ref = new $window.Firebase(FIREBASE_URL);
 
   var profile = {
     get: function (userId) {
-      return $firebase(ref.child('profile').child(userId)).$asObject();
+      return $firebaseObject(ref.child('profile').child(userId));
     },
 
     setVote: function(userId, postId, vote){
@@ -27,8 +27,7 @@ module.exports = function ($window, FIREBASE_URL, $firebase, Post, $q) {
    getPosts: function(userId) {
     var defer = $q.defer();
 
-    $firebase(ref.child('user_posts').child(userId))
-    .$asArray()
+    $firebaseArray(ref.child('user_posts').child(userId))
     .$loaded()
     .then(function(data) {
       var posts = {};
@@ -47,8 +46,7 @@ module.exports = function ($window, FIREBASE_URL, $firebase, Post, $q) {
   },
   getLikes: function(userId) {
     var defer = $q.defer();
-    $firebase(ref.child('user_votes').child(userId))
-    .$asArray()
+    $firebaseArray(ref.child('user_votes').child(userId))
     .$loaded()
     .then(function(data) {
         data.reverse();
@@ -72,8 +70,7 @@ module.exports = function ($window, FIREBASE_URL, $firebase, Post, $q) {
 
   getQueue: function(userId) {
     var defer = $q.defer();
-    $firebase(ref.child('user_votes').child(userId))
-    .$asArray()
+    $firebaseArray(ref.child('user_votes').child(userId))
     .$loaded()
     .then(function(data) {
 

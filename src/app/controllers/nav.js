@@ -1,9 +1,19 @@
 module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootScope, $timeout, $mdSidenav, 
-  $anchorScroll, $window, $mdToast, FIREBASE_URL, $rootScope) {
+  $anchorScroll, $window, $mdToast, FIREBASE_URL, $rootScope, Users) {
 
+  var ref = new Firebase(FIREBASE_URL);
   $scope.post = {artist: '', album: ''};
-  $scope.user = Auth.user;
-  $scope.signedIn = Auth.signedIn;
+  ref.onAuth(function(authData) {
+  if (authData) {
+    //set login cookie
+     $scope.user = Users.getProfile(authData.uid);
+     // $scope.username = Users.getUsername(authData.uid);
+  } else {
+    $scope.user = null;
+    // $scope.username = null;
+    console.log("User is logged out");
+  }
+});
   $scope.toggleMenu = buildToggler('right');
   // var postsRef = new Firebase(FIREBASE_URL+"/posts");
 
@@ -41,7 +51,9 @@ module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootSco
   
       };
       
-    $scope.logout = Auth.logout;
+    $scope.logout = function(){
+      ref.unauth();
+    };
 
     var history = [];
 
