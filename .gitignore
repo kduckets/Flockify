@@ -9,3 +9,7 @@
 #Webpack
 /bundle.js
 /bundle.js.map
+
+app/bundle.js.map
+
+app/bundle.js
