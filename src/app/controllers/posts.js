@@ -53,7 +53,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
  $scope.allPosts = false;
 
  $scope.filter_start_date = moment().startOf('isoweek') 
- $scope.filter_end_date = moment();
+ $scope.filter_end_date = moment.utc();
 
  $scope.loadingBar = false;
 
@@ -96,7 +96,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
    $scope.loadingBar = true;
    $timeout(function () { $scope.loadingBar = false; }, 2000); 
    $scope.filter_start_date = moment().startOf('isoweek') 
-   $scope.filter_end_date = moment();
+   $scope.filter_end_date = moment.utc();
    $scope.sorter = '-';
    $scope.week = true;
    $scope.last = false;
@@ -142,7 +142,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
    $scope.loadingBar = true;
    $timeout(function () { $scope.loadingBar = false; }, 3000); 
   $scope.filter_start_date = moment('2016-01-01 16:07:35')
-  $scope.filter_end_date = moment();
+  $scope.filter_end_date = moment.utc();
   $scope.sorter = ['-votes','-stars'];
   $scope.allPosts = true;
   $scope.week = false;

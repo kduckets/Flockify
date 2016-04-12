@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "934046b35e22aff79165"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "7873fbd89778114eba6c"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -79281,7 +79281,7 @@
 	    $scope.post.spotify_uri = $scope.spotify_uri;
 	    $scope.post.embed_uri = $scope.embed_uri;
 	    $scope.post.comments = 0;
-	    $scope.post.date = $filter('date')(new Date(), 'yyyy-MM-dd HH:mm:ss');
+	    $scope.post.date = moment.utc().format();
 	    $scope.post.release_date = $scope.release_date;
 	    $scope.post.latest_comment = 9999;
 	
@@ -80256,7 +80256,9 @@
 	 $scope.allPosts = false;
 	
 	 $scope.filter_start_date = moment().startOf('isoweek') 
-	 $scope.filter_end_date = moment();
+	 $scope.filter_end_date = moment.utc();
+	
+	 console.log($scope.filter_end_date.format());
 	
 	 $scope.loadingBar = false;
 	
@@ -80299,7 +80301,7 @@
 	   $scope.loadingBar = true;
 	   $timeout(function () { $scope.loadingBar = false; }, 2000); 
 	   $scope.filter_start_date = moment().startOf('isoweek') 
-	   $scope.filter_end_date = moment();
+	   $scope.filter_end_date = moment.utc();
 	   $scope.sorter = '-';
 	   $scope.week = true;
 	   $scope.last = false;
@@ -80345,7 +80347,7 @@
 	   $scope.loadingBar = true;
 	   $timeout(function () { $scope.loadingBar = false; }, 3000); 
 	  $scope.filter_start_date = moment('2016-01-01 16:07:35')
-	  $scope.filter_end_date = moment();
+	  $scope.filter_end_date = moment.utc();
 	  $scope.sorter = ['-votes','-stars'];
 	  $scope.allPosts = true;
 	  $scope.week = false;
@@ -81229,10 +81231,10 @@
 /***/ function(module, exports) {
 
 	module.exports = function() {
-	  return function(items, startDate) {;
+	  return function(items, startDate, endDate) {;
 	    // todo: use moment range
 	    return items.filter(function(item){
-	      return moment(item.date).isAfter(startDate);
+	      return moment(item.date).isBetween(startDate, endDate);
 	    });
 	  };
 	};

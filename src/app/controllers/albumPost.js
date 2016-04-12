@@ -111,7 +111,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
     $scope.post.spotify_uri = $scope.spotify_uri;
     $scope.post.embed_uri = $scope.embed_uri;
     $scope.post.comments = 0;
-    $scope.post.date = $filter('date')(new Date(), 'yyyy-MM-dd HH:mm:ss');
+    $scope.post.date = moment.utc().format();
     $scope.post.release_date = $scope.release_date;
     $scope.post.latest_comment = 9999;
 
