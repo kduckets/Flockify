@@ -21,33 +21,31 @@ module.exports = function ($scope, $routeParams, Profile, Post, Auth, Users, $ui
   };
 
   $scope.sorter = '-';
- 
   $scope.loading = true;
 
   var uid = $routeParams.userId;
   $scope.profile = Profile.get(uid);
+  console.log($scope.profile);
   $scope.view_tab = 'tabA';
 
   //get likes
-  Profile.getLikes(uid).then(function(posts) {
+  $scope.getLikes = function(){
+    $scope.loading = true;
+    Profile.getLikes(uid).then(function(posts) {
     $scope.likes = posts;
-    // $scope.loading = false;
+    $scope.loading = false;
   });
+}
 
   // get posts
   Profile.getPosts(uid).then(function(posts) {
-
     $scope.user_posts = posts;
-  
-    ref.child('user_scores').child(Users.current_group).child($scope.user.$id).child('weekly_scores').child('album_score').on("value", function(snapshot) {
+    ref.child('user_scores').child(Users.current_group).child($scope.profile.$id).child('weekly_scores').child('album_score').on("value", function(snapshot) {
       $scope.score = snapshot.val();
-
     });
-    ref.child('user_scores').child(Users.current_group).child($scope.user.$id).child('stars').on("value", function(snapshot) {
+    ref.child('user_scores').child(Users.current_group).child($scope.profile.$id).child('stars').on("value", function(snapshot) {
       $scope.stars = snapshot.val();
-
     });
-
       $scope.loading = false;
   });
 

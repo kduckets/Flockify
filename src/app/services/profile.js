@@ -16,7 +16,6 @@ module.exports = function ($window, FIREBASE_URL, $firebaseArray, $firebaseObjec
 
     getPosts: function(userId) {
       var defer = $q.defer();
-
       $firebaseArray(ref.child('posts').child(Users.current_group))
         .$loaded()
         .then(function(data) {

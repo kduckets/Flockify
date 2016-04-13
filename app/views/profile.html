@@ -36,7 +36,7 @@
 <md-tabs md-center-tabs="true" md-dynamic-height md-border-bottom>
         <md-tab label="Posts" ng-class="{'active': view_tab == 'tabA'}" ng-click="changeTab('tabA')" >
         </md-tab>
-        <md-tab label="Likes" ng-class="{'active': view_tab == 'tabB'}" ng-click="changeTab('tabB')" >
+        <md-tab label="Likes" ng-class="{'active': view_tab == 'tabB'}" ng-click="changeTab('tabB');getLikes()" >
         </md-tab>
         <md-tab label="Queue" ng-class="{'active': view_tab == 'tabC'}" ng-click="changeTab('tabC')" >
         </md-tab>
