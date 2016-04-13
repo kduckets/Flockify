@@ -140,6 +140,9 @@ _.each(old_db.comments, function(models, post_id) {
     if (comment_id == 'flock_groupchat') {
       return false;
     }
+    if (!comment.text) {
+      return false;
+    }
     is_link = comment.text.indexOf("http") != -1;
     if (is_link) {
       // comment
@@ -231,6 +234,7 @@ _.each(old_db.profile, function(user, user_id) {
   new_db.users[user_id] = new_model;
 });
 
+new_db.tags = old_db.tags;
 new_db.user_scores = {};
 new_db.user_scores[first_group_id] = {};
 
