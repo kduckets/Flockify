@@ -12,8 +12,12 @@ module.exports = function ($scope, $routeParams, Profile, Post, Auth, $firebaseA
     console.log("User is logged out");
   }
   $scope.sorter = '-album_score';
-  $scope.users = $firebaseArray(ref.child('user_scores'));
+  $scope.users = $firebaseArray(ref.child('user_scores').child(Users.current_group));
   var monday = moment().startOf('isoweek');
   $scope.week_start = monday.format('YYYY-MM-DD');
+
+  $scope.getUsername = function(userId){
+    return Users.getUsername(userId);
+  }
 };
 
