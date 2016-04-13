@@ -26,7 +26,7 @@ module.exports = function ($firebaseArray, $firebaseObject, FIREBASE_URL, Users)
     },
 
     star: function(postId, stars){
-      return ref.child('posts')..child(Users.current_group).child(postId).update({'stars': stars});
+      return ref.child('posts').child(Users.current_group).child(postId).update({'stars': stars});
     },
 
     // unused
