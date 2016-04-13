@@ -2,7 +2,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
                           $filter, FIREBASE_URL, Action, Users, $mdToast, $mdDialog, $mdMedia, $timeout, $anchorScroll, $mdConstant, $rootScope,$cookieStore){
 
   var ref = new Firebase(FIREBASE_URL);
-  var chatRef = new Firebase(FIREBASE_URL+"/comments/flock_groupchat");
+  var chatRef = new Firebase(FIREBASE_URL+"/chats/"+Users.current_group);
   var authData = Auth.$getAuth();
   if (Users.current_user) {
     console.log("User " + authData.uid + " is logged in with " + authData.provider);
@@ -17,8 +17,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
 
   $scope.filteredItems = [];
   $scope.posts = Post.all;
-  $scope.post = {artist: '', album: '', votes: 0, comments: 0, stars:0};
-  $scope.logout = Auth.logout;
+  $scope.post = {score: 0, comments: 0, stars:0};
 
   $scope.loadingCircle = true;
   $timeout(function () { $scope.loadingCircle = false; }, 3000);
@@ -178,8 +177,11 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
     Spotify.search($scope.post.search + '*', 'artist,album').then(function (data) {
 
       $scope.results = data.albums.items;
-
-      var post_names = $.map($scope.posts, function(post, idx){ return post.album;})
+      var post_names = $.map($scope.posts, function(post, idx){ 
+        if(post.media_info){
+        return post.media_info.album;
+      }
+      })
 
       angular.forEach($scope.results, function(result, key) {
         if(post_names.indexOf(result.name) != -1){

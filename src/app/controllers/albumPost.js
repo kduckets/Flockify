@@ -101,22 +101,23 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
     // });
     $scope.loadingBar = true;
     $timeout(function () { $scope.loadingBar = false; }, 2000); 
+    $scope.post.media_info = {};
 
-    $scope.post.creator = $scope.username || null,
-    $scope.post.summary = $scope.summary;
-    $scope.post.creatorUID = $scope.user.$id;
-    $scope.post.album = $scope.album;
-    $scope.post.artist = $scope.artist;
+    $scope.post.creator_name = $scope.username || null,
+    $scope.post.media_info.summary = $scope.summary;
+    $scope.post.creator_id = $scope.user.$id;
+    $scope.post.media_info.album = $scope.album;
+    $scope.post.media_info.artist = $scope.artist;
     //$scope.post.image_large= $scope.image_large;
     //var genres= $.map($scope.posts, function(post, idx){ return post.album;})
     $scope.post.tags = $scope.selectedTags;
     $scope.post.image_medium = $scope.image_large;
     $scope.post.image_small = $scope.image_small;
-    $scope.post.spotify_uri = $scope.spotify_uri;
-    $scope.post.embed_uri = $scope.embed_uri;
+    $scope.post.media_info.share_uri = $scope.spotify_uri;
+    $scope.post.media_info.embed_uri = $scope.embed_uri;
     $scope.post.comments = 0;
-    $scope.post.date = moment.utc().format();
-    $scope.post.release_date = $scope.release_date;
+    $scope.post.created_ts = moment.utc().format();
+    $scope.post.media_info.release_date = $scope.release_date;
     $scope.post.latest_comment = 9999;
 
 
@@ -125,10 +126,10 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
       $mdDialog.hide();
 
       $route.reload();
-      $scope.post = {
-        artist: '',
-        album: ''
-      };
+      // $scope.post = {
+      //   artist: '',
+      //   album: ''
+      // };
     });
   };
 
