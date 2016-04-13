@@ -98,7 +98,6 @@ var new_db = {};
 first_group_id = 'firsttoflock';
 
 posts = old_db.posts;
-var added = 0;
 new_db.posts = {};
 new_db.posts[first_group_id] = {};
 
@@ -181,27 +180,31 @@ _.each(old_db.comments.flock_groupchat, function(comment, comment_id) {
 
 //console.log(new_db.chats[first_group_id]);
 
-// ************************************** votes *****************************************
+// ************************************** actions *****************************************
 
-new_db.actions = {};
-vote_pks = {};
-var added = 0;
+new_db.user_actions = old_db.user_votes;
 // **** save it for later votes need to be added, as do stars *****
-_.each(old_db.user_votes, function(votes, user_id) {
-  _.each(votes, function(vote, post_id) {
-    added += 1;
-    new_model = {
-      creator_id: user_id,
-      post_id: post_id,
-      creation_ts: undefined,
-      action: vote.vote
-    };
-    pk = added.toString();
-    vote_pks[user_id+post_id] = pk;
-    new_db.actions[pk] = new_model;
+_.each(new_db.user_actions, function(posts, user_id) {
+  _.each(posts, function(votes, post_id) {
+    var new_val = {};
+    _.each(votes, function(vote, vote_type){
+      if (vote == 'up'){
+        new_val.up = true;
+      }
+      if (vote == 'down'){
+        new_val.down = true;
+      }
+      if (vote == 'gold'){
+        new_val.star = true;
+      }
+      if (vote_type == 'saved'){
+        new_val.saved = true;
+      }
+    });
+    new_db.user_actions[user_id][post_id] = new_val;
   })
 });
-//console.log(new_db.actions);
+//console.log(new_db.user_actions);
 
 // ************************************** users *****************************************
 new_db.users = {};
@@ -213,19 +216,18 @@ _.each(old_db.profile, function(user, user_id) {
     groups: {
       firsttoflock: true
     },
-    actions: {},
     posts: {}
   };
 
-  // add votes fk
-  _.each(old_db.user_votes, function(votes, vote_user_id) {
-    _.each(votes, function (vote, post_id) {
-      if (vote_user_id == user_id) {
-        //we need to get the PK from here...
-        new_model.actions[vote_pks[user_id + post_id]] = true;
-      }
-    });
-  });
+  //// add votes fk
+  //_.each(old_db.user_votes, function(votes, vote_user_id) {
+  //  _.each(votes, function (vote, post_id) {
+  //    if (vote_user_id == user_id) {
+  //      //we need to get the PK from here...
+  //      new_model.actions[vote_pks[user_id + post_id]] = true;
+  //    }
+  //  });
+  //});
 
   // add posts FK
   _.each(old_db.posts, function(post, post_id) {
@@ -250,3 +252,7 @@ _.each(old_db.user_scores, function(scores, username){
 
 // write final json value
 fs.writeFile("db_output_to_upload_to_firebase.json", JSON.stringify(new_db));
+
+//replace
+// 2fb03a7a-2e1b-4566-8169-298ffeca08ba
+// 24576177-e257-4e5b-9a5c-e7d1fde600b3
