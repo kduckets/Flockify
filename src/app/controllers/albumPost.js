@@ -126,10 +126,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
       $mdDialog.hide();
 
       $route.reload();
-      // $scope.post = {
-      //   artist: '',
-      //   album: ''
-      // };
+
     });
   };
 

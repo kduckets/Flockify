@@ -6,7 +6,12 @@ module.exports = function ($firebaseArray, $firebaseObject, FIREBASE_URL, Users)
     all: posts,
 
     create: function (post) {
-      return posts.$add(post);
+      return posts.$add(post).then(function(postRef) {
+        var postId = {}; 
+        postId[postRef.key()] = true; 
+        ref.child('users').child(post.creator_id).child('posts').update(postId);
+        return postRef;
+    })
     },
 
     vote: function(postId, score){
@@ -39,6 +44,7 @@ module.exports = function ($firebaseArray, $firebaseObject, FIREBASE_URL, Users)
 
     delete: function (post) {
       ref.child('posts').child(Users.current_group).child(post.$id).remove();
+      ref.child('users').child(post.creator_id).child('posts').child(post.$id).remove();
     }
   };
   return Post;
