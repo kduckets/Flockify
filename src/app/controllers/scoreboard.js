@@ -11,6 +11,7 @@ module.exports = function ($scope, $routeParams, Profile, Post, Auth, $firebaseA
     $location.path('/login');
     console.log("User is logged out");
   }
+  $scope.current_week = moment().startOf('isoweek').format('MM_DD_YYYY');
   $scope.sorter = '-album_score';
   $scope.users = $firebaseArray(ref.child('user_scores').child(Users.current_group));
   var monday = moment().startOf('isoweek');
