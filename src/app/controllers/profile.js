@@ -1,10 +1,11 @@
 module.exports = function ($scope, $routeParams, Profile, Post, Auth, Users, $uibModal, FIREBASE_URL, $location,$mdToast) {
   var ref = new Firebase(FIREBASE_URL);
   var authData = Auth.$getAuth();
-  if (authData) {
-     console.log("User " + authData.uid + " is logged in with " + authData.provider);
-     $scope.user = Users.getProfile(authData.uid);
-     $scope.username = $scope.user.username;
+  var authData = Auth.$getAuth();
+  if (Users.current_user) {
+    console.log("User " + authData.uid + " is logged in with " + authData.provider);
+    $scope.user = Users.getProfile(authData.uid);
+    $scope.username = $scope.user.username;
   } else {
     $scope.user = null;
     $scope.username = null;
@@ -12,9 +13,15 @@ module.exports = function ($scope, $routeParams, Profile, Post, Auth, Users, $ui
     console.log("User is logged out");
   }
 
+  $scope.getNumKeys = function(obj) {
+    if (!obj){
+      return 0;
+    }
+    return Object.keys(obj).length;
+  };
+
   $scope.sorter = '-';
  
-  $scope.posts = Post.all;
   $scope.loading = true;
 
   var uid = $routeParams.userId;
@@ -32,11 +39,11 @@ module.exports = function ($scope, $routeParams, Profile, Post, Auth, Users, $ui
 
     $scope.user_posts = posts;
   
-    ref.child('user_scores').child($scope.profile.username).child('weekly_scores').child('album_score').on("value", function(snapshot) {
+    ref.child('user_scores').child(Users.current_group).child($scope.user.$id).child('weekly_scores').child('album_score').on("value", function(snapshot) {
       $scope.score = snapshot.val();
 
     });
-    ref.child('user_scores').child($scope.profile.username).child('stars').on("value", function(snapshot) {
+    ref.child('user_scores').child(Users.current_group).child($scope.user.$id).child('stars').on("value", function(snapshot) {
       $scope.stars = snapshot.val();
 
     });

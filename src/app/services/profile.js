@@ -1,34 +1,35 @@
-module.exports = function ($window, FIREBASE_URL, $firebaseArray, $firebaseObject, Post, $q) {
+module.exports = function ($window, FIREBASE_URL, $firebaseArray, $firebaseObject, Post, $q, Users) {
   var ref = new $window.Firebase(FIREBASE_URL);
 
   var profile = {
     get: function (userId) {
-      return $firebaseObject(ref.child('profile').child(userId));
+      return $firebaseObject(ref.child('users').child(userId));
     },
 
     savePost: function(userId, postId, save){
-      return ref.child('user_votes').child(userId).child(postId).update({'saved': save});
+      return ref.child('user_actions').child(userId).child(postId).update({'saved': save});
     },
 
     setStar: function(userId, postId, vote){
-      return ref.child('user_votes').child(userId).child(postId).update({'star': vote});
+      return ref.child('user_actions').child(userId).child(postId).update({'star': 'true'});
     },
 
     getPosts: function(userId) {
       var defer = $q.defer();
 
-      $firebaseArray(ref.child('user_posts').child(userId))
+      $firebaseArray(ref.child('posts').child(Users.current_group))
         .$loaded()
         .then(function(data) {
           var posts = {};
           data.reverse();
 
           for(var i = 0; i<data.length; i++) {
-            var value = data[i].$value;
-            posts[value] = Post.get(value);
+            var id = data[i].$id;
+            var creator = data[i].creator_id;
+            if(creator == userId){
+            posts[id] = Post.get(id);
           }
-
-
+          }
           defer.resolve(posts);
         });
 
@@ -36,7 +37,7 @@ module.exports = function ($window, FIREBASE_URL, $firebaseArray, $firebaseObjec
     },
     getLikes: function(userId) {
       var defer = $q.defer();
-      $firebaseArray(ref.child('user_votes').child(userId))
+      $firebaseArray(ref.child('user_actions').child(userId))
         .$loaded()
         .then(function(data) {
           data.reverse();
@@ -44,12 +45,12 @@ module.exports = function ($window, FIREBASE_URL, $firebaseArray, $firebaseObjec
           var posts = {};
 
           for(var i = 0; i<data.length; i++) {
-            var value = data[i].$id;
-            var vote = data[i].vote;
+            var id = data[i].$id;
+            var up = data[i].up;
             var star = data[i].star;
 
-            if(value && vote=='up' || value && star=='gold'){
-              posts[value] = Post.get(value);
+            if(id && up || id && star){
+              posts[id] = Post.get(id);
             }
           }
           defer.resolve(posts);
@@ -60,7 +61,7 @@ module.exports = function ($window, FIREBASE_URL, $firebaseArray, $firebaseObjec
 
     getQueue: function(userId) {
       var defer = $q.defer();
-      $firebaseArray(ref.child('user_votes').child(userId))
+      $firebaseArray(ref.child('user_actions').child(userId))
         .$loaded()
         .then(function(data) {
 
@@ -70,7 +71,7 @@ module.exports = function ($window, FIREBASE_URL, $firebaseArray, $firebaseObjec
           for(var i = 0; i<data.length; i++) {
             var value = data[i].$id;
             var saved = data[i].saved;
-            if(value && saved=='yes'){
+            if(value && saved){
               posts[value] = Post.get(value);
             }
           }

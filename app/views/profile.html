@@ -26,28 +26,11 @@
         <img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:2px" ng-show="profile.username == 'sparker'" height="60px"/> -->
           </span>
 
- <!--       <p>
-     score: {{score}}
-      <br/>
-     
-      <br/>
-       points per post: {{(score / postsNumber) | limitTo: 3}}
-     </p> -->
 
      <div> <img ng-repeat="i in getNumber(stars) track by $index" ng-src="/images/gold-star.png" height="18" /></div>
      <br/>
   <small>weekly score: {{score}} | weekly ratio: <a href="" ng-click="showRatio()" ng-show="!ratio">show</a><span ng-show="ratio">{{ratio | limitTo: 3}}</span></small>
 
-
-<!--   <div class="sort-links">
-  <a href ng-click="sorter = '-votes'">popular</a>
-   <a href ng-click="sorter = '-'">new</a>
-  <a href ng-click="sorter = 'votes'">unpopular</a>  
-  <a href ng-click="sorter = '-comments'">comments</a> 
-  <a href ng-click="sorter = '-stars'">stars</a> 
-
-
-</div> -->
 </div>
 
 <md-tabs md-center-tabs="true" md-dynamic-height md-border-bottom>
@@ -62,18 +45,15 @@
         <br/>
 
 <div ng-repeat="(key,post) in user_posts" ng-show="view_tab == 'tabA' " align="center" >
- <div class="post" ng-show="post.artist">
-  <!--     <img ng-click="upvote(post)" src="/images/up.png" height="30"></img> -->
+ <div class="post">
   
   <a ng-href="#/posts/{{ post.$id  }}">
     <img ng-src="{{post.image_medium}}" height="100" />
   </a>
-  
-  <!--  <img ng-click="downvote(post)" src="/images/down.png" height="30"></img> -->
 
   <br/>
   <a ng-href="#/posts/{{ post.$id  }}">
-    {{post.artist}} - {{ post.album }} ({{post.release_date | limitTo: 4}})
+    {{post.media_info.artist}} - {{ post.media_info.album }} ({{post.media_info.release_date | limitTo: 4}})
   </a>
   <div>
    <!-- <a data-toggle="modal" ng-click="starPost(post)" href="" >   -->
@@ -82,13 +62,13 @@
 
  </div>
  <div>
-  <span class="label label-pill label-info">{{ post.summary | limitTo: 40 }}{{post.summary.length > 40 ? '..' : ''}}</span>
+  <span class="label label-pill label-info">{{ post.media_info.summary | limitTo: 40 }}{{post.media_info.summary.length > 40 ? '..' : ''}}</span>
 </div>
 <p>
- {{ post.votes }} votes
- <small>(posted by {{post.creator}})</small>
+ {{ post.score }} votes
+ <small>(posted by {{post.creator_name}})</small>
  
- <small><a ng-href="#/posts/{{ post.$id  }}">comments ({{post.comments}})</a></small>
+ <small><a ng-href="#/posts/{{ post.$id  }}">comments ({{ getNumKeys(post.comments) }})</a></small>
  <small><a href="" ng-click="deletePost(post)" ng-show="user.uid === post.creatorUID">&mdash; delete</a></small>
 </p>
 </div>
@@ -98,7 +78,7 @@
 
 <div ng-repeat="post in likes" ng-show="view_tab == 'tabB'" align="center">
 
- <div class="post" ng-show="post.artist">
+ <div class="post">
   
    
   <a ng-href="#/posts/{{ post.$id  }}">
@@ -109,19 +89,20 @@
 
   <br/>
   <a ng-href="#/posts/{{ post.$id  }}">
-    {{post.artist}} - {{ post.album }}
+    {{post.media_info.artist}} - {{ post.media_info.album }} ({{post.media_info.release_date | limitTo: 4}})
   </a>
   <div>
-    <!-- <a data-toggle="modal" ng-click="starPost(post)" href="" >   -->
     <img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18" />
+    </div>
+    <div>
     <!--      <img ng-src="/images/empty-star.png" height="18" /></a> -->
-    <span class="label label-default">{{post.category}}</span></div>
-    <span class="label label-pill label-info">{{ post.summary | limitTo: 40 }}{{post.summary.length > 40 ? '..' : ''}}</span>
+    <span class="label label-pill label-info">{{ post.media_info.summary | limitTo: 40 }}{{post.media_info.summary.length > 40 ? '..' : ''}}
+    </span>
     <p>
-     {{ post.votes }} votes
-     <small>(posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator}}</a>)</small>
+     {{ post.score }} votes
+     <small>(posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator_name}}</a>)</small>
      
-     <small><a ng-href="#/posts/{{ post.$id  }}">comments ({{post.comments}})</a></small>
+     <small><a ng-href="#/posts/{{ post.$id  }}">comments ({{ getNumKeys(post.comments) }})</a></small>
      <small><a href="" ng-click="deletePost(post)" ng-show="user.uid === post.creatorUID">&mdash; delete</a></small>
    </p>
  </div>
@@ -133,7 +114,7 @@
 <div ng-repeat="post in queue" ng-show="view_tab == 'tabC'" align="center">
 
  <md-card class="card" >
-  <span class="score label label-default label-default"><b>{{ post.votes }}</b></span> 
+  <span class="score label label-default label-default"><b>{{ post.score }}</b></span> 
   <div class="album-container">
   <a ng-href="#/albums/{{post.$id}}" >
     <img class="md-card-image" ng-src="{{post.image_medium}}" />
@@ -147,10 +128,10 @@
     <img ng-src="/images/empty-star.png" class="star" /></a>
     </div>
      <a ng-href="#/albums/{{post.$id}}" >
-       {{ post.artist }} - {{ post.album }} ({{post.release_date | limitTo: 4}})</a> 
+       {{ post.media_info.artist }} - {{ post.media_info.album }} ({{post.media_info.release_date | limitTo: 4}})</a> 
      <div>
        <a ng-href="#/albums/{{ post.$id  }}">
-       <span class="label label-pill label-info">{{ post.summary | limitTo: 40 }}{{post.summary.length > 40 ? '..' : ''}}</span></a>
+       <span class="label label-pill label-info">{{ post.media_info.summary | limitTo: 40 }}{{post.media_info.summary.length > 40 ? '..' : ''}}</span></a>
      </div> 
 
   <div layout="row" layout-align="center center">
@@ -166,11 +147,11 @@
 </div> 
 
    </div>    
-   <small><b>posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator}}</b>
+   <small><b>posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator_name}}</b>
 
  <!-- <img src="/images/poop.gif" style="padding-bottom:10px; padding-left:2px; height: 50px; width: auto;  display:inline-block;" ng-show="user.profile.group_id == 1 && post.creator == 'Nrblanks' || post.creator == 'Stevie' || post.creator == 'davidemerritt' || post.creator == 'Oat'"height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:2px;height: 30px; width: auto;display:inline-block;" ng-show="user.profile.group_id == 1 && post.creator == 'sparker'"/> -->
 
-   </a> <i>{{post.date | timeAgo}}</i></small>
+   </a> <i>{{post.created_ts | timeAgo}}</i></small>
 
 <div layout="row" layout-align="center center" style="position:relative;right:0;bottom:0;">
 <!--    <md-button class="md-icon-button" ng-show="user.profile.group_id == 1" ng-click="save(post)" aria-label="Save" >
