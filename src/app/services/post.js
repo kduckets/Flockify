@@ -14,8 +14,8 @@ module.exports = function ($firebaseArray, $firebaseObject, FIREBASE_URL, Users)
       });
     },
 
-    vote: function(postId, votes){
-      return ref.child('posts').child(postId).update({'votes': votes});
+    vote: function(postId, score){
+      return ref.child('posts').child(Users.current_group).child(postId).update({'score': score});
     },
 
     tag: function(postId, tag){
@@ -26,7 +26,7 @@ module.exports = function ($firebaseArray, $firebaseObject, FIREBASE_URL, Users)
     },
 
     star: function(postId, stars){
-      return ref.child('posts').child(postId).update({'stars': stars});
+      return ref.child('posts')..child(Users.current_group).child(postId).update({'stars': stars});
     },
 
     // unused

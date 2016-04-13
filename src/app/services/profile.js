@@ -6,10 +6,13 @@ module.exports = function ($window, FIREBASE_URL, $firebaseArray, $firebaseObjec
       return $firebaseObject(ref.child('profile').child(userId));
     },
 
-    setVote: function(userId, postId, vote){
-     return ref.child('user_votes').child(userId).child(postId).update({'vote': vote});
-
-
+    setVote: function(userId, postId, action){
+      if(action=='up'){
+     return ref.child('user_actions').child(userId).child(postId).update({'up': 'true'});
+      }
+      if(action=='down'){
+     return ref.child('user_actions').child(userId).child(postId).update({'down': 'true'});
+      }
    },
 
    savePost: function(userId, postId, save){

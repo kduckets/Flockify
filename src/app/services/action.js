@@ -18,35 +18,35 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Auth, P
           var weekly_score = snapshot.val().weekly_scores.album_score;
 
 
-          var current_vote = $firebaseObject(ref.child('user_votes').child(user.$id).child(post.$id).child('vote'));
-          current_vote.$loaded().then(function(res) {
-            if (res.$value == 'up') {
+          var current_actions = $firebaseObject(ref.child('user_actions').child(user.$id).child(post.$id));
+          current_actions.$loaded().then(function(res) {
+            if (res.up.$value == 'true') {
               //already upvoted
-              var msg = 'Already upvoted "' + post.album + '"';
+              var msg = 'Already upvoted "' + post.media_info.album + '"';
               defer.resolve(msg);
           
             };
-            if (res.$value == 'down' || !res.$value) {
-              post.votes += 1;
-              Post.vote(post.$id, post.votes);
+            if (res.down.$value == 'true' || !res.down.$value || !res.up.$value) {
+              post.score += 1;
+              Post.vote(post.$id, post.score);
               Profile.setVote(user.$id, post.$id, 'up');
               score = score + 1;
               weekly_score = weekly_score + 1;
 
               //todo: use media_type
-              ref.child("user_scores").child(post.creator).update({
+              ref.child("user_scores").child(post.creator_id).update({
                 'album_score': score
               });
 
               var monday = moment().startOf('isoweek');
               if (moment(post.date) > monday) {
                 //todo: use media_type
-                ref.child("user_scores").child(post.creator).child('weekly_scores').update({
+                ref.child("user_scores").child(post.creator_id).child('weekly_scores').update({
                   'album_score': weekly_score
                 });
               };
 
-              var msg = 'Gave "' + post.album + '" an upvote!';
+              var msg = 'Gave "' + post.media_info.album + '" an upvote!';
               defer.resolve(msg);
 
             };
