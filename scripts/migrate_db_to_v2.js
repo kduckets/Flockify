@@ -11,7 +11,8 @@ content_types = {
     spotify_uri: 'share_uri',
     album: 'album',
     artist: 'artist',
-    release_date: 'release_date'
+    release_date: 'release_date',
+    summary: 'summary'
   },
   podcast: {
     external_link: 'share_uri',
@@ -80,8 +81,8 @@ post_mappings = {
   stars: 'stars',
   votes: 'score',
   creator: 'creator_name',
-  creatorUID: 'creator_id'
-  // posted_ts
+  creatorUID: 'creator_id',
+  date: 'created_ts'
 };
 
 // *********************************** START HERE ***************************************
@@ -104,6 +105,7 @@ new_db.posts[first_group_id] = {};
 _.each(posts, function(model, model_id) {
   var new_model = {};
   var media_type = (model.media_type == 'spotify' || model.media_type == undefined) ? 'album' : model.media_type;
+  new_model.tags = model.tags;
   new_model.media_info = map_info_obj(model, content_types[media_type]);
   new_model.comments = make_comments_foreign_keys(model, model_id, 'comments');
   new_model.votes = make_votes_foreign_keys(model, model_id, 'user_votes');
@@ -247,4 +249,4 @@ _.each(old_db.user_scores, function(scores, username){
 });
 
 // write final json value
-fs.writeFile("db_output.json", JSON.stringify(new_db));
+fs.writeFile("db_output_to_upload_to_firebase.json", JSON.stringify(new_db));

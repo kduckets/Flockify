@@ -1,9 +1,11 @@
-module.exports = function ($firebaseArray, $firebaseObject, FIREBASE_URL) {
-  var ref = new Firebase(FIREBASE_URL);
-  var posts = $firebaseArray(ref.child('posts'));
+module.exports = function ($firebaseArray, $firebaseObject, FIREBASE_URL, Users) {
+  var ref = new Firebase(FIREBASE_URL);// + "/posts");
+  console.log("cg when calling posts", Users.current_group);
+  var posts = $firebaseArray(ref.child('posts').child(Users.current_group));
 
   var Post = {
-    all: posts,
+      all: posts,
+    //all: $firebaseArray(ref.child(Users.current_group)),
 
     create: function (post) {
       return posts.$add(post).then(function(postRef) {
@@ -20,7 +22,7 @@ module.exports = function ($firebaseArray, $firebaseObject, FIREBASE_URL) {
      ref.once("value", function(snapshot) {
      var numTags = snapshot.child('posts').child(postId).child('tags').numChildren();
      return ref.child('posts').child(postId).child('tags').child(numTags).update({'name': tag});
-      });   
+      });
     },
 
     star: function(postId, stars){
@@ -44,6 +46,5 @@ module.exports = function ($firebaseArray, $firebaseObject, FIREBASE_URL) {
       ref.child('posts').child(post.$id).remove();
     }
   };
-
   return Post;
 };
