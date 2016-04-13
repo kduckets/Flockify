@@ -6,93 +6,80 @@ module.exports = function ($window, FIREBASE_URL, $firebaseArray, $firebaseObjec
       return $firebaseObject(ref.child('profile').child(userId));
     },
 
-    setVote: function(userId, postId, action){
-      if(action=='up'){
-     return ref.child('user_actions').child(userId).child(postId).update({'up': 'true'});
-      }
-      if(action=='down'){
-     return ref.child('user_actions').child(userId).child(postId).update({'down': 'true'});
-      }
-   },
+    savePost: function(userId, postId, save){
+      return ref.child('user_votes').child(userId).child(postId).update({'saved': save});
+    },
 
-   savePost: function(userId, postId, save){
-     return ref.child('user_votes').child(userId).child(postId).update({'saved': save});
+    setStar: function(userId, postId, vote){
+      return ref.child('user_votes').child(userId).child(postId).update({'star': vote});
+    },
 
+    getPosts: function(userId) {
+      var defer = $q.defer();
 
-   },
+      $firebaseArray(ref.child('user_posts').child(userId))
+        .$loaded()
+        .then(function(data) {
+          var posts = {};
+          data.reverse();
 
-   setStar: function(userId, postId, vote){
-     return ref.child('user_votes').child(userId).child(postId).update({'star': vote});
-
-
-   },
-
-   getPosts: function(userId) {
-    var defer = $q.defer();
-
-    $firebaseArray(ref.child('user_posts').child(userId))
-    .$loaded()
-    .then(function(data) {
-      var posts = {};
-      data.reverse();
-
-      for(var i = 0; i<data.length; i++) {
-        var value = data[i].$value;
-        posts[value] = Post.get(value);
-      }
+          for(var i = 0; i<data.length; i++) {
+            var value = data[i].$value;
+            posts[value] = Post.get(value);
+          }
 
 
-      defer.resolve(posts);
-    });
+          defer.resolve(posts);
+        });
 
-    return defer.promise;
-  },
-  getLikes: function(userId) {
-    var defer = $q.defer();
-    $firebaseArray(ref.child('user_votes').child(userId))
-    .$loaded()
-    .then(function(data) {
-        data.reverse();
+      return defer.promise;
+    },
+    getLikes: function(userId) {
+      var defer = $q.defer();
+      $firebaseArray(ref.child('user_votes').child(userId))
+        .$loaded()
+        .then(function(data) {
+          data.reverse();
 
-      var posts = {};
+          var posts = {};
 
-      for(var i = 0; i<data.length; i++) {
-        var value = data[i].$id;
-        var vote = data[i].vote;
-        var star = data[i].star;
+          for(var i = 0; i<data.length; i++) {
+            var value = data[i].$id;
+            var vote = data[i].vote;
+            var star = data[i].star;
 
-        if(value && vote=='up' || value && star=='gold'){
-          posts[value] = Post.get(value);
-        }
-      }
-      defer.resolve(posts);
-    });
+            if(value && vote=='up' || value && star=='gold'){
+              posts[value] = Post.get(value);
+            }
+          }
+          defer.resolve(posts);
+        });
 
-    return defer.promise;
-  },
+      return defer.promise;
+    },
 
-  getQueue: function(userId) {
-    var defer = $q.defer();
-    $firebaseArray(ref.child('user_votes').child(userId))
-    .$loaded()
-    .then(function(data) {
+    getQueue: function(userId) {
+      var defer = $q.defer();
+      $firebaseArray(ref.child('user_votes').child(userId))
+        .$loaded()
+        .then(function(data) {
 
 
-      var posts = {};
+          var posts = {};
 
-      for(var i = 0; i<data.length; i++) {
-        var value = data[i].$id;
-        var saved = data[i].saved;
-        if(value && saved=='yes'){
-          posts[value] = Post.get(value);
-        }
-      }
-      defer.resolve(posts);
-    });
+          for(var i = 0; i<data.length; i++) {
+            var value = data[i].$id;
+            var saved = data[i].saved;
+            if(value && saved=='yes'){
+              posts[value] = Post.get(value);
+            }
+          }
+          defer.resolve(posts);
+        });
 
-    return defer.promise;
-  }
-};
+      return defer.promise;
+    }
+  };
 
-return profile;
+  return profile;
 };
