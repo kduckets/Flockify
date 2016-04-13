@@ -19,6 +19,7 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Auth, P
           var weekly_score = val.weekly_scores.album_score;
 
           var actions_ref = ref.child('user_actions').child(id).child(post.$id);
+          console.log(id);
           var current_actions = $firebaseObject(actions_ref);
 
           current_actions.$loaded().then(function(res) {
