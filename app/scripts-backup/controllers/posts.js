@@ -20,6 +20,25 @@
     if ($scope.post.media_type == 'spotify') { $scope.albumPosts[key] = item; };
   });
 
+  chatRef.limitToLast(1).on("child_added", function(snap) {
+  if($scope.user){
+   if($cookieStore.get('last_chat') == snap.key()) {
+       return;
+   }
+   else {
+    $cookieStore.put('last_chat', snap.key());
+    //TODO: don't show notification if chat was from current user
+     $mdToast.show(
+          $mdToast.simple()
+          .textContent('New chat message from ' + snap.val().creator)
+          .highlightAction(true)
+          .position('bottom right')
+          .hideDelay(3000)
+          )
+     };
+   };
+  });
+
 
    $scope.thisWeek = function(){
  $scope.filter_date = moment().startOf('isoweek');
@@ -133,6 +152,23 @@
     );
 
     };
+
+    var init = function () {
+    if($scope.user){
+      chatRef.limitToLast(1).on("child_added", function(snap) {
+      if($cookieStore.get('last_chat') == snap.key()){
+        return;
+      }
+       if(!$cookieStore.get('last_chat')){
+          $cookieStore.put('last_chat', snap.key());
+          return;
+      }
+
+  });
+    };
+    };
+
+ init();
 
 
    // $scope.batchUpdate = function(){

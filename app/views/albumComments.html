@@ -67,7 +67,7 @@ TODO: stack instead of two views -->
     </md-chips>
     </div>
 
- <div ng-show="user.$id === post.creatorUID" layout="row" layout-align="center center">
+ <div ng-show="user.$id === post.creatorUID" layout="row" align="left">
  <md-chips ng-show="user.$id === post.creatorUID"
               ng-model="selectedTags" md-autocomplete-snap
               md-transform-chip="transformChip(post,$chip)"
