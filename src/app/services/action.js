@@ -136,7 +136,7 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Auth, P
           var current_actions = $firebaseObject(actions_ref);
           current_actions.$loaded().then(function(res) {
             if (res.star) {
-              var msg = 'Already gave "' + post.album + '" a star';
+              var msg = 'Already gave "' + post.media_info.album + '" a star';
               defer.resolve(msg);
               return;
             }
@@ -175,10 +175,6 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Auth, P
       return defer.promise;
     }
 
-
-
   };
-
   return actionResult;
-
 };

@@ -171,7 +171,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
       return 0;
     }
     return Object.keys(obj).length;
-  }
+  };
 
 
   $scope.search = function(){

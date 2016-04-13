@@ -1,285 +1,284 @@
-<!-- mobile
-TODO: stack instead of two views -->
+<!-- ************************************************** mobile ********************************************************** -->
 
 <div ng-show="user" class="container" ng-cloak hide-md hide-gt-md show-xs show-sm>
-<div align="center">
- 
-    <a ng-href="{{post.spotify_uri}}" target="_blank">
-      <img ng-src="{{post.image_medium}}" class="comments" />
+  <div align="center">
+
+    <a ng-href="{{ post.media_info.share_uri }}" target="_blank">
+      <img ng-src="{{ post.image_medium }}" class="comments" />
     </a>
-    
-<div class="embed-container">
-<iframe ng-src="{{iframeUrl}}" height="80" frameborder="0" allowtransparency="true"></iframe>
-</div>
+
+    <div class="embed-container">
+      <iframe ng-src="{{ iframeUrl }}" height="80" frameborder="0" allowtransparency="true"></iframe>
+    </div>
 
     <div> <img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18" />
 
-     <a data-toggle="modal" ng-click="starPost(post)" href="" >  
-     <img ng-src="/images/empty-star.png" height="32" style="padding-bottom:2px" /></a>
-   </div>
-
-   <div layout="row" layout-align="center center" >
-
-   <md-button class="md-icon-button" ng-click="save(post)" aria-label="Save" >
-  <ng-md-icon icon="save" class="arrow" size="32"></ng-md-icon>
- </md-button>
-     
-  <md-button class="md-icon-button" ng-click="upvote(post)" aria-label="Upvote" >
- <ng-md-icon icon="arrow_upwards" class="arrow" size="32"></ng-md-icon>
- </md-button>
- <md-button class="md-fab md-raised md-hue-1" style=" z-index:1"><b style="font-size:22pt">{{ post.votes }}</b> </md-button>
- <md-button class="md-icon-button" ng-click="downvote(post)" aria-label="Downvote" >
- <ng-md-icon icon="arrow_downward" class="arrow" size="32"></ng-md-icon>
- </md-button> 
- <md-button style="top:11px; left:2px; overflow:visible !important;" ng-href="#/albums/{{post.$id}}" aria-label="Comments" >
-  <span class="comments-icon-big"><ng-md-icon icon="chat_bubble" class="arrow" size="34"></ng-md-icon> 
-  <span class="after label label-pill label-danger">{{post.comments}}</span></span>
-  </md-button> 
-  </div>
-   
-  </div>
-
-  <div>
-
-  <div>
-    <a ng-href="{{post.spotify_uri}}" target="_blank">
-      {{post.artist}} - {{ post.album }} ({{post.release_date | limitTo: 4}})
-    </a>
-  </div>
-
-  <div>  <small><b>posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator}}</b>
-  <!--  <img src="/images/poop.gif" style="padding-bottom:10px; padding-left:3px" ng-show="post.creator == 'Nrblanks' || post.creator == 'Stevie' || post.creator == 'davidemerritt' || post.creator == 'Oat'" height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:6px" ng-show="post.creator == 'sparker'" height="30px"/> -->
-
-  </a> <a ng-click="deletePost(post)" ng-show="user.$id === post.creatorUID">&mdash; delete</a></small>
-
-  </div>
-
-     
-
-   <div class="alert alert-info" role="alert">{{post.summary}}</div>
-    <div layout="row" layout-align="center center">
- <md-chips class="tag-chip"  ng-model="post.tags"  readonly="true">
-      <md-chip-template>
-        <span>
-          <small>{{$chip.name | lowercase}}</small>
-        </span>
-      </md-chip-template>
-    </md-chips>
+      <a data-toggle="modal" ng-click="starPost(post)" href="" >
+        <img ng-src="/images/empty-star.png" height="32" style="padding-bottom:2px" /></a>
     </div>
 
- <div ng-show="user.$id === post.creatorUID" layout="row" layout-align="center center">
- <md-chips ng-show="user.$id === post.creatorUID"
-              ng-model="selectedTags" md-autocomplete-snap
-              md-transform-chip="transformChip(post,$chip)"
-              md-require-match="false"
-              md-separator-keys="keys">
+    <div layout="row" layout-align="center center" >
 
-      <md-autocomplete
+      <md-button class="md-icon-button" ng-click="save(post)" aria-label="Save" >
+        <ng-md-icon icon="save" class="arrow" size="32"></ng-md-icon>
+      </md-button>
+
+      <md-button class="md-icon-button" ng-click="upvote(post)" aria-label="Upvote" >
+        <ng-md-icon icon="arrow_upwards" class="arrow" size="32"></ng-md-icon>
+      </md-button>
+      <md-button class="md-fab md-raised md-hue-1" style=" z-index:1"><b style="font-size:22pt">{{ post.score }}</b> </md-button>
+      <md-button class="md-icon-button" ng-click="downvote(post)" aria-label="Downvote" >
+        <ng-md-icon icon="arrow_downward" class="arrow" size="32"></ng-md-icon>
+      </md-button>
+      <md-button style="top:11px; left:2px; overflow:visible !important;" ng-href="#/albums/{{ post.$id }}" aria-label="Comments" >
+  <span class="comments-icon-big"><ng-md-icon icon="chat_bubble" class="arrow" size="34"></ng-md-icon>
+  <span class="after label label-pill label-danger">{{ getNumKeys(post.comments) }}</span></span>
+      </md-button>
+    </div>
+
+  </div>
+
+  <div>
+
+    <div>
+      <a ng-href="{{ post.media_info.share_uri }}" target="_blank">
+        {{ post.media_info.artist }} - {{ post.media_info.album }} ({{ post.media_info.release_date | limitTo: 4}})
+      </a>
+    </div>
+
+    <div>  <small><b>posted by <a ng-href="#/users/{{ post.creator_id }}">{{ post.creator_name }}</b>
+      <!--  <img src="/images/poop.gif" style="padding-bottom:10px; padding-left:3px" ng-show="post.creator == 'Nrblanks' || post.creator == 'Stevie' || post.creator == 'davidemerritt' || post.creator == 'Oat'" height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:6px" ng-show="post.creator == 'sparker'" height="30px"/> -->
+
+      </a> <a ng-click="deletePost(post)" ng-show="user.$id === post.creator_id ">&mdash; delete</a></small>
+
+    </div>
+
+
+
+    <div class="alert alert-info" role="alert">{{ post.media_info.summary }}</div>
+    <div layout="row" layout-align="center center">
+      <md-chips class="tag-chip"  ng-model="post.tags"  readonly="true">
+        <md-chip-template>
+        <span>
+          <small>{{ $chip.name | lowercase }}</small>
+        </span>
+        </md-chip-template>
+      </md-chips>
+    </div>
+
+    <div ng-show="user.$id === post.creator_id" layout="row" layout-align="center center">
+      <md-chips ng-show="user.$id === post.creator_id"
+                ng-model="selectedTags" md-autocomplete-snap
+                md-transform-chip="transformChip(post,$chip)"
+                md-require-match="false"
+                md-separator-keys="keys">
+
+        <md-autocomplete
           md-selected-item="selectedItem"
           md-search-text="searchText"
           md-items="item in querySearch(searchText)"
           md-item-text="item.$value"
           placeholder="Add tags">
-        <span md-highlight-text="searchText">{{item.$value}}</span>
-      </md-autocomplete>
-      <md-chip-template>
+          <span md-highlight-text="searchText">{{item.$value}}</span>
+        </md-autocomplete>
+        <md-chip-template>
         <span>
           <strong>{{$chip.$value}}{{$chip.name}}</strong>
         </span>
-      </md-chip-template>
-    </md-chips>
-</div>
+        </md-chip-template>
+      </md-chips>
+    </div>
 
 
-<div ng-repeat="comment in comments" class="row cmt">
-  <div class="col-md-12">
-   <p><img ng-src="{{comment.text}}" height="100" class="gif" /></p>
-   <p class="author">posted by
-    <a ng-href="#/users/{{ comment.creatorUID }}">
-      {{ comment.creator }}
+    <div ng-repeat="comment in comments" class="row cmt">
+      <div class="col-md-12">
+        <p><img ng-src="{{comment.text}}" height="100" class="gif" /></p>
+        <p class="author">posted by
+          <a ng-href="#/users/{{ comment.creator_id }}">
+            {{ comment.creator }}
 
-     <!--  <img src="/images/poop.gif" style="padding-bottom:10px; padding-left:2px" ng-show="comment.creator  == 'Nrblanks' || comment.creator   == 'Stevie' || comment.creator == 'davidemerritt' || comment.creator == 'Oat'" height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:2px" ng-show="comment.creator == 'sparker'" height="30px"/> -->
+            <!--  <img src="/images/poop.gif" style="padding-bottom:10px; padding-left:2px" ng-show="comment.creator  == 'Nrblanks' || comment.creator   == 'Stevie' || comment.creator == 'davidemerritt' || comment.creator == 'Oat'" height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:2px" ng-show="comment.creator == 'sparker'" height="30px"/> -->
 
 
-    </a>{{comment.datetime_ts | timeAgo}}
-    <a ng-href=""
-    ng-click="deleteComment(comment)"
-    ng-show="user && comment.creatorUID === user.$id">
-    (delete)
-  </a>
-</p>
-</div>
-</div>
+          </a>{{comment.datetime_ts | timeAgo}}
+          <a ng-href=""
+             ng-click="deleteComment(comment)"
+             ng-show="user && comment.creator_id === user.$id">
+            (delete)
+          </a>
+        </p>
+      </div>
+    </div>
 
-<div class="cmt-form">
-  <div ng-hide="user">
-    <p><a href="#/login">Sign in</a> to post a comment</p>
+    <div class="cmt-form">
+      <div ng-hide="user">
+        <p><a href="#/login">Sign in</a> to post a comment</p>
+      </div>
+
+      <form ng-show="user" ng-submit="gifsearch()">
+        <input type="text" ng-model="gifSearchText" placeholder="search for gif"/>
+        <input type="submit" value="search" class="btn btn-secondary" />
+      </form>
+      <!--       <md-input-container>
+             <label>Search for a gif</label>
+             <input ng-model="">
+           </md-input-container> -->
+      or
+      <form ng-show="user" ng-submit="addComment(gifLink)">
+        <input type="text" ng-model="gifLink" placeholder="paste gif link"/>
+        <input type="submit" value="post" class="btn btn-secondary" />
+      </form>
+    </div>
+    <br/>
+    <md-progress-circular ng-show="loadingCircle" md-mode='indeterminate' md-diameter="132"></md-progress-circular>
+    <div ng-repeat="gif in gifs" style="display:inline-block;">
+      <a ng-href="#/albums/{{ post.$id  }}" ng-click="addComment(gif.images.downsized.url)"><img class="gifs" ng-src="{{gif.images.downsized.url}}" height="100" /></a>
+    </div>
+
   </div>
-
-  <form ng-show="user" ng-submit="gifsearch()">
-    <input type="text" ng-model="gifSearchText" placeholder="search for gif"/>
-    <input type="submit" value="search" class="btn btn-secondary" />
-  </form>
- <!--       <md-input-container>
-        <label>Search for a gif</label>
-        <input ng-model="">
-      </md-input-container> -->
-  or
-  <form ng-show="user" ng-submit="addComment(gifLink)">
-    <input type="text" ng-model="gifLink" placeholder="paste gif link"/>
-    <input type="submit" value="post" class="btn btn-secondary" />
-  </form>
-</div>
-<br/>
-<md-progress-circular ng-show="loadingCircle" md-mode='indeterminate' md-diameter="132"></md-progress-circular>
-<div ng-repeat="gif in gifs" style="display:inline-block;">
-  <a ng-href="#/albums/{{ post.$id  }}" ng-click="addComment(gif.images.downsized.url)"><img class="gifs" ng-src="{{gif.images.downsized.url}}" height="100" /></a>
 </div>
 
-</div>
-</div>
-
-<!-- desktop -->
+<!-- *********************************************************** desktop ************************************************************************************ -->
 
 <div ng-show="user" flex ng-cloak layout="row" layout-xs="column" hide-xs hide-sm>
- 
-    <div flex align="center">
- <div style="position: fixed;">
- <br/>
-    <a ng-href="{{post.spotify_uri}}" target="_blank">
-      <img ng-src="{{post.image_medium}}" class="comments" />
-    </a>
-    
-<div class="embed-container">
-<iframe ng-src="{{iframeUrl}}" height="80" frameborder="0" allowtransparency="true"></iframe>
-</div>
 
-    <div> <img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18" />
+  <div flex align="center">
+    <div style="position: fixed;">
+      <br/>
+      <a ng-href="{{post.media_info.share_uri}}" target="_blank">
+        <img ng-src="{{post.image_medium}}" class="comments" />
+      </a>
 
-     <a ng-click="starPost(post)" href="" >  
-     <img ng-src="/images/empty-star.png" height="32" style="padding-bottom:2px" /></a>
-   </div>
+      <div class="embed-container">
+        <iframe ng-src="{{iframeUrl}}" height="80" frameborder="0" allowtransparency="true"></iframe>
+      </div>
 
-   <div layout="row" layout-align="center center" >
+      <div> <img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18" />
 
-   <md-button class="md-icon-button" ng-click="save(post)" aria-label="Save" >
-  <ng-md-icon icon="save" class="arrow" size="32"></ng-md-icon>
- </md-button>
-     
-  <md-button class="md-icon-button" ng-click="upvote(post)" aria-label="Upvote" >
- <ng-md-icon icon="arrow_upwards" class="arrow" size="32"></ng-md-icon>
- </md-button>
- <md-button class="md-fab md-raised md-hue-1" style=" z-index:1"><b style="font-size:22pt">{{ post.votes }}</b> </md-button>
- <md-button class="md-icon-button" ng-click="downvote(post)" aria-label="Downvote" >
- <ng-md-icon icon="arrow_downward" class="arrow" size="32"></ng-md-icon>
- </md-button> 
- <md-button style="top:11px; left:2px; overflow:visible !important;" ng-href="#/albums/{{post.$id}}" aria-label="Comments" >
-  <span class="comments-icon-big"><ng-md-icon icon="chat_bubble" class="arrow" size="34"></ng-md-icon> 
-  <span class="after label label-pill label-danger">{{post.comments}}</span></span>
-  </md-button> 
-  </div>
-   
-  </div>
+        <a ng-click="starPost(post)" href="" >
+          <img ng-src="/images/empty-star.png" height="32" style="padding-bottom:2px" /></a>
+      </div>
+
+      <div layout="row" layout-align="center center" >
+
+        <md-button class="md-icon-button" ng-click="save(post)" aria-label="Save" >
+          <ng-md-icon icon="save" class="arrow" size="32"></ng-md-icon>
+        </md-button>
+
+        <md-button class="md-icon-button" ng-click="upvote(post)" aria-label="Upvote" >
+          <ng-md-icon icon="arrow_upwards" class="arrow" size="32"></ng-md-icon>
+        </md-button>
+        <md-button class="md-fab md-raised md-hue-1" style=" z-index:1"><b style="font-size:22pt">{{ post.score }}</b> </md-button>
+        <md-button class="md-icon-button" ng-click="downvote(post)" aria-label="Downvote" >
+          <ng-md-icon icon="arrow_downward" class="arrow" size="32"></ng-md-icon>
+        </md-button>
+        <md-button style="top:11px; left:2px; overflow:visible !important;" ng-href="#/albums/{{post.$id}}" aria-label="Comments" >
+  <span class="comments-icon-big"><ng-md-icon icon="chat_bubble" class="arrow" size="34"></ng-md-icon>
+  <span class="after label label-pill label-danger">{{ getNumKeys(post.comments) }}</span></span>
+        </md-button>
+      </div>
+
+    </div>
   </div>
 
   <div flex>
 
-  <div>
-  <br/>
-    <a ng-href="{{post.spotify_uri}}" target="_blank">
-      <b>{{post.artist}} - {{ post.album }} ({{post.release_date | limitTo: 4}})</b>
-    </a>
-  </div>
+    <div>
+      <br/>
+      <a ng-href="{{post.media_info.share_uri}}" target="_blank">
+        <b>{{post.media_info.artist}} - {{ post.media_info.album }} ({{post.media_info.release_date | limitTo: 4}})</b>
+      </a>
+    </div>
 
-  <div>  <small><b>posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator}}</b>
-  <!--  <img src="/images/poop.gif" style="padding-bottom:10px; padding-left:3px" ng-show="post.creator == 'Nrblanks' || post.creator == 'Stevie' || post.creator == 'davidemerritt' || post.creator == 'Oat'" height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:6px" ng-show="post.creator == 'sparker'" height="30px"/> -->
+    <div>  <small><b>posted by <a ng-href="#/users/{{ post.creator_id }}">{{post.creator_name}}</b>
+      <!--  <img src="/images/poop.gif" style="padding-bottom:10px; padding-left:3px" ng-show="post.creator == 'Nrblanks' || post.creator == 'Stevie' || post.creator == 'davidemerritt' || post.creator == 'Oat'" height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:6px" ng-show="post.creator == 'sparker'" height="30px"/> -->
 
-  </a> <a ng-click="deletePost(post)" ng-show="user.$id === post.creatorUID">&mdash; delete</a></small>
+      </a> <a ng-click="deletePost(post)" ng-show="user.$id === post.creator_id">&mdash; delete</a></small>
 
-  </div>
+    </div>
 
-     <br/>
+    <br/>
 
-   <div><p>{{post.summary}}</p></div>
+    <div><p>{{post.media_info.summary}}</p></div>
     <div layout="row" layout-align="center center">
- <md-chips class="tag-chip"  ng-model="post.tags"  readonly="true">
-      <md-chip-template>
+      <md-chips class="tag-chip"  ng-model="post.tags"  readonly="true">
+        <md-chip-template>
         <span>
           <small>{{$chip.name | lowercase}}</small>
         </span>
-      </md-chip-template>
-    </md-chips>
+        </md-chip-template>
+      </md-chips>
     </div>
 
- <div ng-show="user.$id === post.creatorUID" layout="row" layout-align="center center">
- <md-chips ng-show="user.$id === post.creatorUID"
-              ng-model="selectedTags" md-autocomplete-snap
-              md-transform-chip="transformChip(post,$chip)"
-              md-require-match="false"
-              md-separator-keys="keys">
+    <div ng-show="user.$id === post.creator_id" layout="row" layout-align="center center">
+      <md-chips ng-show="user.$id === post.creator_id"
+                ng-model="selectedTags" md-autocomplete-snap
+                md-transform-chip="transformChip(post,$chip)"
+                md-require-match="false"
+                md-separator-keys="keys">
 
-      <md-autocomplete
+        <md-autocomplete
           md-selected-item="selectedItem"
           md-search-text="searchText"
           md-items="item in querySearch(searchText)"
           md-item-text="item.$value"
           placeholder="Add tags">
-        <span md-highlight-text="searchText">{{item.$value}}</span>
-      </md-autocomplete>
-      <md-chip-template>
+          <span md-highlight-text="searchText">{{item.$value}}</span>
+        </md-autocomplete>
+        <md-chip-template>
         <span>
           <strong>{{$chip.$value}}{{$chip.name}}</strong>
         </span>
-      </md-chip-template>
-    </md-chips>
-</div>
+        </md-chip-template>
+      </md-chips>
+    </div>
 
 
-<div ng-repeat="comment in comments" class="row cmt">
-  <div class="col-md-12">
-   <p><img ng-src="{{comment.text}}" height="100" class="gif" /></p>
-   <p class="author">posted by
-    <a ng-href="#/users/{{ comment.creatorUID }}">
-      {{ comment.creator }}
+    <div ng-repeat="comment in comments" class="row cmt">
+      <div class="col-md-12">
+        <p><img ng-src="{{comment.text}}" height="100" class="gif" /></p>
+        <p class="author">posted by
+          <a ng-href="#/users/{{ comment.creator_id }}">
+            {{ comment.creator }}
 
-   <!--    <img src="/images/poop.gif" style="padding-bottom:10px; padding-left:2px" ng-show="comment.creator  == 'Nrblanks' || comment.creator   == 'Stevie' || comment.creator == 'davidemerritt' || comment.creator == 'Oat'" height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:2px" ng-show="comment.creator == 'sparker'" height="30px"/> -->
+            <!--    <img src="/images/poop.gif" style="padding-bottom:10px; padding-left:2px" ng-show="comment.creator  == 'Nrblanks' || comment.creator   == 'Stevie' || comment.creator == 'davidemerritt' || comment.creator == 'Oat'" height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:2px" ng-show="comment.creator == 'sparker'" height="30px"/> -->
 
 
-    </a>{{comment.datetime_ts | timeAgo}}
-    <a ng-href=""
-    ng-click="deleteComment(comment)"
-    ng-show="user && comment.creatorUID === user.$id">
-    (delete)
-  </a>
-</p>
-</div>
-</div>
+          </a>{{comment.datetime_ts | timeAgo}}
+          <a ng-href=""
+             ng-click="deleteComment(comment)"
+             ng-show="user && comment.creator_id === user.$id">
+            (delete)
+          </a>
+        </p>
+      </div>
+    </div>
 
-<div class="cmt-form">
-  <div ng-hide="user">
-    <p><a href="#/login">Sign in</a> to post a comment</p>
+    <div class="cmt-form">
+      <div ng-hide="user">
+        <p><a href="#/login">Sign in</a> to post a comment</p>
+      </div>
+      <small>Add a gif comment:</small>
+      <div layout-gt-sm="row" layout-padding>
+
+        <form ng-show="user" ng-submit="gifsearch()">
+          <md-input-container>
+            <label>Search for a gif</label>
+            <input ng-model="gifSearchText">
+          </md-input-container>
+        </form>
+        <form ng-show="user" ng-submit="addComment(gifLink)">
+          <md-input-container>
+            <label>Paste gif link</label>
+            <input ng-model="gifLink"/>
+          </md-input-container>
+        </form>
+      </div>
+    </div>
+    <md-progress-circular ng-show="loadingCircle" md-mode='indeterminate' md-diameter="132"></md-progress-circular>
+    <div ng-repeat="gif in gifs" style="display:inline-block;">
+      <a ng-href="#/albums/{{ post.$id  }}" ng-click="addComment(gif.images.downsized.url)"><img class="gifs" ng-src="{{gif.images.downsized.url}}" height="100" /></a>
+    </div>
   </div>
-  <small>Add a gif comment:</small>
-<div layout-gt-sm="row" layout-padding>
-
- <form ng-show="user" ng-submit="gifsearch()">
-   <md-input-container>
-   <label>Search for a gif</label>
-   <input ng-model="gifSearchText">
-    </md-input-container>
- </form>
-  <form ng-show="user" ng-submit="addComment(gifLink)">
-  <md-input-container>
-  <label>Paste gif link</label>
-    <input ng-model="gifLink"/>
-    </md-input-container>
-  </form>
-  </div>
-</div>
-<md-progress-circular ng-show="loadingCircle" md-mode='indeterminate' md-diameter="132"></md-progress-circular>
-<div ng-repeat="gif in gifs" style="display:inline-block;">
-  <a ng-href="#/albums/{{ post.$id  }}" ng-click="addComment(gif.images.downsized.url)"><img class="gifs" ng-src="{{gif.images.downsized.url}}" height="100" /></a>
-</div>
-</div>
 </div>
 </div>

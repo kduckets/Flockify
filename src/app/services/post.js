@@ -1,11 +1,9 @@
 module.exports = function ($firebaseArray, $firebaseObject, FIREBASE_URL, Users) {
   var ref = new Firebase(FIREBASE_URL);// + "/posts");
-  console.log("cg when calling posts", Users.current_group);
   var posts = $firebaseArray(ref.child('posts').child(Users.current_group));
 
   var Post = {
-      all: posts,
-    //all: $firebaseArray(ref.child(Users.current_group)),
+    all: posts,
 
     create: function (post) {
       return posts.$add(post).then(function(postRef) {
@@ -19,9 +17,9 @@ module.exports = function ($firebaseArray, $firebaseObject, FIREBASE_URL, Users)
     },
 
     tag: function(postId, tag){
-     ref.once("value", function(snapshot) {
-     var numTags = snapshot.child('posts').child(postId).child('tags').numChildren();
-     return ref.child('posts').child(postId).child('tags').child(numTags).update({'name': tag});
+      ref.once("value", function(snapshot) {
+        var numTags = snapshot.child('posts').child(postId).child('tags').numChildren();
+        return ref.child('posts').child(postId).child('tags').child(numTags).update({'name': tag});
       });
     },
 
@@ -35,11 +33,11 @@ module.exports = function ($firebaseArray, $firebaseObject, FIREBASE_URL, Users)
     },
 
     get: function (postId) {
-      return $firebaseObject(ref.child('posts').child(postId));
+      return $firebaseObject(ref.child('posts').child(Users.current_group).child(postId));
     },
 
     get_reference: function(postId){
-     return ref.child('posts').child(postId);
+      return ref.child('posts').child(postId);
     },
 
     delete: function (post) {
