@@ -22,9 +22,9 @@ module.exports = function ($firebaseArray, FIREBASE_URL, Auth, Post, $filter, Us
       var new_comment = {
         text: comment,
         type: type,
-        creator: username || null,
-        creatorUID: user.$id,
-        datetime_ts: moment.utc().format()
+        creator_name: username || null,
+        creator_id: user.$id,
+        creation_ts: moment.utc().format()
       };
       comments_scope_array.$add(new_comment);
 
