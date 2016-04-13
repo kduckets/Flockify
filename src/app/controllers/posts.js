@@ -5,12 +5,9 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
   var chatRef = new Firebase(FIREBASE_URL+"/comments/flock_groupchat");
   var authData = Auth.$getAuth();
   if (Users.current_user) {
-    console.log(Users);
     console.log("User " + authData.uid + " is logged in with " + authData.provider);
     $scope.user = Users.getProfile(authData.uid);
-    console.log($scope.user);
     $scope.username = $scope.user.username;
-    console.log($scope.username);
   } else {
     $scope.user = null;
     $scope.username = null;
@@ -107,7 +104,6 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
     $scope.last = false;
     $scope.allPosts = false;
     $scope.totalDisplayed = 10;
-    console.log($scope.filter_date);
   };
 
   $scope.thisMonth = function(){
@@ -187,7 +183,6 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
 
       angular.forEach($scope.results, function(result, key) {
         if(post_names.indexOf(result.name) != -1){
-          //console.log(result, key);
           result.name += ' **already been posted**';
         }
       });
@@ -243,7 +238,6 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
 
   $scope.upvote = function(post) {
     Action.upvote(post, 'spotify').then(function(msg){
-      console.log(msg);
       $mdToast.show(
         $mdToast.simple()
           .textContent(msg)
@@ -255,7 +249,6 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
 
   $scope.downvote = function(post) {
     Action.downvote(post, 'spotify').then(function(msg){
-      console.log(msg);
       $mdToast.show(
         $mdToast.simple()
           .textContent(msg)
@@ -268,7 +261,6 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
 
   $scope.starPost = function(post){
     Action.starPost(post, 'spotify').then(function(msg){
-      console.log(msg);
       $mdToast.show(
         $mdToast.simple()
           .textContent(msg)
