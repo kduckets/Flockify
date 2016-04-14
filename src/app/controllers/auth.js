@@ -1,6 +1,19 @@
-module.exports = function ($scope, $location, Auth, $cookieStore, $rootScope, Profile, FIREBASE_URL) {
+module.exports = function ($scope, $location, $routeParams, Auth, $cookieStore, $rootScope, Profile, FIREBASE_URL) {
 var authCtrl = this;
+$scope.showRegistration = false;
+$scope.showContact = false;
 var ref = new Firebase(FIREBASE_URL);
+var groupsRef = new Firebase(FIREBASE_URL+"/groups");
+$scope.beta_group_name = $routeParams.groupName;
+groupsRef.once("value", function(snapshot) {
+  if(snapshot.val()[$scope.beta_group_name]){
+    $scope.showRegistration = true;
+    console.log('valid group name');
+  }else{
+    $scope.showContact = true;
+  }
+});
+
 
     $scope.user = {
       email: '',
@@ -19,11 +32,14 @@ var ref = new Firebase(FIREBASE_URL);
     Auth.$createUser($scope.user).then(function (user){
       console.log(user);
 
+      var groups = {};
+      groups[$scope.beta_group_name] = true;
+
       var profile = {
         username: $scope.user.username,
-        //todo: get group name from registration form
-        groups: {firsttoflock : true}
+        groups: groups
       };
+
        var current_week = moment().startOf('isoweek').format('MM_DD_YYYY');
        var scores = {}; 
        scores[current_week] = {album_score:0}; 
@@ -31,8 +47,7 @@ var ref = new Firebase(FIREBASE_URL);
        scores['stars'] = 0;
   
       ref.child('users').child(user.uid).set(profile);
-      //todo: get group name from registration form
-      ref.child('user_scores').child('firsttoflock').child(user.uid).set(scores);
+      ref.child('user_scores').child($scope.beta_group_name).child(user.uid).set(scores);
     $scope.login();
   }, function (error){
     $scope.error = error;

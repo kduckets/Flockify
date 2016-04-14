@@ -1,8 +1,8 @@
 module.exports = function($scope, $route, $location, $window, Post, Auth, $http, $cookies, album, $sce, $filter,
   $timeout, $q, $mdDialog, FIREBASE_URL, $mdConstant, Users, $firebaseArray) {
 
-   var ref = new $window.Firebase(FIREBASE_URL);
-   var tagsRef = new $window.Firebase(FIREBASE_URL+"/tags");
+   var ref = new Firebase(FIREBASE_URL);
+   var tagsRef = new Firebase(FIREBASE_URL+"/tags");
    var tags = $firebaseArray(ref.child('tags'));
 
     $scope.readonly = false;
@@ -121,9 +121,28 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
     $scope.post.latest_comment = 9999;
 
 
-    Post.create($scope.post).then(function(ref) {
+    Post.create($scope.post).then(function(postRef) {
       //$location.path('/posts/' + ref.name());
       $mdDialog.hide();
+
+      console.log('group ',Users.current_group);
+
+      ref.child('user_scores').child(Users.current_group).child($scope.user.$id).once("value", function(snapshot) {
+          var val = snapshot.val();
+          if (!val){
+            console.error("No snapshot found for ", $scope.user.$id);
+            return;
+          }
+        
+          var week = moment().startOf('isoweek').format('MM_DD_YYYY');
+          var current_week = 'weekly_score_'+week;
+           
+           if(!val[current_week]){
+              var scores = {};
+               scores[current_week] = {album_score:0}; 
+            ref.child('user_scores').child(Users.current_group).child($scope.user.$id).update(scores);       
+           }
+         });
 
       $route.reload();
 

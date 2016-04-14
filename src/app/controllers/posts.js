@@ -3,16 +3,17 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
 
   var ref = new Firebase(FIREBASE_URL);
   var chatRef = new Firebase(FIREBASE_URL+"/chats/"+Users.current_group);
-  var authData = Auth.$getAuth();
-  if (Users.current_user) {
+  //var authData = Auth.$getAuth();
+  Auth.$onAuth(function(authData) {
+  if (authData) {
     $scope.user = Users.getProfile(authData.uid);
     $scope.username = $scope.user.username;
+    console.log("Logged in as:", authData.uid);
   } else {
-    $scope.user = null;
-    $scope.username = null;
+    console.log("Logged out");
     $location.path('/login');
-    console.log("User is logged out");
   }
+});
 
   $scope.filteredItems = [];
   $scope.posts = Post.all;

@@ -78,7 +78,7 @@ app.config(function($routeProvider) { //TODO: move to routes module
     //   templateUrl: 'views/podcasts.html',
     //   controller: 'PodcastsCtrl'
     // })
-    .when('/register', {
+    .when('/register/:groupName', {
       templateUrl: 'views/register.html',
       controller: 'AuthCtrl',
     //   resolve: {
@@ -136,6 +136,7 @@ app.factory('Users', require('./services/users'));
 app.filter('isAfter', require('./services/dateFilter'));
 app.filter('byText', require('./services/textFilter'));
 app.filter('byTags', require('./services/tagFilter'));
+app.filter('emptyToEnd', require('./directives/emptyToEnd'));
 
 app.directive("keepScroll", require('./directives/keepScroll'));
 app.directive("scrollItem", require('./directives/scrollItem'));

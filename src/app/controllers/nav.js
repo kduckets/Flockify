@@ -62,6 +62,7 @@ module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootSco
 
   $scope.logout = function () {
     ref.unauth();
+    window.location.reload();
   };
 
   var history = [];
