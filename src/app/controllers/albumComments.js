@@ -21,21 +21,45 @@ module.exports = function ($scope, $routeParams, Post, Auth, Comment, $firebaseA
   $scope.searchText = null;
   $scope.selectedTags = [];
   $scope.requireMatch = true;
-  $scope.tags = $firebaseArray(ref.child('tags'));
+  $scope.tags = $firebaseArray(ref.child('tags').child(Users.current_group));
   $scope.keys = [$mdConstant.KEY_CODE.COMMA, $mdConstant.KEY_CODE.ENTER];
 
-  $scope.transformChip = function(post, chip) {
-    // If it is an object, it's already a known chip
-    if (angular.isObject(chip)) {
-      //TODO: if tag already exists don't add it to the database
-      Post.tag(post.$id,chip.$value);
-      return {name: chip.$value};
-    }
-    // Otherwise, create a new one
-    $scope.tags.$add(chip);
-    Post.tag(post.$id, chip);
-    return { name: chip };
-  };
+  // $scope.transformChip = function(post, chip) {
+  //   // If it is an object, it's already a known chip
+  //   if (angular.isObject(chip)) {
+
+  //     Post.tag(post.$id,chip.$value);
+  //     return {name: chip.$value};
+  //   }
+  //   // Otherwise, create a new one
+  //   $scope.tags.$add(chip);
+  //   Post.tag(post.$id, chip);
+  //   return { name: chip };
+  // };
+
+     $scope.transformChip = function(post, chip)  {
+        var match = false;
+      // If it is an object, it's already a known chip   
+      if (angular.isObject(chip)) {
+        Post.tag(post.$id,chip.$value);
+        return {name: chip.$value};
+      }else{
+      angular.forEach($scope.tags, function(value, key) {
+          if(chip === value.$value){
+            match = true;
+          }
+          });
+      }
+          if(!match){
+             $scope.tags.$add(chip);
+              Post.tag(post.$id, chip);
+            return { name: chip };  
+            }
+          if(match){
+            Post.tag(post.$id, chip);
+            return { name: chip };  
+          } 
+    };
 
   $scope.query_search = function(query) {
     var results = query ? $scope.tags.filter($scope.createFilterFor(query)) : query;

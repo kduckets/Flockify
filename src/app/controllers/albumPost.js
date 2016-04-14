@@ -3,7 +3,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
 
    var ref = new Firebase(FIREBASE_URL);
    var tagsRef = new Firebase(FIREBASE_URL+"/tags");
-   var tags = $firebaseArray(ref.child('tags'));
+   var tags = $firebaseArray(ref.child('tags').child(Users.current_group));
 
     $scope.readonly = false;
     $scope.selectedItem = null;
@@ -27,23 +27,24 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
 
 
   function transformChip(chip) {
-      
-      // If it is an object, it's already a known chip
+        var match = false;
+      // If it is an object, it's already a known chip   
       if (angular.isObject(chip)) {
-        console.log("chip is object", chip);
         return {name: chip.$value};
       }else{
-      // tagsRef.once('value', function(snapshot) {
-      // var tagList = snapshot.val();
-      // if (tagList.indexOf(chip) > -1)
-      //   {
-      //     console.log("tag exists");
-      //     return { name: chip };
-      //   };
-       // });
-      tags.$add(chip)
-      return { name: chip }; 
-    };
+      angular.forEach(tags, function(value, key) {
+          if(chip === value.$value){
+            match = true;
+          }
+          });
+      }
+          if(!match){
+            tags.$add(chip)
+            return { name: chip };  
+            }
+          if(match){
+            return { name: chip };  
+          } 
     };
 
     /**

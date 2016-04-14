@@ -2,7 +2,6 @@ module.exports = function ($scope, $routeParams, Profile, Post, Auth, $firebaseA
   var ref = new Firebase(FIREBASE_URL);
   var authData = Auth.$getAuth();
   if (authData) {
-     console.log("User " + authData.uid + " is logged in with " + authData.provider);
      $scope.user = Users.getProfile(authData.uid);
      $scope.username = $scope.user.username;
   } else {

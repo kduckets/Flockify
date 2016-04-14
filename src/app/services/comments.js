@@ -11,15 +11,15 @@ module.exports = function ($firebaseArray, FIREBASE_URL, Auth, Post, $filter, Us
     add_comment: function(comments_scope_array, post_id, comment) {
       var user = Users.current_user;
       // TODO: figure out how we want to store dates
-      var date = new Date();
-      date.setMinutes(date.getTimezoneOffset());
-      var today = $filter('date')(new Date(),'yyyy-MM-dd HH:mm:ss Z');
+      // var date = new Date();
+      // date.setMinutes(date.getTimezoneOffset());
+      // var today = $filter('date')(new Date(),'yyyy-MM-dd HH:mm:ss Z');
       var type = comment.indexOf('http') != -1 ? 'gif' : 'text';
       var new_comment = {
         text: comment,
         type: type,
-        creator_name: user.username || null,
-        creator_id: user.$id,
+        creator_name: Users.getUsername(Auth.$getAuth().uid) || null,
+        creator_id: Auth.$getAuth().uid,
         datetime_ts: moment.utc().format()
       };
       comments_scope_array.$add(new_comment);

@@ -3,7 +3,12 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
 
   var ref = new Firebase(FIREBASE_URL);
   var chatRef = new Firebase(FIREBASE_URL+"/chats/"+Users.current_group);
-  //var authData = Auth.$getAuth();
+  var authData = Auth.$getAuth();
+    if (authData) {
+    $scope.user = Users.getProfile(authData.uid);
+    $scope.username = $scope.user.username;
+    console.log("Logged in as:", authData.uid);
+  }
   Auth.$onAuth(function(authData) {
   if (authData) {
     $scope.user = Users.getProfile(authData.uid);
@@ -15,6 +20,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
   }
 });
 
+    console.log(Users.current_user);
   $scope.filteredItems = [];
   $scope.posts = Post.all;
   $scope.post = {score: 0, comments: 0, stars:0};
@@ -29,16 +35,15 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
       }
       else {
         $cookieStore.put('last_chat', snap.key());
-        //TODO: don't show notification if chat was from current user
-        if(snap.key().creator != $scope.username){
+        if(Users.current_user_id != snap.val().creator_id){   
           $mdToast.show(
             $mdToast.simple()
-              .textContent('New chat message from ' + snap.val().creator)
+              .textContent('New chat message from ' + snap.val().creator_name)
               .highlightAction(true)
               .position('bottom right')
               .hideDelay(3000)
           )
-        };
+        }
       };
     };
   });
@@ -194,13 +199,13 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
   };
 
   $scope.save = function(post) {
-    if($scope.signedIn() && $scope.user.uid != post.creatorUID){
-
-      Profile.savePost($scope.user.uid, post.$id, 'yes');
+    if($scope.user && Users.current_user_id != post.creator_id){
+      console.log(post);
+      Profile.savePost(Users.current_user_id, post.$id, true);
       // $scope.post.saveButtonText = 'saved';
       $mdToast.show(
         $mdToast.simple()
-          .textContent('Saved "' + post.album + '" to your queue')
+          .textContent('Saved "' + post.media_info.album + '" to your queue')
           .position('bottom right' )
           .hideDelay(3000)
       );

@@ -49,10 +49,13 @@ module.exports = function ($scope, $routeParams, Profile, Post, Auth, Users, $ui
       $scope.loading = false;
   });
 
+   $scope.getQueue = function(){
   Profile.getQueue(uid).then(function(posts) {
     $scope.queue = posts;
-  
+    console.log('queue', $scope.queue);
   });
+  
+  };
 
   $scope.showRatio = function(){
     var monday = moment().startOf('isoweek');
@@ -82,10 +85,10 @@ module.exports = function ($scope, $routeParams, Profile, Post, Auth, Users, $ui
   };
 
   $scope.removeSaved = function(post){
-    Profile.savePost($scope.user.uid, post.$id, 'no');
+    Profile.savePost(Users.current_user_id, post.$id, false);
              $mdToast.show(
         $mdToast.simple()
-        .textContent(post.album + ' removed from your queue')
+        .textContent(post.media_info.album + ' removed from your queue')
         .position('bottom right' )
         .hideDelay(3000)
     );
