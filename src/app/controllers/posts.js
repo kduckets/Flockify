@@ -5,7 +5,6 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
   var chatRef = new Firebase(FIREBASE_URL+"/chats/"+Users.current_group);
   var authData = Auth.$getAuth();
   if (Users.current_user) {
-    console.log("User " + authData.uid + " is logged in with " + authData.provider);
     $scope.user = Users.getProfile(authData.uid);
     $scope.username = $scope.user.username;
   } else {
@@ -177,7 +176,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
     Spotify.search($scope.post.search + '*', 'artist,album').then(function (data) {
 
       $scope.results = data.albums.items;
-      var post_names = $.map($scope.posts, function(post, idx){ 
+      var post_names = $.map($scope.posts, function(post, idx){
         if(post.media_info){
         return post.media_info.album;
       }
