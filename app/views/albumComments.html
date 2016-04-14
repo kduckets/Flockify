@@ -4,35 +4,37 @@
   <div align="center">
 
     <a ng-href="{{ post.media_info.share_uri }}" target="_blank">
-      <img ng-src="{{ post.image_medium }}" class="comments" />
+      <img ng-src="{{ post.image_medium }}" class="comments"/>
     </a>
 
     <div class="embed-container">
       <iframe ng-src="{{ iframeUrl }}" height="80" frameborder="0" allowtransparency="true"></iframe>
     </div>
 
-    <div> <img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18" />
+    <div><img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18"/>
 
-      <a data-toggle="modal" ng-click="starPost(post)" href="" >
-        <img ng-src="/images/empty-star.png" height="32" style="padding-bottom:2px" /></a>
+      <a data-toggle="modal" ng-click="starPost(post)" href="">
+        <img ng-src="/images/empty-star.png" height="32" style="padding-bottom:2px"/></a>
     </div>
 
-    <div layout="row" layout-align="center center" >
+    <div layout="row" layout-align="center center">
 
-      <md-button class="md-icon-button" ng-click="save(post)" aria-label="Save" >
+      <md-button class="md-icon-button" ng-click="save(post)" aria-label="Save">
         <ng-md-icon icon="save" class="arrow" size="32"></ng-md-icon>
       </md-button>
 
-      <md-button class="md-icon-button" ng-click="upvote(post)" aria-label="Upvote" >
+      <md-button class="md-icon-button" ng-click="upvote(post)" aria-label="Upvote">
         <ng-md-icon icon="arrow_upwards" class="arrow" size="32"></ng-md-icon>
       </md-button>
-      <md-button class="md-fab md-raised md-hue-1" style=" z-index:1"><b style="font-size:22pt">{{ post.score }}</b> </md-button>
-      <md-button class="md-icon-button" ng-click="downvote(post)" aria-label="Downvote" >
+      <md-button class="md-fab md-raised md-hue-1" style=" z-index:1"><b style="font-size:22pt">{{ post.score }}</b>
+      </md-button>
+      <md-button class="md-icon-button" ng-click="downvote(post)" aria-label="Downvote">
         <ng-md-icon icon="arrow_downward" class="arrow" size="32"></ng-md-icon>
       </md-button>
-      <md-button style="top:11px; left:2px; overflow:visible !important;" ng-href="#/albums/{{ post.$id }}" aria-label="Comments" >
-  <span class="comments-icon-big"><ng-md-icon icon="chat_bubble" class="arrow" size="34"></ng-md-icon>
-  <span class="after label label-pill label-danger">{{ getNumKeys(post.comments) }}</span></span>
+      <md-button style="top:11px; left:2px; overflow:visible !important;" ng-href="#/albums/{{ post.$id }}"
+                 aria-label="Comments">
+      <span class="comments-icon-big"><ng-md-icon icon="chat_bubble" class="arrow" size="34"></ng-md-icon>
+      <span class="after label label-pill label-danger">{{ getNumKeys(post.comments) }}</span></span>
       </md-button>
     </div>
 
@@ -46,18 +48,16 @@
       </a>
     </div>
 
-    <div>  <small><b>posted by <a ng-href="#/users/{{ post.creator_id }}">{{ post.creator_name }}</b>
-      <!--  <img src="/images/poop.gif" style="padding-bottom:10px; padding-left:3px" ng-show="post.creator == 'Nrblanks' || post.creator == 'Stevie' || post.creator == 'davidemerritt' || post.creator == 'Oat'" height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:6px" ng-show="post.creator == 'sparker'" height="30px"/> -->
-
-      </a> <a ng-click="deletePost(post)" ng-show="user.$id === post.creator_id ">&mdash; delete</a></small>
-
+    <div>
+      <small><b>posted by <a ng-href="#/users/{{ post.creator_id }}">{{ post.creator_name }}</b>
+        <!--  <img src="/images/poop.gif" style="padding-bottom:10px; padding-left:3px" ng-show="post.creator == 'Nrblanks' || post.creator == 'Stevie' || post.creator == 'davidemerritt' || post.creator == 'Oat'" height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:6px" ng-show="post.creator == 'sparker'" height="30px"/> -->
+        </a> <a ng-click="deletePost(post)" ng-show="user.$id === post.creator_id ">&mdash; delete</a></small>
     </div>
-
 
 
     <div class="alert alert-info" role="alert">{{ post.media_info.summary }}</div>
     <div layout="row" layout-align="center center">
-      <md-chips class="tag-chip"  ng-model="post.tags"  readonly="true">
+      <md-chips class="tag-chip" ng-model="post.tags" readonly="true">
         <md-chip-template>
         <span>
           <small>{{ $chip.name | lowercase }}</small>
@@ -92,15 +92,15 @@
 
     <div ng-repeat="comment in comments" class="row cmt">
       <div class="col-md-12">
-        <p><img ng-src="{{comment.text}}" height="100" class="gif" /></p>
+        <p><img ng-src="{{comment.text}}" height="100" class="gif"/></p>
         <p class="author">posted by
           <a ng-href="#/users/{{ comment.creator_id }}">
-            {{ comment.creator }}
+            {{ comment.creator_name }}
 
             <!--  <img src="/images/poop.gif" style="padding-bottom:10px; padding-left:2px" ng-show="comment.creator  == 'Nrblanks' || comment.creator   == 'Stevie' || comment.creator == 'davidemerritt' || comment.creator == 'Oat'" height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:2px" ng-show="comment.creator == 'sparker'" height="30px"/> -->
 
 
-          </a>{{comment.datetime_ts | timeAgo}}
+          </a>{{comment.creation_ts | timeAgo}}
           <a ng-href=""
              ng-click="deleteComment(comment)"
              ng-show="user && comment.creator_id === user.$id">
@@ -117,7 +117,7 @@
 
       <form ng-show="user" ng-submit="gifsearch()">
         <input type="text" ng-model="gifSearchText" placeholder="search for gif"/>
-        <input type="submit" value="search" class="btn btn-secondary" />
+        <input type="submit" value="search" class="btn btn-secondary"/>
       </form>
       <!--       <md-input-container>
              <label>Search for a gif</label>
@@ -126,13 +126,15 @@
       or
       <form ng-show="user" ng-submit="addComment(gifLink)">
         <input type="text" ng-model="gifLink" placeholder="paste gif link"/>
-        <input type="submit" value="post" class="btn btn-secondary" />
+        <input type="submit" value="post" class="btn btn-secondary"/>
       </form>
     </div>
     <br/>
     <md-progress-circular ng-show="loadingCircle" md-mode='indeterminate' md-diameter="132"></md-progress-circular>
     <div ng-repeat="gif in gifs" style="display:inline-block;">
-      <a ng-href="#/albums/{{ post.$id  }}" ng-click="addComment(gif.images.downsized.url)"><img class="gifs" ng-src="{{gif.images.downsized.url}}" height="100" /></a>
+      <a ng-href="#/albums/{{ post.$id  }}" ng-click="addComment(gif.images.downsized.url)"><img class="gifs"
+                                                                                                 ng-src="{{gif.images.downsized.url}}"
+                                                                                                 height="100"/></a>
     </div>
 
   </div>
@@ -146,33 +148,35 @@
     <div style="position: fixed;">
       <br/>
       <a ng-href="{{post.media_info.share_uri}}" target="_blank">
-        <img ng-src="{{post.image_medium}}" class="comments" />
+        <img ng-src="{{post.image_medium}}" class="comments"/>
       </a>
 
       <div class="embed-container">
         <iframe ng-src="{{iframeUrl}}" height="80" frameborder="0" allowtransparency="true"></iframe>
       </div>
 
-      <div> <img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18" />
+      <div><img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18"/>
 
-        <a ng-click="starPost(post)" href="" >
-          <img ng-src="/images/empty-star.png" height="32" style="padding-bottom:2px" /></a>
+        <a ng-click="starPost(post)" href="">
+          <img ng-src="/images/empty-star.png" height="32" style="padding-bottom:2px"/></a>
       </div>
 
-      <div layout="row" layout-align="center center" >
+      <div layout="row" layout-align="center center">
 
-        <md-button class="md-icon-button" ng-click="save(post)" aria-label="Save" >
+        <md-button class="md-icon-button" ng-click="save(post)" aria-label="Save">
           <ng-md-icon icon="save" class="arrow" size="32"></ng-md-icon>
         </md-button>
 
-        <md-button class="md-icon-button" ng-click="upvote(post)" aria-label="Upvote" >
+        <md-button class="md-icon-button" ng-click="upvote(post)" aria-label="Upvote">
           <ng-md-icon icon="arrow_upwards" class="arrow" size="32"></ng-md-icon>
         </md-button>
-        <md-button class="md-fab md-raised md-hue-1" style=" z-index:1"><b style="font-size:22pt">{{ post.score }}</b> </md-button>
-        <md-button class="md-icon-button" ng-click="downvote(post)" aria-label="Downvote" >
+        <md-button class="md-fab md-raised md-hue-1" style=" z-index:1"><b style="font-size:22pt">{{ post.score }}</b>
+        </md-button>
+        <md-button class="md-icon-button" ng-click="downvote(post)" aria-label="Downvote">
           <ng-md-icon icon="arrow_downward" class="arrow" size="32"></ng-md-icon>
         </md-button>
-        <md-button style="top:11px; left:2px; overflow:visible !important;" ng-href="#/albums/{{post.$id}}" aria-label="Comments" >
+        <md-button style="top:11px; left:2px; overflow:visible !important;" ng-href="#/albums/{{post.$id}}"
+                   aria-label="Comments">
   <span class="comments-icon-big"><ng-md-icon icon="chat_bubble" class="arrow" size="34"></ng-md-icon>
   <span class="after label label-pill label-danger">{{ getNumKeys(post.comments) }}</span></span>
         </md-button>
@@ -190,10 +194,11 @@
       </a>
     </div>
 
-    <div>  <small><b>posted by <a ng-href="#/users/{{ post.creator_id }}">{{post.creator_name}}</b>
-      <!--  <img src="/images/poop.gif" style="padding-bottom:10px; padding-left:3px" ng-show="post.creator == 'Nrblanks' || post.creator == 'Stevie' || post.creator == 'davidemerritt' || post.creator == 'Oat'" height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:6px" ng-show="post.creator == 'sparker'" height="30px"/> -->
+    <div>
+      <small><b>posted by <a ng-href="#/users/{{ post.creator_id }}">{{post.creator_name}}</b>
+        <!--  <img src="/images/poop.gif" style="padding-bottom:10px; padding-left:3px" ng-show="post.creator == 'Nrblanks' || post.creator == 'Stevie' || post.creator == 'davidemerritt' || post.creator == 'Oat'" height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:6px" ng-show="post.creator == 'sparker'" height="30px"/> -->
 
-      </a> <a ng-click="deletePost(post)" ng-show="user.$id === post.creator_id">&mdash; delete</a></small>
+        </a> <a ng-click="deletePost(post)" ng-show="user.$id === post.creator_id">&mdash; delete</a></small>
 
     </div>
 
@@ -201,7 +206,7 @@
 
     <div><p>{{post.media_info.summary}}</p></div>
     <div layout="row" layout-align="center center">
-      <md-chips class="tag-chip"  ng-model="post.tags"  readonly="true">
+      <md-chips class="tag-chip" ng-model="post.tags" readonly="true">
         <md-chip-template>
         <span>
           <small>{{$chip.name | lowercase}}</small>
@@ -236,7 +241,7 @@
 
     <div ng-repeat="comment in comments" class="row cmt">
       <div class="col-md-12">
-        <p><img ng-src="{{comment.text}}" height="100" class="gif" /></p>
+        <p><img ng-src="{{comment.text}}" height="100" class="gif"/></p>
         <p class="author">posted by
           <a ng-href="#/users/{{ comment.creator_id }}">
             {{ comment.creator }}
@@ -277,7 +282,9 @@
     </div>
     <md-progress-circular ng-show="loadingCircle" md-mode='indeterminate' md-diameter="132"></md-progress-circular>
     <div ng-repeat="gif in gifs" style="display:inline-block;">
-      <a ng-href="#/albums/{{ post.$id  }}" ng-click="addComment(gif.images.downsized.url)"><img class="gifs" ng-src="{{gif.images.downsized.url}}" height="100" /></a>
+      <a ng-href="#/albums/{{ post.$id  }}" ng-click="addComment(gif.images.downsized.url)"><img class="gifs"
+                                                                                                 ng-src="{{gif.images.downsized.url}}"
+                                                                                                 height="100"/></a>
     </div>
   </div>
 </div>

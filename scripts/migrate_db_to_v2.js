@@ -9,6 +9,7 @@ var _ = require('underscore');
 content_types = {
   album: {
     spotify_uri: 'share_uri',
+    embed_uri: 'embed_uri',
     album: 'album',
     artist: 'artist',
     release_date: 'release_date',
@@ -137,6 +138,11 @@ new_db.chats = {};
 new_db.chats[first_group_id] = {}
 new_db.comments = {};
 _.each(old_db.comments, function(models, post_id) {
+
+  if (!new_db.comments[post_id]){
+    new_db.comments[post_id] = {};
+  }
+
   _.each(models, function(comment, comment_id) {
     if (comment_id == 'flock_groupchat') {
       return false;
@@ -151,10 +157,9 @@ _.each(old_db.comments, function(models, post_id) {
         creator_id: comment.creatorUID,
         text: comment.text,
         creator_name: comment.creator,
-        creation_ts: comment.datetime_ts,
-        group_id: first_group_id
+        creation_ts: comment.datetime_ts
       };
-      new_db.comments[comment_id] = new_model;
+      new_db.comments[post_id][comment_id] = new_model;
     }else{
       // chat
       new_model = {
