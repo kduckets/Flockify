@@ -10,6 +10,7 @@ module.exports = function ($scope, $routeParams, Post, Auth, Comment, $firebaseA
   $scope.post = Post.get(post_id);
 
   $scope.post.$loaded().then(function(res){
+    console.log($scope.post);
     $scope.iframeUrl = $sce.trustAsResourceUrl("https://embed.spotify.com/?uri="+res.media_info.share_uri);
   });
 
@@ -21,7 +22,7 @@ module.exports = function ($scope, $routeParams, Post, Auth, Comment, $firebaseA
   $scope.searchText = null;
   $scope.selectedTags = [];
   $scope.requireMatch = true;
-  $scope.tags = $firebaseArray(ref.child('tags'));
+  $scope.tags = $firebaseArray(ref.child('tags').child(Users.current_group));
   $scope.keys = [$mdConstant.KEY_CODE.COMMA, $mdConstant.KEY_CODE.ENTER];
 
   $scope.transformChip = function(post, chip) {

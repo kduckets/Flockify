@@ -49,7 +49,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
   };
 
 
-  var tags = $firebaseArray(ref.child('tags'));
+  var tags = $firebaseArray(ref.child('tags').child(Users.current_group));
 
 
   $scope.sorter = '-';
@@ -61,7 +61,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
   $scope.month = false;
   $scope.allPosts = false;
 
-  $scope.filter_start_date = moment().startOf('isoweek')
+  $scope.filter_start_date = moment().startOf('isoweek');
   $scope.filter_end_date = moment.utc();
 
   $scope.loadingBar = false;

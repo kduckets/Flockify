@@ -143,7 +143,7 @@ isAfter:filter_start_date:filter_end_date | byText:textFilter | byText:tagText) 
 
             <md-button style="top:11px; left:2px; overflow:visible !important;" ng-href="#/albums/{{post.$id}}" aria-label="Comments" >
   <span class="comments-icon-big"><ng-md-icon icon="chat_bubble" class="arrow" size="30"></ng-md-icon>
-  <span class="after label label-pill label-danger">{{ getNumKeys(post.comments) }}</span></span>
+  <span class="after label label-pill label-danger">{{ post.comments }}</span></span>
             </md-button>
           </div>
         </div>
@@ -219,7 +219,7 @@ isAfter:filter_start_date:filter_end_date | byText:textFilter | byText:tagText) 
 
               <md-button style="top:11px; left:2px; overflow:visible !important;" ng-href="#/albums/{{post.$id}}" aria-label="Comments" >
   <span class="comments-icon-big"><ng-md-icon icon="chat_bubble" class="arrow" size="34"></ng-md-icon>
-  <span class="after label label-pill label-danger">{{ getNumKeys(post.comments) }}</span></span>
+  <span class="after label label-pill label-danger">{{ post.comments }}</span></span>
               </md-button>
 
             </md-card-actions>

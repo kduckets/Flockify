@@ -43,16 +43,27 @@ content_types = {
   }
 }
 
-var make_comments_foreign_keys = function(model, model_id, foreign_key) {
-  var resp = {};
-  var matching_idxs = _.filter(Object.keys(old_db[foreign_key]), function(key) {
-    return (key == model_id);
+//var make_comments_foreign_keys = function(model, model_id, foreign_key) {
+//  var resp = {};
+//  var matching_idxs = _.filter(Object.keys(old_db[foreign_key]), function(key) {
+//    return (key == model_id);
+//  });
+//  _.each(matching_idxs, function(idx){
+//    resp[idx] = true;
+//  });
+//  return resp;
+//};
+
+var count_comments = function(model_id){
+  var foreign_key = 'comments';
+  var num_commments = 0;
+  _.each(old_db.comments, function(obj, key) {
+    if (key == model_id){
+      num_comments = Object.keys(obj).length;
+    }
   });
-  _.each(matching_idxs, function(idx){
-    resp[idx] = true;
-  });
-  return resp;
-};
+  return num_comments;
+}
 
 var make_votes_foreign_keys = function(model, model_id, foreign_key) {
   resp = {};
@@ -107,7 +118,8 @@ _.each(posts, function(model, model_id) {
   var media_type = (model.media_type == 'spotify' || model.media_type == undefined) ? 'album' : model.media_type;
   new_model.tags = model.tags;
   new_model.media_info = map_info_obj(model, content_types[media_type]);
-  new_model.comments = make_comments_foreign_keys(model, model_id, 'comments');
+  //new_model.comments = make_comments_foreign_keys(model, model_id, 'comments');
+  new_model.comments = count_comments(model_id);
   new_model.votes = make_votes_foreign_keys(model, model_id, 'user_votes');
   var flds_to_add = map_info_obj(model, post_mappings);
   _.each(flds_to_add, function(val, key) {
@@ -124,6 +136,18 @@ new_db.groups = {
   'firsttoflock': {
     group_name: 'First Flockers',
     users: {}
+  },
+  'nyc_flock': {
+    group_name: "NY Flockers",
+    users: {
+      '24576177-e257-4e5b-9a5c-e7d1fde600b3': true
+    }
+  },
+  'sf_flock': {
+    group_name: "SF Flock",
+    users: {
+      '24576177-e257-4e5b-9a5c-e7d1fde600b3': true
+    }
   }
 };
 _.each(Object.keys(old_db['profile']), function(key) {
@@ -243,7 +267,11 @@ _.each(old_db.profile, function(user, user_id) {
   new_db.users[user_id] = new_model;
 });
 
-new_db.tags = old_db.tags;
+new_db.users['2fb03a7a-2e1b-4566-8169-298ffeca08ba'].groups['nyc_flock'] = true;
+new_db.users['2fb03a7a-2e1b-4566-8169-298ffeca08ba'].groups['sf_flock'] = true;
+
+
+new_db.tags = {'firsttoflock': old_db.tags};
 new_db.user_scores = {};
 new_db.user_scores[first_group_id] = {};
 
@@ -256,7 +284,9 @@ _.each(old_db.user_scores, function(scores, username){
 });
 
 // write final json value
-fs.writeFile("db_output_to_upload_to_firebase.json", JSON.stringify(new_db));
+str_version=JSON.stringify(new_db);
+str_version = str_version.replace(/2fb03a7a-2e1b-4566-8169-298ffeca08ba/g, '24576177-e257-4e5b-9a5c-e7d1fde600b3');
+fs.writeFile("db_output_to_upload_to_firebase.json", str_version);
 
 //replace
 // 2fb03a7a-2e1b-4566-8169-298ffeca08ba
