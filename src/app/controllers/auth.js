@@ -1,4 +1,4 @@
-module.exports = function ($scope, $location, $routeParams, Auth, $cookieStore, $rootScope, Profile, FIREBASE_URL) {
+module.exports = function ($scope, $location, $routeParams, Auth, $cookieStore, $rootScope, Profile, FIREBASE_URL. $route) {
 var authCtrl = this;
 $scope.showRegistration = false;
 $scope.showContact = false;
@@ -23,6 +23,7 @@ groupsRef.once("value", function(snapshot) {
   $scope.login = function (){
     Auth.$authWithPassword($scope.user).then(function (auth){
       $location.path('/');
+      $route.reload();
   }, function (error){
     $scope.error = error;
   });
@@ -39,7 +40,8 @@ groupsRef.once("value", function(snapshot) {
         groups: groups
       };
 
-       var current_week = moment().startOf('isoweek').format('MM_DD_YYYY');
+       var week = moment().startOf('isoweek').format('MM_DD_YYYY');
+          var current_week = 'weekly_score_'+week;
        var scores = {}; 
        scores[current_week] = {album_score:0}; 
        scores['album_score'] = 0;
@@ -47,6 +49,7 @@ groupsRef.once("value", function(snapshot) {
   
       ref.child('users').child(user.uid).set(profile);
       ref.child('user_scores').child($scope.beta_group_name).child(user.uid).set(scores);
+      var current_group = localStorage.setItem('current_group',$scope.beta_group_name);
 
     $scope.login();
   }, function (error){
