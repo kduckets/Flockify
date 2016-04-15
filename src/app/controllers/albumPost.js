@@ -25,7 +25,6 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
   // $scope.posts = Post.all;
 
 
-  function transformChip(chip) {
 
     // If it is an object, it's already a known chip
     if (angular.isObject(chip)) {
@@ -120,9 +119,28 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
     $scope.post.latest_comment = 9999;
 
 
-    Post.create($scope.post).then(function(ref) {
+    Post.create($scope.post).then(function(postRef) {
       //$location.path('/posts/' + ref.name());
       $mdDialog.hide();
+
+      console.log('group ',Users.current_group);
+
+      ref.child('user_scores').child(Users.current_group).child($scope.user.$id).once("value", function(snapshot) {
+          var val = snapshot.val();
+          if (!val){
+            console.error("No snapshot found for ", $scope.user.$id);
+            return;
+          }
+
+          var week = moment().startOf('isoweek').format('MM_DD_YYYY');
+          var current_week = 'weekly_score_'+week;
+
+           if(!val[current_week]){
+              var scores = {};
+               scores[current_week] = {album_score:0};
+            ref.child('user_scores').child(Users.current_group).child($scope.user.$id).update(scores);
+           }
+         });
 
       $route.reload();
 

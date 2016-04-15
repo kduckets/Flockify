@@ -34,6 +34,7 @@
       <md-button style="top:11px; left:2px; overflow:visible !important;" ng-href="#/albums/{{ post.$id }}"
                  aria-label="Comments">
       <span class="comments-icon-big"><ng-md-icon icon="chat_bubble" class="arrow" size="34"></ng-md-icon>
+
       <span class="after label label-pill label-danger">{{ post.comments }}</span></span>
       </md-button>
     </div>
@@ -244,7 +245,7 @@
         <p><img ng-src="{{comment.text}}" height="100" class="gif"/></p>
         <p class="author">posted by
           <a ng-href="#/users/{{ comment.creator_id }}">
-            {{ comment.creator }}
+            {{ comment.creator_name }}
 
             <!--    <img src="/images/poop.gif" style="padding-bottom:10px; padding-left:2px" ng-show="comment.creator  == 'Nrblanks' || comment.creator   == 'Stevie' || comment.creator == 'davidemerritt' || comment.creator == 'Oat'" height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:2px" ng-show="comment.creator == 'sparker'" height="30px"/> -->
 

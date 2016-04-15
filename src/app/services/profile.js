@@ -11,7 +11,7 @@ module.exports = function ($window, FIREBASE_URL, $firebaseArray, $firebaseObjec
     },
 
     setStar: function(userId, postId, vote){
-      return ref.child('user_actions').child(userId).child(postId).update({'star': 'true'});
+      return ref.child('user_actions').child(userId).child(postId).update({'star': true});
     },
 
     getPosts: function(userId) {
@@ -64,14 +64,13 @@ module.exports = function ($window, FIREBASE_URL, $firebaseArray, $firebaseObjec
         .$loaded()
         .then(function(data) {
 
-
           var posts = {};
 
           for(var i = 0; i<data.length; i++) {
-            var value = data[i].$id;
+            var id = data[i].$id;
             var saved = data[i].saved;
-            if(value && saved){
-              posts[value] = Post.get(value);
+            if(id && saved){
+              posts[id] = Post.get(id);
             }
           }
           defer.resolve(posts);

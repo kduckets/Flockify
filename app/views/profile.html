@@ -38,7 +38,7 @@
         </md-tab>
         <md-tab label="Likes" ng-class="{'active': view_tab == 'tabB'}" ng-click="changeTab('tabB');getLikes()" >
         </md-tab>
-        <md-tab label="Queue" ng-class="{'active': view_tab == 'tabC'}" ng-click="changeTab('tabC')" >
+        <md-tab label="Queue" ng-class="{'active': view_tab == 'tabC'}" ng-click="changeTab('tabC');getQueue()" >
         </md-tab>
         </md-tabs>
 
@@ -109,7 +109,7 @@
 
 </div>
 
-<hr class="style-two"></a>
+</div>
 
 <div ng-repeat="post in queue" ng-show="view_tab == 'tabC'" align="center">
 
@@ -149,9 +149,13 @@
    </div>
    <small><b>posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator_name}}</b>
 
- <!-- <img src="/images/poop.gif" style="padding-bottom:10px; padding-left:2px; height: 50px; width: auto;  display:inline-block;" ng-show="user.profile.group_id == 1 && post.creator == 'Nrblanks' || post.creator == 'Stevie' || post.creator == 'davidemerritt' || post.creator == 'Oat'"height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:2px;height: 30px; width: auto;display:inline-block;" ng-show="user.profile.group_id == 1 && post.creator == 'sparker'"/> -->
+       <!--    <img src="/images/poop.gif" style="padding-bottom:10px; padding-left:2px; height: 50px; width: auto;  display:inline-block;" ng-show="user.profile.group_id == 1 && post.creator == 'Nrblanks' || post.creator == 'Stevie' || post.creator == 'davidemerritt' || post.creator == 'Oat'"height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:2px;height: 30px; width: auto;display:inline-block;" ng-show="user.profile.group_id == 1 && post.creator == 'sparker'"/> -->
 
-   </a> <i>{{post.created_ts | timeAgo}}</i></small>
+     </b>
+       </a> <i>{{ post.created_ts | timeAgo}}</i></small></span>
+       <p><small><button class="btn btn-success-outline btn-sm" ng-click="removeSaved(post)" data-toggle="modal" data-target=".bd-example-modal-sm">remove from my queue</button></small></p>
+            </md-card-content>
+          </div>
 
 <div layout="row" layout-align="center center" style="position:relative;right:0;bottom:0;">
 <!--    <md-button class="md-icon-button" ng-show="user.profile.group_id == 1" ng-click="save(post)" aria-label="Save" >
@@ -172,8 +176,7 @@
    <p><small><button class="btn btn-success-outline btn-sm" ng-click="removeSaved(post)" data-toggle="modal" data-target=".bd-example-modal-sm">remove from my queue</button></small></p>
 </div>
 
-</div>
-</md-card>
+
 
 </div>
 </div>

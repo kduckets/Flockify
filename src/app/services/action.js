@@ -5,8 +5,16 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Auth, P
   var actionResult = {
 
     upvote: function(post, media_type) {
-      var id = Users.current_user_id;
       var defer = $q.defer();
+      var id = Users.current_user_id;
+      console.log('id:', id);
+      console.log('post creator:',post.creator_id);
+      // if(id == post.creator_id){
+      //   var msg = 'You cannot vote on your own post';
+      //         defer.resolve(msg);
+      //         return;
+      // }
+  
       if (id != post.creator_id) {
 
         ref.child('user_scores').child(Users.current_group).child(post.creator_id).once("value", function(snapshot) {
@@ -15,15 +23,15 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Auth, P
             console.error("No snapshot found for ", post.creator_id);
             return;
           }
-          var current_week = moment().startOf('isoweek').format('MM_DD_YYYY');
+
+           // if(!val[current_week]){
+           //    var scores = {};
+           //     scores[current_week] = {album_score:0}; 
+           //  ref.child('user_scores').child(Users.current_group).child(post.creator_id).update(scores);       
+           // }
+         
           var total_score = val.album_score;
-           
-           if(!val[current_week]){
-              var scores = {};
-               scores[current_week] = {album_score:0}; 
-            ref.child('user_scores').child(Users.current_group).child(post.creator_id).update(scores);       
-           }
-          var weekly_score = val[current_week].album_score;    
+         
 
           var actions_ref = ref.child('user_actions').child(id).child(post.$id);
           console.log(id);
@@ -47,7 +55,6 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Auth, P
 
             post.score += score_mod;
             total_score += score_mod;
-            weekly_score += score_mod;
             Post.vote(post.$id, post.score);
 
             ref.child("user_scores").child(Users.current_group).child(post.creator_id).update({
@@ -55,7 +62,11 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Auth, P
             });
 
             var monday = moment().startOf('isoweek');
-            if (moment(post.date) > monday) {
+            if (moment(post.created_ts) > monday) {
+                  var week = moment().startOf('isoweek').format('MM_DD_YYYY');
+                  var current_week = 'weekly_score_'+week; 
+                  var weekly_score = val[current_week].album_score;
+                      weekly_score += score_mod; 
               ref.child("user_scores").child(Users.current_group).child(post.creator_id).child(current_week).update({
                 'album_score': weekly_score
               });
@@ -72,25 +83,29 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Auth, P
     },
 
     downvote: function(post, media_type) {
-      var id = Users.current_user_id;
       var defer = $q.defer();
-      if (id != post.creatorUID) {
+      var id = Users.current_user_id;
+      console.log('id:', id);
+      console.log('post creator:',post.creator_id);
+      // if(id == post.creator_id){
+      //   var msg = 'You cannot vote on your own post';
+      //         defer.resolve(msg);
+      //         return;
+      // }
+     
+      if (id != post.creator_id) {
         ref.child('user_scores').child(Users.current_group).child(post.creator_id).once("value", function(snapshot) {
           var val = snapshot.val();
           if (!val){
             console.error("No snapshot found for ", post.creator_id);
             return;
           }
-           var current_week = moment().startOf('isoweek').format('MM_DD_YYYY');
+           // if(!val[current_week]){
+           //    var scores = {};
+           //     scores[current_week] = {album_score:0}; 
+           //  ref.child('user_scores').child(Users.current_group).child(post.creator_id).update(scores);       
+           // }
           var total_score = val.album_score;
-           
-           if(!val[current_week]){
-              var scores = {};
-               scores[current_week] = {album_score:0}; 
-            ref.child('user_scores').child(Users.current_group).child(post.creator_id).update(scores);       
-           }
-          var weekly_score = val[current_week].album_score;    
-
           var actions_ref = ref.child('user_actions').child(id).child(post.$id);
           var current_actions = $firebaseObject(actions_ref);
           current_actions.$loaded().then(function(res) {
@@ -111,7 +126,6 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Auth, P
 
             post.score += score_mod;
             total_score += score_mod;
-            weekly_score += score_mod;
             Post.vote(post.$id, post.score);
 
             ref.child("user_scores").child(Users.current_group).child(post.creator_id).update({
@@ -119,7 +133,11 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Auth, P
             });
 
             var monday = moment().startOf('isoweek');
-            if (moment(post.date) > monday) {
+            if (moment(post.created_ts) > monday) {
+              var week = moment().startOf('isoweek').format('MM_DD_YYYY');
+              var current_week = 'weekly_score_'+week;
+              var weekly_score = val[current_week].album_score;  
+                    weekly_score += score_mod;  
               ref.child("user_scores").child(Users.current_group).child(post.creator_id).child(current_week).update({
                 'album_score': weekly_score
               });
@@ -134,9 +152,17 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Auth, P
     },
 
     starPost: function(post, media_type) {
-      var id = Users.current_user_id;
       var defer = $q.defer();
-      if (id != post.creatorUID) {
+      var id = Users.current_user_id;
+      console.log('id:', id);
+      console.log('post creator:',post.creator_id);
+      // if(id == post.creator_id){
+      //   var msg = 'You cannot vote on your own post';
+      //         defer.resolve(msg);
+      //         return;
+      // }
+     
+      if (id != post.creator_id) {
         ref.child('user_scores').child(Users.current_group).child(post.creator_id).once("value", function(snapshot) {
 
           var val = snapshot.val();
@@ -144,15 +170,13 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Auth, P
             console.error("No snapshot found for ", post.creator_id);
             return;
           }
-          var current_week = moment().startOf('isoweek').format('MM_DD_YYYY');
-          var total_score = val.album_score;
-           
-           if(!val[current_week]){
-              var scores = {};
-               scores[current_week] = {album_score:0}; 
-            ref.child('user_scores').child(Users.current_group).child(post.creator_id).update(scores);       
-           }
-          var weekly_score = val[current_week].album_score;    
+           // if(!val[current_week]){
+           //    var scores = {};
+           //     scores[current_week] = {album_score:0}; 
+           //  ref.child('user_scores').child(Users.current_group).child(post.creator_id).update(scores);       
+           // }
+         
+          var total_score = val.album_score;   
           var user_stars = val.stars;
 
           var actions_ref = ref.child('user_actions').child(id).child(post.$id);
@@ -175,7 +199,7 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Auth, P
 
             total_score = total_score + 2;
             user_stars = user_stars + 1;
-            weekly_score = weekly_score + 2;
+  
             ref.child("user_scores").child(Users.current_group).child(post.creator_id).update({
               'album_score': total_score
             });
@@ -184,7 +208,11 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Auth, P
             });
 
             var monday = moment().startOf('isoweek');
-            if (moment(post.date) > monday) {
+            if (moment(post.created_ts) > monday) {
+               var week = moment().startOf('isoweek').format('MM_DD_YYYY');
+               var current_week = 'weekly_score_'+week;
+               var weekly_score = val[current_week].album_score; 
+                      weekly_score = weekly_score + 2;
               ref.child("user_scores").child(Users.current_group).child(post.creator_id).child(current_week).update({
                 'album_score': weekly_score
               });
