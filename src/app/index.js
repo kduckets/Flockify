@@ -66,6 +66,10 @@ app.config(function($routeProvider) { //TODO: move to routes module
       templateUrl: 'views/scoreboardHistory.html',
       controller: 'ScoreCtrl'
     })
+    .when('/about', {
+      templateUrl: 'views/about.html',
+      controller: 'PostsCtrl'
+    })
     // .when('/movies', {
     //   templateUrl: 'views/movies.html',
     //   controller: 'MoviesCtrl'

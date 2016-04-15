@@ -18,6 +18,11 @@
         <i class="fa fa-key fa-2x"></i>
       </md-button>Sign in</a></p>
 
+      <p ng-show="user"><a href="/#/">
+      <md-button ng-show="user" class="md-icon-button" aria-label="Albums">
+           <i class="fa fa-headphones fa-2x"></i>
+      </md-button>Albums</a></p>
+
     <p ng-show="user"><a ng-href="#/chat">
       <md-button class="md-icon-button" aria-label="Chat">
         <i class="fa fa-wechat fa-2x"></i>
@@ -33,6 +38,11 @@
         <i class="fa fa-user fa-2x"></i>
       </md-button>My Profile</a></p>
 
+      <p ng-show="user"><a ng-href="#/about">
+      <md-button ng-show="user" class="md-icon-button" aria-label="About">
+        <i class="fa fa-info-circle fa-2x"></i>
+      </md-button>About Flockify</a></p>
+
     <p ng-show="user"><a href="/#/" ng-click="logout()">
       <md-button ng-show="user" class="md-icon-button" aria-label="Logout">
         <i class="fa fa-sign-out fa-2x"></i>
@@ -40,11 +50,8 @@
 
     <md-divider/>
 
-    <p ng-show="user"><a href="/#/">
-      <md-button ng-show="user" class="md-icon-button" aria-label="Albums">
-        <ng-md-icon icon="album"></ng-md-icon>
-      </md-button>Albums</a></p>
-
+    
+<!-- 
     <p ng-show="user"><a href="/#/podcasts">
       <md-button ng-show="user" class="md-icon-button" aria-label="Podcasts">
         <ng-md-icon icon="mic"></ng-md-icon>
@@ -58,7 +65,7 @@
     <p ng-show="user"><a href="/#/books">
       <md-button ng-show="user" class="md-icon-button" aria-label="Books">
         <ng-md-icon icon="book"></ng-md-icon>
-      </md-button>Books</a></p>
+      </md-button>Books</a></p> -->
 
   </md-content>
 </md-sidenav>
