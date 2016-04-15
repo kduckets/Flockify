@@ -32,7 +32,6 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
    else {
     $cookieStore.put('last_chat', snap.key());
     //TODO: don't show notification if chat was from current user
-     if(snap.key().creator != $scope.username){
      $mdToast.show(
           $mdToast.simple()
           .textContent('New chat message from ' + snap.val().creator)
@@ -40,7 +39,6 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
           .position('bottom right')
           .hideDelay(3000)
           )
-   };
      };
    };
   });
