@@ -1,4 +1,4 @@
-module.exports = function ($scope, $location, $routeParams, Auth, $cookieStore, $rootScope, Profile, FIREBASE_URL. $route) {
+module.exports = function ($scope, $location, $routeParams, Auth, $cookieStore, $rootScope, Profile, FIREBASE_URL, $route) {
 var authCtrl = this;
 $scope.showRegistration = false;
 $scope.showContact = false;
