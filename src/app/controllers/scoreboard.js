@@ -10,8 +10,9 @@ module.exports = function ($scope, $routeParams, Profile, Post, Auth, $firebaseA
     $location.path('/login');
     console.log("User is logged out");
   }
-  var week = moment().startOf('isoweek').format('MM_DD_YYYY');
-  $scope.current_week = 'weekly_score_'+week;
+  $scope.display_week = moment().startOf('isoweek').format('MM/DD/YYYY');
+  $scope.week = moment().startOf('isoweek').format('MM_DD_YYYY');
+  $scope.current_week = 'weekly_score_'+$scope.week;
 
   $scope.orderby_string = "-"+ $scope.current_week + ".album_score";
   $scope.sorter = '-album_score';
