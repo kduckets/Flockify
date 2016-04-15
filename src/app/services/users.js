@@ -12,7 +12,6 @@ module.exports = function($firebaseArray, $firebaseObject, $route, Auth, FIREBAS
   if (current_user) {
     current_user.$loaded().then(function() {
       var group_ref = new Firebase(FIREBASE_URL + "/groups");
-      console.log(current_user);
       $.each(Object.keys(current_user.groups), function (idx, group_id) {
         var group = $firebaseObject(group_ref.child(group_id));
         group.$loaded().then(function (snapshot) {
