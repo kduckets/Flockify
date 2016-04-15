@@ -1,5 +1,5 @@
 <div ng-show="user" flex ng-cloak>
-<div align="center"><small><a href="#/history">view previous contest results</a></small></div>
+<div align="center" ng-show="current_group=='firsttoflock'"><small><a href="#/history">view previous contest results</a></small></div>
   <h2 align="center">Weekly Contest {{display_week}}</h2>
 <!--   <p align="center">Slopestyle (no rules).</p> -->
   <table class="table table-inverse">
