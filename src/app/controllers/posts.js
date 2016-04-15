@@ -20,7 +20,9 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
   }
 });
   $scope.filteredItems = [];
+  if(authData){
   $scope.posts = Post.all;
+ }
   $scope.post = {score: 0, comments: 0, stars:0};
 
   $scope.loadingCircle = true;
