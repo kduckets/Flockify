@@ -25,21 +25,12 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
   // $scope.posts = Post.all;
 
 
-
+  function transformChip(chip) {
     // If it is an object, it's already a known chip
     if (angular.isObject(chip)) {
-      console.log("chip is object", chip);
       return {name: chip.$value};
     }else{
-      // tagsRef.once('value', function(snapshot) {
-      // var tagList = snapshot.val();
-      // if (tagList.indexOf(chip) > -1)
-      //   {
-      //     console.log("tag exists");
-      //     return { name: chip };
-      //   };
-      // });
-      tags.$add(chip)
+      tags.$add(chip);
       return { name: chip };
     };
   };
