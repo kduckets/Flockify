@@ -267,8 +267,8 @@ _.each(old_db.profile, function(user, user_id) {
   new_db.users[user_id] = new_model;
 });
 
-new_db.users['2fb03a7a-2e1b-4566-8169-298ffeca08ba'].groups['nyc_flock'] = true;
-new_db.users['2fb03a7a-2e1b-4566-8169-298ffeca08ba'].groups['sf_flock'] = true;
+//new_db.users['2fb03a7a-2e1b-4566-8169-298ffeca08ba'].groups['nyc_flock'] = true;
+//new_db.users['2fb03a7a-2e1b-4566-8169-298ffeca08ba'].groups['sf_flock'] = true;
 
 
 new_db.tags = {'firsttoflock': old_db.tags};
@@ -285,7 +285,7 @@ _.each(old_db.user_scores, function(scores, username){
 
 // write final json value
 str_version=JSON.stringify(new_db);
-str_version = str_version.replace(/2fb03a7a-2e1b-4566-8169-298ffeca08ba/g, '24576177-e257-4e5b-9a5c-e7d1fde600b3');
+//str_version = str_version.replace(/2fb03a7a-2e1b-4566-8169-298ffeca08ba/g, '24576177-e257-4e5b-9a5c-e7d1fde600b3');
 fs.writeFile("db_output_to_upload_to_firebase.json", str_version);
 
 //replace
