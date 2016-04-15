@@ -30,7 +30,6 @@ groupsRef.once("value", function(snapshot) {
 
   $scope.register = function (){
     Auth.$createUser($scope.user).then(function (user){
-      console.log(user);
 
       var groups = {};
       groups[$scope.beta_group_name] = true;
@@ -48,6 +47,7 @@ groupsRef.once("value", function(snapshot) {
   
       ref.child('users').child(user.uid).set(profile);
       ref.child('user_scores').child($scope.beta_group_name).child(user.uid).set(scores);
+
     $scope.login();
   }, function (error){
     $scope.error = error;
