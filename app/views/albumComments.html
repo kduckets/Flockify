@@ -69,10 +69,7 @@
 
  <div ng-show="user.$id === post.creator_id" layout="row" layout-align="center center">
  <md-chips ng-show="user.$id === post.creator_id"
-              ng-model="selectedTags" md-autocomplete-snap
-              md-transform-chip="transformChip(post,$chip)"
-              md-require-match="false"
-              md-separator-keys="keys">
+
 
         <md-autocomplete
           md-selected-item="selectedItem"
