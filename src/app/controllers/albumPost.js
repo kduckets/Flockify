@@ -26,13 +26,24 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
 
 
   function transformChip(chip) {
+    var match = false;
     // If it is an object, it's already a known chip
     if (angular.isObject(chip)) {
       return {name: chip.$value};
-    }else{
-      tags.$add(chip);
-      return { name: chip };
-    };
+    } else {
+      angular.forEach(tags, function (value, key) {
+        if (chip === value.$value) {
+          match = true;
+        }
+      });
+    }
+    if (!match) {
+      tags.$add(chip)
+      return {name: chip};
+    }
+    if (match) {
+      return {name: chip};
+    }
   };
 
   /**
