@@ -19,8 +19,6 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
     $location.path('/login');
   }
 });
-
-    console.log(Users.current_user);
   $scope.filteredItems = [];
   $scope.posts = Post.all;
   $scope.post = {score: 0, comments: 0, stars:0};
@@ -35,7 +33,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
       }
       else {
         $cookieStore.put('last_chat', snap.key());
-        if(Users.current_user_id != snap.val().creator_id){   
+        if(authData.uid != snap.val().creator_id){   
           $mdToast.show(
             $mdToast.simple()
               .textContent('New chat message from ' + snap.val().creator_name)
