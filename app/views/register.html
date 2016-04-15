@@ -1,10 +1,14 @@
 <div class="container" >
 <div class="auth-forms">
-
-  
-
-  <form ng-submit="register()">
-    <p ng-show="error" class="text-danger">{{ error }}</p>
+	<div ng-show="showContact">
+	  <p>Welcome to Flockify!<br/>
+	   Looks like you don't have a valid group name. Please <a href="">contact us</a> to set one up!</p>
+	</div>
+  <form ng-submit="register()" ng-show="showRegistration">
+  <p>Welcome to Flockify!<br/>
+  You are registering for group: {{beta_group_name}}</p>
+  <br/>
+    <p ng-show="error" class="text-danger">{{ error.message }}</p>
     <input type="text" ng-model="user.username" placeholder="Username" class="form-control"><br>
     <input type="email" ng-model="user.email" placeholder="Email" class="form-control"><br>
     <input type="password" ng-model="user.password" placeholder="Password" class="form-control"><br>

@@ -5,172 +5,227 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Auth, P
   var actionResult = {
 
     upvote: function(post, media_type) {
+      var defer = $q.defer();
+      var id = Users.current_user_id;
+      console.log('id:', id);
+      console.log('post creator:',post.creator_id);
+      // if(id == post.creator_id){
+      //   var msg = 'You cannot vote on your own post';
+      //         defer.resolve(msg);
+      //         return;
+      // }
+  
+      if (id != post.creator_id) {
 
-        var user = Users.getProfile(Auth.$getAuth().uid);
-        var username = Users.getUsername(Auth.$getAuth().uid);
-        var defer = $q.defer();
+        ref.child('user_scores').child(Users.current_group).child(post.creator_id).once("value", function(snapshot) {
+          var val = snapshot.val();
+          if (!val){
+            console.error("No snapshot found for ", post.creator_id);
+            return;
+          }
 
-      if (user && user.$id != post.creatorUID) {
+           // if(!val[current_week]){
+           //    var scores = {};
+           //     scores[current_week] = {album_score:0}; 
+           //  ref.child('user_scores').child(Users.current_group).child(post.creator_id).update(scores);       
+           // }
+         
+          var total_score = val.album_score;
+         
 
-        ref.child('user_scores').child(post.creator).once("value", function(snapshot) {
-          //TODO: use media_type
-          var score = snapshot.val().album_score;
-          var weekly_score = snapshot.val().weekly_scores.album_score;
+          var actions_ref = ref.child('user_actions').child(id).child(post.$id);
+          console.log(id);
+          var current_actions = $firebaseObject(actions_ref);
 
-
-          var current_vote = $firebaseObject(ref.child('user_votes').child(user.$id).child(post.$id).child('vote'));
-          current_vote.$loaded().then(function(res) {
-            if (res.$value == 'up') {
-              //already upvoted
-              var msg = 'Already upvoted "' + post.album + '"';
+          current_actions.$loaded().then(function(res) {
+            if (res.up) {
+              var msg = 'Already upvoted "' + post.media_info.album + '"';
               defer.resolve(msg);
-          
-            };
-            if (res.$value == 'down' || !res.$value) {
-              post.votes += 1;
-              Post.vote(post.$id, post.votes);
-              Profile.setVote(user.$id, post.$id, 'up');
-              score = score + 1;
-              weekly_score = weekly_score + 1;
+              return;
+            }
 
-              //todo: use media_type
-              ref.child("user_scores").child(post.creator).update({
-                'album_score': score
+            var score_mod = 1;
+            if (res.down) {
+              actions_ref.child('down').remove();
+            } else {
+              actions_ref.update({
+                'up': true
               });
+            }
 
-              var monday = moment().startOf('isoweek');
-              if (moment(post.date) > monday) {
-                //todo: use media_type
-                ref.child("user_scores").child(post.creator).child('weekly_scores').update({
-                  'album_score': weekly_score
-                });
-              };
+            post.score += score_mod;
+            total_score += score_mod;
+            Post.vote(post.$id, post.score);
 
-              var msg = 'Gave "' + post.album + '" an upvote!';
-              defer.resolve(msg);
+            ref.child("user_scores").child(Users.current_group).child(post.creator_id).update({
+              'album_score': total_score
+            });
 
-            };
+            var monday = moment().startOf('isoweek');
+            if (moment(post.created_ts) > monday) {
+                  var week = moment().startOf('isoweek').format('MM_DD_YYYY');
+                  var current_week = 'weekly_score_'+week; 
+                  var weekly_score = val[current_week].album_score;
+                      weekly_score += score_mod; 
+              ref.child("user_scores").child(Users.current_group).child(post.creator_id).child(current_week).update({
+                'album_score': weekly_score
+              });
+            }
 
-          })
-        })
+            var msg = 'Gave "' + post.media_info.album + '" an upvote!';
+            defer.resolve(msg);
+
+          });
+        });
 
       }
-          return defer.promise;
+      return defer.promise;
     },
 
     downvote: function(post, media_type) {
-
-        var user = Users.getProfile(Auth.$getAuth().uid);
-        var username = Users.getUsername(Auth.$getAuth().uid);
-        var defer = $q.defer();
-
-      if (user && user.$id != post.creatorUID) {
-
-        ref.child('user_scores').child(post.creator).once("value", function(snapshot) {
-          var score = snapshot.val().album_score;
-          var weekly_score = snapshot.val().weekly_scores.album_score;
-          var current_vote = $firebaseObject(ref.child('user_votes').child(user.$id).child(post.$id).child('vote'));
-          current_vote.$loaded().then(function(res) {
-            if (res.$value == 'down') {
-              //already downvoted
-              var msg = 'Already downvoted "' + post.album + '"';
+      var defer = $q.defer();
+      var id = Users.current_user_id;
+      console.log('id:', id);
+      console.log('post creator:',post.creator_id);
+      // if(id == post.creator_id){
+      //   var msg = 'You cannot vote on your own post';
+      //         defer.resolve(msg);
+      //         return;
+      // }
+     
+      if (id != post.creator_id) {
+        ref.child('user_scores').child(Users.current_group).child(post.creator_id).once("value", function(snapshot) {
+          var val = snapshot.val();
+          if (!val){
+            console.error("No snapshot found for ", post.creator_id);
+            return;
+          }
+           // if(!val[current_week]){
+           //    var scores = {};
+           //     scores[current_week] = {album_score:0}; 
+           //  ref.child('user_scores').child(Users.current_group).child(post.creator_id).update(scores);       
+           // }
+          var total_score = val.album_score;
+          var actions_ref = ref.child('user_actions').child(id).child(post.$id);
+          var current_actions = $firebaseObject(actions_ref);
+          current_actions.$loaded().then(function(res) {
+            if (res.down) {
+              var msg = 'Already downvoted "' + post.media_info.album + '"';
               defer.resolve(msg);
-            };
-            if (res.$value == 'up' || !res.$value) {
-              post.votes -= 1;
-              Post.vote(post.$id, post.votes);
-              Profile.setVote(user.$id, post.$id, 'down');
-              score = score - 1;
-              weekly_score = weekly_score - 1;
-              ref.child("user_scores").child(post.creator).update({
-                'album_score': score
+              return;
+            }
+
+            var score_mod = -1;
+            if (res.up) {
+              actions_ref.child('up').remove();
+            } else {
+              actions_ref.update({
+                'down': true
               });
+            }
 
-              var monday = moment().startOf('isoweek');
+            post.score += score_mod;
+            total_score += score_mod;
+            Post.vote(post.$id, post.score);
 
-              if (moment(post.date) > monday) {
-                ref.child("user_scores").child(post.creator).child('weekly_scores').update({
-                  'album_score': weekly_score
-                });
-              };
+            ref.child("user_scores").child(Users.current_group).child(post.creator_id).update({
+              'album_score': total_score
+            });
 
-              var msg = 'Gave "' + post.album + '" a downvote';
-              defer.resolve(msg);
+            var monday = moment().startOf('isoweek');
+            if (moment(post.created_ts) > monday) {
+              var week = moment().startOf('isoweek').format('MM_DD_YYYY');
+              var current_week = 'weekly_score_'+week;
+              var weekly_score = val[current_week].album_score;  
+                    weekly_score += score_mod;  
+              ref.child("user_scores").child(Users.current_group).child(post.creator_id).child(current_week).update({
+                'album_score': weekly_score
+              });
+            }
 
-            };
-
-          })
-        })
-
+            var msg = 'Gave "' + post.media_info.album + '" a downvote';
+            defer.resolve(msg);
+          });
+        });
       }
-        return defer.promise;
+      return defer.promise;
     },
 
     starPost: function(post, media_type) {
+      var defer = $q.defer();
+      var id = Users.current_user_id;
+      console.log('id:', id);
+      console.log('post creator:',post.creator_id);
+      // if(id == post.creator_id){
+      //   var msg = 'You cannot vote on your own post';
+      //         defer.resolve(msg);
+      //         return;
+      // }
+     
+      if (id != post.creator_id) {
+        ref.child('user_scores').child(Users.current_group).child(post.creator_id).once("value", function(snapshot) {
 
-       var user = Users.getProfile(Auth.$getAuth().uid);
-       var username = Users.getUsername(Auth.$getAuth().uid);
-       var defer = $q.defer();
-      if (user && user.$id != post.creatorUID) {
+          var val = snapshot.val();
+          if (!val){
+            console.error("No snapshot found for ", post.creator_id);
+            return;
+          }
+           // if(!val[current_week]){
+           //    var scores = {};
+           //     scores[current_week] = {album_score:0}; 
+           //  ref.child('user_scores').child(Users.current_group).child(post.creator_id).update(scores);       
+           // }
+         
+          var total_score = val.album_score;   
+          var user_stars = val.stars;
 
-        ref.child('user_scores').child(post.creator).once("value", function(snapshot) {
-
-          //todo use media_type
-          var score = snapshot.val().album_score;
-          var user_stars = snapshot.val().stars;
-          var weekly_score = snapshot.val().weekly_scores.album_score;
-
-
-          var current_vote = $firebaseObject(ref.child('user_votes').child(user.$id).child(post.$id).child('star'));
-          current_vote.$loaded().then(function(res) {
-
-            if (res.$value == 'gold') {
-              var msg = 'Already gave "' + post.album + '" a star';
+          var actions_ref = ref.child('user_actions').child(id).child(post.$id);
+          var current_actions = $firebaseObject(actions_ref);
+          current_actions.$loaded().then(function(res) {
+            if (res.star) {
+              var msg = 'Already gave "' + post.media_info.album + '" a star';
               defer.resolve(msg);
-            };
+              return;
+            }
 
-            if (!res.$value) {
-              post.votes += 2;
-              Post.vote(post.$id, post.votes);
-              post.stars += 1;
-              Post.star(post.$id, post.stars);
-              Profile.setStar(user.$id, post.$id, 'gold');
-              score = score + 2;
-              user_stars = user_stars + 1;
-              weekly_score = weekly_score + 2;
-              ref.child("user_scores").child(post.creator).update({
-                'album_score': score
+            actions_ref.update({
+              'star': true
+            });
+
+            post.score += 2;
+            Post.vote(post.$id, post.score);
+            post.stars += 1;
+            Post.star(post.$id, post.stars);
+
+            total_score = total_score + 2;
+            user_stars = user_stars + 1;
+  
+            ref.child("user_scores").child(Users.current_group).child(post.creator_id).update({
+              'album_score': total_score
+            });
+            ref.child("user_scores").child(Users.current_group).child(post.creator_id).update({
+              'stars': user_stars
+            });
+
+            var monday = moment().startOf('isoweek');
+            if (moment(post.created_ts) > monday) {
+               var week = moment().startOf('isoweek').format('MM_DD_YYYY');
+               var current_week = 'weekly_score_'+week;
+               var weekly_score = val[current_week].album_score; 
+                      weekly_score = weekly_score + 2;
+              ref.child("user_scores").child(Users.current_group).child(post.creator_id).child(current_week).update({
+                'album_score': weekly_score
               });
-              ref.child("user_scores").child(post.creator).update({
-                'stars': user_stars
-              });
-              var monday = moment().startOf('isoweek');
+            }
 
-              if (moment(post.date) > monday) {
-                ref.child("user_scores").child(post.creator).child('weekly_scores').update({
-                  'album_score': weekly_score
-                });
-              };
-
-              var msg = 'Gave "' + post.album + '" a star!';
-              defer.resolve(msg);
-            };
-
+            var msg = 'Gave "' + post.media_info.album + '" a star!';
+            defer.resolve(msg);
           });
-
-
         });
-
-
-      };
-        return defer.promise;
-
+      }
+      return defer.promise;
     }
 
-
-
-  }
-
+  };
   return actionResult;
-
 };

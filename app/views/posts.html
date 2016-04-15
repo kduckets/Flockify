@@ -1,245 +1,246 @@
 <div style="padding-bottom:10px">
- <md-progress-linear ng-show="loadingBar" md-mode="indeterminate"></md-progress-linear>
-<!--   <div ng-show="!user && !loadingCircle" align="center">
-   <h2>Welcome to flockify</h2>
-   <p><a href="/#/login">Sign in</a> to get started</p>
- </div> -->
- <div ng-show="user" ng-cloak>
+  <md-progress-linear ng-show="loadingBar" md-mode="indeterminate"></md-progress-linear>
+  <!--   <div ng-show="!user && !loadingCircle" align="center">
+     <h2>Welcome to flockify</h2>
+     <p><a href="/#/login">Sign in</a> to get started</p>
+   </div> -->
+  <div ng-show="user" ng-cloak>
+    <md-button aria-label="Search"
+               style="top:12px;right:48px;position:fixed;z-index:2;" ng-click="showSearch = !showSearch; allTime()">
+      <ng-md-icon icon="search" style="fill:white" size="28"></ng-md-icon>
+    </md-button>
+    <md-toolbar class="md-hue-1" ng-show="showSearch" style="position:fixed">
+      <div class="md-toolbar-tools">
+        <md-button ng-click="showSearch = !showSearch" aria-label="Back">
+          <ng-md-icon icon="arrow_back"></ng-md-icon>
+        </md-button>
+        <md-input-container md-theme="input" flex>
+          <label>&nbsp;</label>
+          <input ng-model="textFilter" focus="showSearch" placeholder="search the feed">
+        </md-input-container>
+        <md-button ng-click="clearResults()" aria-label="Back">
+          <ng-md-icon icon="clear"></ng-md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <div align="center">
+      <!-- <alert type="info" close="bCloseAlert=1" ng-hide="bCloseAlert"><b>Theme week!</b> Post a space-themed album.</alert> -->
+      <!--    <md-toolbar class="md-hue-3"> -->
 
- <md-button aria-label="Search" 
- style="top:12px;right:48px;position:fixed;z-index:2;" ng-click="showSearch = !showSearch; allTime()">
-            <ng-md-icon icon="search" style="fill:white" size="28"></ng-md-icon>
-          </md-button>
-           <md-toolbar class="md-hue-1" ng-show="showSearch" style="position:fixed">
-        <div class="md-toolbar-tools">
-          <md-button ng-click="showSearch = !showSearch" aria-label="Back">
-            <ng-md-icon icon="arrow_back"></ng-md-icon>
-          </md-button>
-          <md-input-container md-theme="input" flex>
+      <div class="md-toolbar-tools" style="max-width:320px" align="center">
+        <md-button flex="33" aria-label="Search" ng-click="search()">
+          <ng-md-icon icon="my_library_music" size="28"></ng-md-icon>
+        </md-button>
+        <form ng-submit="search()">
+          <md-input-container md-theme="input" style="max-width:190px !important" flex>
             <label>&nbsp;</label>
-            <input ng-model="textFilter" focus="showSearch" placeholder="search the feed">      
+            <input ng-model="post.search" placeholder="post an album">
           </md-input-container>
-           <md-button ng-click="clearResults()" aria-label="Back">
+          <md-button flex="33" ng-click="clearResults()" ng-show="post.search" aria-label="Back">
             <ng-md-icon icon="clear"></ng-md-icon>
           </md-button>
-          </div>
-          </md-toolbar>
-  <div align="center">
-    <!-- <alert type="info" close="bCloseAlert=1" ng-hide="bCloseAlert"><b>Theme week!</b> Post a space-themed album.</alert> -->
- <!--    <md-toolbar class="md-hue-3"> -->
-
-    <div class="md-toolbar-tools" style="max-width:320px" align="center">
-     <md-button flex="33" aria-label="Search" ng-click="search()">
-     <ng-md-icon icon="my_library_music" size="28"></ng-md-icon>
-   </md-button>
-   <form ng-submit="search()">
-    <md-input-container md-theme="input" style="max-width:190px !important" flex>
-    <label>&nbsp;</label>
-    <input ng-model="post.search" placeholder="post an album">        
-  </md-input-container>
-  <md-button flex="33" ng-click="clearResults()" ng-show="post.search" aria-label="Back">
-  <ng-md-icon icon="clear"></ng-md-icon>
-</md-button>   
-<md-button aria-label="Search" show-xs hide-gt-xs ng-show="!post.search"
- ng-click="showSearch = !showSearch; allTime()">
+          <md-button aria-label="Search" show-xs hide-gt-xs ng-show="!post.search"
+                     ng-click="showSearch = !showSearch; allTime()">
             <ng-md-icon icon="search" size="22"></ng-md-icon>
           </md-button>
-</form>
+        </form>
 
-</div>
-</div>
+      </div>
+    </div>
 
-<md-list ng-repeat="result in results" align="left">
-<md-list-item class="md-2-line" ng-click="viewAlbum(result.href, $event)">
-    <img ng-src="{{result.images[2].url}}"/>
-    <small>{{result.name}}</small>
-  </md-list-item>
-   <md-divider ></md-divider>
-</md-list>
+    <md-list ng-repeat="result in results" align="left">
+      <md-list-item class="md-2-line" ng-click="viewAlbum(result.href, $event)">
+        <img ng-src="{{result.images[2].url}}"/>
+        <small>{{result.name}}</small>
+      </md-list-item>
+      <md-divider ></md-divider>
+    </md-list>
 
-<!--  <back-top scroll-speed=600 button-theme="light"> <ng-md-icon icon="clear"></ng-md-icon></back-top> -->
-<div align="center">
-  <md-tabs md-center-tabs="true" md-dynamic-height md-border-bottom>
-   <md-tab ng-click="thisWeek()" aria-label="week" ng-class="week ? 'md-raised md-primary':'md-raised'">this week</md-tab>
-    <md-tab ng-click="lastWeek()" aria-label="last" ng-class="last ? 'md-raised md-primary':'md-raised'">last week</md-tab>
-   <md-tab ng-click="thisMonth()" aria-label="month" ng-class="month ? 'md-raised md-primary':'md-raised'">past month</md-tab>
-   <md-tab type="button" ng-click="allTime()" aria-label="all" ng-class="allPosts ? 'md-raised md-primary':'md-raised'">all time</md-tab>
- </md-tabs>
- <div>
-   <md-button aria-label="new" ng-click="sorter = '-'">new
- </md-button>
- <md-button aria-label="top" ng-click="sorter = ['-votes','-stars']">top
-</md-button>
-<md-button aria-label="comments" ng-click="sorter = '-latest_comment'">comments
-</md-button>
-<md-button aria-label="stars" ng-click="sorter = ['-stars','-votes']">stars
-</md-button>
-</div>
-</div>
-<div align="center">
-<md-chips ng-model="tagFilters" readonly="true">
-<md-chip-template>
+    <!--  <back-top scroll-speed=600 button-theme="light"> <ng-md-icon icon="clear"></ng-md-icon></back-top> -->
+    <div align="center">
+      <md-tabs md-center-tabs="true" md-dynamic-height md-border-bottom>
+        <md-tab ng-click="thisWeek()" aria-label="week" ng-class="week ? 'md-raised md-primary':'md-raised'">this week</md-tab>
+        <md-tab ng-click="lastWeek()" aria-label="last" ng-class="last ? 'md-raised md-primary':'md-raised'">last week</md-tab>
+        <md-tab ng-click="thisMonth()" aria-label="month" ng-class="month ? 'md-raised md-primary':'md-raised'">past month</md-tab>
+        <md-tab type="button" ng-click="allTime()" aria-label="all" ng-class="allPosts ? 'md-raised md-primary':'md-raised'">all time</md-tab>
+      </md-tabs>
+      <div>
+        <md-button aria-label="new" ng-click="sorter = '-'">new
+        </md-button>
+        <md-button aria-label="top" ng-click="sorter = ['-score', '-stars']">top
+        </md-button>
+        <md-button aria-label="comments" ng-click="sorter = '-latest_comment'">comments
+        </md-button>
+        <md-button aria-label="stars" ng-click="sorter = ['-stars', '-score']">stars
+        </md-button>
+      </div>
+    </div>
+    <div align="center">
+      <md-chips ng-model="tagFilters" readonly="true">
+        <md-chip-template>
           <a ng-click="loadingBar=true;removeTag($chip)"><strong style="color:black">{{$chip | lowercase}}</strong>  x</a>
         </md-chip-template>
-        </md-chips>
+      </md-chips>
+    </div>
+    <!--   <a href ng-click="batchUpdate()">batch</a>  -->
+    <!-- <p ng-show="filteredItems.length == 0" align="center" style="padding-top: 20px"><i>Looks like there are no albums here yet</i></p> -->
+
+    <div class="post" ng-repeat="post in filteredItems=(posts | orderBy:sorter | filter:'spotify' |
+isAfter:filter_start_date:filter_end_date | byText:textFilter | byText:tagText) | limitTo:totalDisplayed track by post.$id" align="center">
+
+      <!-- ******************************* MOBILE CARD HERE *********************************** -->
+      <md-card class="card" hide-md hide-gt-md show-xs show-sm>
+        <span class="score label label-default label-default"><b>{{ post.score }}</b></span>
+        <div class="album-container">
+          <a ng-href="#/albums/{{post.$id}}" >
+            <img class="md-card-image" ng-src="{{post.image_medium}}" />
+          </a>
         </div>
-<!--   <a href ng-click="batchUpdate()">batch</a>  -->
-<!-- <p ng-show="filteredItems.length == 0" align="center" style="padding-top: 20px"><i>Looks like there are no albums here yet</i></p> -->
-<div class="post" ng-repeat="post in filteredItems=(posts | orderBy:sorter | filter:'spotify' | 
-isAfter:filter_start_date:filter_end_date | byText:textFilter | byText:tagText) | limitTo:totalDisplayed track by post.$id" align="center"> 
+        <div style="padding-top:5px; padding-bottom:10px">
+          <div>
+            <div>
+              <img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" class="star" />
+              <a href="" ng-click="starPost(post)">
+                <img ng-src="/images/empty-star.png" class="star" /></a>
+            </div>
+            <a ng-href="#/albums/{{post.$id}}" >
+              {{ post.media_info.artist }} - {{ post.media_info.album }} ({{post.media_info.release_date | limitTo: 4}})</a>
+            <div>
+              <a ng-href="#/albums/{{ post.$id  }}">
+                <span class="label label-pill label-info">{{ post.media_info.summary | limitTo: 40 }}{{post.media_info.summary.length > 40 ? '..' : ''}}</span></a>
+            </div>
 
-
-<!-- mobile -->
-  <md-card class="card" hide-md hide-gt-md show-xs show-sm>
-  <span class="score label label-default label-default"><b>{{ post.votes }}</b></span> 
-  <div class="album-container">
-  <a ng-href="#/albums/{{post.$id}}" >
-    <img class="md-card-image" ng-src="{{post.image_medium}}" />
-  </a>
-  </div>
-  <div style="padding-top:5px; padding-bottom:10px"> 
-   <div>   
-    <div>
-   <img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" class="star" />
-   <a href="" ng-click="starPost(post)">
-    <img ng-src="/images/empty-star.png" class="star" /></a>
-    </div>
-     <a ng-href="#/albums/{{post.$id}}" >
-       {{ post.artist }} - {{ post.album }} ({{post.release_date | limitTo: 4}})</a> 
-     <div>
-       <a ng-href="#/albums/{{ post.$id  }}">
-       <span class="label label-pill label-info">{{ post.summary | limitTo: 40 }}{{post.summary.length > 40 ? '..' : ''}}</span></a>
-     </div> 
-
-  <div layout="row" layout-align="center center">
- <md-chips class="tag-chip"  ng-model="post.tags"  readonly="true">
-      <md-chip-template>
-      <a href="" ng-click="filterByTag($chip.name)">
+            <div layout="row" layout-align="center center">
+              <md-chips class="tag-chip"  ng-model="post.tags"  readonly="true">
+                <md-chip-template>
+                  <a href="" ng-click="filterByTag($chip.name)">
         <span>
           <small>{{$chip.name | lowercase}}</small>
         </span>
-        </a>
-      </md-chip-template>
-    </md-chips>
-</div> 
+                  </a>
+                </md-chip-template>
+              </md-chips>
+            </div>
 
-   </div>    
-   <small><b>posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator}}</b>
+          </div>
+          <small><b>posted by <a ng-href="#/users/{{ post.creator_id }}">{{post.creator_name}}</b>
 
-<!--  <img src="/images/poop.gif" style="padding-bottom:10px; padding-left:2px; height: 50px; width: auto;  display:inline-block;" ng-show="user.profile.group_id == 1 && post.creator == 'Nrblanks' || post.creator == 'Stevie' || post.creator == 'davidemerritt' || post.creator == 'Oat'"height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:2px;height: 30px; width: auto;display:inline-block;" ng-show="user.profile.group_id == 1 && post.creator == 'sparker'"/> -->
+            <!--  <img src="/images/poop.gif" style="padding-bottom:10px; padding-left:2px; height: 50px; width: auto;  display:inline-block;" ng-show="user.profile.group_id == 1 && post.creator == 'Nrblanks' || post.creator == 'Stevie' || post.creator == 'davidemerritt' || post.creator == 'Oat'"height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:2px;height: 30px; width: auto;display:inline-block;" ng-show="user.profile.group_id == 1 && post.creator == 'sparker'"/> -->
 
-   </a> <i>{{post.date | timeAgo}}</i></small>
+            </a> <i>{{post.created_ts | timeAgo}}</i></small>
 
-<div layout="row" layout-align="center center" style="position:relative;right:0;bottom:0;">
-   <md-button class="md-icon-button" ng-click="save(post)" aria-label="Save" >
-  <ng-md-icon icon="save" class="arrow" size="28"></ng-md-icon>
- </md-button>
-     
-  <md-button class="md-icon-button" ng-click="upvote(post)" aria-label="Upvote" >
- <ng-md-icon icon="arrow_upwards" class="arrow" size="28"></ng-md-icon>
- </md-button>
- <md-button class="md-icon-button" ng-click="downvote(post)" aria-label="Downvote" >
- <ng-md-icon icon="arrow_downward" class="arrow" size="28"></ng-md-icon>
- </md-button> 
+          <div layout="row" layout-align="center center" style="position:relative;right:0;bottom:0;">
+            <md-button class="md-icon-button" ng-click="save(post)" aria-label="Save" >
+              <ng-md-icon icon="save" class="arrow" size="28"></ng-md-icon>
+            </md-button>
 
- <md-button style="top:11px; left:2px; overflow:visible !important;" ng-href="#/albums/{{post.$id}}" aria-label="Comments" >
-  <span class="comments-icon-big"><ng-md-icon icon="chat_bubble" class="arrow" size="30"></ng-md-icon> 
-  <span class="after label label-pill label-danger">{{post.comments}}</span></span>
-  </md-button> 
-</div>
-</div>
-</md-card>
+            <md-button class="md-icon-button" ng-click="upvote(post)" aria-label="Upvote" >
+              <ng-md-icon icon="arrow_upwards" class="arrow" size="28"></ng-md-icon>
+            </md-button>
+            <md-button class="md-icon-button" ng-click="downvote(post)" aria-label="Downvote" >
+              <ng-md-icon icon="arrow_downward" class="arrow" size="28"></ng-md-icon>
+            </md-button>
+
+            <md-button style="top:11px; left:2px; overflow:visible !important;" ng-href="#/albums/{{post.$id}}" aria-label="Comments" >
+  <span class="comments-icon-big"><ng-md-icon icon="chat_bubble" class="arrow" size="30"></ng-md-icon>
+
+  <span class="after label label-pill label-danger">{{ post.comments }}</span></span>
+            </md-button>
+          </div>
+        </div>
+      </md-card>
 
 
-<!-- desktop -->
+      <!-- *************************************** DESKTOP ************************************ -->
 
-  <md-card class="card" flex="65" hide-xs hide-sm>
+      <md-card class="card" flex="65" hide-xs hide-sm>
 
-  <div layout-xs="column" layout="row">
- 
-  <div flex="40">
-  <a ng-href="#/albums/{{post.$id}}">
- 
-  <img class="md-card-image" ng-src="{{post.image_medium}}" /></a>
-  </div>
-  <div flex="50">
-  <md-card-title>
-          <md-card-title-text>
-    <a ng-href="#/albums/{{post.$id}}">
-   <span class="md-headline"><b>{{ post.artist }}</b><br/>
- {{ post.album | limitTo: 22 }}{{post.album.length > 22 ? '..' : ''}} ({{post.release_date | limitTo: 4}})</span></a>
-    <div>
-   <img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" class="star" />
-   <a href="" ng-click="starPost(post)">
-    <img ng-src="/images/empty-star.png" class="star" /></a>
-    </div>
- </md-card-title-text>
- 
+        <div layout-xs="column" layout="row">
 
-</md-card-title>
-    <md-card-content>
-  <div hide-sm>{{ post.summary| limitTo: 132 }}{{post.summary.length > 132 ? '..' : ''}}</div>
-  <div show-sm hide-gt-sm> {{ post.summary| limitTo: 32 }}{{post.summary.length > 32 ? '..' : ''}}</div>
+          <div flex="40">
+            <a ng-href="#/albums/{{post.$id}}">
 
-  <div layout="row" layout-align="center center">
- <md-chips class="tag-chip"  ng-model="post.tags"  readonly="true">
-      <md-chip-template>
-      <a href="" ng-click="filterByTag($chip.name)">
+              <img class="md-card-image" ng-src="{{post.image_medium}}" /></a>
+          </div>
+          <div flex="50">
+            <md-card-title>
+              <md-card-title-text>
+                <a ng-href="#/albums/{{post.$id}}">
+   <span class="md-headline"><b>{{ post.media_info.artist }}</b><br/>
+ {{ post.media_info.album | limitTo: 22 }}{{post.media_info.album.length > 22 ? '..' : ''}} ({{post.media_info.release_date | limitTo: 4}})</span></a>
+                <div>
+                  <img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" class="star" />
+                  <a href="" ng-click="starPost(post)">
+                    <img ng-src="/images/empty-star.png" class="star" /></a>
+                </div>
+              </md-card-title-text>
+
+
+            </md-card-title>
+            <md-card-content>
+              <div hide-sm>{{ post.media_info.summary| limitTo: 132 }}{{post.media_info.summary.length > 132 ? '..' : ''}}</div>
+              <div show-sm hide-gt-sm> {{ post.media_info.summary| limitTo: 32 }}{{post.media_info.summary.length > 32 ? '..' : ''}}</div>
+
+              <div layout="row" layout-align="center center">
+                <md-chips class="tag-chip"  ng-model="post.tags"  readonly="true">
+                  <md-chip-template>
+                    <a href="" ng-click="filterByTag($chip.name)">
         <span>
           <small>{{$chip.name | lowercase}}</small>
         </span>
-        </a>
-      </md-chip-template>
-    </md-chips>
-    </div>
-    
-     <span class="md-subhead"><small><b>posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator}}
+                    </a>
+                  </md-chip-template>
+                </md-chips>
+              </div>
 
-  <!--    <img src="/images/poop.gif" style="padding-bottom:10px; padding-left:2px; height: 50px; width: auto;  display:inline-block;" ng-show="user.profile.group_id == 1 && post.creator == 'Nrblanks' || post.creator == 'Stevie' || post.creator == 'davidemerritt' || post.creator == 'Oat'"height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:2px;height: 30px; width: auto;display:inline-block;" ng-show="user.profile.group_id == 1 && post.creator == 'sparker'"/> -->
+     <span class="md-subhead"><small><b>posted by <a ng-href="#/users/{{ post.creator_id }}">{{ post.creator_name }}
+
+       <!--    <img src="/images/poop.gif" style="padding-bottom:10px; padding-left:2px; height: 50px; width: auto;  display:inline-block;" ng-show="user.profile.group_id == 1 && post.creator == 'Nrblanks' || post.creator == 'Stevie' || post.creator == 'davidemerritt' || post.creator == 'Oat'"height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:2px;height: 30px; width: auto;display:inline-block;" ng-show="user.profile.group_id == 1 && post.creator == 'sparker'"/> -->
 
      </b>
-       </a> <i>{{post.date | timeAgo}}</i></small></span>
-    </md-card-content>
-      </div>
+       </a> <i>{{ post.created_ts | timeAgo}}</i></small></span>
+            </md-card-content>
+          </div>
 
-    <div flex="10">
-    <md-card-actions layout="column" layout-align="end center" style="position:relative;right:0;bottom:0;">
- <md-button class="md-fab md-raised md-hue-1" style=" z-index:1"><b style="font-size:22pt">{{ post.votes }}</b> </md-button>
+          <div flex="10">
+            <md-card-actions layout="column" layout-align="end center" style="position:relative;right:0;bottom:0;">
+              <md-button class="md-fab md-raised md-hue-1" style=" z-index:1"><b style="font-size:22pt">{{ post.score }}</b> </md-button>
 
 
-   <md-button class="md-icon-button" ng-click="save(post)" aria-label="Save" >
-  <ng-md-icon icon="save" class="arrow" size="32"></ng-md-icon>
- </md-button>
-     
-  <md-button class="md-icon-button" ng-click="upvote(post)" aria-label="Upvote" >
- <ng-md-icon icon="arrow_upwards" class="arrow" size="32"></ng-md-icon>
- </md-button>
- <md-button class="md-icon-button" ng-click="downvote(post)" aria-label="Downvote" >
- <ng-md-icon icon="arrow_downward" class="arrow" size="32"></ng-md-icon>
- </md-button> 
+              <md-button class="md-icon-button" ng-click="save(post)" aria-label="Save" >
+                <ng-md-icon icon="save" class="arrow" size="32"></ng-md-icon>
+              </md-button>
 
- <md-button style="top:11px; left:2px; overflow:visible !important;" ng-href="#/albums/{{post.$id}}" aria-label="Comments" >
-  <span class="comments-icon-big"><ng-md-icon icon="chat_bubble" class="arrow" size="34"></ng-md-icon> 
-  <span class="after label label-pill label-danger">{{post.comments}}</span></span>
-  </md-button> 
+              <md-button class="md-icon-button" ng-click="upvote(post)" aria-label="Upvote" >
+                <ng-md-icon icon="arrow_upwards" class="arrow" size="32"></ng-md-icon>
+              </md-button>
+              <md-button class="md-icon-button" ng-click="downvote(post)" aria-label="Downvote" >
+                <ng-md-icon icon="arrow_downward" class="arrow" size="32"></ng-md-icon>
+              </md-button>
 
- </md-card-actions>
- </div>
+              <md-button style="top:11px; left:2px; overflow:visible !important;" ng-href="#/albums/{{post.$id}}" aria-label="Comments" >
+  <span class="comments-icon-big"><ng-md-icon icon="chat_bubble" class="arrow" size="34"></ng-md-icon>
+  <span class="after label label-pill label-danger">{{ post.comments }}</span></span>
 
+              </md-button>
+
+            </md-card-actions>
+          </div>
+
+
+        </div>
+
+      </md-card>
+    </div>
+
+    <div align="center" ng-show="!loadingCircle">
+      <md-button ng-click="loadMore()" ng-show="filteredItems.length > totalDisplayed" >load more albums</md-button>
+    </div>
+    <div ng-show="loadingCircle" align="center">
+      <md-progress-circular md-mode='indeterminate' md-diameter="132"></md-progress-circular>
+    </div>
 
   </div>
-
-  </md-card> 
-</div>
-
-<div align="center" ng-show="!loadingCircle">
-<md-button ng-click="loadMore()" ng-show="filteredItems.length > totalDisplayed" >load more albums</md-button>
-</div>
- <div ng-show="loadingCircle" align="center">
- <md-progress-circular md-mode='indeterminate' md-diameter="132"></md-progress-circular>
- </div>
-
-</div>
 </div>
 
 

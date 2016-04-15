@@ -1,49 +1,47 @@
-module.exports = function ($firebaseArray, $firebaseObject, FIREBASE_URL) {
+module.exports = function ($firebaseArray, $firebaseObject, FIREBASE_URL, Users) {
   var ref = new Firebase(FIREBASE_URL);
-  var posts = $firebaseArray(ref.child('posts'));
+  var posts = $firebaseArray(ref.child('posts').child(Users.current_group));
 
   var Post = {
     all: posts,
 
     create: function (post) {
       return posts.$add(post).then(function(postRef) {
-        ref.child('user_posts').child(post.creatorUID).push(postRef.name());
+        var postId = {};
+        postId[postRef.key()] = true;
+        ref.child('users').child(post.creator_id).child('posts').update(postId);
         return postRef;
-      });
+    })
     },
 
-    vote: function(postId, votes){
-      return ref.child('posts').child(postId).update({'votes': votes});
+    vote: function(postId, score){
+      return ref.child('posts').child(Users.current_group).child(postId).update({'score': score});
     },
 
     tag: function(postId, tag){
-     ref.once("value", function(snapshot) {
-     var numTags = snapshot.child('posts').child(postId).child('tags').numChildren();
-     return ref.child('posts').child(postId).child('tags').child(numTags).update({'name': tag});
-      });   
+      ref.once("value", function(snapshot) {
+        var numTags = snapshot.child('posts').child(Users.current_group).child(postId).child('tags').numChildren();
+        return ref.child('posts').child(Users.current_group).child(postId).child('tags').child(numTags).update({'name': tag});
+      });
     },
 
     star: function(postId, stars){
-      return ref.child('posts').child(postId).update({'stars': stars});
-    },
-
-    // unused
-    commentVote: function(postId, commentId, votes){
-      return ref.child('comments').child(postId).child(commentId).update({'votes': votes});
+      return ref.child('posts').child(Users.current_group).child(postId).update({'stars': stars});
     },
 
     get: function (postId) {
-      return $firebaseObject(ref.child('posts').child(postId));
+      return $firebaseObject(ref.child('posts').child(Users.current_group).child(postId));
     },
 
     get_reference: function(postId){
-     return ref.child('posts').child(postId);
+      return ref.child('posts').child(Users.current_group).child(postId);
     },
 
     delete: function (post) {
-      ref.child('posts').child(post.$id).remove();
+      ref.child('posts').child(Users.current_group).child(post.$id).remove();
+      ref.child('users').child(post.creator_id).child('posts').child(post.$id).remove();
+
     }
   };
-
   return Post;
 };

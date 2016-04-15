@@ -1,81 +1,90 @@
-      <md-sidenav
-        class="md-sidenav-right"
-        md-component-id="right"
-        md-disable-backdrop
-        md-whiteframe="4">
-        <md-content ng-controller="NavCtrl" flex>
+<md-sidenav
+  class="md-sidenav-right"
+  md-component-id="right"
+  md-disable-backdrop
+  md-whiteframe="4">
+  <md-content ng-controller="NavCtrl" flex>
     <md-toolbar class="md-theme-indigo">
-        <h1 class="md-toolbar-tools">Choose your destination</h1>
-      </md-toolbar>
-      
-       <span flex></span>
-  <!--       <p><a ng-show="!user" href="/#/login">Sign in</a></p> -->
-          
-        <p ng-show="!user"><a ng-href="#/login">
-        <md-button ng-show="!user" class="md-icon-button" aria-label="Chat">
-        <i class="fa fa-key fa-2x"></i>    
-        </md-button>Sign in</a></p>
+      <md-select class="md-toolbar-tools" ng-change="change_group()" ng-model="current_group">
+        <md-option ng-repeat="group in subscribed_groups" value="{{ group.id }}" ng-selected="{{ group.id == current_group }}"> {{ group.group_name }}</md-option>
+      </md-select>
+    </md-toolbar>
 
-        <p ng-show="user"><a ng-href="#/chat">
-        <md-button class="md-icon-button" aria-label="Chat">
-        <i class="fa fa-wechat fa-2x"></i>    
-        </md-button>Chat</a></p>
+    <span flex></span>
+    <!--       <p><a ng-show="!user" href="/#/login">Sign in</a></p> -->
 
-        <p ng-show="user"><a ng-href="#/scoreboard">
-        <md-button ng-show="user" class="md-icon-button" aria-label="Scoreboard">
+    <p ng-show="!user"><a ng-href="#/login">
+      <md-button ng-show="!user" class="md-icon-button" aria-label="Chat">
+        <i class="fa fa-key fa-2x"></i>
+      </md-button>Sign in</a></p>
+
+      <p ng-show="user"><a href="/#/">
+      <md-button ng-show="user" class="md-icon-button" aria-label="Albums">
+           <i class="fa fa-headphones fa-2x"></i>
+      </md-button>Albums</a></p>
+
+    <p ng-show="user"><a ng-href="#/chat">
+      <md-button class="md-icon-button" aria-label="Chat">
+        <i class="fa fa-wechat fa-2x"></i>
+      </md-button>Chat</a></p>
+
+    <p ng-show="user"><a ng-href="#/scoreboard">
+      <md-button ng-show="user" class="md-icon-button" aria-label="Scoreboard">
         <i class="fa fa-trophy fa-2x"></i>
-        </md-button>Leaderboard</a></p>
+      </md-button>Scoreboard</a></p>
 
-        <p ng-show="user"><a ng-href="#/users/{{ user.$id }}">
-        <md-button ng-show="user" class="md-icon-button" aria-label="Profile">
+    <p ng-show="user"><a ng-href="#/users/{{ user.$id }}">
+      <md-button ng-show="user" class="md-icon-button" aria-label="Profile">
         <i class="fa fa-user fa-2x"></i>
-        </md-button>My Profile</a></p>
+      </md-button>My Profile</a></p>
 
-        <p ng-show="user"><a href="/#/" ng-click="logout()">
-        <md-button ng-show="user" class="md-icon-button" aria-label="Logout">
+      <p ng-show="user"><a ng-href="#/about">
+      <md-button ng-show="user" class="md-icon-button" aria-label="About">
+        <i class="fa fa-info-circle fa-2x"></i>
+      </md-button>About Flockify</a></p>
+
+    <p ng-show="user"><a href="/#/" ng-click="logout()">
+      <md-button ng-show="user" class="md-icon-button" aria-label="Logout">
         <i class="fa fa-sign-out fa-2x"></i>
-        </md-button>Logout</a></p>
+      </md-button>Logout</a></p>
 
-         <md-divider/>
+    <md-divider/>
 
-          <p ng-show="user"><a href="/#/">
-          <md-button ng-show="user" class="md-icon-button" aria-label="Albums">
-          <ng-md-icon icon="album"></ng-md-icon>
-          </md-button>Albums</a></p>
+    
+<!-- 
+    <p ng-show="user"><a href="/#/podcasts">
+      <md-button ng-show="user" class="md-icon-button" aria-label="Podcasts">
+        <ng-md-icon icon="mic"></ng-md-icon>
+      </md-button>Podcasts</a></p>
 
-          <p ng-show="user"><a href="/#/podcasts">
-          <md-button ng-show="user" class="md-icon-button" aria-label="Podcasts">
-          <ng-md-icon icon="mic"></ng-md-icon>
-          </md-button>Podcasts</a></p>
+    <p ng-show="user"><a href="/#/movies">
+      <md-button ng-show="user" class="md-icon-button" aria-label="Movies">
+        <ng-md-icon icon="movie"></ng-md-icon>
+      </md-button>Movies</a></p>
 
-          <p ng-show="user"><a href="/#/movies">
-          <md-button ng-show="user" class="md-icon-button" aria-label="Movies">
-          <ng-md-icon icon="movie"></ng-md-icon>
-          </md-button>Movies</a></p>
-      
-          <p ng-show="user"><a href="/#/books">
-          <md-button ng-show="user" class="md-icon-button" aria-label="Books">
-          <ng-md-icon icon="book"></ng-md-icon>
-          </md-button>Books</a></p>
-       
-      </md-content>
-    </md-sidenav>
+    <p ng-show="user"><a href="/#/books">
+      <md-button ng-show="user" class="md-icon-button" aria-label="Books">
+        <ng-md-icon icon="book"></ng-md-icon>
+      </md-button>Books</a></p> -->
+
+  </md-content>
+</md-sidenav>
 
 
- <md-toolbar style="position:fixed !important">
+<md-toolbar style="position:fixed !important">
 
   <div class="md-toolbar-tools" ng-controller="NavCtrl">
-   <a href="" ng-click="toTop()"> <h2><img ng-src="/images/flockify.png" height="40px"/> Flockify</a></h2>
-      <span flex></span>
+    <a href="" ng-click="toTop()"> <h2><img ng-src="/images/flockify.png" height="40px"/> Flockify</a></h2>
+    <span flex></span>
 
-  <md-button class="md-icon-button" aria-label="More">
-        <ng-md-icon icon="menu" style="fill:white" ng-click="toggleMenu()"></md-icon>
-      </md-button>
-     
-        
-      
-         <!--  <li ng-hide="user"><a class="nav-link" href="#/login"><i class="fa fa-sign-in"></i></a></li>
-          <li ng-hide="user"><a class="nav-link" href="#/register"><i class="fa fa-pencil-square-o"></i></a></li> -->      
-    </div>   
+    <md-button class="md-icon-button" aria-label="More">
+      <ng-md-icon icon="menu" style="fill:white" ng-click="toggleMenu()"></ng-md-icon>
+    </md-button>
+
+
+
+    <!--  <li ng-hide="user"><a class="nav-link" href="#/login"><i class="fa fa-sign-in"></i></a></li>
+     <li ng-hide="user"><a class="nav-link" href="#/register"><i class="fa fa-pencil-square-o"></i></a></li> -->
+  </div>
 </md-toolbar>
 

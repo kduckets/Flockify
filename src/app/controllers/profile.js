@@ -1,10 +1,11 @@
 module.exports = function ($scope, $routeParams, Profile, Post, Auth, Users, $uibModal, FIREBASE_URL, $location,$mdToast) {
   var ref = new Firebase(FIREBASE_URL);
   var authData = Auth.$getAuth();
-  if (authData) {
-     console.log("User " + authData.uid + " is logged in with " + authData.provider);
-     $scope.user = Users.getProfile(authData.uid);
-     $scope.username = $scope.user.username;
+  var authData = Auth.$getAuth();
+  if (Users.current_user) {
+    console.log("User " + authData.uid + " is logged in with " + authData.provider);
+    $scope.user = Users.getProfile(authData.uid);
+    $scope.username = $scope.user.username;
   } else {
     $scope.user = null;
     $scope.username = null;
@@ -12,42 +13,49 @@ module.exports = function ($scope, $routeParams, Profile, Post, Auth, Users, $ui
     console.log("User is logged out");
   }
 
+  $scope.getNumKeys = function(obj) {
+    if (!obj){
+      return 0;
+    }
+    return Object.keys(obj).length;
+  };
+
   $scope.sorter = '-';
- 
-  $scope.posts = Post.all;
   $scope.loading = true;
 
   var uid = $routeParams.userId;
   $scope.profile = Profile.get(uid);
+  console.log($scope.profile);
   $scope.view_tab = 'tabA';
 
   //get likes
-  Profile.getLikes(uid).then(function(posts) {
+  $scope.getLikes = function(){
+    $scope.loading = true;
+    Profile.getLikes(uid).then(function(posts) {
     $scope.likes = posts;
-    // $scope.loading = false;
+    $scope.loading = false;
   });
+}
 
   // get posts
   Profile.getPosts(uid).then(function(posts) {
-
     $scope.user_posts = posts;
-  
-    ref.child('user_scores').child($scope.profile.username).child('weekly_scores').child('album_score').on("value", function(snapshot) {
+    ref.child('user_scores').child(Users.current_group).child($scope.profile.$id).child('weekly_scores').child('album_score').on("value", function(snapshot) {
       $scope.score = snapshot.val();
-
     });
-    ref.child('user_scores').child($scope.profile.username).child('stars').on("value", function(snapshot) {
+    ref.child('user_scores').child(Users.current_group).child($scope.profile.$id).child('stars').on("value", function(snapshot) {
       $scope.stars = snapshot.val();
-
     });
-
       $scope.loading = false;
   });
 
+   $scope.getQueue = function(){
   Profile.getQueue(uid).then(function(posts) {
     $scope.queue = posts;
-  
+    console.log('queue', $scope.queue);
   });
+  
+  };
 
   $scope.showRatio = function(){
     var monday = moment().startOf('isoweek');
@@ -77,10 +85,10 @@ module.exports = function ($scope, $routeParams, Profile, Post, Auth, Users, $ui
   };
 
   $scope.removeSaved = function(post){
-    Profile.savePost($scope.user.uid, post.$id, 'no');
+    Profile.savePost(Users.current_user_id, post.$id, false);
              $mdToast.show(
         $mdToast.simple()
-        .textContent(post.album + ' removed from your queue')
+        .textContent(post.media_info.album + ' removed from your queue')
         .position('bottom right' )
         .hideDelay(3000)
     );

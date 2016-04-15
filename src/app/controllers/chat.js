@@ -1,5 +1,5 @@
 module.exports = function ($scope, $routeParams, Post, Auth, Comment, Profile, $http, $filter, $sce, 
-  $route, $uibModal, FIREBASE_URL, Users) {
+  $route, $uibModal, FIREBASE_URL, Users, $firebaseArray) {
   var ref = new Firebase(FIREBASE_URL);
   var authData = Auth.$getAuth();
   if (authData) {
@@ -12,14 +12,13 @@ module.exports = function ($scope, $routeParams, Post, Auth, Comment, Profile, $
     $location.path('/login');
     console.log("User is logged out");
   }
-  $scope.posts = Post.all;
   $scope.gifSearchText = '';
   $scope.viewby = 12;
   $scope.itemsPerPage = $scope.viewby;
   $scope.maxSize = 5; // Number of pager buttons to show
 
   // don't load scope.comments with comments until we know total #
-  var comments = Comment.get_comments_for_post('flock_groupchat');
+  var comments = $firebaseArray(ref.child('chats').child(Users.current_group));
   comments.$loaded().then(function(comments) {
       $scope.totalItems = comments.length;
       $scope.comments = comments;

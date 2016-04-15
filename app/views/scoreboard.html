@@ -1,6 +1,6 @@
 <div ng-show="user" flex ng-cloak>
 <div align="center"><small><a href="#/history">view previous contest results</a></small></div>
-  <h2 align="center">Weekly Contest (4/11)</h2>
+  <h2 align="center">Weekly Contest {{display_week}}</h2>
 <!--   <p align="center">Slopestyle (no rules).</p> -->
   <table class="table table-inverse">
     <thead>
@@ -11,11 +11,11 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="user in users | orderBy:'-weekly_scores.album_score'">
+      <tr ng-repeat="user in users | orderBy:orderby_string | emptyToEnd:current_week" ng-show="user[current_week].album_score==0  || user[current_week].album_score">
         <th scope="row">{{$index + 1}}</th>
-        <td>{{user.$id}} <!-- <img src="/images/poop.gif" style="padding-bottom:4px" ng-show="user.$id == 'Nrblanks' || user.$id == 'Stevie' || user.$id == 'davidemerritt' || user.$id == 'Oat'" height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:3px" ng-show="user.$id == 'sparker'" height="30px"/> -->
+        <td><a ng-href="#/users/{{ user.$id }}" style="color: white">{{getUsername(user.$id)}}</a> <!-- <img src="/images/poop.gif" style="padding-bottom:4px" ng-show="user.$id == 'Nrblanks' || user.$id == 'Stevie' || user.$id == 'davidemerritt' || user.$id == 'Oat'" height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:3px" ng-show="user.$id == 'sparker'" height="30px"/> -->
         </td>
-        <td>{{user.weekly_scores.album_score}}</td>      
+        <td>{{user[current_week].album_score}}</td>      
       </tr>
     </tbody>
   </table>
@@ -32,13 +32,13 @@
     <tbody>
       <tr ng-repeat="user in users | orderBy:'-album_score'">
         <th scope="row">{{$index + 1}}</th>
-        <td>{{user.$id}}</td>
+        <td><a ng-href="#/users/{{ user.$id }}" style="color: white">{{getUsername(user.$id)}}</a></td>
         <td>{{user.album_score}}</td>      
       </tr>
     </tbody>
   </table>
 
-  <h2 align="center">Podcasts (all-time)</h2>
+ <!--  <h2 align="center">Podcasts (all-time)</h2>
   <table class="table table-inverse">
     <thead>
       <tr>
@@ -90,6 +90,6 @@
         <td>{{user.book_score}}</td>      
       </tr>
     </tbody>
-  </table>
+  </table> -->
 
 </div>

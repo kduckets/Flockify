@@ -1,24 +1,23 @@
 module.exports = function($scope, $route, $location, $window, Post, Auth, $http, $cookies, album, $sce, $filter,
-  $timeout, $q, $mdDialog, FIREBASE_URL, $mdConstant, Users, $firebaseArray) {
+                          $timeout, $q, $mdDialog, FIREBASE_URL, $mdConstant, Users, $firebaseArray) {
 
-   var ref = new $window.Firebase(FIREBASE_URL);
-   var tagsRef = new $window.Firebase(FIREBASE_URL+"/tags");
-   var tags = $firebaseArray(ref.child('tags'));
+  var ref = new $window.Firebase(FIREBASE_URL);
+  var tags = $firebaseArray(ref.child('tags').child(Users.current_group));
 
-    $scope.readonly = false;
-    $scope.selectedItem = null;
-    $scope.searchText = null;
-    $scope.selectedTags = [];
-    $scope.requireMatch = true;
-    $scope.tags = tags;
-    $scope.querySearch = querySearch;
-    $scope.transformChip = transformChip;
-    $scope.keys = [$mdConstant.KEY_CODE.COMMA, $mdConstant.KEY_CODE.ENTER];
+  $scope.readonly = false;
+  $scope.selectedItem = null;
+  $scope.searchText = null;
+  $scope.selectedTags = [];
+  $scope.requireMatch = true;
+  $scope.tags = tags;
+  $scope.querySearch = querySearch;
+  $scope.transformChip = transformChip;
+  $scope.keys = [$mdConstant.KEY_CODE.COMMA, $mdConstant.KEY_CODE.ENTER];
 
-    if (Auth.$getAuth()) {
-     $scope.user = Users.getProfile(Auth.$getAuth().uid);
-     $scope.username = Users.getUsername(Auth.$getAuth().uid);
-    } else {
+  if (Auth.$getAuth()) {
+    $scope.user = Users.getProfile(Auth.$getAuth().uid);
+    $scope.username = Users.getUsername(Auth.$getAuth().uid);
+  } else {
     $scope.user = null;
     console.log("User is logged out");
   };
@@ -27,42 +26,43 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
 
 
   function transformChip(chip) {
-      
-      // If it is an object, it's already a known chip
-      if (angular.isObject(chip)) {
-        console.log("chip is object", chip);
-        return {name: chip.$value};
-      }else{
-      // tagsRef.once('value', function(snapshot) {
-      // var tagList = snapshot.val();
-      // if (tagList.indexOf(chip) > -1)
-      //   {
-      //     console.log("tag exists");
-      //     return { name: chip };
-      //   };
-       // });
+    var match = false;
+    // If it is an object, it's already a known chip
+    if (angular.isObject(chip)) {
+      return {name: chip.$value};
+    } else {
+      angular.forEach(tags, function (value, key) {
+        if (chip === value.$value) {
+          match = true;
+        }
+      });
+    }
+    if (!match) {
       tags.$add(chip)
-      return { name: chip }; 
-    };
-    };
+      return {name: chip};
+    }
+    if (match) {
+      return {name: chip};
+    }
+  };
 
-    /**
-     * Search for tags.
-     */
-   function querySearch (query) {
-      var results = query ? $scope.tags.filter($scope.createFilterFor(query)) : query;
-      return results;
-    };
+  /**
+   * Search for tags.
+   */
+  function querySearch (query) {
+    var results = query ? $scope.tags.filter($scope.createFilterFor(query)) : query;
+    return results;
+  };
 
-    /**
-     * Create filter function for a query string
-     */
-    $scope.createFilterFor = function(query) {
-      var lowercaseQuery = angular.lowercase(query);
-      return function filterFn(tag) {
-        return (tag.$value.indexOf(lowercaseQuery) === 0)
-      };
+  /**
+   * Create filter function for a query string
+   */
+  $scope.createFilterFor = function(query) {
+    var lowercaseQuery = angular.lowercase(query);
+    return function filterFn(tag) {
+      return (tag.$value.indexOf(lowercaseQuery) === 0)
     };
+  };
 
   $http({
     method: 'GET',
@@ -89,8 +89,8 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
 
 
   $scope.cancel = function() {
-       $mdDialog.hide();
-       $location.path('/');
+    $mdDialog.hide();
+    $location.path('/');
 
   };
 
@@ -100,35 +100,52 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
 
     // });
     $scope.loadingBar = true;
-    $timeout(function () { $scope.loadingBar = false; }, 2000); 
+    $timeout(function () { $scope.loadingBar = false; }, 2000);
+    $scope.post.media_info = {};
 
-    $scope.post.creator = $scope.username || null,
-    $scope.post.summary = $scope.summary;
-    $scope.post.creatorUID = $scope.user.$id;
-    $scope.post.album = $scope.album;
-    $scope.post.artist = $scope.artist;
+    $scope.post.creator_name = $scope.username || null,
+      $scope.post.media_info.summary = $scope.summary;
+    $scope.post.creator_id = $scope.user.$id;
+    $scope.post.media_info.album = $scope.album;
+    $scope.post.media_info.artist = $scope.artist;
     //$scope.post.image_large= $scope.image_large;
     //var genres= $.map($scope.posts, function(post, idx){ return post.album;})
     $scope.post.tags = $scope.selectedTags;
     $scope.post.image_medium = $scope.image_large;
     $scope.post.image_small = $scope.image_small;
-    $scope.post.spotify_uri = $scope.spotify_uri;
-    $scope.post.embed_uri = $scope.embed_uri;
+    $scope.post.media_info.share_uri = $scope.spotify_uri;
+    $scope.post.media_info.embed_uri = $scope.embed_uri;
     $scope.post.comments = 0;
-    $scope.post.date = moment.utc().format();
-    $scope.post.release_date = $scope.release_date;
+    $scope.post.created_ts = moment.utc().format();
+    $scope.post.media_info.release_date = $scope.release_date;
     $scope.post.latest_comment = 9999;
 
 
-    Post.create($scope.post).then(function(ref) {
+    Post.create($scope.post).then(function(postRef) {
       //$location.path('/posts/' + ref.name());
       $mdDialog.hide();
 
+      console.log('group ',Users.current_group);
+
+      ref.child('user_scores').child(Users.current_group).child($scope.user.$id).once("value", function(snapshot) {
+          var val = snapshot.val();
+          if (!val){
+            console.error("No snapshot found for ", $scope.user.$id);
+            return;
+          }
+
+          var week = moment().startOf('isoweek').format('MM_DD_YYYY');
+          var current_week = 'weekly_score_'+week;
+
+           if(!val[current_week]){
+              var scores = {};
+               scores[current_week] = {album_score:0};
+            ref.child('user_scores').child(Users.current_group).child($scope.user.$id).update(scores);
+           }
+         });
+
       $route.reload();
-      $scope.post = {
-        artist: '',
-        album: ''
-      };
+
     });
   };
 
