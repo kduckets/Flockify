@@ -47,12 +47,12 @@
 <div ng-repeat="(key,post) in user_posts" ng-show="view_tab == 'tabA' " align="center" >
  <div class="post">
 
-  <a ng-href="#/posts/{{ post.$id  }}">
+  <a ng-href="#/albums/{{post.$id}}">
     <img ng-src="{{post.image_medium}}" height="100" />
   </a>
 
   <br/>
-  <a ng-href="#/posts/{{ post.$id  }}">
+  <a ng-href="#/albums/{{post.$id}}">
     {{post.media_info.artist}} - {{ post.media_info.album }} ({{post.media_info.release_date | limitTo: 4}})
   </a>
   <div>
@@ -68,8 +68,8 @@
  {{ post.score }} votes
  <small>(posted by {{post.creator_name}})</small>
 
- <small><a ng-href="#/posts/{{ post.$id  }}">comments ({{ post.comments }})</a></small>
- <small><a href="" ng-click="deletePost(post)" ng-show="user.uid === post.creatorUID">&mdash; delete</a></small>
+ <small><a ng-href="#/albums/{{post.$id}}">comments ({{ post.comments }})</a></small>
+ <small><a href="" ng-click="deletePost(post)" ng-show="user.$id === post.creator_id">&mdash; delete</a></small>
 </p>
 </div>
 </div>
@@ -81,14 +81,14 @@
  <div class="post">
 
 
-  <a ng-href="#/posts/{{ post.$id  }}">
+  <a ng-href="#/albums/{{post.$id}}">
     <img ng-src="{{post.image_medium}}" height="100" />
   </a>
 
 
 
   <br/>
-  <a ng-href="#/posts/{{ post.$id  }}">
+  <a ng-href="#/albums/{{post.$id}}">
     {{post.media_info.artist}} - {{ post.media_info.album }} ({{post.media_info.release_date | limitTo: 4}})
   </a>
   <div>
@@ -100,10 +100,10 @@
     </span>
     <p>
      {{ post.score }} votes
-     <small>(posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator_name}}</a>)</small>
+     <small>(posted by <a ng-href="#/users/{{ post.creator_id }}">{{post.creator_name}}</a>)</small>
 
-     <small><a ng-href="#/posts/{{ post.$id  }}">comments ({{ post.comments }})</a></small>
-     <small><a href="" ng-click="deletePost(post)" ng-show="user.uid === post.creatorUID">&mdash; delete</a></small>
+     <small><a ng-href="#/albums/{{post.$id}}">comments ({{ post.comments }})</a></small>
+     <small><a href="" ng-click="deletePost(post)" ng-show="user.$id === post.creator_id">&mdash; delete</a></small>
    </p>
  </div>
 
@@ -147,7 +147,7 @@
 </div>
 
    </div>
-   <small><b>posted by <a ng-href="#/users/{{ post.creatorUID }}">{{post.creator_name}}</b>
+   <small><b>posted by <a ng-href="#/users/{{ post.creator_id }}">{{post.creator_name}}</b>
 
        <!--    <img src="/images/poop.gif" style="padding-bottom:10px; padding-left:2px; height: 50px; width: auto;  display:inline-block;" ng-show="user.profile.group_id == 1 && post.creator == 'Nrblanks' || post.creator == 'Stevie' || post.creator == 'davidemerritt' || post.creator == 'Oat'"height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:2px;height: 30px; width: auto;display:inline-block;" ng-show="user.profile.group_id == 1 && post.creator == 'sparker'"/> -->
 
