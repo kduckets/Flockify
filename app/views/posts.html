@@ -1,10 +1,10 @@
-<div style="padding-bottom:10px">
+<div style="padding-bottom:10px" ng-show="user">
   <md-progress-linear ng-show="loadingBar" md-mode="indeterminate"></md-progress-linear>
   <!--   <div ng-show="!user && !loadingCircle" align="center">
      <h2>Welcome to flockify</h2>
      <p><a href="/#/login">Sign in</a> to get started</p>
    </div> -->
-  <div ng-show="user" ng-cloak>
+  <div ng-cloak>
     <md-button aria-label="Search"
                style="top:12px;right:48px;position:fixed;z-index:2;" ng-click="showSearch = !showSearch; allTime()">
       <ng-md-icon icon="search" style="fill:white" size="28"></ng-md-icon>

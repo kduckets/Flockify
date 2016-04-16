@@ -1,13 +1,14 @@
-module.exports = function ($scope, $location, $routeParams, Auth, $cookieStore, $rootScope, Profile, FIREBASE_URL, $route) {
+module.exports = function ($scope, $location, $routeParams, Auth, $cookieStore, $rootScope, Profile, FIREBASE_URL, $route, Users) {
 var authCtrl = this;
-$scope.showRegistration = false;
+$scope.hideRegistration = true;
 $scope.showContact = false;
 var ref = new Firebase(FIREBASE_URL);
 var groupsRef = new Firebase(FIREBASE_URL+"/groups");
+
 $scope.beta_group_name = $routeParams.groupName;
 groupsRef.once("value", function(snapshot) {
   if(snapshot.val()[$scope.beta_group_name]){
-    $scope.showRegistration = true;
+    $scope.hideRegistration = false;
     console.log('valid group name');
   }else{
     $scope.showContact = true;
@@ -22,8 +23,11 @@ groupsRef.once("value", function(snapshot) {
 
   $scope.login = function (){
     Auth.$authWithPassword($scope.user).then(function (auth){
-      $location.path('/');
-      $route.reload();
+      Users.set_group_to_default(auth.uid).then(function(currrent_group){
+        $location.path('/');
+        $route.reload();
+      });
+      
   }, function (error){
     $scope.error = error;
   });
@@ -49,7 +53,6 @@ groupsRef.once("value", function(snapshot) {
   
       ref.child('users').child(user.uid).set(profile);
       ref.child('user_scores').child($scope.beta_group_name).child(user.uid).set(scores);
-      var current_group = localStorage.setItem('current_group',$scope.beta_group_name);
 
     $scope.login();
   }, function (error){

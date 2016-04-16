@@ -1,7 +1,7 @@
-module.exports = function($firebaseArray, $firebaseObject, $route, Auth, FIREBASE_URL){
+module.exports = function($firebaseArray, $firebaseObject, $route, Auth, FIREBASE_URL, $q){
   var usersRef = new Firebase(FIREBASE_URL+'/users');
   var users = $firebaseArray(usersRef);
-  var current_group = localStorage.getItem('current_group') || 'firsttoflock';
+  var current_group = localStorage.getItem('current_group');
   var current_group_name = '';
   var current_user_auth_data = Auth.$getAuth();
   var current_user_id = (current_user_auth_data) ? current_user_auth_data.uid : null;
@@ -37,6 +37,15 @@ module.exports = function($firebaseArray, $firebaseObject, $route, Auth, FIREBAS
       current_group = group_id;
       localStorage.setItem('current_group', group_id);
       window.location.reload();
+    },
+    set_group_to_default: function(user_id){
+       var defer = $q.defer();
+       usersRef.child(user_id).child('groups').once('value', function(snap) {
+       var default_group = Object.keys(snap.val())[0]; 
+       Users.set_current_group(default_group);
+        defer.resolve(default_group);   
+      }); 
+          return defer.promise;
     },
 
     all: users,

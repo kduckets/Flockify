@@ -28,6 +28,8 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
   $scope.loadingCircle = true;
   $timeout(function () { $scope.loadingCircle = false; }, 3000);
 
+  if($scope.user){
+
   chatRef.limitToLast(1).on("child_added", function(snap) {
     if($scope.user){
       if($cookieStore.get('last_chat') == snap.key()) {
@@ -295,7 +297,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
 
   init();
 
-
+};
   // $scope.batchUpdate = function(){
 
   //   var today = $filter('date')(new Date(),'yyyy-MM-dd HH:mm:ss');
