@@ -24,6 +24,7 @@ groupsRef.once("value", function(snapshot) {
     Auth.$authWithPassword($scope.user).then(function (auth){
       Users.set_group_to_default(auth.uid).then(function(currrent_group){
         $location.path('/');
+        $route.reload();
       });
       
   }, function (error){
