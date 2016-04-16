@@ -2,10 +2,13 @@ module.exports = function ($scope, $location, $routeParams, Auth, $cookieStore, 
 var authCtrl = this;
 $scope.hideRegistration = false;
 $scope.showContact = false;
-  var authData = Auth.$getAuth();
-    if (authData) {
+  Auth.$onAuth(function(authData) {
+  if (authData) {
     $location.path('/');
+  } else {
+    console.log("Logged out");
   }
+});
 var ref = new Firebase(FIREBASE_URL);
 var groupsRef = new Firebase(FIREBASE_URL+"/groups");
 $scope.beta_group_name = $routeParams.groupName;
@@ -52,8 +55,10 @@ groupsRef.once("value", function(snapshot) {
   
       ref.child('users').child(user.uid).set(profile);
       ref.child('user_scores').child($scope.beta_group_name).child(user.uid).set(scores);
+      Auth.$authWithPassword($scope.user).then(function (auth){
+      localStorage.setItem('current_group', $scope.beta_group_name);
+      $location.path('/');
 
-    $scope.login();
   }, function (error){
     $scope.error = error;
   });
