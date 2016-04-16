@@ -49,7 +49,10 @@ module.exports = function ($window, FIREBASE_URL, $firebaseArray, $firebaseObjec
             var star = data[i].star;
 
             if(id && up || id && star){
-              posts[id] = Post.get(id);
+              var post_info = Post.get(id);
+              if(post_info.$value){
+              posts[id] = post_info;
+          }
             }
           }
           defer.resolve(posts);
@@ -69,8 +72,9 @@ module.exports = function ($window, FIREBASE_URL, $firebaseArray, $firebaseObjec
           for(var i = 0; i<data.length; i++) {
             var id = data[i].$id;
             var saved = data[i].saved;
-            if(id && saved){
-              posts[id] = Post.get(id);
+            var post_info = Post.get(id);
+            if(id && saved && post_info.$value){
+              posts[id] = post_info;
             }
           }
           defer.resolve(posts);
