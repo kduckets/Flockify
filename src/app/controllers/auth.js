@@ -1,18 +1,12 @@
-module.exports = function ($scope, $location, $routeParams, Auth, $cookieStore, $rootScope, Profile, FIREBASE_URL, $route, Users) {
+module.exports = function ($scope, $location, $routeParams, Auth, $cookieStore, $rootScope, Profile, FIREBASE_URL, $route, Users, $timeout) {
 var authCtrl = this;
 $scope.hideRegistration = false;
+$scope.regLoading = false;
 $scope.showContact = false;
   var isAuth = Auth.$getAuth();
     if (isAuth) {
     $location.path('/');
   }
-  Auth.$onAuth(function(authData) {
-  if (authData) {
-    $location.path('/');
-  } else {
-    console.log("Logged out");
-  }
-});
 var ref = new Firebase(FIREBASE_URL);
 var groupsRef = new Firebase(FIREBASE_URL+"/groups");
 $scope.beta_group_name = $routeParams.groupName;
@@ -61,7 +55,11 @@ groupsRef.once("value", function(snapshot) {
       ref.child('user_scores').child($scope.beta_group_name).child(user.uid).set(scores);
       Auth.$authWithPassword($scope.user).then(function (auth){
       localStorage.setItem('current_group', $scope.beta_group_name);
-       window.location.reload();
+      $timeout(function () { 
+        $scope.regLoading = true; 
+        $scope.hideRegistration = true;
+        window.location.reload();
+      }, 3000);
 
   }, function (error){
     $scope.error = error;
