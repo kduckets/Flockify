@@ -2,6 +2,10 @@ module.exports = function ($scope, $location, $routeParams, Auth, $cookieStore, 
 var authCtrl = this;
 $scope.hideRegistration = true;
 $scope.showContact = false;
+  var authData = Auth.$getAuth();
+    if (authData) {
+    $location.path('/');
+  }
 var ref = new Firebase(FIREBASE_URL);
 var groupsRef = new Firebase(FIREBASE_URL+"/groups");
 $scope.beta_group_name = $routeParams.groupName;
