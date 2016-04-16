@@ -4,7 +4,6 @@ $scope.hideRegistration = true;
 $scope.showContact = false;
 var ref = new Firebase(FIREBASE_URL);
 var groupsRef = new Firebase(FIREBASE_URL+"/groups");
-
 $scope.beta_group_name = $routeParams.groupName;
 groupsRef.once("value", function(snapshot) {
   if(snapshot.val()[$scope.beta_group_name]){
@@ -25,7 +24,6 @@ groupsRef.once("value", function(snapshot) {
     Auth.$authWithPassword($scope.user).then(function (auth){
       Users.set_group_to_default(auth.uid).then(function(currrent_group){
         $location.path('/');
-        $route.reload();
       });
       
   }, function (error){

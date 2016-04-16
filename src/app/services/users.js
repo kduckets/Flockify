@@ -36,7 +36,7 @@ module.exports = function($firebaseArray, $firebaseObject, $route, Auth, FIREBAS
     set_current_group: function(group_id) {
       current_group = group_id;
       localStorage.setItem('current_group', group_id);
-      window.location.reload();
+       $route.reload();
     },
     set_group_to_default: function(user_id){
        var defer = $q.defer();
