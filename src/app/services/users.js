@@ -1,4 +1,4 @@
-module.exports = function($firebaseArray, $firebaseObject, $route, Auth, FIREBASE_URL, $q){
+module.exports = function($firebaseArray, $firebaseObject, $route, Auth, FIREBASE_URL, $q, $location){
   var usersRef = new Firebase(FIREBASE_URL+'/users');
   var users = $firebaseArray(usersRef);
   var current_group = localStorage.getItem('current_group');
