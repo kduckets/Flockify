@@ -1,6 +1,6 @@
 module.exports = function ($scope, $location, $routeParams, Auth, $cookieStore, $rootScope, Profile, FIREBASE_URL, $route, Users) {
 var authCtrl = this;
-$scope.hideRegistration = true;
+$scope.hideRegistration = false;
 $scope.showContact = false;
   var authData = Auth.$getAuth();
     if (authData) {
@@ -10,15 +10,12 @@ var ref = new Firebase(FIREBASE_URL);
 var groupsRef = new Firebase(FIREBASE_URL+"/groups");
 $scope.beta_group_name = $routeParams.groupName;
 groupsRef.once("value", function(snapshot) {
-  if(snapshot.val()[$scope.beta_group_name]){
-    $scope.hideRegistration = false;
-    console.log('valid group name');
-  }else{
+  if(!snapshot.val()[$scope.beta_group_name]){
+    $scope.hideRegistration = true;
     $scope.showContact = true;
+    console.log('invalid group name');
   }
 });
-
-
     $scope.user = {
       email: '',
       password: ''
