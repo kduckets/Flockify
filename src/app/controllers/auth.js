@@ -56,15 +56,10 @@ groupsRef.once("value", function(snapshot) {
   
       ref.child('users').child(user.uid).set(profile);
       ref.child('user_scores').child($scope.beta_group_name).child(user.uid).set(scores);
-      Auth.$authWithPassword($scope.user).then(function (auth){
-      localStorage.setItem('current_group', $scope.beta_group_name);
-       $timeout(function () {       
-        $window.location.reload();
-      }, 3000);
-
-  }, function (error){
-    $scope.error = error;
-  });
+      $scope.login();
+      //  $timeout(function () {       
+      //   $window.location.reload();
+      // }, 3000);
     }, function (error){
     $scope.error = error;
   });
