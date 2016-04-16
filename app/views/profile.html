@@ -79,14 +79,9 @@
 <div ng-repeat="post in likes" ng-show="view_tab == 'tabB'" align="center">
 
  <div class="post">
-
-
   <a ng-href="#/albums/{{post.$id}}">
     <img ng-src="{{post.image_medium}}" height="100" />
   </a>
-
-
-
   <br/>
   <a ng-href="#/albums/{{post.$id}}">
     {{post.media_info.artist}} - {{ post.media_info.album }} ({{post.media_info.release_date | limitTo: 4}})
@@ -106,56 +101,35 @@
      <small><a href="" ng-click="deletePost(post)" ng-show="user.$id === post.creator_id">&mdash; delete</a></small>
    </p>
  </div>
-
 </div>
-
 </div>
 
 <div ng-repeat="post in queue" ng-show="view_tab == 'tabC'" align="center">
 
- <md-card class="card" >
-  <span class="score label label-default label-default"><b>{{ post.score }}</b></span>
-  <div class="album-container">
-  <a ng-href="#/albums/{{post.$id}}" >
-    <img class="md-card-image" ng-src="{{post.image_medium}}" />
+ <div class="post">
+  <a ng-href="#/albums/{{post.$id}}">
+    <img ng-src="{{post.image_medium}}" height="100" />
   </a>
-  </div>
-  <div style="padding-top:5px; padding-bottom:10px">
-   <div>
-    <div>
-   <img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" class="star" />
-   <a href="" ng-show="user.profile.group_id == 1" ng-click="starPost(post)">
-    <img ng-src="/images/empty-star.png" class="star" /></a>
+  <br/>
+  <a ng-href="#/albums/{{post.$id}}">
+    {{post.media_info.artist}} - {{ post.media_info.album }} ({{post.media_info.release_date | limitTo: 4}})
+  </a>
+  <div>
+    <img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18" />
     </div>
-     <a ng-href="#/albums/{{post.$id}}" >
-       {{ post.media_info.artist }} - {{ post.media_info.album }} ({{post.media_info.release_date | limitTo: 4}})</a>
-     <div>
-       <a ng-href="#/albums/{{ post.$id  }}">
-       <span class="label label-pill label-info">{{ post.media_info.summary | limitTo: 40 }}{{post.media_info.summary.length > 40 ? '..' : ''}}</span></a>
-     </div>
+    <div>
+    <!--      <img ng-src="/images/empty-star.png" height="18" /></a> -->
+    <span class="label label-pill label-info">{{ post.media_info.summary | limitTo: 40 }}{{post.media_info.summary.length > 40 ? '..' : ''}}
+    </span>
+    <p>
+     {{ post.score }} votes
+     <small>(posted by <a ng-href="#/users/{{ post.creator_id }}">{{post.creator_name}}</a>)</small>
 
-  <div layout="row" layout-align="center center">
- <md-chips class="tag-chip"  ng-model="post.tags"  readonly="true">
-      <md-chip-template>
-      <a href="" ng-click="filterByTag($chip.name)">
-        <span>
-          <small>{{$chip.name | lowercase}}</small>
-        </span>
-        </a>
-      </md-chip-template>
-    </md-chips>
+     <small><a ng-href="#/albums/{{post.$id}}">comments ({{ post.comments }})</a></small>
+     <small><a href="" ng-click="deletePost(post)" ng-show="user.$id === post.creator_id">&mdash; delete</a></small>
+   </p>
+ </div>
 </div>
-
-   </div>
-   <small><b>posted by <a ng-href="#/users/{{ post.creator_id }}">{{post.creator_name}}</b>
-
-       <!--    <img src="/images/poop.gif" style="padding-bottom:10px; padding-left:2px; height: 50px; width: auto;  display:inline-block;" ng-show="user.profile.group_id == 1 && post.creator == 'Nrblanks' || post.creator == 'Stevie' || post.creator == 'davidemerritt' || post.creator == 'Oat'"height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:2px;height: 30px; width: auto;display:inline-block;" ng-show="user.profile.group_id == 1 && post.creator == 'sparker'"/> -->
-
-     </b>
-       </a> <i>{{ post.created_ts | timeAgo}}</i></small></span>
-       <p><small><button class="btn btn-success-outline btn-sm" ng-click="removeSaved(post)" data-toggle="modal" data-target=".bd-example-modal-sm">remove from my queue</button></small></p>
-            </md-card-content>
-          </div>
 
 <div layout="row" layout-align="center center" style="position:relative;right:0;bottom:0;">
 <!--    <md-button class="md-icon-button" ng-show="user.profile.group_id == 1" ng-click="save(post)" aria-label="Save" >
