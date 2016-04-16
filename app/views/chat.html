@@ -28,22 +28,26 @@
       ng-model="commentText"
       placeholder="chat box"
       class="form-control"></textarea>
-      <input type="submit" value="post" class="btn btn-primary" />
+      <input type="submit" value="send" class="btn btn-primary" />
     </form>
+    <br/>
+      <p>Add a gif comment:</p>
+      <div layout-gt-sm="row" layout-padding>
 
-    <p>
-      <form ng-show="user" ng-submit="gifsearch()">
-        <input type="text" ng-model="gifSearchText" placeholder="search for gif"/>
-        <input type="submit" value="search" class="btn btn-secondary" /> 
-      </form>
-      or
-      <form ng-show="user" ng-submit="addGif(gifLink)">
-        <input type="text" ng-model="gifLink" placeholder="paste gif link"/>
-        <input type="submit" value="post" class="btn btn-secondary" /> 
-      </form>
-    </p>
-  </div>
-  <br/>
+        <form ng-show="user" ng-submit="gifsearch()">
+          <md-input-container>
+            <label>Search for a gif</label>
+            <input ng-model="gifSearchText">
+          </md-input-container>
+        </form>
+        <form ng-show="user" ng-submit="addComment(gifLink)">
+          <md-input-container>
+            <label>Paste gif link</label>
+            <input ng-model="gifLink"/>
+          </md-input-container>
+        </form>
+      </div>
+    </div>
   <div ng-repeat="gif in gifs" style="display: inline-block;">
     <a ng-href="#/chat" ng-click="addGif(gif.images.downsized.url)"><img class="gifs" ng-src="{{gif.images.downsized.url}}" height="100" /></a>
   </div>
