@@ -62,6 +62,9 @@ groupsRef.once("value", function(snapshot) {
   }, function (error){
     $scope.error = error;
   });
+    }, function (error){
+    $scope.error = error;
+  });
 };
 
 };
