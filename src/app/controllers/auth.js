@@ -1,4 +1,5 @@
-module.exports = function ($scope, $location, $routeParams, Auth, $cookieStore, $rootScope, Profile, FIREBASE_URL, $route, Users, $timeout) {
+module.exports = function ($scope, $location, $routeParams, Auth, $cookieStore, $window,
+  $rootScope, Profile, FIREBASE_URL, $route, Users, $timeout) {
 var authCtrl = this;
 $scope.hideRegistration = false;
 $scope.regLoading = false;
@@ -58,7 +59,7 @@ groupsRef.once("value", function(snapshot) {
       Auth.$authWithPassword($scope.user).then(function (auth){
       localStorage.setItem('current_group', $scope.beta_group_name);
        $timeout(function () {       
-        window.location.reload();
+        $window.location.reload();
       }, 3000);
 
   }, function (error){
