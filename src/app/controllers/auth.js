@@ -2,6 +2,9 @@ module.exports = function ($scope, $location, $routeParams, Auth, $cookieStore, 
 var authCtrl = this;
 $scope.hideRegistration = false;
 $scope.showContact = false;
+    if (authData) {
+    $location.path('/');
+  }
   Auth.$onAuth(function(authData) {
   if (authData) {
     $location.path('/');
@@ -57,7 +60,7 @@ groupsRef.once("value", function(snapshot) {
       ref.child('user_scores').child($scope.beta_group_name).child(user.uid).set(scores);
       Auth.$authWithPassword($scope.user).then(function (auth){
       localStorage.setItem('current_group', $scope.beta_group_name);
-      $location.path('/');
+       window.location.reload();
 
   }, function (error){
     $scope.error = error;
