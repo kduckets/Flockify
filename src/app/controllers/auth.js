@@ -2,7 +2,8 @@ module.exports = function ($scope, $location, $routeParams, Auth, $cookieStore, 
 var authCtrl = this;
 $scope.hideRegistration = false;
 $scope.showContact = false;
-    if (authData) {
+  var isAuth = Auth.$getAuth();
+    if (isAuth) {
     $location.path('/');
   }
   Auth.$onAuth(function(authData) {
