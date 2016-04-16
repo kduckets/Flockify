@@ -34,6 +34,8 @@ groupsRef.once("value", function(snapshot) {
 };
 
   $scope.register = function (){
+    $scope.regLoading = true; 
+    $scope.hideRegistration = true;
     Auth.$createUser($scope.user).then(function (user){
 
       var groups = {};
@@ -55,9 +57,7 @@ groupsRef.once("value", function(snapshot) {
       ref.child('user_scores').child($scope.beta_group_name).child(user.uid).set(scores);
       Auth.$authWithPassword($scope.user).then(function (auth){
       localStorage.setItem('current_group', $scope.beta_group_name);
-      $timeout(function () { 
-        $scope.regLoading = true; 
-        $scope.hideRegistration = true;
+       $timeout(function () {       
         window.location.reload();
       }, 3000);
 
