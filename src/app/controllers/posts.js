@@ -22,12 +22,16 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
 });
   $scope.filteredItems = [];
   if(authData){
-  $scope.posts = $firebaseArray(ref.child('posts').child(Users.current_group));
+    $scope.loadingCircle = true;
+  $firebaseArray(ref.child('posts').child(Users.current_group)).$loaded(function(data){
+     $scope.posts = data;
+     $scope.loadingCircle = false;
+  });
  }
   $scope.post = {score: 0, comments: 0, stars:0};
 
-  $scope.loadingCircle = true;
-  $timeout(function () { $scope.loadingCircle = false; }, 3000);
+  // $scope.loadingCircle = true;
+  // $timeout(function () { $scope.loadingCircle = false; }, 3000);
 
   if($scope.user){
 
