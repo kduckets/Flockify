@@ -140,7 +140,7 @@ img.star{
 
 .embed-container iframe {
   position: relative;
-  width: 68%;
+  width: 80%;
   padding-left: 18px
 }
    
@@ -154,8 +154,8 @@ img.gif:hover {
 height: 300px;
 }
 img.comments{
-  width: 68% !important;
-  height: 68% !important;
+  width: 80% !important;
+  height: 80% !important;
   -webkit-filter: drop-shadow(12px 12px 25px rgba(0,0,0,0.5));
     filter: url(#drop-shadow);
     -ms-filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=12, OffY=12, Color='#444')";
