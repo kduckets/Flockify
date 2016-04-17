@@ -7,10 +7,6 @@
       <img ng-src="{{ post.image_medium }}" class="comments"/>
     </a>
 
-    <div class="embed-container">
-      <iframe ng-src="{{ iframeUrl }}" height="80" frameborder="0" allowtransparency="true"></iframe>
-    </div>
-
     <div><img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18"/>
 
       <a data-toggle="modal" ng-click="starPost(post)" href="">
