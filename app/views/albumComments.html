@@ -94,7 +94,7 @@
             <!--  <img src="/images/poop.gif" style="padding-bottom:10px; padding-left:2px" ng-show="comment.creator  == 'Nrblanks' || comment.creator   == 'Stevie' || comment.creator == 'davidemerritt' || comment.creator == 'Oat'" height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:2px" ng-show="comment.creator == 'sparker'" height="30px"/> -->
 
 
-          </a>{{comment.creation_ts | timeAgo}}
+          </a>{{comment.datetime_ts | timeAgo}}
           <a ng-href=""
              ng-click="deleteComment(comment)"
              ng-show="user && comment.creator_id === user.$id">
