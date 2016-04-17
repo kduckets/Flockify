@@ -5,7 +5,7 @@
   <div ng-repeat="comment in comments.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))" class="row cmt">
     <div class="col-md-12">
      <p>
-      <a ng-href="#/users/{{ comment.creatorUID }}">
+      <a ng-href="#/users/{{ comment.creator_id }}">
         <b>{{ comment.creator_name }}</b> 
 
  <!--  <img src="/images/poop.gif" style="padding-bottom:10px; padding-left:2px" ng-show="comment.creator  == 'Nrblanks' || comment.creator   == 'Stevie' || comment.creator == 'davidemerritt' || comment.creator == 'Oat'" height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:2px" ng-show="comment.creator == 'sparker'" height="30px"/> -->
