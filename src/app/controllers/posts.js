@@ -9,6 +9,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
     $scope.username = $scope.user.username;
     console.log("Logged in as:", authData.uid);
   }
+
   Auth.$onAuth(function(authData) {
   if (authData) {
     $scope.user = Users.getProfile(authData.uid);
@@ -21,7 +22,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
 });
   $scope.filteredItems = [];
   if(authData){
-  $scope.posts = Post.all;
+  $scope.posts = $firebaseArray(ref.child('posts').child(Users.current_group));
  }
   $scope.post = {score: 0, comments: 0, stars:0};
 
