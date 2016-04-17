@@ -136,10 +136,10 @@
 
 <!-- *********************************************************** desktop ************************************************************************************ -->
 
-<div ng-show="user" flex ng-cloak layout="row" layout-xs="column" hide-xs hide-sm>
+<div ng-show="user" flex style="width: 98%" ng-cloak layout="row" layout-xs="column" hide-xs hide-sm>
 
-  <div flex align="center">
-    <div style="position: fixed;">
+  <div flex>
+    <div style="position:fixed;">
       <br/>
       <a ng-href="{{post.media_info.share_uri}}" target="_blank">
         <img ng-src="{{post.image_medium}}" class="comments"/>
@@ -149,13 +149,13 @@
         <iframe ng-src="{{iframeUrl}}" height="80" frameborder="0" allowtransparency="true"></iframe>
       </div>
 
-      <div style="padding-right:8px"><img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18"/>
+      <div align="center" style="padding-right:214px"><img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18"/>
 
         <a ng-click="starPost(post)" href="">
           <img ng-src="/images/empty-star.png" height="32" style="padding-bottom:2px"/></a>
       </div>
 
-      <div layout="row" layout-align="center center">
+      <div layout="row" layout-align="left center" style="padding-left:80px">
 
         <md-button class="md-icon-button" ng-click="save(post)" aria-label="Save">
           <ng-md-icon icon="save" class="arrow" size="32"></ng-md-icon>

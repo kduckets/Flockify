@@ -140,7 +140,8 @@ img.star{
 
 .embed-container iframe {
   position: relative;
-  width: 74%;
+  width: 68%;
+  padding-left: 18px
 }
    
 img.post:hover {
@@ -153,12 +154,13 @@ img.gif:hover {
 height: 300px;
 }
 img.comments{
-  width: 74% !important;
-  height: 74% !important;
+  width: 68% !important;
+  height: 68% !important;
   -webkit-filter: drop-shadow(12px 12px 25px rgba(0,0,0,0.5));
     filter: url(#drop-shadow);
     -ms-filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=12, OffY=12, Color='#444')";
     filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=12, OffY=12, Color='#444')";
+    padding-left: 18px
 }
 
 }
