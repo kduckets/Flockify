@@ -178,7 +178,7 @@ isAfter:filter_start_date:filter_end_date | byText:textFilter | byText:tagText) 
 
             </md-card-title>
             <md-card-content>
-              <div hide-sm>{{ post.media_info.summary| limitTo: 132 }}{{post.media_info.summary.length > 132 ? '..' : ''}}</div>
+              <div hide-sm>{{ post.media_info.summary| limitTo: 140 }}{{post.media_info.summary.length > 132 ? '..' : ''}}</div>
               <div show-sm hide-gt-sm> {{ post.media_info.summary| limitTo: 32 }}{{post.media_info.summary.length > 32 ? '..' : ''}}</div>
 
               <div layout="row" layout-align="center center">
