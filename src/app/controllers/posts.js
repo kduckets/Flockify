@@ -3,6 +3,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
 
   var ref = new Firebase(FIREBASE_URL);
   var chatRef = new Firebase(FIREBASE_URL+"/chats/"+Users.current_group);
+  $scope.posts = [];
   var authData = Auth.$getAuth();
     if (authData) {
     $scope.user = Users.getProfile(authData.uid);
