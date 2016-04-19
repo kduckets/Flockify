@@ -1,8 +1,6 @@
 module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Users, $q) {
 var ref = new Firebase(FIREBASE_URL);
-       var today = moment();
-       var daystoLastMonday = 0 - (today.isoWeekday()) + 8;
-       var lastMonday = today.subtract(daystoLastMonday, 'days');
+       var lastMonday = moment().subtract(1, 'weeks').startOf('isoWeek');
        var monday_formatted = lastMonday.format('MM_DD_YYYY');
        var last_week = 'weekly_score_'+monday_formatted;
        var scores = [];

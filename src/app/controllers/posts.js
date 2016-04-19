@@ -168,10 +168,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
   };
 
   function GetLastWeekStart() {
-    var today = moment();
-    var daystoLastMonday = 0 - (1 - today.isoWeekday()) + 8;
-
-    var lastMonday = today.subtract(daystoLastMonday, 'days');
+    var lastMonday = moment().subtract(1, 'weeks').startOf('isoWeek');
     return lastMonday;
   };
 
