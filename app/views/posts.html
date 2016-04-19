@@ -123,9 +123,10 @@ isAfter:filter_start_date:filter_end_date | byText:textFilter | byText:tagText) 
             </div>
 
           </div>
-          <small><b>posted by <a ng-href="#/users/{{ post.creator_id }}">{{post.creator_name}}</b>
+          <small><b>posted by <a ng-href="#/users/{{ post.creator_id }}">{{post.creator_name}} </b>
 
-            <!--  <img src="/images/poop.gif" style="padding-bottom:10px; padding-left:2px; height: 50px; width: auto;  display:inline-block;" ng-show="user.profile.group_id == 1 && post.creator == 'Nrblanks' || post.creator == 'Stevie' || post.creator == 'davidemerritt' || post.creator == 'Oat'"height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:2px;height: 30px; width: auto;display:inline-block;" ng-show="user.profile.group_id == 1 && post.creator == 'sparker'"/> -->
+           <img src="/images/gold-record.png" style="padding-bottom:6px; padding-left:2px; height: 40px; width: auto;  display:inline-block;"
+            ng-show="trophy(post.creator_id)" />
 
             </a> <i>{{post.created_ts | timeAgo}}</i></small>
 
@@ -193,11 +194,11 @@ isAfter:filter_start_date:filter_end_date | byText:textFilter | byText:tagText) 
                 </md-chips>
               </div>
 
-     <span class="md-subhead"><small><b>posted by <a ng-href="#/users/{{ post.creator_id }}">{{ post.creator_name }}
+     <span class="md-subhead"><small><b>posted by <a ng-href="#/users/{{ post.creator_id }}">{{ post.creator_name }} </b>
 
-       <!--    <img src="/images/poop.gif" style="padding-bottom:10px; padding-left:2px; height: 50px; width: auto;  display:inline-block;" ng-show="user.profile.group_id == 1 && post.creator == 'Nrblanks' || post.creator == 'Stevie' || post.creator == 'davidemerritt' || post.creator == 'Oat'"height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:2px;height: 30px; width: auto;display:inline-block;" ng-show="user.profile.group_id == 1 && post.creator == 'sparker'"/> -->
+        <img src="/images/gold-record.png" style="padding-bottom:6px; padding-left:2px; height: 40px; width: auto;  display:inline-block;"
+         ng-show="trophy(post.creator_id)" height="30px"/>
 
-     </b>
        </a> <i>{{ post.created_ts | timeAgo}}</i></small></span>
             </md-card-content>
           </div>

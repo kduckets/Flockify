@@ -1,4 +1,4 @@
-module.exports = function ($scope, $routeParams, Profile, Post, Auth, $firebaseArray, FIREBASE_URL, Users, $filter) {
+module.exports = function ($scope, $routeParams, Profile, Post, Auth, $firebaseArray, FIREBASE_URL, Users, $filter, Trophy) {
   var ref = new Firebase(FIREBASE_URL);
   var authData = Auth.$getAuth();
   if (authData) {
@@ -10,6 +10,13 @@ module.exports = function ($scope, $routeParams, Profile, Post, Auth, $firebaseA
     $location.path('/login');
     console.log("User is logged out");
   }
+
+
+  $scope.trophy = function(user_id){    
+    console.log(Trophy.is_last_week_winner(user_id));
+      return Trophy.is_last_week_winner(user_id);
+  }
+
   $scope.display_week = moment().startOf('isoweek').format('MM/DD/YYYY');
   $scope.week = moment().startOf('isoweek').format('MM_DD_YYYY');
   $scope.current_week = 'weekly_score_'+$scope.week;
@@ -18,6 +25,8 @@ module.exports = function ($scope, $routeParams, Profile, Post, Auth, $firebaseA
   $scope.sorter = '-album_score';
   $scope.current_group = Users.current_group;
   $scope.users = $firebaseArray(ref.child('user_scores').child(Users.current_group));
+
+
 
   $scope.getUsername = function(userId){
     return Users.getUsername(userId);

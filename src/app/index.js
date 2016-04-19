@@ -136,6 +136,7 @@ app.factory('Comment', require('./services/comments'));
 app.factory('Post', require('./services/post'));
 app.factory('Profile', require('./services/profile'));
 app.factory('Users', require('./services/users'));
+app.factory('Trophy', require('./services/trophy'));
 
 app.filter('isAfter', require('./services/dateFilter'));
 app.filter('byText', require('./services/textFilter'));

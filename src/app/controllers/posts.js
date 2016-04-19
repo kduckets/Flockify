@@ -1,5 +1,6 @@
 module.exports = function($scope, $route, $location, $window, Post, Auth, Spotify,$uibModal, Profile, $firebaseArray, $firebaseAuth,
-                          $filter, FIREBASE_URL, Action, Users, $mdToast, $mdDialog, $mdMedia, $timeout, $anchorScroll, $mdConstant, $rootScope,$cookieStore){
+                          $filter, FIREBASE_URL, Action, Users, $mdToast, $mdDialog, $mdMedia, $timeout, 
+                          $anchorScroll, $mdConstant, $rootScope,$cookieStore, Trophy){
 
   var ref = new Firebase(FIREBASE_URL);
   var chatRef = new Firebase(FIREBASE_URL+"/chats/"+Users.current_group);
@@ -285,6 +286,10 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
     });
 
   };
+
+  $scope.trophy = function(user_id){    
+      return Trophy.is_last_week_winner(user_id);
+  }
 
   var init = function () {
     if($scope.user){
