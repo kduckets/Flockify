@@ -13,8 +13,10 @@ module.exports = function ($scope, $routeParams, Profile, Post, Auth, $firebaseA
 
 
   $scope.trophy = function(user_id){    
-    console.log(Trophy.is_last_week_winner(user_id));
       return Trophy.is_last_week_winner(user_id);
+  }
+  $scope.poop = function(user_id){    
+      return Trophy.is_last_week_loser(user_id);
   }
 
   $scope.display_week = moment().startOf('isoweek').format('MM/DD/YYYY');

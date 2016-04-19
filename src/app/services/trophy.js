@@ -14,7 +14,7 @@ var ref = new Firebase(FIREBASE_URL);
         }
         });
        high_score = Math.max.apply(Math, scores); 
-       console.log('high score',high_score);
+       low_score = Math.min.apply(Math, scores); 
        });
 
 var Trophy = {
@@ -23,7 +23,19 @@ var Trophy = {
     ref.child('user_scores').child(Users.current_group).child(user_id).child(last_week).once("value", function(snapshot) {
       if(snapshot.val()){
       var user_score = snapshot.val().album_score;
-      if(user_score >= high_score){
+      if(user_score == high_score){
+        result = true;
+      }
+    }
+    });
+    return result;
+  },
+    is_last_week_loser:function(user_id){
+    var result = false;
+    ref.child('user_scores').child(Users.current_group).child(user_id).child(last_week).once("value", function(snapshot) {
+      if(snapshot.val()){
+      var user_score = snapshot.val().album_score;
+      if(user_score == low_score){
         result = true;
       }
     }
