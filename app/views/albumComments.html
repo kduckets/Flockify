@@ -239,8 +239,6 @@
           <a ng-href="#/users/{{ comment.creator_id }}">
             {{ comment.creator_name }}
 
-            <!--    <img src="/images/poop.gif" style="padding-bottom:10px; padding-left:2px" ng-show="comment.creator  == 'Nrblanks' || comment.creator   == 'Stevie' || comment.creator == 'davidemerritt' || comment.creator == 'Oat'" height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:2px" ng-show="comment.creator == 'sparker'" height="30px"/> -->
-
 
           </a>{{comment.datetime_ts | timeAgo}}
           <a ng-href=""
@@ -279,6 +277,18 @@
                                                                                                  ng-src="{{gif.images.downsized.url}}"
                                                                                                  height="100"/></a>
     </div>
+
+<p ng-show="related_albums.length > 0"><i><b>Related Albums:</b></i></p>
+<md-progress-circular ng-show="loadingCircleRelated" md-mode='indeterminate' md-diameter="132"></md-progress-circular>
+ <div layout="row" style="padding-bottom:20px">
+        <p>
+        <img style="padding-right:10px; padding-bottom:10px" ng-click="goToAlbum(album.$id)"
+        ng-repeat="album in related_albums | orderBy:'-score' | filter:'spotify' | limitTo:10 track by album.$id" 
+        ng-src="{{album.image_medium}}" height="100" />
+        </p>
+      
+ </div>
+
   </div>
 </div>
 </div>

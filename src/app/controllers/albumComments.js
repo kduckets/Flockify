@@ -10,8 +10,15 @@ module.exports = function ($scope, $routeParams, Post, Auth, Comment, $firebaseA
   $scope.post = Post.get(post_id);
 
   $scope.post.$loaded().then(function(res){
-    console.log($scope.post);
     $scope.iframeUrl = $sce.trustAsResourceUrl("https://embed.spotify.com/?uri="+res.media_info.share_uri);
+  });
+
+    $scope.related_albums = [];
+    $scope.loadingCircleRelated = true;
+
+  $firebaseArray(postRef.child(Users.current_group)).$loaded(function(data){
+     $scope.tagFilter(data);
+     $scope.loadingCircleRelated = false;
   });
 
   $scope.comments = Comment.get_comments_for_post(post_id);
@@ -24,19 +31,29 @@ module.exports = function ($scope, $routeParams, Post, Auth, Comment, $firebaseA
   $scope.requireMatch = true;
   $scope.tags = $firebaseArray(ref.child('tags').child(Users.current_group));
   $scope.keys = [$mdConstant.KEY_CODE.COMMA, $mdConstant.KEY_CODE.ENTER];
+  
 
-  // $scope.transformChip = function(post, chip) {
-  //   // If it is an object, it's already a known chip
-  //   if (angular.isObject(chip)) {
+  $scope.tagFilter = function (posts) { 
+     angular.forEach(posts, function(post, key) {
+      if(post.media_info){
+    angular.forEach($scope.post.tags, function(tag, key) {
+      if (post.media_info.summary && post.media_info.summary.toLowerCase().indexOf(tag.name.toLowerCase()) > -1) {
+        if ($scope.related_albums.indexOf(post) == -1 && post.media_info.album != $scope.post.media_info.album) {
+          //todo:order by best match
+         //post.match = post.media_info.summary.toLowerCase().indexOf(tag.name.toLowerCase());
+        $scope.related_albums.push(post);
+      }
+      }
+     });  
+  }
+    });
+  };
 
-  //     Post.tag(post.$id,chip.$value);
-  //     return {name: chip.$value};
-  //   }
-  //   // Otherwise, create a new one
-  //   $scope.tags.$add(chip);
-  //   Post.tag(post.$id, chip);
-  //   return { name: chip };
-  // };
+  $scope.goToAlbum = function(post_id){
+    var link = "/albums/" + post_id;
+      $location.path(link);  
+
+  }
 
      $scope.transformChip = function(post, chip)  {
         var match = false;
@@ -78,16 +95,6 @@ module.exports = function ($scope, $routeParams, Post, Auth, Comment, $firebaseA
     var body = {'search': $scope.gifSearchText};
     $scope.loadingCircle = true;
     $http.post('/api/giphysearch', body).success(function(data) {
-      //   $mdDialog.show(
-      //   $mdDialog.alert()
-      //     .parent(angular.element(document.querySelector('#popupContainer')))
-      //     .clickOutsideToClose(true)
-      //     .title('This is an alert title')
-      //     .textContent('You can specify some description text in here.')
-      //     .ariaLabel('Search for gif')
-      //     .ok('Close')
-      //     .targetEvent(ev)
-      // );
       $scope.gifs = data.data;
       $scope.loadingCircle = false;
     }).error(function(data) {

@@ -1,8 +1,15 @@
 module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootScope, $timeout, $mdSidenav,
-                           $anchorScroll, $window, $mdToast, FIREBASE_URL, $rootScope, Users) {
+                           $anchorScroll, $window, $mdToast, $mdDialog, FIREBASE_URL, $rootScope, Users) {
 
   var ref = new Firebase(FIREBASE_URL);
+  // var notificationRef = new Firebase(FIREBASE_URL+"/notifications");
   $scope.post = {artist: '', album: ''};
+
+  // notificationRef.on('child_added', function(childSnapshot, prevChildKey) {
+    
+  //   //new notification for current user
+
+  // });
 
   $scope.subscribed_groups = Users.subscribed_groups.groups;
   $scope.current_group = Users.current_group;
