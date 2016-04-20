@@ -11,15 +11,16 @@ module.exports = function ($scope, $routeParams, Post, Auth, Comment, $firebaseA
 
   $scope.post.$loaded().then(function(res){
     $scope.iframeUrl = $sce.trustAsResourceUrl("https://embed.spotify.com/?uri="+res.media_info.share_uri);
+     $firebaseArray(postRef.child(Users.current_group)).$loaded(function(data){
+     $scope.tagFilter(data);
+     $scope.loadingCircleRelated = false;
+  });
   });
 
     $scope.related_albums = [];
     $scope.loadingCircleRelated = true;
 
-  $firebaseArray(postRef.child(Users.current_group)).$loaded(function(data){
-     $scope.tagFilter(data);
-     $scope.loadingCircleRelated = false;
-  });
+ 
 
   $scope.comments = Comment.get_comments_for_post(post_id);
   $scope.gifSearchText = '';
@@ -44,6 +45,7 @@ module.exports = function ($scope, $routeParams, Post, Auth, Comment, $firebaseA
         $scope.related_albums.push(post);
       }
       }
+      //todo: get albums by same artists and albums with the same tags
      });  
   }
     });

@@ -22,6 +22,12 @@ body {
   width: 90%;
 }
 
+#imgList li
+{
+    display: inline;
+    list-style-type: none;
+} 
+
 
 
 .card-image{
