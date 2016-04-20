@@ -73,7 +73,7 @@
 
 <div ng-repeat="post in likes" ng-show="view_tab == 'tabB'" align="center">
 
- <div class="post">
+ <div class="post" ng-show="post.media_info.album">
   <a ng-href="#/albums/{{post.$id}}">
     <img ng-src="{{post.image_medium}}" height="100" />
   </a>
@@ -101,7 +101,7 @@
 
 <div ng-repeat="post in queue" ng-show="view_tab == 'tabC'" align="center">
 
- <div class="post">
+ <div class="post" ng-show="post.media_info.album">
   <a ng-href="#/albums/{{post.$id}}">
     <img ng-src="{{post.image_medium}}" height="100" />
   </a>
@@ -124,11 +124,12 @@
      <small><a href="" ng-click="deletePost(post)" ng-show="user.$id === post.creator_id">&mdash; delete</a></small>
    </p>
  </div>
-</div>
-
-<div layout="row" layout-align="center center" style="position:relative;right:0;bottom:0;">
+ <div layout="row" layout-align="center center" style="position:relative;right:0;bottom:0;">
    <p><small><button class="btn btn-success-outline btn-sm" ng-click="removeSaved(post)" data-toggle="modal" data-target=".bd-example-modal-sm">remove from my queue</button></small></p>
 </div>
+</div>
+
+
 
 
 
