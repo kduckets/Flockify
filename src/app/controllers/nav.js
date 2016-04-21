@@ -19,6 +19,7 @@ module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootSco
     if (authData) {
       //set login cookie
       $scope.user = Users.getProfile(authData.uid);
+      $scope.current_group = Users.current_group;
       // $scope.username = Users.getUsername(authData.uid);
     } else {
       $scope.user = null;

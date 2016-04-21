@@ -3,28 +3,20 @@
 </div>
 
 <div class="container" ng-show="user && !loading">
-
-
    <!--  <div class="col-sm-1">
       <img ng-src="http://www.gravatar.com/avatar/{{ profile.md5_hash }}" class="prof-img" />
     </div> -->
-
     <div align="center">
       <span ng-show="view_tab == 'tabA'" class="name">Posts by {{ profile.username }}
-       <!--  <img src="/images/poop.gif" style="padding-bottom:10px" ng-show="profile.username  == 'Nrblanks' || profile.username  == 'Stevie' || profile.username == 'davidemerritt' || profile.username == 'Oat'" height="60px"/>
-
-        <img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:2px" ng-show="profile.username == 'sparker'" height="60px"/> -->
-
         </span>
         <span ng-show="view_tab == 'tabB'" class="name">Likes by {{ profile.username }}
         </span>
           <span ng-show="view_tab == 'tabC'" class="name">Queue for {{ profile.username }}
           </span>
-
-
      <div> <img ng-repeat="i in getNumber(stars) track by $index" ng-src="/images/gold-star.png" height="18" /></div>
      <br/>
-  <small>weekly score: {{score}} | weekly ratio: <a href="" ng-click="showRatio()" ng-show="!ratio">show</a><span ng-show="ratio">{{ratio | limitTo: 3}}</span></small>
+  <small>total score: {{total_score}} | ratio: {{ratio | limitTo: 3}} | weekly score: {{score}}</small>
+  <!-- <a href="" ng-click="showRatio()" ng-show="!ratio">show</a><span ng-show="ratio">{{ratio | limitTo: 3}}</span></small> -->
 
 </div>
 

@@ -35,6 +35,7 @@ module.exports = function ($scope, $routeParams, Post, Auth, Comment, $firebaseA
   
 
   $scope.tagFilter = function (posts) { 
+
      angular.forEach(posts, function(post, key) {
       if(post.media_info){
     angular.forEach($scope.post.tags, function(tag, key) {
@@ -45,6 +46,21 @@ module.exports = function ($scope, $routeParams, Post, Auth, Comment, $firebaseA
         $scope.related_albums.push(post);
       }
       }
+    //   if(post.tags){
+    //     var tags = [];
+    //     for (var i=0 ; i < post.tags.length ; i++)
+    //       {
+    //          tags.push(post.tags[i]);
+    //       }
+    //       console.log('tag array',tags);
+    //   if(tags.indexOf(tag.name.toLowerCase())){
+    //     if ($scope.related_albums.indexOf(post) == -1 && post.media_info.album != $scope.post.media_info.album) {
+    //       //todo:order by best match
+    //      //post.match = post.media_info.summary.toLowerCase().indexOf(tag.name.toLowerCase());
+    //     $scope.related_albums.push(post);
+    //   }
+    //   }
+    // }
       //todo: get albums by same artists and albums with the same tags
      });  
   }

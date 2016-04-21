@@ -41,7 +41,12 @@ module.exports = function ($scope, $routeParams, Profile, Post, Auth, Users, $ui
   Profile.getPosts(uid).then(function(posts) {
     $scope.user_posts = posts;
     var week = moment().startOf('isoweek').format('MM_DD_YYYY');
-          var current_week = 'weekly_score_'+week;
+    var current_week = 'weekly_score_'+week;
+    $scope.postsNumber = Object.keys($scope.user_posts).length;
+    ref.child('user_scores').child(Users.current_group).child($scope.profile.$id).child('album_score').on("value", function(snapshot) {
+      $scope.total_score = snapshot.val();
+      $scope.ratio = $scope.total_score/$scope.postsNumber;
+    });
     ref.child('user_scores').child(Users.current_group).child($scope.profile.$id).child(current_week).child('album_score').on("value", function(snapshot) {
       $scope.score = snapshot.val();
     });
