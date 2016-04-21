@@ -39,11 +39,11 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
 
   chatRef.limitToLast(1).on("child_added", function(snap) {
     if($scope.user){
-      if($cookieStore.get('last_chat') == snap.key()) {
+      if($cookieStore.get('last_chat_'+Users.current_group) == snap.key()) {
         return;
       }
       else {
-        $cookieStore.put('last_chat', snap.key());
+        $cookieStore.put('last_chat_'+Users.current_group, snap.key());
         if(authData.uid != snap.val().creator_id){   
           $mdToast.show(
             $mdToast.simple()
@@ -294,11 +294,11 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
   var init = function () {
     if($scope.user){
       chatRef.limitToLast(1).on("child_added", function(snap) {
-        if($cookieStore.get('last_chat') == snap.key()){
+        if($cookieStore.get('last_chat_'+Users.current_group) == snap.key()){
           return;
         }
-        if(!$cookieStore.get('last_chat')){
-          $cookieStore.put('last_chat', snap.key());
+        if(!$cookieStore.get('last_chat_'+Users.current_group)){
+          $cookieStore.put('last_chat_'+Users.current_group, snap.key());
           return;
         }
 
