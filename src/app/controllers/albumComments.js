@@ -13,6 +13,8 @@ module.exports = function ($scope, $routeParams, Post, Auth, Comment, $firebaseA
     $scope.iframeUrl = $sce.trustAsResourceUrl("https://embed.spotify.com/?uri="+res.media_info.share_uri);
      $firebaseArray(postRef.child(Users.current_group)).$loaded(function(data){
      $scope.tagFilter(data);
+     $scope.albumsBySameArtist(data);
+     $scope.matchingTags(data);
      $scope.loadingCircleRelated = false;
   });
   });
@@ -37,7 +39,7 @@ module.exports = function ($scope, $routeParams, Post, Auth, Comment, $firebaseA
   $scope.tagFilter = function (posts) { 
 
      angular.forEach(posts, function(post, key) {
-      if(post.media_info){
+       if(post.media_info){
     angular.forEach($scope.post.tags, function(tag, key) {
       if (post.media_info.summary && post.media_info.summary.toLowerCase().indexOf(tag.name.toLowerCase()) > -1) {
         if ($scope.related_albums.indexOf(post) == -1 && post.media_info.album != $scope.post.media_info.album) {
@@ -46,26 +48,46 @@ module.exports = function ($scope, $routeParams, Post, Auth, Comment, $firebaseA
         $scope.related_albums.push(post);
       }
       }
-    //   if(post.tags){
-    //     var tags = [];
-    //     for (var i=0 ; i < post.tags.length ; i++)
-    //       {
-    //          tags.push(post.tags[i]);
-    //       }
-    //       console.log('tag array',tags);
-    //   if(tags.indexOf(tag.name.toLowerCase())){
-    //     if ($scope.related_albums.indexOf(post) == -1 && post.media_info.album != $scope.post.media_info.album) {
-    //       //todo:order by best match
-    //      //post.match = post.media_info.summary.toLowerCase().indexOf(tag.name.toLowerCase());
-    //     $scope.related_albums.push(post);
-    //   }
-    //   }
-    // }
-      //todo: get albums by same artists and albums with the same tags
      });  
   }
-    });
+  });
   };
+
+$scope.matchingTags = function(posts){
+
+      angular.forEach(posts, function(post, key) {
+       if(post.tags){
+         var tags = [];
+          for (var i=0 ; i < post.tags.length ; i++)
+          {
+             tags.push(post.tags[i].name.toLowerCase());
+          }
+    angular.forEach($scope.post.tags, function(tag, key) {
+      if (tags.indexOf(tag.name.toLowerCase()) > -1) {
+        if ($scope.related_albums.indexOf(post) == -1 && post.media_info.album != $scope.post.media_info.album) {
+          //todo:order by best match
+         //post.match = post.media_info.summary.toLowerCase().indexOf(tag.name.toLowerCase());
+        $scope.related_albums.push(post);
+      }
+      }
+     });  
+  }
+  });
+
+   };
+
+  $scope.albumsBySameArtist = function(posts){
+     angular.forEach(posts, function(post, key) {
+      if(post.media_info){
+    if(post.media_info.artist === $scope.post.media_info.artist){
+      if ($scope.related_albums.indexOf(post) == -1 && post.media_info.album != $scope.post.media_info.album){
+         post.relevance_score += 10;
+         $scope.related_albums.push(post);
+      }
+      }
+    }
+    });
+  }
 
   $scope.goToAlbum = function(post_id){
     var link = "/albums/" + post_id;

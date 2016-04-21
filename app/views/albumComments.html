@@ -283,9 +283,9 @@
  <div layout="row" style="padding-bottom:20px">
 
       <ul id="imgList">
-        <li ng-repeat="album in related_albums | orderBy:'-score' | filter:'spotify' | limitTo:10 track by album.$id" >
+        <li ng-repeat="album in related_albums | orderBy:['relevance_score', '-score'] | filter:'spotify' | limitTo:10 track by album.$id" >
         <md-tooltip>{{album.media_info.artist}} - {{album.media_info.album}}</md-tooltip>
-          <img class="thumbnail" ng-src="{{album.image_medium}}" ng-click="goToAlbum(album.$id)" height="100"> 
+          <img style="padding-bottom:10px" class="thumbnail" ng-src="{{album.image_medium}}" ng-click="goToAlbum(album.$id)" height="100"> 
         </li>
       </ul>
 
