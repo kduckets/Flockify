@@ -1,5 +1,5 @@
 module.exports = function ($scope, $routeParams, Post, Auth, Comment, Profile, $http, $filter, $sce, 
-  $route, $uibModal, FIREBASE_URL, Users, $firebaseArray) {
+  $route, $uibModal, FIREBASE_URL, Users, $firebaseArray, $window, $location, $anchorScroll) {
   var ref = new Firebase(FIREBASE_URL);
   var authData = Auth.$getAuth();
   if (authData) {
@@ -30,7 +30,8 @@ module.exports = function ($scope, $routeParams, Post, Auth, Comment, Profile, $
   };
 
   $scope.pageChanged = function() {
-    //console.log('Page changed to: ' + $scope.currentPage);
+    $location.hash("top");
+    $anchorScroll();
   };
 
   $scope.setItemsPerPage = function(num) {
