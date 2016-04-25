@@ -90,7 +90,7 @@
     </div>
     <!--   <a href ng-click="batchUpdate()">batch</a>  -->
     <!-- <p ng-show="filteredItems.length == 0" align="center" style="padding-top: 20px"><i>Looks like there are no albums here yet</i></p> -->
-
+<div>
     <div class="post" ng-repeat="post in filteredItems=(posts | orderBy:sorter | filter:'spotify' |
 isAfter:filter_start_date:filter_end_date | byText:textFilter | byText:tagText) | limitTo:totalDisplayed track by post.$id" align="center">
 
@@ -253,6 +253,7 @@ isAfter:filter_start_date:filter_end_date | byText:textFilter | byText:tagText) 
 
         </div>
       </md-card>
+    </div>
     </div>
 
     <div align="center" ng-show="!loadingCircle">
