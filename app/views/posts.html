@@ -95,6 +95,7 @@
 isAfter:filter_start_date:filter_end_date | byText:textFilter | byText:tagText) | limitTo:totalDisplayed track by post.$id" align="center">
 
       <!-- ******************************* MOBILE CARD HERE *********************************** -->
+
       <md-card class="card" hide-md hide-gt-md show-xs show-sm>
         <span class="score label label-default label-default"><b>{{ post.score }}</b></span>
         <div class="album-container">
@@ -161,7 +162,6 @@ isAfter:filter_start_date:filter_end_date | byText:textFilter | byText:tagText) 
       <!-- *************************************** DESKTOP ************************************ -->
 
       <md-card class="card" flex="65" hide-xs hide-sm>
-
         <div layout-xs="column" layout="row">
 
           <div flex="40">
@@ -252,7 +252,6 @@ isAfter:filter_start_date:filter_end_date | byText:textFilter | byText:tagText) 
 
 
         </div>
-
       </md-card>
     </div>
 
@@ -262,6 +261,7 @@ isAfter:filter_start_date:filter_end_date | byText:textFilter | byText:tagText) 
     <div ng-show="loadingCircle" align="center">
       <md-progress-circular md-mode='indeterminate' md-diameter="132"></md-progress-circular>
     </div>
+         <p ng-show="filteredItems.length == 0 && !loadingCircle" align="center"><br/><i>Nothing here yet</i></p>
 
   </div>
 </div>
