@@ -1,10 +1,6 @@
 <div style="padding-bottom:10px" ng-show="user">
   <md-progress-linear ng-show="loadingBar" md-mode="indeterminate"></md-progress-linear>
-  <!--   <div ng-show="!user && !loadingCircle" align="center">
-     <h2>Welcome to flockify</h2>
-     <p><a href="/#/login">Sign in</a> to get started</p>
-   </div> -->
-  <div ng-cloak>
+
     <md-button aria-label="Search"
                style="top:12px;right:48px;position:fixed;z-index:2;" ng-click="showSearch = !showSearch; allTime()">
           <md-tooltip>
@@ -90,7 +86,6 @@
     </div>
     <!--   <a href ng-click="batchUpdate()">batch</a>  -->
     <!-- <p ng-show="filteredItems.length == 0" align="center" style="padding-top: 20px"><i>Looks like there are no albums here yet</i></p> -->
-<div>
     <div class="post" ng-repeat="post in filteredItems=(posts | orderBy:sorter | filter:'spotify' |
 isAfter:filter_start_date:filter_end_date | byText:textFilter | byText:tagText) | limitTo:totalDisplayed track by post.$id" align="center">
 
@@ -254,7 +249,6 @@ isAfter:filter_start_date:filter_end_date | byText:textFilter | byText:tagText) 
         </div>
       </md-card>
     </div>
-    </div>
 
     <div align="center" ng-show="!loadingCircle">
       <md-button ng-click="loadMore()" ng-show="filteredItems.length > totalDisplayed" >load more albums</md-button>
@@ -263,8 +257,6 @@ isAfter:filter_start_date:filter_end_date | byText:textFilter | byText:tagText) 
       <md-progress-circular md-mode='indeterminate' md-diameter="132"></md-progress-circular>
     </div>
          <p ng-show="filteredItems.length == 0 && !loadingCircle" align="center"><br/><i>Nothing here yet</i></p>
-
-  </div>
 </div>
 
 
