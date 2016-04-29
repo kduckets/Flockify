@@ -6,7 +6,7 @@
  
 
   <div ng-repeat="comment in comments.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))" class="row cmt">
-    <div class="col-md-12">
+    <div class="chat">
      <p>
       <a ng-href="#/users/{{ comment.creator_id }}">
         <b>{{ comment.creator_name }}</b> 

@@ -8,6 +8,15 @@ body {
     height: 160px; 
     overflow: hidden; 
 }
+.chat{
+  position: relative;
+}
+
+.chat iframe{
+  position: relative;
+        max-width: 100%;
+
+}
 
 .album-container img { 
     width: 100%;
