@@ -1,9 +1,12 @@
 module.exports = function ($scope, $routeParams, Post, Auth, Comment, $firebaseArray, Profile, $http, $filter, $sce, $location,
-                           $uibModal, Action, $mdToast, FIREBASE_URL, $mdConstant, $mdDialog, Users) {
+                           $uibModal, Action, $mdToast, FIREBASE_URL, $mdConstant, $mdDialog, Users, Spotify) {
   var post_id = $routeParams.postId;
   var postRef = new Firebase(FIREBASE_URL+"/posts");
   var ref = new Firebase(FIREBASE_URL);
 
+  // $scope.login = function(){
+  //   Spotify.login();
+  // };
 
   $scope.user = Users.current_user;
   $scope.username = $scope.user.username;

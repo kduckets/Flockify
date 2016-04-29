@@ -1,4 +1,6 @@
-module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Users, $q) {
+module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Users, $q, Auth) {
+var authData = Auth.$getAuth();
+  if (authData) {
 var ref = new Firebase(FIREBASE_URL);
        var lastMonday = moment().subtract(1, 'weeks').startOf('isoWeek');
        var monday_formatted = lastMonday.format('MM_DD_YYYY');
@@ -14,6 +16,7 @@ var ref = new Firebase(FIREBASE_URL);
        high_score = Math.max.apply(Math, scores); 
        low_score = Math.min.apply(Math, scores); 
        });
+     }
 
 var Trophy = {
   is_last_week_winner:function(user_id){

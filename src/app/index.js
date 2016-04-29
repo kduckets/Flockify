@@ -10,6 +10,7 @@ require('angular-sanitize');
 require('angular-material-icons');
 require('firebase');
 require('angularfire');
+require('angular-spotify');
 
 require('./../../app/bower_components/angular-spotify/dist/angular-spotify.min');
 require('./../../app/bower_components/angular-bootstrap/ui-bootstrap-tpls.min');
@@ -31,6 +32,13 @@ var app = angular.module('flockifyApp', [
   'yaru22.angular-timeago',
   'ngMdIcons'
 ]);
+// app.config(function (SpotifyProvider) {
+//   SpotifyProvider.setClientId('44bb100c98a34efd9c4e874756e09080');
+//   SpotifyProvider.setRedirectUri('http://127.0.0.1:5000/#/callback');
+//   SpotifyProvider.setScope('user-read-private playlist-read-private playlist-modify-private playlist-modify-public');
+//   // If you already have an auth token
+//   SpotifyProvider.setAuthToken('cefa1436b18f42579011dd8073d9e531');
+// });
 app.config(function($mdThemingProvider) {
   $mdThemingProvider.theme('default').primaryPalette('grey', {
         'default': '900',

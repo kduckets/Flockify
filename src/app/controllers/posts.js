@@ -3,10 +3,10 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
                           $anchorScroll, $mdConstant, $rootScope,$cookieStore, Trophy){
 
   var ref = new Firebase(FIREBASE_URL);
-  var chatRef = new Firebase(FIREBASE_URL+"/chats/"+Users.current_group);
   $scope.posts = [];
   var authData = Auth.$getAuth();
     if (authData) {
+    var chatRef = new Firebase(FIREBASE_URL+"/chats/"+Users.current_group);
     $scope.user = Users.getProfile(authData.uid);
     $scope.username = $scope.user.username;
     console.log("Logged in as:", authData.uid);
