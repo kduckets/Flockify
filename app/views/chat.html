@@ -6,6 +6,7 @@
  
 
   <div ng-repeat="comment in comments.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))" class="row cmt">
+   <div class="col-md-12">
     <div class="chat">
      <p>
       <a ng-href="#/users/{{ comment.creator_id }}">
@@ -18,6 +19,7 @@
       </p>
       <!--   <p><img ng-src="{{comment.text}}" height="100" class="gif" /></p> -->   
     </div>
+  </div>
   </div>
   <hr class="style-two"/>
   <div align="center">

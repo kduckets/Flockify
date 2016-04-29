@@ -10,8 +10,7 @@ body {
 }
 .chat{
   position: relative;
-   margin-top:10px;
-  padding-top:10px;
+  
 }
 
 .chat iframe{
