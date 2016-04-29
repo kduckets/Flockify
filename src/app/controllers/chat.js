@@ -12,6 +12,8 @@ module.exports = function ($scope, $routeParams, Post, Auth, Comment, Profile, $
     $location.path('/login');
     console.log("User is logged out");
   }
+
+  $scope.trustAsHtml = $sce.trustAsHtml;
   $scope.gifSearchText = '';
   $scope.viewby = 12;
   $scope.itemsPerPage = $scope.viewby;

@@ -11,6 +11,7 @@ require('angular-material-icons');
 require('firebase');
 require('angularfire');
 require('angular-spotify');
+require('ng-embed');
 
 require('./../../app/bower_components/angular-spotify/dist/angular-spotify.min');
 require('./../../app/bower_components/angular-bootstrap/ui-bootstrap-tpls.min');
@@ -30,7 +31,8 @@ var app = angular.module('flockifyApp', [
   'spotify',
   'ui.bootstrap',
   'yaru22.angular-timeago',
-  'ngMdIcons'
+  'ngMdIcons',
+  'ngEmbed'
 ]);
 // app.config(function (SpotifyProvider) {
 //   SpotifyProvider.setClientId('44bb100c98a34efd9c4e874756e09080');
@@ -150,6 +152,7 @@ app.filter('isAfter', require('./services/dateFilter'));
 app.filter('byText', require('./services/textFilter'));
 app.filter('byTags', require('./services/tagFilter'));
 app.filter('emptyToEnd', require('./directives/emptyToEnd'));
+app.filter('sanitize', require('./filters/sanitize'));
 
 app.directive("keepScroll", require('./directives/keepScroll'));
 app.directive("scrollItem", require('./directives/scrollItem'));
