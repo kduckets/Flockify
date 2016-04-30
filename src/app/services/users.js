@@ -51,7 +51,7 @@ module.exports = function($firebaseArray, $firebaseObject, $route, Auth, FIREBAS
 
     set_group_to_registered: function(user_id,group){
        var defer = $q.defer();
-       Users.set_current_group(group);
+       localStorage.setItem('current_group', group);
         defer.resolve(group);   
           return defer.promise;
     },

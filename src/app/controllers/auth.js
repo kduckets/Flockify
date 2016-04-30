@@ -57,7 +57,7 @@ groupsRef.once("value", function(snapshot) {
       ref.child('user_scores').child($scope.beta_group_name).child(user.uid).set(scores);
       Auth.$authWithPassword($scope.user).then(function (auth){
       Users.set_group_to_registered(auth.uid,$scope.beta_group_name).then(function(current_group){
-        $location.path('/');
+        window.location.reload();
       });
     })
       //  $timeout(function () {       
