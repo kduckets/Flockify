@@ -3,6 +3,11 @@ body {
   overflow-y: hidden !important;
 }
 
+#loading-bar .bar {
+background: #ffc0cb;
+height: 4px;
+}
+
 .album-container { 
     width: 100%; 
     height: 160px; 
@@ -52,6 +57,10 @@ body {
   margin: 8px 4px 0 0 !important;
   display: inline-block;
   font-size: 14px;
+}
+
+.md-chip:hover{
+  background:#E0FFFF;
 }
 
 .md-toast {

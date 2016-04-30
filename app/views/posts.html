@@ -1,5 +1,7 @@
+ <md-progress-linear style="top:0;position:fixed;z-index:1000;" ng-show="loadingBar" md-mode="indeterminate"></md-progress-linear>
+
 <div style="padding-bottom:10px" ng-show="user">
-  <md-progress-linear ng-show="loadingBar" md-mode="indeterminate"></md-progress-linear>
+ 
 
     <md-button aria-label="Search"
                style="top:12px;right:48px;position:fixed;z-index:2;" ng-click="showSearch = !showSearch; allTime()">
