@@ -43,6 +43,9 @@ height: 4px;
     list-style-type: none;
 } 
 
+.md-select-icon {
+    color: black !important;
+  }
 
 
 .card-image{

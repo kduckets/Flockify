@@ -82,6 +82,7 @@
    
  <img ng-src="/images/birds-wire.png" height="50px" style="position:absolute;z-index:10;top:8px;padding-left:50px;opacity: 0.4;" />
      <md-toolbar class="md-theme-indigo">
+      <img ng-src="/images/birds-wire.png" height="50px" style="position:absolute;z-index:10;top:8px;padding-left:20px;opacity: 0.4;" />
       <md-select class="md-toolbar-tools" ng-change="change_group()" ng-model="current_group">
         <md-option ng-repeat="group in subscribed_groups" value="{{ group.id }}" ng-selected="{{ group.id == current_group }}"> {{ group.group_name }}</md-option>
       </md-select>
