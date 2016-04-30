@@ -55,7 +55,11 @@ groupsRef.once("value", function(snapshot) {
   
       ref.child('users').child(user.uid).set(profile);
       ref.child('user_scores').child($scope.beta_group_name).child(user.uid).set(scores);
-      $scope.login();
+      Auth.$authWithPassword($scope.user).then(function (auth){
+      Users.set_group_to_registered(auth.uid,$scope.beta_group_name).then(function(current_group){
+        $location.path('/');
+      });
+    })
       //  $timeout(function () {       
       //   $window.location.reload();
       // }, 3000);
