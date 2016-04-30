@@ -15,7 +15,6 @@ groupsRef.once("value", function(snapshot) {
   if(!snapshot.val()[$scope.beta_group_name]){
     $scope.hideRegistration = true;
     $scope.showContact = true;
-    console.log('invalid group name');
   }
 });
     $scope.user = {
@@ -25,7 +24,7 @@ groupsRef.once("value", function(snapshot) {
 
   $scope.login = function (){
     Auth.$authWithPassword($scope.user).then(function (auth){
-      Users.set_group_to_default(auth.uid).then(function(currrent_group){
+      Users.set_group_to_default(auth.uid).then(function(current_group){
         $location.path('/');
       });
       
