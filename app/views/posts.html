@@ -60,8 +60,6 @@
       </md-list-item>
       <md-divider ></md-divider>
     </md-list>
-
-    <!--  <back-top scroll-speed=600 button-theme="light"> <ng-md-icon icon="clear"></ng-md-icon></back-top> -->
     <div align="center">
    <!--    <md-tabs md-center-tabs="true" md-border-bottom>
         <md-tab ng-click="thisWeek()" aria-label="week" ng-class="week ? 'md-raised md-primary':'md-raised'">this week</md-tab>
@@ -69,11 +67,15 @@
         <md-tab ng-click="thisMonth()" aria-label="month" ng-class="month ? 'md-raised md-primary':'md-raised'">past month</md-tab>
         <md-tab ng-click="allTime()" aria-label="all" ng-class="allPosts ? 'md-raised md-primary':'md-raised'">all time</md-tab>
       </md-tabs> -->
-      <div style="border-bottom: 1px solid #aaa;width:50%" class="scrolls">
-      <md-button ng-click="thisWeek()" aria-label="week" ng-class="week ? 'md-accent':'md-primary'">this week</md-button>
+    
+      <div class="scrolls">
+     
+        <md-button ng-click="thisWeek()" aria-label="week" ng-class="week ? 'md-accent':'md-primary'">this week</md-button>
         <md-button ng-click="lastWeek()" aria-label="last" ng-class="last ? 'md-accent':'md-primary'">last week</md-button>
         <md-button ng-click="thisMonth()" aria-label="month" ng-class="month ? 'md-accent':'md-primary'">past month</md-button>
         <md-button ng-click="allTime()" aria-label="all" ng-class="allPosts ? 'md-accent':'md-primary'">all time</md-button>
+         <div style="border-bottom: 1px solid #aaa;max-width:50%">
+        </div>
         </div>
       <div>
         <md-button aria-label="new" ng-click="sorter = '-'">new

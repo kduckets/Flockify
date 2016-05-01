@@ -13,6 +13,7 @@ height: 4px;
   overflow-y: hidden;
   overflow-x: scroll;
   -webkit-overflow-scrolling: touch;
+  max-width: 80%; 
 }
 
 .album-container { 
