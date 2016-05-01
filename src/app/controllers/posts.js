@@ -88,18 +88,18 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
 // });
 
   $scope.filterByTag = function(tag){
-    $scope.loadingBar = true;
+    $scope.loadingCircle = true;
     $scope.allTime();
     $scope.tagFilters.push(tag);
     $scope.tagText += tag + " ";
-    $timeout(function () { $scope.loadingBar = false; }, 3000);
+    $timeout(function () { $scope.loadingCircle = false; }, 3000);
     $window.scrollTo(0,0);
 
   };
 
   $scope.removeTag = function(tag){
-    $scope.loadingBar = true;
-    $timeout(function () { $scope.loadingBar = false; }, 2000);
+    $scope.loadingCircle = true;
+    $timeout(function () { $scope.loadingCircle = false; }, 2000);
     var index = $scope.tagFilters.indexOf(tag);
     if (index > -1) {
       $scope.tagFilters.splice(index, 1);
@@ -109,8 +109,8 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
   };
 
   $scope.thisWeek = function(){
-    $scope.loadingBar = true;
-    $timeout(function () { $scope.loadingBar = false; }, 2000);
+    $scope.loadingCircle = true;
+    $timeout(function () { $scope.loadingCircle = false; }, 2000);
     $scope.filter_start_date = moment().startOf('isoweek');
     $scope.filter_end_date = moment.utc();
     $scope.sorter = '-';
@@ -122,8 +122,8 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
   };
 
   $scope.thisMonth = function(){
-    $scope.loadingBar = true;
-    $timeout(function () { $scope.loadingBar = false; }, 2000);
+    $scope.loadingCircle = true;
+    $timeout(function () { $scope.loadingCircle = false; }, 2000);
     // var last_monday = GetLastWeekStart();
     // var month_start = moment().startOf('month');
     var month_start = moment().subtract(30, 'days').startOf('day');
@@ -139,8 +139,8 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
   };
 
   $scope.lastWeek = function(){
-    $scope.loadingBar = true;
-    $timeout(function () { $scope.loadingBar = false; }, 2000);
+    $scope.loadingCircle = true;
+    $timeout(function () { $scope.loadingCircle = false; }, 2000);
     var last_monday = GetLastWeekStart();
     // var month_start = moment().startOf('month');
     var this_monday = moment().startOf('isoweek');
@@ -155,8 +155,8 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
   };
 
   $scope.allTime = function(){
-    $scope.loadingBar = true;
-    $timeout(function () { $scope.loadingBar = false; }, 3000);
+    $scope.loadingCircle = true;
+    $timeout(function () { $scope.loadingCircle = false; }, 3000);
     $scope.filter_start_date = moment('2016-01-01 16:07:35')
     $scope.filter_end_date = moment.utc();
     $scope.sorter = ['-score','-stars'];
