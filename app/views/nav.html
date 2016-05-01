@@ -78,16 +78,16 @@
     <a href="" ng-click="toTop()"> <h2><img ng-src="/images/flockify.png" height="40px"/></a></h2>
     </span>
 
-   <span flex align="center" hide-xs hide-sm>
-   
- <img ng-src="/images/birds-wire.png" height="50px" style="position:absolute;z-index:10;top:8px;padding-left:50px;opacity: 0.4;" />
-     <md-toolbar class="md-theme-indigo">
-      <img ng-src="/images/birds-wire.png" height="50px" style="position:absolute;z-index:10;top:8px;padding-left:20px;opacity: 0.4;" />
+   <span flex hide-xs hide-sm>
+   <div align="center" style="padding-left: 56px">
+ <img ng-src="/images/birds-wire.png" height="50px" style="position:absolute;z-index:10;top:8px;" />
+     <md-toolbar class="md-theme-indigo" style="z-index: 11; opacity: 0.8">
+      <img ng-src="/images/birds-wire.png" height="50px" style="position:absolute;z-index:10;top:8px;" />
       <md-select class="md-toolbar-tools" ng-change="change_group()" ng-model="current_group">
         <md-option ng-repeat="group in subscribed_groups" value="{{ group.id }}" ng-selected="{{ group.id == current_group }}"> {{ group.group_name }}</md-option>
       </md-select>
     </md-toolbar>
-
+</div>
     </span>
    
     <span flex></span>
