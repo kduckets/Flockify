@@ -13,6 +13,7 @@ require('angularfire');
 require('angular-spotify');
 require('ng-embed');
 
+
 require('./../../app/bower_components/angular-spotify/dist/angular-spotify.min');
 require('./../../app/bower_components/angular-bootstrap/ui-bootstrap-tpls.min');
 require('./../../app/bower_components/angular-timeago/angular-timeago.min');
@@ -49,6 +50,12 @@ app.config(function($mdThemingProvider) {
             }).backgroundPalette('grey', {
                 'default': '200'
             })
+});
+app.config(function($sceDelegateProvider) {
+  $sceDelegateProvider.resourceUrlWhitelist([
+    'self',
+    'https://www.youtube.com/**'
+  ]);
 });
 app.config(function($routeProvider) { //TODO: move to routes module
   $routeProvider

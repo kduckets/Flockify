@@ -21,6 +21,12 @@ module.exports = function($sce) {
           //              }
           //           );
           // }
+           var p = /(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?/;
+            if(htmlCode.match(p)){
+              htmlCode = htmlCode.replace(p,"");
+            }
+
             return $sce.trustAsHtml(htmlCode);
+          
         }
     };
