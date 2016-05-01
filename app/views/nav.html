@@ -80,10 +80,10 @@
 
    <span flex hide-xs hide-sm>
    <div align="center" style="padding-left: 56px">
- <img ng-src="/images/birds-wire.png" height="50px" style="position:absolute;z-index:10;top:8px;" />
-     <md-toolbar class="md-theme-indigo" style="z-index: 11; opacity: 0.8">
-      <img ng-src="/images/birds-wire.png" height="50px" style="position:absolute;z-index:10;top:8px;" />
-      <md-select class="md-toolbar-tools" ng-change="change_group()" ng-model="current_group">
+<!--  <img ng-src="/images/birds-wire.png" height="50px" style="position:absolute;z-index:10;top:8px;opacity: 0.8" /> -->
+     <md-toolbar class="md-theme-indigo" >
+      <img ng-src="/images/birds-wire.png" height="50px" style="position:absolute;z-index:10;top:8px;opacity: 0.8; padding-left: 30px" />
+      <md-select class="md-toolbar-tools" ng-change="change_group()" ng-model="current_group" style="z-index: 12; ">
         <md-option ng-repeat="group in subscribed_groups" value="{{ group.id }}" ng-selected="{{ group.id == current_group }}"> {{ group.group_name }}</md-option>
       </md-select>
     </md-toolbar>
