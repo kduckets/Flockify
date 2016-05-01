@@ -1,9 +1,10 @@
 module.exports = function($scope, $route, $location, $window, Post, Auth, Spotify,$uibModal, Profile, $firebaseArray, $firebaseAuth,
-                          $filter, FIREBASE_URL, Action, Users, $mdToast, $mdDialog, $mdMedia, $timeout, 
+                          $filter, FIREBASE_URL, Action, Users, $mdToast, $mdDialog, $mdMedia, $timeout,
                           $anchorScroll, $mdConstant, $rootScope,$cookieStore, Trophy){
 
   var ref = new Firebase(FIREBASE_URL);
   $scope.posts = [];
+  $scope.showSearch = false;
   var authData = Auth.$getAuth();
     if (authData) {
     var chatRef = new Firebase(FIREBASE_URL+"/chats/"+Users.current_group);
@@ -44,7 +45,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
       }
       else {
         $cookieStore.put('last_chat_'+Users.current_group, snap.key());
-        if(authData.uid != snap.val().creator_id){   
+        if(authData.uid != snap.val().creator_id){
           $mdToast.show(
             $mdToast.simple()
               .textContent('New chat message from ' + snap.val().creator_name)
@@ -161,10 +162,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
     $scope.allPosts = true;
     $scope.week = false;
     $scope.last = false;
-    $scope.last = false;
     $scope.totalDisplayed = 10;
-
-
   };
 
   function GetLastWeekStart() {
@@ -186,18 +184,19 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
 
   $scope.search = function(){
     Spotify.search($scope.post.search + '*', 'artist,album').then(function (data) {
+      $scope.no_results = false;
 
       $scope.results = data.albums.items;
-
       var post_names = $.map($scope.posts, function(post, idx){
-        if(post.media_info){
-        return post.media_info.album;
+        if(post.media_info) {
+          return post.media_info.album;
+        }
+      });
+
+      if (data.albums.total == 0) {
+        $scope.no_results = true;
+        return;
       }
-      })
-      //TODO: no results message
-      // if($scope.results.length == 0){
-        
-      // }
 
       angular.forEach($scope.results, function(result, key) {
         if(post_names.indexOf(result.name) != -1){
@@ -289,10 +288,10 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
 
   };
 
-  $scope.trophy = function(user_id){    
+  $scope.trophy = function(user_id){
       return Trophy.is_last_week_winner(user_id);
   }
-  $scope.poop = function(user_id){    
+  $scope.poop = function(user_id){
       return Trophy.is_last_week_loser(user_id);
   }
 

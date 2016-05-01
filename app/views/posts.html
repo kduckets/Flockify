@@ -1,7 +1,7 @@
  <md-progress-linear style="top:0;position:fixed;z-index:1000;" ng-show="loadingBar" md-mode="indeterminate"></md-progress-linear>
 
 <div style="padding-bottom:10px" ng-show="user">
- 
+
 
     <md-button aria-label="Search"
                style="top:12px;right:48px;position:fixed;z-index:2;" ng-click="showSearch = !showSearch; allTime()">
@@ -38,7 +38,10 @@
         <form ng-submit="search()">
           <md-input-container md-theme="input" style="max-width:190px !important" flex>
             <label>&nbsp;</label>
-            <input ng-model="post.search" placeholder="post an album">
+            <input ng-model="post.search" placeholder="post an album"/>
+            <div class="md-caption" ng-show="no_results" style="color:red;">
+              No results found.
+            </div>
           </md-input-container>
           <md-button flex="33" ng-click="clearResults()" ng-show="post.search" aria-label="Back">
             <ng-md-icon icon="clear"></ng-md-icon>
@@ -62,6 +65,7 @@
 
     <!--  <back-top scroll-speed=600 button-theme="light"> <ng-md-icon icon="clear"></ng-md-icon></back-top> -->
     <div align="center">
+
       <md-tabs md-center-tabs="true" md-dynamic-height md-border-bottom>
         <md-tab ng-click="thisWeek()" aria-label="week" ng-class="week ? 'md-raised md-primary':'md-raised'">this week</md-tab>
         <md-tab ng-click="lastWeek()" aria-label="last" ng-class="last ? 'md-raised md-primary':'md-raised'">last week</md-tab>
@@ -88,6 +92,7 @@
     </div>
     <!--   <a href ng-click="batchUpdate()">batch</a>  -->
     <!-- <p ng-show="filteredItems.length == 0" align="center" style="padding-top: 20px"><i>Looks like there are no albums here yet</i></p> -->
+
     <div class="post" ng-repeat="post in filteredItems=(posts | orderBy:sorter | filter:'spotify' |
 isAfter:filter_start_date:filter_end_date | byText:textFilter | byText:tagText) | limitTo:totalDisplayed track by post.$id" align="center">
 
