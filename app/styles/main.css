@@ -52,7 +52,7 @@ height: 4px;
 } 
 
 .md-select-icon {
-    color: black !important;
+    color: white !important;
   }
 
 
@@ -147,6 +147,10 @@ img.star{
 }
 
 @media screen and (min-width: 1000px) {
+
+  .md-select-icon {
+    color: black !important;
+  }
 
   .embed-container {
     position: relative;
