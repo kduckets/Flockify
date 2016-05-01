@@ -27,8 +27,7 @@
       </div>
     </md-toolbar>
     <div align="center">
-
-      <div class="md-toolbar-tools" style="max-width:320px" align="center">
+      <div class="md-toolbar-tools" style="max-width:320px">
         <md-button flex="33" aria-label="Search" ng-click="search()">
           <md-tooltip>
             Search for an album to post
@@ -51,7 +50,6 @@
             <ng-md-icon icon="search" size="22"></ng-md-icon>
           </md-button>
         </form>
-
       </div>
     </div>
 
@@ -65,12 +63,18 @@
 
     <!--  <back-top scroll-speed=600 button-theme="light"> <ng-md-icon icon="clear"></ng-md-icon></back-top> -->
     <div align="center">
-      <md-tabs md-center-tabs="true" md-border-bottom>
+   <!--    <md-tabs md-center-tabs="true" md-border-bottom>
         <md-tab ng-click="thisWeek()" aria-label="week" ng-class="week ? 'md-raised md-primary':'md-raised'">this week</md-tab>
         <md-tab ng-click="lastWeek()" aria-label="last" ng-class="last ? 'md-raised md-primary':'md-raised'">last week</md-tab>
         <md-tab ng-click="thisMonth()" aria-label="month" ng-class="month ? 'md-raised md-primary':'md-raised'">past month</md-tab>
         <md-tab ng-click="allTime()" aria-label="all" ng-class="allPosts ? 'md-raised md-primary':'md-raised'">all time</md-tab>
-      </md-tabs>
+      </md-tabs> -->
+      <div style="border-bottom: 1px solid #aaa;width:50%" class="scrolls">
+      <md-button ng-click="thisWeek()" aria-label="week" ng-class="week ? 'md-accent':'md-primary'">this week</md-button>
+        <md-button ng-click="lastWeek()" aria-label="last" ng-class="last ? 'md-accent':'md-primary'">last week</md-button>
+        <md-button ng-click="thisMonth()" aria-label="month" ng-class="month ? 'md-accent':'md-primary'">past month</md-button>
+        <md-button ng-click="allTime()" aria-label="all" ng-class="allPosts ? 'md-accent':'md-primary'">all time</md-button>
+        </div>
       <div>
         <md-button aria-label="new" ng-click="sorter = '-'">new
         </md-button>

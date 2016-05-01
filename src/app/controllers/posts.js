@@ -115,6 +115,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
     $scope.filter_end_date = moment.utc();
     $scope.sorter = '-';
     $scope.week = true;
+    $scope.month = false;
     $scope.last = false;
     $scope.allPosts = false;
     $scope.totalDisplayed = 10;
@@ -161,6 +162,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
     $scope.sorter = ['-score','-stars'];
     $scope.allPosts = true;
     $scope.week = false;
+    $scope.month = false;
     $scope.last = false;
     $scope.totalDisplayed = 10;
   };
