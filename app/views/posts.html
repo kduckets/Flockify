@@ -140,7 +140,8 @@ limitTo:totalDisplayed track by post.$id" ng-hide="loadingCircle" align="center"
           </div>
           <small><b>posted by <a ng-href="#/users/{{ post.creator_id }}">{{post.creator_name}}</b>
 
-           <img src="/images/gold-record.png" style="padding-bottom:6px; padding-left:2px; height: 40px; width: auto;  display:inline-block;"
+           <img src="/images/gold-record.png" ng-show="current_group=='firsttoflock'"
+           style="padding-bottom:6px; padding-left:2px; height: 40px; width: auto;  display:inline-block;"
             ng-show="trophy(post.creator_id)" />
 
             </a> <i>{{post.created_ts | timeAgo}}</i></small>
@@ -213,7 +214,7 @@ limitTo:totalDisplayed track by post.$id" ng-hide="loadingCircle" align="center"
 
      <span class="md-subhead"><small><b>posted by <a ng-href="#/users/{{ post.creator_id }}">{{ post.creator_name }}</b>
 
-        <img src="/images/gold-record.png" style="padding-bottom:6px; padding-left:2px; height: 40px; width: auto;  display:inline-block;"
+        <img src="/images/gold-record.png" ng-show="current_group=='firsttoflock'" style="padding-bottom:6px; padding-left:2px; height: 40px; width: auto;  display:inline-block;"
          ng-show="trophy(post.creator_id)" height="30px"/>
 
        </a> <i>{{ post.created_ts | timeAgo}}</i></small></span>
