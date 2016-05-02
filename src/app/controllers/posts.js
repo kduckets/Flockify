@@ -72,12 +72,13 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
   $scope.tagText = '';
   $scope.tagFilters = [];
 
-  $scope.week = true;
+  $scope.week = false;
   $scope.last = false;
   $scope.month = false;
-  $scope.allPosts = false;
+  $scope.allPosts = true;
 
-  $scope.filter_start_date = moment().startOf('isoweek');
+  // $scope.filter_start_date = moment().startOf('isoweek');
+  $scope.filter_start_date = moment('2016-01-01 16:07:35')
   $scope.filter_end_date = moment.utc();
 
   $scope.loadingBar = false;
