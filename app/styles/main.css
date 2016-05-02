@@ -148,6 +148,10 @@ img.star{
 
 @media screen and (min-width: 1000px) {
 
+  .scrolls {
+  overflow-x: auto !important;
+  }
+
   .md-select-icon {
     color: black !important;
   }
