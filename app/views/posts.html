@@ -197,7 +197,7 @@ limitTo:totalDisplayed track by post.$id" ng-hide="loadingCircle" align="center"
 
             </md-card-title>
             <md-card-content>
-              <div hide-sm>{{ post.media_info.summary| limitTo: 140 }}{{post.media_info.summary.length > 132 ? '..' : ''}}</div>
+              <div hide-sm>{{ post.media_info.summary| limitTo: 150 }}{{post.media_info.summary.length > 150 ? '..' : ''}}</div>
               <div show-sm hide-gt-sm> {{ post.media_info.summary| limitTo: 32 }}{{post.media_info.summary.length > 32 ? '..' : ''}}</div>
 
               <div layout="row" layout-align="center center">
