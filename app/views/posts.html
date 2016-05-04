@@ -4,7 +4,7 @@
 
 
     <md-button aria-label="Search"
-               style="top:12px;right:48px;position:fixed;z-index:2;" ng-click="showSearch = !showSearch; allTime()">
+               style="top:12px;right:48px;position:fixed;z-index:2;" ng-click="load();showSearch = !showSearch; allTime()">
           <md-tooltip>
             Search all posted albums
           </md-tooltip>
@@ -14,21 +14,21 @@
     </md-button>
     <md-toolbar class="md-hue-1" ng-show="showSearch" style="position:fixed">
       <div class="md-toolbar-tools">
-        <md-button ng-click="showSearch = !showSearch" aria-label="Back">
+        <md-button ng-click="load();showSearch = !showSearch" aria-label="Back">
           <ng-md-icon icon="arrow_back"></ng-md-icon>
         </md-button>
         <md-input-container md-theme="input" flex>
           <label>&nbsp;</label>
           <input ng-model="textFilter" focus="showSearch" placeholder="search the feed">
         </md-input-container>
-        <md-button ng-click="clearResults()" aria-label="Back">
+        <md-button ng-click="load();clearResults()" aria-label="Back">
           <ng-md-icon icon="clear"></ng-md-icon>
         </md-button>
       </div>
     </md-toolbar>
     <div align="center">
       <div class="md-toolbar-tools" style="max-width:320px">
-        <md-button flex="33" aria-label="Search" ng-click="search()">
+        <md-button flex="33" aria-label="Search" ng-click="load();search()">
           <md-tooltip>
             Search for an album to post
           </md-tooltip>
@@ -42,11 +42,11 @@
               No results found.
             </div>
           </md-input-container>
-          <md-button flex="33" ng-click="clearResults()" ng-show="post.search" aria-label="Back">
+          <md-button flex="33" ng-click="load();clearResults()" ng-show="post.search" aria-label="Back">
             <ng-md-icon icon="clear"></ng-md-icon>
           </md-button>
           <md-button aria-label="Search" show-xs hide-gt-xs ng-show="!post.search"
-                     ng-click="showSearch = !showSearch; allTime()">
+                     ng-click="load();showSearch = !showSearch; allTime()">
             <ng-md-icon icon="search" size="22"></ng-md-icon>
           </md-button>
         </form>
@@ -69,10 +69,10 @@
       </md-tabs> -->
     
       <div class="scrolls">
-        <md-button ng-click="allTime()" aria-label="all" ng-class="allPosts ? 'md-accent':'md-primary'">all time</md-button>
-        <md-button ng-click="thisWeek()" aria-label="week" ng-class="week ? 'md-accent':'md-primary'">this week</md-button>
-        <md-button ng-click="lastWeek()" aria-label="last" ng-class="last ? 'md-accent':'md-primary'">last week</md-button>
-        <md-button ng-click="thisMonth()" aria-label="month" ng-class="month ? 'md-accent':'md-primary'">past month</md-button>
+        <md-button ng-click="load();allTime()" aria-label="all" ng-class="allPosts ? 'md-accent':'md-primary'">all time</md-button>
+        <md-button ng-click="load();thisWeek()" aria-label="week" ng-class="week ? 'md-accent':'md-primary'">this week</md-button>
+        <md-button ng-click="load();lastWeek()" aria-label="last" ng-class="last ? 'md-accent':'md-primary'">last week</md-button>
+        <md-button ng-click="load();thisMonth()" aria-label="month" ng-class="month ? 'md-accent':'md-primary'">past month</md-button>
         
         </div>
          <div style="border-bottom: 1px solid #aaa;max-width:50%">
@@ -82,26 +82,26 @@
         </md-button>
         <md-button aria-label="top" ng-click="sorter = ['-score', '-stars']">top
         </md-button>
-        <md-button aria-label="comments" ng-click="sorter = '-latest_comment'">comments
+        <md-button aria-label="comments" ng-click="load();sorter = '-latest_comment'">comments
         </md-button>
-        <md-button aria-label="stars" ng-click="sorter = ['-stars', '-score']">stars
+        <md-button aria-label="stars" ng-click="load();sorter = ['-stars', '-score']">stars
         </md-button>
       </div>
     </div>
     <div align="center">
       <md-chips ng-model="tagFilters" readonly="true">
         <md-chip-template>
-          <a ng-click="loadingBar=true;removeTag($chip)"><strong style="color:black">{{$chip | lowercase}}</strong>  x</a>
+          <a ng-click="load();removeTag($chip)"><strong style="color:black">{{$chip | lowercase}}</strong>  x</a>
         </md-chip-template>
       </md-chips>
     </div>
     <!--   <a href ng-click="batchUpdate()">batch</a>  -->
     <!-- <p ng-show="filteredItems.length == 0" align="center" style="padding-top: 20px"><i>Looks like there are no albums here yet</i></p> -->
-
+ <div ng-hide="loadingCircle">
     <div class="post" ng-repeat="post in filteredItems=(posts | orderBy:sorter | filter:'spotify' |
 isAfter:filter_start_date:filter_end_date | byText:textFilter | byText:tagText) | 
-limitTo:totalDisplayed track by post.$id" ng-hide="loadingCircle" align="center">
-
+limitTo:totalDisplayed track by post.$id" align="center">
+   
       <!-- ******************************* MOBILE CARD HERE *********************************** -->
 
       <md-card class="card" hide-md hide-gt-md show-xs show-sm>
@@ -128,7 +128,7 @@ limitTo:totalDisplayed track by post.$id" ng-hide="loadingCircle" align="center"
             <div layout="row" layout-align="center center">
               <md-chips class="tag-chip"  ng-model="post.tags"  readonly="true">
                 <md-chip-template>
-                  <a href="" ng-click="filterByTag($chip.name)">
+                  <a href="" ng-click="load();filterByTag($chip.name)">
         <span>
           <small>{{$chip.name | lowercase}}</small>
         </span>
@@ -203,7 +203,7 @@ limitTo:totalDisplayed track by post.$id" ng-hide="loadingCircle" align="center"
               <div layout="row" layout-align="center center">
                 <md-chips class="tag-chip"  ng-model="post.tags"  readonly="true">
                   <md-chip-template>
-                    <a href="" ng-click="filterByTag($chip.name)">
+                    <a href="" ng-click="load();filterByTag($chip.name)">
         <span>
           <small>{{$chip.name | lowercase}}</small>
         </span>
@@ -262,6 +262,7 @@ limitTo:totalDisplayed track by post.$id" ng-hide="loadingCircle" align="center"
 
         </div>
       </md-card>
+      </div>
     </div>
 
     <div align="center" ng-show="!loadingCircle">

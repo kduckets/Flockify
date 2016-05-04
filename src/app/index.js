@@ -81,7 +81,7 @@ app.config(function($routeProvider) { //TODO: move to routes module
     })
     .when('/history', {
       templateUrl: 'views/scoreboardHistory.html',
-      controller: 'ScoreCtrl'
+      controller: 'ScoreHistoryCtrl'
     })
     .when('/about', {
       templateUrl: 'views/about.html',
@@ -181,6 +181,7 @@ app.controller('NavCtrl', require('./controllers/nav'));
 app.controller('PostsCtrl', require('./controllers/posts'));
 app.controller('ProfileCtrl', require('./controllers/profile'));
 app.controller('ScoreCtrl', require('./controllers/scoreboard'));
+app.controller('ScoreHistoryCtrl', require('./controllers/scoreHistory'));
 
 // var plugins = pluginManager.getPlugins();
 // angular.forEach(plugins, function(plugin, key){
