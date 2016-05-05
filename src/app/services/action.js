@@ -1,4 +1,4 @@
-module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Auth, Post, Users, Profile, $q) {
+module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Notification, Auth, Post, Users, Profile, $q) {
   var ref = new Firebase(FIREBASE_URL);
   var posts = $firebaseArray(ref.child('posts'));
 
@@ -14,7 +14,7 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Auth, P
       //         defer.resolve(msg);
       //         return;
       // }
-  
+
       if (id != post.creator_id) {
 
         ref.child('user_scores').child(Users.current_group).child(post.creator_id).once("value", function(snapshot) {
@@ -26,12 +26,12 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Auth, P
 
            // if(!val[current_week]){
            //    var scores = {};
-           //     scores[current_week] = {album_score:0}; 
-           //  ref.child('user_scores').child(Users.current_group).child(post.creator_id).update(scores);       
+           //     scores[current_week] = {album_score:0};
+           //  ref.child('user_scores').child(Users.current_group).child(post.creator_id).update(scores);
            // }
-         
+
           var total_score = val.album_score;
-         
+
 
           var actions_ref = ref.child('user_actions').child(id).child(post.$id);
           console.log(id);
@@ -64,15 +64,19 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Auth, P
             var monday = moment().startOf('isoweek');
             if (moment(post.created_ts) > monday) {
                   var week = moment().startOf('isoweek').format('MM_DD_YYYY');
-                  var current_week = 'weekly_score_'+week; 
+                  var current_week = 'weekly_score_'+week;
                   var weekly_score = val[current_week].album_score;
-                      weekly_score += score_mod; 
+                      weekly_score += score_mod;
               ref.child("user_scores").child(Users.current_group).child(post.creator_id).child(current_week).update({
                 'album_score': weekly_score
               });
             }
 
             var msg = 'Gave "' + post.media_info.album + '" an upvote!';
+            Notification.add_action(post.creator_id, {
+              url: "/albums/" + post.$id,
+              msg: post.media_info.album + " was given an upvote."
+            });
             defer.resolve(msg);
 
           });
@@ -92,7 +96,7 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Auth, P
       //         defer.resolve(msg);
       //         return;
       // }
-     
+
       if (id != post.creator_id) {
         ref.child('user_scores').child(Users.current_group).child(post.creator_id).once("value", function(snapshot) {
           var val = snapshot.val();
@@ -102,8 +106,8 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Auth, P
           }
            // if(!val[current_week]){
            //    var scores = {};
-           //     scores[current_week] = {album_score:0}; 
-           //  ref.child('user_scores').child(Users.current_group).child(post.creator_id).update(scores);       
+           //     scores[current_week] = {album_score:0};
+           //  ref.child('user_scores').child(Users.current_group).child(post.creator_id).update(scores);
            // }
           var total_score = val.album_score;
           var actions_ref = ref.child('user_actions').child(id).child(post.$id);
@@ -136,8 +140,8 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Auth, P
             if (moment(post.created_ts) > monday) {
               var week = moment().startOf('isoweek').format('MM_DD_YYYY');
               var current_week = 'weekly_score_'+week;
-              var weekly_score = val[current_week].album_score;  
-                    weekly_score += score_mod;  
+              var weekly_score = val[current_week].album_score;
+                    weekly_score += score_mod;
               ref.child("user_scores").child(Users.current_group).child(post.creator_id).child(current_week).update({
                 'album_score': weekly_score
               });
@@ -161,7 +165,7 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Auth, P
       //         defer.resolve(msg);
       //         return;
       // }
-     
+
       if (id != post.creator_id) {
         ref.child('user_scores').child(Users.current_group).child(post.creator_id).once("value", function(snapshot) {
 
@@ -172,11 +176,11 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Auth, P
           }
            // if(!val[current_week]){
            //    var scores = {};
-           //     scores[current_week] = {album_score:0}; 
-           //  ref.child('user_scores').child(Users.current_group).child(post.creator_id).update(scores);       
+           //     scores[current_week] = {album_score:0};
+           //  ref.child('user_scores').child(Users.current_group).child(post.creator_id).update(scores);
            // }
-         
-          var total_score = val.album_score;   
+
+          var total_score = val.album_score;
           var user_stars = val.stars;
 
           var actions_ref = ref.child('user_actions').child(id).child(post.$id);
@@ -199,7 +203,7 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Auth, P
 
             total_score = total_score + 2;
             user_stars = user_stars + 1;
-  
+
             ref.child("user_scores").child(Users.current_group).child(post.creator_id).update({
               'album_score': total_score
             });
@@ -211,7 +215,7 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Auth, P
             if (moment(post.created_ts) > monday) {
                var week = moment().startOf('isoweek').format('MM_DD_YYYY');
                var current_week = 'weekly_score_'+week;
-               var weekly_score = val[current_week].album_score; 
+               var weekly_score = val[current_week].album_score;
                       weekly_score = weekly_score + 2;
               ref.child("user_scores").child(Users.current_group).child(post.creator_id).child(current_week).update({
                 'album_score': weekly_score
@@ -219,6 +223,10 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Auth, P
             }
 
             var msg = 'Gave "' + post.media_info.album + '" a star!';
+            Notification.add_action(post.creator_id, {
+              url: "/albums/" + post.$id,
+              msg: post.media_info.album + " was given an star."
+            });
             defer.resolve(msg);
           });
         });
