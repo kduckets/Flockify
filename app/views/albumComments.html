@@ -141,7 +141,7 @@
 
 <div ng-show="user" flex style="width: 98%" ng-cloak layout="row" layout-xs="column" hide-xs hide-sm>
 
-  <div flex flex-gt-md="60" >
+  <div flex flex-gt-md="50" >
     <div style="position:fixed;">
       <br/>
       <a ng-href="{{post.media_info.share_uri}}" target="_blank">
@@ -151,17 +151,10 @@
       <div class="embed-container">
         <iframe ng-src="{{iframeUrl}}" height="80" frameborder="0" allowtransparency="true"></iframe>
       </div>
-
-      <div align="center" style="padding-right:140px"><img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18"/>
-
-        <a ng-click="starPost(post)" href="">
-          <img ng-src="/images/empty-star.png" height="32" style="padding-bottom:2px"/></a>
-      </div>
-
     </div>
   </div>
 
-  <div flex flex-gt-md="40">
+  <div flex flex-gt-md="50">
 
     <div>
       <br/>
@@ -177,8 +170,11 @@
         </a> <a ng-click="deletePost(post)" ng-show="user.$id === post.creator_id">&mdash; delete</a></small>
 
     </div>
+         <div><img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18"/>
+        <a ng-click="starPost(post)" href="">
+          <img ng-src="/images/empty-star.png" height="32" style="padding-bottom:2px"/></a>
+      </div>
           <div layout="row" layout-align="left center">
-
         <md-button class="md-icon-button" ng-click="save(post)" aria-label="Save">
           <ng-md-icon icon="save" class="arrow" size="32"></ng-md-icon>
         </md-button>
@@ -197,7 +193,6 @@
   <span class="after label label-pill label-danger">{{ post.comments }}</span></span>
         </md-button>
       </div>
-
     <br/>
 
     <div><p>{{post.media_info.summary}}</p></div>
