@@ -110,7 +110,7 @@ module.exports = function ($firebaseArray, FIREBASE_URL, Auth, Post, Notificatio
            
               Notification.add_action(comment.creator_id, {
               url: "/chat/",
-              msg: "Your chat was liked."
+              msg: "Your chat '"+ Util.trim(comment.text, 25)+ "' was liked."
             });
           return chatRef.child(comment.$id).update({'likes': likes});
     
@@ -122,7 +122,7 @@ module.exports = function ($firebaseArray, FIREBASE_URL, Auth, Post, Notificatio
 
               Notification.add_action(comment.creator_id, {
               url: "/chat/",
-              msg: "Your chat was liked."
+              msg: "Your chat '"+ Util.trim(comment.text, 25)+ "' was liked."
             });  
           return chatRef.child(comment.$id).update({'likes': likes});
         }   
