@@ -161,7 +161,7 @@ limitTo:totalDisplayed track by post.$id" align="center">
             <md-button style="top:11px; left:2px; overflow:visible !important;" ng-href="#/albums/{{post.$id}}" aria-label="Comments" >
   <span class="comments-icon-big"><ng-md-icon icon="chat_bubble" class="arrow" size="30"></ng-md-icon>
 
-  <span class="after label label-pill label-danger">{{ post.comments }}</span></span>
+  <span ng-hide="post.comments == 0" class="after label label-pill label-danger">{{ post.comments }}</span></span>
             </md-button>
           </div>
         </div>
@@ -252,7 +252,7 @@ limitTo:totalDisplayed track by post.$id" align="center">
                 View comments
               </md-tooltip>
   <ng-md-icon icon="chat_bubble" class="arrow" size="34"></ng-md-icon>
-  <span class="after label label-pill label-danger">{{ post.comments }}</span></span>
+  <span ng-hide="post.comments == 0" class="after label label-pill label-danger">{{ post.comments }}</span></span>
 
               </md-button>
 
