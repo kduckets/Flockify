@@ -75,7 +75,7 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Notific
             var msg = 'Gave "' + post.media_info.album + '" an upvote!';
             Notification.add_action(post.creator_id, {
               url: "/albums/" + post.$id,
-              msg: post.media_info.album + " was given an upvote."
+              msg: "'" + post.media_info.album + "' was given an upvote."
             });
             defer.resolve(msg);
 
@@ -225,7 +225,7 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Notific
             var msg = 'Gave "' + post.media_info.album + '" a star!';
             Notification.add_action(post.creator_id, {
               url: "/albums/" + post.$id,
-              msg: post.media_info.album + " was given an star."
+              msg: "'" + post.media_info.album + "' was given an star."
             });
             defer.resolve(msg);
           });

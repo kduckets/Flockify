@@ -1,8 +1,11 @@
-module.exports = function ($scope, $routeParams, Post, Auth, Comment, $firebaseArray, Profile, $http, $filter, $sce, $location,
+module.exports = function ($scope, $routeParams, Post, Auth, Comment, Notification, $firebaseArray, Profile, $http, $filter, $sce, $location,
                            $uibModal, Action, $mdToast, FIREBASE_URL, $mdConstant, $mdDialog, Users, Spotify) {
   var post_id = $routeParams.postId;
   var postRef = new Firebase(FIREBASE_URL+"/posts");
   var ref = new Firebase(FIREBASE_URL);
+
+  Notification.page_view("/albums/" + post_id);
+
 
   // $scope.login = function(){
   //   Spotify.login();
@@ -25,7 +28,7 @@ module.exports = function ($scope, $routeParams, Post, Auth, Comment, $firebaseA
     $scope.related_albums = [];
     $scope.loadingCircleRelated = true;
 
- 
+
 
   $scope.comments = Comment.get_comments_for_post(post_id);
   $scope.gifSearchText = '';
@@ -37,9 +40,9 @@ module.exports = function ($scope, $routeParams, Post, Auth, Comment, $firebaseA
   $scope.requireMatch = true;
   $scope.tags = $firebaseArray(ref.child('tags').child(Users.current_group));
   $scope.keys = [$mdConstant.KEY_CODE.COMMA, $mdConstant.KEY_CODE.ENTER];
-  
 
-  $scope.tagFilter = function (posts) { 
+
+  $scope.tagFilter = function (posts) {
 
      angular.forEach(posts, function(post, key) {
        if(post.media_info){
@@ -51,7 +54,7 @@ module.exports = function ($scope, $routeParams, Post, Auth, Comment, $firebaseA
         $scope.related_albums.push(post);
       }
       }
-     });  
+     });
   }
   });
   };
@@ -73,7 +76,7 @@ $scope.matchingTags = function(posts){
         $scope.related_albums.push(post);
       }
       }
-     });  
+     });
   }
   });
 
@@ -94,13 +97,13 @@ $scope.matchingTags = function(posts){
 
   $scope.goToAlbum = function(post_id){
     var link = "/albums/" + post_id;
-      $location.path(link);  
+      $location.path(link);
 
   }
 
      $scope.transformChip = function(post, chip)  {
         var match = false;
-      // If it is an object, it's already a known chip   
+      // If it is an object, it's already a known chip
       if (angular.isObject(chip)) {
         Post.tag(post.$id,chip.$value);
         return {name: chip.$value};
@@ -114,12 +117,12 @@ $scope.matchingTags = function(posts){
           if(!match){
              $scope.tags.$add(chip);
               Post.tag(post.$id, chip);
-            return { name: chip };  
+            return { name: chip };
             }
           if(match){
             Post.tag(post.$id, chip);
-            return { name: chip };  
-          } 
+            return { name: chip };
+          }
     };
 
   $scope.query_search = function(query) {
