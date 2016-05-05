@@ -1,5 +1,6 @@
 module.exports = function ($scope, $routeParams, Post, Auth, Comment, Profile, $http, $filter, $sce, 
-  $route, $uibModal, FIREBASE_URL, Users, $firebaseArray, $window, $location, $anchorScroll) {
+  $route, $uibModal, FIREBASE_URL, Users, $firebaseArray, $window, $location, $anchorScroll, Notification) {
+  Notification.page_view("/chat/");
   var ref = new Firebase(FIREBASE_URL);
   var authData = Auth.$getAuth();
   if (authData) {
