@@ -163,6 +163,10 @@ $scope.matchingTags = function(posts){
     Comment.delete_comment($scope.comments, post_id, comment);
   };
 
+   $scope.likeComment = function (comment) {
+    Comment.like_comment($scope.comments, post_id, comment);
+  };
+
   $scope.getNumber = function(num) {
     return new Array(num);
   };
