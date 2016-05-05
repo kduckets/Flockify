@@ -209,23 +209,24 @@ img.comments{
 
 }
 
-@media screen and (min-width: 1280px) {
+@media screen and (min-width: 1280px) and (min-height:850px) {
   img.comments{
-    width: 80% !important;
-    height: 80% !important;
-    -webkit-filter: drop-shadow(12px 12px 25px rgba(0,0,0,0.5));
-    filter: url(#drop-shadow);
-    -ms-filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=12, OffY=12, Color='#444')";
-    filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=12, OffY=12, Color='#444')";
-    padding-left: 18px
+    width: 95% !important;
+    height: 95% !important;
   }
-
   .embed-container iframe {
-    position: relative;
-    width: 80%;
-    padding-left: 18px
+    width: 95%;
   }
+}
 
+@media screen and (min-width: 1500px) and (min-height:1050px) {
+  img.comments{
+    width: 125% !important;
+    height: 125% !important;
+  }
+  .embed-container iframe {
+    width: 125%;
+  }
 }
 
 
