@@ -211,8 +211,8 @@ img.comments{
 
 @media screen and (min-width: 1280px) {
   img.comments{
-    width: 100% !important;
-    height: 100% !important;
+    width: 80% !important;
+    height: 80% !important;
     -webkit-filter: drop-shadow(12px 12px 25px rgba(0,0,0,0.5));
     filter: url(#drop-shadow);
     -ms-filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=12, OffY=12, Color='#444')";
@@ -222,7 +222,7 @@ img.comments{
 
   .embed-container iframe {
     position: relative;
-    width: 100%;
+    width: 80%;
     padding-left: 18px
   }
 
