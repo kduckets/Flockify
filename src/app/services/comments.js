@@ -2,6 +2,7 @@ module.exports = function ($firebaseArray, FIREBASE_URL, Auth, Post, Notificatio
   var ref = new Firebase(FIREBASE_URL);
   var comments = $firebaseArray(ref.child('comments').child(Users.current_group));
   var commentsRef = new Firebase(FIREBASE_URL + "/comments");
+  var chatRef = new Firebase(FIREBASE_URL + "/chats/" + Users.current_group);
   var id = Users.current_user_id;
   return {
     all: comments,
@@ -51,6 +52,7 @@ module.exports = function ($firebaseArray, FIREBASE_URL, Auth, Post, Notificatio
     like_comment: function(comments_scope_array, post_id, comment){
       if(comment.creator_id != id){
       commentsRef.child(post_id).child(comment.$id).once('value', function(dataSnapshot) {
+        console.log(comment);
           var post = Post.get(post_id);
           var actions_ref = ref.child('user_actions').child(id).child(post_id).child(comment.$id);
           var current_actions = $firebaseObject(actions_ref);
@@ -80,6 +82,49 @@ module.exports = function ($firebaseArray, FIREBASE_URL, Auth, Post, Notificatio
               msg: "Your comment on '" + Util.trim(post.media_info.album, 25) + "' was liked."
             });  
           return commentsRef.child(post_id).child(comment.$id).update({'likes': likes});
+        }   
+          }else{
+            //TODO: msg: you already liked this comment
+            return;
+          }
+
+          });
+     });
+  }
+    },
+        like_chat: function(comments_scope_array, post_id, comment){
+      if(comment.creator_id != id){
+      chatRef.child(comment.$id).once('value', function(dataSnapshot) {
+        console.log(comment);
+          var post = Post.get(post_id);
+          var actions_ref = ref.child('user_actions').child(id).child(post_id).child(comment.$id);
+          var current_actions = $firebaseObject(actions_ref);
+           current_actions.$loaded().then(function(res) {
+            if (!res.like) {
+          if(dataSnapshot.val().likes){
+          var likes = dataSnapshot.val().likes;
+          likes += 1;
+            actions_ref.update({
+                'like': true
+              });
+           
+              Notification.add_action(comment.creator_id, {
+              url: "/chat/",
+              msg: "Your chat was liked."
+            });
+          return chatRef.child(comment.$id).update({'likes': likes});
+    
+        }else{
+          likes = 1;
+            actions_ref.update({
+                'like': true
+              });
+
+              Notification.add_action(comment.creator_id, {
+              url: "/chat/",
+              msg: "Your chat was liked."
+            });  
+          return chatRef.child(comment.$id).update({'likes': likes});
         }   
           }else{
             //TODO: msg: you already liked this comment

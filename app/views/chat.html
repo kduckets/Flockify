@@ -21,7 +21,12 @@
       <iframe ng-show="isYouTube(comment.text)" width="560" height="315" ng-src="{{getIframeSrc(isYouTube(comment.text))}}" frameborder="0" allowfullscreen></iframe>
  
       </p>
-      <!--   <p><img ng-src="{{comment.text}}" height="100" class="gif" /></p> -->   
+      <md-button style="padding: 0 4px;
+    margin: 0px 0px;
+    line-height: 0px;
+    min-height: 0px;" ng-click="likeComment(comment)">
+    <ng-md-icon icon="thumb_up" size="22"></ng-md-icon></md-button>
+    <b>{{comment.likes}}</b>
     </div>
   </div>
   </div>

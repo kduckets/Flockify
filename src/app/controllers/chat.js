@@ -81,4 +81,8 @@ module.exports = function ($scope, $routeParams, Post, Auth, Comment, Profile, $
     Comment.delete_comment($scope.comments, 'flock_groupchat', comment);
   };
 
+  $scope.likeComment = function (comment) {
+    Comment.like_chat($scope.comments, 'flock_groupchat', comment);
+  };
+
 };
