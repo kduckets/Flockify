@@ -1,4 +1,4 @@
-module.exports = function ($firebaseArray, FIREBASE_URL, Auth, Post, Notification, $filter, Users) {
+module.exports = function ($firebaseArray, FIREBASE_URL, Auth, Post, Notification, $filter, Users, Util) {
   var ref = new Firebase(FIREBASE_URL);
   var comments = $firebaseArray(ref.child('comments').child(Users.current_group));
   return {
@@ -33,7 +33,7 @@ module.exports = function ($firebaseArray, FIREBASE_URL, Auth, Post, Notificatio
         if (Users.current_user_id != post.creator_id) {
           Notification.add_action(post.creator_id, {
             url: "/albums/" + post_id,
-            msg: "'" + post.media_info.album + "' was commented on by " + new_comment.creator_name
+            msg: "'" + Util.trim(post.media_info.album) + "' was commented on by " + new_comment.creator_name
           });
         }
 
