@@ -104,9 +104,10 @@
       </md-button>
       <md-menu-content width="4">
       <div align="center"><p ng-show="notifications.length == 0"><i>No new notifications</i></p></div>
-        <md-menu-item align="center" ng-repeat="notification in notifications">      
-          <md-button>       
-          <a ng-href="#{{notification.url}}">{{notification.msg}}</a>  
+        <md-menu-item align="center" ng-repeat="notification in notifications">   
+
+          <md-button ng-href="#{{notification.url}}">       
+         {{notification.msg}}
             <md-menu-divider></md-menu-divider>      
           </md-button>  
         </md-menu-item>
