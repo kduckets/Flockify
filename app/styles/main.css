@@ -13,13 +13,13 @@ height: 4px;
   overflow-y: hidden;
   overflow-x: scroll;
   -webkit-overflow-scrolling: touch;
-  max-width: 80%; 
+  max-width: 80%;
 }
 
-.album-container { 
-    width: 100%; 
-    height: 160px; 
-    overflow: hidden; 
+.album-container {
+    width: 100%;
+    height: 160px;
+    overflow: hidden;
 }
 .chat{
   position: relative;
@@ -32,7 +32,7 @@ height: 4px;
 
 }
 
-.album-container img { 
+.album-container img {
     width: 100%;
 }
 
@@ -49,7 +49,7 @@ height: 4px;
 {
     display: inline;
     list-style-type: none;
-} 
+}
 
 .md-select-icon {
     color: white !important;
@@ -83,7 +83,7 @@ height: 4px;
 }
 
 .md-card.card{
-  margin: 0 auto; 
+  margin: 0 auto;
   background-color: rgba(255,255,255,.8) !important;
   box-shadow: 0px 8px 8px rgba(0,0,0,0.5) !important;
    }
@@ -116,7 +116,7 @@ left:20px;
 }
 
 .score-big{
-  height:auto; 
+  height:auto;
   left:0px;
   width: auto;
   font-size: 28px;
@@ -131,7 +131,7 @@ left:20px;
 }
 
 img.star{
-  height:20px; 
+  height:20px;
   bottom: 0px;
   width: auto;
   position: relative;
@@ -143,7 +143,7 @@ img.star{
 }
 .caption{
     position: absolute;
- 
+
 }
 
 @media screen and (min-width: 1000px) {
@@ -175,7 +175,7 @@ img.star{
     height: 100%;
     opacity: 0.6;
     z-index: 0;
-    
+
 }
 
 .embed-container {
@@ -187,7 +187,7 @@ img.star{
   width: 80%;
   padding-left: 18px
 }
-   
+
 img.post:hover {
 
 /*width: 300px;*/
@@ -209,6 +209,26 @@ img.comments{
 
 }
 
+@media screen and (min-width: 1280px) {
+  img.comments{
+    width: 100% !important;
+    height: 100% !important;
+    -webkit-filter: drop-shadow(12px 12px 25px rgba(0,0,0,0.5));
+    filter: url(#drop-shadow);
+    -ms-filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=12, OffY=12, Color='#444')";
+    filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=12, OffY=12, Color='#444')";
+    padding-left: 18px
+  }
+
+  .embed-container iframe {
+    position: relative;
+    width: 100%;
+    padding-left: 18px
+  }
+
+}
+
+
 img.comments{
   height: 90%;
   width: 90%;
@@ -219,8 +239,8 @@ img.comments{
 }
 
 img.post{
-width: 90%;    
-position: relative;     
+width: 90%;
+position: relative;
     }
 
 a{
@@ -297,7 +317,7 @@ hr.style-two {
 .post-box {
   position: relative;
   padding-top: 16px;
-  margin: 0 auto; 
+  margin: 0 auto;
   margin-bottom: 10px;
   background-color: rgba(255,255,255,.8);
   box-shadow: 0px 8px 8px rgba(0,0,0,0.5);
@@ -311,7 +331,7 @@ hr.style-two {
 
 .post-image{
   position: relative;
-  
+
 }
 
 .score{
@@ -421,7 +441,7 @@ h3 {
 
 /*  height: 220px;*/
 /*text-align: center;*/
-   
+
 }
 
 .sort-links a {
@@ -439,7 +459,7 @@ margin-left: auto;
 margin-right: auto;
 left: 0;
 right: 0;
-   
+
   -webkit-transition: top 1s ease-out, opacity 1s;
   -moz-transition: top 1s ease-out, opacity 1s;
   */
@@ -483,15 +503,15 @@ right: 0;
 position: relative;
 padding-right: 10px;
 padding-bottom: 10px;
-  
- 
+
+
 }
 
 .user-post {
   height: 180px;
 text-align: center;
-  
- 
+
+
 }
 
 .moving {
@@ -517,16 +537,16 @@ text-align: center;
   position: fixed;
 }
 
-#menu-standard { 
+#menu-standard {
     float: right;
 }
 
-#menu-standard li { 
+#menu-standard li {
     float: left;
 
 }
 
-#menu-standard a { 
+#menu-standard a {
     color: white;
     margin-left: 0px;
 }
@@ -633,7 +653,7 @@ text-align: center;
 .category a{
   padding-left:20px;
   padding-right:20px;
-  color:#009999; 
+  color:#009999;
 }
 
 /*----------Search Bar------------*/
@@ -641,9 +661,9 @@ text-align: center;
 .search-box{
  position: absolute;
     top:30px;
-    left: 50%; 
+    left: 50%;
 
-    transform: translate(-50%, -50%); 
+    transform: translate(-50%, -50%);
 
 
   z-index:0;
