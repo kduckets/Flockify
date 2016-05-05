@@ -90,6 +90,12 @@
     <div ng-repeat="comment in comments" class="row cmt">
       <div class="col-md-12">
         <p><img ng-src="{{comment.text}}" height="100" class="gif"/></p>
+    <md-button style="padding: 0 4px;
+    margin: 0px 0px;
+    line-height: 0px;
+    min-height: 0px;" ng-click="likeComment(comment)">
+    <ng-md-icon icon="thumb_up" size="22"></ng-md-icon></md-button>
+    <b>{{comment.likes}}</b>
         <p class="author">posted by
           <a ng-href="#/users/{{ comment.creator_id }}">
             {{ comment.creator_name }}
