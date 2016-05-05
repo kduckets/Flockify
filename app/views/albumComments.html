@@ -238,6 +238,7 @@
     <div ng-repeat="comment in comments" class="row cmt">
       <div class="col-md-12">
         <p><img ng-src="{{comment.text}}" height="100" class="gif"/></p>
+<!--         <md-button><ng-md-icon icon="thumb_up"></ng-md-icon>Nice one dude</md-button> -->
         <p class="author">posted by
           <a ng-href="#/users/{{ comment.creator_id }}">
             {{ comment.creator_name }}

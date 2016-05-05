@@ -1,5 +1,5 @@
 module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootScope, $timeout, $mdSidenav,
-                           $anchorScroll, $window, $mdToast, $mdDialog, FIREBASE_URL, $rootScope, Users) {
+                           $anchorScroll, $window, $mdToast, $mdDialog, FIREBASE_URL, $rootScope, Users, $firebaseArray) {
 
   var ref = new Firebase(FIREBASE_URL);
   // var notificationRef = new Firebase(FIREBASE_URL+"/notifications");
@@ -15,6 +15,8 @@ module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootSco
   $scope.current_group = Users.current_group;
   $scope.current_group_name = Users.current_group_name;
 
+  
+
   ref.onAuth(function (authData) {
     if (authData) {
       //set login cookie
@@ -28,6 +30,9 @@ module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootSco
     }
   });
   $scope.toggleMenu = buildToggler('right');
+
+  $scope.notifications = $firebaseArray(ref.child('notifications').child(Users.current_user_id).child($scope.current_group).child('actions'));
+  console.log($scope.notifications);
 
   $scope.change_group = function() {
     console.log("change group", $scope.current_group);
@@ -63,6 +68,11 @@ module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootSco
         });
     }
   }
+
+  $scope.openNotifications = function($mdOpenMenu, ev) {
+      originatorEv = ev;
+      $mdOpenMenu(ev);
+    };
 
   $scope.close = function () {
 

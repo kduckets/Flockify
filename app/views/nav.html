@@ -92,6 +92,28 @@
     </md-toolbar>
 </div>
     </span>
+
+    <md-menu>
+      <md-button aria-label="Open notifications" class="md-icon-button" ng-click="openNotifications($mdOpenMenu, $event)">
+       <ng-md-icon icon="email" style="fill:white"></ng-md-icon>
+      </md-button>
+      <md-menu-content width="4">
+        <md-menu-item align="center">
+          <p ng-show="notifications.length == 0"><i>No new notifications</i></p>
+          <md-button ng-repeat="notification in notifications">
+          <a ng-href="#{{notification.url}}">{{notification.msg}}</a>
+           <md-menu-divider></md-menu-divider>
+          </md-button>
+        </md-menu-item>
+  <!--      
+        <md-menu-item>
+          <md-button ng-click="ctrl.toggleNotifications()">
+            <md-icon md-svg-icon="social:notifications-{{ctrl.notificationsEnabled ? 'off' : 'on'}}"></md-icon>
+            {{$scope.notificationsEnabled ? 'Disable' : 'Enable' }} notifications
+          </md-button>
+        </md-menu-item> -->
+      </md-menu-content>
+    </md-menu>
    
     <span flex></span>
 
