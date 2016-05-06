@@ -110,7 +110,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
       $scope.tagFilters.splice(index, 1);
     }
     $scope.tagText = $scope.tagText.replace(tag," ");
-    $scope.thisWeek();
+    $scope.allTime();
   };
 
   $scope.thisWeek = function(){
