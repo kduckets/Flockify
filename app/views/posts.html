@@ -91,8 +91,8 @@
     </div>
     <div align="center">
       <md-chips ng-model="tagFilters" readonly="true">
-        <md-chip-template>
-          <a ng-click="load();removeTag($chip)"><strong style="color:black">{{$chip | lowercase}}</strong>  x</a>
+        <md-chip-template ng-click="load();removeTag($chip)">
+          <strong style="color:black">{{$chip | lowercase}}</strong>  x
         </md-chip-template>
       </md-chips>
     </div>
@@ -128,12 +128,12 @@ limitTo:totalDisplayed track by post.$id" align="center">
 
             <div layout="row" layout-align="center center">
               <md-chips class="tag-chip"  ng-model="post.tags"  readonly="true">
-                <md-chip-template>
-                  <a href="" ng-click="load();filterByTag($chip.name)">
+                <md-chip-template ng-click="load();filterByTag($chip.name)">
+            
         <span>
           <small>{{$chip.name | lowercase}}</small>
         </span>
-                  </a>
+                
                 </md-chip-template>
               </md-chips>
             </div>
@@ -203,12 +203,12 @@ limitTo:totalDisplayed track by post.$id" align="center">
 
               <div layout="row" layout-align="center center">
                 <md-chips class="tag-chip"  ng-model="post.tags"  readonly="true">
-                  <md-chip-template>
-                    <a href="" ng-click="load();filterByTag($chip.name)">
+                  <md-chip-template ng-click="load();filterByTag($chip.name)">
+              
         <span>
           <small>{{$chip.name | lowercase}}</small>
         </span>
-                    </a>
+               
                   </md-chip-template>
                 </md-chips>
               </div>
