@@ -33,8 +33,8 @@ module.exports = function ($firebaseArray, FIREBASE_URL, Auth, Post, Notificatio
         post.comments = (post.comments || 0) + 1;
         post.$save();
 
-        if (Users.current_user_id != post.creator_id) {
-          Notification.add_action(post.creator_id, {
+        if (Users.current_user_id != comment.creator_id) {
+          Notification.add_action(comment.creator_id, {
             url: "/albums/" + post_id,
             msg: "'" + Util.trim(post.media_info.album) + "' was commented on by " + new_comment.creator_name
           });
@@ -69,6 +69,21 @@ module.exports = function ($firebaseArray, FIREBASE_URL, Auth, Post, Notificatio
               url: "/albums/" + post_id,
               msg: "Your comment on '" + Util.trim(post.media_info.album, 25) + "' was liked."
             });
+        ref.child('user_scores').child(Users.current_group).child(comment.creator_id).once("value", function(snapshot) {
+          var val = snapshot.val();
+          if (!val){
+            console.error("No snapshot found for ", comment.creator_id);
+          }
+                 if(val.comments_score){
+             var comments_score = val.comments_score;
+                }else{
+                var comments_score = 0;
+                }
+             var new_score = comments_score + 1;
+             ref.child("user_scores").child(Users.current_group).child(comment.creator_id).update({
+              'comments_score': new_score
+            });
+        })
           return commentsRef.child(post_id).child(comment.$id).update({'likes': likes});
     
         }else{
@@ -81,6 +96,21 @@ module.exports = function ($firebaseArray, FIREBASE_URL, Auth, Post, Notificatio
               url: "/albums/" + post_id,
               msg: "Your comment on '" + Util.trim(post.media_info.album, 25) + "' was liked."
             });  
+          ref.child('user_scores').child(Users.current_group).child(comment.creator_id).once("value", function(snapshot) {
+          var val = snapshot.val();
+          if (!val){
+            console.error("No snapshot found for ", comment.creator_id);
+          }
+                 if(val.comments_score){
+             var comments_score = val.comments_score;
+                }else{
+                var comments_score = 0;
+                }
+             var new_score = comments_score + 1;
+             ref.child("user_scores").child(Users.current_group).child(comment.creator_id).update({
+              'comments_score': new_score
+            });
+        })
           return commentsRef.child(post_id).child(comment.$id).update({'likes': likes});
         }   
           }else{
@@ -112,6 +142,21 @@ module.exports = function ($firebaseArray, FIREBASE_URL, Auth, Post, Notificatio
               url: "/chat/",
               msg: "Your chat '"+ Util.trim(comment.text, 25)+ "' was liked."
             });
+          ref.child('user_scores').child(Users.current_group).child(comment.creator_id).once("value", function(snapshot) {
+          var val = snapshot.val();
+          if (!val){
+            console.error("No snapshot found for ", comment.creator_id);
+          }
+              if(val.comments_score){
+             var comments_score = val.comments_score;
+                }else{
+                var comments_score = 0;
+                }
+             var new_score = comments_score + 1;
+             ref.child("user_scores").child(Users.current_group).child(comment.creator_id).update({
+              'comments_score': new_score
+            });
+        })
           return chatRef.child(comment.$id).update({'likes': likes});
     
         }else{
@@ -124,6 +169,21 @@ module.exports = function ($firebaseArray, FIREBASE_URL, Auth, Post, Notificatio
               url: "/chat/",
               msg: "Your chat '"+ Util.trim(comment.text, 25)+ "' was liked."
             });  
+          ref.child('user_scores').child(Users.current_group).child(comment.creator_id).once("value", function(snapshot) {
+          var val = snapshot.val();
+          if (!val){
+            console.error("No snapshot found for ", comment.creator_id);
+          }
+            if(val.comments_score){
+             var comments_score = val.comments_score;
+                }else{
+                var comments_score = 0;
+                }
+             var new_score = comments_score + 1;
+             ref.child("user_scores").child(Users.current_group).child(comment.creator_id).update({
+              'comments_score': new_score
+            });
+        })
           return chatRef.child(comment.$id).update({'likes': likes});
         }   
           }else{

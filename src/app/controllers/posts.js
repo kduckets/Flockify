@@ -1,6 +1,6 @@
 module.exports = function($scope, $route, $location, $window, Post, Auth, Spotify,$uibModal, Profile, $firebaseArray, $firebaseAuth,
                           $filter, FIREBASE_URL, Action, Users, $mdToast, $mdDialog, $mdMedia, $timeout,
-                          $anchorScroll, $mdConstant, $rootScope,$cookieStore, Trophy){
+                          $anchorScroll, $mdConstant, $rootScope,$cookieStore, Trophy, $http){
 
   var ref = new Firebase(FIREBASE_URL);
   $scope.posts = [];
@@ -206,6 +206,13 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
     });
 
   };
+
+  $scope.getDiscogsData = function (post) {
+      $http.get('http://api.discogs.com/albums/' + post.media_info.album + '+' + post.media_info.artist).
+        success(function(data) {
+            console.log(data);
+        });
+ }
 
   $scope.save = function(post) {
     if($scope.user && Users.current_user_id != post.creator_id){

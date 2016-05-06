@@ -68,7 +68,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
     method: 'GET',
     url: $scope.album
   }).then(function successCallback(album) {
-    // console.log(album);
+    console.log(album);
     $scope.spotify_result = album.data;
     $scope.artist = album.data.artists[0].name;
     $scope.album = album.data.name;

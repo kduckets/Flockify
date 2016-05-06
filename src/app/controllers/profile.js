@@ -51,6 +51,9 @@ module.exports = function ($scope, $routeParams, Profile, Post, Auth, Users, $ui
     ref.child('user_scores').child(Users.current_group).child($scope.profile.$id).child(current_week).child('album_score').on("value", function(snapshot) {
       $scope.score = snapshot.val();
     });
+    ref.child('user_scores').child(Users.current_group).child($scope.profile.$id).child('comments_score').on("value", function(snapshot) {
+      $scope.comments_score = snapshot.val();
+    });
     ref.child('user_scores').child(Users.current_group).child($scope.profile.$id).child('stars').on("value", function(snapshot) {
       $scope.stars = snapshot.val();
     });

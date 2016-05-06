@@ -15,7 +15,7 @@
           </span>
      <div> <img ng-repeat="i in getNumber(stars) track by $index" ng-src="/images/gold-star.png" height="18" /></div>
      <br/>
-  <small>total score: {{total_score}} | ratio: {{ratio | limitTo: 3}} | weekly score: {{score}}</small>
+  <small>total score: {{total_score || '0'}} | ratio: {{ratio | limitTo: 3 || '0'}} | weekly score: {{score || '0'}} | comments score: {{comments_score || '0'}}</small>
   <!-- <a href="" ng-click="showRatio()" ng-show="!ratio">show</a><span ng-show="ratio">{{ratio | limitTo: 3}}</span></small> -->
 
 </div>
