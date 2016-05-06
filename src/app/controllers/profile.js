@@ -1,7 +1,7 @@
 module.exports = function ($scope, $routeParams, Profile, Post, Auth, Users, $uibModal, FIREBASE_URL, $location,$mdToast) {
   var ref = new Firebase(FIREBASE_URL);
   var authData = Auth.$getAuth();
-  var authData = Auth.$getAuth();
+
   if (Users.current_user) {
     console.log("User " + authData.uid + " is logged in with " + authData.provider);
     $scope.user = Users.getProfile(authData.uid);
@@ -12,6 +12,8 @@ module.exports = function ($scope, $routeParams, Profile, Post, Auth, Users, $ui
     $location.path('/login');
     console.log("User is logged out");
   }
+
+
 
   $scope.getNumKeys = function(obj) {
     if (!obj){
@@ -25,7 +27,6 @@ module.exports = function ($scope, $routeParams, Profile, Post, Auth, Users, $ui
 
   var uid = $routeParams.userId;
   $scope.profile = Profile.get(uid);
-  console.log($scope.profile);
   $scope.view_tab = 'tabA';
 
   //get likes

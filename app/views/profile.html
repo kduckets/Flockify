@@ -25,7 +25,7 @@
         </md-tab>
         <md-tab label="Likes" ng-class="{'active': view_tab == 'tabB'}" ng-click="changeTab('tabB');getLikes()" >
         </md-tab>
-        <md-tab label="Queue" ng-class="{'active': view_tab == 'tabC'}" ng-click="changeTab('tabC');getQueue()" >
+        <md-tab label="Queue" ng-class="{'active': view_tab == 'tabC'}" ng-if="user.$id === profile.$id"ng-click="changeTab('tabC');getQueue()" >
         </md-tab>
         </md-tabs>
 
