@@ -2,7 +2,8 @@
 
 <div style="padding-bottom:10px" ng-show="user" ng-cloak>
 
-
+<div class="background">
+   </div>
     <md-button aria-label="Search"
                style="top:12px;right:48px;position:fixed;z-index:2;padding: 0 0px !important;
                margin: 5px 8px !important;" ng-click="load();showSearch = !showSearch; allTime()">
@@ -61,6 +62,7 @@
       </md-list-item>
       <md-divider ></md-divider>
     </md-list>
+ 
     <div align="center">
    <!--    <md-tabs md-center-tabs="true" md-border-bottom>
         <md-tab ng-click="thisWeek()" aria-label="week" ng-class="week ? 'md-raised md-primary':'md-raised'">this week</md-tab>
@@ -76,6 +78,8 @@
         <md-button ng-click="load();thisMonth()" aria-label="month" ng-class="month ? 'md-accent':'md-primary'">past month</md-button>
         
         </div>
+
+
          <div style="border-bottom: 1px solid #aaa;max-width:50%">
         </div>
       <div>
@@ -89,6 +93,8 @@
         </md-button>
       </div>
     </div>
+
+ 
     <div align="center">
       <md-chips ng-model="tagFilters" readonly="true">
         <md-chip-template ng-click="load();removeTag($chip)">
