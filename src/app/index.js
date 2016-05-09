@@ -12,6 +12,7 @@ require('firebase');
 require('angularfire');
 require('angular-spotify');
 require('ng-embed');
+require('angular-google-analytics');
 
 
 require('./../../app/bower_components/angular-spotify/dist/angular-spotify.min');
@@ -33,7 +34,8 @@ var app = angular.module('flockifyApp', [
   'ui.bootstrap',
   'yaru22.angular-timeago',
   'ngMdIcons',
-  'ngEmbed'
+  'ngEmbed',
+  'angular-google-analytics'
 ]);
 // app.config(function (SpotifyProvider) {
 //   SpotifyProvider.setClientId('44bb100c98a34efd9c4e874756e09080');

@@ -1,13 +1,15 @@
 <div class="container" ng-show="user" flex ng-cloak>
-
+  
 
   <div align="center" id="top"><small><b>Flockify Huddle</b> <pre>Page: {{currentPage}} / {{numPages}}</pre></small></div>
   <div align="center">
   <uib-pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages" items-per-page="itemsPerPage" first-text="<<" last-text=">>" next-text=">" previous-text="<"></uib-pagination></div>
 
 
-
-  <div ng-repeat="comment in comments.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))" class="row cmt">
+  <div ng-show="loadingCircle" align="center">
+      <md-progress-circular md-mode='indeterminate' md-diameter="132"></md-progress-circular>
+    </div>
+  <div ng-repeat="comment in comments.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))" class="row cmt" ng-show="!loadingCircle">
    <div class="col-md-12">
     <div class="chat">
      <p>

@@ -1,6 +1,7 @@
 module.exports = function ($scope, $routeParams, Post, Auth, Comment, Profile, $http, $filter, $sce, 
   $route, $uibModal, FIREBASE_URL, Users, $firebaseArray, $window, $location, $anchorScroll, Notification) {
   Notification.page_view("/chat/");
+  $scope.loadingCircle = true;
   var ref = new Firebase(FIREBASE_URL);
   var authData = Auth.$getAuth();
   if (authData) {
@@ -35,6 +36,7 @@ module.exports = function ($scope, $routeParams, Post, Auth, Comment, Profile, $
       $scope.totalItems = comments.length;
       $scope.comments = comments;
       $scope.currentPage = Math.ceil($scope.totalItems / $scope.itemsPerPage);
+      $scope.loadingCircle = false;
   });
 
   $scope.setPage = function (pageNo) {
