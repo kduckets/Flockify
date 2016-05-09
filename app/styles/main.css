@@ -43,7 +43,8 @@ height: 4px;
 }
 
 .chat iframe{
-    background-image: url("/images/loading.gif");   
+    background-image: url("/images/loading.gif");  
+    background-size: 100px 80px; 
     background-repeat: no-repeat;
     background-position: 50% 50%;
   position: relative;
