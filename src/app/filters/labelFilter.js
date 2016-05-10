@@ -3,7 +3,7 @@ module.exports = function() {
   	if(label != ''){
     var out = [];
       for (var i = 0; i < items.length; i++){
-          if(items[i].labels == label)
+          if(items[i].labels && items[i].labels.indexOf(label) !== -1)
               out.push(items[i]);
       }      
     return out;
