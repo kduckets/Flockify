@@ -111,6 +111,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
     }
     $scope.tagText = $scope.tagText.replace(tag," ");
     $scope.allTime();
+    $scope.sorter = '-';
   };
 
   $scope.thisWeek = function(){
