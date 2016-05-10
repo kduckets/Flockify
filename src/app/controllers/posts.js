@@ -80,6 +80,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
   $scope.sorter = '-';
   $scope.tagText = '';
   $scope.tagFilters = [];
+  $scope.label_filter = '';
 
   $scope.week = false;
   $scope.last = false;
@@ -105,14 +106,22 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
 
   };
 
+  $scope.filterByLabel = function(label){
+    $scope.tagFilters.push(label);
+    $scope.label_filter =label;
+    $window.scrollTo(0,0);
+  };
+
   $scope.removeTag = function(tag){
     var index = $scope.tagFilters.indexOf(tag);
     if (index > -1) {
       $scope.tagFilters.splice(index, 1);
     }
     $scope.tagText = $scope.tagText.replace(tag," ");
+    $scope.label_filter = '';
     $scope.allTime();
     $scope.sorter = '-';
+
   };
 
   $scope.thisWeek = function(){
@@ -223,19 +232,23 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
   $scope.getDiscogsData = function (post) {
      var apiKey = 'NkGkQmxCMALmQCBYYdnZ';
      var apiSecret = 'npMAgZwCuvfselUUpysRCqyXdQUrqcZh';
+     // angular.forEach($scope.posts, function(post, key) {
+     //  if(post.media_info){
       $http({
   method: 'GET',
   url : 'https://api.discogs.com/database/search?' + 'artist=' + post.media_info.artist + '&release_title=' + post.media_info.album +
-  '&key=' + apiKey + '&secret=' + apiSecret + '&country=us'
-}).then(function successCallback(response) {
+  '&key=' + apiKey + '&secret=' + apiSecret + '&country=us' + "&type=master"
+   }).then(function successCallback(response) {
   if(response.data.results[0]){
      console.log(response.data);
   Post.label(post.$id, response.data.results[0].label);
   Post.genre(post.$id, response.data.results[0].genre);
  
-}
+    }
   })
  }
+ // });
+// }
 
 
   $scope.save = function(post) {

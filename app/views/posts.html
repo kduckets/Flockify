@@ -106,7 +106,7 @@
     <!--   <a href ng-click="batchUpdate()">batch</a>  -->
     <!-- <p ng-show="filteredItems.length == 0" align="center" style="padding-top: 20px"><i>Looks like there are no albums here yet</i></p> -->
  <div ng-hide="loadingCircle">
-    <div class="post" ng-repeat="post in filteredItems=(posts | orderBy:sorter | filter:'spotify' |
+    <div class="post" ng-repeat="post in filteredItems=(posts | orderBy:sorter | filter:'spotify' | byLabel:label_filter |
 isAfter:filter_start_date:filter_end_date | byText:textFilter | byText:tagText) | 
 limitTo:totalDisplayed track by post.$id" align="center">
    
@@ -198,11 +198,11 @@ limitTo:totalDisplayed track by post.$id" align="center">
  <md-tooltip md-direction="bottom">
       {{same_label}} other posted albums on this label
    </md-tooltip>
- <a style="color:white !important" href="" ng-click="load();filterByTag(label)" ng-mouseleave="same_label == 0" ng-mouseover="albumsOnLabel(label)">{{label}}</span></a>
+ <a style="color:white !important" href="" ng-click="load();filterByLabel(label)" ng-mouseleave="same_label == 0" ng-mouseover="albumsOnLabel(label)">{{label}}</span></a>
 
  </div>
 
- <!--  <md-button ng-click="getDiscogsData(post)">DC data</md-button> -->
+<!--   <md-button ng-click="getDiscogsData(post)">DC data</md-button> -->
 
             <div>
             <img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" class="star" />

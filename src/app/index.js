@@ -164,6 +164,7 @@ app.filter('byText', require('./services/textFilter'));
 app.filter('byTags', require('./services/tagFilter'));
 app.filter('emptyToEnd', require('./directives/emptyToEnd'));
 app.filter('sanitize', require('./filters/sanitize'));
+app.filter('byLabel', require('./filters/labelFilter'));
 
 app.directive("keepScroll", require('./directives/keepScroll'));
 app.directive("scrollItem", require('./directives/scrollItem'));
