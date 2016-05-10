@@ -195,15 +195,19 @@ limitTo:totalDisplayed track by post.$id" align="center">
 
  <div>
 <span style="display:inline-block;margin-right:4px" ng-repeat="label in post.labels" class="label-tag label label-default">
- <a style="color:white !important" href="" ng-click="load();filterByTag(label)">{{label}}</span></a>
+ <md-tooltip md-direction="bottom">
+      {{same_label}} other posted albums on this label
+   </md-tooltip>
+ <a style="color:white !important" href="" ng-click="load();filterByTag(label)" ng-mouseleave="same_label == 0" ng-mouseover="albumsOnLabel(label)">{{label}}</span></a>
+
  </div>
- <!-- ({{same_label}}) -->
+
  <!--  <md-button ng-click="getDiscogsData(post)">DC data</md-button> -->
 
             <div>
             <img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" class="star" />
                   <a href="" ng-click="starPost(post)">
-                     <md-tooltip md-direction="right">
+              <md-tooltip md-direction="right">
                 Star this album
               </md-tooltip>
                     <img ng-src="/images/empty-star.png" class="star" /></a>

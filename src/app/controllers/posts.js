@@ -32,6 +32,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
   });
  }
   $scope.post = {score: 0, comments: 0, stars:0};
+  $scope.same_label = 0;
 
   $scope.load = function(){
     $scope.loadingCircle = true;
@@ -182,10 +183,10 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
   };
 
   $scope.albumsOnLabel = function(label){
+     $scope.same_label = -1;
     angular.forEach($scope.posts, function (post, key){
-      $scope.same_label = 0;
       if(post.labels){
-      if(post.labels.indexOf(label) > -1){
+      if(post.labels.indexOf(label) !== -1){
         $scope.same_label +=1;
       }
     }
