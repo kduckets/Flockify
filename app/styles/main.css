@@ -18,10 +18,13 @@ background-image: url('/images/moonpool.jpg');
 }
 
 .label-tag{
-  background-color: #999999 !important;
+  background-color: #d3d3d3 !important;
  /* color: #696969 !important*/
 }
-
+.label-tag:hover{
+  background-color: black !important;
+ /* color: #696969 !important*/
+}
 
 #loading-bar .bar {
 background: #ffc0cb;

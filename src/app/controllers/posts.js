@@ -181,6 +181,17 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
     return Object.keys(obj).length;
   };
 
+  $scope.albumsOnLabel = function(label){
+    angular.forEach($scope.posts, function (post, key){
+      $scope.same_label = 0;
+      if(post.labels){
+      if(post.labels.indexOf(label) > -1){
+        $scope.same_label +=1;
+      }
+    }
+    })
+  }
+
 
   $scope.search = function(){
     Spotify.search($scope.post.search + '*', 'artist,album').then(function (data) {
