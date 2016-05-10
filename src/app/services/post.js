@@ -27,6 +27,30 @@ module.exports = function ($firebaseArray, $firebaseObject, FIREBASE_URL, Users)
       });
     },
 
+   label: function(postId, tag){
+      ref.once("value", function(snapshot) {
+        // var numTags = snapshot.child('posts').child(Users.current_group).child(postId).child('labels').numChildren();
+        //remove duplicate labels
+        var result = [];
+        $.each(tag, function(i, e) {
+        if ($.inArray(e, result) == -1) result.push(e);
+        });
+        return ref.child('posts').child(Users.current_group).child(postId).update({'labels': result});
+      });
+    },
+
+    genre: function(postId, tag){
+      ref.once("value", function(snapshot) {
+        // var numTags = snapshot.child('posts').child(Users.current_group).child(postId).child('labels').numChildren();
+        //remove duplicate labels
+        var result = [];
+        $.each(tag, function(i, e) {
+        if ($.inArray(e, result) == -1) result.push(e);
+        });
+        return ref.child('posts').child(Users.current_group).child(postId).update({'genre': result});
+      });
+    },
+
     star: function(postId, stars){
       return ref.child('posts').child(Users.current_group).child(postId).update({'stars': stars});
     },

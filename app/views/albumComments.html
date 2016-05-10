@@ -96,6 +96,12 @@
     min-height: 0px;" ng-click="likeComment(comment)">
     <ng-md-icon icon="thumb_up" size="22"></ng-md-icon></md-button>
     <b>{{comment.likes}}</b>
+ <!--      <md-button style="padding: 0 4px;
+    margin: 0px 0px;
+    line-height: 0px;
+    min-height: 0px;" ng-click="dislikeComment(comment)">
+    <ng-md-icon icon="thumb_down" size="22"></ng-md-icon></md-button>
+    <b>{{comment.dislikes}}</b> -->
         <p class="author">posted by
           <a ng-href="#/users/{{ comment.creator_id }}">
             {{ comment.creator_name }}
@@ -246,6 +252,13 @@
     min-height: 0px;" ng-click="likeComment(comment)">
     <ng-md-icon icon="thumb_up" size="22"></ng-md-icon></md-button>
     <b>{{comment.likes}}</b>
+<!--      <md-button style="padding: 0 4px;
+    margin: 0px 0px;
+    line-height: 0px;
+    min-height: 0px;" ng-click="dislikeComment(comment)">
+    <ng-md-icon icon="thumb_down" size="22"></ng-md-icon></md-button>
+    <b>{{comment.dislikes}}</b> -->
+
 
         <p class="author">posted by
           <a ng-href="#/users/{{ comment.creator_id }}">

@@ -13,6 +13,8 @@
     var xml2js = require('xml2js');
     var http = require('http');
     var ejs = require('ejs');
+    var Discogs = require('disconnect').Client;
+
 
     // configuration =================
 

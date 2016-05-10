@@ -122,6 +122,78 @@ module.exports = function ($firebaseArray, FIREBASE_URL, Auth, Post, Notificatio
      });
   }
     },
+  //     dislike_comment: function(comments_scope_array, post_id, comment){
+  //     if(comment.creator_id != id){
+  //     commentsRef.child(post_id).child(comment.$id).once('value', function(dataSnapshot) {
+  //         var post = Post.get(post_id);
+  //         var actions_ref = ref.child('user_actions').child(id).child(post_id).child(comment.$id);
+  //         var current_actions = $firebaseObject(actions_ref);
+  //          current_actions.$loaded().then(function(res) {
+  //           if (!res.dislike) {
+  //         if(dataSnapshot.val().dislikes){
+  //         var dislikes = dataSnapshot.val().dislikes;
+  //         dislikes += 1;
+  //           actions_ref.update({
+  //               'dislike': true
+  //             });
+           
+  //             Notification.add_action(comment.creator_id, {
+  //             url: "/albums/" + post_id,
+  //             msg: "Your comment on '" + Util.trim(post.media_info.album, 25) + "' was disliked."
+  //           });
+  //       ref.child('user_scores').child(Users.current_group).child(comment.creator_id).once("value", function(snapshot) {
+  //         var val = snapshot.val();
+  //         if (!val){
+  //           console.error("No snapshot found for ", comment.creator_id);
+  //         }
+  //                if(val.comments_score){
+  //            var comments_score = val.comments_score;
+  //               }else{
+  //               var comments_score = 0;
+  //               }
+  //            var new_score = comments_score - 1;
+  //            ref.child("user_scores").child(Users.current_group).child(comment.creator_id).update({
+  //             'comments_score': new_score
+  //           });
+  //       })
+  //         return commentsRef.child(post_id).child(comment.$id).update({'dislikes': dislikes});
+    
+  //       }else{
+  //         dislikes = 1;
+  //           actions_ref.update({
+  //               'dislike': true
+  //             });
+
+  //             Notification.add_action(comment.creator_id, {
+  //             url: "/albums/" + post_id,
+  //             msg: "Your comment on '" + Util.trim(post.media_info.album, 25) + "' was disliked."
+  //           });  
+  //         ref.child('user_scores').child(Users.current_group).child(comment.creator_id).once("value", function(snapshot) {
+  //         var val = snapshot.val();
+  //         if (!val){
+  //           console.error("No snapshot found for ", comment.creator_id);
+  //         }
+  //                if(val.comments_score){
+  //            var comments_score = val.comments_score;
+  //               }else{
+  //               var comments_score = 0;
+  //               }
+  //            var new_score = comments_score - 1;
+  //            ref.child("user_scores").child(Users.current_group).child(comment.creator_id).update({
+  //             'comments_score': new_score
+  //           });
+  //       })
+  //         return commentsRef.child(post_id).child(comment.$id).update({'dislikes': dislikes});
+  //       }   
+  //         }else{
+  //           //TODO: msg: you already liked this comment
+  //           return;
+  //         }
+
+  //         });
+  //    });
+  // }
+  //   },
         like_chat: function(comments_scope_array, post_id, comment){
       if(comment.creator_id != id){
       chatRef.child(comment.$id).once('value', function(dataSnapshot) {

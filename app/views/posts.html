@@ -192,8 +192,15 @@ limitTo:totalDisplayed track by post.$id" align="center">
                 <a ng-href="#/albums/{{post.$id}}">
    <span class="md-headline"><b>{{ post.media_info.artist }}</b><br/>
  {{ post.media_info.album | limitTo: 22 }}{{post.media_info.album.length > 22 ? '..' : ''}} ({{post.media_info.release_date | limitTo: 4}})</span></a>
-                <div>
-                  <img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" class="star" />
+
+ <div>
+<span style="display:inline-block;margin-right:4px" ng-repeat="label in post.labels" class="label-tag label label-default">
+ <a style="color:white !important" href="" ng-click="load();filterByTag(label)">{{label}}</span></a>
+ </div>
+ <!--  <md-button ng-click="getDiscogsData(post)">DC data</md-button> -->
+
+            <div>
+            <img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" class="star" />
                   <a href="" ng-click="starPost(post)">
                      <md-tooltip md-direction="right">
                 Star this album
@@ -210,14 +217,19 @@ limitTo:totalDisplayed track by post.$id" align="center">
 
               <div layout="row" layout-align="center center">
                 <md-chips class="tag-chip"  ng-model="post.tags"  readonly="true">
-                  <md-chip-template ng-click="load();filterByTag($chip.name)">
-              
-        <span>
-          <small>{{$chip.name | lowercase}}</small>
-        </span>
-               
+                  <md-chip-template ng-click="load();filterByTag($chip.name)">         
+                 <span>
+                 <small>{{$chip.name | lowercase}}</small>
+                 </span>             
                   </md-chip-template>
                 </md-chips>
+                <!-- <md-chips ng-model="post.genre"  readonly="true">
+                  <md-chip-template ng-click="load();filterByTag($chip.name)">         
+                 <span>
+                 <small>{{$chip | lowercase}}</small>
+                 </span>             
+                  </md-chip-template>
+                </md-chips> -->
               </div>
 
      <span class="md-subhead"><small><b>posted by <a ng-href="#/users/{{ post.creator_id }}">{{ post.creator_name }}</b>
@@ -226,6 +238,7 @@ limitTo:totalDisplayed track by post.$id" align="center">
          ng-show="trophy(post.creator_id)" height="30px"/>
 
        </a> <i>{{ post.created_ts | timeAgo}}</i></small></span>
+    
             </md-card-content>
           </div>
 

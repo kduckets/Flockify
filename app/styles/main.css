@@ -17,6 +17,10 @@ background-image: url('/images/moonpool.jpg');
     height: 100%;
 }
 
+.label-tag{
+  background-color: #999999 !important;
+ /* color: #696969 !important*/
+}
 
 
 #loading-bar .bar {

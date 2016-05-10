@@ -208,11 +208,22 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
   };
 
   $scope.getDiscogsData = function (post) {
-      $http.get('http://api.discogs.com/albums/' + post.media_info.album + '+' + post.media_info.artist).
-        success(function(data) {
-            console.log(data);
-        });
+     var apiKey = 'NkGkQmxCMALmQCBYYdnZ';
+     var apiSecret = 'npMAgZwCuvfselUUpysRCqyXdQUrqcZh';
+      $http({
+  method: 'GET',
+  url : 'https://api.discogs.com/database/search?' + 'artist=' + post.media_info.artist + '&release_title=' + post.media_info.album +
+  '&key=' + apiKey + '&secret=' + apiSecret + '&country=us'
+}).then(function successCallback(response) {
+  if(response.data.results[0]){
+     console.log(response.data);
+  Post.label(post.$id, response.data.results[0].label);
+  Post.genre(post.$id, response.data.results[0].genre);
+ 
+}
+  })
  }
+
 
   $scope.save = function(post) {
     if($scope.user && Users.current_user_id != post.creator_id){
