@@ -251,7 +251,6 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
  // });
 // }
 
-
   $scope.save = function(post) {
     if($scope.user && Users.current_user_id != post.creator_id){
       console.log(post);

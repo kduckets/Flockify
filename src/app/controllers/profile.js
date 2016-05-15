@@ -1,4 +1,4 @@
-module.exports = function ($scope, $routeParams, Profile, Post, Auth, Users, $uibModal, FIREBASE_URL, $location,$mdToast) {
+module.exports = function ($scope, $routeParams, Profile, Post, Auth, Users, $uibModal, FIREBASE_URL, $location,$mdToast,$http) {
   var ref = new Firebase(FIREBASE_URL);
   var authData = Auth.$getAuth();
 
@@ -12,8 +12,6 @@ module.exports = function ($scope, $routeParams, Profile, Post, Auth, Users, $ui
     $location.path('/login');
     console.log("User is logged out");
   }
-
-
 
   $scope.getNumKeys = function(obj) {
     if (!obj){
