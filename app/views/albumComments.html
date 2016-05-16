@@ -176,14 +176,6 @@
 
   <div flex flex-gt-md="50">
 
-<div ng-show="show_date" class="alert alert-success" role="alert">
-<p>{{post.media_info.artist}} are playing near you on {{show_date | date:'MMM d, y h:mm a'}} at <a ng-href="{{venue_url}}">{{venue_name}}
-</a> in {{venue_city}}, {{venue_region}}<sup><small> <a href="" ng-click="showZip = !showZip">[change]</small></sup></p> 
-
-
-<p><a ng-href="{{tickets_url}}">Get tickets here ({{ticket_status}})</a>
-<p><small>(Tour information provided by <a href="http://www.bandsintown.com">Bandsintown</a>)</small></p>
-</div>
     <div>
       <br/>
       <a ng-href="{{post.media_info.share_uri}}" target="_blank">
@@ -221,7 +213,13 @@
   <span class="after label label-pill label-danger">{{ post.comments }}</span></span>
         </md-button>
       </div>
-    <br/>
+      <div ng-show="show_date" class="alert alert-success" role="alert">
+<p>{{post.media_info.artist}} are playing near you on {{show_date | date:'MMM d, y h:mm a'}} at <a ng-href="{{venue_url}}">{{venue_name}}
+</a> in {{venue_city}}, {{venue_region}}<sup><small> <a href="" ng-click="showZip = !showZip">[change]</small></sup></p> 
+<p><a ng-href="{{tickets_url}}">Get tickets here ({{ticket_status}})</a>
+<p><small>(Tour information provided by <a href="http://www.bandsintown.com">Bandsintown</a>)</small></p>
+</div>
+  
 
     <div><p>{{post.media_info.summary}}</p></div>
     <div layout="row" layout-align="left center">
