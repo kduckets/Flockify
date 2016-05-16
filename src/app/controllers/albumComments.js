@@ -1,8 +1,9 @@
 module.exports = function ($scope, $routeParams, Post, Auth, Comment, Notification, $firebaseArray, Profile, $http, $filter, $sce, $location,
-                           $uibModal, Action, $mdToast, FIREBASE_URL, $mdConstant, $mdDialog, Users, Spotify) {
+                           $uibModal, Action, $mdToast, FIREBASE_URL, $mdConstant, $mdDialog, Users, Spotify, bandsintownFactory) {
   var post_id = $routeParams.postId;
   var postRef = new Firebase(FIREBASE_URL+"/posts");
   var ref = new Firebase(FIREBASE_URL);
+
 
   Notification.page_view("/albums/" + post_id);
 
@@ -22,32 +23,43 @@ module.exports = function ($scope, $routeParams, Post, Auth, Comment, Notificati
      $scope.albumsBySameArtist(data);
      $scope.matchingTags(data);
      $scope.loadingCircleRelated = false;
+     bandsintown($scope.post);
   });
   });
 
     $scope.related_albums = [];
     $scope.loadingCircleRelated = true;
 
-$scope.bandsintown = function(post){
-  if(post.media_info){
-        $http({
-  method: 'GET',
-  url : 'http://api.bandsintown.com/events/search?artists[]='+ post.media_info.artist +
-  '&location=use_geoip&radius=25&format=json&app_id=Flockify'
-   }).then(function successCallback(response) {
-  if(response){
+var bandsintown = function(post){
+
+  bandsintownFactory.getEventsFromArtistByLocation({
+    artist:post.media_info.artist, // ? and / characters must be double escaped. Artists such as "AC/DC" will end up as "AC%252FDC"
+    location:"use_geoip", // city,state (US or CA) || city,country || lat,lon || ip address
+    // radius:"<RADIUS">, // (optional) (default: 25) in miles. valid values: 0-150
+    app_id:"Flockify", //The application ID can be anything, but should be a word that describes your application or company.
+}).then(function (response) {
+    if(response.data[0]){
      console.log(response);
-     $scope.tickets_url = response.ticket_url;
-     $scope.show_date = response.datetime;
-     $scope.venue_url = response.venue.url;
-     $scope.venue_name = response.venue.name;
-     $scope.venue_city = response.venue.city;
-     $scope.venue_region = response.venue.region;
-     $scope.ticket_status = response.ticket_status;
+     $scope.tickets_url = response.data[0].ticket_url;
+     $scope.show_date = response.data[0].datetime;
+     $scope.venue_url = response.data[0].venue.url;
+     $scope.venue_name = response.data[0].venue.name;
+     $scope.venue_city = response.data[0].venue.city;
+     $scope.venue_region = response.data[0].venue.region;
+     $scope.ticket_status = response.data[0].ticket_status;
+
     }
-  })
-}
-}
+    //on success
+}).catch(function (response) {
+  console.log('error', response);
+    //on error
+});
+
+};
+
+
+
+
 
   $scope.comments = Comment.get_comments_for_post(post_id);
   $scope.gifSearchText = '';
@@ -245,5 +257,7 @@ $scope.matchingTags = function(posts){
       );
     });
   };
+
+
 
 };
