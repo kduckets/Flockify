@@ -82,7 +82,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
       $http({
   method: 'GET',
   url : 'https://api.discogs.com/database/search?' + 'artist=' + $scope.artist + '&release_title=' + $scope.album +
-  '&key=' + apiKey + '&secret=' + apiSecret + '&country=us' + "&type=release"
+  '&key=' + apiKey + '&secret=' + apiSecret + '&country=us' + "&type=release" + "&type=master"
    }).then(function successCallback(response) {
   if(response.data.results[0]){
   $scope.label = response.data.results[0].label;

@@ -31,7 +31,7 @@
     </md-toolbar>
     <div align="center">
       <div class="md-toolbar-tools" style="max-width:320px">
-        <md-button flex="33" aria-label="Search" ng-click="load();search()">
+        <md-button aria-label="Search" ng-click="load();search()">
           <md-tooltip>
             Search for an album to post
           </md-tooltip>
@@ -45,7 +45,7 @@
               No results found.
             </div>
           </md-input-container>
-          <md-button flex="33" ng-click="load();clearResults()" ng-show="post.search" aria-label="Back">
+          <md-button ng-click="load();clearResults()" ng-show="post.search" aria-label="Back">
             <ng-md-icon icon="clear"></ng-md-icon>
           </md-button>
           <md-button aria-label="Search" show-xs hide-gt-xs ng-show="!post.search"
@@ -203,7 +203,7 @@ limitTo:totalDisplayed track by post.$id" align="center">
  </div>
 
 
-<!--   <md-button ng-click="getDiscogsData(post)">DC data</md-button> -->
+  <md-button ng-click="getDiscogsData(post)">DC data</md-button>
 
             <div>
             <img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" class="star" />

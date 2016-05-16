@@ -1,9 +1,10 @@
 <md-sidenav
+  layout="column"
   class="md-sidenav-right"
   md-component-id="right"
   md-disable-backdrop
   md-whiteframe="4">
-  <md-content ng-controller="NavCtrl" flex>
+  <md-content ng-controller="NavCtrl">
     <md-toolbar class="md-theme-indigo">
       <md-select class="md-toolbar-tools" ng-change="change_group()" ng-model="current_group">
         <md-option ng-repeat="group in subscribed_groups" value="{{ group.id }}" ng-selected="{{ group.id == current_group }}"> {{ group.group_name }}</md-option>
@@ -119,6 +120,7 @@
              <md-menu-divider></md-menu-divider>  
       </md-menu-content>
     </md-menu>
+    
     <md-button class="md-icon-button" aria-label="More">
       <ng-md-icon icon="menu" style="fill:white" ng-click="toggleMenu()"></ng-md-icon>
     </md-button>
