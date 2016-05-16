@@ -131,8 +131,10 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
     $scope.post.created_ts = moment.utc().format();
     $scope.post.media_info.release_date = $scope.release_date;
     $scope.post.latest_comment = 9999;
+    if($scope.label){
     $scope.post.labels = $scope.label;
-    $scope.post.genre = $scope.genre;
+    };
+    // $scope.post.genre = $scope.genre;
 
 
     Post.create($scope.post).then(function(postRef) {
