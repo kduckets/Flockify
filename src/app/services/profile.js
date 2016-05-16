@@ -14,6 +14,10 @@ module.exports = function ($window, FIREBASE_URL, $firebaseArray, $firebaseObjec
       return ref.child('user_actions').child(userId).child(postId).update({'star': true});
     },
 
+    setZip: function(userId, zip){
+      return ref.child('users').child(userId).child('zip').update({'current_zip': zip});
+    },
+
     getPosts: function(userId) {
       var defer = $q.defer();
       $firebaseArray(ref.child('posts').child(Users.current_group))

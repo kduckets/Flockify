@@ -57,8 +57,21 @@ var bandsintown = function(post){
 
 };
 
-
-
+  $scope.showZip = function(ev) {
+    $mdDialog.show({
+      controller: 'ZipCtrl',
+      templateUrl: '/views/zip.html',
+      parent: angular.element(document.body),
+      targetEvent: ev,
+      clickOutsideToClose:true,
+      fullscreen: false
+    })
+    .then(function(answer) {
+      $scope.status = 'You said the information was "' + answer + '".';
+    }, function() {
+      $scope.status = 'You cancelled the dialog.';
+    });
+};
 
 
   $scope.comments = Comment.get_comments_for_post(post_id);

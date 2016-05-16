@@ -77,6 +77,10 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
     $scope.spotify_uri = album.data.external_urls.spotify;
     $scope.release_date = album.data.release_date;
     $scope.embed_uri = album.data.uri;
+    var copyright = album.data.copyrights[0].text;
+    $scope.label = [];
+    $scope.label.push(copyright.replace(/\b\d{4}\b/,'').replace('(C)','').trim());
+    console.log($scope.label);
     var apiKey = 'NkGkQmxCMALmQCBYYdnZ';
     var apiSecret = 'npMAgZwCuvfselUUpysRCqyXdQUrqcZh';
       $http({
@@ -85,7 +89,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
   '&key=' + apiKey + '&secret=' + apiSecret + '&country=us' + "&type=release"
    }).then(function successCallback(response) {
   if(response.data.results[0]){
-  $scope.label = response.data.results[0].label;
+  // $scope.label = response.data.results[0].label;
   $scope.genre = response.data.results[0].genre;
   angular.forEach($scope.genre, function(value, key) {
       var newChip = {'name': value};
@@ -116,7 +120,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
     $scope.post.media_info = {};
 
     $scope.post.creator_name = $scope.username || null,
-      $scope.post.media_info.summary = $scope.summary;
+    $scope.post.media_info.summary = $scope.summary;
     $scope.post.creator_id = $scope.user.$id;
     $scope.post.media_info.album = $scope.album;
     $scope.post.media_info.artist = $scope.artist;

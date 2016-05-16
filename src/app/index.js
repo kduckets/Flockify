@@ -177,6 +177,7 @@ app.directive("focus", require('./directives/focus'));
 app.controller('AlbumCommentsCtrl', require('./controllers/albumComments'));
 app.controller('AlbumCtrl', require('./controllers/albumPost'));
 app.controller('AuthCtrl', require('./controllers/auth'));
+app.controller('ZipCtrl', require('./controllers/zip'));
 
 // app.controller('BooksCtrl', require('./controllers/books'));
 // app.controller('BookCtrl', require('./controllers/bookPost'));
