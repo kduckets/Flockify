@@ -24,7 +24,6 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
   $scope.album = album;
   // $scope.posts = Post.all;
 
-
   function transformChip(chip) {
     var match = false;
     // If it is an object, it's already a known chip
@@ -78,14 +77,27 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
     $scope.spotify_uri = album.data.external_urls.spotify;
     $scope.release_date = album.data.release_date;
     $scope.embed_uri = album.data.uri;
+    var apiKey = 'NkGkQmxCMALmQCBYYdnZ';
+    var apiSecret = 'npMAgZwCuvfselUUpysRCqyXdQUrqcZh';
+      $http({
+  method: 'GET',
+  url : 'https://api.discogs.com/database/search?' + 'artist=' + $scope.artist + '&release_title=' + $scope.album +
+  '&key=' + apiKey + '&secret=' + apiSecret + '&country=us' + "&type=release"
+   }).then(function successCallback(response) {
+  if(response.data.results[0]){
+  $scope.label = response.data.results[0].label;
+  $scope.genre = response.data.results[0].genre;
+  angular.forEach($scope.genre, function(value, key) {
+      var newChip = {'name': value};
+      $scope.selectedTags.push(newChip);
+    });
+    }
+  })
 
     // $scope.embed_link = $sce.trustAsResourceUrl("https://embed.spotify.com/?uri=spotify:album:6SwMUCcHLfZjji3MAFODMv");
-
-
   }, function errorCallback(response) {
     console.log(response);
   });
-
 
 
   $scope.cancel = function() {
@@ -119,6 +131,8 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
     $scope.post.created_ts = moment.utc().format();
     $scope.post.media_info.release_date = $scope.release_date;
     $scope.post.latest_comment = 9999;
+    $scope.post.labels = $scope.label;
+    $scope.post.genre = $scope.genre;
 
 
     Post.create($scope.post).then(function(postRef) {

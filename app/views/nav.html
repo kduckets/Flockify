@@ -88,7 +88,13 @@
       <img ng-src="/images/birds-wire.png" height="50px" style="position:absolute;z-index:10;top:8px;opacity: 0.8; padding-left: 100px" />
       <md-select class="md-toolbar-tools" ng-change="change_group()" ng-model="current_group" style="z-index: 12; ">
         <md-option ng-repeat="group in subscribed_groups" value="{{ group.id }}" ng-selected="{{ group.id == current_group }}"> {{ group.group_name }}</md-option>
+      <md-divider></md-divider>
+          <md-option disabled="disabled">
+            Create new private flock...
+          </md-option>
       </md-select>
+   
+     
     </md-toolbar>
 </div>
     </span>

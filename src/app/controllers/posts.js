@@ -238,7 +238,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
       $http({
   method: 'GET',
   url : 'https://api.discogs.com/database/search?' + 'artist=' + post.media_info.artist + '&release_title=' + post.media_info.album +
-  '&key=' + apiKey + '&secret=' + apiSecret + '&country=us' + "&type=master"
+  '&key=' + apiKey + '&secret=' + apiSecret + '&country=us' + "&type=release"
    }).then(function successCallback(response) {
   if(response.data.results[0]){
      console.log(response.data);
