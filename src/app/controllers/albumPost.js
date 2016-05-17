@@ -78,9 +78,9 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
     $scope.release_date = album.data.release_date;
     $scope.embed_uri = album.data.uri;
     var copyright = album.data.copyrights[0].text;
-    $scope.label = [];
-    $scope.label.push(copyright.replace(/\b\d{4}\b/,'').replace('(C)','').trim());
-    console.log($scope.label);
+    // $scope.label = [];
+    // $scope.label.push(copyright.replace(/\b\d{4}\b/,'').replace('(C)','').trim());
+    // console.log($scope.label);
     var apiKey = 'NkGkQmxCMALmQCBYYdnZ';
     var apiSecret = 'npMAgZwCuvfselUUpysRCqyXdQUrqcZh';
       $http({
@@ -89,7 +89,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
   '&key=' + apiKey + '&secret=' + apiSecret + '&country=us' + "&type=release"
    }).then(function successCallback(response) {
   if(response.data.results[0]){
-  // $scope.label = response.data.results[0].label;
+  $scope.label = response.data.results[0].label;
   $scope.genre = response.data.results[0].genre;
   angular.forEach($scope.genre, function(value, key) {
       var newChip = {'name': value};
