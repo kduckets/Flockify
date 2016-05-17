@@ -1,5 +1,5 @@
 module.exports = function($scope, $route, $location, $window, Post, Auth, $http, $cookies, album, $sce, $filter,
-                          $timeout, $q, $mdDialog, FIREBASE_URL, $mdConstant, Users, $firebaseArray, bandsintownFactory) {
+                          $timeout, $q, $mdDialog, FIREBASE_URL, $mdConstant, Users, $firebaseArray, bandsintownFactory, Concert) {
 
   var ref = new $window.Firebase(FIREBASE_URL);
   var tags = $firebaseArray(ref.child('tags').child(Users.current_group));
