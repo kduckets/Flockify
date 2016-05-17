@@ -1,5 +1,5 @@
 module.exports = function($scope, $route, $location, $window, Post, Auth, $http, $cookies, album, $sce, $filter,
-                          $timeout, $q, $mdDialog, FIREBASE_URL, $mdConstant, Users, $firebaseArray) {
+                          $timeout, $q, $mdDialog, FIREBASE_URL, $mdConstant, Users, $firebaseArray, bandsintownFactory) {
 
   var ref = new $window.Firebase(FIREBASE_URL);
   var tags = $firebaseArray(ref.child('tags').child(Users.current_group));
@@ -63,11 +63,11 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
     };
   };
 
+
   $http({
     method: 'GET',
     url: $scope.album
   }).then(function successCallback(album) {
-    console.log(album);
     $scope.spotify_result = album.data;
     $scope.artist = album.data.artists[0].name;
     $scope.album = album.data.name;
@@ -143,11 +143,44 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
 
     Post.create($scope.post).then(function(postRef) {
       //$location.path('/posts/' + ref.name());
+      console.log(postRef.name());
       $mdDialog.hide();
 
-      console.log('group ',Users.current_group);
+      bandsintownFactory.getEventsFromArtistByLocation({
+    artist:$scope.artist, // ? and / characters must be double escaped. Artists such as "AC/DC" will end up as "AC%252FDC"
+    location:"use_geoip", // city,state (US or CA) || city,country || lat,lon || ip address
+    // radius:"<RADIUS">, // (optional) (default: 25) in miles. valid values: 0-150
+    app_id:"Flockify", //The application ID can be anything, but should be a word that describes your application or company.
+}).then(function (response) {
+    if(response.data[0]){
+     console.log(response);
+     // $scope.concert_obj = response.data[0];
+     $scope.concert = {};
+     $scope.concert.artist = response.data[0].artists;
+     $scope.concert.artist_name = response.data[0].artists[0].name;
+     $scope.concert.thumb_url = response.data[0].artists[0].thumb_url;
+     $scope.concert.tickets_url = response.data[0].ticket_url;
+     $scope.concert.show_date = response.data[0].datetime;
+     // $scope.concert.venue_url = response.data[0].venue.url;
+     $scope.concert.venue_name = response.data[0].venue.name;
+     $scope.concert.venue_city = response.data[0].venue.city;
+     $scope.concert.venue_region = response.data[0].venue.region;
+     $scope.concert.ticket_status = response.data[0].ticket_status;
+     $scope.concert.group = Users.current_group;
+     $scope.concert.formatted_location = response.data[0].formatted_location;
+     $scope.concert.formatted_datetime = response.data[0].formatted_datetime;
+     $scope.concert.post_id = postRef.name();
+     $scope.concert.upvoted = true;
+     Concert.add($scope.concert, postRef.name());
+
+    }
+}).catch(function (response) {
+  console.log('error', response);
+    //on error
+});
 
       ref.child('user_scores').child(Users.current_group).child($scope.user.$id).once("value", function(snapshot) {
+
           var val = snapshot.val();
           if (!val){
             console.error("No snapshot found for ", $scope.user.$id);

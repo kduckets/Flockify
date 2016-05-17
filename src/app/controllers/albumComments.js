@@ -1,5 +1,6 @@
 module.exports = function ($scope, $routeParams, Post, Auth, Comment, Notification, $firebaseArray, Profile, $http, $filter, $sce, $location,
-                           $uibModal, Action, $mdToast, FIREBASE_URL, $mdConstant, $mdDialog, Users, Spotify, bandsintownFactory, Concert) {
+                           $uibModal, Action, $mdToast, FIREBASE_URL, $mdConstant, $mdDialog, Users, 
+                           Spotify, bandsintownFactory, $firebaseObject, Concert) {
   var post_id = $routeParams.postId;
   var postRef = new Firebase(FIREBASE_URL+"/posts");
   var ref = new Firebase(FIREBASE_URL);
@@ -57,7 +58,17 @@ var bandsintown = function(post){
      $scope.concert.formatted_datetime = response.data[0].formatted_datetime;
      $scope.concert.post_id = post_id;
 
+     var actions_ref = ref.child('user_actions').child($scope.user.$id).child(post_id);
+
+     var current_actions = $firebaseObject(actions_ref);
+
+     current_actions.$loaded().then(function(res) {
+
+     if(res.up || $scope.user.$id === $scope.post.creator_id) {
+      $scope.concert.upvoted = true;
+     }
      Concert.add($scope.concert, post_id);
+   });
     }
 }).catch(function (response) {
   console.log('error', response);

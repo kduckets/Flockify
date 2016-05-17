@@ -2,8 +2,8 @@ module.exports = function ($scope, $routeParams, Profile, Post, Auth, $firebaseA
   var ref = new Firebase(FIREBASE_URL);
   var user_id = Users.current_user_id;
   var authData = Auth.$getAuth();
-  $scope.filter_start_date = moment.utc();
-  $scope.filter_end_date = moment().add(200, 'days');
+  $scope.filter_start_date = moment().subtract(1, 'days');
+  $scope.only_upvoted = true;
 
   if (authData) {
      $scope.user = Users.getProfile(authData.uid);
@@ -49,6 +49,10 @@ module.exports = function ($scope, $routeParams, Profile, Post, Auth, $firebaseA
 
  ref.child('concerts').child(user_id).on('value', function(dataSnapshot) {
   //todo: check for posts with same artists and combine
+  //todo: show groups that posts are in
+  //todo: add to calendar botton
+  //todo: notifications for concerts coming up
+
    var dataObj = dataSnapshot.val();
    $scope.content = $.map(dataObj, function(value, index) {
     return [value];

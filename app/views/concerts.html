@@ -1,4 +1,9 @@
 <!-- md-table jade template-->
+ <div layout="row" layout-align="center">
+ <md-switch ng-model="only_upvoted" aria-label="Switch 1">
+   <small>Only show upvoted artists</small>
+  </md-switch>
+  </div>
 <div id="md-table-template">
   <table md-colresize="md-colresize" class="md-table">
     <thead ng-show="content.length > 0">
@@ -9,7 +14,7 @@
     </thead>
     <tbody>
 
-      <tr ng-repeat="c in content | orderBy:'show_date' | isAfter:filter_start_date:filter_end_date track by c.post_id" class="md-table-content-row" >
+      <tr ng-repeat="c in content | orderBy:'show_date' | filter: (only_upvoted || '') && {upvoted:'true'} | concertDate:filter_start_date track by c.post_id" class="md-table-content-row">
         <td>
           <div class="md-table-thumbs">
             <div style="background-image:url({{c.thumb_url}})"></div>
