@@ -104,8 +104,27 @@
    
     <span flex></span>
     
+<!-- *********************mobile*************************** -->
+<md-menu ng-hide="notifications.length == 0" hide-md hide-gt-md show-xs show-sm
+      <md-button style="overflow:visible !important;" aria-label="Open notifications" class="md-icon-button" ng-click="openNotifications($mdOpenMenu, $event)">
+        <span class="notifications-icon">
+       <ng-md-icon ng-hide="notifications.length == 0" icon="notifications_none" style="fill:white" size="32"></ng-md-icon>
+       <span class="after label label-pill label-danger">{{notifications.length}}</span></span>
+      </md-button>
+      <md-menu-content width="4">
+      <div align="center"><p ng-show="notifications.length == 0"><i>No new notifications</i></p></div>
+        <md-menu-item align="center" ng-repeat="notification in notifications">   
 
-    <md-menu style="padding-right: 40px" ng-hide="notifications.length == 0" >
+          <md-button ng-href="#{{notification.url}}">       
+         <small>{{notification.msg}}</small>            
+          </md-button>   
+        </md-menu-item>
+             <md-menu-divider></md-menu-divider>  
+      </md-menu-content>
+    </md-menu>
+
+    <!--******************************** desktop ******************** -->
+    <md-menu style="padding-right: 40px" ng-hide="notifications.length == 0" hide-xs hide-sm>
       <md-button style="overflow:visible !important;" aria-label="Open notifications" class="md-icon-button" ng-click="openNotifications($mdOpenMenu, $event)">
         <span class="notifications-icon">
        <ng-md-icon ng-hide="notifications.length == 0" icon="notifications_none" style="fill:white" size="32"></ng-md-icon>
