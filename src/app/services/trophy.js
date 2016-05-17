@@ -7,6 +7,7 @@ var ref = new Firebase(FIREBASE_URL);
        var last_week = 'weekly_score_'+monday_formatted;
        var scores = [];
        var high_score;
+       var low_score;
        var users_in_group = $firebaseArray(ref.child('user_scores').child(Users.current_group)).$loaded(function(users){
     angular.forEach(users, function(user, key) {
         if(user[last_week]){

@@ -1,0 +1,42 @@
+<!-- md-table jade template-->
+<div id="md-table-template">
+  <table md-colresize="md-colresize" class="md-table">
+    <thead ng-show="content.length > 0">
+      <tr class="md-table-headers-row">
+        <th ng-repeat="h in headers" class="md-table-header"><!-- <a href="#" ng-if="handleSort(h.field)" ng-click="reverse=!reverse;order(h.field,reverse)">{{h.name}} <i ng-show="reverse &amp;&amp; h.field == predicate" class="ion-android-arrow-dropup"></i><i ng-show="!reverse &amp;&amp; h.field == predicate" class="ion-android-arrow-dropdown"></i></a><span ng-if="!handleSort(h.field)"> -->{{h.name}}<!-- </span> --></th>
+        <th class="md-table-header"></th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr ng-repeat="c in content | orderBy:'show_date' | isAfter:filter_start_date:filter_end_date track by c.post_id" class="md-table-content-row" >
+        <td>
+          <div class="md-table-thumbs">
+            <div style="background-image:url({{c.thumb_url}})"></div>
+          </div>
+        </td>
+        <td>
+        <b>{{c.artist_name}}</b>
+        </td>
+         <td>
+        {{c.formatted_datetime}}
+        </td>
+        <td>
+        {{c.venue_name}}
+        </td>
+         <td>
+        {{c.formatted_location}}
+        </td>
+        <td>
+        <a ng-href="{{c.tickets_url}}" target=“_blank”>{{c.ticket_status}}</a>
+        </td>
+        <td>
+          <md-button aria-label="Info" ng-click="removeConcert(c)"> <!-- <ng-md-icon icon="more_vert"></ng-md-icon> -->
+          <ng-md-icon icon="clear"></ng-md-icon>
+          </md-button>       
+        </td>
+      </tr>
+    </tbody>
+  </table>
+    <p ng-show="content.length == 0" align="center"><br/><i>No upcoming concerts yet</i></p>
+</div>

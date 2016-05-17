@@ -1,5 +1,5 @@
 module.exports = function ($scope, $routeParams, Post, Auth, Comment, Notification, $firebaseArray, Profile, $http, $filter, $sce, $location,
-                           $uibModal, Action, $mdToast, FIREBASE_URL, $mdConstant, $mdDialog, Users, Spotify, bandsintownFactory) {
+                           $uibModal, Action, $mdToast, FIREBASE_URL, $mdConstant, $mdDialog, Users, Spotify, bandsintownFactory, Concert) {
   var post_id = $routeParams.postId;
   var postRef = new Firebase(FIREBASE_URL+"/posts");
   var ref = new Firebase(FIREBASE_URL);
@@ -40,16 +40,25 @@ var bandsintown = function(post){
 }).then(function (response) {
     if(response.data[0]){
      console.log(response);
-     $scope.tickets_url = response.data[0].ticket_url;
-     $scope.show_date = response.data[0].datetime;
-     $scope.venue_url = response.data[0].venue.url;
-     $scope.venue_name = response.data[0].venue.name;
-     $scope.venue_city = response.data[0].venue.city;
-     $scope.venue_region = response.data[0].venue.region;
-     $scope.ticket_status = response.data[0].ticket_status;
+     // $scope.concert_obj = response.data[0];
+     $scope.concert = {};
+     $scope.concert.artist = response.data[0].artists;
+     $scope.concert.artist_name = response.data[0].artists[0].name;
+     $scope.concert.thumb_url = response.data[0].artists[0].thumb_url;
+     $scope.concert.tickets_url = response.data[0].ticket_url;
+     $scope.concert.show_date = response.data[0].datetime;
+     // $scope.concert.venue_url = response.data[0].venue.url;
+     $scope.concert.venue_name = response.data[0].venue.name;
+     $scope.concert.venue_city = response.data[0].venue.city;
+     $scope.concert.venue_region = response.data[0].venue.region;
+     $scope.concert.ticket_status = response.data[0].ticket_status;
+     $scope.concert.group = Users.current_group;
+     $scope.concert.formatted_location = response.data[0].formatted_location;
+     $scope.concert.formatted_datetime = response.data[0].formatted_datetime;
+     $scope.concert.post_id = post_id;
 
+     Concert.add($scope.concert, post_id);
     }
-    //on success
 }).catch(function (response) {
   console.log('error', response);
     //on error

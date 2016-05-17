@@ -80,13 +80,13 @@
     </span>
 
    <span flex hide-xs hide-sm>
-   <div align="center" style="padding-left: 74px">
+   <div align="center" style="padding-left: 140px">
    <md-tooltip>
             Change your current flock
           </md-tooltip>
 <!--  <img ng-src="/images/birds-wire.png" height="50px" style="position:absolute;z-index:10;top:8px;opacity: 0.8" /> -->
      <md-toolbar class="md-theme-indigo" >
-      <img ng-src="/images/birds-wire.png" height="50px" style="position:absolute;z-index:10;top:8px;opacity: 0.8; padding-left: 100px" />
+      <img ng-src="/images/birds-wire.png" height="50px" style="position:absolute;z-index:10;top:8px;opacity: 0.8;" />
       <md-select class="md-toolbar-tools" ng-change="change_group()" ng-model="current_group" style="z-index: 12; ">
         <md-option ng-repeat="group in subscribed_groups" value="{{ group.id }}" ng-selected="{{ group.id == current_group }}"> {{ group.group_name }}</md-option>
       <md-divider></md-divider>
@@ -103,8 +103,10 @@
 
    
     <span flex></span>
+    
+
     <md-menu style="padding-right: 40px" ng-hide="notifications.length == 0" >
-      <md-button style="overflow:visible !important;margin-top: -5px;" aria-label="Open notifications" class="md-icon-button" ng-click="openNotifications($mdOpenMenu, $event)">
+      <md-button style="overflow:visible !important;" aria-label="Open notifications" class="md-icon-button" ng-click="openNotifications($mdOpenMenu, $event)">
         <span class="notifications-icon">
        <ng-md-icon ng-hide="notifications.length == 0" icon="notifications_none" style="fill:white" size="32"></ng-md-icon>
        <span class="after label label-pill label-danger">{{notifications.length}}</span></span>
@@ -120,6 +122,10 @@
              <md-menu-divider></md-menu-divider>  
       </md-menu-content>
     </md-menu>
+
+    <md-button ng-href="#/shows">
+    <img src="/images/ticket.png" height="32px" />
+    </md-button>
     
     <md-button class="md-icon-button" aria-label="More">
       <ng-md-icon icon="menu" style="fill:white" ng-click="toggleMenu()"></ng-md-icon>

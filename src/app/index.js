@@ -92,6 +92,10 @@ app.config(function($routeProvider) { //TODO: move to routes module
       templateUrl: 'views/about.html',
       controller: 'PostsCtrl'
     })
+     .when('/shows', {
+      templateUrl: 'views/concerts.html',
+      controller: 'ConcertsCtrl'
+    })
     // .when('/movies', {
     //   templateUrl: 'views/movies.html',
     //   controller: 'MoviesCtrl'
@@ -161,6 +165,7 @@ app.factory('Users', require('./services/users'));
 app.factory('Trophy', require('./services/trophy'));
 app.factory('Notification', require('./services/notifications'));
 app.factory('Util', require('./services/util'));
+app.factory('Concert', require('./services/concert'));
 
 app.filter('isAfter', require('./services/dateFilter'));
 app.filter('byText', require('./services/textFilter'));
@@ -168,16 +173,19 @@ app.filter('byTags', require('./services/tagFilter'));
 app.filter('emptyToEnd', require('./directives/emptyToEnd'));
 app.filter('sanitize', require('./filters/sanitize'));
 app.filter('byLabel', require('./filters/labelFilter'));
+app.filter('startFrom', require('./filters/startFrom'));
 
 app.directive("keepScroll", require('./directives/keepScroll'));
 app.directive("scrollItem", require('./directives/scrollItem'));
 app.directive("backTop", require('./directives/backtop'));
 app.directive("focus", require('./directives/focus'));
+app.directive("mdTable", require('./directives/table'));
 
 app.controller('AlbumCommentsCtrl', require('./controllers/albumComments'));
 app.controller('AlbumCtrl', require('./controllers/albumPost'));
 app.controller('AuthCtrl', require('./controllers/auth'));
 app.controller('ZipCtrl', require('./controllers/zip'));
+app.controller('ConcertsCtrl', require('./controllers/concerts'));
 
 // app.controller('BooksCtrl', require('./controllers/books'));
 // app.controller('BookCtrl', require('./controllers/bookPost'));
