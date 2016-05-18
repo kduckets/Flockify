@@ -14,7 +14,7 @@
     </thead>
     <tbody>
 
-      <tr ng-repeat="c in content | orderBy:'show_date' | filter: (only_upvoted || '') && {upvoted:'true'} | unique:'artist_name' | concertDate:filter_start_date track by c.post_id" class="md-table-content-row">
+      <tr ng-repeat="c in content | orderBy:'show_date' | filter: (only_upvoted || '') && {upvoted:'true'} | unique:'artist_name' | concertDate:filter_start_date track by c.post_id" class="md-table-content-row" ng-click="goToAlbum(c.post_id)">
         <td>
           <div class="md-table-thumbs">
             <div style="background-image:url({{c.thumb_url}})"></div>

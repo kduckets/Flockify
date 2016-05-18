@@ -29,8 +29,8 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
 // ************temporary for past concerts*****************************
 if (authData) {
    Profile.getPosts(authData.uid).then(function(posts) {
-    var flag = localStorage.getItem('last_call');
-    setTimeout(function(){ localStorage.setItem('last_call', moment().startOf('hour').format("hA")); }, 80000);
+    var flag = localStorage.getItem('flag');
+    setTimeout(function(){ localStorage.setItem('flag', moment().startOf('hour').format("hA")); }, 30000);
     console.log('flag:', flag);
   
 if(flag != moment().startOf('hour').format("hA")){

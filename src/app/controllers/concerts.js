@@ -1,4 +1,5 @@
-module.exports = function ($scope, $routeParams, Profile, Post, Auth, $firebaseArray, FIREBASE_URL, Users, $filter, Concert, Notification) {
+module.exports = function ($scope, $routeParams, Profile, Post, Auth, $firebaseArray, FIREBASE_URL, Users, 
+  $location, $filter, Concert, Notification) {
   var ref = new Firebase(FIREBASE_URL);
   Notification.page_view("/shows/");
   var user_id = Users.current_user_id;
@@ -18,6 +19,11 @@ module.exports = function ($scope, $routeParams, Profile, Post, Auth, $firebaseA
 
   $scope.getUsername = function(userId){
     return Users.getUsername(userId);
+  }
+
+  $scope.goToAlbum = function(postid){
+    console.log(postid);
+    $location.path("/#/albums/" + postid);
   }
 
 
