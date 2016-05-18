@@ -27,18 +27,10 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
 });
 
 // ************temporary for past concerts*****************************
-
-// ref.child('concerts').child(authData.uid).on('child_added', function(childSnapshot, prevChildKey) {
-//   var artist = childSnapshot.val().artist_name;
-//      Notification.add_action(authData.uid, {
-//               url: "/shows/",
-//               msg: "Upcoming concert for " + Util.trim(artist, 25) + "."
-//             });
-// });
-
+if (authData) {
    Profile.getPosts(authData.uid).then(function(posts) {
     var done = localStorage.getItem('done');
-    setTimeout(function(){ localStorage.setItem('done', moment().startOf('hour').format("hA")); }, 60000);
+    setTimeout(function(){ localStorage.setItem('done', moment().startOf('hour').format("hA")); }, 80000);
     console.log('done:', done);
   
 if(done != moment().startOf('hour').format("hA")){
@@ -97,7 +89,7 @@ if(done != moment().startOf('hour').format("hA")){
 
 
 
-
+}
 // ************temporary for past concerts*****************************
 
 

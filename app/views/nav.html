@@ -125,7 +125,7 @@
     </md-menu>
 </div>
     <!--******************************** desktop ******************** -->
-    <div hide-xs hide-sm>
+    <div hide-xs hide-sm ng-show="user">
     <md-menu style="padding-right: 40px" ng-hide="notifications.length == 0">
       <md-button style="overflow:visible !important;" aria-label="Open notifications" class="md-icon-button" ng-click="openNotifications($mdOpenMenu, $event)">
         <span class="notifications-icon">
@@ -145,7 +145,7 @@
     </md-menu>
     </div>
 
-    <md-button ng-href="#/shows">
+    <md-button ng-href="#/shows" ng-show="user">
     <img src="/images/ticket.png" height="32px" />
     </md-button>
     

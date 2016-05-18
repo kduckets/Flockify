@@ -22,6 +22,9 @@ module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootSco
       //set login cookie
       $scope.user = Users.getProfile(authData.uid);
       $scope.current_group = Users.current_group;
+      $scope.notifications = $firebaseArray(ref.child('notifications').child(Users.current_user_id).child($scope.current_group).child('actions'));
+  console.log($scope.notifications);
+
       // $scope.username = Users.getUsername(authData.uid);
     } else {
       $scope.user = null;
@@ -31,8 +34,6 @@ module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootSco
   });
   $scope.toggleMenu = buildToggler('right');
 
-  $scope.notifications = $firebaseArray(ref.child('notifications').child(Users.current_user_id).child($scope.current_group).child('actions'));
-  console.log($scope.notifications);
 
   $scope.change_group = function() {
     console.log("change group", $scope.current_group);
