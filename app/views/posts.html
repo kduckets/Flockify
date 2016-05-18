@@ -113,7 +113,7 @@ limitTo:totalDisplayed track by post.$id" align="center">
       <!-- ******************************* MOBILE CARD HERE *********************************** -->
 
       <md-card class="card" hide-md hide-gt-md show-xs show-sm>
-        <span class="score label label-default label-default"><b>{{ post.score }}</b></span>
+    <!--     <span class="score label label-default label-default"><b>{{ post.score }}</b></span> -->
         <div class="album-container">
           <a ng-href="#/albums/{{post.$id}}" >
             <img class="md-card-image" ng-src="{{post.image_medium}}" />
@@ -162,6 +162,8 @@ limitTo:totalDisplayed track by post.$id" align="center">
             <md-button class="md-icon-button" ng-click="upvote(post)" aria-label="Upvote" >
               <ng-md-icon icon="arrow_upwards" class="arrow" size="28"></ng-md-icon>
             </md-button>
+        <md-button class="md-fab md-raised md-hue-1" style=" z-index:1"><b style="font-size:22pt">{{ post.score }}</b>
+        </md-button>
             <md-button class="md-icon-button" ng-click="downvote(post)" aria-label="Downvote" >
               <ng-md-icon icon="arrow_downward" class="arrow" size="28"></ng-md-icon>
             </md-button>
