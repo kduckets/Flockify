@@ -41,7 +41,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
     setTimeout(function(){ localStorage.setItem('done', moment().startOf('hour').format("hA")); }, 60000);
     console.log('done:', done);
   
-if(done == moment().startOf('hour').format("hA")){
+if(done != moment().startOf('hour').format("hA")){
 
  angular.forEach(posts, function(post, key) {
   if (post.media_info && post.media_info.artist) {
