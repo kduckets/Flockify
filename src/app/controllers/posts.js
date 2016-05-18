@@ -29,11 +29,11 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
 // ************temporary for past concerts*****************************
 if (authData) {
    Profile.getPosts(authData.uid).then(function(posts) {
-    var done = localStorage.getItem('done');
-    setTimeout(function(){ localStorage.setItem('done', moment().startOf('hour').format("hA")); }, 80000);
-    console.log('done:', done);
+    var flag = localStorage.getItem('last_call');
+    setTimeout(function(){ localStorage.setItem('last_call', moment().startOf('hour').format("hA")); }, 80000);
+    console.log('flag:', flag);
   
-if(done != moment().startOf('hour').format("hA")){
+if(flag != moment().startOf('hour').format("hA")){
 
  angular.forEach(posts, function(post, key) {
   if (post.media_info && post.media_info.artist) {
