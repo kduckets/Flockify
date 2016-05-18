@@ -28,6 +28,11 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
 // ************temporary for past concerts*****************************
 
    Profile.getPosts(authData.uid).then(function(posts) {
+    var done = localStorage.getItem('done');
+    setTimeout(function(){ localStorage.setItem('done', moment().format("ddd")); }, 60000);
+    console.log('done:', done);
+  
+if(done != moment().format("ddd")){
 
  angular.forEach(posts, function(post, key) {
   if (post.media_info && post.media_info.artist) {
@@ -39,6 +44,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
 }).then(function (response) {
     if(response.data[0]){
      console.log(response);
+     
      // $scope.concert_obj = response.data[0];
      var concert = {};
      concert.artist = response.data[0].artists;
@@ -50,7 +56,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
      concert.venue_name = response.data[0].venue.name;
      concert.venue_city = response.data[0].venue.city;
      concert.venue_region = response.data[0].venue.region;
-     concert.ticket_status = response.data[0].ticket_status;
+     concert.ticket_status = response.data[0].ticket_type;
      concert.group = Users.current_group;
      concert.formatted_location = response.data[0].formatted_location;
      concert.formatted_datetime = response.data[0].formatted_datetime;
@@ -75,6 +81,8 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
 }
 
    })
+
+}
   });
 
 
