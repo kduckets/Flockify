@@ -175,6 +175,7 @@ app.filter('sanitize', require('./filters/sanitize'));
 app.filter('byLabel', require('./filters/labelFilter'));
 app.filter('startFrom', require('./filters/startFrom'));
 app.filter('concertDate', require('./filters/concertDate'));
+app.filter('unique', require('./filters/unique'));
 
 app.directive("keepScroll", require('./directives/keepScroll'));
 app.directive("scrollItem", require('./directives/scrollItem'));
