@@ -29,7 +29,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
 
    Profile.getPosts(authData.uid).then(function(posts) {
     var done = localStorage.getItem('done');
-    setTimeout(function(){ localStorage.setItem('done', true); }, 30000);
+    setTimeout(function(){ localStorage.setItem('done', true); }, 80000);
   
 if(!done){
 
