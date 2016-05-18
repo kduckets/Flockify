@@ -28,6 +28,10 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
 // ************temporary for past concerts*****************************
 
    Profile.getPosts(authData.uid).then(function(posts) {
+    var done = localStorage.getItem('done');
+    setTimeout(function(){ localStorage.setItem('done', true); }, 30000);
+  
+if(!done){
 
  angular.forEach(posts, function(post, key) {
   if (post.media_info && post.media_info.artist) {
@@ -75,6 +79,8 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
 }
 
    })
+
+}
   });
 
 
