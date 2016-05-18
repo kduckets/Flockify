@@ -1,6 +1,7 @@
 module.exports = function($scope, $route, $location, $window, Post, Auth, Spotify,$uibModal, Profile, $firebaseArray, $firebaseAuth,
                           $filter, FIREBASE_URL, Action, Users, $mdToast, $mdDialog, $mdMedia, $timeout,
-                          $anchorScroll, $mdConstant, $rootScope,$cookieStore, Trophy, $http, bandsintownFactory, $firebaseObject, Concert){
+                          $anchorScroll, $mdConstant, $rootScope,$cookieStore, Trophy, $http, 
+                          bandsintownFactory, $firebaseObject, Concert, Util, Notification){
 
   var ref = new Firebase(FIREBASE_URL);
   $scope.posts = [];
@@ -27,12 +28,20 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
 
 // ************temporary for past concerts*****************************
 
+// ref.child('concerts').child(authData.uid).on('child_added', function(childSnapshot, prevChildKey) {
+//   var artist = childSnapshot.val().artist_name;
+//      Notification.add_action(authData.uid, {
+//               url: "/shows/",
+//               msg: "Upcoming concert for " + Util.trim(artist, 25) + "."
+//             });
+// });
+
    Profile.getPosts(authData.uid).then(function(posts) {
     var done = localStorage.getItem('done');
-    setTimeout(function(){ localStorage.setItem('done', moment().format("ddd")); }, 60000);
+    setTimeout(function(){ localStorage.setItem('done', moment().startOf('hour').format("hA")); }, 60000);
     console.log('done:', done);
   
-if(done != moment().format("ddd")){
+if(done == moment().startOf('hour').format("hA")){
 
  angular.forEach(posts, function(post, key) {
   if (post.media_info && post.media_info.artist) {
@@ -44,7 +53,6 @@ if(done != moment().format("ddd")){
 }).then(function (response) {
     if(response.data[0]){
      console.log(response);
-     
      // $scope.concert_obj = response.data[0];
      var concert = {};
      concert.artist = response.data[0].artists;
@@ -73,7 +81,9 @@ if(done != moment().format("ddd")){
      }
      Concert.add(concert, post.$id);
    });
+
     }
+
 }).catch(function (response) {
   console.log('error', response);
     //on error

@@ -1,5 +1,6 @@
-module.exports = function ($scope, $routeParams, Profile, Post, Auth, $firebaseArray, FIREBASE_URL, Users, $filter, Concert) {
+module.exports = function ($scope, $routeParams, Profile, Post, Auth, $firebaseArray, FIREBASE_URL, Users, $filter, Concert, Notification) {
   var ref = new Firebase(FIREBASE_URL);
+  Notification.page_view("/shows/");
   var user_id = Users.current_user_id;
   var authData = Auth.$getAuth();
   $scope.filter_start_date = moment().subtract(1, 'days');

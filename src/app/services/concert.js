@@ -1,4 +1,4 @@
-module.exports = function ($firebaseArray, $firebaseObject, FIREBASE_URL, Users) {
+module.exports = function ($firebaseArray, $firebaseObject, FIREBASE_URL, Users, Notification, Util) {
   var ref = new Firebase(FIREBASE_URL);
   var user_id = Users.current_user_id;
   if(Users.current_group){
@@ -9,7 +9,15 @@ module.exports = function ($firebaseArray, $firebaseObject, FIREBASE_URL, Users)
     all: concerts,
 
     add: function (concert, post_id) {
+      ref.child('concerts').child(user_id).child(post_id).once("value", function(snapshot) {
+          if(!snapshot.exists()){
+             Notification.add_action(user_id, {
+              url: "/shows/",
+              msg: "Upcoming concert for " + Util.trim(concert.artist_name, 25) + "."
+            });
       return ref.child('concerts').child(user_id).child(post_id).update(concert);
+    }
+  })
     },
 
     get: function () {
