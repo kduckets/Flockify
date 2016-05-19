@@ -21,6 +21,8 @@ require('./../../app/bower_components/angular-timeago/angular-timeago.min');
 require('./../../app/bower_components/angular-bandsintown-api-factory.min.js');
 
 
+
+
 //var pluginManager = require('./../plugins/pluginManager');
 
 
