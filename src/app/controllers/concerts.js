@@ -15,7 +15,7 @@ module.exports = function ($scope, $routeParams, Profile, Post, Auth, $firebaseA
     console.log('flag:', flag);
   
 if(flag != moment().startOf('hour').format("hA")){
-     getConcerts();
+     $scope.getConcerts();
    }
 
 
@@ -40,7 +40,7 @@ if(zip_code){
   Users.set_zip(authData.uid,zip_code);
   $scope.show_zip_notification = false;
   $scope.show_zip = false;
-  getConcerts();
+  $scope.getConcerts();
     }
   }
 
@@ -89,7 +89,7 @@ if(zip_code){
   Concert.delete(concert);
  }
 
- var getConcerts = function(){
+ $scope.getConcerts = function(){
 
     Users.get_zip(authData.uid).then(function(zip){
       $scope.user_zip = zip;
