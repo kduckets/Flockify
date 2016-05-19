@@ -10,13 +10,33 @@ module.exports = function ($scope, $routeParams, Profile, Post, Auth, $firebaseA
   if (authData) {
      $scope.user = Users.getProfile(authData.uid);
      $scope.username = $scope.user.username;   
+      Users.get_zip(authData.uid).then(function(zip){
+      $scope.user_zip = zip;
+      if(!$scope.user_zip){
+      $scope.show_zip_notification = true;
+    }
+      
+      $http({
+      method: 'GET',
+      url: 'https://maps.googleapis.com/maps/api/geocode/json?address='+ zip +'&sensor=true'
+    }).then(function successCallback(response) {
+      console.log(response);
+      var formatted_address = response.data.results[0].formatted_address;
+      var city_state = formatted_address.replace(/[0-9].*$/,"");
+    // var city = response.data.results[0].address_components[1].long_name;
+    // var state = response.data.results[0].address_components[3].short_name;
+    // var city_state = city+', '+state;
+    $scope.location = ($scope.user_zip ? city_state: "use_geoip");
+    $scope.getConcerts();
+        });
+       });
     var flag = localStorage.getItem('flag');
     setTimeout(function(){ localStorage.setItem('flag', moment().startOf('hour').format("hA")); }, 30000);
     console.log('flag:', flag);
   
-if(flag != moment().startOf('hour').format("hA")){
-     $scope.getConcerts();
-   }
+// if(flag != moment().startOf('hour').format("hA")){
+     
+   // }
 
 
   } else {
@@ -40,7 +60,20 @@ if(zip_code){
   Users.set_zip(authData.uid,zip_code);
   $scope.show_zip_notification = false;
   $scope.show_zip = false;
-  $scope.getConcerts();
+  $scope.user_zip = zip;
+      $http({
+      method: 'GET',
+      url: 'https://maps.googleapis.com/maps/api/geocode/json?address='+ zip +'&sensor=true'
+    }).then(function successCallback(response) {
+      console.log(response);
+      var formatted_address = response.data.results[0].formatted_address;
+      var city_state = formatted_address.replace(/[0-9].*$/,"");
+    // var city = response.data.results[0].address_components[1].long_name;
+    // var state = response.data.results[0].address_components[3].short_name;
+    // var city_state = city+', '+state;
+    $scope.location = ($scope.user_zip ? city_state: "use_geoip");
+    $scope.getConcerts();
+        });
     }
   }
 
@@ -91,23 +124,7 @@ if(zip_code){
 
  $scope.getConcerts = function(){
 
-    Users.get_zip(authData.uid).then(function(zip){
-      $scope.user_zip = zip;
-      if(!$scope.user_zip){
-      $scope.show_zip_notification = true;
-    }
-      
-      $http({
-      method: 'GET',
-      url: 'https://maps.googleapis.com/maps/api/geocode/json?address='+ zip +'&sensor=true'
-    }).then(function successCallback(response) {
-      console.log(response);
-      var formatted_address = response.data.results[0].formatted_address;
-      var city_state = formatted_address.replace(/[0-9].*$/,"");
-    // var city = response.data.results[0].address_components[1].long_name;
-    // var state = response.data.results[0].address_components[3].short_name;
-    // var city_state = city+', '+state;
-    $scope.location = ($scope.user_zip ? city_state: "use_geoip");
+
   
   
    // ************temporary for past concerts*****************************
@@ -163,11 +180,11 @@ if(zip_code){
    })
 
   });
-       });
+   
 
 // ************temporary for past concerts*****************************
-    });
-}
+ 
+};
   
 
 
