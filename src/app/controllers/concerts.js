@@ -125,6 +125,7 @@ if(zip_code){
  $scope.getConcerts = function(){
 
 //todo: clean this shit up
+//todo: don't call api if show is already in concerts content
   
   
    // ************ clean this shit *****************************
