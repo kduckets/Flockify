@@ -60,10 +60,10 @@ if(zip_code){
   Users.set_zip(authData.uid,zip_code);
   $scope.show_zip_notification = false;
   $scope.show_zip = false;
-  $scope.user_zip = zip;
+  $scope.user_zip = zip_code;
       $http({
       method: 'GET',
-      url: 'https://maps.googleapis.com/maps/api/geocode/json?address='+ zip +'&sensor=true'
+      url: 'https://maps.googleapis.com/maps/api/geocode/json?address='+ zip_code +'&sensor=true'
     }).then(function successCallback(response) {
       console.log(response);
       var formatted_address = response.data.results[0].formatted_address;
