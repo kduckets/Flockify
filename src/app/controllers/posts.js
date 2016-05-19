@@ -17,26 +17,16 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
     Users.get_zip(authData.uid).then(function(zip){
       $scope.user_zip = zip;
       
-      $http({
-      method: 'GET',
-      url: 'https://maps.googleapis.com/maps/api/geocode/json?address='+ zip +'&sensor=true'
-}).then(function successCallback(response) {
-    var city = response.data.results[0].address_components[1].long_name;
-    var state = response.data.results[0].address_components[3].short_name;
-    var city_state = city+', '+state;
-    $scope.location = ($scope.user_zip ? city_state: "use_geoip");
-  });
   if(!$scope.user_zip){
       $scope.show_zip_notification = true;
     }
-    var flag = localStorage.getItem('flag');
-    setTimeout(function(){ localStorage.setItem('flag', moment().startOf('hour').format("hA")); }, 30000);
-    console.log('flag:', flag);
+//     var flag = localStorage.getItem('flag');
+//     setTimeout(function(){ localStorage.setItem('flag', moment().startOf('hour').format("hA")); }, 30000);
+//     console.log('flag:', flag);
   
-if(flag != moment().startOf('hour').format("hA")){
-     getConcerts();
-   }
-   
+// if(flag != moment().startOf('hour').format("hA")){
+//      getConcerts();
+//    } 
 
     });   
   }
