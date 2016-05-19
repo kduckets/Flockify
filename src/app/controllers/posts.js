@@ -57,8 +57,9 @@ if(flag != moment().startOf('hour').format("hA")){
 
 var getConcerts = function(){
   Users.get_zip(authData.uid).then(function(zip){
+     if(zip){
       $scope.user_zip = zip;
-      
+      }
       $http({
       method: 'GET',
       url: 'https://maps.googleapis.com/maps/api/geocode/json?address='+ zip +'&sensor=true'
@@ -132,6 +133,7 @@ var getConcerts = function(){
 $scope.updateZip =function(zip_code){
 if(zip_code){
   Users.set_zip(authData.uid,zip_code);
+  $scope.user_zip = zip_code;
   $scope.show_zip_notification = false;
   getConcerts();
 }
