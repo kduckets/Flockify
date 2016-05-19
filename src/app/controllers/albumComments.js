@@ -4,9 +4,28 @@ module.exports = function ($scope, $routeParams, Post, Auth, Comment, Notificati
   var post_id = $routeParams.postId;
   var postRef = new Firebase(FIREBASE_URL+"/posts");
   var ref = new Firebase(FIREBASE_URL);
+  var authData = Auth.$getAuth();
+
 
 
   Notification.page_view("/albums/" + post_id);
+
+$scope.updateZip =function(zip_code){
+if(zip_code){
+  $scope.user_zip = zip;    
+      $http({
+      method: 'GET',
+      url: 'https://maps.googleapis.com/maps/api/geocode/json?address='+ zip +'&sensor=true'
+}).then(function successCallback(response) {
+    var city = response.data.results[0].address_components[1].long_name;
+    var state = response.data.results[0].address_components[3].short_name;
+    var city_state = city+', '+state;
+    $scope.location = ($scope.user_zip ? city_state: "use_geoip");
+  });
+  $scope.show_zip_notification = false;
+  bandsintown($scope.post);
+}
+}
 
 
   // $scope.login = function(){
@@ -24,7 +43,22 @@ module.exports = function ($scope, $routeParams, Post, Auth, Comment, Notificati
      $scope.albumsBySameArtist(data);
      $scope.matchingTags(data);
      $scope.loadingCircleRelated = false;
-     bandsintown($scope.post);
+
+  Users.get_zip(authData.uid).then(function(zip){
+      $scope.user_zip = zip;
+      
+      $http({
+      method: 'GET',
+      url: 'https://maps.googleapis.com/maps/api/geocode/json?address='+ zip +'&sensor=true'
+}).then(function successCallback(response) {
+    var city = response.data.results[0].address_components[1].long_name;
+    var state = response.data.results[0].address_components[3].short_name;
+    var city_state = city+', '+state;
+    $scope.location = ($scope.user_zip ? city_state: "use_geoip");
+    bandsintown($scope.post);
+  });
+});
+     
   });
   });
 
@@ -35,7 +69,7 @@ var bandsintown = function(post){
 
   bandsintownFactory.getEventsFromArtistByLocation({
     artist:post.media_info.artist, // ? and / characters must be double escaped. Artists such as "AC/DC" will end up as "AC%252FDC"
-    location:"use_geoip", // city,state (US or CA) || city,country || lat,lon || ip address
+    location:$scope.location , // city,state (US or CA) || city,country || lat,lon || ip address
     // radius:"<RADIUS">, // (optional) (default: 25) in miles. valid values: 0-150
     app_id:"Flockify", //The application ID can be anything, but should be a word that describes your application or company.
 }).then(function (response) {
@@ -78,19 +112,20 @@ var bandsintown = function(post){
 };
 
   $scope.showZip = function(ev) {
-    $mdDialog.show({
-      controller: 'ZipCtrl',
-      templateUrl: '/views/zip.html',
-      parent: angular.element(document.body),
-      targetEvent: ev,
-      clickOutsideToClose:true,
-      fullscreen: false
-    })
-    .then(function(answer) {
-      $scope.status = 'You said the information was "' + answer + '".';
-    }, function() {
-      $scope.status = 'You cancelled the dialog.';
-    });
+    $scope.show_zip_notification = true;
+    // $mdDialog.show({
+    //   controller: 'ZipCtrl',
+    //   templateUrl: '/views/zip.html',
+    //   parent: angular.element(document.body),
+    //   targetEvent: ev,
+    //   clickOutsideToClose:true,
+    //   fullscreen: false
+    // })
+    // .then(function(answer) {
+    //   $scope.status = 'You said the information was "' + answer + '".';
+    // }, function() {
+    //   $scope.status = 'You cancelled the dialog.';
+    // });
 };
 
 

@@ -10,12 +10,12 @@ module.exports = function ($window, FIREBASE_URL, $firebaseArray, $firebaseObjec
       return ref.child('user_actions').child(userId).child(postId).update({'saved': save});
     },
 
-    setStar: function(userId, postId, vote){
-      return ref.child('user_actions').child(userId).child(postId).update({'star': true});
+    updateZip: function(userId, zip){
+      return ref.child('').child(userId).child(postId).update({'saved': save});
     },
 
-    setZip: function(userId, zip){
-      return ref.child('users').child(userId).child('zip').update({'current_zip': zip});
+    setStar: function(userId, postId, vote){
+      return ref.child('user_actions').child(userId).child(postId).update({'star': true});
     },
 
     getPosts: function(userId) {

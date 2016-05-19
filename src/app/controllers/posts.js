@@ -6,13 +6,39 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
   var ref = new Firebase(FIREBASE_URL);
   $scope.posts = [];
   $scope.showSearch = false;
-  $scope.current_group = Users.current_group;
+
+
   var authData = Auth.$getAuth();
     if (authData) {
+    $scope.current_group = Users.current_group;
     var chatRef = new Firebase(FIREBASE_URL+"/chats/"+Users.current_group);
     $scope.user = Users.getProfile(authData.uid);
     $scope.username = $scope.user.username;
-    console.log("Logged in as:", authData.uid);
+    Users.get_zip(authData.uid).then(function(zip){
+      $scope.user_zip = zip;
+      
+      $http({
+      method: 'GET',
+      url: 'https://maps.googleapis.com/maps/api/geocode/json?address='+ zip +'&sensor=true'
+}).then(function successCallback(response) {
+    var city = response.data.results[0].address_components[1].long_name;
+    var state = response.data.results[0].address_components[3].short_name;
+    var city_state = city+', '+state;
+    $scope.location = ($scope.user_zip ? city_state: "use_geoip");
+  });
+  if(!$scope.user_zip){
+      $scope.show_zip_notification = true;
+    }
+    var flag = localStorage.getItem('flag');
+    setTimeout(function(){ localStorage.setItem('flag', moment().startOf('hour').format("hA")); }, 30000);
+    console.log('flag:', flag);
+  
+if(flag != moment().startOf('hour').format("hA")){
+     getConcerts();
+   }
+   
+
+    });   
   }
 
   Auth.$onAuth(function(authData) {
@@ -26,20 +52,18 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
   }
 });
 
-// ************temporary for past concerts*****************************
-if (authData) {
+
+
+
+var getConcerts = function(){
+   // ************temporary for past concerts*****************************
    Profile.getPosts(authData.uid).then(function(posts) {
-    var flag = localStorage.getItem('flag');
-    setTimeout(function(){ localStorage.setItem('flag', moment().startOf('hour').format("hA")); }, 30000);
-    console.log('flag:', flag);
-  
-if(flag != moment().startOf('hour').format("hA")){
 
  angular.forEach(posts, function(post, key) {
   if (post.media_info && post.media_info.artist) {
     bandsintownFactory.getEventsFromArtistByLocation({
     artist:post.media_info.artist, // ? and / characters must be double escaped. Artists such as "AC/DC" will end up as "AC%252FDC"
-    location:"use_geoip", // city,state (US or CA) || city,country || lat,lon || ip address
+    location:$scope.location, // city,state (US or CA) || city,country || lat,lon || ip address
     // radius:"<RADIUS">, // (optional) (default: 25) in miles. valid values: 0-150
     app_id:"Flockify", //The application ID can be anything, but should be a word that describes your application or company.
 }).then(function (response) {
@@ -84,24 +108,21 @@ if(flag != moment().startOf('hour').format("hA")){
 
    })
 
-}
   });
+// ************temporary for past concerts*****************************
+}
 
+
+
+$scope.updateZip =function(zip_code){
+if(zip_code){
+  Users.set_zip(authData.uid,zip_code);
+  $scope.show_zip_notification = false;
+  getConcerts();
+}
 
 
 }
-// ************temporary for past concerts*****************************
-
-
-
-
-
-
-
-
-
-
-
 
   $scope.filteredItems = [];
   if(authData){

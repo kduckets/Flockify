@@ -3,6 +3,7 @@
 <div ng-show="user" class="container" ng-cloak hide-md hide-gt-md show-xs show-sm>
   <div align="center">
 
+
     <a ng-href="{{ post.media_info.share_uri }}" target="_blank">
       <img ng-src="{{ post.image_medium }}" class="comments"/>
     </a>
@@ -41,7 +42,20 @@
 
 <div ng-show="show_date" class="alert alert-success" role="alert">
 <p>{{post.media_info.artist}} are playing near you on {{concert.show_date | date:'MMM d, y h:mm a'}} at <a ng-href="{{concert.venue_url}}">{{concert.venue_name}}
-</a> in {{concert.venue_city}}, {{concert.venue_region}}<sup><small> <a href="" ng-click="showZip = !showZip">[change]</a></small></sup></p> 
+</a> in {{concert.venue_city}}, {{concert.venue_region}}<sup><small> <a href="" ng-click="showZip = !showZip">[change]</a>
+</small></sup></p> 
+  <form ng-submit="updateZip(zip_code)" ng-show="show_zip_notification">
+  <md-input-container class="md-block" style="width:120px; display: inline-block; padding-left:10px" flex-gt-sm>
+            <input name="zipCode" ng-model="zip_code" placeholder=""
+                   required ng-pattern="/^[0-9]{5}$/" md-maxlength="5">
+            <div ng-messages="userForm.postalCode.$error" role="alert" multiple>
+              <div ng-message="pattern" class="my-message">Invalid zip
+              </div>
+            </div>
+          </md-input-container>
+          <md-button ng-click="updateZip(zip_code)"><small>submit</small></md-button>
+          </form>
+
 
 <p><a ng-href="{{concert.tickets_url}}">Get tickets here ({{concert.ticket_status}})</a>
 <p><small>(Tour information provided by <a href="http://www.bandsintown.com">Bandsintown</a>)</small></p>
@@ -218,9 +232,23 @@
       </div>
       <div ng-show="concert.show_date" class="alert alert-success" role="alert">
 <p>{{post.media_info.artist}} are playing near you on {{concert.show_date | date:'MMM d, y h:mm a'}} at <b>{{concert.venue_name}}</b> in {{concert.venue_city}}, {{concert.venue_region}}<sup><small><a href="" ng-click="showZip($event)">[change]</small></sup></p> 
+  <form ng-submit="updateZip(zip_code)" ng-show="show_zip_notification">
+  <md-input-container class="md-block" style="width:120px; display: inline-block; padding-left:10px" flex-gt-sm>
+            <input name="zipCode" ng-model="zip_code" placeholder=""
+                   required ng-pattern="/^[0-9]{5}$/" md-maxlength="5">
+            <div ng-messages="userForm.postalCode.$error" role="alert" multiple>
+              <div ng-message="pattern" class="my-message">Invalid zip
+              </div>
+            </div>
+          </md-input-container>
+          <md-button ng-click="updateZip(zip_code)"><small>submit</small></md-button>
+          </form>
 <p><a ng-href="{{concert.tickets_url}}">Get tickets here ({{concert.ticket_status}})</a>
 <p><small>(Tour information provided by <a href="http://www.bandsintown.com">Bandsintown</a>)</small></p>
 </div>
+  
+
+
   
 
     <div><p>{{post.media_info.summary}}</p></div>

@@ -29,7 +29,8 @@ module.exports = function ($firebaseArray, $firebaseObject, FIREBASE_URL, Users,
     // },
 
     delete: function (concert) {
-      ref.child('concerts').child(user_id).child(concert.post_id).remove();
+      // ref.child('concerts').child(user_id).child(concert.post_id).remove();
+      return ref.child('concerts').child(user_id).child(concert.post_id).update({'removed':true});
     }
   };
   return Concert;

@@ -56,6 +56,20 @@ module.exports = function($firebaseArray, $firebaseObject, $route, Auth, FIREBAS
           return defer.promise;
     },
 
+    set_zip: function(userId, zip){
+      return usersRef.child(userId).update({'current_zip': zip});
+    },
+
+    get_zip: function(uid) {
+      var defer = $q.defer();
+      usersRef.child(uid).once("value", function(snapshot) {
+      if(snapshot.child("current_zip").exists()){
+      defer.resolve(snapshot.child("current_zip").val());  
+       }else{defer.resolve(false);}
+    });
+       return defer.promise;
+    },
+
     all: users,
     subscribed_groups: subscribed_groups,
     current_group: current_group,
