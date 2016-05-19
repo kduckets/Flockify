@@ -56,6 +56,18 @@ if(flag != moment().startOf('hour').format("hA")){
 
 
 var getConcerts = function(){
+  Users.get_zip(authData.uid).then(function(zip){
+      $scope.user_zip = zip;
+      
+      $http({
+      method: 'GET',
+      url: 'https://maps.googleapis.com/maps/api/geocode/json?address='+ zip +'&sensor=true'
+}).then(function successCallback(response) {
+    var city = response.data.results[0].address_components[1].long_name;
+    var state = response.data.results[0].address_components[3].short_name;
+    var city_state = city+', '+state;
+    $scope.location = ($scope.user_zip ? city_state: "use_geoip");
+
    // ************temporary for past concerts*****************************
    Profile.getPosts(authData.uid).then(function(posts) {
 
@@ -109,7 +121,10 @@ var getConcerts = function(){
    })
 
   });
+     });
 // ************temporary for past concerts*****************************
+
+    });  
 }
 
 

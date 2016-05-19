@@ -90,7 +90,7 @@ if(zip_code){
  }
 
  var getConcerts = function(){
-    console.log('made it');
+
     Users.get_zip(authData.uid).then(function(zip){
       $scope.user_zip = zip;
       if(!$scope.user_zip){
