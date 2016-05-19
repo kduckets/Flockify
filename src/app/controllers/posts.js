@@ -9,7 +9,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
 
 
   var authData = Auth.$getAuth();
-    if (authData) {
+    if (authData && Users.current_group) {
     $scope.current_group = Users.current_group;
     var chatRef = new Firebase(FIREBASE_URL+"/chats/"+Users.current_group);
     $scope.user = Users.getProfile(authData.uid);
@@ -142,7 +142,7 @@ if(zip_code){
 }
 
   $scope.filteredItems = [];
-  if(authData){
+  if(authData && Users.current_group){
     $scope.loadingCircle = true;
   $firebaseArray(ref.child('posts').child(Users.current_group)).$loaded(function(data){
      $scope.posts = data;

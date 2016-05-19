@@ -23,9 +23,12 @@ groupsRef.once("value", function(snapshot) {
     };
 
   $scope.login = function (){
+    console.log('1');
     Auth.$authWithPassword($scope.user).then(function (auth){
+      console.log('2');
       Users.set_group_to_default(auth.uid).then(function(current_group){
-        $location.path('/');
+        localStorage.setItem('current_group', current_group);
+       location.reload();
       });
       
   }, function (error){

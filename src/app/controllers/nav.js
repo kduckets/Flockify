@@ -11,15 +11,16 @@ module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootSco
 
   // });
 
-  $scope.subscribed_groups = Users.subscribed_groups.groups;
-  $scope.current_group = Users.current_group;
-  $scope.current_group_name = Users.current_group_name;
+  
 
   
 
   ref.onAuth(function (authData) {
-    if (authData) {
+    if (authData && Users.current_group) {
       //set login cookie
+      $scope.subscribed_groups = Users.subscribed_groups.groups;
+      $scope.current_group = Users.current_group;
+      $scope.current_group_name = Users.current_group_name;
       $scope.user = Users.getProfile(authData.uid);
       $scope.current_group = Users.current_group;
       $scope.notifications = $firebaseArray(ref.child('notifications').child(Users.current_user_id).child($scope.current_group).child('actions'));

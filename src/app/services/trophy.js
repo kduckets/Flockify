@@ -1,6 +1,6 @@
 module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Users, $q, Auth) {
 var authData = Auth.$getAuth();
-  if (authData) {
+  if (authData && Users.current_group) {
 var ref = new Firebase(FIREBASE_URL);
        var lastMonday = moment().subtract(1, 'weeks').startOf('isoWeek');
        var monday_formatted = lastMonday.format('MM_DD_YYYY');
@@ -21,6 +21,7 @@ var ref = new Firebase(FIREBASE_URL);
 
 var Trophy = {
   is_last_week_winner:function(user_id){
+    if(Users.current_group){
     var result = false;
     ref.child('user_scores').child(Users.current_group).child(user_id).child(last_week).once("value", function(snapshot) {
       if(snapshot.val()){
@@ -31,8 +32,10 @@ var Trophy = {
     }
     });
     return result;
+  }
   },
     is_last_week_loser:function(user_id){
+       if(Users.current_group){
     var result = false;
     ref.child('user_scores').child(Users.current_group).child(user_id).child(last_week).once("value", function(snapshot) {
       if(snapshot.val()){
@@ -43,6 +46,7 @@ var Trophy = {
     }
     });
     return result;
+  }
   }
 };
   return Trophy;
