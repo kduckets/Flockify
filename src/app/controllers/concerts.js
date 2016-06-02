@@ -7,7 +7,7 @@ module.exports = function ($scope, $routeParams, Profile, Post, Auth, $firebaseA
   $scope.filter_start_date = moment().subtract(1, 'days');
   $scope.only_upvoted = true;
   $scope.show_zip = false;
-  $scope.queue = [];
+
   if (authData) {
      $scope.user = Users.getProfile(authData.uid);
      $scope.username = $scope.user.username;   
@@ -138,6 +138,7 @@ Profile.getPosts(authData.uid).then(function(posts) {
 };
 
  $scope.getConcerts = function(posts){
+    $scope.queue = [];
    
 
 //todo: clean this shit up
@@ -187,7 +188,6 @@ Profile.getPosts(authData.uid).then(function(posts) {
    });
 
     }
-
 }).catch(function (response) {
   console.log('error, adding to queue', response);
      $scope.queue.push(post);
