@@ -28,16 +28,16 @@ module.exports = function ($scope, $routeParams, Profile, Post, Auth, $firebaseA
     // var state = response.data.results[0].address_components[3].short_name;
     // var city_state = city+', '+state;
     $scope.location = ($scope.user_zip ? city_state: "use_geoip");
-    $scope.getConcertsFromLikes();
-        });
-       });
-    var flag = localStorage.getItem('flag');
+        var flag = localStorage.getItem('flag');
     setTimeout(function(){ localStorage.setItem('flag', moment().startOf('hour').format("hA")); }, 30000);
     console.log('flag:', flag);
   
-// if(flag != moment().startOf('hour').format("hA")){
-     
-   // }
+ if(flag != moment().startOf('hour').format("hA")){
+     $scope.getConcertsFromLikes();
+    }  
+        });
+       });
+
 
 
   } else {
