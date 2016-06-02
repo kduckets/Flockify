@@ -7,6 +7,7 @@ module.exports = function ($scope, $routeParams, Profile, Post, Auth, $firebaseA
   $scope.filter_start_date = moment().subtract(1, 'days');
   $scope.only_upvoted = true;
   $scope.show_zip = false;
+  $scope.queue = [];
   if (authData) {
      $scope.user = Users.getProfile(authData.uid);
      $scope.username = $scope.user.username;   
@@ -127,12 +128,17 @@ $scope.getConcertsFromLikes = function(){
 Profile.getPosts(authData.uid).then(function(posts) {
 
   $scope.getConcerts(posts);
+  Profile.getLikes(authData.uid).then(function(likes) {
+
+  $scope.getConcerts(likes);
+
+});
 
 });
 };
 
  $scope.getConcerts = function(posts){
-    $scope.queue = [];
+   
 
 //todo: clean this shit up
 //todo: don't call api if show is already in concerts content
