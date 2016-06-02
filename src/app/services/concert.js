@@ -14,9 +14,9 @@ module.exports = function ($firebaseArray, $firebaseObject, FIREBASE_URL, Users,
              Notification.add_action(user_id, {
               url: "/shows/",
               msg: "Upcoming concert for " + Util.trim(concert.artist_name, 25) + "."
-            });
-      return ref.child('concerts').child(user_id).child(post_id).update(concert);
+            });    
     }
+    return ref.child('concerts').child(user_id).child(post_id).update(concert);
   })
     },
 

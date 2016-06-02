@@ -51,9 +51,8 @@ module.exports = function ($scope, $routeParams, Profile, Post, Auth, $firebaseA
     return Users.getUsername(userId);
   }
 
-  $scope.goToAlbum = function(postid){
-    console.log(postid);
-    $location.path("/#/albums/" + postid);
+  $scope.goToTickets = function(url){
+    $window.open(url, "_blank");
   }
 
   $scope.updateZip =function(zip_code){
