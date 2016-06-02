@@ -12,7 +12,10 @@
           <md-button ng-click="updateZip(zip_code)"><small>submit</small></md-button>
           </form>
 </div>
-
+<!--   <div ng-hide="!loadingCircle" align="center">
+<md-progress-circular md-mode='indeterminate' md-diameter="32"></md-progress-circular>
+  <small>loading new shows from queue, come back in a minute</small>
+    </div> -->
  <div layout="row" layout-align="center">
  <md-switch ng-model="only_upvoted" aria-label="Switch 1">
    <small>Only show upvoted artists</small>

@@ -189,7 +189,12 @@ Profile.getPosts(authData.uid).then(function(posts) {
     }
 }).catch(function (response) {
   console.log('error, adding to queue', response);
+  console.log('length',$scope.queue.length);
+    if(post.media_info && post.media_info.artist){
+      $scope.loadingCircle = true;
      $scope.queue.push(post);
+      console.log('length',$scope.queue.length);
+    }
 });
 }
 
@@ -197,9 +202,12 @@ Profile.getPosts(authData.uid).then(function(posts) {
     console.log('queue',$scope.queue);
     setTimeout(function(){ 
 
-      if($scope.queue.length > 0){
+    if($scope.queue.length > 1){
       $scope.getConcerts($scope.queue);
     }
+
+    if($scope.queue.length == 1)
+      {$scope.loadingCircle = false;}
 
     }, 70000);
    
