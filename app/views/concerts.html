@@ -12,19 +12,22 @@
           <md-button ng-click="updateZip(zip_code)"><small>submit</small></md-button>
           </form>
 </div>
+<br/>
 <!--   <div ng-hide="!loadingCircle" align="center">
 <md-progress-circular md-mode='indeterminate' md-diameter="32"></md-progress-circular>
   <small>loading new shows from queue, come back in a minute</small>
     </div> -->
- <div layout="row" layout-align="center">
+ <div layout="row" layout-align="center center">
+ <div>
  <md-switch ng-model="only_upvoted" aria-label="Switch 1">
    <small>Only show upvoted artists</small>
+   <br/>
   </md-switch>
-  </div>
-  <div layout="row" layout-align="center">
-  <a href="" ng-click="show_zip = !show_zip"><small>change zip</small></a>
-    </div>
-    <div ng-show="show_zip" layout="row" layout-align="center">
+ </div>
+ <div>
+  <a href="" ng-click="show_zip = !show_zip"><small> [change zip]</small></a>
+</div>
+    <div ng-show="show_zip" layout="row">
     <form ng-submit="updateZip(zip_code)">
   <md-input-container class="md-block" style="width:120px; display: inline-block; padding-left:10px" flex-gt-sm>
             <input name="zipCode" ng-model="zip_code" placeholder=""
@@ -37,8 +40,11 @@
           <md-button ng-click="updateZip(zip_code)"><small>submit</small></md-button>
           </form>
           </div>
+          </div>
+          <br/>
+          <br/>
 
-<div id="md-table-template">
+<div id="md-table-template" layout-align="center center">
   <table md-colresize="md-colresize" class="md-table">
     <thead ng-show="content.length > 0">
       <tr class="md-table-headers-row">
