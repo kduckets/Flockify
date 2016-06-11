@@ -19,6 +19,7 @@ require('./../../app/bower_components/angular-spotify/dist/angular-spotify.min')
 require('./../../app/bower_components/angular-bootstrap/ui-bootstrap-tpls.min');
 require('./../../app/bower_components/angular-timeago/angular-timeago.min');
 require('./../../app/bower_components/angular-bandsintown-api-factory.min.js');
+require('./../../app/bower_components/angular-add-to-home-screen.js');
 
 
 
@@ -40,7 +41,8 @@ var app = angular.module('flockifyApp', [
   'ngMdIcons',
   'ngEmbed',
   'angular-google-analytics',
-  'jtt_bandsintown'
+  'jtt_bandsintown',
+  'angularAddToHomeScreen'
 ]);
 // app.config(function (SpotifyProvider) {
 //   SpotifyProvider.setClientId('44bb100c98a34efd9c4e874756e09080');

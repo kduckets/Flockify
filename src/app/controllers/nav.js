@@ -26,6 +26,9 @@ module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootSco
       $scope.notifications = $firebaseArray(ref.child('notifications').child(Users.current_user_id).child($scope.current_group).child('actions'));
   console.log($scope.notifications);
 
+      $scope.notifications = $firebaseArray(ref.child('notifications').child(Users.current_user_id).child($scope.current_group).child('actions'));
+  console.log($scope.notifications);
+
       // $scope.username = Users.getUsername(authData.uid);
     } else {
       $scope.user = null;
