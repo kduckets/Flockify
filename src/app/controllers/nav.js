@@ -6,6 +6,31 @@ module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootSco
   // var notificationRef = new Firebase(FIREBASE_URL+"/notifications");
   $scope.post = {artist: '', album: ''};
   var postsRef = new Firebase(FIREBASE_URL+"/posts/");
+  $scope.toggleMenu = buildToggler('right');
+    $scope.$on('$routeChangeStart', function (next, current) {
+    $mdSidenav('right').close()
+      .then(function () {
+        //done
+      });
+  });
+  function buildToggler(navID) {
+    return function () {
+      $mdSidenav(navID)
+        .toggle()
+        .then(function () {
+          //done
+        });
+    }
+  }
+  
+    $scope.closeToast = function () {
+    if (isDlgOpen) return;
+    $mdToast
+      .hide()
+      .then(function () {
+        isDlgOpen = false;
+      });
+  };
 
   // notificationRef.on('child_added', function(childSnapshot, prevChildKey) {
     
@@ -67,23 +92,9 @@ module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootSco
      }
    };
     
-
-
-  $scope.toggleMenu = buildToggler('right');
-
-
   $scope.change_group = function() {
     console.log("change group", $scope.current_group);
     Users.set_current_group($scope.current_group);
-  };
-
-  $scope.closeToast = function () {
-    if (isDlgOpen) return;
-    $mdToast
-      .hide()
-      .then(function () {
-        isDlgOpen = false;
-      });
   };
 
   $scope.toTop = function () {
@@ -91,21 +102,6 @@ module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootSco
     $location.path("/#/");
   };
 
-  $scope.$on('$routeChangeStart', function (next, current) {
-    $mdSidenav('right').close()
-      .then(function () {
-        //done
-      });
-  });
-  function buildToggler(navID) {
-    return function () {
-      $mdSidenav(navID)
-        .toggle()
-        .then(function () {
-          //done
-        });
-    }
-  }
 
   $scope.openNotifications = function($mdOpenMenu, ev) {
       originatorEv = ev;
@@ -123,14 +119,14 @@ module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootSco
 
   var history = [];
 
-  $rootScope.$on('$routeChangeSuccess', function () {
-    history.push($location.$$path);
-  });
+  // $rootScope.$on('$routeChangeSuccess', function () {
+  //   history.push($location.$$path);
+  // });
 
-  $rootScope.back = function () {
-    var prevUrl = history.length > 1 ? history.splice(-2)[0] : "/";
-    $location.path(prevUrl);
-  };
+  // $rootScope.back = function () {
+  //   var prevUrl = history.length > 1 ? history.splice(-2)[0] : "/";
+  //   $location.path(prevUrl);
+  // };
 
 
 };
