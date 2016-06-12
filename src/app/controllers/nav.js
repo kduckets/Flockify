@@ -30,6 +30,8 @@ module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootSco
     }
   });
 
+  $scope.look_for_new_posts = function(){
+
   if($scope.user){
 
     $scope.new_posts = [];
@@ -63,6 +65,7 @@ module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootSco
   
   });
      }
+   };
     
 
 

@@ -6,7 +6,7 @@
   md-whiteframe="4">
   <md-content ng-controller="NavCtrl">
     <md-toolbar class="md-theme-indigo">
-      <md-select class="md-toolbar-tools" ng-change="change_group()" ng-model="current_group">
+      <md-select class="md-toolbar-tools" ng-change="change_group()" ng-model="current_group" ng-click="look_for_new_posts()">
         <md-option ng-repeat="group in subscribed_groups" value="{{ group.id }}" ng-selected="{{ group.id == current_group }}"> {{ group.group_name }}
      <span class="label label-info" ng-show="new_posts[group.id]"><small>{{new_posts[group.id]}}</small></span></md-option>
       </md-select>
@@ -88,7 +88,7 @@
 <!--  <img ng-src="/images/birds-wire.png" height="50px" style="position:absolute;z-index:10;top:8px;opacity: 0.8" /> -->
      <md-toolbar class="md-theme-indigo" >
       <img ng-src="/images/birds-wire.png" height="50px" style="position:absolute;z-index:10;top:8px;opacity: 0.8;" />
-      <md-select class="md-toolbar-tools" ng-change="change_group()" ng-model="current_group" style="z-index: 12; ">
+      <md-select class="md-toolbar-tools" ng-change="change_group()" ng-model="current_group" style="z-index: 12;" ng-click="look_for_new_posts()">
         <md-option ng-repeat="group in subscribed_groups" value="{{ group.id }}" ng-selected="{{ group.id == current_group }}"> {{ group.group_name }} 
         <span class="label label-info" ng-show="new_posts[group.id]">{{new_posts[group.id]}}</span></md-option>
       <md-divider></md-divider>
