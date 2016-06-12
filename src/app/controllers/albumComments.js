@@ -98,7 +98,7 @@ var bandsintown = function(post){
 
      current_actions.$loaded().then(function(res) {
 
-     if(res.up || $scope.user.$id === $scope.post.creator_id) {
+     if(res.up || res.star || $scope.user.$id === $scope.post.creator_id) {
       $scope.concert.upvoted = true;
      }
      Concert.add($scope.concert, post_id);

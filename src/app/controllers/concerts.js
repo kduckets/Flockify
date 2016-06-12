@@ -180,7 +180,7 @@ Profile.getPosts(authData.uid).then(function(posts) {
 
      current_actions.$loaded().then(function(res) {
 
-     if(res.up || authData.uid === post.creator_id) {
+     if(res.up || res.star || authData.uid === post.creator_id) {
       concert.upvoted = true;
      }
      Concert.add(concert, post.$id);
