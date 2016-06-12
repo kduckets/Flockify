@@ -2,8 +2,10 @@ module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootSco
                            $anchorScroll, $window, $mdToast, $mdDialog, FIREBASE_URL, $rootScope, Users, $firebaseArray) {
 
   var ref = new Firebase(FIREBASE_URL);
+  var usersRef = new Firebase(FIREBASE_URL+'/users');
   // var notificationRef = new Firebase(FIREBASE_URL+"/notifications");
   $scope.post = {artist: '', album: ''};
+  var postsRef = new Firebase(FIREBASE_URL+"/posts/");
 
   // notificationRef.on('child_added', function(childSnapshot, prevChildKey) {
     
@@ -11,21 +13,12 @@ module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootSco
 
   // });
 
-  
-
-  
-
   ref.onAuth(function (authData) {
     if (authData && Users.current_group) {
-      //set login cookie
       $scope.subscribed_groups = Users.subscribed_groups.groups;
       $scope.current_group = Users.current_group;
       $scope.current_group_name = Users.current_group_name;
       $scope.user = Users.getProfile(authData.uid);
-      $scope.current_group = Users.current_group;
-      $scope.notifications = $firebaseArray(ref.child('notifications').child(Users.current_user_id).child($scope.current_group).child('actions'));
-  console.log($scope.notifications);
-
       $scope.notifications = $firebaseArray(ref.child('notifications').child(Users.current_user_id).child($scope.current_group).child('actions'));
   console.log($scope.notifications);
 
@@ -36,6 +29,43 @@ module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootSco
       console.log("User is logged out");
     }
   });
+
+  if($scope.user){
+
+    $scope.new_posts = [];
+
+     usersRef.child($scope.user.$id).child('groups').once('value', function(groups) {
+       $scope.groups = groups.val();
+   
+    $.each($scope.groups, function(key, value) {
+
+   postsRef.child(key).limitToLast(2).on("child_added", function(snap) {
+
+     if(snap.key() != 'flock_groupchat'){
+      if(value == snap.key()) {
+        $scope.new_posts[key] = false;
+        return;
+      }
+      if(key == Users.current_group) {
+        var last_post_id = {}; 
+          last_post_id[key] = snap.key(); 
+
+        usersRef.child($scope.user.$id).child('groups').update(last_post_id);
+         $scope.new_posts[key] = false;
+        return;
+               
+      }if(value != snap.key()){
+      $scope.new_posts[key] = 'New post!';
+      }
+       }
+      });
+      })
+  
+  });
+     }
+    
+
+
   $scope.toggleMenu = buildToggler('right');
 
 
@@ -98,5 +128,6 @@ module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootSco
     var prevUrl = history.length > 1 ? history.splice(-2)[0] : "/";
     $location.path(prevUrl);
   };
+
 
 };

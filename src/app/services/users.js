@@ -43,7 +43,6 @@ module.exports = function($firebaseArray, $firebaseObject, $route, Auth, FIREBAS
        var defer = $q.defer();
        usersRef.child(user_id).child('groups').once('value', function(snap) {
        var default_group = Object.keys(snap.val())[0];
-       console.log('made it'); 
         defer.resolve(default_group);   
       }); 
           return defer.promise;
