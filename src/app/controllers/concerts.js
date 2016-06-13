@@ -144,7 +144,7 @@ Profile.getPosts(authData.uid).then(function(posts) {
 //todo: don't call api if show is already in concerts content
   
   
-   // ************ clean this shit *****************************
+   // ************ get concerts *****************************
   
 
  angular.forEach(posts, function(post, key) {
@@ -173,6 +173,8 @@ Profile.getPosts(authData.uid).then(function(posts) {
      concert.formatted_location = response.data[0].formatted_location;
      concert.formatted_datetime = response.data[0].formatted_datetime;
      concert.post_id = post.$id;
+     //TODO: use bandsintown concert ID for key in DB and go through all respnoses (multiple concerts for same artist)
+     concert.bit_id = response.data[0].id;
 
      var actions_ref = ref.child('user_actions').child(authData.uid).child(post.$id);
 
@@ -211,7 +213,6 @@ Profile.getPosts(authData.uid).then(function(posts) {
 
     }, 70000);
    
-// ************needs cleaning*****************************
  
 };
   

@@ -83,6 +83,7 @@ module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootSco
                
       }if(value != snap.key()){
       $scope.new_posts[key] = 'New post!';
+      console.log('new post', value, snap.key());
       }
        }
       });
