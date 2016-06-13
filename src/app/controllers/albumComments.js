@@ -91,6 +91,7 @@ var bandsintown = function(post){
      $scope.concert.formatted_location = response.data[0].formatted_location;
      $scope.concert.formatted_datetime = response.data[0].formatted_datetime;
      $scope.concert.post_id = post_id;
+     $scope.concert.concert.bit_id = response.data[0].id;
 
      var actions_ref = ref.child('user_actions').child($scope.user.$id).child(post_id);
 
@@ -101,7 +102,7 @@ var bandsintown = function(post){
      if(res.up || res.star || $scope.user.$id === $scope.post.creator_id) {
       $scope.concert.upvoted = true;
      }
-     Concert.add($scope.concert, post_id);
+     Concert.add($scope.concert, $scope.concert.concert.bit_id);
    });
     }
 }).catch(function (response) {

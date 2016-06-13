@@ -32,9 +32,9 @@ module.exports = function ($scope, $routeParams, Profile, Post, Auth, $firebaseA
     setTimeout(function(){ localStorage.setItem('flag', moment().startOf('hour').format("hA")); }, 30000);
     console.log('flag:', flag);
   
- if(flag != moment().startOf('hour').format("hA")){
+ // if(flag != moment().startOf('hour').format("hA")){
      $scope.getConcertsFromLikes();
-    }  
+    // }  
         });
        });
 
@@ -145,6 +145,7 @@ Profile.getPosts(authData.uid).then(function(posts) {
   
   
    // ************ get concerts *****************************
+   //todo: move to server side
   
 
  angular.forEach(posts, function(post, key) {
@@ -157,24 +158,25 @@ Profile.getPosts(authData.uid).then(function(posts) {
 }).then(function (response) {
     if(response.data[0]){
      console.log(response);
+     angular.forEach(response.data, function(resp, key) {
      // $scope.concert_obj = response.data[0];
      var concert = {};
-     concert.artist = response.data[0].artists;
-     concert.artist_name = response.data[0].artists[0].name;
-     concert.thumb_url = response.data[0].artists[0].thumb_url;
-     concert.tickets_url = response.data[0].ticket_url;
-     concert.show_date = response.data[0].datetime;
+     concert.artist = resp.artists;
+     concert.artist_name = resp.artists[0].name;
+     concert.thumb_url = resp.artists[0].thumb_url;
+     concert.tickets_url = resp.ticket_url;
+     concert.show_date = resp.datetime;
      // $scope.concert.venue_url = response.data[0].venue.url;
-     concert.venue_name = response.data[0].venue.name;
-     concert.venue_city = response.data[0].venue.city;
-     concert.venue_region = response.data[0].venue.region;
-     concert.ticket_status = response.data[0].ticket_type;
+     concert.venue_name = resp.venue.name;
+     concert.venue_city = resp.venue.city;
+     concert.venue_region = resp.venue.region;
+     concert.ticket_status = resp.ticket_type;
      concert.group = Users.current_group;
-     concert.formatted_location = response.data[0].formatted_location;
-     concert.formatted_datetime = response.data[0].formatted_datetime;
+     concert.formatted_location = resp.formatted_location;
+     concert.formatted_datetime = resp.formatted_datetime;
      concert.post_id = post.$id;
      //TODO: use bandsintown concert ID for key in DB and go through all respnoses (multiple concerts for same artist)
-     concert.bit_id = response.data[0].id;
+     concert.bit_id = resp.id;
 
      var actions_ref = ref.child('user_actions').child(authData.uid).child(post.$id);
 
@@ -185,9 +187,9 @@ Profile.getPosts(authData.uid).then(function(posts) {
      if(res.up || res.star || authData.uid === post.creator_id) {
       concert.upvoted = true;
      }
-     Concert.add(concert, post.$id);
+     Concert.add(concert, concert.bit_id);
    });
-
+    });
     }
 }).catch(function (response) {
   console.log('error, adding to queue', response);

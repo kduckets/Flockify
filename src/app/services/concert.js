@@ -8,15 +8,15 @@ module.exports = function ($firebaseArray, $firebaseObject, FIREBASE_URL, Users,
   var Concert = {
     all: concerts,
 
-    add: function (concert, post_id) {
-      ref.child('concerts').child(user_id).child(post_id).once("value", function(snapshot) {
+    add: function (concert, bit_id) {
+      ref.child('concerts').child(user_id).child(bit_id).once("value", function(snapshot) {
           if(!snapshot.exists()){
              Notification.add_action(user_id, {
               url: "/shows/",
               msg: "Upcoming concert for " + Util.trim(concert.artist_name, 25) + "."
             });    
     }
-    return ref.child('concerts').child(user_id).child(post_id).update(concert);
+    return ref.child('concerts').child(user_id).child(bit_id).update(concert);
   })
     },
 
@@ -30,7 +30,7 @@ module.exports = function ($firebaseArray, $firebaseObject, FIREBASE_URL, Users,
 
     delete: function (concert) {
       // ref.child('concerts').child(user_id).child(concert.post_id).remove();
-      return ref.child('concerts').child(user_id).child(concert.post_id).update({'removed':true});
+      return ref.child('concerts').child(user_id).child(concert.bit_id).update({'removed':true});
     }
   };
   return Concert;

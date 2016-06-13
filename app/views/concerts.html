@@ -55,7 +55,7 @@
     <tbody>
 
       <tr ng-repeat="c in content | orderBy:'show_date' | filter: (only_upvoted || '') && {upvoted:'true'} | filter:{removed:'!true'} |
-      unique:'artist_name' | concertDate:filter_start_date track by c.post_id" class="md-table-content-row" ng-click="goToTickets(c.tickets_url)">
+      unique:'bit_id' | concertDate:filter_start_date track by c.bit_id" class="md-table-content-row" ng-click="goToTickets(c.tickets_url)">
         <td>
           <div class="md-table-thumbs">
             <div style="background-image:url({{c.thumb_url}})"></div>
