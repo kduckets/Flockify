@@ -145,7 +145,7 @@ Profile.getPosts(authData.uid).then(function(posts) {
   
   
    // ************ get concerts *****************************
-   //todo: move to server side
+   //todo: move to server side; nightly run for all users?
   
 
  angular.forEach(posts, function(post, key) {

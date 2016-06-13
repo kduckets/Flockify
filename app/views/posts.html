@@ -131,7 +131,7 @@ limitTo:totalDisplayed track by post.$id" align="center">
 
     <!--     <span class="score label label-default label-default"><b>{{ post.score }}</b></span> -->
         <div class="album-container">
-          <a ng-href="#/albums/{{post.$id}}" >
+          <a ng-href="{{ post.media_info.share_uri }}" target="_blank">
             <img class="md-card-image" ng-src="{{post.image_medium}}" />
           </a>
         </div>
