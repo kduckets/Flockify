@@ -171,7 +171,8 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
      $scope.concert.formatted_datetime = response.data[0].formatted_datetime;
      $scope.concert.post_id = postRef.name();
      $scope.concert.upvoted = true;
-     Concert.add($scope.concert, postRef.name());
+     $scope.concert.bit_id = response.data[0].id;
+     Concert.add($scope.concert, scope.concert.bit_id);
 
     }
 }).catch(function (response) {
