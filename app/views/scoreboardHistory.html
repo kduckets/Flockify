@@ -12,7 +12,7 @@
       <tr ng-repeat="user in users | orderBy:rank(week) | emptyToEnd:week track by user.$id" ng-show="user[week].album_score==0  || user[week].album_score">
         <th scope="row">{{$index + 1}}</th>
         <td><a ng-href="#/users/{{ user.$id }}" style="color: white">{{getUsername(user.$id)}} </a><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:3px" ng-show="trophy(user.$id)" height="30px"/>
-         <img src="/images/poop.gif" style="padding-bottom:10px; padding-left:2px" ng-show="poop(user.$id)" height="50px"/>
+     <!--     <img src="/images/poop.gif" style="padding-bottom:10px; padding-left:2px" ng-show="poop(user.$id)" height="50px"/> -->
         </td>
         <td>{{user[week].album_score}}</td>      
       </tr>
@@ -57,7 +57,7 @@ Best ratio: Ryan (4.5)<br/>
         <td class="ng-binding">15</td>      
       </tr><!-- end ngRepeat: user in users | orderBy:'-weekly_scores.album_score' --><tr>
         <th scope="row" class="ng-binding">4</th>
-        <td class="ng-binding">sparker <img src="/images/poop.gif" style="padding-bottom:4px" ng-show="user.$id == 'Nrblanks' || user.$id == 'Stevie' || user.$id == 'davidemerritt' || user.$id == 'Oat'" height="50px" aria-hidden="true" class="ng-hide"><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:3px" ng-show="user.$id == 'sparker'" height="30px" aria-hidden="false" class=""></td>
+        <td class="ng-binding">sparker</td>
         <td class="ng-binding">12</td>      
       </tr><!-- end ngRepeat: user in users | orderBy:'-weekly_scores.album_score' --><tr>
         <th scope="row" class="ng-binding">5</th>
@@ -73,11 +73,11 @@ Best ratio: Ryan (4.5)<br/>
         <td class="ng-binding">9</td>      
       </tr><!-- end ngRepeat: user in users | orderBy:'-weekly_scores.album_score' --><tr>
         <th scope="row" class="ng-binding">8</th>
-        <td class="ng-binding">davidemerritt <img src="/images/poop.gif" style="padding-bottom:4px" ng-show="user.$id == 'Nrblanks' || user.$id == 'Stevie' || user.$id == 'davidemerritt' || user.$id == 'Oat'" height="50px" aria-hidden="false" class=""><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:3px" ng-show="user.$id == 'sparker'" height="30px" aria-hidden="true" class="ng-hide"></td>
+        <td class="ng-binding">davidemerritt</td>
         <td class="ng-binding">7</td>      
       </tr><!-- end ngRepeat: user in users | orderBy:'-weekly_scores.album_score' --><tr>
         <th scope="row" class="ng-binding">9</th>
-        <td class="ng-binding">Nrblanks <img src="/images/poop.gif" style="padding-bottom:4px" ng-show="user.$id == 'Nrblanks' || user.$id == 'Stevie' || user.$id == 'davidemerritt' || user.$id == 'Oat'" height="50px" aria-hidden="false" class=""><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:3px" ng-show="user.$id == 'sparker'" height="30px" aria-hidden="true" class="ng-hide"></td>
+        <td class="ng-binding">Nrblanks</td>
         <td class="ng-binding">1</td>      
       </tr><!-- end ngRepeat: user in users | orderBy:'-weekly_scores.album_score' --><tr>
         <th scope="row" class="ng-binding">10</th>
@@ -85,11 +85,11 @@ Best ratio: Ryan (4.5)<br/>
         <td class="ng-binding">0</td>      
       </tr><!-- end ngRepeat: user in users | orderBy:'-weekly_scores.album_score' --><tr>
         <th scope="row" class="ng-binding">11</th>
-        <td class="ng-binding">Oat <img src="/images/poop.gif" style="padding-bottom:4px" ng-show="user.$id == 'Nrblanks' || user.$id == 'Stevie' || user.$id == 'davidemerritt' || user.$id == 'Oat'" height="50px" aria-hidden="false" class=""><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:3px" ng-show="user.$id == 'sparker'" height="30px" aria-hidden="true" class="ng-hide"></td>
+        <td class="ng-binding">Oat</td>
         <td class="ng-binding">0</td>      
       </tr><!-- end ngRepeat: user in users | orderBy:'-weekly_scores.album_score' --><tr>
         <th scope="row" class="ng-binding">12</th>
-        <td class="ng-binding">Stevie <img src="/images/poop.gif" style="padding-bottom:4px" ng-show="user.$id == 'Nrblanks' || user.$id == 'Stevie' || user.$id == 'davidemerritt' || user.$id == 'Oat'" height="50px" aria-hidden="false" class=""><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:3px" ng-show="user.$id == 'sparker'" height="30px" aria-hidden="true" class="ng-hide"></td>
+        <td class="ng-binding">Stevie</td>
         <td class="ng-binding">0</td>      
       </tr><!-- end ngRepeat: user in users | orderBy:'-weekly_scores.album_score' -->
     </tbody>
