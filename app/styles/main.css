@@ -3,6 +3,10 @@ body {
   overflow-y: hidden !important;
 }
 
+md-chips.md-default-theme .md-chips, md-chips .md-chips {
+    box-shadow: 0 0px rgba(0,0,0,0);
+}
+
 .cmt-background {
 /*  background-image: filter(url('/images/moonpool.jpg'), blur(20px));*/
 }

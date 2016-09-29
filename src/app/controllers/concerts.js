@@ -32,9 +32,9 @@ module.exports = function ($scope, $routeParams, Profile, Post, Auth, $firebaseA
     setTimeout(function(){ localStorage.setItem('flag', moment().startOf('hour').format("hA")); }, 30000);
     console.log('flag:', flag);
   
- if(flag != moment().startOf('hour').format("hA")){
+ // if(flag != moment().startOf('hour').format("hA")){
      $scope.getConcertsFromLikes();
-    }  
+    // }  
         });
        });
 
