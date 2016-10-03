@@ -14,6 +14,7 @@
 
     <span flex></span>
     <!--       <p><a ng-show="!user" href="/#/login">Sign in</a></p> -->
+        
 
     <p ng-show="!user"><a ng-href="#/login">
       <md-button ng-show="!user" class="md-icon-button" aria-label="Chat">
@@ -49,6 +50,10 @@
       <md-button ng-show="user" class="md-icon-button" aria-label="Logout">
         <i class="fa fa-sign-out fa-2x"></i>
       </md-button>Logout</a></p>
+
+      <md-button ng-click="toggleMenu()" class="md-accent">
+          x Close Menu 
+        </md-button>
 
     <md-divider/>
 
