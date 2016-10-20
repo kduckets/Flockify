@@ -2,7 +2,7 @@
    <md-progress-circular md-mode='indeterminate' md-diameter="100"></md-progress-circular>
 </div>
 
-<div class="container" ng-show="user && !loading">
+<div ng-show="user && !loading">
    <!--  <div class="col-sm-1">
       <img ng-src="http://www.gravatar.com/avatar/{{ profile.md5_hash }}" class="prof-img" />
     </div> -->
@@ -30,9 +30,9 @@
         </md-tabs>
 
         <br/>
-
-<div ng-repeat="(key,post) in user_posts" ng-show="view_tab == 'tabA' " align="center" >
- <div class="post">
+<div class="profile-container">
+<div ng-repeat="(key,post) in user_posts" ng-show="view_tab == 'tabA' " align="center">
+ <div class="post-profile">
 
   <a ng-href="#/albums/{{post.$id}}">
     <img ng-src="{{post.image_medium}}" height="100" />
@@ -40,49 +40,52 @@
 
   <br/>
   <a ng-href="#/albums/{{post.$id}}">
-    {{post.media_info.artist}} - {{ post.media_info.album }} ({{post.media_info.release_date | limitTo: 4}})
+    {{post.media_info.artist | limitTo: 20}} ({{post.media_info.release_date | limitTo: 4}})
   </a>
   <div>
+   <img ng-src="/images/empty-star.png" class="star" />
    <!-- <a data-toggle="modal" ng-click="starPost(post)" href="" >   -->
    <img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18" />
    <!--      <img ng-src="/images/empty-star.png" height="18" /></a> -->
 
  </div>
- <div>
-  <span class="label label-pill label-info">{{ post.media_info.summary | limitTo: 40 }}{{post.media_info.summary.length > 40 ? '..' : ''}}</span>
-</div>
+<!--  <div>
+  <span class="label label-pill label-info">{{ post.media_info.summary | limitTo: 30 }}{{post.media_info.summary.length > 40 ? '..' : ''}}</span>
+</div> -->
 <p>
- {{ post.score }} votes
- <small>(posted by {{post.creator_name}})</small>
+ <b>{{ post.score }}</b>
+ <small>({{post.creator_name}})</small>
 
  <small><a ng-href="#/albums/{{post.$id}}">comments ({{ post.comments }})</a></small>
  <small><a href="" ng-click="deletePost(post)" ng-show="user.$id === post.creator_id">&mdash; delete</a></small>
 </p>
 </div>
 </div>
+</div>
 
-
-
+<div class="profile-container">
 <div ng-repeat="post in likes" ng-show="view_tab == 'tabB'" align="center">
 
- <div class="post" ng-show="post.media_info.album">
+
+ <div class="post-profile" ng-show="post.media_info.album">
   <a ng-href="#/albums/{{post.$id}}">
     <img ng-src="{{post.image_medium}}" height="100" />
   </a>
   <br/>
   <a ng-href="#/albums/{{post.$id}}">
-    {{post.media_info.artist}} - {{ post.media_info.album }} ({{post.media_info.release_date | limitTo: 4}})
+    {{post.media_info.artist | limitTo: 18}} ({{post.media_info.release_date | limitTo: 4}})
   </a>
   <div>
+   <img ng-src="/images/empty-star.png" class="star" />
     <img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18" />
     </div>
     <div>
     <!--      <img ng-src="/images/empty-star.png" height="18" /></a> -->
-    <span class="label label-pill label-info">{{ post.media_info.summary | limitTo: 40 }}{{post.media_info.summary.length > 40 ? '..' : ''}}
-    </span>
+  <!--   <span class="label label-pill label-info">{{ post.media_info.summary | limitTo: 40 }}{{post.media_info.summary.length > 40 ? '..' : ''}}
+    </span> -->
     <p>
-     {{ post.score }} votes
-     <small>(posted by <a ng-href="#/users/{{ post.creator_id }}">{{post.creator_name}}</a>)</small>
+     <b>{{ post.score }}</b>
+     <small>(<a ng-href="#/users/{{ post.creator_id }}">{{post.creator_name}}</a>)</small>
 
      <small><a ng-href="#/albums/{{post.$id}}">comments ({{ post.comments }})</a></small>
      <small><a href="" ng-click="deletePost(post)" ng-show="user.$id === post.creator_id">&mdash; delete</a></small>
@@ -90,27 +93,29 @@
  </div>
 </div>
 </div>
-
+</div>
+<div class="profile-container">
 <div ng-repeat="post in queue" ng-show="view_tab == 'tabC'" align="center">
 
- <div class="post" ng-show="post.media_info.album">
+ <div class="post-profile" ng-show="post.media_info.album">
   <a ng-href="#/albums/{{post.$id}}">
     <img ng-src="{{post.image_medium}}" height="100" />
   </a>
   <br/>
   <a ng-href="#/albums/{{post.$id}}">
-    {{post.media_info.artist}} - {{ post.media_info.album }} ({{post.media_info.release_date | limitTo: 4}})
+    {{post.media_info.artist | limitTo: 18}} - {{ post.media_info.album | limitTo: 10 }} ({{post.media_info.release_date | limitTo: 4}})
   </a>
   <div>
+   <img ng-src="/images/empty-star.png" class="star" />
     <img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18" />
     </div>
     <div>
     <!--      <img ng-src="/images/empty-star.png" height="18" /></a> -->
-    <span class="label label-pill label-info">{{ post.media_info.summary | limitTo: 40 }}{{post.media_info.summary.length > 40 ? '..' : ''}}
-    </span>
+ <!--    <span class="label label-pill label-info">{{ post.media_info.summary | limitTo: 40 }}{{post.media_info.summary.length > 40 ? '..' : ''}}
+    </span> -->
     <p>
-     {{ post.score }} votes
-     <small>(posted by <a ng-href="#/users/{{ post.creator_id }}">{{post.creator_name}}</a>)</small>
+     <b>{{ post.score }}</b>
+     <small> (<a ng-href="#/users/{{ post.creator_id }}">{{post.creator_name}}</a>)</small>
 
      <small><a ng-href="#/albums/{{post.$id}}">comments ({{ post.comments }})</a></small>
      <small><a href="" ng-click="deletePost(post)" ng-show="user.$id === post.creator_id">&mdash; delete</a></small>
@@ -123,7 +128,7 @@
 
 
 
-
+</div>
 
 </div>
 </div>
