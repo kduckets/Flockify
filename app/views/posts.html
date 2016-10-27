@@ -20,6 +20,10 @@
           </form>
 </div>
 
+<!-- <div class="alert alert-info" role="alert" align="center" ng-show="show_zip_notification">
+  <strong>HEADS UP</strong> Click the concerts button in the toolbar to check for upcoming shows in your area
+</div> -->
+
     <md-button aria-label="Search"
                style="top:14px;right:110px;position:fixed;z-index:2;padding: 0 0px !important;
                margin: 5px 8px !important;" ng-click="load();showSearch = !showSearch; allTime()">
@@ -209,7 +213,7 @@ limitTo:totalDisplayed track by post.$id" align="center">
               <md-card-title-text>
                 <a ng-href="#/albums/{{post.$id}}">
    <span class="md-headline"><b>{{ post.media_info.artist }}</b><br/>
- {{ post.media_info.album | limitTo: 22 }}{{post.media_info.album.length > 22 ? '..' : ''}} ({{post.media_info.release_date | limitTo: 4}})</span></a>
+ {{ post.media_info.album | limitTo: 32 }}{{post.media_info.album.length > 32 ? '..' : ''}} ({{post.media_info.release_date | limitTo: 4}})</span></a>
 
  <div>
 <span style="display:inline-block;margin-right:4px" ng-repeat="label in post.labels track by $index" class="label-tag label label-default">
@@ -236,7 +240,7 @@ limitTo:totalDisplayed track by post.$id" align="center">
 
             </md-card-title>
             <md-card-content>
-              <div hide-sm>{{ post.media_info.summary| limitTo: 200 }}{{post.media_info.summary.length > 200 ? '..' : ''}}</div>
+              <div hide-sm>{{ post.media_info.summary| limitTo: 220 }}{{post.media_info.summary.length > 220 ? '..' : ''}}</div>
               <div show-sm hide-gt-sm> {{ post.media_info.summary| limitTo: 32 }}{{post.media_info.summary.length > 32 ? '..' : ''}}</div>
 
               <div layout="row" layout-align="center center">
