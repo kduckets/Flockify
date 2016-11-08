@@ -258,6 +258,21 @@ if(zip_code){
     $scope.totalDisplayed = 10;
   };
 
+    $scope.byMonth = function(month){
+    // var last_monday = GetLastWeekStart();
+    // var month_start = moment().startOf('month');
+    var month_start = moment("2016-"+month+"-1");
+    var month_end = moment("2016-"+month+"-1").endOf('month');
+    $scope.filter_start_date = month_start;
+    $scope.filter_end_date = month_end;
+    $scope.sorter = ['-score','-stars'];
+    $scope.last = false;
+    $scope.month = month;
+    $scope.week = false;
+    $scope.allPosts = false;
+    $scope.totalDisplayed = 10;
+  };
+
   $scope.lastWeek = function(){
     var last_monday = GetLastWeekStart();
     // var month_start = moment().startOf('month');
