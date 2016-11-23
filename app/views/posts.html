@@ -80,7 +80,7 @@
         <img ng-src="{{result.images[2].url}}"/>
         <small>{{result.name}}</small>
       </md-list-item>
-      <md-divider ></md-divider>
+      <md-divider hide-xs hide-sm></md-divider>
     </md-list>
  
     <div align="center">
@@ -90,6 +90,22 @@
         <md-tab ng-click="thisMonth()" aria-label="month" ng-class="month ? 'md-raised md-primary':'md-raised'">past month</md-tab>
         <md-tab ng-click="allTime()" aria-label="all" ng-class="allPosts ? 'md-raised md-primary':'md-raised'">all time</md-tab>
       </md-tabs> -->
+
+       <md-select ng-model="months" placeholder="Sort by Month" class="md-no-underline" hide-md hide-gt-md show-xs show-sm>
+        <md-option ng-click="load();allTime()" aria-label="all" ng-class="allPosts ? 'md-accent':'md-primary'">all time</md-option>
+        <md-option ng-click="load();byMonth(1)" aria-label="jan" ng-class="month==1 ? 'md-accent':'md-primary'">Jan</md-option>
+        <md-option ng-click="load();byMonth(2)" aria-label="feb" ng-class="month==2 ? 'md-accent':'md-primary'">Feb</md-option>
+        <md-option ng-click="load();byMonth(3)" aria-label="march" ng-class="month==3 ? 'md-accent':'md-primary'">March</md-option>
+        <md-option ng-click="load();byMonth(4)" aria-label="april" ng-class="month==4 ? 'md-accent':'md-primary'">April</md-option>
+        <md-option ng-click="load();byMonth(5)" aria-label="may" ng-class="month==5 ? 'md-accent':'md-primary'">May</md-option>
+        <md-option ng-click="load();byMonth(6)" aria-label="june" ng-class="month==6 ? 'md-accent':'md-primary'">June</md-option>
+        <md-option ng-click="load();byMonth(7)" aria-label="july" ng-class="month==7 ? 'md-accent':'md-primary'">July</md-option>
+        <md-option ng-click="load();byMonth(8)" aria-label="aug" ng-class="month==8 ? 'md-accent':'md-primary'">Aug</md-option>
+        <md-option ng-click="load();byMonth(9)" aria-label="sept" ng-class="month==9 ? 'md-accent':'md-primary'">Sept</md-option>
+        <md-option ng-click="load();byMonth(10)" aria-label="oct" ng-class="month==10 ? 'md-accent':'md-primary'">Oct</md-option>
+        <md-option ng-click="load();byMonth(11)" aria-label="nov" ng-class="month==11 ? 'md-accent':'md-primary'">Nov</md-option>
+        <md-option ng-click="load();byMonth(12)" aria-label="dec" ng-class="month==12 ? 'md-accent':'md-primary'">Dec</md-option>
+        </md-select>
     
       <div class="scrolls" hide-xs hide-sm>
       

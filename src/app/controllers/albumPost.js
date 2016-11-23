@@ -89,7 +89,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
   '&key=' + apiKey + '&secret=' + apiSecret + '&country=us' + "&type=release"
    }).then(function successCallback(response) {
   if(response.data.results[0]){
-  $scope.label = response.data.results[0].label.slice(0,4);
+  $scope.label = response.data.results[0].label.slice(0,2);
   $scope.genre = response.data.results[0].genre;
   angular.forEach($scope.genre, function(value, key) {
       var newChip = {'name': value};

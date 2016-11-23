@@ -176,9 +176,9 @@ if(zip_code){
   });
 
 
-  $scope.totalDisplayed = 10;
+  $scope.totalDisplayed = 14;
   $scope.loadMore = function () {
-    $scope.totalDisplayed += 10;
+    $scope.totalDisplayed += 14;
   };
 
 
