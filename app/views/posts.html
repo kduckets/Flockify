@@ -270,7 +270,7 @@ limitTo:totalDisplayed track by post.$id" align="center">
 
             </md-card-title>
             <md-card-content>
-              <div hide-sm>{{ post.media_info.summary| limitTo: 500 }}{{post.media_info.summary.length > 500 ? '...' : ''}}</div>
+              <div hide-sm>{{ post.media_info.summary| limitTo: 300 }}{{post.media_info.summary.length > 300 ? '...' : ''}}</div>
               <div show-sm hide-gt-sm> {{ post.media_info.summary| limitTo: 32 }}{{post.media_info.summary.length > 32 ? '..' : ''}}</div>
 
               <div layout="row" layout-align="center center">
