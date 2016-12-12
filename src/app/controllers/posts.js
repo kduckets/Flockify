@@ -194,6 +194,7 @@ if(zip_code){
   $scope.last = false;
   $scope.month = false;
   $scope.allPosts = true;
+  $scope.albumContest = false;
 
   // $scope.filter_start_date = moment().startOf('isoweek');
   $scope.filter_start_date = moment('2016-01-01 16:07:35')
@@ -232,37 +233,52 @@ if(zip_code){
 
   };
 
-  $scope.thisWeek = function(){
-    $scope.filter_start_date = moment().startOf('isoweek');
-    $scope.filter_end_date = moment.utc();
-    $scope.sorter = '-';
-    $scope.week = true;
-    $scope.month = false;
-    $scope.last = false;
-    $scope.allPosts = false;
-    $scope.totalDisplayed = 10;
-  };
+  // $scope.thisWeek = function(){
+  //   $scope.filter_start_date = moment().startOf('isoweek');
+  //   $scope.filter_end_date = moment.utc();
+  //   $scope.sorter = '-';
+  //   $scope.week = true;
+  //   $scope.month = false;
+  //   $scope.last = false;
+  //   $scope.allPosts = false;
+  //   $scope.totalDisplayed = 14;
+  // };
 
-  $scope.thisMonth = function(){
-    // var last_monday = GetLastWeekStart();
-    // var month_start = moment().startOf('month');
-    var month_start = moment().subtract(30, 'days').startOf('day');
-    var this_monday = moment().startOf('isoweek');
-    $scope.filter_start_date = month_start;
-    $scope.filter_end_date = this_monday;
-    $scope.sorter = ['-score','-stars'];
-    $scope.last = false;
-    $scope.month = true;
-    $scope.week = false;
-    $scope.allPosts = false;
-    $scope.totalDisplayed = 10;
-  };
+  // $scope.thisMonth = function(){
+  //   // var last_monday = GetLastWeekStart();
+  //   // var month_start = moment().startOf('month');
+  //   var month_start = moment().subtract(30, 'days').startOf('day');
+  //   var this_monday = moment().startOf('isoweek');
+  //   $scope.filter_start_date = month_start;
+  //   $scope.filter_end_date = this_monday;
+  //   $scope.sorter = ['-score','-stars'];
+  //   $scope.last = false;
+  //   $scope.month = true;
+  //   $scope.week = false;
+  //   $scope.allPosts = false;
+  //   $scope.totalDisplayed = 14;
+  // };
 
-    $scope.byMonth = function(month){
+  // $scope.lastWeek = function(){
+  //   var last_monday = GetLastWeekStart();
+  //   // var month_start = moment().startOf('month');
+  //   var this_monday = moment().startOf('isoweek');
+  //   $scope.filter_start_date = last_monday;
+  //   $scope.filter_end_date = this_monday;
+  //   $scope.sorter = ['-score','-stars'];
+  //   $scope.last = true;
+  //   $scope.month = false;
+  //   $scope.week = false;
+  //   $scope.allPosts = false;
+  //   $scope.totalDisplayed = 14;
+  // };
+
+  $scope.byMonth = function(month){
     // var last_monday = GetLastWeekStart();
     // var month_start = moment().startOf('month');
     var month_start = moment("2016-"+month+"-1");
     var month_end = moment("2016-"+month+"-1").endOf('month');
+    $scope.tagText = '';
     $scope.filter_start_date = month_start;
     $scope.filter_end_date = month_end;
     $scope.sorter = ['-score','-stars'];
@@ -270,32 +286,34 @@ if(zip_code){
     $scope.month = month;
     $scope.week = false;
     $scope.allPosts = false;
-    $scope.totalDisplayed = 10;
-  };
-
-  $scope.lastWeek = function(){
-    var last_monday = GetLastWeekStart();
-    // var month_start = moment().startOf('month');
-    var this_monday = moment().startOf('isoweek');
-    $scope.filter_start_date = last_monday;
-    $scope.filter_end_date = this_monday;
-    $scope.sorter = ['-score','-stars'];
-    $scope.last = true;
-    $scope.month = false;
-    $scope.week = false;
-    $scope.allPosts = false;
-    $scope.totalDisplayed = 10;
+    $scope.totalDisplayed = 14;
+    $scope.albumContest = false;
   };
 
   $scope.allTime = function(){
     $scope.filter_start_date = moment('2016-01-01 16:07:35')
     $scope.filter_end_date = moment.utc();
+    $scope.tagText = '';
     $scope.sorter = ['-score','-stars'];
     $scope.allPosts = true;
     $scope.week = false;
     $scope.month = false;
     $scope.last = false;
-    $scope.totalDisplayed = 10;
+    $scope.albumContest = false;
+    $scope.totalDisplayed = 14;
+  };
+
+  $scope.topAlbum = function(){
+    $scope.filter_start_date = moment('2016-12-01 16:07:35')
+    $scope.filter_end_date = moment.utc();
+    $scope.sorter = ['-score','-stars'];
+    $scope.tagText = 'topalbum2016';
+    $scope.albumContest = true;
+    $scope.allPosts = false;
+    $scope.week = false;
+    $scope.month = false;
+    $scope.last = false;
+    $scope.totalDisplayed = 14;
   };
 
   function GetLastWeekStart() {

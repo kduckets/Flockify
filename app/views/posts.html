@@ -20,9 +20,9 @@
           </form>
 </div>
 
-<!-- <div class="alert alert-info" role="alert" align="center" ng-show="show_zip_notification">
-  <strong>HEADS UP</strong> Click the concerts button in the toolbar to check for upcoming shows in your area
-</div> -->
+<div class="alert alert-info" role="alert" align="center">
+  <small><strong>Best album of 2016 contest</strong> Post your nomination for best album of 2016. Tag it with "topalbum2016" so I don't have to code anything.</small>
+</div>
 
     <md-button aria-label="Search"
                style="top:14px;right:110px;position:fixed;z-index:2;padding: 0 0px !important;
@@ -109,6 +109,7 @@
     
       <div class="scrolls" hide-xs hide-sm>
       
+        <md-button ng-click="load();topAlbum()" aria-label="top" ng-class="albumContest ? 'md-accent':'md-primary'">top albums 2016</md-button>
         <md-button ng-click="load();allTime()" aria-label="all" ng-class="allPosts ? 'md-accent':'md-primary'">all time</md-button>
         <md-button ng-click="load();byMonth(1)" aria-label="jan" ng-class="month==1 ? 'md-accent':'md-primary'">jan</md-button>
         <md-button ng-click="load();byMonth(2)" aria-label="feb" ng-class="month==2 ? 'md-accent':'md-primary'">feb</md-button>
