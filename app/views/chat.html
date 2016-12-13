@@ -19,7 +19,7 @@
  <!--  <img src="/images/poop.gif" style="padding-bottom:10px; padding-left:2px" ng-show="comment.creator  == 'Nrblanks' || comment.creator   == 'Stevie' || comment.creator == 'davidemerritt' || comment.creator == 'Oat'" height="50px"/><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:2px" ng-show="comment.creator == 'sparker'" height="30px"/> -->
 
       </a> <i> <span><small>({{comment.datetime_ts | timeAgo}})</small></span></i>: 
-      <p ng-bind-html="filteredComment=(comment.text | sanitize)"></p>
+      <p ng-bind-html="filteredComment=(comment.text | linky)"></p>
       <iframe ng-show="isYouTube(comment.text)" width="560" height="315" ng-src="{{getIframeSrc(isYouTube(comment.text))}}" frameborder="0" allowfullscreen></iframe>
  
       </p>
