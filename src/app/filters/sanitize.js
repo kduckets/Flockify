@@ -26,6 +26,11 @@ module.exports = function($sce) {
               htmlCode = htmlCode.replace(p,"");
             }
 
+          var urlPattern = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/gi;
+          if(htmlCode.match(urlPattern) && !htmlCode.match('<img')) {
+           htmlCode = htmlCode.replace(urlPattern, '<a target="' + "_new" + '" href="$&">$&</a>') ;
+          };
+
             return $sce.trustAsHtml(htmlCode);
           
         }
