@@ -45,6 +45,45 @@
     //routes
 
     var router = express.Router();
+    router.post('/wanotification', function(req, resp){
+      var clientId = "FREE_TRIAL_ACCOUNT"; // No need to change
+      var clientSecret = "PUBLIC_SECRET";  // No need to change
+      var phoneNumbers = ["14152508533", "15086330105", "19789734390", "12566588765", "19783282088","19784306872","19788860125","19788521242"];
+      var arrayLength = phoneNumbers.length;
+
+      for (var i = 0; i < arrayLength; i++) {
+      var jsonPayload = JSON.stringify({
+      number: phoneNumbers[i],
+      message: req.body.user + " posted a new album. Check it: https://flockify.herokuapp.com"
+      });
+
+      var options = {
+      hostname: "api.whatsmate.net",
+      port: 80,
+      path: "/v1/whatsapp/single/message/1",
+      method: "POST",
+      headers: {
+          "Content-Type": "application/json",
+          "X-WM-CLIENT-ID": clientId,
+          "X-WM-CLIENT-SECRET": clientSecret,
+          "Content-Length": Buffer.byteLength(jsonPayload)
+        }
+      };
+
+      var request = new http.ClientRequest(options);
+      request.end(jsonPayload);
+
+      request.on('response', function (response) {
+      console.log('Heard back from the WhatsMate WA Gateway:\n');
+      console.log('Status code: ' + response.statusCode);
+      response.setEncoding('utf8');
+      response.on('data', function (chunk) {
+          console.log(chunk);
+      });
+        });
+      }
+    });
+
 
     // Giphy comment search
     router.post('/giphysearch', function(req, resp){

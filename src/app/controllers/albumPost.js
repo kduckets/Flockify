@@ -197,6 +197,13 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
             ref.child('user_scores').child(Users.current_group).child($scope.user.$id).update(scores);
            }
          });
+         //send WA notification
+         var wabody = {'user': $scope.username};
+         $http.post('/api/wanotification', wabody).success(function(data) {
+           console.log("WA notification sent");
+         }).error(function(data) {
+           console.log('Error: ' + data);
+         });
 
       $route.reload();
 
