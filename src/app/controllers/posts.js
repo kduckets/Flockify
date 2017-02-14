@@ -1,6 +1,6 @@
 module.exports = function($scope, $route, $location, $window, Post, Auth, Spotify,$uibModal, Profile, $firebaseArray, $firebaseAuth,
                           $filter, FIREBASE_URL, Action, Users, $mdToast, $mdDialog, $mdMedia, $timeout,
-                          $anchorScroll, $mdConstant, $rootScope,$cookieStore, Trophy, $http, 
+                          $anchorScroll, $mdConstant, $rootScope,$cookieStore, Trophy, $http,
                           bandsintownFactory, $firebaseObject, Concert, Util, Notification){
 
   var ref = new Firebase(FIREBASE_URL);
@@ -16,19 +16,19 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
     $scope.username = $scope.user.username;
     Users.get_zip(authData.uid).then(function(zip){
       $scope.user_zip = zip;
-      
+
   if(!$scope.user_zip){
       $scope.show_zip_notification = true;
     }
 //     var flag = localStorage.getItem('flag');
 //     setTimeout(function(){ localStorage.setItem('flag', moment().startOf('hour').format("hA")); }, 30000);
 //     console.log('flag:', flag);
-  
+
 // if(flag != moment().startOf('hour').format("hA")){
 //      getConcerts();
-//    } 
+//    }
 
-    });   
+    });
   }
 
   Auth.$onAuth(function(authData) {
@@ -115,7 +115,7 @@ var getConcerts = function(){
      });
 // ************temporary for past concerts*****************************
 
-    });  
+    });
 }
 
 
@@ -273,11 +273,19 @@ if(zip_code){
   //   $scope.totalDisplayed = 14;
   // };
 
+  $scope.year = moment().year();
+
+
+  $scope.showMonth = function(){
+    //if month is in this scope.year return true
+
+  };
+
   $scope.byMonth = function(month){
     // var last_monday = GetLastWeekStart();
     // var month_start = moment().startOf('month');
-    var month_start = moment("2016-"+month+"-1");
-    var month_end = moment("2016-"+month+"-1").endOf('month');
+    var month_start = moment($scope.year+"-"+month+"-1");
+    var month_end = moment($scope.year+"-"+month+"-1").endOf('month');
     $scope.tagText = '';
     $scope.filter_start_date = month_start;
     $scope.filter_end_date = month_end;
@@ -384,7 +392,7 @@ if(zip_code){
      console.log(response.data);
   Post.label(post.$id, response.data.results[0].label);
   Post.genre(post.$id, response.data.results[0].genre);
- 
+
     }
   })
  }
