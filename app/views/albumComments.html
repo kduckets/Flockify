@@ -41,7 +41,7 @@
   <div>
 
       <div ng-show="concert.show_date" class="alert alert-success" role="alert">
-<p>{{post.media_info.artist}} are playing near you on {{concert.show_date | date:'MMM d, y h:mm a'}} at <b>{{concert.venue_name}}</b> in {{concert.venue_city}}, {{concert.venue_region}}<sup><small><a href="" ng-click="showZip($event)">[change]</small></sup></p> 
+<p>{{post.media_info.artist}} are playing near you on {{concert.show_date | date:'MMM d, y h:mm a'}} at <b>{{concert.venue_name}}</b> in {{concert.venue_city}}, {{concert.venue_region}}<sup><small><a href="" ng-click="showZip($event)">[change]</small></sup></p>
   <form ng-submit="updateZip(zip_code)" ng-show="show_zip_notification">
   <md-input-container class="md-block" style="width:120px; display: inline-block; padding-left:10px" flex-gt-sm>
             <input name="zipCode" ng-model="zip_code" placeholder=""
@@ -227,7 +227,7 @@
         </md-button>
       </div>
       <div ng-show="concert.show_date" class="alert alert-success" role="alert">
-<p>{{post.media_info.artist}} are playing near you on {{concert.show_date | date:'MMM d, y h:mm a'}} at <b>{{concert.venue_name}}</b> in {{concert.venue_city}}, {{concert.venue_region}}<sup><small><a href="" ng-click="showZip($event)">[change]</small></sup></p> 
+<p>{{post.media_info.artist}} are playing near you on {{concert.show_date | date:'MMM d, y h:mm a'}} at <b>{{concert.venue_name}}</b> in {{concert.venue_city}}, {{concert.venue_region}}<sup><small><a href="" ng-click="showZip($event)">[change]</small></sup></p>
   <form ng-submit="updateZip(zip_code)" ng-show="show_zip_notification">
   <md-input-container class="md-block" style="width:120px; display: inline-block; padding-left:10px" flex-gt-sm>
             <input name="zipCode" ng-model="zip_code" placeholder=""
@@ -242,10 +242,10 @@
 <p><a ng-href="{{concert.tickets_url}}">{{concert.ticket_status}}</a>
 <p><small>(Tour information provided by <a href="http://www.bandsintown.com">Bandsintown</a>)</small></p>
 </div>
-  
 
 
-  
+
+
 
     <div><p>{{post.media_info.summary}}</p></div>
     <div layout="row" layout-align="left center">
@@ -346,7 +346,8 @@
  <div layout="row" style="padding-bottom:20px">
 
       <ul id="imgList">
-        <li ng-repeat="album in related_albums | orderBy:['relevance_score', '-score'] | filter:'spotify' | limitTo:10 track by album.$id" >
+        <li style="position: relative;z-index: 1;"
+        ng-repeat="album in related_albums | orderBy:['relevance_score', '-score'] | filter:'spotify' | limitTo:10 track by album.$id" >
         <md-tooltip>{{album.media_info.artist}} - {{album.media_info.album}}</md-tooltip>
           <img style="padding-bottom:10px" class="thumbnail" ng-src="{{album.image_medium}}" ng-click="goToAlbum(album.$id)" height="100">
         </li>
