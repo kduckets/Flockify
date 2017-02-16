@@ -276,8 +276,15 @@ if(zip_code){
   $scope.year = moment().year();
 
 
-  $scope.showMonth = function(){
+  $scope.showMonth = function(month){
     //if month is in this scope.year return true
+    if($scope.year == moment().year() && (month-1) > moment().month())
+    {
+      return false;
+    }
+    else {
+      return true;
+    }
 
   };
 

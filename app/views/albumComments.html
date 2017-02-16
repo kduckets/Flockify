@@ -41,7 +41,7 @@
   <div>
 
       <div ng-show="concert.show_date" class="alert alert-success" role="alert">
-<p>{{post.media_info.artist}} are playing near you on {{concert.show_date | date:'MMM d, y h:mm a'}} at <b>{{concert.venue_name}}</b> in {{concert.venue_city}}, {{concert.venue_region}}<sup><small><a href="" ng-click="showZip($event)">[change]</small></sup></p>
+<p>{{post.media_info.artist}} is playing near you on {{concert.show_date | date:'MMM d, y h:mm a'}} at <b>{{concert.venue_name}}</b> in {{concert.venue_city}}, {{concert.venue_region}}<sup><small><a href="" ng-click="showZip($event)">[change]</small></sup></p>
   <form ng-submit="updateZip(zip_code)" ng-show="show_zip_notification">
   <md-input-container class="md-block" style="width:120px; display: inline-block; padding-left:10px" flex-gt-sm>
             <input name="zipCode" ng-model="zip_code" placeholder=""

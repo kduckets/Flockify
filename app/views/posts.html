@@ -94,25 +94,24 @@
 
 
       <div class="scrolls" hide-xs hide-sm>
-        <md-select ng-model="year" placeholder="2017" style="display: inline-block;" class="md-no-underline">
+        <md-select ng-model="year" placeholder="2017" style="display: inline-block;">
         <md-option value="2017">2017</md-option>
         <md-option value="2016">2016</md-option>
         </md-select>
         <md-button ng-click="load();topAlbum()" ng-show="year==2016" aria-label="top" ng-class="albumContest ? 'md-accent':'md-primary'">top 2016 albums</md-button>
-        <md-button ng-click="load();allTime()" aria-label="all" ng-class="allPosts ? 'md-accent':'md-primary'">all time</md-button>
-        <md-button ng-click="load();byMonth(1)" aria-label="jan" ng-class="month==1 ? 'md-accent':'md-primary'">jan</md-button>
-        <md-button ng-click="load();byMonth(2)" aria-label="feb" ng-class="month==2 ? 'md-accent':'md-primary'">feb</md-button>
-        <md-button ng-click="load();byMonth(3)" aria-label="march" ng-class="month==3 ? 'md-accent':'md-primary'">march</md-button>
-        <md-button ng-click="load();byMonth(4)" aria-label="april" ng-class="month==4 ? 'md-accent':'md-primary'">april</md-button>
-        <md-button ng-click="load();byMonth(5)" aria-label="may" ng-class="month==5 ? 'md-accent':'md-primary'">may</md-button>
-        <md-button ng-click="load();byMonth(6)" aria-label="june" ng-class="month==6 ? 'md-accent':'md-primary'">june</md-button>
-        <md-button ng-click="load();byMonth(7)" aria-label="july" ng-class="month==7 ? 'md-accent':'md-primary'">july</md-button>
-        <md-button ng-click="load();byMonth(8)" aria-label="aug" ng-class="month==8 ? 'md-accent':'md-primary'">aug</md-button>
-        <md-button ng-click="load();byMonth(9)" aria-label="sept" ng-class="month==9 ? 'md-accent':'md-primary'">sept</md-button>
-        <md-button ng-click="load();byMonth(10)" aria-label="oct" ng-class="month==10 ? 'md-accent':'md-primary'">oct</md-button>
-        <md-button ng-click="load();byMonth(11)" aria-label="nov" ng-class="month==11 ? 'md-accent':'md-primary'">nov</md-button>
-        <md-button ng-click="load();byMonth(12)" aria-label="dec" ng-class="month==12 ? 'md-accent':'md-primary'">dec</md-button>
-
+        <md-button ng-click="load();allTime()"  aria-label="all" ng-class="allPosts ? 'md-accent':'md-primary'">all time</md-button>
+        <md-button ng-click="load();byMonth(1)" ng-show="showMonth(1)" aria-label="jan" ng-class="month==1 ? 'md-accent':'md-primary'">jan</md-button>
+        <md-button ng-click="load();byMonth(2)" ng-show="showMonth(2)" aria-label="feb" ng-class="month==2 ? 'md-accent':'md-primary'">feb</md-button>
+        <md-button ng-click="load();byMonth(3)" ng-show="showMonth(3)" aria-label="march" ng-class="month==3 ? 'md-accent':'md-primary'">march</md-button>
+        <md-button ng-click="load();byMonth(4)" ng-show="showMonth(4)" aria-label="april" ng-class="month==4 ? 'md-accent':'md-primary'">april</md-button>
+        <md-button ng-click="load();byMonth(5)" ng-show="showMonth(5)" aria-label="may" ng-class="month==5 ? 'md-accent':'md-primary'">may</md-button>
+        <md-button ng-click="load();byMonth(6)" ng-show="showMonth(6)" aria-label="june" ng-class="month==6 ? 'md-accent':'md-primary'">june</md-button>
+        <md-button ng-click="load();byMonth(7)" ng-show="showMonth(7)" aria-label="july" ng-class="month==7 ? 'md-accent':'md-primary'">july</md-button>
+        <md-button ng-click="load();byMonth(8)" ng-show="showMonth(8)" aria-label="aug" ng-class="month==8 ? 'md-accent':'md-primary'">aug</md-button>
+        <md-button ng-click="load();byMonth(9)" ng-show="showMonth(9)" aria-label="sept" ng-class="month==9 ? 'md-accent':'md-primary'">sept</md-button>
+        <md-button ng-click="load();byMonth(10)" ng-show="showMonth(10)" aria-label="oct" ng-class="month==10 ? 'md-accent':'md-primary'">oct</md-button>
+        <md-button ng-click="load();byMonth(11)" ng-show="showMonth(11)" aria-label="nov" ng-class="month==11 ? 'md-accent':'md-primary'">nov</md-button>
+        <md-button ng-click="load();byMonth(12)" ng-show="showMonth(12)" aria-label="dec" ng-class="month==12 ? 'md-accent':'md-primary'">dec</md-button>
 
         </div>
 
