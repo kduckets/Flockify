@@ -46,8 +46,8 @@
 
     var router = express.Router();
     router.post('/wanotification', function(req, resp){
-      var clientId = "FREE_TRIAL_ACCOUNT"; // No need to change
-      var clientSecret = "PUBLIC_SECRET";  // No need to change
+      var clientId = "kmditroia@gmail.com"; // No need to change
+      var clientSecret = "1def0f5ac5a04884b8fd0434e755b884";  // No need to change
       var phoneNumbers = ["14152508533", "15086330105", "19789734390", "12566588765", "19783282088","19784306872","19789878891","19788521242","15083400792","19148829254"];
       var arrayLength = phoneNumbers.length;
 
