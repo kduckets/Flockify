@@ -23,7 +23,7 @@
     "angular-resource": "1.5.2",
     "angular-route": "1.5.2",
     "angular-sanitize": "1.5.2",
-    "angular-spotify": "1.4.0",
+    "angular-spotify": "1.4.3",
     "angular-touch": "1.5.2",
     "angularfire": "1.2.0",
     "body-parser": "1.15.0",

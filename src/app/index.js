@@ -42,13 +42,13 @@ var app = angular.module('flockifyApp', [
   'angular-google-analytics',
   'jtt_bandsintown'
 ]);
-// app.config(function (SpotifyProvider) {
-//   SpotifyProvider.setClientId('44bb100c98a34efd9c4e874756e09080');
-//   SpotifyProvider.setRedirectUri('http://127.0.0.1:5000/#/callback');
-//   SpotifyProvider.setScope('user-read-private playlist-read-private playlist-modify-private playlist-modify-public');
-//   // If you already have an auth token
-//   SpotifyProvider.setAuthToken('cefa1436b18f42579011dd8073d9e531');
-// });
+app.config(function (SpotifyProvider) {
+  SpotifyProvider.setClientId('44bb100c98a34efd9c4e874756e09080');
+  SpotifyProvider.setRedirectUri('http://flockify.herokuapp.com/callback.html');
+  SpotifyProvider.setScope('user-read-private');
+  // If you already have an auth token
+SpotifyProvider.setAuthToken('BQAk4vPMfoP-akuON0LYrP-BwW9T96Xmp3uz1xIqouyBX-3MX2FPVLOyr7YGaTW170y8-F4cS0oxGHAQkgY3wqlB_LcvKpvMcWxf_n3EdjeEigvKujVFZK-im4uwA_W8koFzfaJuMB-G2lhEDjDhhQGTQCXbuB0vUMBlu87oeM3Hw4RLNnpBzphBt4ObhZiW54XYCB7uq4royuFyjBP3ixih1ePCAFa4J5u4gH4UzVwibZtWiGanE5WwlBmXiAxnww');
+});
 app.config(function($mdThemingProvider) {
   $mdThemingProvider.theme('default').primaryPalette('grey', {
         'default': '900',
@@ -57,13 +57,6 @@ app.config(function($mdThemingProvider) {
             }).backgroundPalette('grey', {
                 'default': '200'
             })
-});
-app.config(function (SpotifyProvider) {
-  SpotifyProvider.setClientId('44bb100c98a34efd9c4e874756e09080');
-  SpotifyProvider.setRedirectUri('http://flockify.herokuapp.com/callback.html');
-  SpotifyProvider.setScope('user-read-private playlist-read-private playlist-modify-private playlist-modify-public');
-  // If you already have an auth token
-  SpotifyProvider.setAuthToken('BQAk4vPMfoP-akuON0LYrP-BwW9T96Xmp3uz1xIqouyBX-3MX2FPVLOyr7YGaTW170y8-F4cS0oxGHAQkgY3wqlB_LcvKpvMcWxf_n3EdjeEigvKujVFZK-im4uwA_W8koFzfaJuMB-G2lhEDjDhhQGTQCXbuB0vUMBlu87oeM3Hw4RLNnpBzphBt4ObhZiW54XYCB7uq4royuFyjBP3ixih1ePCAFa4J5u4gH4UzVwibZtWiGanE5WwlBmXiAxnww');
 });
 app.config(function($sceDelegateProvider) {
   $sceDelegateProvider.resourceUrlWhitelist([
