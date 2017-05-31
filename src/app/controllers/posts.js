@@ -358,9 +358,12 @@ if(zip_code){
     })
   }
 
+$scope.spotify_login = function(){
+  Spotify.login();
+};
 
   $scope.search = function(){
-    Spotify.login();
+
     Spotify.search($scope.post.search + '*', 'artist,album').then(function (data) {
       $scope.no_results = false;
 
