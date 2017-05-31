@@ -63,7 +63,7 @@ app.config(function (SpotifyProvider) {
   SpotifyProvider.setRedirectUri('http://flockify.herokuapp.com/callback.html');
   SpotifyProvider.setScope('user-read-private playlist-read-private playlist-modify-private playlist-modify-public');
   // If you already have an auth token
-  // SpotifyProvider.setAuthToken('zoasliu1248sdfuiknuha7882iu4rnuwehifskmkiuwhjg23');
+  SpotifyProvider.setAuthToken('BQAk4vPMfoP-akuON0LYrP-BwW9T96Xmp3uz1xIqouyBX-3MX2FPVLOyr7YGaTW170y8-F4cS0oxGHAQkgY3wqlB_LcvKpvMcWxf_n3EdjeEigvKujVFZK-im4uwA_W8koFzfaJuMB-G2lhEDjDhhQGTQCXbuB0vUMBlu87oeM3Hw4RLNnpBzphBt4ObhZiW54XYCB7uq4royuFyjBP3ixih1ePCAFa4J5u4gH4UzVwibZtWiGanE5WwlBmXiAxnww');
 });
 app.config(function($sceDelegateProvider) {
   $sceDelegateProvider.resourceUrlWhitelist([
