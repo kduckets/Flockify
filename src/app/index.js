@@ -58,6 +58,13 @@ app.config(function($mdThemingProvider) {
                 'default': '200'
             })
 });
+app.config(function (SpotifyProvider) {
+  SpotifyProvider.setClientId('44bb100c98a34efd9c4e874756e09080');
+  SpotifyProvider.setRedirectUri('http://flockify.herokuapp.com/callback.html');
+  SpotifyProvider.setScope('user-read-private playlist-read-private playlist-modify-private playlist-modify-public');
+  // If you already have an auth token
+  // SpotifyProvider.setAuthToken('zoasliu1248sdfuiknuha7882iu4rnuwehifskmkiuwhjg23');
+});
 app.config(function($sceDelegateProvider) {
   $sceDelegateProvider.resourceUrlWhitelist([
     'self',
