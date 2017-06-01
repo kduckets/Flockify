@@ -1,4 +1,4 @@
-module.exports = function($scope, $route, $location, $window, Post, Auth, $http, $cookies, album, $sce, $filter,
+module.exports = function($scope, $route, $location, $window, Post, Auth, $http, $cookies, album, $sce, $filter, Spotify,
                           $timeout, $q, $mdDialog, FIREBASE_URL, $mdConstant, Users, $firebaseArray, bandsintownFactory, Concert) {
 
   var ref = new $window.Firebase(FIREBASE_URL);
@@ -63,11 +63,13 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
     };
   };
 
+  console.log($scope.album);
+  // $http({
+  //   method: 'GET',
+  //   url: $scope.album
 
-  $http({
-    method: 'GET',
-    url: $scope.album
-  }).then(function successCallback(album) {
+  //})
+  Spotify.getAlbum($scope.album).then(function successCallback(album) {
     $scope.spotify_result = album.data;
     $scope.artist = album.data.artists[0].name;
     $scope.album = album.data.name;

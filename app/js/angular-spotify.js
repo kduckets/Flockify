@@ -120,7 +120,7 @@
           getAlbum: function (album) {
             album = album.indexOf('spotify:') === -1 ? album : album.split(':')[2];
 
-            return this.api('/albums/' + album);
+            return this.api('/albums/' + album, 'GET', null, null, this._auth());
           },
 
           /**
@@ -134,7 +134,7 @@
             });
             return this.api('/albums', 'GET', {
               ids: albums ? albums.toString() : ''
-            });
+            },null, null, this._auth());
           },
 
           /**
@@ -144,7 +144,7 @@
           getAlbumTracks: function (album, options) {
             album = album.indexOf('spotify:') === -1 ? album : album.split(':')[2];
 
-            return this.api('/albums/' + album + '/tracks', 'GET', options);
+            return this.api('/albums/' + album + '/tracks', 'GET', options, null, this._auth());
           },
 
 
@@ -178,7 +178,7 @@
           getArtistAlbums: function (artist, options) {
             artist = artist.indexOf('spotify:') === -1 ? artist : artist.split(':')[2];
 
-            return this.api('/artists/' + artist + '/albums', 'GET', options);
+            return this.api('/artists/' + artist + '/albums', 'GET', options, null, this._auth());
           },
 
           /**
