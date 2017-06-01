@@ -47,7 +47,7 @@ app.config(function (SpotifyProvider) {
   SpotifyProvider.setRedirectUri('http://flockify.herokuapp.com/callback.html');
   SpotifyProvider.setScope('user-read-private');
   // If you already have an auth token
-SpotifyProvider.setAuthToken('BQAk4vPMfoP-akuON0LYrP-BwW9T96Xmp3uz1xIqouyBX-3MX2FPVLOyr7YGaTW170y8-F4cS0oxGHAQkgY3wqlB_LcvKpvMcWxf_n3EdjeEigvKujVFZK-im4uwA_W8koFzfaJuMB-G2lhEDjDhhQGTQCXbuB0vUMBlu87oeM3Hw4RLNnpBzphBt4ObhZiW54XYCB7uq4royuFyjBP3ixih1ePCAFa4J5u4gH4UzVwibZtWiGanE5WwlBmXiAxnww');
+SpotifyProvider.setAuthToken('BQCLrIA0bXDi-NLIAq9cnV15tRtEISIsI5RPOxfGeHvWm8VGbjzaex1CBydnYQwmuw1tNFOlvP-Fxz1EI7RzZN3Q0dr2rz2alwZPhgXzgonAHLZ5KZBxJ_ajJQjIJZ2Qb2v495K7J_pHu4-Mke5qgJVCMY38VYkbHKTZ4qbG90joTvYOjhs4s_FqGBFP-czZaUqSOo9oUicGVU6774W5tdO-8AP4xUxQDe56ax6dvJVjBAKzZNTHe6ZMSlZuN95yTg');
 });
 app.config(function($mdThemingProvider) {
   $mdThemingProvider.theme('default').primaryPalette('grey', {
