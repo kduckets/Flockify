@@ -14,6 +14,8 @@
     var http = require('http');
     var ejs = require('ejs');
     var Discogs = require('disconnect').Client;
+    var SpotifyWebApi = require('spotify-web-api-node');
+
 
 
     // configuration =================
@@ -39,6 +41,24 @@
     app.set('view engine', 'html');
     app.set('views', __dirname + "/app/views")
     // listen (start app with node server.js) ======================================
+
+  //   var spotifyApi = new SpotifyWebApi({
+  // clientId : '44bb100c98a34efd9c4e874756e09080',
+  // clientSecret : 'cefa1436b18f42579011dd8073d9e531',
+  // redirectUri : 'http://flockify.herokuapp.com/callback.html',
+  //   });
+  //
+  //   // Retrieve an access token.
+  //   spotifyApi.clientCredentialsGrant()
+  //     .then(function(data) {
+  //       console.log('The access token expires in ' + data.body['expires_in']);
+  //       console.log('The access token is ' + data.body['access_token']);
+  //
+  //       // Save the access token so that it's used in future calls
+  //       spotifyApi.setAccessToken(data.body['access_token']);
+  //     }, function(err) {
+  //           console.log('Something went wrong when retrieving an access token', err);
+  //     });
 
 
 
