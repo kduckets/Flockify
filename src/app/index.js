@@ -10,7 +10,7 @@ require('angular-sanitize');
 require('angular-material-icons');
 require('firebase');
 require('angularfire');
-require('angular-spotify');
+// require('angular-spotify');
 require('ng-embed');
 require('angular-google-analytics');
 
@@ -19,6 +19,8 @@ require('./../../app/bower_components/angular-spotify/dist/angular-spotify.min')
 require('./../../app/bower_components/angular-bootstrap/ui-bootstrap-tpls.min');
 require('./../../app/bower_components/angular-timeago/angular-timeago.min');
 require('./../../app/bower_components/angular-bandsintown-api-factory.min.js');
+//had to change angular-spotify to use token
+require('./../../app/js/angular-spotify.js');
 
 
 
