@@ -366,15 +366,16 @@ $scope.spotify_login = function(){
 
     Spotify.search($scope.post.search + '*', 'artist,album').then(function (data) {
       $scope.no_results = false;
+      console.log(data);
 
-      $scope.results = data.albums.items;
+      $scope.results = data.data.albums.items;
       var post_names = $.map($scope.posts, function(post, idx){
         if(post.media_info) {
           return post.media_info.album;
         }
       });
 
-      if (data.albums.total == 0) {
+      if (data.data.albums.total == 0) {
         $scope.no_results = true;
         return;
       }
