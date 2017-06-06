@@ -49,8 +49,9 @@ app.config(function (SpotifyProvider) {
   SpotifyProvider.setRedirectUri('http://flockify.herokuapp.com/callback.html');
   SpotifyProvider.setScope('user-read-private');
   // If you already have an auth token
-  // var token = window.localStorage.getItem('spotify-token');
+  var token = window.localStorage.getItem('spotify-token');
   SpotifyProvider.setAuthToken();
+
 });
 app.config(function($mdThemingProvider) {
   $mdThemingProvider.theme('default').primaryPalette('grey', {

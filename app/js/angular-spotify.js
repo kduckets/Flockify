@@ -25,20 +25,13 @@
       };
 
       this.setAuthToken = function () {
-        $http.get('https://accounts.spotify.com/api/token?grant_type=client_credentials', {
-          headers: {
-          'Authorization': 'Basic 44bb100c98a34efd9c4e874756e09080:cefa1436b18f42579011dd8073d9e531'
-              }
-        }).success(function(r) {
-          settings.authToken = r;
-          console.log('got access token', r);
-        }).error(function(err) {
+        $http.get('/api/spotify_client_token').success(function(data) {
+          settings.authToken = data;
+        }).error(function(data) {
+          console.log('Error: ' + data);
           settings.authToken = 'none';
-          console.log('failed to get access token', err);
         });
-        // settings.authToken = authToken;
          return settings.authToken;
-
       };
 
       this.setRedirectUri = function (redirectUri) {
@@ -116,7 +109,7 @@
 
           _auth: function (isJson) {
             var auth = {
-              'Authorization': 'Bearer ' + this.authToken
+              'Authorization': 'Bearer ' + settings.authToken
             };
             if (isJson) {
               auth['Content-Type'] = 'application/json';

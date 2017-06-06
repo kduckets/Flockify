@@ -42,23 +42,23 @@
     app.set('views', __dirname + "/app/views")
     // listen (start app with node server.js) ======================================
 
-  //   var spotifyApi = new SpotifyWebApi({
-  // clientId : '44bb100c98a34efd9c4e874756e09080',
-  // clientSecret : 'cefa1436b18f42579011dd8073d9e531',
-  // redirectUri : 'http://flockify.herokuapp.com/callback.html',
-  //   });
-  //
-  //   // Retrieve an access token.
-  //   spotifyApi.clientCredentialsGrant()
-  //     .then(function(data) {
-  //       console.log('The access token expires in ' + data.body['expires_in']);
-  //       console.log('The access token is ' + data.body['access_token']);
-  //
-  //       // Save the access token so that it's used in future calls
-  //       spotifyApi.setAccessToken(data.body['access_token']);
-  //     }, function(err) {
-  //           console.log('Something went wrong when retrieving an access token', err);
-  //     });
+    var spotifyApi = new SpotifyWebApi({
+  clientId : '44bb100c98a34efd9c4e874756e09080',
+  clientSecret : 'cefa1436b18f42579011dd8073d9e531',
+  redirectUri : 'http://flockify.herokuapp.com/callback.html',
+    });
+
+    // Retrieve an access token.
+    spotifyApi.clientCredentialsGrant()
+      .then(function(data) {
+        console.log('The access token expires in ' + data.body['expires_in']);
+        console.log('The access token is ' + data.body['access_token']);
+
+        // Save the access token so that it's used in future calls
+        spotifyApi.setAccessToken(data.body['access_token']);
+      }, function(err) {
+            console.log('Something went wrong when retrieving an access token', err);
+      });
 
 
     //routes
@@ -105,11 +105,11 @@
 
 
 
-    // router.get('/spotify_client_token', function(req, resp){
-    //     var access_token = spotifyApi.getAccessToken();
-    //     console.log(access_token);
-    //     return access_token;
-    //   });
+    router.get('/spotify_client_token', function(req, resp){
+        var access_token = spotifyApi.getAccessToken();
+        console.log(access_token);
+        resp.send(access_token);
+      });
 
 
 
