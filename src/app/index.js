@@ -19,7 +19,7 @@ require('./../../app/bower_components/angular-spotify/dist/angular-spotify.min')
 require('./../../app/bower_components/angular-bootstrap/ui-bootstrap-tpls.min');
 require('./../../app/bower_components/angular-timeago/angular-timeago.min');
 require('./../../app/bower_components/angular-bandsintown-api-factory.min.js');
-//had to change angular-spotify to use token
+//had to change angular-spotify to use client_credentials token
 require('./../../app/js/angular-spotify.js');
 
 
@@ -49,8 +49,8 @@ app.config(function (SpotifyProvider) {
   SpotifyProvider.setRedirectUri('http://flockify.herokuapp.com/callback.html');
   SpotifyProvider.setScope('user-read-private');
   // If you already have an auth token
-  var token = window.localStorage.getItem('spotify-token');
-  SpotifyProvider.setAuthToken('BQDGY2H2xhCWSzguQK_pYYogGVwqnjzSp5s_NTHeMYWCl3rvHcxizkJEmIreKdZC4ELMZ_aNaOFiu8tMUnBc5nSM7N1EKKzHFBY9vp8nMBA1oYqzQcDhyE6S33QdfKoylgIIUKtdPpXcPLZFw8hc5Y3TVOqNHW3K3rD3iAbkrl5-ACskRuz_Q2YOvQBZ2iSBe5DFrJkFfppDoEnvnSmn-6U0acNwYoBbSf9s61wkd6A1ynQjsYhof4GGkEV3MsppFA');
+  // var token = window.localStorage.getItem('spotify-token');
+  SpotifyProvider.setAuthToken();
 });
 app.config(function($mdThemingProvider) {
   $mdThemingProvider.theme('default').primaryPalette('grey', {

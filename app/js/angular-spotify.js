@@ -5,6 +5,9 @@
     .module('spotify', [])
     .provider('Spotify', function () {
 
+      var initInjector = angular.injector(['ng']);
+      var $http = initInjector.get('$http');
+
       // Module global settings.
       var settings = {};
       settings.clientId = null;
@@ -21,9 +24,21 @@
         return settings.clientId;
       };
 
-      this.setAuthToken = function (authToken) {
-        settings.authToken = authToken;
-        return settings.authToken;
+      this.setAuthToken = function () {
+        $http.get('https://accounts.spotify.com/api/token?grant_type=client_credentials', {
+          headers: {
+          'Authorization': 'Basic 44bb100c98a34efd9c4e874756e09080:cefa1436b18f42579011dd8073d9e531'
+              }
+        }).success(function(r) {
+          settings.authToken = r;
+          console.log('got access token', r);
+        }).error(function(err) {
+          settings.authToken = 'none';
+          console.log('failed to get access token', err);
+        });
+        // settings.authToken = authToken;
+         return settings.authToken;
+
       };
 
       this.setRedirectUri = function (redirectUri) {
@@ -134,7 +149,7 @@
             });
             return this.api('/albums', 'GET', {
               ids: albums ? albums.toString() : ''
-            },null, null, this._auth());
+            }, null, this._auth());
           },
 
           /**
@@ -158,7 +173,7 @@
           getArtist: function (artist) {
             artist = artist.indexOf('spotify:') === -1 ? artist : artist.split(':')[2];
 
-            return this.api('/artists/' + artist);
+            return this.api('/artists/' + artist, 'GET', null, null, this._auth());
           },
 
           /**
@@ -171,7 +186,7 @@
             });
             return this.api('/artists/', 'GET', {
               ids: artists ? artists.toString() : ''
-            });
+            }, null, this._auth());
           },
 
           //Artist Albums
@@ -190,13 +205,13 @@
 
             return this.api('/artists/' + artist + '/top-tracks', 'GET', {
               country: country
-            });
+            }, null, this._auth());
           },
 
           getRelatedArtists: function (artist) {
             artist = artist.indexOf('spotify:') === -1 ? artist : artist.split(':')[2];
 
-            return this.api('/artists/' + artist + '/related-artists');
+            return this.api('/artists/' + artist + '/related-artists', 'GET', null, null, this._auth());
           },
 
 
@@ -360,9 +375,7 @@
             ====================== Playlists =====================
            */
           getUserPlaylists: function (userId, options) {
-            return this.api('/users/' + userId + '/playlists', 'GET', options, null, {
-              'Authorization': 'Bearer ' + this.authToken
-            });
+            return this.api('/users/' + userId + '/playlists', 'GET', options, null, this._auth());
           },
 
           getPlaylist: function (userId, playlistId, options) {
@@ -427,7 +440,7 @@
            */
 
           getUser: function (userId) {
-            return this.api('/users/' + userId);
+            return this.api('/users/' + userId, 'GET', null, null, this._auth());
           },
 
           getCurrentUser: function () {
@@ -456,7 +469,7 @@
           getTrack: function (track) {
             track = track.indexOf('spotify:') === -1 ? track : track.split(':')[2];
 
-            return this.api('/tracks/' + track);
+            return this.api('/tracks/' + track, 'GET', null, null, this._auth());
           },
 
           getTracks: function (tracks) {
@@ -466,7 +479,7 @@
             });
             return this.api('/tracks/', 'GET', {
               ids: tracks ? tracks.toString() : ''
-            });
+            }, null, this._auth());
           },
 
           getTrackAudioFeatures: function (track) {
@@ -492,6 +505,8 @@
             this.authToken = authToken;
             return this.authToken;
           },
+
+
 
           login: function () {
             var deferred = $q.defer();

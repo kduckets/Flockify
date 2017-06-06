@@ -61,7 +61,6 @@
   //     });
 
 
-
     //routes
 
     var router = express.Router();
@@ -103,6 +102,15 @@
         });
       }
     });
+
+
+
+    // router.get('/spotify_client_token', function(req, resp){
+    //     var access_token = spotifyApi.getAccessToken();
+    //     console.log(access_token);
+    //     return access_token;
+    //   });
+
 
 
     // Giphy comment search
