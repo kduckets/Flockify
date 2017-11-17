@@ -79,7 +79,7 @@
       var options = {
       hostname: "api.whatsmate.net",
       port: 80,
-      path: "/v1/whatsapp/single/message/11",
+      path: "/v3/whatsapp/single/text/message/11",
       method: "POST",
       headers: {
           "Content-Type": "application/json",
