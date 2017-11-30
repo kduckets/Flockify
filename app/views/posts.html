@@ -20,9 +20,10 @@
           </form>
 </div>
 
-<!-- <div class="alert alert-info" role="alert" align="center">
-  <small><strong>Best album of 2016 contest</strong> Post your nomination for best album of 2016. Please tag entries with "topalbum2016".</small>
-</div> -->
+<div class="alert alert-info" role="alert" align="center">
+  <small><strong>Best album of 2017</strong> It's that time of year again.
+    Post your nomination for best album of 2017. Please tag entries with "topalbum2017".</small>
+</div>
 
 <!-- <div align="center"><md-button ng-click="spotify_login()">Login with Spotify</md-button></div> -->
 
@@ -102,6 +103,7 @@
         <md-option value="2016">2016</md-option>
         </md-select>
         <md-button ng-click="load();topAlbum()" ng-show="year==2016" aria-label="top" ng-class="albumContest ? 'md-accent':'md-primary'">top 2016 albums</md-button>
+        <md-button ng-click="load();topAlbum2017()" ng-show="year==2017" aria-label="top" ng-class="albumContest ? 'md-accent':'md-primary'">top 2017 albums</md-button>
         <md-button ng-click="load();allTime()"  aria-label="all" ng-class="allPosts ? 'md-accent':'md-primary'">all time</md-button>
         <md-button ng-click="load();byMonth(1)" ng-show="showMonth(1)" aria-label="jan" ng-class="month==1 ? 'md-accent':'md-primary'">jan</md-button>
         <md-button ng-click="load();byMonth(2)" ng-show="showMonth(2)" aria-label="feb" ng-class="month==2 ? 'md-accent':'md-primary'">feb</md-button>

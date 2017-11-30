@@ -330,6 +330,19 @@ if(zip_code){
     $scope.last = false;
     $scope.totalDisplayed = 14;
   };
+//todo: use current year from scope
+  $scope.topAlbum2017 = function(){
+    $scope.filter_start_date = moment('2017-12-01 16:07:35')
+    $scope.filter_end_date = moment.utc();
+    $scope.sorter = ['-score','-stars'];
+    $scope.tagText = 'topalbum2017';
+    $scope.albumContest = true;
+    $scope.allPosts = false;
+    $scope.week = false;
+    $scope.month = false;
+    $scope.last = false;
+    $scope.totalDisplayed = 14;
+  };
 
   function GetLastWeekStart() {
     var lastMonday = moment().subtract(1, 'weeks').startOf('isoWeek');
