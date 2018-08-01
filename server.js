@@ -15,7 +15,7 @@
     var Discogs = require('disconnect').Client;
     var SpotifyWebApi = require('spotify-web-api-node');
     var Mailchimp = require('mailchimp-api-v3')
-    var mailchimp = new Mailchimp('3cbf5345668fd2a379bdd4d3fa849c09-us19');
+    var mailchimp = new Mailchimp(process.env.MAILCHIMP_API_KEY);
 
 
 
