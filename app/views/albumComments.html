@@ -164,6 +164,21 @@
                                                                                                  height="100"/></a>
     </div>
 
+
+
+    <p ng-show="related_albums.length > 0"><i><b>Related Albums:</b></i></p>
+    <md-progress-circular ng-show="loadingCircleRelated" md-mode='indeterminate' md-diameter="132"></md-progress-circular>
+     <div layout="row" style="padding-bottom:20px">
+
+          <ul id="imgList">
+            <li ng-repeat="album in related_albums | orderBy:['relevance_score', '-score'] | filter:'spotify' | limitTo:10 track by album.$id" >
+            <md-tooltip>{{album.media_info.artist}} - {{album.media_info.album}}</md-tooltip>
+              <img style="padding-bottom:10px" class="thumbnail" ng-src="{{album.image_medium}}" ng-click="goToAlbum(album.$id)" height="100">
+            </li>
+          </ul>
+     </div>
+
+     
   </div>
 </div>
 
