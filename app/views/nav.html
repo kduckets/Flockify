@@ -146,7 +146,7 @@
        <span class="after label label-pill label-danger" ng-hide="notifications.length == 0">{{notifications.length}}</span></span>
       </md-button>
       <md-menu-content width="4">
-      <div align="center"><p><i>No new notifications</i></p></div>
+      <div align="center" ng-show="notifications.length == 0"><p><i>No new notifications</i></p></div>
         <md-menu-item align="center" ng-repeat="notification in notifications">
 
           <md-button ng-href="#{{notification.url}}">
