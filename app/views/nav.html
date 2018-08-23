@@ -14,7 +14,7 @@
 
     <span flex></span>
     <!--       <p><a ng-show="!user" href="/#/login">Sign in</a></p> -->
-        
+
 
     <p ng-show="!user"><a ng-href="#/login">
       <md-button ng-show="!user" class="md-icon-button" aria-label="Chat">
@@ -52,13 +52,13 @@
       </md-button>Logout</a></p>
 
       <md-button ng-click="toggleMenu()" class="md-accent">
-          x Close Menu 
+          x Close Menu
         </md-button>
 
     <md-divider/>
 
-    
-<!-- 
+
+<!--
     <p ng-show="user"><a href="/#/podcasts">
       <md-button ng-show="user" class="md-icon-button" aria-label="Podcasts">
         <ng-md-icon icon="mic"></ng-md-icon>
@@ -100,23 +100,23 @@
 
       <md-select class="md-toolbar-tools" ng-change="change_group()" ng-model="current_group" style="z-index: 12;" ng-click="look_for_new_posts()">
 
-        <md-option ng-repeat="group in subscribed_groups" value="{{ group.id }}" ng-selected="{{ group.id == current_group }}"> {{ group.group_name }} 
+        <md-option ng-repeat="group in subscribed_groups" value="{{ group.id }}" ng-selected="{{ group.id == current_group }}"> {{ group.group_name }}
         <span class="label label-info" ng-show="new_posts[group.id]">{{new_posts[group.id]}}</span></md-option>
       <md-divider></md-divider>
           <md-option disabled="disabled">
             Create new flock...
           </md-option>
       </md-select>
-   
-     
+
+
     </md-toolbar>
 </div>
     </span>
 
 
-   
+
     <span flex></span>
-    
+
 <!-- *********************mobile*************************** -->
 <div hide-md hide-gt-md show-xs show-sm>
 <md-menu ng-hide="notifications.length == 0">
@@ -127,41 +127,54 @@
       </md-button>
       <md-menu-content width="4">
       <div align="center"><p ng-show="notifications.length == 0"><i>No new notifications</i></p></div>
-        <md-menu-item align="center" ng-repeat="notification in notifications">   
+        <md-menu-item align="center" ng-repeat="notification in notifications">
 
-          <md-button ng-href="#{{notification.url}}">       
-         <small>{{notification.msg}}</small>            
-          </md-button>   
+          <md-button ng-href="#{{notification.url}}">
+         <small>{{notification.msg}}</small>
+          </md-button>
         </md-menu-item>
-             <md-menu-divider></md-menu-divider>  
+             <md-menu-divider></md-menu-divider>
       </md-menu-content>
     </md-menu>
 </div>
     <!--******************************** desktop ******************** -->
-    <div hide-xs hide-sm ng-show="user">
-    <md-menu style="padding-right: 40px" ng-hide="notifications.length == 0">
+    <!-- <div hide-xs hide-sm ng-show="user"> -->
+    <md-menu hide-xs hide-sm ng-show="user" style="padding-bottom:8px">
       <md-button style="overflow:visible !important;" aria-label="Open notifications" class="md-icon-button" ng-click="openNotifications($mdOpenMenu, $event)">
         <span class="notifications-icon">
-       <ng-md-icon ng-hide="notifications.length == 0" icon="notifications_none" style="fill:white" size="32"></ng-md-icon>
-       <span class="after label label-pill label-danger">{{notifications.length}}</span></span>
+       <ng-md-icon icon="notifications_none" style="fill:white" size="32"></ng-md-icon>
+       <span class="after label label-pill label-danger" ng-hide="notifications.length == 0">{{notifications.length}}</span></span>
       </md-button>
       <md-menu-content width="4">
-      <div align="center"><p ng-show="notifications.length == 0"><i>No new notifications</i></p></div>
-        <md-menu-item align="center" ng-repeat="notification in notifications">   
+      <div align="center"><p><i>No new notifications</i></p></div>
+        <md-menu-item align="center" ng-repeat="notification in notifications">
 
-          <md-button ng-href="#{{notification.url}}">       
-         <small>{{notification.msg}}</small>            
-          </md-button>   
+          <md-button ng-href="#{{notification.url}}">
+         <small>{{notification.msg}}</small>
+          </md-button>
         </md-menu-item>
-             <md-menu-divider></md-menu-divider>  
+             <md-menu-divider></md-menu-divider>
       </md-menu-content>
     </md-menu>
-    </div>
+
+
+    <md-button ng-href="#/random" ng-show="user">
+    <img src="/images/dice.png" height="32px" />
+    <md-tooltip>
+      Listen to a random album from your collection
+    </md-tooltip>
+    </md-button>
+
 
     <md-button ng-href="#/shows" ng-show="user">
     <img src="/images/ticket.png" height="32px" />
+    <md-tooltip>
+      See upcoming concerts
+    </md-tooltip>
     </md-button>
-    
+
+
+
     <md-button class="md-icon-button" aria-label="More">
       <ng-md-icon icon="menu" style="fill:white" ng-click="toggleMenu()"></ng-md-icon>
     </md-button>
@@ -172,4 +185,3 @@
      <li ng-hide="user"><a class="nav-link" href="#/register"><i class="fa fa-pencil-square-o"></i></a></li> -->
   </div>
 </md-toolbar>
-

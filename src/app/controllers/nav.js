@@ -22,7 +22,7 @@ module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootSco
         });
     }
   }
-  
+
     $scope.closeToast = function () {
     if (isDlgOpen) return;
     $mdToast
@@ -33,7 +33,7 @@ module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootSco
   };
 
   // notificationRef.on('child_added', function(childSnapshot, prevChildKey) {
-    
+
   //   //new notification for current user
 
   // });
@@ -63,7 +63,7 @@ module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootSco
 
      usersRef.child($scope.user.$id).child('groups').once('value', function(groups) {
        $scope.groups = groups.val();
-   
+
     $.each($scope.groups, function(key, value) {
 
    postsRef.child(key).limitToLast(2).on("child_added", function(snap) {
@@ -74,13 +74,13 @@ module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootSco
         return;
       }
       if(key == Users.current_group) {
-        var last_post_id = {}; 
-          last_post_id[key] = snap.key(); 
+        var last_post_id = {};
+          last_post_id[key] = snap.key();
 
         usersRef.child($scope.user.$id).child('groups').update(last_post_id);
          $scope.new_posts[key] = false;
         return;
-               
+
       }if(value != snap.key()){
       $scope.new_posts[key] = 'New post!';
       console.log('new post', value, snap.key());
@@ -88,11 +88,11 @@ module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootSco
        }
       });
       })
-  
+
   });
      }
    };
-    
+
   $scope.change_group = function() {
     console.log("change group", $scope.current_group);
     Users.set_current_group($scope.current_group);
@@ -103,10 +103,10 @@ module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootSco
     $location.path("/#/");
   };
 
-
   $scope.openNotifications = function($mdOpenMenu, ev) {
       originatorEv = ev;
       $mdOpenMenu(ev);
+      $scope.notifications.length == 0;
     };
 
   $scope.close = function () {

@@ -109,8 +109,8 @@ height: 4px;
 }
 
 .chat iframe{
-  /*  background-image: url("/images/loading.gif"); */ 
-    background-size: 100px 80px; 
+  /*  background-image: url("/images/loading.gif"); */
+    background-size: 100px 80px;
     background-repeat: no-repeat;
     background-position: 50% 50%;
   position: relative;
@@ -778,7 +778,7 @@ text-align: center;
 }
 
 .md-breadcrumb {
-  padding-left:88px;  
+  padding-left:88px;
 }
 
 .JCLRgrip:first-child {

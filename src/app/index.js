@@ -102,6 +102,10 @@ app.config(function($routeProvider) { //TODO: move to routes module
       templateUrl: 'views/concerts.html',
       controller: 'ConcertsCtrl'
     })
+    .when('/random', {
+     templateUrl: 'views/random.html',
+     controller: 'RandomCtrl'
+    })
     // .when('/movies', {
     //   templateUrl: 'views/movies.html',
     //   controller: 'MoviesCtrl'
@@ -207,6 +211,7 @@ app.controller('PostsCtrl', require('./controllers/posts'));
 app.controller('ProfileCtrl', require('./controllers/profile'));
 app.controller('ScoreCtrl', require('./controllers/scoreboard'));
 app.controller('ScoreHistoryCtrl', require('./controllers/scoreHistory'));
+app.controller('RandomCtrl', require('./controllers/random'));
 
 // var plugins = pluginManager.getPlugins();
 // angular.forEach(plugins, function(plugin, key){
