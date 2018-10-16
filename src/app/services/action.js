@@ -72,6 +72,17 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Notific
               });
             }
 
+            var month_start = moment().startOf('month');
+            if (moment(post.created_ts) > month_start) {
+                  var month = moment().startOf('month').format('MM_DD_YYYY');
+                  var current_month = 'monthly_score_'+month;
+                  var monthly_score = val[current_month].album_score;
+                      monthly_score += score_mod;
+              ref.child("user_scores").child(Users.current_group).child(post.creator_id).child(current_month).update({
+                'album_score': monthly_score
+              });
+            }
+
             var msg = 'Gave "' + post.media_info.album + '" an upvote!';
             Notification.add_action(post.creator_id, {
               url: "/albums/" + post.$id,
@@ -147,6 +158,17 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Notific
               });
             }
 
+            var month_start = moment().startOf('month');
+            if (moment(post.created_ts) > month_start) {
+                  var month = moment().startOf('month').format('MM_DD_YYYY');
+                  var current_month = 'monthly_score_'+month;
+                  var monthly_score = val[current_month].album_score;
+                      monthly_score += score_mod;
+              ref.child("user_scores").child(Users.current_group).child(post.creator_id).child(current_month).update({
+                'album_score': monthly_score
+              });
+            }
+
             var msg = 'Gave "' + post.media_info.album + '" a downvote';
             defer.resolve(msg);
           });
@@ -219,6 +241,17 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Notific
                       weekly_score = weekly_score + 2;
               ref.child("user_scores").child(Users.current_group).child(post.creator_id).child(current_week).update({
                 'album_score': weekly_score
+              });
+            }
+
+            var month_start = moment().startOf('month');
+            if (moment(post.created_ts) > month_start) {
+                  var month = moment().startOf('month').format('MM_DD_YYYY');
+                  var current_month = 'monthly_score_'+month;
+                  var monthly_score = val[current_month].album_score;
+                      monthly_score += score_mod;
+              ref.child("user_scores").child(Users.current_group).child(post.creator_id).child(current_month).update({
+                'album_score': monthly_score
               });
             }
 

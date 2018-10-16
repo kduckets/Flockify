@@ -12,10 +12,10 @@ module.exports = function ($scope, $routeParams, Profile, Post, Auth, $firebaseA
   }
 
 
-  $scope.trophy = function(user_id){    
+  $scope.trophy = function(user_id){
       return Trophy.is_last_week_winner(user_id);
   }
-  $scope.poop = function(user_id){    
+  $scope.poop = function(user_id){
       return Trophy.is_last_week_loser(user_id);
   }
 
@@ -26,7 +26,7 @@ module.exports = function ($scope, $routeParams, Profile, Post, Auth, $firebaseA
   $scope.rank = function(week){
   return "-"+ week + ".album_score";
  };
- 
+
   $scope.sorter = '-album_score';
   $scope.current_group = Users.current_group;
   $scope.users = $firebaseArray(ref.child('user_scores').child(Users.current_group));
@@ -44,7 +44,7 @@ ref.child('user_scores').child(Users.current_group).once("value", function(snaps
         $scope.scoreboards.push(child);
       }
     }
- 
+
   });
     console.log('scoreboards:', $scope.scoreboards);
 });
@@ -54,4 +54,3 @@ ref.child('user_scores').child(Users.current_group).once("value", function(snaps
     return Users.getUsername(userId);
   }
 };
-

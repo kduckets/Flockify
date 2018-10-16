@@ -198,6 +198,16 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
                scores[current_week] = {album_score:0};
             ref.child('user_scores').child(Users.current_group).child($scope.user.$id).update(scores);
            }
+
+
+           var month = moment().startOf('month').format('MM_DD_YYYY');
+           var current_month = 'monthly_score_'+month;
+
+            if(!val[current_month]){
+               var scores = {};
+                scores[current_month] = {album_score:0};
+             ref.child('user_scores').child(Users.current_group).child($scope.user.$id).update(scores);
+            }
          });
         // send Whatsapp notification
          var wabody = {'user': $scope.username};
