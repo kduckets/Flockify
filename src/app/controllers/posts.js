@@ -197,7 +197,7 @@ if(zip_code){
   $scope.albumContest = false;
 
   // $scope.filter_start_date = moment().startOf('isoweek');
-  $scope.filter_start_date = moment('2016-01-01 16:07:35')
+  $scope.filter_start_date = moment().subtract(12, 'months').startOf('day');
   $scope.filter_end_date = moment.utc();
 
   $scope.loadingBar = false;
@@ -244,20 +244,32 @@ if(zip_code){
   //   $scope.totalDisplayed = 14;
   // };
 
-  // $scope.thisMonth = function(){
-  //   // var last_monday = GetLastWeekStart();
-  //   // var month_start = moment().startOf('month');
-  //   var month_start = moment().subtract(30, 'days').startOf('day');
-  //   var this_monday = moment().startOf('isoweek');
-  //   $scope.filter_start_date = month_start;
-  //   $scope.filter_end_date = this_monday;
-  //   $scope.sorter = ['-score','-stars'];
-  //   $scope.last = false;
-  //   $scope.month = true;
-  //   $scope.week = false;
-  //   $scope.allPosts = false;
-  //   $scope.totalDisplayed = 14;
-  // };
+  $scope.thisMonth = function(){
+    var month_start = moment().subtract(30, 'days').startOf('day');
+    var today = moment.utc();
+    $scope.filter_start_date = month_start;
+    $scope.filter_end_date = today;
+    $scope.sorter = ['-score','-stars'];
+    $scope.last = false;
+    $scope.month = true;
+    $scope.all = false;
+    $scope.allPosts = false;
+    $scope.totalDisplayed = 14;
+  };
+
+  $scope.thisYear = function(){
+    var year_start = moment().subtract(12, 'months').startOf('day');
+    var today = moment.utc();
+    $scope.filter_start_date = year_start;
+    $scope.filter_end_date = today;
+    $scope.sorter = ['-score','-stars'];
+    $scope.last = true;
+    $scope.month = false;
+    $scope.week = false;
+    $scope.all = false;
+    $scope.allPosts = false;
+    $scope.totalDisplayed = 14;
+  };
 
   // $scope.lastWeek = function(){
   //   var last_monday = GetLastWeekStart();

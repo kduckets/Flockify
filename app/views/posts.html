@@ -88,12 +88,9 @@
     </md-list>
 
     <div align="center">
-   <!--    <md-tabs md-center-tabs="true" md-border-bottom>
-        <md-tab ng-click="thisWeek()" aria-label="week" ng-class="week ? 'md-raised md-primary':'md-raised'">this week</md-tab>
-        <md-tab ng-click="lastWeek()" aria-label="last" ng-class="last ? 'md-raised md-primary':'md-raised'">last week</md-tab>
-        <md-tab ng-click="thisMonth()" aria-label="month" ng-class="month ? 'md-raised md-primary':'md-raised'">past month</md-tab>
-        <md-tab ng-click="allTime()" aria-label="all" ng-class="allPosts ? 'md-raised md-primary':'md-raised'">all time</md-tab>
-      </md-tabs> -->
+
+
+
 
 
 
@@ -122,9 +119,9 @@
         </div>
 
 
-         <div style="border-bottom: 1px solid #aaa;max-width:50%">
+         <div style="border-bottom: 1px solid #aaa;max-width:50%" hide-xs hide-sm>
         </div>
-      <div>
+      <div hide-xs hide-sm>
         <md-button aria-label="new" ng-click="sorter = '-'">new
         </md-button>
         <md-button aria-label="top" ng-click="sorter = ['-score', '-stars']">top
@@ -135,7 +132,24 @@
         </md-button>
       </div>
 
+      <div md-border-bottom hide-md hide-gt-md show-xs show-sm>
+        <md-button aria-label="new" ng-click="sorter = '-'"><small>new</small>
+        </md-button>
+        <md-button aria-label="top" ng-click="sorter = ['-score', '-stars']"><small>top</small>
+        </md-button>
+        <md-button aria-label="comments" ng-click="load();sorter = '-latest_comment'"><small>comments</small>
+        </md-button>
+        <md-button aria-label="stars" ng-click="load();sorter = ['-stars', '-score']"><small>stars</small>
+        </md-button>
+      </div>
+
     </div>
+
+    <md-tabs md-center-tabs="true" md-border-bottom hide-md hide-gt-md show-xs show-sm>
+      <md-tab ng-click="thisYear()" aria-label="last" ng-class="last ? 'md-raised md-primary':'md-raised'"><small>this year</small></md-tab>
+      <md-tab ng-click="thisMonth()" aria-label="month" ng-class="month ? 'md-raised md-primary':'md-raised'"><small>this month</small></md-tab>
+      <md-tab ng-click="allTime()" aria-label="all" ng-class="all ? 'md-raised md-primary':'md-raised'"><small>all time</small></md-tab>
+    </md-tabs>
 
 
     <div align="center">
@@ -153,6 +167,8 @@ isAfter:filter_start_date:filter_end_date | byText:textFilter | byText:tagText) 
 limitTo:totalDisplayed track by post.$id" align="center">
 
       <!-- ******************************* MOBILE CARD HERE *********************************** -->
+
+
 
       <md-card class="card" hide-md hide-gt-md show-xs show-sm>
 
