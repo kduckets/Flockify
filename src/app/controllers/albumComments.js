@@ -49,7 +49,7 @@ if(zip_code){
 
       $http({
       method: 'GET',
-      url: 'https://maps.googleapis.com/maps/api/geocode/json?address='+ zip +'&sensor=true'
+      url: 'https://maps.googleapis.com/maps/api/geocode/json?address='+ zip +'&sensor=true' + '&key=AIzaSyDJpVexqRWzN_q9XnNg2kRa0HxkuK15Hk0'
 }).then(function successCallback(response) {
     var city = response.data.results[0].address_components[1].long_name;
     var state = response.data.results[0].address_components[3].short_name;
