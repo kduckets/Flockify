@@ -132,24 +132,26 @@
         </md-button>
       </div>
 
-      <div md-border-bottom hide-md hide-gt-md show-xs show-sm>
-        <md-button aria-label="new" ng-click="sorter = '-'"><small>new</small>
-        </md-button>
-        <md-button aria-label="top" ng-click="sorter = ['-score', '-stars']"><small>top</small>
-        </md-button>
-        <md-button aria-label="comments" ng-click="load();sorter = '-latest_comment'"><small>comments</small>
-        </md-button>
-        <md-button aria-label="stars" ng-click="load();sorter = ['-stars', '-score']"><small>stars</small>
-        </md-button>
-      </div>
+
 
     </div>
 
     <md-tabs md-center-tabs="true" md-border-bottom hide-md hide-gt-md show-xs show-sm>
-      <md-tab ng-click="thisMonth()" aria-label="month" ng-class="month ? 'md-raised md-primary':'md-raised'"><small>this month</small></md-tab>
       <md-tab ng-click="thisYear()" aria-label="last" ng-class="last ? 'md-raised md-primary':'md-raised'"><small>this year</small></md-tab>
+      <md-tab ng-click="thisMonth()" aria-label="month" ng-class="month ? 'md-raised md-primary':'md-raised'"><small>this month</small></md-tab>
       <md-tab ng-click="allTime()" aria-label="all" ng-class="all ? 'md-raised md-primary':'md-raised'"><small>all time</small></md-tab>
     </md-tabs>
+
+    <div align="center" md-border-bottom hide-md hide-gt-md show-xs show-sm>
+      <md-button aria-label="new" ng-click="sorter = '-'"><small>new</small>
+      </md-button>
+      <md-button aria-label="top" ng-click="sorter = ['-score', '-stars']"><small>top</small>
+      </md-button>
+      <md-button aria-label="comments" ng-click="load();sorter = '-latest_comment'"><small>comments</small>
+      </md-button>
+      <md-button aria-label="stars" ng-click="load();sorter = ['-stars', '-score']"><small>stars</small>
+      </md-button>
+    </div>
 
 
     <div align="center">
