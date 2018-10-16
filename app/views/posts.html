@@ -52,7 +52,7 @@
       </div>
     </md-toolbar>
     <div align="center">
-      <div class="md-toolbar-tools" style="max-width:320px">
+      <div class="md-toolbar-tools" style="max-width:320px;">
         <md-button aria-label="Search" ng-click="load();search()">
           <md-tooltip>
             Search for an album to post
@@ -62,7 +62,7 @@
         <form ng-submit="search()">
           <md-input-container md-theme="input" style="max-width:190px !important" flex>
             <label>&nbsp;</label>
-            <input ng-model="post.search" placeholder="post an album"/>
+            <input ng-model="post.search" placeholder="post an album" />
             <div class="md-caption" ng-show="no_results" style="color:red;">
               No results found.
             </div>
@@ -146,8 +146,8 @@
     </div>
 
     <md-tabs md-center-tabs="true" md-border-bottom hide-md hide-gt-md show-xs show-sm>
-      <md-tab ng-click="thisYear()" aria-label="last" ng-class="last ? 'md-raised md-primary':'md-raised'"><small>this year</small></md-tab>
       <md-tab ng-click="thisMonth()" aria-label="month" ng-class="month ? 'md-raised md-primary':'md-raised'"><small>this month</small></md-tab>
+      <md-tab ng-click="thisYear()" aria-label="last" ng-class="last ? 'md-raised md-primary':'md-raised'"><small>this year</small></md-tab>
       <md-tab ng-click="allTime()" aria-label="all" ng-class="all ? 'md-raised md-primary':'md-raised'"><small>all time</small></md-tab>
     </md-tabs>
 

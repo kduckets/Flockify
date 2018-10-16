@@ -197,7 +197,7 @@ if(zip_code){
   $scope.albumContest = false;
 
   // $scope.filter_start_date = moment().startOf('isoweek');
-  $scope.filter_start_date = moment().subtract(12, 'months').startOf('day');
+  $scope.filter_start_date = moment().subtract(30, 'days').startOf('day');
   $scope.filter_end_date = moment.utc();
 
   $scope.loadingBar = false;
