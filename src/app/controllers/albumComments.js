@@ -1,5 +1,5 @@
 module.exports = function ($scope, $routeParams, Post, Auth, Comment, Notification, $firebaseArray, Profile, $http, $filter, $sce, $location,
-                           $uibModal, Action, $mdToast, FIREBASE_URL, $mdConstant, $mdDialog, Users, 
+                           $uibModal, Action, $mdToast, FIREBASE_URL, $mdConstant, $mdDialog, Users,
                            Spotify, bandsintownFactory, $firebaseObject, Concert) {
   var post_id = $routeParams.postId;
   var postRef = new Firebase(FIREBASE_URL+"/posts");
@@ -12,10 +12,10 @@ module.exports = function ($scope, $routeParams, Post, Auth, Comment, Notificati
 
 $scope.updateZip =function(zip_code){
 if(zip_code){
-  $scope.user_zip = zip;    
+  $scope.user_zip = zip;
       $http({
       method: 'GET',
-      url: 'https://maps.googleapis.com/maps/api/geocode/json?address='+ zip +'&sensor=true'
+      url: 'https://maps.googleapis.com/maps/api/geocode/json?address='+ zip +'&sensor=true' + '&key=AIzaSyDJpVexqRWzN_q9XnNg2kRa0HxkuK15Hk0'
 }).then(function successCallback(response) {
     var city = response.data.results[0].address_components[1].long_name;
     var state = response.data.results[0].address_components[3].short_name;
@@ -46,7 +46,7 @@ if(zip_code){
 
   Users.get_zip(authData.uid).then(function(zip){
       $scope.user_zip = zip;
-      
+
       $http({
       method: 'GET',
       url: 'https://maps.googleapis.com/maps/api/geocode/json?address='+ zip +'&sensor=true'
@@ -58,7 +58,7 @@ if(zip_code){
     bandsintown($scope.post);
   });
 });
-     
+
   });
   });
 
