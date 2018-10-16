@@ -1,5 +1,5 @@
 <div ng-show="user" flex ng-cloak>
-<div align="center" ng-show="current_group=='firsttoflock'"><small><a href="#/history">view previous contest results</a></small></div>
+<div align="center" ng-show="current_group=='firsttoflock'"><small><a href="#/history">view historical contest results</a></small></div>
   <h2 align="center">Weekly Scores {{display_week}}</h2>
 <!--   <p align="center">Slopestyle (no rules).</p> -->
   <table class="table table-inverse">
@@ -16,10 +16,29 @@
         <td><a ng-href="#/users/{{ user.$id }}" style="color: white">{{getUsername(user.$id)}} </a><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:3px" ng-show="trophy(user.$id)" height="30px"/>
         <!--  <img src="/images/poop.gif" style="padding-bottom:10px; padding-left:2px" ng-show="poop(user.$id)" height="50px"/> -->
         </td>
-        <td>{{user[current_week].album_score}}</td>      
+        <td>{{user[current_week].album_score}}</td>
       </tr>
     </tbody>
   </table>
+
+  <!-- <h2 align="center">Monthly Scores {{display_week}}</h2>
+  <table class="table table-inverse">
+    <thead>
+      <tr>
+        <th>rank</th>
+        <th>user</th>
+        <th>score</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="user in users | orderBy:-month_score | emptyToEnd:current_week track by user.$id">
+        <th scope="row">{{$index + 1}}</th>
+        <td><a ng-href="#/users/{{ user.$id }}" style="color: white">{{getUsername(user.$id)}} </a><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:3px" ng-show="trophy(user.$id)" height="30px"/>
+        </td>
+        <td>{{month_score = user[current_week].album_score + user[week_two].album_score + user[week_three].album_score + user[week_four].album_score}}</td>
+      </tr>
+    </tbody>
+  </table> -->
 
   <h2 align="center">All-Time Scores</h2>
   <table class="table table-inverse">
@@ -37,7 +56,7 @@
         <img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:3px" ng-show="trophy(user.$id)" height="30px"/>
        <!--  <img src="/images/poop.gif" style="padding-bottom:10px; padding-left:2px" ng-show="poop(user.$id)" height="50px"/> -->
         </td>
-        <td>{{user.album_score}}</td>      
+        <td>{{user.album_score}}</td>
       </tr>
     </tbody>
   </table>
@@ -55,7 +74,7 @@
       <tr ng-repeat="user in users | orderBy:'-podcast_score'">
         <th scope="row">{{$index + 1}}</th>
         <td>{{user.$id}}</td>
-        <td>{{user.podcast_score}}</td>      
+        <td>{{user.podcast_score}}</td>
       </tr>
     </tbody>
   </table>
@@ -73,7 +92,7 @@
       <tr ng-repeat="user in users | orderBy:'-movie_score'">
         <th scope="row">{{$index + 1}}</th>
         <td>{{user.$id}}</td>
-        <td>{{user.movie_score}}</td>      
+        <td>{{user.movie_score}}</td>
       </tr>
     </tbody>
   </table>
@@ -91,7 +110,7 @@
       <tr ng-repeat="user in users | orderBy:'-book_score'">
         <th scope="row">{{$index + 1}}</th>
         <td>{{user.$id}}</td>
-        <td>{{user.book_score}}</td>      
+        <td>{{user.book_score}}</td>
       </tr>
     </tbody>
   </table> -->

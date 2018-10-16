@@ -1,4 +1,4 @@
-module.exports = function ($scope, $routeParams, Profile, Post, Auth, $firebaseArray, FIREBASE_URL, Users, 
+module.exports = function ($scope, $routeParams, Profile, Post, Auth, $firebaseArray, FIREBASE_URL, Users,
   $location, $filter, Concert, Notification, $http, bandsintownFactory, $route, $firebaseObject, $window) {
   var ref = new Firebase(FIREBASE_URL);
   Notification.page_view("/shows/");
@@ -10,16 +10,16 @@ module.exports = function ($scope, $routeParams, Profile, Post, Auth, $firebaseA
 
   if (authData) {
      $scope.user = Users.getProfile(authData.uid);
-     $scope.username = $scope.user.username;   
+     $scope.username = $scope.user.username;
       Users.get_zip(authData.uid).then(function(zip){
       $scope.user_zip = zip;
       if(!$scope.user_zip){
       $scope.show_zip_notification = true;
     }
-      
+
       $http({
       method: 'GET',
-      url: 'https://maps.googleapis.com/maps/api/geocode/json?address='+ zip +'&sensor=true'
+      url: 'https://maps.googleapis.com/maps/api/geocode/json?address='+ zip +'&sensor=true' + '&key=AIzaSyDJpVexqRWzN_q9XnNg2kRa0HxkuK15Hk0'
     }).then(function successCallback(response) {
       console.log(response);
       var formatted_address = response.data.results[0].formatted_address;
@@ -31,10 +31,10 @@ module.exports = function ($scope, $routeParams, Profile, Post, Auth, $firebaseA
         var flag = localStorage.getItem('flag');
     setTimeout(function(){ localStorage.setItem('flag', moment().startOf('hour').format("hA")); }, 30000);
     console.log('flag:', flag);
-  
+
  // if(flag != moment().startOf('hour').format("hA")){
      $scope.getConcertsFromLikes();
-    // }  
+    // }
         });
        });
 
@@ -79,28 +79,28 @@ if(zip_code){
 
 
 
-  $scope.toggleSearch = false;   
+  $scope.toggleSearch = false;
   $scope.headers = [
     {
       name:'',
       field:'thumb_url'
     },
     {
-      name: 'Band', 
+      name: 'Band',
       field: 'artist_name'
     },{
-      name: 'Date', 
+      name: 'Date',
       field: 'formatted_datetime'
     },
     {
-      name:'Venue', 
+      name:'Venue',
       field: 'venue_name'
     },{
-      name: 'Location', 
+      name: 'Location',
       field: 'formatted_location'
     },
     {
-      name: 'Tickets', 
+      name: 'Tickets',
       field: 'ticket_status'
     }
   ];
@@ -122,7 +122,7 @@ if(zip_code){
   Concert.delete(concert);
  }
 
-$scope.getConcertsFromLikes = function(){ 
+$scope.getConcertsFromLikes = function(){
 
 Profile.getPosts(authData.uid).then(function(posts) {
 
@@ -138,15 +138,15 @@ Profile.getPosts(authData.uid).then(function(posts) {
 
  $scope.getConcerts = function(posts){
     $scope.queue = [];
-   
+
 
 //todo: clean this shit up
 //todo: don't call api if show is already in concerts content
-  
-  
+
+
    // ************ get concerts *****************************
    //todo: move to server side; nightly run for all users?
-  
+
 
  angular.forEach(posts, function(post, key) {
   if (post.media_info && post.media_info.artist) {
@@ -204,7 +204,7 @@ Profile.getPosts(authData.uid).then(function(posts) {
 
    });
     console.log('queue',$scope.queue);
-    setTimeout(function(){ 
+    setTimeout(function(){
 
     if($scope.queue.length > 1){
       $scope.getConcerts($scope.queue);
@@ -214,10 +214,10 @@ Profile.getPosts(authData.uid).then(function(posts) {
       {$scope.loadingCircle = false;}
 
     }, 70000);
-   
- 
+
+
 };
-  
+
 
 
   $scope.custom = {band: 'bold'};
@@ -225,4 +225,3 @@ Profile.getPosts(authData.uid).then(function(posts) {
   $scope.thumbs = 'thumb_url';
 
 };
-
