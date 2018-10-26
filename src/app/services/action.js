@@ -249,7 +249,7 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Notific
                   var month = moment().startOf('month').format('MM_DD_YYYY');
                   var current_month = 'monthly_score_'+month;
                   var monthly_score = val[current_month].album_score;
-                      monthly_score += score_mod;
+                      monthly_score += monthly_score + 2;
               ref.child("user_scores").child(Users.current_group).child(post.creator_id).child(current_month).update({
                 'album_score': monthly_score
               });
