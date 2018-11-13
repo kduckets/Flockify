@@ -13,7 +13,8 @@
     <tbody>
       <tr ng-repeat="user in users | orderBy:orderby_string | emptyToEnd:current_week track by user.$id" ng-show="user[current_week].album_score==0  || user[current_week].album_score">
         <th scope="row">{{$index + 1}}</th>
-        <td><a ng-href="#/users/{{ user.$id }}" style="color: white">{{getUsername(user.$id)}} </a><img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:3px" ng-show="trophy(user.$id)" height="30px"/>
+        <td><a ng-href="#/users/{{ user.$id }}" style="color: white">{{getUsername(user.$id)}} </a>
+          <img src="/images/record.gif" style="padding-bottom:4px; padding-left:3px" ng-show="trophy(user.$id)" height="30px"/>
         <img src="/images/crown.gif" style="padding-bottom:4px; padding-left:3px" ng-show="crown(user.$id)" height="40px"/>
 
 
@@ -37,7 +38,7 @@
       <tr ng-repeat="user in users | orderBy:orderby_string_month | emptyToEnd:current_month track by user.$id" ng-show="user[current_month].album_score==0  || user[current_month].album_score">
         <th scope="row">{{$index + 1}}</th>
         <td><a ng-href="#/users/{{ user.$id }}" style="color: white">{{getUsername(user.$id)}} </a>
-          <img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:3px" ng-show="trophy(user.$id)" height="30px"/>
+          <img src="/images/record.gif" style="padding-bottom:4px; padding-left:3px" ng-show="trophy(user.$id)" height="30px"/>
           <img src="/images/crown.gif" style="padding-bottom:4px; padding-left:3px" ng-show="crown(user.$id)" height="40px"/>
         </td>
         <td>{{monthly_score = user[current_month].album_score}}</td>
@@ -58,7 +59,7 @@
       <tr ng-repeat="user in users | orderBy:'-album_score' track by user.$id">
         <th scope="row">{{$index + 1}}</th>
         <td><a ng-href="#/users/{{ user.$id }}" style="color: white">{{getUsername(user.$id)}} </a>
-        <img src="/images/gold-record.png" style="padding-bottom:4px; padding-left:3px" ng-show="trophy(user.$id)" height="30px"/>
+        <img src="/images/record.gif" style="padding-bottom:4px; padding-left:3px" ng-show="trophy(user.$id)" height="30px"/>
         <img src="/images/crown.gif" style="padding-bottom:4px; padding-left:3px" ng-show="crown(user.$id)" height="40px"/>
        <!--  <img src="/images/poop.gif" style="padding-bottom:10px; padding-left:2px" ng-show="poop(user.$id)" height="50px"/> -->
         </td>
