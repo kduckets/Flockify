@@ -61,8 +61,15 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Notific
               'album_score': total_score
             });
 
+            var week = moment().startOf('isoweek').format('MM_DD_YYYY');
+            var current_week = 'weekly_score_'+week;
+            var month = moment().startOf('month').format('MM_DD_YYYY');
+            var current_month = 'monthly_score_'+month;
+
+
+            if(val[current_week]){
             var monday = moment().startOf('isoweek');
-            if (moment(post.created_ts) > monday) {
+            if (moment() > monday) {
                   var week = moment().startOf('isoweek').format('MM_DD_YYYY');
                   var current_week = 'weekly_score_'+week;
                   var weekly_score = val[current_week].album_score;
@@ -71,9 +78,15 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Notific
                 'album_score': weekly_score
               });
             }
+          }if(!val[current_week]){
+                        var scores = {};
+                         scores[current_week] = {album_score:1};
+                      ref.child('user_scores').child(Users.current_group).child(post.creator_id).update(scores);
+                     }
 
+            if(val[current_month]){
             var month_start = moment().startOf('month');
-            if (moment(post.created_ts) > month_start) {
+            if (moment() > month_start) {
                   var month = moment().startOf('month').format('MM_DD_YYYY');
                   var current_month = 'monthly_score_'+month;
                   var monthly_score = val[current_month].album_score;
@@ -82,6 +95,11 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Notific
                 'album_score': monthly_score
               });
             }
+          }if(!val[current_month]){
+                  var scores = {};
+                  scores[current_month] = {album_score:1};
+              ref.child('user_scores').child(Users.current_group).child(post.creator_id).update(scores);
+                }
 
             var msg = 'Gave "' + post.media_info.album + '" an upvote!';
             Notification.add_action(post.creator_id, {
@@ -115,11 +133,8 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Notific
             console.error("No snapshot found for ", post.creator_id);
             return;
           }
-           // if(!val[current_week]){
-           //    var scores = {};
-           //     scores[current_week] = {album_score:0};
-           //  ref.child('user_scores').child(Users.current_group).child(post.creator_id).update(scores);
-           // }
+
+
           var total_score = val.album_score;
           var actions_ref = ref.child('user_actions').child(id).child(post.$id);
           var current_actions = $firebaseObject(actions_ref);
@@ -147,19 +162,32 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Notific
               'album_score': total_score
             });
 
+            var week = moment().startOf('isoweek').format('MM_DD_YYYY');
+            var current_week = 'weekly_score_'+week;
+            var month = moment().startOf('month').format('MM_DD_YYYY');
+            var current_month = 'monthly_score_'+month;
+
+
+            if(val[current_week]){
             var monday = moment().startOf('isoweek');
-            if (moment(post.created_ts) > monday) {
-              var week = moment().startOf('isoweek').format('MM_DD_YYYY');
-              var current_week = 'weekly_score_'+week;
-              var weekly_score = val[current_week].album_score;
-                    weekly_score += score_mod;
+            if (moment() > monday) {
+                  var week = moment().startOf('isoweek').format('MM_DD_YYYY');
+                  var current_week = 'weekly_score_'+week;
+                  var weekly_score = val[current_week].album_score;
+                      weekly_score += score_mod;
               ref.child("user_scores").child(Users.current_group).child(post.creator_id).child(current_week).update({
                 'album_score': weekly_score
               });
             }
+          }if(!val[current_week]){
+                        var scores = {};
+                         scores[current_week] = {album_score:-1};
+                      ref.child('user_scores').child(Users.current_group).child(post.creator_id).update(scores);
+                     }
 
+            if(val[current_month]){
             var month_start = moment().startOf('month');
-            if (moment(post.created_ts) > month_start) {
+            if (moment() > month_start) {
                   var month = moment().startOf('month').format('MM_DD_YYYY');
                   var current_month = 'monthly_score_'+month;
                   var monthly_score = val[current_month].album_score;
@@ -168,6 +196,12 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Notific
                 'album_score': monthly_score
               });
             }
+          }if(!val[current_month]){
+                  var scores = {};
+                  scores[current_month] = {album_score:-1};
+              ref.child('user_scores').child(Users.current_group).child(post.creator_id).update(scores);
+                }
+
 
             var msg = 'Gave "' + post.media_info.album + '" a downvote';
             defer.resolve(msg);
@@ -233,8 +267,9 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Notific
               'stars': user_stars
             });
 
+            if(val[current_week]){
             var monday = moment().startOf('isoweek');
-            if (moment(post.created_ts) > monday) {
+            if (moment() > monday) {
                var week = moment().startOf('isoweek').format('MM_DD_YYYY');
                var current_week = 'weekly_score_'+week;
                var weekly_score = val[current_week].album_score;
@@ -243,9 +278,16 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Notific
                 'album_score': weekly_score
               });
             }
+          }if(!val[current_week]){
+                        var scores = {};
+                         scores[current_week] = {album_score:2};
+                      ref.child('user_scores').child(Users.current_group).child(post.creator_id).update(scores);
+                     }
 
+
+  if(val[current_month]){
             var month_start = moment().startOf('month');
-            if (moment(post.created_ts) > month_start) {
+            if (moment() > month_start) {
                   var month = moment().startOf('month').format('MM_DD_YYYY');
                   var current_month = 'monthly_score_'+month;
                   var monthly_score = val[current_month].album_score;
@@ -254,6 +296,12 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Notific
                 'album_score': monthly_score
               });
             }
+          }
+          if(!val[current_month]){
+                  var scores = {};
+                  scores[current_month] = {album_score:2};
+              ref.child('user_scores').child(Users.current_group).child(post.creator_id).update(scores);
+                }
 
             var msg = 'Gave "' + post.media_info.album + '" a star!';
             Notification.add_action(post.creator_id, {
