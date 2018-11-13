@@ -267,6 +267,11 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Notific
               'stars': user_stars
             });
 
+            var week = moment().startOf('isoweek').format('MM_DD_YYYY');
+            var current_week = 'weekly_score_'+week;
+            var month = moment().startOf('month').format('MM_DD_YYYY');
+            var current_month = 'monthly_score_'+month;
+
             if(val[current_week]){
             var monday = moment().startOf('isoweek');
             if (moment() > monday) {
@@ -285,7 +290,7 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Notific
                      }
 
 
-  if(val[current_month]){
+          if(val[current_month]){
             var month_start = moment().startOf('month');
             if (moment() > month_start) {
                   var month = moment().startOf('month').format('MM_DD_YYYY');
