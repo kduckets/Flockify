@@ -345,9 +345,9 @@ if(zip_code){
 //todo: use current year from scope
   $scope.topAlbum2017 = function(){
     $scope.filter_start_date = moment('2017-12-01 16:07:35')
-    $scope.filter_end_date = moment.utc();
+    $scope.filter_end_date = moment('2018-01-01 16:07:35');
     $scope.sorter = ['-score','-stars'];
-    $scope.tagText = 'topalbum2017';
+    $scope.tagText = 'best';
     $scope.albumContest = true;
     $scope.allPosts = false;
     $scope.week = false;
