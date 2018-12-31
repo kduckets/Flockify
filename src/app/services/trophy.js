@@ -1,5 +1,5 @@
 module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Users, $q, Auth) {
-var authData = Auth.$getAuth();
+var authData = firebase.auth().currentUser;
   if (authData && Users.current_group) {
 var ref = firebase.database().ref();
        var lastMonday = moment().subtract(1, 'weeks').startOf('isoWeek');
