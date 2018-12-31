@@ -110,7 +110,7 @@
       mailchimp.post('campaigns', {
          recipients : {'list_id':'3500f59233'},
          type: 'regular',
-         settings :{'subject_line': 'A new album has been posted by ' + req.body.user,
+         settings :{'subject_line': req.body.user +' posted a new album.',
          'reply_to':'kmditroia@gmail.com',
          'from_name':'Flockify',
           'template_id':55}
