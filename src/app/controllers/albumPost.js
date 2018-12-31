@@ -146,7 +146,6 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
 
     Post.create($scope.post).then(function(postRef) {
       //$location.path('/posts/' + ref.name());
-      console.log(postRef.name());
       $mdDialog.hide();
 
       bandsintownFactory.getEventsFromArtistByLocation({

@@ -1,5 +1,6 @@
 module.exports = function ($firebaseArray, $firebaseObject, FIREBASE_URL, Users) {
   var ref = firebase.database().ref();
+
   if(Users.current_group){
   var posts = $firebaseArray(ref.child('posts').child(Users.current_group));
 }
@@ -10,7 +11,7 @@ module.exports = function ($firebaseArray, $firebaseObject, FIREBASE_URL, Users)
     create: function (post) {
       return posts.$add(post).then(function(postRef) {
         var postId = {};
-        postId[postRef.key()] = true;
+        postId[postRef.$id] = true;
         ref.child('users').child(post.creator_id).child('posts').update(postId);
         return postRef;
     })
