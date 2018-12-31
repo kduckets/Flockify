@@ -4,7 +4,7 @@
   "description": "flockify music",
   "main": "server.js",
   "scripts": {
-    "prestart": "npm install --dev webpack",
+    "prestart": "npm install",
     "start": "node server.js",
     "start-dev": "NODE_ENV=dev nodemon --ignore 'src/**/*.js' server.js",
     "test": "./node_modules/.bin/mocha"
