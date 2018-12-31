@@ -1,7 +1,7 @@
 module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Users, $q, Auth) {
 var authData = Auth.$getAuth();
   if (authData && Users.current_group) {
-var ref = new Firebase(FIREBASE_URL);
+var ref = firebase.database().ref();
        var lastMonday = moment().subtract(1, 'weeks').startOf('isoWeek');
        var monday_formatted = lastMonday.format('MM_DD_YYYY');
        var last_week = 'weekly_score_'+monday_formatted;

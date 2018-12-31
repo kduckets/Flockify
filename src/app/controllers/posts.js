@@ -3,35 +3,25 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
                           $anchorScroll, $mdConstant, $rootScope,$cookieStore, Trophy, $http,
                           bandsintownFactory, $firebaseObject, Concert, Util, Notification){
 
-  var ref = new Firebase(FIREBASE_URL);
+  var ref = firebase.database().ref();;
   $scope.posts = [];
   $scope.showSearch = false;
 
 
-  var authData = Auth.$getAuth();
-    if (authData && Users.current_group) {
-    $scope.current_group = Users.current_group;
-    var chatRef = new Firebase(FIREBASE_URL+"/chats/"+Users.current_group);
-    $scope.user = Users.getProfile(authData.uid);
-    $scope.username = $scope.user.username;
-    Users.get_zip(authData.uid).then(function(zip){
-      $scope.user_zip = zip;
-
-  if(!$scope.user_zip){
-      $scope.show_zip_notification = true;
-    }
-//     var flag = localStorage.getItem('flag');
-//     setTimeout(function(){ localStorage.setItem('flag', moment().startOf('hour').format("hA")); }, 30000);
-//     console.log('flag:', flag);
-
-// if(flag != moment().startOf('hour').format("hA")){
-//      getConcerts();
-//    }
-
-    });
-  }
-
-  Auth.$onAuth(function(authData) {
+  var authData = firebase.auth().currentUser;
+  //   if (authData && Users.current_group) {
+  //   $scope.current_group = Users.current_group;
+  //   var chatRef = firebase.database().ref("/chats/"+Users.current_group);
+  //   $scope.user = Users.getProfile(authData.uid);
+  //   $scope.username = $scope.user.username;
+  //   Users.get_zip(authData.uid).then(function(zip){
+  //     $scope.user_zip = zip;
+  //
+  // if(!$scope.user_zip){
+  //     $scope.show_zip_notification = true;
+  //   }
+  //
+  //   });
   if (authData) {
     $scope.user = Users.getProfile(authData.uid);
     $scope.username = $scope.user.username;
@@ -40,7 +30,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
     console.log("Logged out");
     $location.path('/login');
   }
-});
+// });
 
 
 
@@ -155,25 +145,25 @@ if(zip_code){
 
   if($scope.user){
 
-  chatRef.limitToLast(1).on("child_added", function(snap) {
-    if($scope.user){
-      if($cookieStore.get('last_chat_'+Users.current_group) == snap.key()) {
-        return;
-      }
-      else {
-        $cookieStore.put('last_chat_'+Users.current_group, snap.key());
-        if(authData.uid != snap.val().creator_id){
-          $mdToast.show(
-            $mdToast.simple()
-              .textContent('New chat message from ' + snap.val().creator_name)
-              .highlightAction(true)
-              .position('bottom right')
-              .hideDelay(3000)
-          )
-        }
-      };
-    };
-  });
+  // chatRef.limitToLast(1).on("child_added", function(snap) {
+  //   if($scope.user){
+  //     if($cookieStore.get('last_chat_'+Users.current_group) == snap.key()) {
+  //       return;
+  //     }
+  //     else {
+  //       $cookieStore.put('last_chat_'+Users.current_group, snap.key());
+  //       if(authData.uid != snap.val().creator_id){
+  //         $mdToast.show(
+  //           $mdToast.simple()
+  //             .textContent('New chat message from ' + snap.val().creator_name)
+  //             .highlightAction(true)
+  //             .position('bottom right')
+  //             .hideDelay(3000)
+  //         )
+  //       }
+  //     };
+  //   };
+  // });
 
 
   $scope.totalDisplayed = 14;
@@ -527,19 +517,19 @@ $scope.spotify_login = function(){
   }
 
   var init = function () {
-    if($scope.user){
-      chatRef.limitToLast(1).on("child_added", function(snap) {
-        if($cookieStore.get('last_chat_'+Users.current_group) == snap.key()){
-          return;
-        }
-        if(!$cookieStore.get('last_chat_'+Users.current_group)){
-          $cookieStore.put('last_chat_'+Users.current_group, snap.key());
-          return;
-        }
-
-      });
-
-    };
+    // if($scope.user){
+    //   chatRef.limitToLast(1).on("child_added", function(snap) {
+    //     if($cookieStore.get('last_chat_'+Users.current_group) == snap.key()){
+    //       return;
+    //     }
+    //     if(!$cookieStore.get('last_chat_'+Users.current_group)){
+    //       $cookieStore.put('last_chat_'+Users.current_group, snap.key());
+    //       return;
+    //     }
+    //
+    //   });
+    //
+    // };
   };
 
   init();

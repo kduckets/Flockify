@@ -1,5 +1,5 @@
 module.exports = function ($scope, $routeParams, Profile, Post, Auth, $firebaseArray, FIREBASE_URL, Users, $filter, Trophy) {
-  var ref = new Firebase(FIREBASE_URL);
+  var ref = firebase.database().ref();
   var authData = Auth.$getAuth();
   if (authData) {
      $scope.user = Users.getProfile(authData.uid);

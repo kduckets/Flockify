@@ -1,5 +1,5 @@
 module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Notification, Auth, Post, Users, Profile, Util, $q) {
-  var ref = new Firebase(FIREBASE_URL);
+  var ref = firebase.database().ref();
   var posts = $firebaseArray(ref.child('posts'));
 
   var actionResult = {

@@ -1,5 +1,5 @@
 module.exports = function ($scope, $routeParams, Profile, Post, Auth, Users, $uibModal, FIREBASE_URL, $location,$mdToast,$http) {
-  var ref = new Firebase(FIREBASE_URL);
+  var ref = firebase.database().ref();
   var authData = Auth.$getAuth();
 
   if (Users.current_user) {
@@ -63,7 +63,7 @@ module.exports = function ($scope, $routeParams, Profile, Post, Auth, Users, $ui
     $scope.queue = posts;
     console.log('queue', $scope.queue);
   });
-  
+
   };
 
   $scope.showRatio = function(){
@@ -72,7 +72,7 @@ module.exports = function ($scope, $routeParams, Profile, Post, Auth, Users, $ui
      var i = 0;
 
     angular.forEach($scope.user_posts, function(post, key) {
-     
+
     if(post.created_ts && moment(post.created_ts).isAfter(monday)){
       i++;
     }

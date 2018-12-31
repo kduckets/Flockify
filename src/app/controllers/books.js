@@ -15,7 +15,7 @@ $scope.post = {
   stars: 0
 };
 
-var ref = new Firebase("https://flockify.firebaseio.com");
+var ref = firebase.database().ref();
 $scope.sorter = '-';
 
 

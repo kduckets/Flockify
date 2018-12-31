@@ -1,6 +1,6 @@
-module.exports = function ($scope, $routeParams, Post, Auth, Comment, Profile, $location, $http, $filter, $sce, 
+module.exports = function ($scope, $routeParams, Post, Auth, Comment, Profile, $location, $http, $filter, $sce,
   $uibModal, FIREBASE_URL, Users) {
-  var ref = new Firebase(FIREBASE_URL);
+  var ref = firebase.database().ref();
   var post_id = $routeParams.postId;
   ref.onAuth(function(authData) {
   if (authData) {

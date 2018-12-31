@@ -1,9 +1,9 @@
 module.exports = function($firebaseArray, $firebaseObject, $route, Auth, FIREBASE_URL, $q, $location){
-  var usersRef = new Firebase(FIREBASE_URL+'/users');
+  var usersRef = firebase.database().ref('users');
   var users = $firebaseArray(usersRef);
   var current_group = localStorage.getItem('current_group');
   var current_group_name = '';
-  var current_user_auth_data = Auth.$getAuth();
+  var current_user_auth_data = firebase.auth().currentUser;
   var current_user_id = (current_user_auth_data) ? current_user_auth_data.uid : null;
   var current_user_ref = (current_user_auth_data) ? usersRef.child(current_user_id) : null;
   var current_user = (current_user_auth_data) ? $firebaseObject(current_user_ref) : null;
@@ -11,7 +11,7 @@ module.exports = function($firebaseArray, $firebaseObject, $route, Auth, FIREBAS
 
   if (current_user) {
     current_user.$loaded().then(function() {
-      var group_ref = new Firebase(FIREBASE_URL + "/groups");
+      var group_ref =  firebase.database().ref("groups");
       $.each(Object.keys(current_user.groups), function (idx, group_id) {
         var group = $firebaseObject(group_ref.child(group_id));
         group.$loaded().then(function (snapshot) {
@@ -43,15 +43,15 @@ module.exports = function($firebaseArray, $firebaseObject, $route, Auth, FIREBAS
        var defer = $q.defer();
        usersRef.child(user_id).child('groups').once('value', function(snap) {
        var default_group = Object.keys(snap.val())[0];
-        defer.resolve(default_group);   
-      }); 
+        defer.resolve(default_group);
+      });
           return defer.promise;
     },
 
     set_group_to_registered: function(user_id,group){
        var defer = $q.defer();
        localStorage.setItem('current_group', group);
-        defer.resolve(group);   
+        defer.resolve(group);
           return defer.promise;
     },
 
@@ -63,7 +63,7 @@ module.exports = function($firebaseArray, $firebaseObject, $route, Auth, FIREBAS
       var defer = $q.defer();
       usersRef.child(uid).once("value", function(snapshot) {
       if(snapshot.child("current_zip").exists()){
-      defer.resolve(snapshot.child("current_zip").val());  
+      defer.resolve(snapshot.child("current_zip").val());
        }else{defer.resolve(false);}
     });
        return defer.promise;

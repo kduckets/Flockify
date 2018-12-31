@@ -1,7 +1,8 @@
 module.exports = function ($firebaseArray, $firebaseObject, FIREBASE_URL, Users, Notification, Util) {
-  var ref = new Firebase(FIREBASE_URL);
+  var ref = firebase.database().ref();
   var user_id = Users.current_user_id;
-  if(Users.current_group){
+  console.log(user_id);
+  if(Users.current_group && user_id){
   var concerts = $firebaseArray(ref.child('concerts').child(user_id));
   }
 
@@ -14,7 +15,7 @@ module.exports = function ($firebaseArray, $firebaseObject, FIREBASE_URL, Users,
              Notification.add_action(user_id, {
               url: "/shows/",
               msg: "Upcoming concert for " + Util.trim(concert.artist_name, 25) + "."
-            });    
+            });
     }
     return ref.child('concerts').child(user_id).child(bit_id).update(concert);
   })

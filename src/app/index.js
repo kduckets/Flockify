@@ -27,7 +27,6 @@ require('./../../app/js/angular-spotify.js');
 
 //var pluginManager = require('./../plugins/pluginManager');
 
-
 var app = angular.module('flockifyApp', [
   'ngAnimate',
   'ngCookies',
@@ -44,6 +43,7 @@ var app = angular.module('flockifyApp', [
   'angular-google-analytics',
   'jtt_bandsintown'
 ]);
+
 app.config(function (SpotifyProvider) {
   SpotifyProvider.setClientId('44bb100c98a34efd9c4e874756e09080');
   SpotifyProvider.setRedirectUri('http://flockify.herokuapp.com/callback.html');

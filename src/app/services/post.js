@@ -1,5 +1,5 @@
 module.exports = function ($firebaseArray, $firebaseObject, FIREBASE_URL, Users) {
-  var ref = new Firebase(FIREBASE_URL);
+  var ref = firebase.database().ref();
   if(Users.current_group){
   var posts = $firebaseArray(ref.child('posts').child(Users.current_group));
 }

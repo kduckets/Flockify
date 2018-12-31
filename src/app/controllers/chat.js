@@ -1,8 +1,8 @@
-module.exports = function ($scope, $routeParams, Post, Auth, Comment, Profile, $http, $filter, $sce, 
+module.exports = function ($scope, $routeParams, Post, Auth, Comment, Profile, $http, $filter, $sce,
   $route, $uibModal, FIREBASE_URL, Users, $firebaseArray, $window, $location, $anchorScroll, Notification) {
   Notification.page_view("/chat/");
   $scope.loadingCircle = true;
-  var ref = new Firebase(FIREBASE_URL);
+  var ref = firebase.database().ref();
   var authData = Auth.$getAuth();
   if (authData) {
      console.log("User " + authData.uid + " is logged in with " + authData.provider);

@@ -6,7 +6,7 @@
     var morgan = require('morgan');
     var bodyParser = require('body-parser');
     var methodOverride = require('method-override');
-    var Firebase = require("firebase");
+    var firebase = require("firebase");
     var giphy = require('giphy-api')();
     var rsj = require('rsj');
     var xml2js = require('xml2js');
@@ -15,7 +15,7 @@
     var Discogs = require('disconnect').Client;
     var SpotifyWebApi = require('spotify-web-api-node');
     var Mailchimp = require('mailchimp-api-v3')
-    var mailchimp = new Mailchimp(process.env.MAILCHIMP_API_KEY);
+    // var mailchimp = new Mailchimp(process.env.MAILCHIMP_API_KEY);
 
 
 
@@ -35,6 +35,7 @@
     var firebase_url = env == 'production'? 'https://flockify.firebaseIO.com' : 'https://resplendent-heat-6063.firebaseio.com';
     console.log("ENVIRONMENT IS:", env);
     console.log("FIREBASE_URL IS:", firebase_url);
+
 
     // app config
     app.set('port', (process.env.PORT || 5000));

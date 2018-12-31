@@ -2,8 +2,8 @@ module.exports = function ($scope, $routeParams, Post, Auth, Comment, Notificati
                            $uibModal, Action, $mdToast, FIREBASE_URL, $mdConstant, $mdDialog, Users,
                            Spotify, bandsintownFactory, $firebaseObject, Concert) {
   var post_id = $routeParams.postId;
-  var postRef = new Firebase(FIREBASE_URL+"/posts");
-  var ref = new Firebase(FIREBASE_URL);
+  var postRef = firebase.database().ref("/posts");
+  var ref = firebase.database().ref();
   var authData = Auth.$getAuth();
 
 

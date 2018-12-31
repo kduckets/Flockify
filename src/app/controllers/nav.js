@@ -1,11 +1,11 @@
 module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootScope, $timeout, $mdSidenav,
                            $anchorScroll, $window, $mdToast, $mdDialog, FIREBASE_URL, $rootScope, Users, $firebaseArray) {
 
-  var ref = new Firebase(FIREBASE_URL);
-  var usersRef = new Firebase(FIREBASE_URL+'/users');
+  var ref = firebase.database().ref();
+  var usersRef = firebase.database().ref('users');
   // var notificationRef = new Firebase(FIREBASE_URL+"/notifications");
   $scope.post = {artist: '', album: ''};
-  var postsRef = new Firebase(FIREBASE_URL+"/posts/");
+  var postsRef = firebase.database().ref("posts");
   $scope.toggleMenu = buildToggler('right');
     $scope.$on('$routeChangeStart', function (next, current) {
     $mdSidenav('right').close()
@@ -32,20 +32,16 @@ module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootSco
       });
   };
 
-  // notificationRef.on('child_added', function(childSnapshot, prevChildKey) {
-
-  //   //new notification for current user
-
-  // });
-
-  ref.onAuth(function (authData) {
-    if (authData && Users.current_group) {
+  $scope.auth = Auth;
+  $scope.auth.$onAuthStateChanged(function(firebaseUser) {
+    $scope.firebaseUser = firebaseUser;
+    if (firebaseUser && Users.current_group) {
       $scope.subscribed_groups = Users.subscribed_groups.groups;
       $scope.current_group = Users.current_group;
       $scope.current_group_name = Users.current_group_name;
-      $scope.user = Users.getProfile(authData.uid);
-      $scope.notifications = $firebaseArray(ref.child('notifications').child(Users.current_user_id).child($scope.current_group).child('actions'));
-  console.log($scope.notifications);
+      $scope.user = Users.getProfile(firebaseUser.uid);
+  //     $scope.notifications = $firebaseArray(ref.child('notifications').child(firebaseUser.uid).child($scope.current_group).child('actions'));
+  // console.log($scope.notifications);
 
       // $scope.username = Users.getUsername(authData.uid);
     } else {
@@ -114,7 +110,7 @@ module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootSco
   };
 
   $scope.logout = function () {
-    ref.unauth();
+    Auth.$signOut();
     window.location.reload();
   };
 

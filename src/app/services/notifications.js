@@ -2,7 +2,7 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Users, 
    var authData = Auth.$getAuth();
     if (authData) {
   console.log(Users.current_user_id);
-  var notificationRef = new Firebase(FIREBASE_URL).child("notifications");
+  var notificationRef = firebase.database().ref("notifications");
   var userNotifications = $firebaseObject(notificationRef.child(Users.current_user_id));
 }
 

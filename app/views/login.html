@@ -7,11 +7,19 @@
       <md-progress-circular md-mode='indeterminate' md-diameter="132"></md-progress-circular>
     </div>
   <form ng-submit="login()" ng-hide="hideLogin">
-    <p ng-show="error" class="text-danger">{{ error.message }}</p>
+    <p ng-show="error" class="text-danger">{{ message }}</p>
     <input type="email" ng-model="user.email" placeholder="Email" class="form-control"><br>
     <input type="password" ng-model="user.password" placeholder="Password" class="form-control"><br>
     <input type="submit" value="Log in" class="btn btn-primary" />
   </form>
+  <br/>
+  <p>
+  <small>Forgot your password? Enter your email above and click the button below</small>
+  </p>
+  <p>
+  <button ng-click="resetPassword()">Send password reset email</button>
+  </p>
+    <p ng-show="sent" class="text-danger">Check yo email!</p>
 <!--   <p>not a member? <a ng-href="#/register">register</a> here.</p> -->
 </div>
 </div>

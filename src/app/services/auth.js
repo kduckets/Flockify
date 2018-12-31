@@ -1,6 +1,6 @@
 module.exports = function ($firebaseAuth, FIREBASE_URL, $rootScope, $firebase, $cookieStore) {
-    var ref = new Firebase(FIREBASE_URL);
-    var auth = $firebaseAuth(ref);
+    var ref = firebase.database().ref();
+    var auth = $firebaseAuth();
 
     return auth;
 };

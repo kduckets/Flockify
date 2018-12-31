@@ -1,8 +1,8 @@
 module.exports = function ($firebaseArray, FIREBASE_URL, Auth, Post, Notification, $filter, Users, Util, $firebaseObject) {
-  var ref = new Firebase(FIREBASE_URL);
+  var ref = firebase.database().ref();
   var comments = $firebaseArray(ref.child('comments').child(Users.current_group));
-  var commentsRef = new Firebase(FIREBASE_URL + "/comments");
-  var chatRef = new Firebase(FIREBASE_URL + "/chats/" + Users.current_group);
+  var commentsRef = firebase.database().ref("/comments");
+  var chatRef = firebase.database().ref("/chats/" + Users.current_group);
   var id = Users.current_user_id;
   return {
     all: comments,
@@ -64,7 +64,7 @@ module.exports = function ($firebaseArray, FIREBASE_URL, Auth, Post, Notificatio
             actions_ref.update({
                 'like': true
               });
-           
+
               Notification.add_action(comment.creator_id, {
               url: "/albums/" + post_id,
               msg: "Your comment on '" + Util.trim(post.media_info.album, 25) + "' was liked."
@@ -85,7 +85,7 @@ module.exports = function ($firebaseArray, FIREBASE_URL, Auth, Post, Notificatio
             });
         })
           return commentsRef.child(post_id).child(comment.$id).update({'likes': likes});
-    
+
         }else{
           likes = 1;
             actions_ref.update({
@@ -95,7 +95,7 @@ module.exports = function ($firebaseArray, FIREBASE_URL, Auth, Post, Notificatio
               Notification.add_action(comment.creator_id, {
               url: "/albums/" + post_id,
               msg: "Your comment on '" + Util.trim(post.media_info.album, 25) + "' was liked."
-            });  
+            });
           ref.child('user_scores').child(Users.current_group).child(comment.creator_id).once("value", function(snapshot) {
           var val = snapshot.val();
           if (!val){
@@ -112,7 +112,7 @@ module.exports = function ($firebaseArray, FIREBASE_URL, Auth, Post, Notificatio
             });
         })
           return commentsRef.child(post_id).child(comment.$id).update({'likes': likes});
-        }   
+        }
           }else{
             //TODO: msg: you already liked this comment
             return;
@@ -136,7 +136,7 @@ module.exports = function ($firebaseArray, FIREBASE_URL, Auth, Post, Notificatio
   //           actions_ref.update({
   //               'dislike': true
   //             });
-           
+
   //             Notification.add_action(comment.creator_id, {
   //             url: "/albums/" + post_id,
   //             msg: "Your comment on '" + Util.trim(post.media_info.album, 25) + "' was disliked."
@@ -157,7 +157,7 @@ module.exports = function ($firebaseArray, FIREBASE_URL, Auth, Post, Notificatio
   //           });
   //       })
   //         return commentsRef.child(post_id).child(comment.$id).update({'dislikes': dislikes});
-    
+
   //       }else{
   //         dislikes = 1;
   //           actions_ref.update({
@@ -167,7 +167,7 @@ module.exports = function ($firebaseArray, FIREBASE_URL, Auth, Post, Notificatio
   //             Notification.add_action(comment.creator_id, {
   //             url: "/albums/" + post_id,
   //             msg: "Your comment on '" + Util.trim(post.media_info.album, 25) + "' was disliked."
-  //           });  
+  //           });
   //         ref.child('user_scores').child(Users.current_group).child(comment.creator_id).once("value", function(snapshot) {
   //         var val = snapshot.val();
   //         if (!val){
@@ -184,7 +184,7 @@ module.exports = function ($firebaseArray, FIREBASE_URL, Auth, Post, Notificatio
   //           });
   //       })
   //         return commentsRef.child(post_id).child(comment.$id).update({'dislikes': dislikes});
-  //       }   
+  //       }
   //         }else{
   //           //TODO: msg: you already liked this comment
   //           return;
@@ -209,7 +209,7 @@ module.exports = function ($firebaseArray, FIREBASE_URL, Auth, Post, Notificatio
             actions_ref.update({
                 'like': true
               });
-           
+
               Notification.add_action(comment.creator_id, {
               url: "/chat/",
               msg: "Your chat '"+ Util.trim(comment.text, 25)+ "' was liked."
@@ -230,7 +230,7 @@ module.exports = function ($firebaseArray, FIREBASE_URL, Auth, Post, Notificatio
             });
         })
           return chatRef.child(comment.$id).update({'likes': likes});
-    
+
         }else{
           likes = 1;
             actions_ref.update({
@@ -240,7 +240,7 @@ module.exports = function ($firebaseArray, FIREBASE_URL, Auth, Post, Notificatio
               Notification.add_action(comment.creator_id, {
               url: "/chat/",
               msg: "Your chat '"+ Util.trim(comment.text, 25)+ "' was liked."
-            });  
+            });
           ref.child('user_scores').child(Users.current_group).child(comment.creator_id).once("value", function(snapshot) {
           var val = snapshot.val();
           if (!val){
@@ -257,7 +257,7 @@ module.exports = function ($firebaseArray, FIREBASE_URL, Auth, Post, Notificatio
             });
         })
           return chatRef.child(comment.$id).update({'likes': likes});
-        }   
+        }
           }else{
             //TODO: msg: you already liked this comment
             return;

@@ -1,7 +1,8 @@
 module.exports = function($scope, $route, $location, $window, Post, Auth, $http, $cookies, album, $sce, $filter, Spotify,
                           $timeout, $q, $mdDialog, FIREBASE_URL, $mdConstant, Users, $firebaseArray, bandsintownFactory, Concert) {
 
-  var ref = new $window.Firebase(FIREBASE_URL);
+//$window.??
+  var ref = firebase.database().ref();
   var tags = $firebaseArray(ref.child('tags').child(Users.current_group));
 
   $scope.readonly = false;
