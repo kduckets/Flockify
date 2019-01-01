@@ -206,6 +206,7 @@ if(zip_code){
   };
 
   $scope.filterByLabel = function(label){
+    $scope.allTime();
     $scope.tagFilters.push(label);
     $scope.label_filter =label;
     $window.scrollTo(0,0);
