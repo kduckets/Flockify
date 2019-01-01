@@ -29,23 +29,18 @@ groupsRef.once("value", function(snapshot) {
     };
 
   $scope.login = function (){
-     $scope.loginLoading = true;
-       $scope.hideLogin = true;
+     // $scope.loginLoading = true;
+     //   $scope.hideLogin = true;
     $scope.firebaseUser = null;
     auth.$signInWithEmailAndPassword($scope.user.email, $scope.user.password).then(function (firebaseUser){
       $scope.firebaseUser = firebaseUser;
-      Users.set_group_to_default(firebaseUser.uid).then(function(current_group){
+      Users.set_group_to_default(firebaseUser.uid);
       localStorage.setItem('current_group', 'firsttoflock');
-      console.log(firebaseUser);
       location.reload();
     }).catch(function(error) {
-          console.log(error);
-            $scope.error = true;
-            $scope.message = 'Invalid password';
-    });
-
-  });
-};
+        $scope.error = error.message;
+          });
+        };
 
   $scope.resetPassword = function(){
     auth.$sendPasswordResetEmail($scope.user.email);
