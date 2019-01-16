@@ -26,6 +26,15 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
     $scope.user = Users.getProfile(authData.uid);
     $scope.username = $scope.user.username;
     console.log("Logged in as:", authData.uid);
+    $scope.trophy = function(user_id){
+        return Trophy.is_last_week_winner(user_id);
+    }
+    $scope.crown = function(user_id){
+        return Trophy.is_last_month_winner(user_id);
+    }
+    $scope.poop = function(user_id){
+        return Trophy.is_last_week_loser(user_id);
+    }
   } else {
     console.log("Logged out");
     $location.path('/login');
@@ -507,15 +516,7 @@ $scope.spotify_login = function(){
 
   };
 
-  $scope.trophy = function(user_id){
-      return Trophy.is_last_week_winner(user_id);
-  }
-  $scope.crown = function(user_id){
-      return Trophy.is_last_month_winner(user_id);
-  }
-  $scope.poop = function(user_id){
-      return Trophy.is_last_week_loser(user_id);
-  }
+
 
   var init = function () {
     // if($scope.user){
