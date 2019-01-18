@@ -218,11 +218,11 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
          // });
          //send email notification via mailchimp
          var ebody = {'user': $scope.username};
-         $http.post('/api/emailnotification', ebody).success(function(data) {
-           console.log("WA notification sent");
-         }).error(function(data) {
-           console.log('Error: ' + data);
-         });
+         // $http.post('/api/emailnotification', ebody).success(function(data) {
+         //   console.log("WA notification sent");
+         // }).error(function(data) {
+         //   console.log('Error: ' + data);
+         // });
 
       $route.reload();
 
