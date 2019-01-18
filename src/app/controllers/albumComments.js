@@ -65,52 +65,52 @@ if(zip_code){
     $scope.related_albums = [];
     $scope.loadingCircleRelated = true;
 
-var bandsintown = function(post){
-
-  bandsintownFactory.getEventsFromArtistByLocation({
-    artist:post.media_info.artist, // ? and / characters must be double escaped. Artists such as "AC/DC" will end up as "AC%252FDC"
-    location:$scope.location , // city,state (US or CA) || city,country || lat,lon || ip address
-    // radius:"<RADIUS">, // (optional) (default: 25) in miles. valid values: 0-150
-    app_id:"Flockify", //The application ID can be anything, but should be a word that describes your application or company.
-}).then(function (response) {
-    if(response.data[0]){
-     console.log(response);
-     // $scope.concert_obj = response.data[0];
-     $scope.concert = {};
-     $scope.concert.artist = response.data[0].artists;
-     $scope.concert.artist_name = response.data[0].artists[0].name;
-     $scope.concert.thumb_url = response.data[0].artists[0].thumb_url;
-     $scope.concert.tickets_url = response.data[0].ticket_url;
-     $scope.concert.show_date = response.data[0].datetime;
-     // $scope.concert.venue_url = response.data[0].venue.url;
-     $scope.concert.venue_name = response.data[0].venue.name;
-     $scope.concert.venue_city = response.data[0].venue.city;
-     $scope.concert.venue_region = response.data[0].venue.region;
-     $scope.concert.ticket_status = response.data[0].ticket_type;
-     $scope.concert.group = Users.current_group;
-     $scope.concert.formatted_location = response.data[0].formatted_location;
-     $scope.concert.formatted_datetime = response.data[0].formatted_datetime;
-     $scope.concert.post_id = post_id;
-     $scope.concert.bit_id = response.data[0].id;
-
-     var actions_ref = ref.child('user_actions').child($scope.user.$id).child(post_id);
-
-     var current_actions = $firebaseObject(actions_ref);
-
-     current_actions.$loaded().then(function(res) {
-
-     if(res.up || res.star || $scope.user.$id === $scope.post.creator_id) {
-      $scope.concert.upvoted = true;
-     }
-     Concert.add($scope.concert, $scope.concert.bit_id);
-   });
-    }
-}).catch(function (response) {
-  console.log('error', response);
-    //on error
-});
-
-};
+// var bandsintown = function(post){
+//
+//   bandsintownFactory.getEventsFromArtistByLocation({
+//     artist:post.media_info.artist, // ? and / characters must be double escaped. Artists such as "AC/DC" will end up as "AC%252FDC"
+//     location:$scope.location , // city,state (US or CA) || city,country || lat,lon || ip address
+//     // radius:"<RADIUS">, // (optional) (default: 25) in miles. valid values: 0-150
+//     app_id:"Flockify", //The application ID can be anything, but should be a word that describes your application or company.
+// }).then(function (response) {
+//     if(response.data[0]){
+//      console.log(response);
+//      // $scope.concert_obj = response.data[0];
+//      $scope.concert = {};
+//      $scope.concert.artist = response.data[0].artists;
+//      $scope.concert.artist_name = response.data[0].artists[0].name;
+//      $scope.concert.thumb_url = response.data[0].artists[0].thumb_url;
+//      $scope.concert.tickets_url = response.data[0].ticket_url;
+//      $scope.concert.show_date = response.data[0].datetime;
+//      // $scope.concert.venue_url = response.data[0].venue.url;
+//      $scope.concert.venue_name = response.data[0].venue.name;
+//      $scope.concert.venue_city = response.data[0].venue.city;
+//      $scope.concert.venue_region = response.data[0].venue.region;
+//      $scope.concert.ticket_status = response.data[0].ticket_type;
+//      $scope.concert.group = Users.current_group;
+//      $scope.concert.formatted_location = response.data[0].formatted_location;
+//      $scope.concert.formatted_datetime = response.data[0].formatted_datetime;
+//      $scope.concert.post_id = post_id;
+//      $scope.concert.bit_id = response.data[0].id;
+//
+//      var actions_ref = ref.child('user_actions').child($scope.user.$id).child(post_id);
+//
+//      var current_actions = $firebaseObject(actions_ref);
+//
+//      current_actions.$loaded().then(function(res) {
+//
+//      if(res.up || res.star || $scope.user.$id === $scope.post.creator_id) {
+//       $scope.concert.upvoted = true;
+//      }
+//      Concert.add($scope.concert, $scope.concert.bit_id);
+//    });
+//     }
+// }).catch(function (response) {
+//   console.log('error', response);
+//     //on error
+// });
+//
+// };
 
   $scope.showZip = function(ev) {
     $scope.show_zip_notification = true;

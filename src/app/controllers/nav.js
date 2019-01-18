@@ -1,11 +1,12 @@
 module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootScope, $timeout, $mdSidenav,
-                           $anchorScroll, $window, $mdToast, $mdDialog, FIREBASE_URL, $rootScope, Users, $firebaseArray) {
+                           $anchorScroll, $window, $mdToast, $mdDialog, FIREBASE_URL, $rootScope, Users, $firebaseArray, $firebaseObject) {
 
   var ref = firebase.database().ref();
   var usersRef = firebase.database().ref('users');
   // var notificationRef = new Firebase(FIREBASE_URL+"/notifications");
   $scope.post = {artist: '', album: ''};
   var postsRef = firebase.database().ref("posts");
+  var notificationRef = firebase.database().ref("notifications");
   $scope.toggleMenu = buildToggler('right');
     $scope.$on('$routeChangeStart', function (next, current) {
     $mdSidenav('right').close()
@@ -40,10 +41,13 @@ module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootSco
       $scope.current_group = Users.current_group;
       $scope.current_group_name = Users.current_group_name;
       $scope.user = Users.getProfile(firebaseUser.uid);
-  //     $scope.notifications = $firebaseArray(ref.child('notifications').child(firebaseUser.uid).child($scope.current_group).child('actions'));
-  // console.log($scope.notifications);
+      $scope.notifications = $firebaseArray(ref.child('notifications').child(firebaseUser.uid).child($scope.current_group).child('actions'));
+      $scope.show_notifications = $firebaseObject(ref.child('notifications').child(firebaseUser.uid).child($scope.current_group).child('actions').child('new'));
+      $scope.show_notifications.$loaded().then(function(data) {
+      $scope.new_notifications = data.$value;
+          console.log($scope.new_notifications);
+    })
 
-      // $scope.username = Users.getUsername(authData.uid);
     } else {
       $scope.user = null;
       // $scope.username = null;
@@ -103,6 +107,8 @@ module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootSco
       originatorEv = ev;
       $mdOpenMenu(ev);
       $scope.notifications.length == 0;
+      notificationRef.child($scope.firebaseUser.uid).child(Users.current_group).child('actions').update({ new: false });
+      $scope.new_notifications = false;
     };
 
   $scope.close = function () {

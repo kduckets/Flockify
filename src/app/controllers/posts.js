@@ -4,10 +4,8 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
                           bandsintownFactory, $firebaseObject, Concert, Util, Notification){
 
   $scope.authObj = $firebaseAuth();
-  var firebaseUser = $scope.authObj.$getAuth();
-
-
-  if (firebaseUser) {
+  // var firebaseUser = $scope.authObj.$getAuth();
+  if ($scope.authObj) {
     var authData = firebase.auth().currentUser;
     $scope.user = Users.getProfile(authData.uid);
     $scope.username = $scope.user.username;
