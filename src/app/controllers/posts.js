@@ -3,22 +3,17 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
                           $anchorScroll, $mdConstant, $rootScope,$cookieStore, Trophy, $http,
                           bandsintownFactory, $firebaseObject, Concert, Util, Notification){
 
-  var ref = firebase.database().ref();;
-  $scope.posts = [];
-  $scope.showSearch = false;
-  var authData = firebase.auth().currentUser;
+  $scope.authObj = $firebaseAuth();
+  var firebaseUser = $scope.authObj.$getAuth();
 
-  if (authData) {
+
+  if (firebaseUser) {
+    var authData = firebase.auth().currentUser;
     $scope.user = Users.getProfile(authData.uid);
     $scope.username = $scope.user.username;
-    console.log("Logged in as:", authData.uid);
-
-  } else {
-    console.log("Logged out");
-    $location.path('/login');
-  }
-
-
+    var ref = firebase.database().ref();
+    $scope.posts = [];
+    $scope.showSearch = false;
   //   if (authData && Users.current_group) {
   //   $scope.current_group = Users.current_group;
   //   var chatRef = firebase.database().ref("/chats/"+Users.current_group);
@@ -200,11 +195,6 @@ if(zip_code){
   $scope.filter_end_date = moment.utc();
 
   $scope.loadingBar = false;
-
-//  $scope.albumPosts = {};
-//  angular.forEach($scope.posts, function(item, key) {
-//   if ($scope.post.media_type == 'spotify') { $scope.albumPosts[key] = item; };
-// });
 
   $scope.filterByTag = function(tag){
     $scope.allTime();
@@ -549,6 +539,9 @@ $scope.spotify_login = function(){
 
   // }
 
-
+} else {
+  console.log("Logged out");
+  $location.path('/login');
+}
 
 };
