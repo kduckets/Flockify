@@ -3,9 +3,10 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
                           $anchorScroll, $mdConstant, $rootScope,$cookieStore, Trophy, $http,
                           bandsintownFactory, $firebaseObject, Concert, Util, Notification){
 
-  $scope.authObj = $firebaseAuth();
+  var auth = $firebaseAuth();
+  auth.$onAuthStateChanged(function(user) {
   // var firebaseUser = $scope.authObj.$getAuth();
-  if ($scope.authObj) {
+  if (user) {
     var authData = firebase.auth().currentUser;
     $scope.user = Users.getProfile(authData.uid);
     $scope.username = $scope.user.username;
@@ -541,5 +542,5 @@ $scope.spotify_login = function(){
   console.log("Logged out");
   $location.path('/login');
 }
-
+})
 };
