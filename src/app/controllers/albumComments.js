@@ -55,7 +55,7 @@ if(zip_code){
     var state = response.data.results[0].address_components[3].short_name;
     var city_state = city+', '+state;
     $scope.location = ($scope.user_zip ? city_state: "use_geoip");
-    bandsintown($scope.post);
+    // bandsintown($scope.post);
   });
 });
 
