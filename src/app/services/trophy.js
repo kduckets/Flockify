@@ -36,7 +36,7 @@ var Trophy = {
   is_last_week_winner:function(user_id){
     if(Users.current_group){
     var result = false;
-    ref.child('user_scores').child(Users.current_group).child(user_id).child(last_week).once("value", function(snapshot) {
+    ref.child('user_scores').child('firsttoflock').child(user_id).child(last_week).once("value", function(snapshot) {
       if(snapshot.val()){
       var user_score = snapshot.val().album_score;
       if(user_score == high_score){
@@ -50,7 +50,7 @@ var Trophy = {
   is_last_month_winner:function(user_id){
     if(Users.current_group){
     var result = false;
-    ref.child('user_scores').child(Users.current_group).child(user_id).child(last_month).once("value", function(snapshot) {
+    ref.child('user_scores').child('firsttoflock').child(user_id).child(last_month).once("value", function(snapshot) {
       if(snapshot.val()){
       var user_score = snapshot.val().album_score;
       if(user_score == high_score_month){
@@ -64,7 +64,7 @@ var Trophy = {
     is_last_week_loser:function(user_id){
        if(Users.current_group){
     var result = false;
-    ref.child('user_scores').child(Users.current_group).child(user_id).child(last_week).once("value", function(snapshot) {
+    ref.child('user_scores').child('firsttoflock').child(user_id).child(last_week).once("value", function(snapshot) {
       if(snapshot.val()){
       var user_score = snapshot.val().album_score;
       if(user_score == low_score){

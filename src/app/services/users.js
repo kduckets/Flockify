@@ -1,7 +1,8 @@
 module.exports = function($firebaseArray, $firebaseObject, $route, Auth, FIREBASE_URL, $q, $location){
   var usersRef = firebase.database().ref('users');
   var users = $firebaseArray(usersRef);
-  var current_group = localStorage.getItem('current_group');
+  // var current_group = localStorage.getItem('current_group');
+  var current_group = 'firsttoflock'
   var current_group_name = '';
   var current_user_auth_data = firebase.auth().currentUser;
   var current_user_id = (current_user_auth_data) ? current_user_auth_data.uid : null;
