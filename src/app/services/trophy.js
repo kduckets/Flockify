@@ -1,6 +1,6 @@
 module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Users, $q, Auth) {
 var authData = firebase.auth().currentUser;
-  if (authData && Users.current_group) {
+  if (authData) {
 var ref = firebase.database().ref();
        var lastMonday = moment().subtract(1, 'weeks').startOf('isoWeek');
        var monday_formatted = lastMonday.format('MM_DD_YYYY');
@@ -13,7 +13,7 @@ var ref = firebase.database().ref();
        var month_scores = [];
        var high_score_month;
        var low_score_month;
-       var users_in_group = $firebaseArray(ref.child('user_scores').child(Users.current_group)).$loaded(function(users){
+       var users_in_group = $firebaseArray(ref.child('user_scores').child('firsttoflock')).$loaded(function(users){
     angular.forEach(users, function(user, key) {
         if(user[last_week]){
         scores.push(user[last_week].album_score);
@@ -34,7 +34,7 @@ var ref = firebase.database().ref();
 
 var Trophy = {
   is_last_week_winner:function(user_id){
-    if(Users.current_group){
+    if(user_id){
     var result = false;
     ref.child('user_scores').child('firsttoflock').child(user_id).child(last_week).once("value", function(snapshot) {
       if(snapshot.val()){
@@ -48,7 +48,7 @@ var Trophy = {
   }
   },
   is_last_month_winner:function(user_id){
-    if(Users.current_group){
+    if(user_id){
     var result = false;
     ref.child('user_scores').child('firsttoflock').child(user_id).child(last_month).once("value", function(snapshot) {
       if(snapshot.val()){
@@ -62,7 +62,7 @@ var Trophy = {
   }
   },
     is_last_week_loser:function(user_id){
-       if(Users.current_group){
+       if(user_id){
     var result = false;
     ref.child('user_scores').child('firsttoflock').child(user_id).child(last_week).once("value", function(snapshot) {
       if(snapshot.val()){
