@@ -6,7 +6,6 @@ var ref = firebase.database().ref();
        var monday_formatted = lastMonday.format('MM_DD_YYYY');
        var last_week = 'weekly_score_'+monday_formatted;
        var last_month = 'monthly_score_'+moment().subtract(1,'months').startOf('month').format('MM_DD_YYYY');
-       console.log(last_month);
        var scores = [];
        var high_score;
        var low_score;
@@ -34,7 +33,7 @@ var ref = firebase.database().ref();
 
 var Trophy = {
   is_last_week_winner:function(user_id){
-    if(user_id){
+    if(typeof user_id !== "undefined"){
     var result = false;
     ref.child('user_scores').child('firsttoflock').child(user_id).child(last_week).once("value", function(snapshot) {
       if(snapshot.val()){
@@ -48,7 +47,7 @@ var Trophy = {
   }
   },
   is_last_month_winner:function(user_id){
-    if(user_id){
+    if(typeof user_id !== "undefined"){
     var result = false;
     ref.child('user_scores').child('firsttoflock').child(user_id).child(last_month).once("value", function(snapshot) {
       if(snapshot.val()){
@@ -62,7 +61,7 @@ var Trophy = {
   }
   },
     is_last_week_loser:function(user_id){
-       if(user_id){
+       if(typeof user_id !== "undefined"){
     var result = false;
     ref.child('user_scores').child('firsttoflock').child(user_id).child(last_week).once("value", function(snapshot) {
       if(snapshot.val()){
