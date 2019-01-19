@@ -33,7 +33,7 @@ var ref = firebase.database().ref();
 
 var Trophy = {
   is_last_week_winner:function(user_id){
-    if(typeof user_id !== "undefined"){
+    if(user_id !== "undefined"){
     var result = false;
     ref.child('user_scores').child('firsttoflock').child(user_id).child(last_week).once("value", function(snapshot) {
       if(snapshot.val()){
@@ -47,7 +47,7 @@ var Trophy = {
   }
   },
   is_last_month_winner:function(user_id){
-    if(typeof user_id !== "undefined"){
+    if(user_id !== "undefined"){
     var result = false;
     ref.child('user_scores').child('firsttoflock').child(user_id).child(last_month).once("value", function(snapshot) {
       if(snapshot.val()){
@@ -61,7 +61,7 @@ var Trophy = {
   }
   },
     is_last_week_loser:function(user_id){
-       if(typeof user_id !== "undefined"){
+       if(user_id !== "undefined"){
     var result = false;
     ref.child('user_scores').child('firsttoflock').child(user_id).child(last_week).once("value", function(snapshot) {
       if(snapshot.val()){
