@@ -1,6 +1,5 @@
 module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Users, $q, Auth) {
    var authData = firebase.auth().currentUser;
-    if (authData) {
   var notificationRef = firebase.database().ref("notifications");
   var userNotifications = $firebaseObject(notificationRef.child(Users.current_user_id));
 
@@ -20,5 +19,5 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Users, 
   };
 
   return result;
-}
+
 };
