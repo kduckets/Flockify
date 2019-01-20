@@ -2,7 +2,11 @@ module.exports = function($firebaseArray, $firebaseObject, $route, Auth, FIREBAS
 
 
  var current_user_auth_data = firebase.auth().currentUser;
+ var auth = $firebaseAuth();
 
+ auth.$onAuthStateChanged(function(user) {
+ console.log(user);
+  })
   var usersRef = firebase.database().ref('users');
   var users = $firebaseArray(usersRef);
   // var current_group = localStorage.getItem('current_group');

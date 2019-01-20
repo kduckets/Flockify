@@ -1,9 +1,9 @@
 module.exports = function ($scope, $routeParams, Profile, Post, Auth, $firebaseArray, FIREBASE_URL, Users,
   $location, $filter, Concert, Notification, $http, bandsintownFactory, $route, $firebaseObject, $window) {
-  var ref = firebase.database().ref();
-  Notification.page_view("/shows/");
-  var user_id = Users.current_user_id;
-  var authData = Auth.$getAuth();
+  //var ref = firebase.database().ref();
+  //Notification.page_view("/shows/");
+  //var user_id = Users.current_user_id;
+  //var authData = Auth.$getAuth();
   $scope.filter_start_date = moment().subtract(1, 'days');
   $scope.only_upvoted = true;
   $scope.show_zip = false;
