@@ -1,7 +1,6 @@
 module.exports = function ($firebaseArray, $firebaseObject, FIREBASE_URL, Users, Notification, Util) {
   var ref = firebase.database().ref();
   var user_id = Users.current_user_id;
-  console.log(user_id);
   if(Users.current_group && user_id){
   var concerts = $firebaseArray(ref.child('concerts').child(user_id));
   }

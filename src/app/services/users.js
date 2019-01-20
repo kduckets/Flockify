@@ -1,18 +1,20 @@
 module.exports = function($firebaseArray, $firebaseObject, $route, Auth, FIREBASE_URL, $q, $location, $firebaseAuth){
 
 
- var current_user_auth_data = firebase.auth().currentUser;
- var auth = $firebaseAuth();
 
+ var auth = $firebaseAuth();
+ var current_user_auth_data = firebase.auth().currentUser;
+ var current_user_id = (current_user_auth_data) ? current_user_auth_data.uid : null;
  auth.$onAuthStateChanged(function(user) {
- console.log(user);
-  })
+  var current_user_id = (current_user_auth_data) ? user.uid : null;
+ })
+
   var usersRef = firebase.database().ref('users');
   var users = $firebaseArray(usersRef);
   // var current_group = localStorage.getItem('current_group');
   var current_group = 'firsttoflock'
   var current_group_name = '';
-  var current_user_id = (current_user_auth_data) ? current_user_auth_data.uid : null;
+
   var current_user_ref = (current_user_auth_data) ? usersRef.child(current_user_id) : null;
   var current_user = (current_user_auth_data) ? $firebaseObject(current_user_ref) : null;
   var subscribed_groups = {'groups': []};
@@ -30,6 +32,7 @@ module.exports = function($firebaseArray, $firebaseObject, $route, Auth, FIREBAS
       });
     });
   }
+
 
 
   var Users = {
