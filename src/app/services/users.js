@@ -12,6 +12,7 @@ module.exports = function($firebaseArray, $firebaseObject, $route, Auth, FIREBAS
   var current_user_ref = (current_user_auth_data) ? usersRef.child(current_user_id) : null;
   var current_user = (current_user_auth_data) ? $firebaseObject(current_user_ref) : null;
   var subscribed_groups = {'groups': []};
+  if(current_user){
     current_user.$loaded().then(function() {
       var group_ref =  firebase.database().ref("groups");
       $.each(Object.keys(current_user.groups), function (idx, group_id) {
@@ -24,6 +25,7 @@ module.exports = function($firebaseArray, $firebaseObject, $route, Auth, FIREBAS
         });
       });
     });
+  }
 
 
   var Users = {
