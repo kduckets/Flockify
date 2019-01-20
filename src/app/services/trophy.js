@@ -1,6 +1,5 @@
 module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Users, $q, Auth) {
 var authData = firebase.auth().currentUser;
-  if (authData) {
 var ref = firebase.database().ref();
        var lastMonday = moment().subtract(1, 'weeks').startOf('isoWeek');
        var monday_formatted = lastMonday.format('MM_DD_YYYY');
@@ -12,6 +11,7 @@ var ref = firebase.database().ref();
        var month_scores = [];
        var high_score_month;
        var low_score_month;
+  if (authData) {
        var users_in_group = $firebaseArray(ref.child('user_scores').child('firsttoflock')).$loaded(function(users){
     angular.forEach(users, function(user, key) {
         if(user[last_week]){
