@@ -2,7 +2,7 @@ module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootSco
                            $anchorScroll, $window, $mdToast, $mdDialog, FIREBASE_URL, $rootScope, Users, $firebaseArray, $firebaseObject) {
 
   var ref = firebase.database().ref();
-  var usersRef = firebase.database().ref('users');
+  var usersRef = firebase.database().ref("users");
   // var notificationRef = new Firebase(FIREBASE_URL+"/notifications");
   $scope.post = {artist: '', album: ''};
   var postsRef = firebase.database().ref("posts");
@@ -37,9 +37,14 @@ module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootSco
   $scope.auth.$onAuthStateChanged(function(firebaseUser) {
     if (firebaseUser) {
       $scope.subscribed_groups = Users.subscribed_groups.groups;
-      $scope.current_group = Users.current_group;
-      $scope.current_group_name = Users.current_group_name;
-      $scope.user = Users.getProfile(firebaseUser.uid);
+      // $scope.current_group = Users.current_group;
+      // $scope.current_group_name = Users.current_group_name;
+      // $scope.user = Users.getProfile(firebaseUser.uid);
+
+      $scope.user = $firebaseObject(usersRef.child(firebaseUser.uid));
+      //$scope.subscribed_groups = Users.subscribed_groups.groups;
+      $scope.current_group = 'firsttoflock';
+      $scope.current_group_name = 'firsttoflock'
       $scope.notifications = $firebaseArray(ref.child('notifications').child(firebaseUser.uid).child($scope.current_group).child('actions'));
       $scope.show_notifications = $firebaseObject(ref.child('notifications').child(firebaseUser.uid).child($scope.current_group).child('actions').child('new'));
       $scope.show_notifications.$loaded().then(function(data) {
@@ -54,16 +59,16 @@ module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootSco
     }
   });
 
-  $scope.look_for_new_posts = function(){
-
-  if($scope.user){
-
-    $scope.new_posts = [];
-
-     usersRef.child($scope.user.$id).child('groups').once('value', function(groups) {
-       $scope.groups = groups.val();
-
-    $.each($scope.groups, function(key, value) {
+  // $scope.look_for_new_posts = function(){
+  //
+  // if(firebaseUser){
+  //
+  //   $scope.new_posts = [];
+  //
+  //    usersRef.child(firebaseUser.uid).child('groups').once('value', function(groups) {
+  //      $scope.groups = groups.val();
+  //
+  //   $.each($scope.groups, function(key, value) {
 
    // postsRef.child(key).limitToLast(2).on("child_added", function(snap) {
    //
@@ -86,11 +91,11 @@ module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootSco
    //    }
    //     }
    //    });
-      })
-
-  });
-     }
-   };
+  //     })
+  //
+  // });
+  //    }
+  //  };
 
   $scope.change_group = function() {
     console.log("change group", $scope.current_group);

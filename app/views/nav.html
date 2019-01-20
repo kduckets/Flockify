@@ -6,7 +6,7 @@
   md-whiteframe="4">
   <md-content ng-controller="NavCtrl">
     <md-toolbar class="md-theme-indigo">
-      <md-select class="md-toolbar-tools" ng-change="change_group()" ng-model="current_group" ng-click="look_for_new_posts()">
+      <md-select class="md-toolbar-tools" ng-change="change_group()" ng-model="current_group">
         <md-option ng-repeat="group in subscribed_groups" value="{{ group.id }}" ng-selected="{{ group.id == current_group }}"> {{ group.group_name }}
      <span class="label label-info" ng-show="new_posts[group.id]"><small>{{new_posts[group.id]}}</small></span></md-option>
       </md-select>
