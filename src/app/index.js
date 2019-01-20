@@ -175,7 +175,7 @@ app.factory('Trophy', require('./services/trophy'));
 app.factory('Notification', require('./services/notifications'));
 app.factory('Util', require('./services/util'));
 app.factory('Concert', require('./services/concert'));
-
+app.factory('Users', require('./services/users'));
 
 app.filter('isAfter', require('./services/dateFilter'));
 app.filter('byText', require('./services/textFilter'));
@@ -213,7 +213,7 @@ app.controller('ScoreCtrl', require('./controllers/scoreboard'));
 app.controller('ScoreHistoryCtrl', require('./controllers/scoreHistory'));
 app.controller('RandomCtrl', require('./controllers/random'));
 
-app.factory('Users', require('./services/users'));
+
 
 // var plugins = pluginManager.getPlugins();
 // angular.forEach(plugins, function(plugin, key){

@@ -1,8 +1,10 @@
-module.exports = function ($scope, $routeParams, Profile, Post, Auth, $firebaseArray, FIREBASE_URL, Users, $filter, Trophy) {
+module.exports = function ($scope, $routeParams, Profile, Post, Auth, $firebaseArray, FIREBASE_URL, Users, $filter, Trophy, $firebaseAuth) {
   var ref = firebase.database().ref();
   var authData = Auth.$getAuth();
+  var auth = $firebaseAuth();
+  auth.$onAuthStateChanged(function(user) {
   if (authData) {
-     $scope.user = Users.getProfile(authData.uid);
+     $scope.user = Users.getProfile(user.uid);
      $scope.username = $scope.user.username;
   } else {
     $scope.user = null;
@@ -42,4 +44,5 @@ module.exports = function ($scope, $routeParams, Profile, Post, Auth, $firebaseA
   $scope.getUsername = function(userId){
     return Users.getUsername(userId);
   }
+})
 };

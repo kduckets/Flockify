@@ -1,14 +1,15 @@
 module.exports = function ($scope, $routeParams, Post, Auth, Comment, Notification, $firebaseArray, Profile, $http, $filter, $sce, $location,
                            $uibModal, Action, $mdToast, FIREBASE_URL, $mdConstant, $mdDialog, Users,
-                           Spotify, bandsintownFactory, $firebaseObject, Concert) {
+                           Spotify, bandsintownFactory, $firebaseObject, Concert, $firebaseAuth) {
   var post_id = $routeParams.postId;
   var postRef = firebase.database().ref("/posts");
   var ref = firebase.database().ref();
   var authData = Auth.$getAuth();
+  var auth = $firebaseAuth();
 
+  auth.$onAuthStateChanged(function(user) {
 
-
-  Notification.page_view("/albums/" + post_id);
+Notification.page_view("/albums/" + post_id);
 
 $scope.updateZip =function(zip_code){
 if(zip_code){
@@ -327,6 +328,6 @@ $scope.matchingTags = function(posts){
     });
   };
 
-
+})
 
 };

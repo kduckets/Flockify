@@ -1,7 +1,9 @@
 module.exports = function ($scope, $routeParams, Profile, Post, Auth, $firebaseArray, FIREBASE_URL, Users,
-  $location, $filter, Concert, Notification, $http, bandsintownFactory, $route, $firebaseObject, $window) {
+  $location, $filter, Concert, Notification, $http, bandsintownFactory, $route, $firebaseObject, $window, $firebaseAuth) {
   var ref = firebase.database().ref();
-  var user_id = Users.current_user_id;
+  var auth = $firebaseAuth();
+  auth.$onAuthStateChanged(function(user) {
+  var user_id = user.uid;
   var authData = Auth.$getAuth();
   $scope.allAlbums = [];
 
@@ -33,4 +35,5 @@ module.exports = function ($scope, $routeParams, Profile, Post, Auth, $firebaseA
   $scope.getUsername = function(userId){
     return Users.getUsername(userId);
   }
+})
 };

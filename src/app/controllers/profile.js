@@ -1,9 +1,10 @@
-module.exports = function ($scope, $routeParams, Profile, Post, Auth, Users, $uibModal, FIREBASE_URL, $location,$mdToast,$http) {
+module.exports = function ($scope, $routeParams, Profile, Post, Auth, Users, $uibModal, FIREBASE_URL, $location,$mdToast,$http, $firebaseAuth) {
   var ref = firebase.database().ref();
   var authData = Auth.$getAuth();
+  var auth = $firebaseAuth();
+  auth.$onAuthStateChanged(function(user) {
 
   if (Users.current_user) {
-    console.log("User " + authData.uid + " is logged in with " + authData.provider);
     $scope.user = Users.getProfile(authData.uid);
     $scope.username = $scope.user.username;
   } else {
@@ -102,5 +103,5 @@ module.exports = function ($scope, $routeParams, Profile, Post, Auth, Users, $ui
         .hideDelay(3000)
     );
   };
-
+})
 };
