@@ -5,16 +5,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
 
   var auth = $firebaseAuth();
 
-  $scope.trophy = function(user_id){
-      return Trophy.is_last_week_winner(user_id);
-  }
-  $scope.crown = function(user_id){
-      return Trophy.is_last_month_winner(user_id);
-  }
-  $scope.poop = function(user_id){
-      return Trophy.is_last_week_loser(user_id);
-  }
-  
+
   auth.$onAuthStateChanged(function(user) {
   // var firebaseUser = $scope.authObj.$getAuth();
   if (user) {
@@ -528,6 +519,15 @@ $scope.spotify_login = function(){
   //
   // init();
 
+  $scope.trophy = function(user_id){
+      return Trophy.is_last_week_winner(user_id);
+  }
+  $scope.crown = function(user_id){
+      return Trophy.is_last_month_winner(user_id);
+  }
+  $scope.poop = function(user_id){
+      return Trophy.is_last_week_loser(user_id);
+  }
 };
   // $scope.batchUpdate = function(){
 
