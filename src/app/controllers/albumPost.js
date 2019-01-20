@@ -1,9 +1,13 @@
 module.exports = function($scope, $route, $location, $window, Post, Auth, $http, $cookies, album, $sce, $filter, Spotify,
-                          $timeout, $q, $mdDialog, FIREBASE_URL, $mdConstant, Users, $firebaseArray, bandsintownFactory, Concert) {
+                          $timeout, $q, $mdDialog, FIREBASE_URL, $mdConstant, Users, $firebaseArray, bandsintownFactory, Concert, $firebaseObject) {
 
 //$window.??
   var ref = firebase.database().ref();
-  var tags = $firebaseArray(ref.child('tags').child(Users.current_group));
+  var usersRef = firebase.database().ref("users");
+
+  // var tags = $firebaseArray(ref.child('tags').child(Users.current_group));
+  var tags = $firebaseArray(ref.child('tags').child('firsttoflock'));
+
 
   $scope.readonly = false;
   $scope.selectedItem = null;
@@ -15,9 +19,11 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
   $scope.transformChip = transformChip;
   $scope.keys = [$mdConstant.KEY_CODE.COMMA, $mdConstant.KEY_CODE.ENTER];
 
-  if (Auth.$getAuth()) {
-    $scope.user = Users.getProfile(Auth.$getAuth().uid);
-    $scope.username = Users.getUsername(Auth.$getAuth().uid);
+
+  if (firebase.auth().currentUser) {
+    var current_user_ref = usersRef.child(firebase.auth().currentUser.uid);
+    $scope.user = $firebaseObject(current_user_ref);
+    $scope.username = $scope.user.username;
   } else {
     $scope.user = null;
     console.log("User is logged out");
@@ -152,7 +158,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
     //on error
 });
 
-      ref.child('user_scores').child(Users.current_group).child($scope.user.$id).once("value", function(snapshot) {
+      ref.child('user_scores').child('firsttoflock').child($scope.user.$id).once("value", function(snapshot) {
 
           var val = snapshot.val();
           if (!val){
@@ -166,7 +172,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
            if(!val[current_week]){
               var scores = {};
                scores[current_week] = {album_score:0};
-            ref.child('user_scores').child(Users.current_group).child($scope.user.$id).update(scores);
+            ref.child('user_scores').child('firsttoflock').child($scope.user.$id).update(scores);
            }
 
 
@@ -176,7 +182,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
             if(!val[current_month]){
                var scores = {};
                 scores[current_month] = {album_score:0};
-             ref.child('user_scores').child(Users.current_group).child($scope.user.$id).update(scores);
+             ref.child('user_scores').child('firsttoflock').child($scope.user.$id).update(scores);
             }
          });
         // send Whatsapp notification

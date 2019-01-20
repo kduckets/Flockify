@@ -372,7 +372,6 @@ $scope.spotify_login = function(){
 
     Spotify.search($scope.post.search + '*', 'artist,album').then(function (data) {
       $scope.no_results = false;
-      console.log(data);
 
       $scope.results = data.data.albums.items;
       var post_names = $.map($scope.posts, function(post, idx){
