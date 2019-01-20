@@ -166,7 +166,6 @@ app.config(function($routeProvider) { //TODO: move to routes module
 });
 //test
 //
-app.factory('Users', require('./services/users'));
 app.factory('Action', require('./services/action'));
 app.factory('Auth', require('./services/auth'));
 app.factory('Comment', require('./services/comments'));
@@ -176,6 +175,7 @@ app.factory('Trophy', require('./services/trophy'));
 app.factory('Notification', require('./services/notifications'));
 app.factory('Util', require('./services/util'));
 app.factory('Concert', require('./services/concert'));
+
 
 app.filter('isAfter', require('./services/dateFilter'));
 app.filter('byText', require('./services/textFilter'));
@@ -212,6 +212,8 @@ app.controller('ProfileCtrl', require('./controllers/profile'));
 app.controller('ScoreCtrl', require('./controllers/scoreboard'));
 app.controller('ScoreHistoryCtrl', require('./controllers/scoreHistory'));
 app.controller('RandomCtrl', require('./controllers/random'));
+
+app.factory('Users', require('./services/users'));
 
 // var plugins = pluginManager.getPlugins();
 // angular.forEach(plugins, function(plugin, key){

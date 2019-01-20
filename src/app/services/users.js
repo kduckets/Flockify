@@ -8,8 +8,6 @@ module.exports = function($firebaseArray, $firebaseObject, $route, Auth, FIREBAS
   // var current_group = localStorage.getItem('current_group');
   var current_group = 'firsttoflock'
   var current_group_name = '';
-
-  console.log('auth data',current_user_auth_data);
   var current_user_id = (current_user_auth_data) ? current_user_auth_data.uid : null;
   var current_user_ref = (current_user_auth_data) ? usersRef.child(current_user_id) : null;
   var current_user = (current_user_auth_data) ? $firebaseObject(current_user_ref) : null;
