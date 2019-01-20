@@ -9,8 +9,6 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
   auth.$onAuthStateChanged(function(user) {
   // var firebaseUser = $scope.authObj.$getAuth();
   if (user) {
-    $scope.user = Users.getProfile(user.uid);
-    $scope.username = $scope.user.username;
     var ref = firebase.database().ref();
     $scope.posts = [];
     $scope.showSearch = false;
@@ -105,16 +103,18 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
 
 
 
-$scope.updateZip =function(zip_code){
-if(zip_code){
-  Users.set_zip(user.uid,zip_code);
-  $scope.user_zip = zip_code;
-  $scope.show_zip_notification = false;
-  getConcerts();
-}
+// $scope.updateZip =function(zip_code){
+// if(zip_code){
+//   Users.set_zip(user.uid,zip_code);
+//   $scope.user_zip = zip_code;
+//   $scope.show_zip_notification = false;
+//   getConcerts();
+// }
+// }
 
+$scope.user = Users.getProfile(user.uid);
+$scope.username = $scope.user.username;
 
-}
 
   $scope.filteredItems = [];
   if(user && Users.current_group){

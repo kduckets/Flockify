@@ -7,7 +7,7 @@ module.exports = function ($scope, $routeParams, Post, Auth, Comment, Notificati
   var authData = Auth.$getAuth();
   var auth = $firebaseAuth();
 
-  auth.$onAuthStateChanged(function(user) {
+auth.$onAuthStateChanged(function(user) {
 
 Notification.page_view("/albums/" + post_id);
 

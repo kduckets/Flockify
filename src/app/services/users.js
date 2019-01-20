@@ -1,6 +1,4 @@
-module.exports = function($firebaseArray, $firebaseObject, $route, Auth, FIREBASE_URL, $q, $location, $firebaseAuth){
-
-
+module.exports = function($firebaseArray, $firebaseObject, $route, Auth, FIREBASE_URL, $q, $location, $firebaseAuth, $timeout){
 
  var auth = $firebaseAuth();
  var current_user_auth_data = firebase.auth().currentUser;
@@ -29,6 +27,7 @@ module.exports = function($firebaseArray, $firebaseObject, $route, Auth, FIREBAS
       });
     });
   }
+
 
 
 
@@ -85,6 +84,7 @@ module.exports = function($firebaseArray, $firebaseObject, $route, Auth, FIREBAS
     current_user_id: current_user_id
 
   };
+
   return Users;
 
 };

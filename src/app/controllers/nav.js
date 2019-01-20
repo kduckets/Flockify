@@ -36,7 +36,7 @@ module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootSco
   $scope.auth = Auth;
   $scope.auth.$onAuthStateChanged(function(firebaseUser) {
     $scope.firebaseUser = firebaseUser;
-    if (firebaseUser && Users.current_group) {
+    if (firebaseUser) {
       $scope.subscribed_groups = Users.subscribed_groups.groups;
       $scope.current_group = Users.current_group;
       $scope.current_group_name = Users.current_group_name;
