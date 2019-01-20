@@ -1,6 +1,6 @@
-module.exports = function($firebaseArray, $firebaseObject, $route, Auth, FIREBASE_URL, $q, $location, $firebaseAuth){
-  var auth = $firebaseAuth();
-  auth.$onAuthStateChanged(function(user) {
+module.exports = function($firebaseArray, $firebaseObject, $route, Auth, FIREBASE_URL, $q, $location){
+
+  
   var usersRef = firebase.database().ref('users');
   var users = $firebaseArray(usersRef);
   // var current_group = localStorage.getItem('current_group');
@@ -12,7 +12,7 @@ module.exports = function($firebaseArray, $firebaseObject, $route, Auth, FIREBAS
   var current_user = (current_user_auth_data) ? $firebaseObject(current_user_ref) : null;
   var subscribed_groups = {'groups': []};
 
-
+  if (current_user) {
     current_user.$loaded().then(function() {
       var group_ref =  firebase.database().ref("groups");
       $.each(Object.keys(current_user.groups), function (idx, group_id) {
