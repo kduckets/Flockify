@@ -35,7 +35,6 @@ module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootSco
 
   $scope.auth = Auth;
   $scope.auth.$onAuthStateChanged(function(firebaseUser) {
-    $scope.firebaseUser = firebaseUser;
     if (firebaseUser) {
       $scope.subscribed_groups = Users.subscribed_groups.groups;
       $scope.current_group = Users.current_group;
@@ -49,7 +48,7 @@ module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootSco
     })
 
     } else {
-      $scope.user = null;
+      //$scope.user = null;
       // $scope.username = null;
       console.log("User is logged out");
     }
@@ -66,27 +65,27 @@ module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootSco
 
     $.each($scope.groups, function(key, value) {
 
-   postsRef.child(key).limitToLast(2).on("child_added", function(snap) {
-
-     if(snap.key() != 'flock_groupchat'){
-      if(value == snap.key()) {
-        $scope.new_posts[key] = false;
-        return;
-      }
-      if(key == Users.current_group) {
-        var last_post_id = {};
-          last_post_id[key] = snap.key();
-
-        usersRef.child($scope.user.$id).child('groups').update(last_post_id);
-         $scope.new_posts[key] = false;
-        return;
-
-      }if(value != snap.key()){
-      $scope.new_posts[key] = 'New post!';
-      console.log('new post', value, snap.key());
-      }
-       }
-      });
+   // postsRef.child(key).limitToLast(2).on("child_added", function(snap) {
+   //
+   //   if(snap.key() != 'flock_groupchat'){
+   //    if(value == snap.key()) {
+   //      $scope.new_posts[key] = false;
+   //      return;
+   //    }
+   //    if(key == Users.current_group) {
+   //      var last_post_id = {};
+   //        last_post_id[key] = snap.key();
+   //
+   //      usersRef.child($scope.user.$id).child('groups').update(last_post_id);
+   //       $scope.new_posts[key] = false;
+   //      return;
+   //
+   //    }if(value != snap.key()){
+   //    $scope.new_posts[key] = 'New post!';
+   //    console.log('new post', value, snap.key());
+   //    }
+   //     }
+   //    });
       })
 
   });
