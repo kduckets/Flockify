@@ -9,8 +9,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
   auth.$onAuthStateChanged(function(user) {
   // var firebaseUser = $scope.authObj.$getAuth();
   if (user) {
-    var authData = firebase.auth().currentUser;
-    $scope.user = Users.getProfile(authData.uid);
+    $scope.user = Users.getProfile(user.uid);
     $scope.username = $scope.user.username;
     var ref = firebase.database().ref();
     $scope.posts = [];
@@ -108,7 +107,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
 
 $scope.updateZip =function(zip_code){
 if(zip_code){
-  Users.set_zip(authData.uid,zip_code);
+  Users.set_zip(user.uid,zip_code);
   $scope.user_zip = zip_code;
   $scope.show_zip_notification = false;
   getConcerts();
@@ -118,7 +117,7 @@ if(zip_code){
 }
 
   $scope.filteredItems = [];
-  if(authData && Users.current_group){
+  if(user && Users.current_group){
     $scope.loadingCircle = true;
   $firebaseArray(ref.child('posts').child(Users.current_group)).$loaded(function(data){
      $scope.posts = data;

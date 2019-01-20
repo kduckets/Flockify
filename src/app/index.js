@@ -166,12 +166,12 @@ app.config(function($routeProvider) { //TODO: move to routes module
 });
 //test
 //
+app.factory('Users', require('./services/users'));
 app.factory('Action', require('./services/action'));
 app.factory('Auth', require('./services/auth'));
 app.factory('Comment', require('./services/comments'));
 app.factory('Post', require('./services/post'));
 app.factory('Profile', require('./services/profile'));
-app.factory('Users', require('./services/users'));
 app.factory('Trophy', require('./services/trophy'));
 app.factory('Notification', require('./services/notifications'));
 app.factory('Util', require('./services/util'));
