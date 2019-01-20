@@ -3,6 +3,8 @@ module.exports = function ($scope, $routeParams, Post, Auth, Comment, Notificati
                            Spotify, bandsintownFactory, $firebaseObject, Concert, $firebaseAuth) {
   var post_id = $routeParams.postId;
   var postRef = firebase.database().ref("/posts");
+  var usersRef = firebase.database().ref("users");
+
   var ref = firebase.database().ref();
   var authData = Auth.$getAuth();
   var auth = $firebaseAuth();
@@ -32,8 +34,8 @@ if(zip_code){
   // $scope.login = function(){
   //   Spotify.login();
   // };
-
-  $scope.user = Users.current_user;
+  var current_user_ref = usersRef.child(user.uid);
+  $scope.user = $firebaseObject(current_user_ref);
   $scope.username = $scope.user.username;
   $scope.post = Post.get(post_id);
 
@@ -45,20 +47,20 @@ if(zip_code){
      $scope.matchingTags(data);
      $scope.loadingCircleRelated = false;
 
-  Users.get_zip(authData.uid).then(function(zip){
-      $scope.user_zip = zip;
-
-      $http({
-      method: 'GET',
-      url: 'https://maps.googleapis.com/maps/api/geocode/json?address='+ zip +'&sensor=true' + '&key=AIzaSyDJpVexqRWzN_q9XnNg2kRa0HxkuK15Hk0'
-}).then(function successCallback(response) {
-    var city = response.data.results[0].address_components[1].long_name;
-    var state = response.data.results[0].address_components[3].short_name;
-    var city_state = city+', '+state;
-    $scope.location = ($scope.user_zip ? city_state: "use_geoip");
-    // bandsintown($scope.post);
-  });
-});
+//   Users.get_zip(authData.uid).then(function(zip){
+//       $scope.user_zip = zip;
+//
+//       $http({
+//       method: 'GET',
+//       url: 'https://maps.googleapis.com/maps/api/geocode/json?address='+ zip +'&sensor=true' + '&key=AIzaSyDJpVexqRWzN_q9XnNg2kRa0HxkuK15Hk0'
+// }).then(function successCallback(response) {
+//     var city = response.data.results[0].address_components[1].long_name;
+//     var state = response.data.results[0].address_components[3].short_name;
+//     var city_state = city+', '+state;
+//     $scope.location = ($scope.user_zip ? city_state: "use_geoip");
+//     // bandsintown($scope.post);
+//   });
+// });
 
   });
   });
