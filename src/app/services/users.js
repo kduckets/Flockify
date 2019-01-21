@@ -2,6 +2,13 @@ module.exports = function($firebaseArray, $firebaseObject, $route, Auth, FIREBAS
 
  var auth = $firebaseAuth();
  var current_user_auth_data = firebase.auth().currentUser;
+ console.log(current_user_auth_data);
+
+ if(current_user_auth_data === 'null'){
+ auth.$onAuthStateChanged(function(user) {
+    current_user_auth_data = firebase.auth().currentUser;
+  })
+}
  var current_user_id = (current_user_auth_data) ? current_user_auth_data.uid : null;
 
   var usersRef = firebase.database().ref('users');
