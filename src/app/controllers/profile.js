@@ -1,4 +1,4 @@
-module.exports = function ($scope, $routeParams, Profile, Post, Auth, Users, $uibModal, FIREBASE_URL, $location,$mdToast,$http, $firebaseAuth) {
+module.exports = function ($scope, $routeParams, Profile, Post, Auth, Users, $uibModal, FIREBASE_URL, $location,$mdToast,$http, $firebaseAuth, $firebaseObject) {
   var ref = firebase.database().ref();
   var usersRef = firebase.database().ref('users');
 
@@ -7,7 +7,7 @@ module.exports = function ($scope, $routeParams, Profile, Post, Auth, Users, $ui
   auth.$onAuthStateChanged(function(user) {
 
   if (firebase.auth().currentUser) {
-    $scope.user = $firebaseObject(usersRef.child(firebase.auth().currentUser.uid);
+    $scope.user = $firebaseObject(usersRef.child(firebase.auth().currentUser.uid));
     $scope.username = $scope.user.username;
   } else {
     $scope.user = null;
