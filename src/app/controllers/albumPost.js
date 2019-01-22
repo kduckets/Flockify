@@ -20,14 +20,13 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
   $scope.keys = [$mdConstant.KEY_CODE.COMMA, $mdConstant.KEY_CODE.ENTER];
 
 
-  if (firebase.auth().currentUser) {
     var current_user_ref = usersRef.child(firebase.auth().currentUser.uid);
-    $scope.user = $firebaseObject(current_user_ref);
-    $scope.username = $scope.user.username;
-  } else {
-    $scope.user = null;
-    console.log("User is logged out");
-  };
+    var user = $firebaseObject(current_user_ref);
+    user.$loaded().then(function() {
+    $scope.user = user;
+    $scope.username = user.username;
+  })
+
   $scope.album = album;
   // $scope.posts = Post.all;
 
@@ -158,7 +157,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
     //on error
 });
 
-      ref.child('user_scores').child('firsttoflock').child($scope.user.$id).once("value", function(snapshot) {
+      ref.child('user_scores').child('firsttoflock').child(firebase.auth().currentUser.uid).once("value", function(snapshot) {
 
           var val = snapshot.val();
           if (!val){
@@ -172,7 +171,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
            if(!val[current_week]){
               var scores = {};
                scores[current_week] = {album_score:0};
-            ref.child('user_scores').child('firsttoflock').child($scope.user.$id).update(scores);
+            ref.child('user_scores').child('firsttoflock').child(firebase.auth().currentUser.uid).update(scores);
            }
 
 
@@ -182,7 +181,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
             if(!val[current_month]){
                var scores = {};
                 scores[current_month] = {album_score:0};
-             ref.child('user_scores').child('firsttoflock').child($scope.user.$id).update(scores);
+             ref.child('user_scores').child('firsttoflock').child(firebase.auth().currentUser.uid).update(scores);
             }
          });
         // send Whatsapp notification
@@ -194,7 +193,9 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
          // });
 
 
-         //send email notification via mailchimp
+         send email notification via mailchimp
+
+
          var ebody = {'user': $scope.username};
          $http.post('/api/emailnotification', ebody).success(function(data) {
            console.log("email notification sent");
