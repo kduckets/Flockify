@@ -6,7 +6,7 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Notific
 
     upvote: function(post, media_type) {
       var defer = $q.defer();
-      var id = Users.current_user_id;
+      var id = Auth.$getAuth().uid;
       console.log('id:', id);
       console.log('post creator:',post.creator_id);
       // if(id == post.creator_id){
@@ -17,7 +17,7 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Notific
 
       if (id != post.creator_id) {
 
-        ref.child('user_scores').child(Users.current_group).child(post.creator_id).once("value", function(snapshot) {
+        ref.child('user_scores').child('firsttoflock').child(post.creator_id).once("value", function(snapshot) {
           var val = snapshot.val();
           if (!val){
             console.error("No snapshot found for ", post.creator_id);
@@ -27,7 +27,7 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Notific
            // if(!val[current_week]){
            //    var scores = {};
            //     scores[current_week] = {album_score:0};
-           //  ref.child('user_scores').child(Users.current_group).child(post.creator_id).update(scores);
+           //  ref.child('user_scores').child('firsttoflock').child(post.creator_id).update(scores);
            // }
 
           var total_score = val.album_score;
@@ -57,7 +57,7 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Notific
             total_score += score_mod;
             Post.vote(post.$id, post.score);
 
-            ref.child("user_scores").child(Users.current_group).child(post.creator_id).update({
+            ref.child("user_scores").child('firsttoflock').child(post.creator_id).update({
               'album_score': total_score
             });
 
@@ -74,14 +74,14 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Notific
                   var current_week = 'weekly_score_'+week;
                   var weekly_score = val[current_week].album_score;
                       weekly_score += score_mod;
-              ref.child("user_scores").child(Users.current_group).child(post.creator_id).child(current_week).update({
+              ref.child("user_scores").child('firsttoflock').child(post.creator_id).child(current_week).update({
                 'album_score': weekly_score
               });
             }
           }if(!val[current_week]){
                         var scores = {};
                          scores[current_week] = {album_score:1};
-                      ref.child('user_scores').child(Users.current_group).child(post.creator_id).update(scores);
+                      ref.child('user_scores').child('firsttoflock').child(post.creator_id).update(scores);
                      }
 
             if(val[current_month]){
@@ -91,14 +91,14 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Notific
                   var current_month = 'monthly_score_'+month;
                   var monthly_score = val[current_month].album_score;
                       monthly_score += score_mod;
-              ref.child("user_scores").child(Users.current_group).child(post.creator_id).child(current_month).update({
+              ref.child("user_scores").child('firsttoflock').child(post.creator_id).child(current_month).update({
                 'album_score': monthly_score
               });
             }
           }if(!val[current_month]){
                   var scores = {};
                   scores[current_month] = {album_score:1};
-              ref.child('user_scores').child(Users.current_group).child(post.creator_id).update(scores);
+              ref.child('user_scores').child('firsttoflock').child(post.creator_id).update(scores);
                 }
 
             var msg = 'Gave "' + post.media_info.album + '" an upvote!';
@@ -117,7 +117,7 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Notific
 
     downvote: function(post, media_type) {
       var defer = $q.defer();
-      var id = Users.current_user_id;
+      var id = Auth.$getAuth().uid;
       console.log('id:', id);
       console.log('post creator:',post.creator_id);
       // if(id == post.creator_id){
@@ -127,7 +127,7 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Notific
       // }
 
       if (id != post.creator_id) {
-        ref.child('user_scores').child(Users.current_group).child(post.creator_id).once("value", function(snapshot) {
+        ref.child('user_scores').child('firsttoflock').child(post.creator_id).once("value", function(snapshot) {
           var val = snapshot.val();
           if (!val){
             console.error("No snapshot found for ", post.creator_id);
@@ -158,7 +158,7 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Notific
             total_score += score_mod;
             Post.vote(post.$id, post.score);
 
-            ref.child("user_scores").child(Users.current_group).child(post.creator_id).update({
+            ref.child("user_scores").child('firsttoflock').child(post.creator_id).update({
               'album_score': total_score
             });
 
@@ -175,14 +175,14 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Notific
                   var current_week = 'weekly_score_'+week;
                   var weekly_score = val[current_week].album_score;
                       weekly_score += score_mod;
-              ref.child("user_scores").child(Users.current_group).child(post.creator_id).child(current_week).update({
+              ref.child("user_scores").child('firsttoflock').child(post.creator_id).child(current_week).update({
                 'album_score': weekly_score
               });
             }
           }if(!val[current_week]){
                         var scores = {};
                          scores[current_week] = {album_score:-1};
-                      ref.child('user_scores').child(Users.current_group).child(post.creator_id).update(scores);
+                      ref.child('user_scores').child('firsttoflock').child(post.creator_id).update(scores);
                      }
 
             if(val[current_month]){
@@ -192,14 +192,14 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Notific
                   var current_month = 'monthly_score_'+month;
                   var monthly_score = val[current_month].album_score;
                       monthly_score += score_mod;
-              ref.child("user_scores").child(Users.current_group).child(post.creator_id).child(current_month).update({
+              ref.child("user_scores").child('firsttoflock').child(post.creator_id).child(current_month).update({
                 'album_score': monthly_score
               });
             }
           }if(!val[current_month]){
                   var scores = {};
                   scores[current_month] = {album_score:-1};
-              ref.child('user_scores').child(Users.current_group).child(post.creator_id).update(scores);
+              ref.child('user_scores').child('firsttoflock').child(post.creator_id).update(scores);
                 }
 
 
@@ -213,7 +213,7 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Notific
 
     starPost: function(post, media_type) {
       var defer = $q.defer();
-      var id = Users.current_user_id;
+      var id = Auth.$getAuth().uid;
       console.log('id:', id);
       console.log('post creator:',post.creator_id);
       // if(id == post.creator_id){
@@ -223,7 +223,7 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Notific
       // }
 
       if (id != post.creator_id) {
-        ref.child('user_scores').child(Users.current_group).child(post.creator_id).once("value", function(snapshot) {
+        ref.child('user_scores').child('firsttoflock').child(post.creator_id).once("value", function(snapshot) {
 
           var val = snapshot.val();
           if (!val){
@@ -233,7 +233,7 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Notific
            // if(!val[current_week]){
            //    var scores = {};
            //     scores[current_week] = {album_score:0};
-           //  ref.child('user_scores').child(Users.current_group).child(post.creator_id).update(scores);
+           //  ref.child('user_scores').child('firsttoflock').child(post.creator_id).update(scores);
            // }
 
           var total_score = val.album_score;
@@ -260,10 +260,10 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Notific
             total_score = total_score + 2;
             user_stars = user_stars + 1;
 
-            ref.child("user_scores").child(Users.current_group).child(post.creator_id).update({
+            ref.child("user_scores").child('firsttoflock').child(post.creator_id).update({
               'album_score': total_score
             });
-            ref.child("user_scores").child(Users.current_group).child(post.creator_id).update({
+            ref.child("user_scores").child('firsttoflock').child(post.creator_id).update({
               'stars': user_stars
             });
 
@@ -279,14 +279,14 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Notific
                var current_week = 'weekly_score_'+week;
                var weekly_score = val[current_week].album_score;
                       weekly_score = weekly_score + 2;
-              ref.child("user_scores").child(Users.current_group).child(post.creator_id).child(current_week).update({
+              ref.child("user_scores").child('firsttoflock').child(post.creator_id).child(current_week).update({
                 'album_score': weekly_score
               });
             }
           }if(!val[current_week]){
                         var scores = {};
                          scores[current_week] = {album_score:2};
-                      ref.child('user_scores').child(Users.current_group).child(post.creator_id).update(scores);
+                      ref.child('user_scores').child('firsttoflock').child(post.creator_id).update(scores);
                      }
 
 
@@ -297,7 +297,7 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Notific
                   var current_month = 'monthly_score_'+month;
                   var monthly_score = val[current_month].album_score;
                       monthly_score = monthly_score + 2;
-              ref.child("user_scores").child(Users.current_group).child(post.creator_id).child(current_month).update({
+              ref.child("user_scores").child('firsttoflock').child(post.creator_id).child(current_month).update({
                 'album_score': monthly_score
               });
             }
@@ -305,7 +305,7 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Notific
           if(!val[current_month]){
                   var scores = {};
                   scores[current_month] = {album_score:2};
-              ref.child('user_scores').child(Users.current_group).child(post.creator_id).update(scores);
+              ref.child('user_scores').child('firsttoflock').child(post.creator_id).update(scores);
                 }
 
             var msg = 'Gave "' + post.media_info.album + '" a star!';

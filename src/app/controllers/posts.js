@@ -12,9 +12,9 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
     var ref = firebase.database().ref();
     $scope.posts = [];
     $scope.showSearch = false;
-  //   if (authData && Users.current_group) {
-  //   $scope.current_group = Users.current_group;
-  //   var chatRef = firebase.database().ref("/chats/"+Users.current_group);
+  //   if (authData && 'firsttoflock') {
+  //   $scope.current_group = 'firsttoflock';
+  //   var chatRef = firebase.database().ref("/chats/"+'firsttoflock');
   //   $scope.user = Users.getProfile(authData.uid);
   //   $scope.username = $scope.user.username;
   //   Users.get_zip(authData.uid).then(function(zip){
@@ -69,7 +69,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
 //      concert.venue_city = response.data[0].venue.city;
 //      concert.venue_region = response.data[0].venue.region;
 //      concert.ticket_status = response.data[0].ticket_type;
-//      concert.group = Users.current_group;
+//      concert.group = 'firsttoflock';
 //      concert.formatted_location = response.data[0].formatted_location;
 //      concert.formatted_datetime = response.data[0].formatted_datetime;
 //      concert.post_id = post.$id;
@@ -117,9 +117,9 @@ $scope.username = $scope.user.username;
 
 
   $scope.filteredItems = [];
-  if(user && Users.current_group){
+  if(user && 'firsttoflock'){
     $scope.loadingCircle = true;
-  $firebaseArray(ref.child('posts').child(Users.current_group)).$loaded(function(data){
+  $firebaseArray(ref.child('posts').child('firsttoflock')).$loaded(function(data){
      $scope.posts = data;
      $scope.loadingCircle = false;
   });
@@ -142,11 +142,11 @@ $scope.username = $scope.user.username;
 
   // chatRef.limitToLast(1).on("child_added", function(snap) {
   //   if($scope.user){
-  //     if($cookieStore.get('last_chat_'+Users.current_group) == snap.key()) {
+  //     if($cookieStore.get('last_chat_'+'firsttoflock') == snap.key()) {
   //       return;
   //     }
   //     else {
-  //       $cookieStore.put('last_chat_'+Users.current_group, snap.key());
+  //       $cookieStore.put('last_chat_'+'firsttoflock', snap.key());
   //       if(authData.uid != snap.val().creator_id){
   //         $mdToast.show(
   //           $mdToast.simple()
@@ -167,7 +167,7 @@ $scope.username = $scope.user.username;
   };
 
 
-  var tags = $firebaseArray(ref.child('tags').child(Users.current_group));
+  var tags = $firebaseArray(ref.child('tags').child('firsttoflock'));
 
 
   $scope.sorter = '-';
@@ -417,9 +417,9 @@ $scope.spotify_login = function(){
 // }
 
   $scope.save = function(post) {
-    if($scope.user && Users.current_user_id != post.creator_id){
+    if($scope.user && Auth.$getAuth().uid != post.creator_id){
       console.log(post);
-      Profile.savePost(Users.current_user_id, post.$id, true);
+      Profile.savePost(Auth.$getAuth().uid, post.$id, true);
       // $scope.post.saveButtonText = 'saved';
       $mdToast.show(
         $mdToast.simple()
@@ -502,11 +502,11 @@ $scope.spotify_login = function(){
   //
     // if($scope.user){
     //   chatRef.limitToLast(1).on("child_added", function(snap) {
-    //     if($cookieStore.get('last_chat_'+Users.current_group) == snap.key()){
+    //     if($cookieStore.get('last_chat_'+'firsttoflock') == snap.key()){
     //       return;
     //     }
-    //     if(!$cookieStore.get('last_chat_'+Users.current_group)){
-    //       $cookieStore.put('last_chat_'+Users.current_group, snap.key());
+    //     if(!$cookieStore.get('last_chat_'+'firsttoflock')){
+    //       $cookieStore.put('last_chat_'+'firsttoflock', snap.key());
     //       return;
     //     }
     //

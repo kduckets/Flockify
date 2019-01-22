@@ -5,7 +5,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
   var ref = firebase.database().ref();
   var usersRef = firebase.database().ref("users");
 
-  // var tags = $firebaseArray(ref.child('tags').child(Users.current_group));
+  // var tags = $firebaseArray(ref.child('tags').child('firsttoflock'));
   var tags = $firebaseArray(ref.child('tags').child('firsttoflock'));
 
 

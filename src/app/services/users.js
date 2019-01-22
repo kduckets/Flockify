@@ -1,15 +1,12 @@
 module.exports = function($firebaseArray, $firebaseObject, $route, Auth, FIREBASE_URL, $q, $location, $firebaseAuth, $timeout){
 
- var auth = $firebaseAuth();
- var current_user_auth_data = firebase.auth().currentUser;
- console.log(current_user_auth_data);
 
- if(current_user_auth_data === 'null'){
- auth.$onAuthStateChanged(function(user) {
-    current_user_auth_data = firebase.auth().currentUser;
-  })
-}
- var current_user_id = (current_user_auth_data) ? current_user_auth_data.uid : null;
+ var auth = $firebaseAuth();
+
+  var current_user_auth_data = firebase.auth().currentUser;
+  console.log(current_user_auth_data);
+
+  var current_user_id = (current_user_auth_data) ? current_user_auth_data.uid : null;
 
   var usersRef = firebase.database().ref('users');
   var users = $firebaseArray(usersRef);
@@ -20,6 +17,8 @@ module.exports = function($firebaseArray, $firebaseObject, $route, Auth, FIREBAS
   var current_user_ref = (current_user_auth_data) ? usersRef.child(current_user_id) : null;
   var current_user = (current_user_auth_data) ? $firebaseObject(current_user_ref) : null;
   var subscribed_groups = {'groups': [{id:'firsttoflock', group_name: 'The Flock'}]};
+
+
   // if(current_user){
   //   current_user.$loaded().then(function() {
   //     var group_ref =  firebase.database().ref("groups");
@@ -93,5 +92,6 @@ module.exports = function($firebaseArray, $firebaseObject, $route, Auth, FIREBAS
   };
 
   return Users;
+
 
 };

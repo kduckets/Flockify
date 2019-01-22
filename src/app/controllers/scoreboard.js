@@ -36,8 +36,8 @@ module.exports = function ($scope, $routeParams, Profile, Post, Auth, $firebaseA
   $scope.orderby_string = "-"+ $scope.current_week + ".album_score";
   $scope.orderby_string_month = "-"+ $scope.current_month + ".album_score";
   $scope.sorter = '-album_score';
-  $scope.current_group = Users.current_group;
-  $scope.users = $firebaseArray(ref.child('user_scores').child(Users.current_group));
+  $scope.current_group = 'firsttoflock';
+  $scope.users = $firebaseArray(ref.child('user_scores').child('firsttoflock'));
 
 
 

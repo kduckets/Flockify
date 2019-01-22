@@ -28,14 +28,14 @@ module.exports = function ($scope, $routeParams, Profile, Post, Auth, $firebaseA
  };
 
   $scope.sorter = '-album_score';
-  $scope.current_group = Users.current_group;
-  $scope.users = $firebaseArray(ref.child('user_scores').child(Users.current_group));
+  $scope.current_group = 'firsttoflock';
+  $scope.users = $firebaseArray(ref.child('user_scores').child('firsttoflock'));
 
   $scope.scoreboards = [];
 
   //for each user, get weekly score nodes
   //add to array of weekly scoreboards if doesn't already exist in weekly scoreboards
-ref.child('user_scores').child(Users.current_group).once("value", function(snapshot) {
+ref.child('user_scores').child('firsttoflock').once("value", function(snapshot) {
   snapshot.forEach(function(childSnapshot) {
     // var key = childSnapshot.key();
     var childData = childSnapshot.val();

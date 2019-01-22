@@ -36,10 +36,12 @@ module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootSco
   $scope.auth = Auth;
   $scope.auth.$onAuthStateChanged(function(firebaseUser) {
     if (firebaseUser) {
-      $scope.subscribed_groups = Users.subscribed_groups.groups;
+      // $scope.subscribed_groups = Users.subscribed_groups.groups;
       // $scope.current_group = Users.current_group;
       // $scope.current_group_name = Users.current_group_name;
       // $scope.user = Users.getProfile(firebaseUser.uid);
+      var subscribed_groups = {'groups': [{id:'firsttoflock', group_name: 'The Flock'}]};
+      $scope.subscribed_groups = subscribed_groups.groups;
 
       $scope.user = $firebaseObject(usersRef.child(firebaseUser.uid));
       //$scope.subscribed_groups = Users.subscribed_groups.groups;
@@ -111,7 +113,7 @@ module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootSco
       originatorEv = ev;
       $mdOpenMenu(ev);
       $scope.notifications.length == 0;
-      notificationRef.child($scope.firebaseUser.uid).child(Users.current_group).child('actions').update({ new: false });
+      notificationRef.child($scope.firebaseUser.uid).child('firsttoflock').child('actions').update({ new: false });
       $scope.new_notifications = false;
     };
 

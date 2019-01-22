@@ -43,17 +43,17 @@ module.exports = function ($scope, $routeParams, Profile, Post, Auth, Users, $ui
     var week = moment().startOf('isoweek').format('MM_DD_YYYY');
     var current_week = 'weekly_score_'+week;
     $scope.postsNumber = Object.keys($scope.user_posts).length;
-    ref.child('user_scores').child(Users.current_group).child($scope.profile.$id).child('album_score').on("value", function(snapshot) {
+    ref.child('user_scores').child('firsttoflock').child($scope.profile.$id).child('album_score').on("value", function(snapshot) {
       $scope.total_score = snapshot.val();
       $scope.ratio = $scope.total_score/$scope.postsNumber;
     });
-    ref.child('user_scores').child(Users.current_group).child($scope.profile.$id).child(current_week).child('album_score').on("value", function(snapshot) {
+    ref.child('user_scores').child('firsttoflock').child($scope.profile.$id).child(current_week).child('album_score').on("value", function(snapshot) {
       $scope.score = snapshot.val();
     });
-    ref.child('user_scores').child(Users.current_group).child($scope.profile.$id).child('comments_score').on("value", function(snapshot) {
+    ref.child('user_scores').child('firsttoflock').child($scope.profile.$id).child('comments_score').on("value", function(snapshot) {
       $scope.comments_score = snapshot.val();
     });
-    ref.child('user_scores').child(Users.current_group).child($scope.profile.$id).child('stars').on("value", function(snapshot) {
+    ref.child('user_scores').child('firsttoflock').child($scope.profile.$id).child('stars').on("value", function(snapshot) {
       $scope.stars = snapshot.val();
     });
       $scope.loading = false;
@@ -95,7 +95,7 @@ module.exports = function ($scope, $routeParams, Profile, Post, Auth, Users, $ui
   };
 
   $scope.removeSaved = function(post){
-    Profile.savePost(Users.current_user_id, post.$id, false);
+    Profile.savePost(Auth.$getAuth().uid, post.$id, false);
              $mdToast.show(
         $mdToast.simple()
         .textContent(post.media_info.album + ' removed from your queue')

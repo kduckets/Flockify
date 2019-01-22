@@ -41,7 +41,7 @@ if(zip_code){
 
   $scope.post.$loaded().then(function(res){
     $scope.iframeUrl = $sce.trustAsResourceUrl("https://embed.spotify.com/?uri="+res.media_info.share_uri);
-     $firebaseArray(postRef.child(Users.current_group)).$loaded(function(data){
+     $firebaseArray(postRef.child('firsttoflock')).$loaded(function(data){
      $scope.tagFilter(data);
      $scope.albumsBySameArtist(data);
      $scope.matchingTags(data);
@@ -90,7 +90,7 @@ if(zip_code){
 //      $scope.concert.venue_city = response.data[0].venue.city;
 //      $scope.concert.venue_region = response.data[0].venue.region;
 //      $scope.concert.ticket_status = response.data[0].ticket_type;
-//      $scope.concert.group = Users.current_group;
+//      $scope.concert.group = 'firsttoflock';
 //      $scope.concert.formatted_location = response.data[0].formatted_location;
 //      $scope.concert.formatted_datetime = response.data[0].formatted_datetime;
 //      $scope.concert.post_id = post_id;
@@ -141,7 +141,7 @@ if(zip_code){
   $scope.searchText = null;
   $scope.selectedTags = [];
   $scope.requireMatch = true;
-  $scope.tags = $firebaseArray(ref.child('tags').child(Users.current_group));
+  $scope.tags = $firebaseArray(ref.child('tags').child('firsttoflock'));
   $scope.keys = [$mdConstant.KEY_CODE.COMMA, $mdConstant.KEY_CODE.ENTER];
 
 

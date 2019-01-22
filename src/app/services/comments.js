@@ -1,9 +1,9 @@
 module.exports = function ($firebaseArray, FIREBASE_URL, Auth, Post, Notification, $filter, Users, Util, $firebaseObject) {
   var ref = firebase.database().ref();
-  var comments = $firebaseArray(ref.child('comments').child(Users.current_group));
+  var comments = $firebaseArray(ref.child('comments').child('firsttoflock'));
   var commentsRef = firebase.database().ref("/comments");
-  var chatRef = firebase.database().ref("/chats/" + Users.current_group);
-  var id = Users.current_user_id;
+  var chatRef = firebase.database().ref("/chats/" + 'firsttoflock');
+  var id = Auth.$getAuth().uid;
   return {
     all: comments,
 
@@ -12,7 +12,7 @@ module.exports = function ($firebaseArray, FIREBASE_URL, Auth, Post, Notificatio
     },
 
     add_comment: function(comments_scope_array, post_id, comment) {
-      var user = Users.current_user;
+      var user = firebase.auth().currentUser;
       // TODO: figure out how we want to store dates
       // var date = new Date();
       // date.setMinutes(date.getTimezoneOffset());
@@ -21,8 +21,8 @@ module.exports = function ($firebaseArray, FIREBASE_URL, Auth, Post, Notificatio
       var new_comment = {
         text: comment,
         type: type,
-        creator_name: Users.getUsername(Auth.$getAuth().uid) || null,
-        creator_id: Auth.$getAuth().uid,
+        creator_name: Users.getUsername(firebase.auth().currentUser.uid) || null,
+        creator_id: firebase.auth().currentUser.uid,
         datetime_ts: moment.utc().format()
       };
       comments_scope_array.$add(new_comment);
@@ -33,7 +33,7 @@ module.exports = function ($firebaseArray, FIREBASE_URL, Auth, Post, Notificatio
         post.comments = (post.comments || 0) + 1;
         post.$save();
 
-        if (Users.current_user_id != comment.creator_id) {
+        if (firebase.auth().currentUser.uid != comment.creator_id) {
           Notification.add_action(comment.creator_id, {
             url: "/albums/" + post_id,
             msg: "'" + Util.trim(post.media_info.album) + "' was commented on by " + new_comment.creator_name
@@ -69,7 +69,7 @@ module.exports = function ($firebaseArray, FIREBASE_URL, Auth, Post, Notificatio
               url: "/albums/" + post_id,
               msg: "Your comment on '" + Util.trim(post.media_info.album, 25) + "' was liked."
             });
-        ref.child('user_scores').child(Users.current_group).child(comment.creator_id).once("value", function(snapshot) {
+        ref.child('user_scores').child('firsttoflock').child(comment.creator_id).once("value", function(snapshot) {
           var val = snapshot.val();
           if (!val){
             console.error("No snapshot found for ", comment.creator_id);
@@ -80,7 +80,7 @@ module.exports = function ($firebaseArray, FIREBASE_URL, Auth, Post, Notificatio
                 var comments_score = 0;
                 }
              var new_score = comments_score + 1;
-             ref.child("user_scores").child(Users.current_group).child(comment.creator_id).update({
+             ref.child("user_scores").child('firsttoflock').child(comment.creator_id).update({
               'comments_score': new_score
             });
         })
@@ -96,7 +96,7 @@ module.exports = function ($firebaseArray, FIREBASE_URL, Auth, Post, Notificatio
               url: "/albums/" + post_id,
               msg: "Your comment on '" + Util.trim(post.media_info.album, 25) + "' was liked."
             });
-          ref.child('user_scores').child(Users.current_group).child(comment.creator_id).once("value", function(snapshot) {
+          ref.child('user_scores').child('firsttoflock').child(comment.creator_id).once("value", function(snapshot) {
           var val = snapshot.val();
           if (!val){
             console.error("No snapshot found for ", comment.creator_id);
@@ -107,7 +107,7 @@ module.exports = function ($firebaseArray, FIREBASE_URL, Auth, Post, Notificatio
                 var comments_score = 0;
                 }
              var new_score = comments_score + 1;
-             ref.child("user_scores").child(Users.current_group).child(comment.creator_id).update({
+             ref.child("user_scores").child('firsttoflock').child(comment.creator_id).update({
               'comments_score': new_score
             });
         })
@@ -141,7 +141,7 @@ module.exports = function ($firebaseArray, FIREBASE_URL, Auth, Post, Notificatio
   //             url: "/albums/" + post_id,
   //             msg: "Your comment on '" + Util.trim(post.media_info.album, 25) + "' was disliked."
   //           });
-  //       ref.child('user_scores').child(Users.current_group).child(comment.creator_id).once("value", function(snapshot) {
+  //       ref.child('user_scores').child('firsttoflock').child(comment.creator_id).once("value", function(snapshot) {
   //         var val = snapshot.val();
   //         if (!val){
   //           console.error("No snapshot found for ", comment.creator_id);
@@ -152,7 +152,7 @@ module.exports = function ($firebaseArray, FIREBASE_URL, Auth, Post, Notificatio
   //               var comments_score = 0;
   //               }
   //            var new_score = comments_score - 1;
-  //            ref.child("user_scores").child(Users.current_group).child(comment.creator_id).update({
+  //            ref.child("user_scores").child('firsttoflock').child(comment.creator_id).update({
   //             'comments_score': new_score
   //           });
   //       })
@@ -168,7 +168,7 @@ module.exports = function ($firebaseArray, FIREBASE_URL, Auth, Post, Notificatio
   //             url: "/albums/" + post_id,
   //             msg: "Your comment on '" + Util.trim(post.media_info.album, 25) + "' was disliked."
   //           });
-  //         ref.child('user_scores').child(Users.current_group).child(comment.creator_id).once("value", function(snapshot) {
+  //         ref.child('user_scores').child('firsttoflock').child(comment.creator_id).once("value", function(snapshot) {
   //         var val = snapshot.val();
   //         if (!val){
   //           console.error("No snapshot found for ", comment.creator_id);
@@ -179,7 +179,7 @@ module.exports = function ($firebaseArray, FIREBASE_URL, Auth, Post, Notificatio
   //               var comments_score = 0;
   //               }
   //            var new_score = comments_score - 1;
-  //            ref.child("user_scores").child(Users.current_group).child(comment.creator_id).update({
+  //            ref.child("user_scores").child('firsttoflock').child(comment.creator_id).update({
   //             'comments_score': new_score
   //           });
   //       })
@@ -214,7 +214,7 @@ module.exports = function ($firebaseArray, FIREBASE_URL, Auth, Post, Notificatio
               url: "/chat/",
               msg: "Your chat '"+ Util.trim(comment.text, 25)+ "' was liked."
             });
-          ref.child('user_scores').child(Users.current_group).child(comment.creator_id).once("value", function(snapshot) {
+          ref.child('user_scores').child('firsttoflock').child(comment.creator_id).once("value", function(snapshot) {
           var val = snapshot.val();
           if (!val){
             console.error("No snapshot found for ", comment.creator_id);
@@ -225,7 +225,7 @@ module.exports = function ($firebaseArray, FIREBASE_URL, Auth, Post, Notificatio
                 var comments_score = 0;
                 }
              var new_score = comments_score + 1;
-             ref.child("user_scores").child(Users.current_group).child(comment.creator_id).update({
+             ref.child("user_scores").child('firsttoflock').child(comment.creator_id).update({
               'comments_score': new_score
             });
         })
@@ -241,7 +241,7 @@ module.exports = function ($firebaseArray, FIREBASE_URL, Auth, Post, Notificatio
               url: "/chat/",
               msg: "Your chat '"+ Util.trim(comment.text, 25)+ "' was liked."
             });
-          ref.child('user_scores').child(Users.current_group).child(comment.creator_id).once("value", function(snapshot) {
+          ref.child('user_scores').child('firsttoflock').child(comment.creator_id).once("value", function(snapshot) {
           var val = snapshot.val();
           if (!val){
             console.error("No snapshot found for ", comment.creator_id);
@@ -252,7 +252,7 @@ module.exports = function ($firebaseArray, FIREBASE_URL, Auth, Post, Notificatio
                 var comments_score = 0;
                 }
              var new_score = comments_score + 1;
-             ref.child("user_scores").child(Users.current_group).child(comment.creator_id).update({
+             ref.child("user_scores").child('firsttoflock').child(comment.creator_id).update({
               'comments_score': new_score
             });
         })

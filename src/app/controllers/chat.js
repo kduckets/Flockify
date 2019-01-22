@@ -31,7 +31,7 @@ module.exports = function ($scope, $routeParams, Post, Auth, Comment, Profile, $
   $scope.maxSize = 5; // Number of pager buttons to show
 
   // don't load scope.comments with comments until we know total #
-  var comments = $firebaseArray(ref.child('chats').child(Users.current_group));
+  var comments = $firebaseArray(ref.child('chats').child('firsttoflock'));
   comments.$loaded().then(function(comments) {
       $scope.totalItems = comments.length;
       $scope.comments = comments;
