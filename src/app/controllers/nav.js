@@ -113,7 +113,7 @@ module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootSco
       originatorEv = ev;
       $mdOpenMenu(ev);
       $scope.notifications.length == 0;
-      notificationRef.child($scope.firebaseUser.uid).child('firsttoflock').child('actions').update({ new: false });
+      notificationRef.child(firebase.auth().currentUser.uid).child('firsttoflock').child('actions').update({ new: false });
       $scope.new_notifications = false;
     };
 
