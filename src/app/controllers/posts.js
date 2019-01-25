@@ -376,7 +376,7 @@ $scope.spotify_login = function(){
       $scope.results = data.data.albums.items;
       var post_names = $.map($scope.posts, function(post, idx){
         if(post.media_info) {
-          return post.media_info.album;
+          return   {album:post.media_info.album, link:post.$id};
         }
       });
 
@@ -386,9 +386,15 @@ $scope.spotify_login = function(){
       }
 
       angular.forEach($scope.results, function(result, key) {
-        if(post_names.indexOf(result.name) != -1){
-          result.name += ' **already been posted**';
-        }
+         post_names.findIndex(function(obj) {if(obj.album === result.name){
+           result.name += ' **already been posted**';
+           result.link = obj.link;
+           console.log (obj.link)
+           ;}});
+
+        // if(post_names.findIndex(i => i.album === result.name) != -1){
+        //    result.name += ' **already been posted**';
+        // }
       });
 
     });

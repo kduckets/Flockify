@@ -86,15 +86,14 @@
       <md-list-item class="md-2-line" ng-click="viewAlbum(result.id, $event)">
         <img ng-src="{{result.images[2].url}}"/>
         <small>{{result.name}}</small>
+
       </md-list-item>
+        <div ng-show="result.link"><p style="margin-left: 40px"> <i>Wanna give props to the person who already posted?</i>
+          <md-button><a href="/#/albums/{{result.link}}">Go to posted album</a></md-button></p></div>
       <md-divider hide-xs hide-sm></md-divider>
     </md-list>
 
     <div align="center">
-
-
-
-
 
 
       <div class="scrolls" hide-xs hide-sm>
