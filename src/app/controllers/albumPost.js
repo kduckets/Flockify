@@ -25,8 +25,6 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
     user.$loaded().then(function() {
     $scope.user = user;
     $scope.username = user.username;
-    console.log($scope.user);
-    console.log($scope.username);
   })
 
 
