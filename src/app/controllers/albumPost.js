@@ -25,7 +25,11 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
     user.$loaded().then(function() {
     $scope.user = user;
     $scope.username = user.username;
+    console.log($scope.user);
+    console.log($scope.username);
   })
+
+
 
   $scope.album = album;
   // $scope.posts = Post.all;
@@ -68,8 +72,6 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
       return (tag.$value.indexOf(lowercaseQuery) === 0)
     };
   };
-
-  console.log($scope.album);
   // $http({
   //   method: 'GET',
   //   url: $scope.album
@@ -193,9 +195,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
          // });
 
 
-         send email notification via mailchimp
-
-
+         //send email notification via mailchimp
          var ebody = {'user': $scope.username};
          $http.post('/api/emailnotification', ebody).success(function(data) {
            console.log("email notification sent");
