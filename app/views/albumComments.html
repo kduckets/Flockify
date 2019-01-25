@@ -7,6 +7,7 @@
     <a ng-href="{{ post.media_info.share_uri }}" target="_blank">
       <img ng-src="{{ post.image_medium }}" class="comments"/>
     </a>
+    <iframe ng-src="{{songLinkUrl}}" height="88" width="90%" frameborder="0" allowtransparency="true"></iframe>
 
     <div style="padding-right:8px"><img ng-repeat="i in getNumber(post.stars) track by $index" ng-src="/images/gold-star.png" height="18"/>
 
@@ -195,6 +196,7 @@
 
       <div class="embed-container">
         <iframe ng-src="{{iframeUrl}}" height="80" frameborder="0" allowtransparency="true"></iframe>
+        <iframe ng-src="{{songLinkUrl}}" height="88" frameborder="0" allowtransparency="true"></iframe>
       </div>
     </div>
   </div>

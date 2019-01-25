@@ -28,6 +28,7 @@ module.exports = function ($scope, $routeParams, Profile, Post, Auth, $firebaseA
      })
      $scope.randomAlbum = $scope.allAlbums[Math.floor(Math.random() * $scope.allAlbums.length)];
      $window.location.href = '/#/albums/' + $scope.randomAlbum;
+     console.log($scope.allAlbums.length);
      });
       //get random from array
 
