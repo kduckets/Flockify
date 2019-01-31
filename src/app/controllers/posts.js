@@ -365,7 +365,10 @@ $scope.username = $scope.user.username;
   }
 
 $scope.spotify_login = function(){
-  Spotify.login().then(function(data){
+  Spotify.login().then(function(login){
+    Spotify.getCurrentUser().then(function (data) {
+      console.log(data);
+    });
        });
   //   console.log(data);
     // Spotify
