@@ -367,13 +367,14 @@ $scope.username = $scope.user.username;
 $scope.spotify_login = function(){
   Spotify.login().then(function(data){
     console.log(data);
+    Spotify
+    .createPlaylist(data, { name: 'Flockify Mixtape' })
+    .then(function (playlist_data) {
+     console.log('playlist', playlist_data);
+    });
   });
 
-  // Spotify
-  // .createPlaylist('1176458919', { name: 'Awesome Mix Vol. 1' })
-  // .then(function (data) {
-  //  console.log('playlist created');
-  // });
+
 };
 
   $scope.search = function(){
