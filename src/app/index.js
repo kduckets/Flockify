@@ -192,6 +192,7 @@ app.directive("scrollItem", require('./directives/scrollItem'));
 app.directive("backTop", require('./directives/backtop'));
 app.directive("focus", require('./directives/focus'));
 app.directive("mdTable", require('./directives/table'));
+app.directive("ngOnload", require('./directives/ngOnload'));
 
 app.controller('AlbumCommentsCtrl', require('./controllers/albumComments'));
 app.controller('AlbumCtrl', require('./controllers/albumPost'));
