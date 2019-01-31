@@ -365,14 +365,15 @@ $scope.username = $scope.user.username;
   }
 
 $scope.spotify_login = function(){
-  // Spotify.login().then(function(data){
+  Spotify.login().then(function(data){
+       });
   //   console.log(data);
-    Spotify
-    .createPlaylist('123037893', { name: 'Flockify Mixtape' })
-    .then(function (playlist_data) {
-     console.log('playlist', playlist_data);
-    });
-  // });
+    // Spotify
+    // .createPlaylist('123037893', { name: 'Flockify Mixtape' })
+    // .then(function (playlist_data) {
+    //  console.log('playlist', playlist_data);
+    // });
+
 
 
 };

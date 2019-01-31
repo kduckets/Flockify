@@ -50,7 +50,10 @@ app.config(function (SpotifyProvider) {
   SpotifyProvider.setScope('user-read-private playlist-read-private playlist-modify-private playlist-modify-public');
   // If you already have an auth token
   var token = window.localStorage.getItem('spotify-token');
-  SpotifyProvider.setAuthToken();
+  if(token){
+    console.log(token);
+  SpotifyProvider.setAuthToken(token);
+  }
 
 });
 app.config(function($mdThemingProvider) {
