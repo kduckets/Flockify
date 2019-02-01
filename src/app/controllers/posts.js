@@ -364,22 +364,19 @@ $scope.username = $scope.user.username;
     })
   }
 
-$scope.spotify_login = function(){
-  Spotify.login().then(function(login){
-    Spotify.getCurrentUser().then(function (data) {
-      console.log(data);
-    });
-       });
+// $scope.spotify_login = function(){
+//   Spotify.login().then(function(login){
+//     Spotify.getCurrentUser().then(function (data) {
+//       console.log(data);
+//     });
+//        });
   //   console.log(data);
     // Spotify
     // .createPlaylist('123037893', { name: 'Flockify Mixtape' })
     // .then(function (playlist_data) {
     //  console.log('playlist', playlist_data);
     // });
-
-
-
-};
+// };
 
   $scope.search = function(){
 
