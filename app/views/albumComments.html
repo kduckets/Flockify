@@ -41,22 +41,13 @@
 
   <div>
 
-      <div ng-show="concert.show_date" class="alert alert-success" role="alert">
-<p>{{post.media_info.artist}} is playing near you on {{concert.show_date | date:'MMM d, y h:mm a'}} at <b>{{concert.venue_name}}</b> in {{concert.venue_city}}, {{concert.venue_region}}<sup><small><a href="" ng-click="showZip($event)">[change]</small></sup></p>
-  <form ng-submit="updateZip(zip_code)" ng-show="show_zip_notification">
-  <md-input-container class="md-block" style="width:120px; display: inline-block; padding-left:10px" flex-gt-sm>
-            <input name="zipCode" ng-model="zip_code" placeholder=""
-                   required ng-pattern="/^[0-9]{5}$/" md-maxlength="5">
-            <div ng-messages="userForm.postalCode.$error" role="alert" multiple>
-              <div ng-message="pattern" class="my-message">Invalid zip
-              </div>
-            </div>
-          </md-input-container>
-          <md-button ng-click="updateZip(zip_code)"><small>submit</small></md-button>
-          </form>
-<p><a ng-href="{{concert.tickets_url}}">{{concert.ticket_status}}</a>
-<p><small>(Tour information provided by <a href="http://www.bandsintown.com">Bandsintown</a>)</small></p>
+    <div ng-show="concert.displayName" class="alert alert-success" role="alert">
+      <p><b>{{concert.displayName}}</b></p>
+<p><small>{{post.media_info.artist}} are playing near you on {{concert.show_date | date:'MMM d, y h:mm a'}} at <i>{{concert.venue_name}}</i>
+in {{concert.venue_city}}</small>
+<p><md-button ng-href="{{concert.tickets_url}}" target="_blank">Check for tickets</md-button></p>
 </div>
+
 
     <div>
       <a ng-href="{{ post.media_info.share_uri }}" target="_blank">
@@ -244,22 +235,7 @@
   <span class="after label label-pill label-danger">{{ post.comments }}</span></span>
         </md-button>
       </div>
-      <div ng-show="concert.show_date" class="alert alert-success" role="alert">
-<p>{{post.media_info.artist}} are playing near you on {{concert.show_date | date:'MMM d, y h:mm a'}} at <b>{{concert.venue_name}}</b> in {{concert.venue_city}}, {{concert.venue_region}}<sup><small><a href="" ng-click="showZip($event)">[change]</small></sup></p>
-  <form ng-submit="updateZip(zip_code)" ng-show="show_zip_notification">
-  <md-input-container class="md-block" style="width:120px; display: inline-block; padding-left:10px" flex-gt-sm>
-            <input name="zipCode" ng-model="zip_code" placeholder=""
-                   required ng-pattern="/^[0-9]{5}$/" md-maxlength="5">
-            <div ng-messages="userForm.postalCode.$error" role="alert" multiple>
-              <div ng-message="pattern" class="my-message">Invalid zip
-              </div>
-            </div>
-          </md-input-container>
-          <md-button ng-click="updateZip(zip_code)"><small>submit</small></md-button>
-          </form>
-<p><a ng-href="{{concert.tickets_url}}">{{concert.ticket_status}}</a>
-<p><small>(Tour information provided by <a href="http://www.bandsintown.com">Bandsintown</a>)</small></p>
-</div>
+
 
 
 
@@ -275,6 +251,13 @@
         </md-chip-template>
       </md-chips>
     </div>
+
+    <div ng-show="concert.displayName" class="alert alert-success" role="alert">
+      <p><b>{{concert.displayName}}</b></p>
+<p><small>{{post.media_info.artist}} are playing near you on {{concert.show_date | date:'MMM d, y h:mm a'}} at <i>{{concert.venue_name}}</i>
+in {{concert.venue_city}}</small>
+<p><md-button ng-href="{{concert.tickets_url}}" target="_blank">Check for tickets</md-button></p>
+</div>
 
     <div ng-show="user.$id === post.creator_id" layout="row" layout-align="center center">
       <md-chips ng-show="user.$id === post.creator_id"

@@ -105,6 +105,31 @@
       }
     });
 
+    router.post('/songkick', function(req, resp){
+      var artist = encodeURI(req.body.artist);
+      var ip = encodeURI(req.body.ip);
+      var req_str = "/api/3.0/events.json?apikey=oiEBOxqRUq4nSFje&artist_name="+ artist +"&location=ip:"+ip;
+      var options = {
+      hostname: "api.songkick.com",
+      port: 80,
+      path: req_str,
+      method: "GET",
+      };
+      var request = new http.ClientRequest(options);
+
+      request.on('response', function (sk_response) {
+        var body = '';
+      sk_response.on('data', function (sk_data) {
+          body += sk_data;
+      sk_response.on('end', function() {
+            var parsed = JSON.parse(body);
+            return resp.json(parsed);
+          });
+      });
+        });
+      request.end();
+      });
+
     router.post('/emailnotification', function(req, resp){
 
       mailchimp.post('campaigns', {

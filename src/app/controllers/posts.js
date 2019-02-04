@@ -4,46 +4,13 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
                           bandsintownFactory, $firebaseObject, Concert, Util, Notification){
 
   var auth = $firebaseAuth();
-
-
   auth.$onAuthStateChanged(function(user) {
   // var firebaseUser = $scope.authObj.$getAuth();
   if (user) {
     var ref = firebase.database().ref();
     $scope.posts = [];
     $scope.showSearch = false;
-  //   if (authData && 'firsttoflock') {
-  //   $scope.current_group = 'firsttoflock';
-  //   var chatRef = firebase.database().ref("/chats/"+'firsttoflock');
-  //   $scope.user = Users.getProfile(authData.uid);
-  //   $scope.username = $scope.user.username;
-  //   Users.get_zip(authData.uid).then(function(zip){
-  //     $scope.user_zip = zip;
-  //
-  // if(!$scope.user_zip){
-  //     $scope.show_zip_notification = true;
-  //   }
-  //
-  //   });
 
-
-// });
-
-
-// var getConcerts = function(){
-//   Users.get_zip(authData.uid).then(function(zip){
-//      if(zip){
-//       $scope.user_zip = zip;
-//       }
-//       $http({
-//       method: 'GET',
-//       url: 'https://maps.googleapis.com/maps/api/geocode/json?address='+ zip +'&sensor=true'
-// }).then(function successCallback(response) {
-//     var city = response.data.results[0].address_components[1].long_name;
-//     var state = response.data.results[0].address_components[3].short_name;
-//     var city_state = city+', '+state;
-//     $scope.location = ($scope.user_zip ? city_state: "use_geoip");
-//
 //    // ************temporary for past concerts*****************************
 //    Profile.getPosts(authData.uid).then(function(posts) {
 //
@@ -101,16 +68,6 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
 //     });
 // }
 
-
-
-// $scope.updateZip =function(zip_code){
-// if(zip_code){
-//   Users.set_zip(user.uid,zip_code);
-//   $scope.user_zip = zip_code;
-//   $scope.show_zip_notification = false;
-//   getConcerts();
-// }
-// }
 
 $scope.user = Users.getProfile(user.uid);
 $scope.username = $scope.user.username;

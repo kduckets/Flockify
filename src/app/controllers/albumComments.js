@@ -1,6 +1,6 @@
-module.exports = function ($scope, $routeParams, Post, Auth, Comment, Notification, $firebaseArray, Profile, $http, $filter, $sce, $location,
+module.exports = function ($scope, $routeParams, Post, Auth, Comment, Notification, Concert, $firebaseArray, Profile, $http, $filter, $sce, $location,
                            $uibModal, Action, $mdToast, FIREBASE_URL, $mdConstant, $mdDialog, Users,
-                           Spotify, bandsintownFactory, $firebaseObject, Concert, $firebaseAuth) {
+                           Spotify, $firebaseObject, $firebaseAuth) {
   var post_id = $routeParams.postId;
   var postRef = firebase.database().ref("/posts");
   var usersRef = firebase.database().ref("users");
@@ -9,26 +9,11 @@ module.exports = function ($scope, $routeParams, Post, Auth, Comment, Notificati
   var authData = Auth.$getAuth();
   var auth = $firebaseAuth();
 
+
 auth.$onAuthStateChanged(function(user) {
 
-Notification.page_view("/albums/" + post_id);
 
-$scope.updateZip =function(zip_code){
-if(zip_code){
-  $scope.user_zip = zip;
-      $http({
-      method: 'GET',
-      url: 'https://maps.googleapis.com/maps/api/geocode/json?address='+ zip +'&sensor=true' + '&key=AIzaSyDJpVexqRWzN_q9XnNg2kRa0HxkuK15Hk0'
-}).then(function successCallback(response) {
-    var city = response.data.results[0].address_components[1].long_name;
-    var state = response.data.results[0].address_components[3].short_name;
-    var city_state = city+', '+state;
-    $scope.location = ($scope.user_zip ? city_state: "use_geoip");
-  });
-  $scope.show_zip_notification = false;
-  bandsintown($scope.post);
-}
-}
+Notification.page_view("/albums/" + post_id);
 
 
   // $scope.login = function(){
@@ -47,21 +32,46 @@ if(zip_code){
      $scope.albumsBySameArtist(data);
      $scope.matchingTags(data);
      $scope.loadingCircleRelated = false;
+     $http.get("https://ipinfo.io/").then(function (resp)
+		  {
+			$scope.ip = resp.data.ip;
+      var song_kick_body = {'artist': $scope.post.media_info.artist, 'ip':$scope.ip};
+      $http.post('/api/songkick', song_kick_body).success(function(response) {
+          if(response.resultsPage.results.event !== undefined){
+           $scope.concert = {};
+           $scope.concert.displayName = response.resultsPage.results.event[0].displayName;
+           $scope.concert.artist = response.resultsPage.results.event[0].performance[0].displayName;
+           $scope.concert.artist_name = response.resultsPage.results.event[0].performance[0].displayName;
+           $scope.concert.tickets_url = response.resultsPage.results.event[0].uri;
+           $scope.concert.show_date = response.resultsPage.results.event[0].start.datetime;
+           $scope.concert.venue_url = response.resultsPage.results.event[0].venue.uri;
+           $scope.concert.venue_name = response.resultsPage.results.event[0].venue.displayName;
+           $scope.concert.venue_city = response.resultsPage.results.event[0].location.city;
+           $scope.concert.group = 'firsttoflock';
+           $scope.concert.formatted_location = response.resultsPage.results.event[0].location.city;
+           $scope.concert.formatted_datetime = response.resultsPage.results.event[0].start.datetime;
+           $scope.concert.post_id = post_id;
+           $scope.concert.bit_id = response.resultsPage.results.event[0].id;
+           $scope.concert.thumb_url = $scope.post.image_small;
+           $scope.concert.ticket_status  = "Tickets";
 
-//   Users.get_zip(authData.uid).then(function(zip){
-//       $scope.user_zip = zip;
-//
-//       $http({
-//       method: 'GET',
-//       url: 'https://maps.googleapis.com/maps/api/geocode/json?address='+ zip +'&sensor=true' + '&key=AIzaSyDJpVexqRWzN_q9XnNg2kRa0HxkuK15Hk0'
-// }).then(function successCallback(response) {
-//     var city = response.data.results[0].address_components[1].long_name;
-//     var state = response.data.results[0].address_components[3].short_name;
-//     var city_state = city+', '+state;
-//     $scope.location = ($scope.user_zip ? city_state: "use_geoip");
-//     // bandsintown($scope.post);
-//   });
-// });
+           var actions_ref = ref.child('user_actions').child($scope.user.$id).child(post_id);
+
+           var current_actions = $firebaseObject(actions_ref);
+
+           current_actions.$loaded().then(function(res) {
+           if(res.up || res.star || $scope.user.$id === $scope.post.creator_id) {
+            $scope.concert.upvoted = true;
+           }
+           // Concert.add($scope.concert, $scope.concert.bit_id);
+           ref.child('concerts').child($scope.user.$id).child($scope.concert.bit_id).update($scope.concert);
+         });
+          }
+      }).catch(function (response) {
+        console.log('error', response);
+      });
+		  });
+
 
   });
   });
@@ -69,68 +79,10 @@ if(zip_code){
     $scope.related_albums = [];
     $scope.loadingCircleRelated = true;
 
-// var bandsintown = function(post){
-//
-//   bandsintownFactory.getEventsFromArtistByLocation({
-//     artist:post.media_info.artist, // ? and / characters must be double escaped. Artists such as "AC/DC" will end up as "AC%252FDC"
-//     location:$scope.location , // city,state (US or CA) || city,country || lat,lon || ip address
-//     // radius:"<RADIUS">, // (optional) (default: 25) in miles. valid values: 0-150
-//     app_id:"Flockify", //The application ID can be anything, but should be a word that describes your application or company.
-// }).then(function (response) {
-//     if(response.data[0]){
-//      console.log(response);
-//      // $scope.concert_obj = response.data[0];
-//      $scope.concert = {};
-//      $scope.concert.artist = response.data[0].artists;
-//      $scope.concert.artist_name = response.data[0].artists[0].name;
-//      $scope.concert.thumb_url = response.data[0].artists[0].thumb_url;
-//      $scope.concert.tickets_url = response.data[0].ticket_url;
-//      $scope.concert.show_date = response.data[0].datetime;
-//      // $scope.concert.venue_url = response.data[0].venue.url;
-//      $scope.concert.venue_name = response.data[0].venue.name;
-//      $scope.concert.venue_city = response.data[0].venue.city;
-//      $scope.concert.venue_region = response.data[0].venue.region;
-//      $scope.concert.ticket_status = response.data[0].ticket_type;
-//      $scope.concert.group = 'firsttoflock';
-//      $scope.concert.formatted_location = response.data[0].formatted_location;
-//      $scope.concert.formatted_datetime = response.data[0].formatted_datetime;
-//      $scope.concert.post_id = post_id;
-//      $scope.concert.bit_id = response.data[0].id;
-//
-//      var actions_ref = ref.child('user_actions').child($scope.user.$id).child(post_id);
-//
-//      var current_actions = $firebaseObject(actions_ref);
-//
-//      current_actions.$loaded().then(function(res) {
-//
-//      if(res.up || res.star || $scope.user.$id === $scope.post.creator_id) {
-//       $scope.concert.upvoted = true;
-//      }
-//      Concert.add($scope.concert, $scope.concert.bit_id);
-//    });
-//     }
-// }).catch(function (response) {
-//   console.log('error', response);
-//     //on error
-// });
-//
-// };
+
 
   $scope.showZip = function(ev) {
     $scope.show_zip_notification = true;
-    // $mdDialog.show({
-    //   controller: 'ZipCtrl',
-    //   templateUrl: '/views/zip.html',
-    //   parent: angular.element(document.body),
-    //   targetEvent: ev,
-    //   clickOutsideToClose:true,
-    //   fullscreen: false
-    // })
-    // .then(function(answer) {
-    //   $scope.status = 'You said the information was "' + answer + '".';
-    // }, function() {
-    //   $scope.status = 'You cancelled the dialog.';
-    // });
 };
 
 
