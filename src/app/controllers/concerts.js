@@ -9,7 +9,7 @@ auth.$onAuthStateChanged(function(user) {
   var user_id = user.uid;
   var authData = Auth.$getAuth();
   $scope.filter_start_date = moment().subtract(1, 'days');
-  $scope.only_upvoted = true;
+  $scope.only_upvoted = false;
   $scope.user = Users.getProfile(authData.uid);
   $scope.username = $scope.user.username;
 
