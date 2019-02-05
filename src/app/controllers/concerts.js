@@ -18,7 +18,7 @@ auth.$onAuthStateChanged(function(user) {
   }
 
   $scope.goToAlbum = function(url){
-    $location.path('/#/albums/'+url);
+    $location.path('/albums/'+url);
   }
 
 
