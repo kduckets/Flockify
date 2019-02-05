@@ -45,7 +45,7 @@
       <p><b>{{concert.displayName}}</b></p>
 <p><small>{{post.media_info.artist}} are playing near you on {{concert.show_date | date:'MMM d, y h:mm a'}} at <i>{{concert.venue_name}}</i>
 in {{concert.venue_city}}</small>
-<p><md-button ng-href="{{concert.tickets_url}}" target="_blank">Check for tickets</md-button></p>
+<p align="center"><md-button ng-href="{{concert.tickets_url}}" target="_blank">Check for tickets</md-button></p>
 </div>
 
 
@@ -256,7 +256,7 @@ in {{concert.venue_city}}</small>
       <p><b>{{concert.displayName}}</b></p>
 <p><small>{{post.media_info.artist}} are playing near you on {{concert.show_date | date:'MMM d, y h:mm a'}} at <i>{{concert.venue_name}}</i>
 in {{concert.venue_city}}</small>
-<p><md-button ng-href="{{concert.tickets_url}}" target="_blank">Check for tickets</md-button></p>
+<p align="center"><md-button ng-href="{{concert.tickets_url}}" target="_blank">Check for tickets</md-button></p>
 </div>
 
     <div ng-show="user.$id === post.creator_id" layout="row" layout-align="center center">
