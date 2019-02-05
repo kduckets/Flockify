@@ -1,22 +1,21 @@
 
+<!--
 
- <div layout="row" layout-align="center center">
- <div>
-   <br/>
-   <br/>
  <md-switch ng-model="only_upvoted" aria-label="Switch 1">
    <small>Only show upvoted artists</small>
    <br/>
-  </md-switch>
- </div>
+  </md-switch> -->
 
-          </div>
-          <br/>
-          <br/>
+<div align="center">
+<md-button ng-click="getConcertsFromLikes()" style="color:#FF1493"><b>Find new shows in my area</b></md-button>
+<div ng-show="loading" align="center">
+  <md-progress-circular md-mode='indeterminate' md-diameter="32"></md-progress-circular>
+</div>
+</div>
 
-<md-button ng-click="getConcertsFromLikes()" style="color:#FF1493"><b>Click to update concerts</b></md-button>
+<!-- *************************************** DESKTOP ************************************ -->
 
-<div id="md-table-template" layout-align="center center">
+<div id="md-table-template" layout-align="center center" hide-xs hide-sm>
   <table md-colresize="md-colresize" class="md-table">
     <thead ng-show="content.length > 0">
       <tr class="md-table-headers-row">
@@ -47,6 +46,49 @@
         </td>
         <td>
         <a ng-href="{{c.tickets_url}}" target=“_blank”>{{c.ticket_status}}</a>
+        </td>
+        <td>
+          <md-button aria-label="Info" ng-click="removeConcert(c)"> <!-- <ng-md-icon icon="more_vert"></ng-md-icon> -->
+          <ng-md-icon icon="clear"></ng-md-icon>
+          </md-button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+    <p ng-show="content.length == 0" align="center"><br/><i>No upcoming concerts yet</i></p>
+</div>
+<!-- ******************************* MOBILE HERE *********************************** -->
+<div id="md-table-template" layout-align="center center" hide-md hide-gt-md show-xs show-sm>
+  <table md-colresize="md-colresize" class="md-table">
+    <thead ng-show="content.length > 0">
+      <tr class="md-table-headers-row">
+        <th ng-repeat="h in headers_mobile" class="md-table-header"><!-- <a href="#" ng-if="handleSort(h.field)" ng-click="reverse=!reverse;order(h.field,reverse)">{{h.name}} <i ng-show="reverse &amp;&amp; h.field == predicate" class="ion-android-arrow-dropup"></i><i ng-show="!reverse &amp;&amp; h.field == predicate" class="ion-android-arrow-dropdown"></i></a><span ng-if="!handleSort(h.field)"> -->{{h.name}}<!-- </span> --></th>
+        <th class="md-table-header"></th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr ng-repeat="c in content | orderBy:'show_date' | filter: (only_upvoted || '') && {upvoted:'true'} | filter:{removed:'!true'} |
+      unique:'bit_id' | concertDate:filter_start_date track by c.bit_id" class="md-table-content-row" ng-click="goToAlbum(c.post_id)">
+        <td>
+          <div class="md-table-thumbs">
+            <div style="background-image:url({{c.thumb_url}})"></div>
+          </div>
+        </td>
+        <td align="center">
+        <b>{{c.artist_name}}</b>
+        </td>
+         <td align="center">
+        {{c.formatted_datetime | date:'MMM d'}}
+        </td>
+        <td align="center">
+        {{c.venue_name}}
+        </td>
+         <!-- <td>
+        {{c.formatted_location}}
+        </td> -->
+        <td>
+        <a ng-href="{{c.tickets_url}}" target=“_blank”><img src="/images/ticket.png" height="32px" /></a>
         </td>
         <td>
           <md-button aria-label="Info" ng-click="removeConcert(c)"> <!-- <ng-md-icon icon="more_vert"></ng-md-icon> -->

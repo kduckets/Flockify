@@ -1,5 +1,5 @@
 module.exports = function ($scope, $routeParams, Profile, Post, Auth, $firebaseArray, FIREBASE_URL, Users,
-  $location, $filter, Concert, Notification, $http, bandsintownFactory, $route, $firebaseObject, $window, $firebaseAuth) {
+  $location, $filter, Concert, Notification, $http, bandsintownFactory, $route, $firebaseObject, $window, $firebaseAuth, $q) {
 
 var auth = $firebaseAuth();
 
@@ -41,6 +41,28 @@ auth.$onAuthStateChanged(function(user) {
     },{
       name: 'Location',
       field: 'formatted_location'
+    },
+    {
+      name: 'Tickets',
+      field: 'ticket_status'
+    }
+  ];
+
+  $scope.headers_mobile = [
+    {
+      name:'',
+      field:'thumb_url'
+    },
+    {
+      name: 'Band',
+      field: 'artist_name'
+    },{
+      name: 'Date',
+      field: 'formatted_datetime'
+    },
+    {
+      name:'Venue',
+      field: 'venue_name'
     },
     {
       name: 'Tickets',
@@ -90,10 +112,15 @@ $scope.getConcertsFromLikes = function(){
 //    //todo: move to server side; nightly run for all users?
 //
 //
+  var promises = [];
+
 $http.get("https://ipinfo.io/").then(function (resp){
+    $scope.loading = true;
     $scope.ip = resp.data.ip;
  angular.forEach(posts, function(post, key) {
   if (post.media_info && post.media_info.artist) {
+    var deferred = $q.defer();
+    promises.push(deferred.promise);
      var song_kick_body = {'artist': post.media_info.artist, 'ip':$scope.ip};
 
      $http.post('/api/songkick', song_kick_body).success(function(resp) {
@@ -128,17 +155,16 @@ $http.get("https://ipinfo.io/").then(function (resp){
      ref.child('concerts').child(user.uid).child(concert.bit_id).update(concert);
    });
 
-    }
+ }
 }).catch(function (response) {
   console.log('error, adding to queue', response);
   console.log('length',$scope.queue.length);
     if(post.media_info && post.media_info.artist){
-      $scope.loadingCircle = true;
+     $scope.loadingCircle = true;
      $scope.queue.push(post);
       console.log('length',$scope.queue.length);
     }
 });
-
     console.log('queue',$scope.queue);
     // setTimeout(function(){
     //
@@ -150,12 +176,13 @@ $http.get("https://ipinfo.io/").then(function (resp){
     //   {$scope.loadingCircle = false;}
     //
     // }, 70000);
-
-
 };
 })
 
 
+$q.all(promises).then(function() {
+    $scope.loading = false;
+  });
 
   $scope.custom = {band: 'bold'};
   $scope.sortable = ['formatted_datetime'];
