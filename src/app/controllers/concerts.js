@@ -63,10 +63,6 @@ auth.$onAuthStateChanged(function(user) {
     {
       name:'Venue',
       field: 'venue_name'
-    },
-    {
-      name: 'Tickets',
-      field: 'ticket_status'
     }
   ];
 

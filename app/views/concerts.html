@@ -45,7 +45,7 @@
         {{c.formatted_location}}
         </td>
         <td>
-        <a ng-href="{{c.tickets_url}}" target=“_blank”>{{c.ticket_status}}</a>
+        <a ng-href="{{c.tickets_url}}" target=“_blank”><img src="/images/ticket.png" height="32px" /></a>
         </td>
         <td>
           <md-button aria-label="Info" ng-click="removeConcert(c)"> <!-- <ng-md-icon icon="more_vert"></ng-md-icon> -->
@@ -75,20 +75,14 @@
             <div style="background-image:url({{c.thumb_url}})"></div>
           </div>
         </td>
-        <td align="center">
-        <b>{{c.artist_name}}</b>
-        </td>
-         <td align="center">
-        {{c.formatted_datetime | date:'MMM d'}}
-        </td>
-        <td align="center">
-        {{c.venue_name}}
-        </td>
-         <!-- <td>
-        {{c.formatted_location}}
-        </td> -->
         <td>
-        <a ng-href="{{c.tickets_url}}" target=“_blank”><img src="/images/ticket.png" height="32px" /></a>
+        <b><small>{{c.artist_name}}</small></b>
+        </td>
+         <td>
+        <small>{{c.formatted_datetime | date:'M/d'}}</small>
+        </td>
+        <td>
+        <small>{{c.venue_name}}</small>
         </td>
         <td>
           <md-button aria-label="Info" ng-click="removeConcert(c)"> <!-- <ng-md-icon icon="more_vert"></ng-md-icon> -->
