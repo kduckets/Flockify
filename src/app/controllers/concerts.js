@@ -51,7 +51,7 @@ auth.$onAuthStateChanged(function(user) {
  ref.child('concerts').child(user_id).on('value', function(dataSnapshot) {
   //todo: check for posts with same artists and combine
   //todo: show groups that posts are in
-  //todo: add to calendar botton
+  //todo: add to calendar button
   //todo: notifications for concerts coming up
 
    var dataObj = dataSnapshot.val();
@@ -62,7 +62,14 @@ auth.$onAuthStateChanged(function(user) {
 
  $scope.removeConcert = function(concert){
    ref.child('concerts').child(user_id).child(concert.bit_id).update({'removed':true});
- }
+ };
+
+ Profile.getPosts(user.uid).then(function(posts) {
+   $scope.getConcerts(posts);
+ Profile.getLikes(user.uid).then(function(likes) {
+ $scope.getConcerts(likes);
+  })
+  })
 
 $scope.getConcertsFromLikes = function(){
 
@@ -90,18 +97,15 @@ $scope.getConcertsFromLikes = function(){
 //    //todo: move to server side; nightly run for all users?
 //
 //
+$http.get("https://ipinfo.io/").then(function (resp){
+    $scope.ip = resp.data.ip;
  angular.forEach(posts, function(post, key) {
   if (post.media_info && post.media_info.artist) {
-    $http.get("https://ipinfo.io/").then(function (resp)
-     {
-     $scope.ip = resp.data.ip;
      var song_kick_body = {'artist': post.media_info.artist, 'ip':$scope.ip};
 
-     $http.post('/api/songkick', song_kick_body).success(function(response) {
+     $http.post('/api/songkick', song_kick_body).success(function(resp) {
 
-      if(response.resultsPage.results.event !== undefined){
-     angular.forEach(response.data, function(resp, key) {
-     // $scope.concert_obj = response.data[0];
+     if(resp.resultsPage.results !== undefined && resp.resultsPage.results.event != undefined){
      var concert = {};
      concert.artist = resp.resultsPage.results.event[0].performance[0].displayName;
      concert.artist_name = resp.resultsPage.results.event[0].performance[0].displayName;
@@ -125,12 +129,11 @@ $scope.getConcertsFromLikes = function(){
 
      current_actions.$loaded().then(function(res) {
 
-     if(res.up || res.star || authData.uid === post.creator_id) {
+     if(res.up || res.star || user.uid === post.creator_id) {
       concert.upvoted = true;
      }
      ref.child('concerts').child(user.uid).child(concert.bit_id).update(concert);
    });
-    });
 
     }
 }).catch(function (response) {
@@ -142,21 +145,22 @@ $scope.getConcertsFromLikes = function(){
       console.log('length',$scope.queue.length);
     }
 });
-})
+
     console.log('queue',$scope.queue);
-    setTimeout(function(){
-
-    if($scope.queue.length > 1){
-      $scope.getConcerts($scope.queue);
-    }
-
-    if($scope.queue.length == 1)
-      {$scope.loadingCircle = false;}
-
-    }, 70000);
+    // setTimeout(function(){
+    //
+    // if($scope.queue.length > 1){
+    //   $scope.getConcerts($scope.queue);
+    // }
+    //
+    // if($scope.queue.length == 1)
+    //   {$scope.loadingCircle = false;}
+    //
+    // }, 70000);
 
 
 };
+})
 
 
 

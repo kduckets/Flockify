@@ -116,19 +116,38 @@
       method: "GET",
       };
       var request = new http.ClientRequest(options);
+      var req = http.get(options, function(res) {
+      console.log('STATUS: ' + res.statusCode);
+      console.log('HEADERS: ' + JSON.stringify(res.headers));
 
-      request.on('response', function (sk_response) {
-        var body = '';
-      sk_response.on('data', function (sk_data) {
-          body += sk_data;
-      sk_response.on('end', function() {
-            var parsed = JSON.parse(body);
-            return resp.json(parsed);
-          });
+      var bodyChunks = '';
+      res.on('data', function(chunk) {
+      bodyChunks+= chunk;
+        }).on('end', function() {
+          var body = JSON.parse(bodyChunks);
+          return resp.json(body);
+          console.log('BODY: ' + body);
+        })
       });
-        });
-      request.end();
+      req.on('error', function(e) {
+        return resp.send(e);
+        console.log('ERROR: ' + e.message);
       });
+    })
+
+      //
+      // request.on('response', function (sk_response) {
+      //   var body = '';
+      // sk_response.on('data', function (sk_data) {
+      //     body += sk_data;
+      // sk_response.on('end', function() {
+      //       var parsed = JSON.parse(body);
+      //       return resp.json(parsed);
+      //     });
+      // });
+      //   });
+      // request.end();
+      //});
 
     router.post('/emailnotification', function(req, resp){
 
