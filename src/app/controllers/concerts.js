@@ -1,5 +1,5 @@
 module.exports = function ($scope, $routeParams, Profile, Post, Auth, $firebaseArray, FIREBASE_URL, Users,
-  $location, $filter, Concert, Notification, $http, bandsintownFactory, $route, $firebaseObject, $window, $firebaseAuth, $q) {
+  $location, $filter, Concert, Notification, $http, bandsintownFactory, $route, $firebaseObject, $window, $firebaseAuth) {
 
 var auth = $firebaseAuth();
 
@@ -112,11 +112,13 @@ $scope.getConcertsFromLikes = function(){
 
 $http.get("https://ipinfo.io/").then(function (resp){
     $scope.loading = true;
+    setTimeout(function(){
+    $scope.loading = false;
+
+    }, 30000);
     $scope.ip = resp.data.ip;
  angular.forEach(posts, function(post, key) {
   if (post.media_info && post.media_info.artist) {
-    var deferred = $q.defer();
-    promises.push(deferred.promise);
      var song_kick_body = {'artist': post.media_info.artist, 'ip':$scope.ip};
 
      $http.post('/api/songkick', song_kick_body).success(function(resp) {
@@ -175,10 +177,6 @@ $http.get("https://ipinfo.io/").then(function (resp){
 };
 })
 
-
-$q.all(promises).then(function() {
-    $scope.loading = false;
-  });
 
   $scope.custom = {band: 'bold'};
   $scope.sortable = ['formatted_datetime'];
