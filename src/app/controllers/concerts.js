@@ -64,13 +64,6 @@ auth.$onAuthStateChanged(function(user) {
    ref.child('concerts').child(user_id).child(concert.bit_id).update({'removed':true});
  };
 
- Profile.getPosts(user.uid).then(function(posts) {
-   $scope.getConcerts(posts);
- Profile.getLikes(user.uid).then(function(likes) {
- $scope.getConcerts(likes);
-  })
-  })
-
 $scope.getConcertsFromLikes = function(){
 
   Profile.getPosts(user.uid).then(function(posts) {
