@@ -39,7 +39,7 @@
         {{c.formatted_datetime | date:'fullDate'}}
         </td>
         <td>
-        {{c.venue_name}}
+        <i>{{c.venue_name}}</i>
         </td>
          <td>
         {{c.formatted_location}}
@@ -82,7 +82,7 @@
         <small>{{c.formatted_datetime | date:'M/d'}}</small>
         </td>
         <td>
-        <small>{{c.venue_name}}</small>
+        <small><i>{{c.venue_name}}</i></small>
         </td>
         <td>
           <md-button aria-label="Info" ng-click="removeConcert(c)"> <!-- <ng-md-icon icon="more_vert"></ng-md-icon> -->
