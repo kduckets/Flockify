@@ -36,10 +36,10 @@
         <b>{{c.artist_name}}</b>
         </td>
          <td>
-        {{c.formatted_datetime | date:'fullDate'}}
+        <i>{{c.formatted_datetime | date:'fullDate'}}</i>
         </td>
         <td>
-        <i>{{c.venue_name}}</i>
+        {{c.venue_name}}
         </td>
          <td>
         {{c.formatted_location}}
@@ -79,10 +79,10 @@
       <small><b>{{c.artist_name}}</b></small>
         </td>
          <td>
-        <small>{{c.formatted_datetime | date:'M/d'}}</small>
+        <small><i>{{c.formatted_datetime | date:'M/d'}}</i></small>
         </td>
         <td>
-        <small><i>{{c.venue_name}}</i></small>
+        <small>{{c.venue_name}}</small>
         </td>
         <td>
           <md-button aria-label="Info" ng-click="removeConcert(c)"> <!-- <ng-md-icon icon="more_vert"></ng-md-icon> -->
