@@ -1,19 +1,17 @@
 module.exports = function ($scope, $routeParams, Post, Auth, Comment, Profile, $http, $filter, $sce,
-  $route, $uibModal, FIREBASE_URL, Users, $firebaseArray, $window, $location, $anchorScroll, Notification) {
+  $route, $uibModal, FIREBASE_URL, Users, $firebaseArray, $window, $location, $anchorScroll, $firebaseAuth, $firebaseObject, Notification) {
   Notification.page_view("/chat/");
   $scope.loadingCircle = true;
   var ref = firebase.database().ref();
-  var authData = Auth.$getAuth();
-  if (authData) {
-     console.log("User " + authData.uid + " is logged in with " + authData.provider);
-     $scope.user = Users.getProfile(authData.uid);
+  var auth = $firebaseAuth();
+
+  auth.$onAuthStateChanged(function(user) {
+     $scope.users = $firebaseArray(ref.child('user_scores').child('firsttoflock'));
+     $scope.user = Users.getProfile(user.uid);
+     $scope.user.$loaded().then(function(){
      $scope.username = $scope.user.username;
-  } else {
-    $scope.user = null;
-    $scope.username = null;
-    $location.path('/login');
-    console.log("User is logged out");
-  }
+    })
+
 
   $scope.getIframeSrc = function(src) {
   return 'https://www.youtube.com/embed/' + src;
@@ -69,7 +67,18 @@ module.exports = function ($scope, $routeParams, Post, Auth, Comment, Profile, $
     Comment.add_comment($scope.comments, 'flock_groupchat', text);
     $scope.commentText = '';
     // if($scope.totalItems % $scope.viewby === 0){
-    $route.reload();
+
+    var users = $firebaseObject(ref.child('user_scores').child('firsttoflock'));
+    users.$loaded()
+      .then(function(){
+          angular.forEach(users, function(user, key) {
+            Notification.add_action(key, {
+              url: "/chat/",
+              msg: $scope.username + " posted a new message in the group chat"
+          })
+      });
+    })
+    // $route.reload();
   // };
   };
 
@@ -87,5 +96,7 @@ module.exports = function ($scope, $routeParams, Post, Auth, Comment, Profile, $
   $scope.likeComment = function (comment) {
     Comment.like_chat($scope.comments, 'flock_groupchat', comment);
   };
+
+    })
 
 };

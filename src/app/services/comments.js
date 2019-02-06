@@ -1,9 +1,10 @@
-module.exports = function ($firebaseArray, FIREBASE_URL, Auth, Post, Notification, $filter, Users, Util, $firebaseObject) {
+module.exports = function ($firebaseArray, FIREBASE_URL, Auth, Post, Notification, $filter, Users, Util, $firebaseObject, $firebaseAuth) {
   var ref = firebase.database().ref();
   var comments = $firebaseArray(ref.child('comments').child('firsttoflock'));
   var commentsRef = firebase.database().ref("/comments");
   var chatRef = firebase.database().ref("/chats/" + 'firsttoflock');
-  var id = Auth.$getAuth().uid;
+  var auth = $firebaseAuth();
+  var id = firebase.auth().currentUser.uid;
   return {
     all: comments,
 
@@ -33,7 +34,7 @@ module.exports = function ($firebaseArray, FIREBASE_URL, Auth, Post, Notificatio
         post.comments = (post.comments || 0) + 1;
         post.$save();
 
-        if (firebase.auth().currentUser.uid != comment.creator_id) {
+        if (firebase.auth().currentUser.uid != comment.creator_id && post_id != 'flock_groupchat') {
           Notification.add_action(comment.creator_id, {
             url: "/albums/" + post_id,
             msg: "'" + Util.trim(post.media_info.album) + "' was commented on by " + new_comment.creator_name

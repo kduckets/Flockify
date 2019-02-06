@@ -11,63 +11,6 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
     $scope.posts = [];
     $scope.showSearch = false;
 
-//    // ************temporary for past concerts*****************************
-//    Profile.getPosts(authData.uid).then(function(posts) {
-//
-//  angular.forEach(posts, function(post, key) {
-//   if (post.media_info && post.media_info.artist) {
-//     bandsintownFactory.getEventsFromArtistByLocation({
-//     artist:post.media_info.artist, // ? and / characters must be double escaped. Artists such as "AC/DC" will end up as "AC%252FDC"
-//     location:$scope.location, // city,state (US or CA) || city,country || lat,lon || ip address
-//     // radius:"<RADIUS">, // (optional) (default: 25) in miles. valid values: 0-150
-//     app_id:"Flockify", //The application ID can be anything, but should be a word that describes your application or company.
-// }).then(function (response) {
-//     if(response.data[0]){
-//      console.log(response);
-//      // $scope.concert_obj = response.data[0];
-//      var concert = {};
-//      concert.artist = response.data[0].artists;
-//      concert.artist_name = response.data[0].artists[0].name;
-//      concert.thumb_url = response.data[0].artists[0].thumb_url;
-//      concert.tickets_url = response.data[0].ticket_url;
-//      concert.show_date = response.data[0].datetime;
-//      // $scope.concert.venue_url = response.data[0].venue.url;
-//      concert.venue_name = response.data[0].venue.name;
-//      concert.venue_city = response.data[0].venue.city;
-//      concert.venue_region = response.data[0].venue.region;
-//      concert.ticket_status = response.data[0].ticket_type;
-//      concert.group = 'firsttoflock';
-//      concert.formatted_location = response.data[0].formatted_location;
-//      concert.formatted_datetime = response.data[0].formatted_datetime;
-//      concert.post_id = post.$id;
-//
-//      var actions_ref = ref.child('user_actions').child(authData.uid).child(post.$id);
-//
-//      var current_actions = $firebaseObject(actions_ref);
-//
-//      current_actions.$loaded().then(function(res) {
-//
-//      if(res.up || authData.uid === post.creator_id) {
-//       concert.upvoted = true;
-//      }
-//      Concert.add(concert, post.$id);
-//    });
-//
-//     }
-//
-// }).catch(function (response) {
-//   console.log('error', response);
-//     //on error
-// });
-// }
-//
-//    })
-//
-//   });
-//      });
-//     });
-// }
-
 
 $scope.user = Users.getProfile(user.uid);
 $scope.username = $scope.user.username;
