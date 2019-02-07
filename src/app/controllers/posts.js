@@ -198,6 +198,24 @@ $scope.username = $scope.user.username;
     $scope.albumContest = false;
   };
 
+  $scope.byYear = function(year){
+    // var last_monday = GetLastWeekStart();
+    // var month_start = moment().startOf('month');
+    var year_start = moment(year+"-"+"01-01");
+    var year_end = moment(year+"-"+"12-31");
+    $scope.tagText = '';
+    $scope.filter_start_date = year_start;
+    $scope.filter_end_date = year_end;
+    $scope.sorter = ['-score','-stars'];
+    $scope.year = year;
+    $scope.last = false;
+    $scope.month = false;
+    $scope.week = false;
+    $scope.allPosts = false;
+    $scope.totalDisplayed = 14;
+    $scope.albumContest = false;
+  };
+
   $scope.allTime = function(){
     $scope.filter_start_date = moment('2016-01-01 16:07:35')
     $scope.filter_end_date = moment.utc();

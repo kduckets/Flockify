@@ -83,11 +83,11 @@
 
 
       <div class="scrolls" hide-xs hide-sm>
-        <md-select ng-model="year" placeholder="2019" style="display: inline-block;">
-        <md-option value="2019">2019</md-option>
-        <md-option value="2018">2018</md-option>
-        <md-option value="2017">2017</md-option>
-        <md-option value="2016">2016</md-option>
+        <md-select ng-model="year" placeholder="year" style="display: inline-block;">
+        <md-option value="2019" ng-click="load();byYear(2019)">2019</md-option>
+        <md-option value="2018" ng-click="load();byYear(2018)">2018</md-option>
+        <md-option value="2017" ng-click="load();byYear(2017)">2017</md-option>
+        <md-option value="2016" ng-click="load();byYear(2016)">2016</md-option>
         </md-select>
         <md-button ng-click="load();topAlbum()" ng-show="year==2016" aria-label="top" ng-class="albumContest ? 'md-accent':'md-primary'">top albums contest</md-button>
         <md-button ng-click="load();topAlbum2017()" ng-show="year==2017" aria-label="top" ng-class="albumContest ? 'md-accent':'md-primary'">top albums contest</md-button>
