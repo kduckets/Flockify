@@ -58,6 +58,7 @@ module.exports = function ($scope, $location, Post, Auth, $cookieStore, $rootSco
       //$scope.user = null;
       // $scope.username = null;
       console.log("User is logged out");
+      $location.path('/login');
     }
   });
 
