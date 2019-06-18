@@ -193,6 +193,7 @@
     // Giphy comment search
     router.post('/giphysearch', function(req, resp){
       giphy.search({q: req.body.search, limit: '50'}).then(function(res) {
+        console.log(res);
           return resp.json(res);
           // Res contains gif data!
       });
