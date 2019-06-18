@@ -7,7 +7,7 @@
     var bodyParser = require('body-parser');
     var methodOverride = require('method-override');
     var firebase = require("firebase");
-    var giphy = require('giphy-api')();
+    var giphy = require('giphy-api')('0s0sS8XT4hFsa792K9yoHRofdisgZJTf');
     var rsj = require('rsj');
     var xml2js = require('xml2js');
     var http = require('http');
