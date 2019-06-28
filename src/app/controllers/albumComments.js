@@ -26,7 +26,7 @@ Notification.page_view("/albums/" + post_id);
 
   $scope.post.$loaded().then(function(res){
     $scope.iframeUrl = $sce.trustAsResourceUrl("https://embed.spotify.com/?uri="+res.media_info.share_uri);
-    $scope.songLinkUrl = $sce.trustAsResourceUrl("https://song.link/embed?url="+res.media_info.share_uri);
+    $scope.songLinkUrl = $sce.trustAsResourceUrl("https://embed.song.link/?url="+res.media_info.share_uri +"&theme=dark");
      $firebaseArray(postRef.child('firsttoflock')).$loaded(function(data){
      $scope.tagFilter(data);
      $scope.albumsBySameArtist(data);
