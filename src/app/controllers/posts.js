@@ -14,6 +14,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, Spotif
 
 $scope.user = Users.getProfile(user.uid);
 $scope.username = $scope.user.username;
+$scope.showAlert = false;
 
 
   $scope.filteredItems = [];
