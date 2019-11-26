@@ -108,6 +108,11 @@ height: 4px;
 
 }
 
+.highlight{
+  background-color: #add8e6;
+  background-image: linear-gradient(to right, #FFB6C1 0%, #add8e6 100%);
+}
+
 .chat iframe{
   /*  background-image: url("/images/loading.gif"); */
     background-size: 100px 80px;

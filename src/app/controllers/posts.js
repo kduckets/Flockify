@@ -88,6 +88,16 @@ $scope.showAlert = false;
 
   $scope.loadingBar = false;
 
+  $scope.isFaotd = function(tags){
+    if(tags){
+    for (var i=0; i < tags.length; i++) {
+      if (tags[i].name == "FAOTD" || tags[i].name == "faotd"){
+          return true;
+      }
+  }
+  }
+}
+
   $scope.filterByTag = function(tag){
     $scope.allTime();
     $scope.tagFilters.push(tag);
@@ -136,6 +146,8 @@ $scope.showAlert = false;
     $scope.month = true;
     $scope.all = false;
     $scope.allPosts = false;
+    $scope.faotd_contest = false;
+
     $scope.totalDisplayed = 14;
   };
 
@@ -150,6 +162,8 @@ $scope.showAlert = false;
     $scope.week = false;
     $scope.all = false;
     $scope.allPosts = false;
+    $scope.faotd_contest = false;
+
     $scope.totalDisplayed = 14;
   };
 
@@ -195,6 +209,8 @@ $scope.showAlert = false;
     $scope.month = month;
     $scope.week = false;
     $scope.allPosts = false;
+    $scope.faotd_contest = false;
+
     $scope.totalDisplayed = 14;
     $scope.albumContest = false;
   };
@@ -213,6 +229,8 @@ $scope.showAlert = false;
     $scope.month = false;
     $scope.week = false;
     $scope.allPosts = false;
+    $scope.faotd_contest = false;
+
     $scope.totalDisplayed = 14;
     $scope.albumContest = false;
   };
@@ -227,6 +245,8 @@ $scope.showAlert = false;
     $scope.month = false;
     $scope.last = false;
     $scope.albumContest = false;
+    $scope.faotd_contest = false;
+
     $scope.totalDisplayed = 14;
   };
 
@@ -255,6 +275,20 @@ $scope.showAlert = false;
     $scope.last = false;
     $scope.totalDisplayed = 14;
   };
+
+  $scope.faotd = function(){
+    $scope.filter_start_date = moment('2017-12-01 16:07:35')
+    $scope.filter_end_date = moment.utc();
+    $scope.sorter = ['-score','-stars'];
+    $scope.tagText = 'faotd';
+    $scope.faotd_contest = true;
+    $scope.allPosts = false;
+    $scope.week = false;
+    $scope.month = false;
+    $scope.last = false;
+    $scope.totalDisplayed = 14;
+  };
+
 
   function GetLastWeekStart() {
     var lastMonday = moment().subtract(1, 'weeks').startOf('isoWeek');

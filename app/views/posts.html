@@ -100,9 +100,16 @@
         <md-option value="2017" ng-click="load();byYear(2017)">2017</md-option>
         <md-option value="2016" ng-click="load();byYear(2016)">2016</md-option>
         </md-select>
-        <md-button ng-click="load();topAlbum()" ng-show="year==2016" aria-label="top" ng-class="albumContest ? 'md-accent':'md-primary'">top albums contest</md-button>
-        <md-button ng-click="load();topAlbum2017()" ng-show="year==2017" aria-label="top" ng-class="albumContest ? 'md-accent':'md-primary'">top albums contest</md-button>
+        <md-button ng-click="load();topAlbum()" ng-show="year==2016" aria-label="top" ng-class="albumContest ? 'md-accent':'md-primary'">faoty</md-button>
+        <md-button ng-click="load();topAlbum2017()" ng-show="year==2017" aria-label="top" ng-class="albumContest ? 'md-accent':'md-primary'">faoty</md-button>
+
+        <md-button style="background-color: #add8e6;
+        background-image: linear-gradient(to right, #FFB6C1 0%, #add8e6 100%);"
+        ng-click="load();faotd()"  aria-label="all" ng-class="faotd_contest ? 'md-accent':'md-primary'">FAOTD</md-button>
+
         <md-button ng-click="load();allTime()"  aria-label="all" ng-class="allPosts ? 'md-accent':'md-primary'">all time</md-button>
+
+
         <md-button ng-click="load();byMonth(1)" ng-show="showMonth(1)" aria-label="jan" ng-class="month==1 ? 'md-accent':'md-primary'">jan</md-button>
         <md-button ng-click="load();byMonth(2)" ng-show="showMonth(2)" aria-label="feb" ng-class="month==2 ? 'md-accent':'md-primary'">feb</md-button>
         <md-button ng-click="load();byMonth(3)" ng-show="showMonth(3)" aria-label="march" ng-class="month==3 ? 'md-accent':'md-primary'">march</md-button>
@@ -137,9 +144,13 @@
     </div>
 
     <md-tabs md-center-tabs="true" md-border-bottom hide-md hide-gt-md show-xs show-sm>
+        
       <md-tab ng-click="thisYear()" aria-label="last" ng-class="last ? 'md-raised md-primary':'md-raised'"><small>this year</small></md-tab>
       <md-tab ng-click="thisMonth()" aria-label="month" ng-class="month ? 'md-raised md-primary':'md-raised'"><small>this month</small></md-tab>
       <md-tab ng-click="allTime()" aria-label="all" ng-class="all ? 'md-raised md-primary':'md-raised'"><small>all time</small></md-tab>
+      <md-tab style="background-color: #add8e6;
+        background-image: linear-gradient(to right, #FFB6C1 0%, #add8e6 100%);"
+        ng-click="load();faotd()"  aria-label="all" ng-class="faotd_contest ? 'md-raised md-primary':'md-raised'"><small>FAOTD</small></md-tab>
     </md-tabs>
 
 
@@ -174,7 +185,7 @@ limitTo:totalDisplayed track by post.$id" align="center">
 
 
 
-      <md-card class="card" hide-md hide-gt-md show-xs show-sm>
+      <md-card class="card" hide-md hide-gt-md show-xs show-sm ng-class="isFaotd(post.tags) ? 'highlight' : ''">
 
     <!--     <span class="score label label-default label-default"><b>{{ post.score }}</b></span> -->
         <div class="album-container">
@@ -245,7 +256,7 @@ limitTo:totalDisplayed track by post.$id" align="center">
 
       <!-- *************************************** DESKTOP ************************************ -->
 
-      <md-card class="card" flex="65" hide-xs hide-sm>
+      <md-card class="card" flex="65" hide-xs hide-sm ng-class="isFaotd(post.tags) ? 'highlight' : ''">
 
         <div layout-xs="column" layout="row">
 
