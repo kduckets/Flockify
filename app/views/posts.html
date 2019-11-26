@@ -6,7 +6,7 @@
 <div style="padding-bottom:10px" ng-show="user" ng-cloak>
 
 <div class="alert alert-info" role="alert" align="center">
-  <strong>Flockify Album of the Decade</strong>
+  <span class="highlight"><strong>Flockify Album of the Decade</strong></span>
   <p><small>Where were you ten years ago? We'll just assume you were sippin' keystone ice listening to 
     Ms. Perry's 'Firework' on an iPod nano.<a ng-click="showAlert = !showAlert" ng-show="!showAlert" style="font-size:70%"> [view more]</a>
     </small></p> 
@@ -103,9 +103,7 @@
         <md-button ng-click="load();topAlbum()" ng-show="year==2016" aria-label="top" ng-class="albumContest ? 'md-accent':'md-primary'">faoty</md-button>
         <md-button ng-click="load();topAlbum2017()" ng-show="year==2017" aria-label="top" ng-class="albumContest ? 'md-accent':'md-primary'">faoty</md-button>
 
-        <md-button style="background-color: #add8e6;
-        background-image: linear-gradient(to right, #FFB6C1 0%, #add8e6 100%);"
-        ng-click="load();faotd()"  aria-label="all" ng-class="faotd_contest ? 'md-accent':'md-primary'">FAOTD</md-button>
+        <md-button ng-click="load();faotd()"  aria-label="all" ng-class="faotd_contest ? 'md-accent':'md-primary'">FAOTD</md-button>
 
         <md-button ng-click="load();allTime()"  aria-label="all" ng-class="allPosts ? 'md-accent':'md-primary'">all time</md-button>
 
