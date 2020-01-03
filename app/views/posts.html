@@ -5,7 +5,7 @@
 
 <div style="padding-bottom:10px" ng-show="user" ng-cloak>
 
-<div class="alert alert-info" role="alert" align="center">
+<!-- <div class="alert alert-info" role="alert" align="center">
   <span class="highlight"><strong>Flockify Albums of the Decade</strong></span>
   <p><small>Where were you ten years ago? We'll just assume you were sippin' keystone ice listening to 
     Ms. Perry's 'Firework' on an iPod nano.<a ng-click="showAlert = !showAlert" ng-show="!showAlert" style="font-size:70%"> [view more]</a>
@@ -21,7 +21,7 @@
       <p><small><strong>2018 FAOTY:</strong> Ty Segall, <i>Freedom's Goblin</i></small></p>
       <p><small><a ng-click="showAlert = !showAlert" ng-show="showAlert" style="font-size:70%">[view less]</a></small></p>
       </div>
-</div>
+</div> -->
 
 
 <!-- <div class="alert alert-info" role="alert" align="center">Check this out. Connect to spotify and Flockify will create a playlist from all your likes! -->
@@ -95,6 +95,7 @@
 
       <div class="scrolls" hide-xs hide-sm>
         <md-select ng-model="year" placeholder="year" style="display: inline-block;">
+        <md-option value="2020" ng-click="load();byYear(2019)">2020</md-option>
         <md-option value="2019" ng-click="load();byYear(2019)">2019</md-option>
         <md-option value="2018" ng-click="load();byYear(2018)">2018</md-option>
         <md-option value="2017" ng-click="load();byYear(2017)">2017</md-option>
