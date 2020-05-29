@@ -1,4 +1,4 @@
-module.exports = function ($scope, $routeParams, Profile, Post, Auth, $firebaseArray, FIREBASE_URL, Users, $filter, Trophy, $firebaseAuth) {
+module.exports = function ($scope, $timeout, $routeParams, Profile, Post, Auth, $firebaseArray, FIREBASE_URL, Users, $filter, Trophy, $firebaseAuth) {
   var ref = firebase.database().ref();
   var authData = Auth.$getAuth();
   var auth = $firebaseAuth();
@@ -12,6 +12,9 @@ module.exports = function ($scope, $routeParams, Profile, Post, Auth, $firebaseA
     $location.path('/login');
     console.log("User is logged out");
   }
+
+    $scope.loadingCircle = true;
+    $timeout(function () { $scope.loadingCircle = false; }, 2000);
 
   $scope.trophy = function(user_id){
       return Trophy.is_last_week_winner(user_id);
@@ -38,6 +41,26 @@ module.exports = function ($scope, $routeParams, Profile, Post, Auth, $firebaseA
   $scope.sorter = '-album_score';
   $scope.current_group = 'firsttoflock';
   $scope.users = $firebaseArray(ref.child('user_scores').child('firsttoflock'));
+ 
+  $scope.users.$loaded()
+    .then(function(){
+  angular.forEach($scope.users, function (user, key){
+  Profile.getPosts(user.$id).then(function(posts) {
+    $scope.user_posts = posts;
+    $scope.postsNumber = Object.keys($scope.user_posts).length;
+    ref.child('user_scores').child('firsttoflock').child(user.$id).child('album_score').on("value", function(snapshot) {
+      $scope.total_score = snapshot.val();
+      var ratio = $scope.total_score/$scope.postsNumber;
+      if(Number.isNaN(ratio)){
+      $scope.users[key].ratio = 0;
+      }else{
+      $scope.users[key].ratio = ratio.toFixed(1);
+      }
+    })
+  })
+})
+    });
+  
 
 
 
