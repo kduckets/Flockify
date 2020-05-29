@@ -53,8 +53,10 @@ module.exports = function ($scope, $timeout, $routeParams, Profile, Post, Auth, 
       var ratio = $scope.total_score/$scope.postsNumber;
       if(Number.isNaN(ratio)){
       $scope.users[key].ratio = 0;
+      $scope.users[key].postsNumber = 0;
       }else{
       $scope.users[key].ratio = ratio.toFixed(1);
+      $scope.users[key].postsNumber = $scope.postsNumber;
       }
     })
   })
