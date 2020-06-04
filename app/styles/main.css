@@ -10,6 +10,9 @@ body {
 .md-content.md-default-theme, md-content {
   color: white;
 }
+md-tabs.md-default-theme .md-tab, md-tabs .md-tab {
+  color: white;
+}
 /* end blm */
 
 .profile-container{
