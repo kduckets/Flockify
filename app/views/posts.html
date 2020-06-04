@@ -51,16 +51,16 @@
         </md-button>
       </div>
     </md-toolbar>
-    <div align="center">
+    <div align="center" style="background-color: 	#4d4b50;">
       <div class="md-toolbar-tools" style="max-width:320px;">
         <md-button aria-label="Search" ng-click="load();search()">
-          <md-tooltip>
+          <md-tooltip >
             Search for an album to post
           </md-tooltip>
           <ng-md-icon icon="my_library_music" size="28"></ng-md-icon>
         </md-button>
-        <form ng-submit="search()">
-          <md-input-container md-theme="input" style="max-width:190px !important" flex>
+        <form ng-submit="search()">  
+          <md-input-container md-theme="input" style="max-width:190px !important;" flex>
             <label>&nbsp;</label>
             <input ng-model="post.search" placeholder="post an album" />
             <div class="md-caption" ng-show="no_results" style="color:red;">

@@ -3,13 +3,14 @@ body {
   overflow-y: hidden !important;
 }
 
-md-chips.md-default-theme .md-chips, md-chips .md-chips {
-    box-shadow: 0 0px rgba(0,0,0,0);
+/* blm */
+.md-button.md-default-theme.md-primary, .md-button.md-primary {
+  color: white;
 }
-
-.cmt-background {
-/*  background-image: filter(url('/images/moonpool.jpg'), blur(20px));*/
+.md-content.md-default-theme, md-content {
+  color: white;
 }
+/* end blm */
 
 .profile-container{
 
@@ -738,6 +739,7 @@ text-align: center;
 
 .cmt-form {
   margin-top:30px;
+  background-color: #4d4b50;
 }
 
 .cmt {
