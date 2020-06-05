@@ -15,21 +15,21 @@
         <img ng-src="/images/empty-star.png" height="32" style="padding-bottom:2px"/></a>
     </div>
 
-    <div layout="row" layout-align="center center" style="background-color: #4d4b50;">
+    <div layout="row" layout-align="center center">
 
-      <md-button class="md-icon-button" ng-click="save(post)" aria-label="Save">
+      <md-button style="fill:white"  class="md-icon-button" ng-click="save(post)" aria-label="Save">
         <ng-md-icon icon="save" class="arrow" size="32"></ng-md-icon>
       </md-button>
 
-      <md-button class="md-icon-button" ng-click="upvote(post)" aria-label="Upvote">
+      <md-button style="fill:white"  class="md-icon-button" ng-click="upvote(post)" aria-label="Upvote">
         <ng-md-icon icon="arrow_upwards" class="arrow" size="32"></ng-md-icon>
       </md-button>
       <md-button class="md-fab md-raised md-hue-1" style=" z-index:1"><b style="font-size:22pt">{{ post.score }}</b>
       </md-button>
-      <md-button class="md-icon-button" ng-click="downvote(post)" aria-label="Downvote">
+      <md-button style="fill:white"  class="md-icon-button" ng-click="downvote(post)" aria-label="Downvote">
         <ng-md-icon icon="arrow_downward" class="arrow" size="32"></ng-md-icon>
       </md-button>
-      <md-button style="top:11px; left:2px; overflow:visible !important;" ng-href="#/albums/{{ post.$id }}"
+      <md-button style="top:11px; left:2px; overflow:visible !important; fill:white" ng-href="#/albums/{{ post.$id }}"
                  aria-label="Comments">
       <span class="comments-icon-big"><ng-md-icon icon="chat_bubble" class="arrow" size="34"></ng-md-icon>
 
@@ -62,7 +62,7 @@
     </div>
 
 
-    <div class="alert alert-info" role="alert">{{ post.media_info.summary }}</div>
+    <div class="alert alert-secondary" role="alert">{{ post.media_info.summary }}</div>
     <div layout="row" layout-align="center center">
       <md-chips class="tag-chip" ng-model="post.tags" readonly="true">
         <md-chip-template>
@@ -216,20 +216,20 @@
         <a ng-click="starPost(post)" href="">
           <img ng-src="/images/empty-star.png" height="32" style="padding-bottom:2px"/></a>
       </div>
-          <div layout="row" layout-align="left center" style="background-color: #4d4b50;">
-        <md-button class="md-icon-button" ng-click="save(post)" aria-label="Save">
+          <div layout="row" layout-align="left center">
+        <md-button style="fill:white" class="md-icon-button" ng-click="save(post)" aria-label="Save">
           <ng-md-icon icon="save" class="arrow" size="32"></ng-md-icon>
         </md-button>
 
-        <md-button class="md-icon-button" ng-click="upvote(post)" aria-label="Upvote">
+        <md-button style="fill:white" class="md-icon-button" ng-click="upvote(post)" aria-label="Upvote">
           <ng-md-icon icon="arrow_upwards" class="arrow" size="32"></ng-md-icon>
         </md-button>
         <md-button class="md-fab md-raised md-hue-1" style=" z-index:1"><b style="font-size:22pt">{{ post.score }}</b>
         </md-button>
-        <md-button class="md-icon-button" ng-click="downvote(post)" aria-label="Downvote">
+        <md-button style="fill:white"  class="md-icon-button" ng-click="downvote(post)" aria-label="Downvote">
           <ng-md-icon icon="arrow_downward" class="arrow" size="32"></ng-md-icon>
         </md-button>
-        <md-button style="top:11px; left:2px; overflow:visible !important;" ng-href="#/albums/{{post.$id}}"
+        <md-button style="top:11px; left:2px; overflow:visible !important; fill:white" ng-href="#/albums/{{post.$id}}"
                    aria-label="Comments">
   <span class="comments-icon-big"><ng-md-icon icon="chat_bubble" class="arrow" size="34"></ng-md-icon>
   <span class="after label label-pill label-danger">{{ post.comments }}</span></span>
@@ -323,13 +323,13 @@ in {{concert.venue_city}}</small>
 
         <form ng-show="user" ng-submit="gifsearch()">
           <md-input-container>
-            <label>Search for a gif</label>
+            <label style="color:white">Search for a gif</label>
             <input ng-model="gifSearchText">
           </md-input-container>
         </form>
         <form ng-show="user" ng-submit="addComment(gifLink)">
           <md-input-container>
-            <label>Paste gif link</label>
+            <label style="color:white">Paste gif link</label>
             <input ng-model="gifLink"/>
           </md-input-container>
         </form>
