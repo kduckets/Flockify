@@ -53,6 +53,10 @@
     </md-toolbar>
     <div align="center" style="background-color: 	black;">
       <div class="md-toolbar-tools" style="max-width:320px;">
+        <md-button aria-label="Search" show-xs hide-gt-xs ng-show="!post.search"
+        ng-click="load();showSearch = !showSearch; allTime()">
+        <ng-md-icon icon="search" size="22" style="fill:white"></ng-md-icon>
+          </md-button>
         <md-button aria-label="Search" ng-click="load();search()">
           <md-tooltip >
             Search for an album to post
@@ -71,10 +75,7 @@
           <md-button ng-click="load();clearResults()" ng-show="post.search" aria-label="Back">
             <ng-md-icon icon="clear"></ng-md-icon>
           </md-button>
-          <md-button aria-label="Search" show-xs hide-gt-xs ng-show="!post.search"
-                     ng-click="load();showSearch = !showSearch; allTime()">
-            <ng-md-icon icon="search" size="22" style="fill:white"></ng-md-icon>
-          </md-button>
+      
         </form>
       </div>
     </div>
