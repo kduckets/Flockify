@@ -51,13 +51,13 @@
         </md-button>
       </div>
     </md-toolbar>
-    <div align="center" style="background-color: 	#4d4b50;">
+    <div align="center" style="background-color: 	black;">
       <div class="md-toolbar-tools" style="max-width:320px;">
         <md-button aria-label="Search" ng-click="load();search()">
           <md-tooltip >
             Search for an album to post
           </md-tooltip>
-          <ng-md-icon icon="my_library_music" size="28"></ng-md-icon>
+          <ng-md-icon icon="my_library_music" style="fill:white" size="28"></ng-md-icon>
         </md-button>
         <form ng-submit="search()">  
           <md-input-container md-theme="input" style="max-width:190px !important;" flex>
@@ -73,7 +73,7 @@
           </md-button>
           <md-button aria-label="Search" show-xs hide-gt-xs ng-show="!post.search"
                      ng-click="load();showSearch = !showSearch; allTime()">
-            <ng-md-icon icon="search" size="22"></ng-md-icon>
+            <ng-md-icon icon="search" size="22" style="fill:white"></ng-md-icon>
           </md-button>
         </form>
       </div>
