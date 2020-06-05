@@ -321,16 +321,16 @@ in {{concert.venue_city}}</small>
       <small>Add a gif comment:</small>
       <div layout-gt-sm="row" layout-padding>
 
-        <form ng-show="user" ng-submit="gifsearch()">
+        <form ng-show="user"  ng-submit="gifsearch()">
           <md-input-container>
             <label style="color:white">Search for a gif</label>
-            <input ng-model="gifSearchText">
+            <input style="color:white" ng-model="gifSearchText">
           </md-input-container>
         </form>
-        <form ng-show="user" ng-submit="addComment(gifLink)">
+        <form ng-show="user" style="color:white" ng-submit="addComment(gifLink)">
           <md-input-container>
             <label style="color:white">Paste gif link</label>
-            <input ng-model="gifLink"/>
+            <input style="color:white" ng-model="gifLink"/>
           </md-input-container>
         </form>
       </div>
