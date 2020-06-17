@@ -5,6 +5,10 @@ body {
 
 /* dark mode */
 
+.card{
+  background-color: #FAFAFA;
+}
+
 .md-select-icon {
   color: gray !important;
 }
