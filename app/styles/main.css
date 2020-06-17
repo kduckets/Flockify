@@ -6,7 +6,7 @@ body {
 /* dark mode */
 
 md-chips.md-default-theme .md-chips .md-chip-input-container input, md-chips .md-chips .md-chip-input-container input {
-  color: white;
+  color: gray;
 }
 .md-button.md-default-theme.md-primary, .md-button.md-primary {
   color: white;
