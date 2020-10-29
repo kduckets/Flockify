@@ -201,8 +201,9 @@ $scope.showAlert = false;
   $scope.byMonth = function(month){
     // var last_monday = GetLastWeekStart();
     // var month_start = moment().startOf('month');
-    var month_start = moment($scope.year+"-"+month+"-1");
-    var month_end = moment($scope.year+"-"+month+"-1").endOf('month');
+    var month_start = moment($scope.year + '-' + month + '-' + 01 + ' 00:00:00');
+    var month_end = month_start.clone().endOf('month');
+    console.log(month_start, month_end);
     $scope.tagText = '';
     $scope.filter_start_date = month_start;
     $scope.filter_end_date = month_end;
