@@ -65,9 +65,13 @@
 <md-toolbar style="position:fixed !important">
 
   <div class="md-toolbar-tools" ng-controller="NavCtrl" layout="row">
-  <span flex>
-    <a href="" ng-click="toTop()"> <h2><img ng-src="/images/flockify.png" height="40px"/></a></h2>
+  <span flex hide-md hide-gt-md show-xs show-sm>
+    <a href="" ng-click="toTop()"> <h2><img ng-src="/favicon.png" height="40px"/></a></h2>
     </span>
+
+    <span flex hide-xs hide-sm>
+      <a href="" ng-click="toTop()"> <h2><img ng-src="/images/flockify.png" height="40px"/></a></h2>
+      </span>
 
    <span flex hide-xs hide-sm>
 
