@@ -5,6 +5,28 @@
 
 <div style="padding-bottom:10px" ng-show="user" ng-cloak>
 
+
+  <div class="alert alert-info" role="alert" align="center">
+  <span class="highlight"><strong>FAOTY 2020</strong></span>
+      <p><small>
+        Welp, here we are. Time to start submitting albums for the 5th annual FAOTY. Tag entires however you desire, clearly all rules have gone out the window.
+      </small></p>
+      <a ng-click="showAlert = !showAlert" ng-show="!showAlert" style="font-size:70%"> [view previous winners]</a>
+    </small></p> 
+    <div ng-show="showAlert">
+      <br/>
+      <p><small><strong>2015 FAOTY:</strong> Thao & The Get Down Stay Down, <i>We the Common</i></small></p>
+      <p><small><strong>2016 FAOTY:</strong> Radiohead, <i>A Moon Shaped Pool</i></small></p>
+      <p><small><strong>2017 FAOTY:</strong> Kendrick Lamar, <i>Damn</i></small></p>
+      <p><small><strong>2018 FAOTY:</strong> Ty Segall, <i>Freedom's Goblin</i></small></p>
+      <p><small><strong>2019 FAOTY:</strong> Maggie Rogers, <i>Heard It In A Past Life</i></small></p>
+      <p><small><a ng-click="showAlert = !showAlert" ng-show="showAlert" style="font-size:70%">[view less]</a></small></p>
+      </div>
+
+
+
+</div>
+
 <!-- <div class="alert alert-info" role="alert" align="center">
   <span class="highlight"><strong>Flockify Albums of the Decade</strong></span>
   <p><small>Where were you ten years ago? We'll just assume you were sippin' keystone ice listening to 
