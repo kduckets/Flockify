@@ -91,7 +91,7 @@ $scope.showAlert = false;
   $scope.isFaotd = function(tags){
     if(tags){
     for (var i=0; i < tags.length; i++) {
-      if (tags[i].name == "FAOTD" || tags[i].name == "faotd" || tags[i].name == "faoty"){
+      if (tags[i].name == "FAOTD" || tags[i].name == "faotd" || tags[i].name.toLowerCase() == "faoty"){
           return true;
       }
   }
