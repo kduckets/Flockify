@@ -279,11 +279,11 @@ $scope.showAlert = false;
     $scope.totalDisplayed = 14;
   };
 
-  $scope.faotd = function(){
-    $scope.filter_start_date = moment('2017-12-01 16:07:35')
+  $scope.faoty = function(){
+    $scope.filter_start_date = moment('2015-12-01 16:07:35')
     $scope.filter_end_date = moment.utc();
     $scope.sorter = ['-score','-stars'];
-    $scope.tagText = 'faotd';
+    $scope.tagText = 'faoty';
     $scope.faotd_contest = true;
     $scope.allPosts = false;
     $scope.week = false;
