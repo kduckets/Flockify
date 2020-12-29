@@ -15,7 +15,6 @@
     </small></p> 
     <div ng-show="showAlert">
       <br/>
-      <p><small><strong>2015 FAOTY:</strong> Thao & The Get Down Stay Down, <i>We the Common</i></small></p>
       <p><small><strong>2016 FAOTY:</strong> Radiohead, <i>A Moon Shaped Pool</i></small></p>
       <p><small><strong>2017 FAOTY:</strong> Kendrick Lamar, <i>Damn</i></small></p>
       <p><small><strong>2018 FAOTY:</strong> Ty Segall, <i>Freedom's Goblin</i></small></p>
@@ -118,16 +117,20 @@
 
       <div class="scrolls" hide-xs hide-sm>
         <md-select ng-model="year" placeholder="year" style="display: inline-block;">
-        <md-option value="2020" ng-click="load();byYear(2019)">2020</md-option>
+        <md-option value="2020" ng-click="load();byYear(2020)">2020</md-option>
         <md-option value="2019" ng-click="load();byYear(2019)">2019</md-option>
         <md-option value="2018" ng-click="load();byYear(2018)">2018</md-option>
         <md-option value="2017" ng-click="load();byYear(2017)">2017</md-option>
         <md-option value="2016" ng-click="load();byYear(2016)">2016</md-option>
+
         </md-select>
         <md-button ng-click="load();topAlbum()" ng-show="year==2016" aria-label="top" ng-class="albumContest ? 'md-accent':'md-primary'">faoty</md-button>
         <md-button ng-click="load();topAlbum2017()" ng-show="year==2017" aria-label="top" ng-class="albumContest ? 'md-accent':'md-primary'">faoty</md-button>
+        <md-button ng-click="load();topAlbum2018()" ng-show="year==2018" aria-label="top" ng-class="albumContest ? 'md-accent':'md-primary'">faoty</md-button>
+        <md-button ng-click="load();topAlbum2019()" ng-show="year==2019" aria-label="top" ng-class="albumContest ? 'md-accent':'md-primary'">faotd</md-button>
 
-        <md-button ng-click="load();faoty()"  aria-label="all" ng-class="faotd_contest ? 'md-accent':'md-primary'">FAOTY</md-button>
+
+        <md-button ng-click="load();faoty()" ng-show="year==2020" aria-label="all" ng-class="faotd_contest ? 'md-accent':'md-primary'">FAOTY</md-button>
 
         <md-button ng-click="load();allTime()"  aria-label="all" ng-class="allPosts ? 'md-accent':'md-primary'">all time</md-button>
 

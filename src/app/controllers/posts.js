@@ -83,7 +83,7 @@ $scope.showAlert = false;
   $scope.albumContest = false;
 
   // $scope.filter_start_date = moment().startOf('isoweek');
-  $scope.filter_start_date = moment().subtract(12, 'months').startOf('day');
+  $scope.filter_start_date = moment('2016-01-01 16:07:35');
   $scope.filter_end_date = moment.utc();
 
   $scope.loadingBar = false;
@@ -279,11 +279,37 @@ $scope.showAlert = false;
     $scope.totalDisplayed = 14;
   };
 
+  $scope.topAlbum2018 = function(){
+    $scope.filter_start_date = moment('2018-12-01 16:07:35')
+    $scope.filter_end_date = moment('2019-03-01 16:07:35');
+    $scope.sorter = ['-score','-stars'];
+    $scope.tagText = 'topalbum';
+    $scope.albumContest = true;
+    $scope.allPosts = false;
+    $scope.week = false;
+    $scope.month = false;
+    $scope.last = false;
+    $scope.totalDisplayed = 14;
+  };
+
+  $scope.topAlbum2019 = function(){
+    $scope.filter_start_date = moment('2019-11-01 16:07:35')
+    $scope.filter_end_date = moment('2020-03-01 16:07:35');
+    $scope.sorter = ['-score','-stars'];
+    $scope.tagText = 'faotd';
+    $scope.albumContest = true;
+    $scope.allPosts = false;
+    $scope.week = false;
+    $scope.month = false;
+    $scope.last = false;
+    $scope.totalDisplayed = 14;
+  };
+
+
   $scope.faoty = function(){
-    $scope.filter_start_date = moment('2015-12-01 16:07:35')
+    $scope.filter_start_date = moment().startOf('year');
     $scope.filter_end_date = moment.utc();
     $scope.sorter = ['-score','-stars'];
-    $scope.tagFilters.push('FAOTY');
     $scope.tagText += 'faoty';
     $window.scrollTo(0,0);
     $scope.faotd_contest = true;
