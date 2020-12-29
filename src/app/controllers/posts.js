@@ -99,7 +99,7 @@ $scope.showAlert = false;
 }
 
   $scope.filterByTag = function(tag){
-    $scope.allTime();
+    // $scope.allTime();
     $scope.tagFilters.push(tag);
     $scope.tagText += tag + " ";
     $window.scrollTo(0,0);
@@ -283,13 +283,14 @@ $scope.showAlert = false;
     $scope.filter_start_date = moment('2015-12-01 16:07:35')
     $scope.filter_end_date = moment.utc();
     $scope.sorter = ['-score','-stars'];
-    $scope.tagText = 'faoty';
+    $scope.tagFilters.push('FAOTY');
+    $scope.tagText += 'faoty';
+    $window.scrollTo(0,0);
     $scope.faotd_contest = true;
     $scope.allPosts = false;
     $scope.week = false;
     $scope.month = false;
     $scope.last = false;
-    $scope.totalDisplayed = 14;
   };
 
 
