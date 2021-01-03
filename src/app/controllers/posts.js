@@ -307,8 +307,8 @@ $scope.showAlert = false;
 
 
   $scope.faoty = function(){
-    $scope.filter_start_date = moment().startOf('year');
-    $scope.filter_end_date = moment.utc();
+    $scope.filter_start_date = moment('2020-11-01 16:07:35')
+    $scope.filter_end_date = moment('2021-03-01 16:07:35');
     $scope.sorter = ['-score','-stars'];
     $scope.tagText += 'faoty';
     $window.scrollTo(0,0);
