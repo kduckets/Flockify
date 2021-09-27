@@ -255,9 +255,9 @@ app.use('/api', router);
   }));
 
   // Step 3: Attach the hot middleware to the compiler & the server
-  app.use(require("webpack-hot-middleware")(compiler, {
-    log: console.log, path: '/__webpack_hmr', heartbeat: 10 * 1000
-  }));
+  // app.use(require("webpack-hot-middleware")(compiler, {
+  //   log: console.log, path: '/__webpack_hmr', heartbeat: 10 * 1000
+  // }));
 })();
 
 app.listen(app.get('port'), function() {
