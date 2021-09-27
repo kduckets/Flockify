@@ -39,6 +39,7 @@
     "http": "0.0.0",
     "https": "^1.0.0",
     "jquery": "^2.2.4",
+    "mailchimp-api-v3": "^1.15.0",
     "method-override": "^2.3.10",
     "mocha": "^2.4.5",
     "moment": "^2.22.2",

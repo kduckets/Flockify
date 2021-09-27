@@ -15,7 +15,7 @@
     var Discogs = require('disconnect').Client;
     var SpotifyWebApi = require('spotify-web-api-node');
     var Mailchimp = require('mailchimp-api-v3')
-    // var mailchimp = new Mailchimp(process.env.MAILCHIMP_API_KEY);
+    var mailchimp = new Mailchimp(process.env.MAILCHIMP_API_KEY);
 
 
 
@@ -149,24 +149,24 @@
       // request.end();
       //});
 
-    // router.post('/emailnotification', function(req, resp){
+    router.post('/emailnotification', function(req, resp){
 
-    //   mailchimp.post('campaigns', {
-    //      recipients : {'list_id':'3500f59233'},
-    //      type: 'regular',
-    //      settings :{'subject_line': req.body.user +' posted a new album.',
-    //      'reply_to':'kmditroia@gmail.com',
-    //      'from_name':'Flockify',
-    //       'template_id':55}
-    //     })
-    //   .then(function(results) {
-    //       console.log(results.id);
-    //       mailchimp.post('/campaigns/' + results.id + '/actions/send');
-    //       })
-    //   .catch(function (err) {
-    //       console.log(err);
-    //     })
-    //   });
+      mailchimp.post('campaigns', {
+         recipients : {'list_id':'3500f59233'},
+         type: 'regular',
+         settings :{'subject_line': req.body.user +' posted a new album.',
+         'reply_to':'kmditroia@gmail.com',
+         'from_name':'Flockify',
+          'template_id':55}
+        })
+      .then(function(results) {
+          console.log(results.id);
+          mailchimp.post('/campaigns/' + results.id + '/actions/send');
+          })
+      .catch(function (err) {
+          console.log(err);
+        })
+      });
 
 
 
