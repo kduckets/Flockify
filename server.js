@@ -15,7 +15,7 @@
     var Discogs = require('disconnect').Client;
     var SpotifyWebApi = require('spotify-web-api-node');
     var Mailchimp = require('mailchimp-api-v3')
-    var mailchimp = new Mailchimp(process.env.MAILCHIMP_API_KEY);
+    // var mailchimp = new Mailchimp(process.env.MAILCHIMP_API_KEY);
 
 
 
@@ -242,7 +242,23 @@ app.use('/api', router);
 // ************************************
 // This is the real meat of the example
 // ************************************
+(function() {
 
+  // Step 1: Create & configure a webpack compiler
+  var webpack = require('webpack');
+  var webpackConfig = require(process.env.WEBPACK_CONFIG ? process.env.WEBPACK_CONFIG : './webpack.config');
+  var compiler = webpack(webpackConfig);
+
+  // Step 2: Attach the dev middleware to the compiler & the server
+  app.use(require("webpack-dev-middleware")(compiler, {
+    noInfo: true, publicPath: webpackConfig.output.publicPath
+  }));
+
+  // Step 3: Attach the hot middleware to the compiler & the server
+  // app.use(require("webpack-hot-middleware")(compiler, {
+  //   log: console.log, path: '/__webpack_hmr', heartbeat: 10 * 1000
+  // }));
+})();
 
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
