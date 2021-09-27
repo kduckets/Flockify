@@ -260,6 +260,9 @@ app.use('/api', router);
   // }));
 })();
 
-app.listen(app.get('port'), function() {
-  console.log('Node app is running on port', app.get('port'));
+var port = process.env.PORT || 8000;
+
+app.listen(port, function() {
+  console.log("App is running on port " + port);
 });
+
