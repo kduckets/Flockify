@@ -250,9 +250,9 @@ app.use('/api', router);
   var compiler = webpack(webpackConfig);
 
   // Step 2: Attach the dev middleware to the compiler & the server
-  app.use(require("webpack-dev-middleware")(compiler, {
-    noInfo: true, publicPath: webpackConfig.output.publicPath
-  }));
+  // app.use(require("webpack-dev-middleware")(compiler, {
+  //   noInfo: true, publicPath: webpackConfig.output.publicPath
+  // }));
 
   // Step 3: Attach the hot middleware to the compiler & the server
   // app.use(require("webpack-hot-middleware")(compiler, {
