@@ -44,6 +44,12 @@ module.exports = function($firebaseArray, $firebaseObject, FIREBASE_URL, Notific
               return;
             }
 
+             if (res.star) {
+              var msg = 'Already gave "' + post.media_info.album + '" a star';
+              defer.resolve(msg);
+              return;
+            }
+
             var score_mod = 1;
             if (res.down) {
               actions_ref.child('down').remove();
