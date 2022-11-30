@@ -16,3 +16,4 @@ node_modules/
 app/bundle.js.map
 
 app/bundle.js
+package-lock.json
