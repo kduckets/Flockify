@@ -8,8 +8,8 @@
 	  <p>Welcome to Flockify!<br/>
 	   Looks like you don't have a valid group name. Please <a href="">contact us</a> to set one up!</p>
 	</div>
-  <form ng-submit="register()" ng-hide="hideRegistration">
-  <p>Welcome to Flockify!<br/>
+  <form ng-submit="register()" ng-hide="hideRegistration" class="text-dark">
+  <p class="text-dark">Welcome to Flockify!<br/>
   You are registering for group: {{beta_group_name}}</p>
   <br/>
     <p ng-show="error" class="text-danger">{{ error.message }}</p>
