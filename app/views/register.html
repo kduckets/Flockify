@@ -8,14 +8,14 @@
 	  <p>Welcome to Flockify!<br/>
 	   Looks like you don't have a valid group name. Please <a href="">contact us</a> to set one up!</p>
 	</div>
-  <form ng-submit="register()" ng-hide="hideRegistration" class="text-dark">
+  <form ng-submit="register()" ng-hide="hideRegistration">
   <p class="text-dark">Welcome to Flockify!<br/>
   You are registering for group: {{beta_group_name}}</p>
   <br/>
     <p ng-show="error" class="text-danger">{{ error.message }}</p>
-    <input type="text" ng-model="user.username" placeholder="Username" class="form-control"><br>
-    <input type="email" ng-model="user.email" placeholder="Email" class="form-control"><br>
-    <input type="password" ng-model="user.password" placeholder="Password" class="form-control"><br>
+    <input type="text" ng-model="user.username" placeholder="Username" class="form-control" style="background-color: black;"><br>
+    <input type="email" ng-model="user.email" placeholder="Email" class="form-control" style="background-color: black;"><br>
+    <input type="password" ng-model="user.password" placeholder="Password" class="form-control" style="background-color: black;"><br>
     <input type="submit" value="Register" class="btn btn-primary" />
   </form>
 
