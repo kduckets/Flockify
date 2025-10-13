@@ -26,7 +26,7 @@
     "angular-spotify": "1.5.1",
     "angular-touch": "1.5.2",
     "angularfire": "^2.3.0",
-    "base64-vlq": "^0.0.5",
+    "base64-vlq": "^2.0.0",
     "body-parser": "1.15.0",
     "bootstrap": "^3.3.6",
     "chai": "3.5.0",
