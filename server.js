@@ -15,7 +15,7 @@
     var Discogs = require('disconnect').Client;
     var SpotifyWebApi = require('spotify-web-api-node');
     var Mailchimp = require('mailchimp-api-v3')
-    // var mailchimp = new Mailchimp(process.env.MAILCHIMP_API_KEY);
+    var mailchimp = new Mailchimp(process.env.MAILCHIMP_API_KEY);
 
 
 
@@ -66,44 +66,44 @@
     //routes
 
     var router = express.Router();
-    // router.post('/wanotification', function(req, resp){
-    //   var clientId = "kmditroia@gmail.com";
-    //   var clientSecret = "1def0f5ac5a04884b8fd0434e755b884";
-    //   var phoneNumbers = ["14152508533", "15086330105", "19789734390", "12566588765", "19783282088","19784306872","19789878891","19788521242","15083400792","19148829254","15084796150","15083403559"];
-    //   var arrayLength = phoneNumbers.length;
+    router.post('/wanotification', function(req, resp){
+      var clientId = "kmditroia@gmail.com";
+      var clientSecret = "1def0f5ac5a04884b8fd0434e755b884";
+      var phoneNumbers = ["14152508533", "15086330105", "19789734390", "12566588765", "19783282088","19784306872","19789878891","19788521242","15083400792","19148829254","15084796150","15083403559"];
+      var arrayLength = phoneNumbers.length;
 
-    //   for (var i = 0; i < arrayLength; i++) {
-    //   var jsonPayload = JSON.stringify({
-    //   number: phoneNumbers[i],
-    //   message: req.body.user + " posted a new album. Check it: https://flockify.herokuapp.com"
-    //   });
+      for (var i = 0; i < arrayLength; i++) {
+      var jsonPayload = JSON.stringify({
+      number: phoneNumbers[i],
+      message: req.body.user + " posted a new album. Check it: https://flockify.herokuapp.com"
+      });
 
-    //   var options = {
-    //   hostname: "api.whatsmate.net",
-    //   port: 80,
-    //   path: "/v3/whatsapp/single/text/message/11",
-    //   method: "POST",
-    //   headers: {
-    //       "Content-Type": "application/json",
-    //       "X-WM-CLIENT-ID": clientId,
-    //       "X-WM-CLIENT-SECRET": clientSecret,
-    //       "Content-Length": Buffer.byteLength(jsonPayload)
-    //     }
-    //   };
+      var options = {
+      hostname: "api.whatsmate.net",
+      port: 80,
+      path: "/v3/whatsapp/single/text/message/11",
+      method: "POST",
+      headers: {
+          "Content-Type": "application/json",
+          "X-WM-CLIENT-ID": clientId,
+          "X-WM-CLIENT-SECRET": clientSecret,
+          "Content-Length": Buffer.byteLength(jsonPayload)
+        }
+      };
 
-    //   var request = new http.ClientRequest(options);
-    //   request.end(jsonPayload);
+      var request = new http.ClientRequest(options);
+      request.end(jsonPayload);
 
-    //   request.on('response', function (response) {
-    //   console.log('Heard back from the WhatsMate WA Gateway:\n');
-    //   console.log('Status code: ' + response.statusCode);
-    //   response.setEncoding('utf8');
-    //   response.on('data', function (chunk) {
-    //       console.log(chunk);
-    //   });
-    //     });
-    //   }
-    // });
+      request.on('response', function (response) {
+      console.log('Heard back from the WhatsMate WA Gateway:\n');
+      console.log('Status code: ' + response.statusCode);
+      response.setEncoding('utf8');
+      response.on('data', function (chunk) {
+          console.log(chunk);
+      });
+        });
+      }
+    });
 
     router.post('/songkick', function(req, resp){
       var artist = encodeURI(req.body.artist);
