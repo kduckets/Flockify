@@ -58,7 +58,7 @@
   },
   "repository": {},
   "engines": {
-    "node": "18.x"
+    "node": "^20.17.0"
   },
   "author": "",
   "license": "ISC",
