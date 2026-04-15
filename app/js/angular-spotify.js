@@ -92,12 +92,17 @@
             var self = this;
 
             function doRequest() {
+              // Always rebuild Authorization from current token so lazy fetches take effect
+              var requestHeaders = angular.extend({}, headers);
+              if (settings.authToken && settings.authToken !== 'none') {
+                requestHeaders['Authorization'] = 'Bearer ' + settings.authToken;
+              }
               $http({
                 url: self.apiBase + endpoint,
                 method: method ? method : 'GET',
                 params: params,
                 data: data,
-                headers: headers,
+                headers: requestHeaders,
                 withCredentials: false
               })
               .then(function (data) {
