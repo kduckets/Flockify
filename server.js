@@ -45,8 +45,8 @@
     // listen (start app with node server.js) ======================================
 
     var spotifyApi = new SpotifyWebApi({
-  clientId : '44bb100c98a34efd9c4e874756e09080',
-  clientSecret : 'cefa1436b18f42579011dd8073d9e531',
+  clientId : process.env.SPOTIFY_CLIENT_ID || '13ab339fc31d4580a3a49751d62735c4',
+  clientSecret : process.env.SPOTIFY_CLIENT_SECRET || '9f8f1cd8dab4470eac47ef3b21833b5d',
   redirectUri : 'http://flockify.herokuapp.com/callback.html',
     });
 
@@ -181,9 +181,10 @@
           spotifyApi.setAccessToken(data.body['access_token']);
           var access_token = spotifyApi.getAccessToken();
           console.log(access_token);
-          resp.send(access_token);
+          resp.json(access_token);
         }, function(err) {
               console.log('Something went wrong when retrieving an access token', err);
+              resp.status(500).json({ error: 'Failed to retrieve Spotify access token', details: err.message });
         });
 
       });
