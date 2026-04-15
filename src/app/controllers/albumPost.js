@@ -75,7 +75,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
   //   url: $scope.album
 
   //})
-  $http.get('/api/itunes/albums/' + $scope.album).then(function successCallback(album) {
+  $http.get('/api/deezer/albums/' + $scope.album).then(function successCallback(album) {
     $scope.artist = album.data.artists[0].name;
     $scope.album = album.data.name;
     $scope.image_large = album.data.images[0].url;

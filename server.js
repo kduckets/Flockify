@@ -171,58 +171,59 @@
 
 
 
-    function itunesNormalizeAlbum(r) {
-      var thumb = r.artworkUrl100 || '';
-      var artwork600 = thumb.replace('100x100bb', '600x600bb');
-      var artwork300 = thumb.replace('100x100bb', '300x300bb');
+    function deezerNormalizeAlbum(r) {
+      var artist = r.artist || {};
       return {
-        id: r.collectionId,
-        name: r.collectionName,
-        collectionType: r.collectionType || 'Album',
-        artists: [{ name: r.artistName }],
-        images: [{ url: artwork600 }, { url: artwork300 }, { url: thumb }],
-        release_date: r.releaseDate ? r.releaseDate.substring(0, 10) : '',
-        external_urls: { spotify: r.collectionViewUrl },
-        uri: r.collectionViewUrl,
-        copyrights: [{ text: r.copyright || '' }]
+        id: r.id,
+        name: r.title,
+        collectionType: r.record_type || 'album',
+        artists: [{ name: artist.name || '' }],
+        images: [
+          { url: r.cover_xl || r.cover_big || r.cover_medium || '' },
+          { url: r.cover_big || r.cover_medium || '' },
+          { url: r.cover_medium || r.cover || '' }
+        ],
+        release_date: r.release_date || '',
+        external_urls: { spotify: r.link || '' },
+        uri: 'https://widget.deezer.com/widget/dark/album/' + r.id,
+        copyrights: [{ text: '' }]
       };
     }
 
-    router.get('/itunes/search', function(req, resp) {
+    function deezerFetch(path) {
+      return new Promise(function(resolve) {
+        https.get('https://api.deezer.com' + path, function(res2) {
+          var body = '';
+          res2.on('data', function(d) { body += d; });
+          res2.on('end', function() {
+            try { resolve(JSON.parse(body)); } catch(e) { resolve({}); }
+          });
+        }).on('error', function() { resolve({}); });
+      });
+    }
+
+    router.get('/deezer/search', function(req, resp) {
       var q = encodeURIComponent(req.query.q || '');
 
-      // Run two searches in parallel: general term + artist-specific
-      var generalUrl = 'https://itunes.apple.com/search?term=' + q + '&media=music&entity=album&limit=50&country=us';
-      var artistUrl  = 'https://itunes.apple.com/search?term=' + q + '&media=music&entity=album&limit=50&country=us&attribute=artistTerm';
-
-      function fetchJson(url) {
-        return new Promise(function(resolve) {
-          https.get(url, function(res2) {
-            var body = '';
-            res2.on('data', function(d) { body += d; });
-            res2.on('end', function() {
-              try { resolve(JSON.parse(body)); }
-              catch(e) { resolve({ results: [] }); }
-            });
-          }).on('error', function() { resolve({ results: [] }); });
-        });
-      }
-
-      Promise.all([fetchJson(generalUrl), fetchJson(artistUrl)]).then(function(responses) {
+      // Two searches in parallel: general + artist-specific
+      Promise.all([
+        deezerFetch('/search/album?q=' + q + '&limit=50'),
+        deezerFetch('/search/album?q=artist:"' + q + '"&limit=50')
+      ]).then(function(responses) {
         var seen = {};
         var items = [];
 
         responses.forEach(function(data) {
-          (data.results || [])
-            .filter(function(r) { return r.wrapperType === 'collection' && !seen[r.collectionId]; })
-            .forEach(function(r) {
-              seen[r.collectionId] = true;
-              items.push(itunesNormalizeAlbum(r));
-            });
+          (data.data || []).forEach(function(r) {
+            if (!seen[r.id]) {
+              seen[r.id] = true;
+              items.push(deezerNormalizeAlbum(r));
+            }
+          });
         });
 
         // Full albums first, then EPs, then singles
-        var order = { 'Album': 0, 'EP': 1, 'Single': 2 };
+        var order = { 'album': 0, 'ep': 1, 'single': 2 };
         items.sort(function(a, b) {
           return (order[a.collectionType] || 3) - (order[b.collectionType] || 3);
         });
@@ -231,18 +232,11 @@
       }).catch(function(e) { resp.status(500).json({ error: e.message }); });
     });
 
-    router.get('/itunes/albums/:id', function(req, resp) {
-      https.get('https://itunes.apple.com/lookup?id=' + req.params.id, function(res2) {
-        var body = '';
-        res2.on('data', function(d) { body += d; });
-        res2.on('end', function() {
-          var data = JSON.parse(body);
-          if (!data.results || !data.results[0]) {
-            return resp.status(404).json({ error: 'Album not found' });
-          }
-          resp.json(itunesNormalizeAlbum(data.results[0]));
-        });
-      }).on('error', function(e) { resp.status(500).json({ error: e.message }); });
+    router.get('/deezer/albums/:id', function(req, resp) {
+      deezerFetch('/album/' + req.params.id).then(function(data) {
+        if (!data.id) return resp.status(404).json({ error: 'Album not found' });
+        resp.json(deezerNormalizeAlbum(data));
+      }).catch(function(e) { resp.status(500).json({ error: e.message }); });
     });
 
     function ensureSpotifyToken() {

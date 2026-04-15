@@ -363,7 +363,7 @@ $scope.showAlert = false;
 
   $scope.search = function(){
 
-    $http.get('/api/itunes/search', { params: { q: $scope.post.search } }).then(function (data) {
+    $http.get('/api/deezer/search', { params: { q: $scope.post.search } }).then(function (data) {
       $scope.no_results = false;
 
       $scope.results = data.data.albums.items;
