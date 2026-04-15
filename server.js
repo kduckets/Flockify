@@ -172,13 +172,15 @@
 
 
     function itunesNormalizeAlbum(r) {
-      var artwork600 = r.artworkUrl100.replace('100x100bb', '600x600bb');
-      var artwork300 = r.artworkUrl100.replace('100x100bb', '300x300bb');
+      var thumb = r.artworkUrl100 || '';
+      var artwork600 = thumb.replace('100x100bb', '600x600bb');
+      var artwork300 = thumb.replace('100x100bb', '300x300bb');
       return {
         id: r.collectionId,
         name: r.collectionName,
+        collectionType: r.collectionType || 'Album',
         artists: [{ name: r.artistName }],
-        images: [{ url: artwork600 }, { url: artwork300 }, { url: r.artworkUrl100 }],
+        images: [{ url: artwork600 }, { url: artwork300 }, { url: thumb }],
         release_date: r.releaseDate ? r.releaseDate.substring(0, 10) : '',
         external_urls: { spotify: r.collectionViewUrl },
         uri: r.collectionViewUrl,
@@ -188,17 +190,45 @@
 
     router.get('/itunes/search', function(req, resp) {
       var q = encodeURIComponent(req.query.q || '');
-      https.get('https://itunes.apple.com/search?term=' + q + '&media=music&entity=album&limit=25', function(res2) {
-        var body = '';
-        res2.on('data', function(d) { body += d; });
-        res2.on('end', function() {
-          var data = JSON.parse(body);
-          var items = data.results
-            .filter(function(r) { return r.wrapperType === 'collection'; })
-            .map(itunesNormalizeAlbum);
-          resp.json({ albums: { items: items, total: items.length } });
+
+      // Run two searches in parallel: general term + artist-specific
+      var generalUrl = 'https://itunes.apple.com/search?term=' + q + '&media=music&entity=album&limit=50&country=us';
+      var artistUrl  = 'https://itunes.apple.com/search?term=' + q + '&media=music&entity=album&limit=50&country=us&attribute=artistTerm';
+
+      function fetchJson(url) {
+        return new Promise(function(resolve) {
+          https.get(url, function(res2) {
+            var body = '';
+            res2.on('data', function(d) { body += d; });
+            res2.on('end', function() {
+              try { resolve(JSON.parse(body)); }
+              catch(e) { resolve({ results: [] }); }
+            });
+          }).on('error', function() { resolve({ results: [] }); });
         });
-      }).on('error', function(e) { resp.status(500).json({ error: e.message }); });
+      }
+
+      Promise.all([fetchJson(generalUrl), fetchJson(artistUrl)]).then(function(responses) {
+        var seen = {};
+        var items = [];
+
+        responses.forEach(function(data) {
+          (data.results || [])
+            .filter(function(r) { return r.wrapperType === 'collection' && !seen[r.collectionId]; })
+            .forEach(function(r) {
+              seen[r.collectionId] = true;
+              items.push(itunesNormalizeAlbum(r));
+            });
+        });
+
+        // Full albums first, then EPs, then singles
+        var order = { 'Album': 0, 'EP': 1, 'Single': 2 };
+        items.sort(function(a, b) {
+          return (order[a.collectionType] || 3) - (order[b.collectionType] || 3);
+        });
+
+        resp.json({ albums: { items: items, total: items.length } });
+      }).catch(function(e) { resp.status(500).json({ error: e.message }); });
     });
 
     router.get('/itunes/albums/:id', function(req, resp) {
