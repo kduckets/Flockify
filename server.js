@@ -222,10 +222,12 @@
           });
         });
 
-        // Full albums first, then EPs, then singles
+        // Full albums first, then EPs, then singles — newest first within each type
         var order = { 'album': 0, 'ep': 1, 'single': 2 };
         items.sort(function(a, b) {
-          return (order[a.collectionType] || 3) - (order[b.collectionType] || 3);
+          var typeOrder = (order[a.collectionType] || 3) - (order[b.collectionType] || 3);
+          if (typeOrder !== 0) return typeOrder;
+          return (b.release_date || '').localeCompare(a.release_date || '');
         });
 
         resp.json({ albums: { items: items, total: items.length } });
