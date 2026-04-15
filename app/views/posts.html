@@ -112,7 +112,7 @@
 
     <md-list ng-repeat="result in results" align="left">
       <md-list-item class="md-2-line" ng-click="viewAlbum(result.id, $event)">
-        <img ng-src="{{result.images[2].url}}"/>
+        <img ng-src="{{result.images[2].url}}" style="width:40px;height:40px;object-fit:cover;"/>
         <small>{{result.name}}</small>
 
       </md-list-item>

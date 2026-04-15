@@ -213,9 +213,10 @@
         var seen = {};
         var items = [];
 
+        var allowed = { 'album': true, 'ep': true, 'single': true };
         responses.forEach(function(data) {
           (data.data || []).forEach(function(r) {
-            if (!seen[r.id]) {
+            if (!seen[r.id] && allowed[r.record_type]) {
               seen[r.id] = true;
               items.push(deezerNormalizeAlbum(r));
             }
