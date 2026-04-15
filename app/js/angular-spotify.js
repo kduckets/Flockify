@@ -148,7 +148,7 @@
           getAlbum: function (album) {
             album = album.indexOf('spotify:') === -1 ? album : album.split(':')[2];
 
-            return this.api('/albums/' + album, 'GET', null, null, this._auth());
+            return $http.get('/api/spotify/albums/' + album);
           },
 
           /**
@@ -467,12 +467,8 @@
            * q = search query
            * type = artist, album or track
            */
-          search: function (q, type, options) {
-            options = options || {};
-            options.q = q;
-            options.type = type;
-
-            return this.api('/search', 'GET', options, null, this._auth());
+          search: function (q, type) {
+            return $http.get('/api/spotify/search', { params: { q: q, type: type } });
           },
 
 

@@ -171,6 +171,36 @@
 
 
 
+    function ensureSpotifyToken() {
+      return spotifyApi.clientCredentialsGrant().then(function(data) {
+        spotifyApi.setAccessToken(data.body['access_token']);
+      });
+    }
+
+    router.get('/spotify/search', function(req, resp) {
+      var q = req.query.q;
+      var types = (req.query.type || 'artist,album').split(',');
+      ensureSpotifyToken().then(function() {
+        return spotifyApi.search(q, types);
+      }).then(function(data) {
+        resp.json(data.body);
+      }).catch(function(err) {
+        console.log('Spotify search error', err);
+        resp.status(err.statusCode || 500).json({ error: err.message });
+      });
+    });
+
+    router.get('/spotify/albums/:id', function(req, resp) {
+      ensureSpotifyToken().then(function() {
+        return spotifyApi.getAlbum(req.params.id);
+      }).then(function(data) {
+        resp.json(data.body);
+      }).catch(function(err) {
+        console.log('Spotify album error', err);
+        resp.status(err.statusCode || 500).json({ error: err.message });
+      });
+    });
+
     router.get('/spotify_client_token', function(req, resp){
       spotifyApi.clientCredentialsGrant()
         .then(function(data) {
