@@ -177,6 +177,29 @@
       });
     }
 
+    router.get('/spotify/test', function(req, resp) {
+      ensureSpotifyToken().then(function() {
+        var token = spotifyApi.getAccessToken();
+        var options = {
+          hostname: 'api.spotify.com',
+          path: '/v1/search?q=test&type=album&limit=1',
+          method: 'GET',
+          headers: { 'Authorization': 'Bearer ' + token }
+        };
+        var req2 = https.request(options, function(res2) { // eslint-disable-line
+          var body = '';
+          res2.on('data', function(d) { body += d; });
+          res2.on('end', function() {
+            resp.status(res2.statusCode).json({ status: res2.statusCode, body: JSON.parse(body) });
+          });
+        });
+        req2.on('error', function(e) { resp.status(500).json({ error: e.message }); });
+        req2.end();
+      }).catch(function(err) {
+        resp.status(500).json({ error: err.message });
+      });
+    });
+
     router.get('/spotify/search', function(req, resp) {
       var q = req.query.q;
       var types = (req.query.type || 'artist,album').split(',');
