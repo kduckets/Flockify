@@ -113,7 +113,7 @@
     <md-list ng-repeat="result in results" align="left">
       <md-list-item class="md-2-line" ng-click="viewAlbum(result.id, $event)">
         <img ng-src="{{result.images[2].url}}" style="width:40px;height:40px;object-fit:cover;"/>
-        <small>{{result.name}}</small>
+        <small>{{result.artists[0].name}} - {{result.name}}</small>
 
       </md-list-item>
         <div ng-show="result.link"><p style="margin-left: 40px"> <i>Wanna give props to the original post?</i>
