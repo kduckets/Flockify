@@ -89,21 +89,36 @@
         NgSpotify.prototype = {
           api: function (endpoint, method, params, data, headers) {
             var deferred = $q.defer();
+            var self = this;
 
-            $http({
-              url: this.apiBase + endpoint,
-              method: method ? method : 'GET',
-              params: params,
-              data: data,
-              headers: headers,
-              withCredentials: false
-            })
-            .then(function (data) {
-              deferred.resolve(data);
-            })
-            .catch(function (data) {
-              deferred.reject(data);
-            });
+            function doRequest() {
+              $http({
+                url: self.apiBase + endpoint,
+                method: method ? method : 'GET',
+                params: params,
+                data: data,
+                headers: headers,
+                withCredentials: false
+              })
+              .then(function (data) {
+                deferred.resolve(data);
+              })
+              .catch(function (data) {
+                deferred.reject(data);
+              });
+            }
+
+            if (!settings.authToken || settings.authToken === 'none') {
+              $http.get('/api/spotify_client_token').then(function(resp) {
+                settings.authToken = resp.data;
+                doRequest();
+              }, function(err) {
+                deferred.reject(err);
+              });
+            } else {
+              doRequest();
+            }
+
             return deferred.promise;
           },
 
