@@ -45,7 +45,7 @@ var app = angular.module('flockifyApp', [
 ]);
 
 app.config(function (SpotifyProvider) {
-  SpotifyProvider.setClientId('44bb100c98a34efd9c4e874756e09080');
+  SpotifyProvider.setClientId(SPOTIFY_CLIENT_ID);
   SpotifyProvider.setRedirectUri('https://flockify.herokuapp.com/callback.html');
   SpotifyProvider.setScope('user-read-private playlist-read-private playlist-modify-private playlist-modify-public');
   // If you already have an auth token

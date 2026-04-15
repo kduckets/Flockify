@@ -45,8 +45,8 @@
     // listen (start app with node server.js) ======================================
 
     var spotifyApi = new SpotifyWebApi({
-  clientId : process.env.SPOTIFY_CLIENT_ID || '13ab339fc31d4580a3a49751d62735c4',
-  clientSecret : process.env.SPOTIFY_CLIENT_SECRET || '9f8f1cd8dab4470eac47ef3b21833b5d',
+  clientId : process.env.SPOTIFY_CLIENT_ID,
+  clientSecret : process.env.SPOTIFY_CLIENT_SECRET,
   redirectUri : 'http://flockify.herokuapp.com/callback.html',
     });
 

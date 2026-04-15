@@ -18,5 +18,8 @@ module.exports = {
         jQuery: "jquery",
         "window.jQuery": "jquery"
     }),
+    new webpack.DefinePlugin({
+      SPOTIFY_CLIENT_ID: JSON.stringify(process.env.SPOTIFY_CLIENT_ID)
+    }),
   ],
 };
