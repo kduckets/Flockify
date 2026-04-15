@@ -213,7 +213,7 @@
         var seen = {};
         var items = [];
 
-        var allowed = { 'album': true, 'ep': true, 'single': true };
+        var allowed = { 'album': true, 'ep': true };
         responses.forEach(function(data) {
           (data.data || []).forEach(function(r) {
             if (!seen[r.id] && allowed[r.record_type]) {
