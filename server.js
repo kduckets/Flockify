@@ -185,8 +185,8 @@
       }).then(function(data) {
         resp.json(data.body);
       }).catch(function(err) {
-        console.log('Spotify search error', err);
-        resp.status(err.statusCode || 500).json({ error: err.message });
+        console.log('Spotify search error:', JSON.stringify(err));
+        resp.status(err.statusCode || 500).json({ error: err.message, details: err.toString() });
       });
     });
 
@@ -196,8 +196,8 @@
       }).then(function(data) {
         resp.json(data.body);
       }).catch(function(err) {
-        console.log('Spotify album error', err);
-        resp.status(err.statusCode || 500).json({ error: err.message });
+        console.log('Spotify album error:', JSON.stringify(err));
+        resp.status(err.statusCode || 500).json({ error: err.message, details: err.toString() });
       });
     });
 
