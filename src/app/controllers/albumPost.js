@@ -75,8 +75,7 @@ module.exports = function($scope, $route, $location, $window, Post, Auth, $http,
   //   url: $scope.album
 
   //})
-  Spotify.getAlbum($scope.album).then(function successCallback(album) {
-    $scope.spotify_result = album.data;
+  $http.get('/api/itunes/albums/' + $scope.album).then(function successCallback(album) {
     $scope.artist = album.data.artists[0].name;
     $scope.album = album.data.name;
     $scope.image_large = album.data.images[0].url;

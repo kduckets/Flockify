@@ -171,6 +171,50 @@
 
 
 
+    function itunesNormalizeAlbum(r) {
+      var artwork600 = r.artworkUrl100.replace('100x100bb', '600x600bb');
+      var artwork300 = r.artworkUrl100.replace('100x100bb', '300x300bb');
+      return {
+        id: r.collectionId,
+        name: r.collectionName,
+        artists: [{ name: r.artistName }],
+        images: [{ url: artwork600 }, { url: artwork300 }, { url: r.artworkUrl100 }],
+        release_date: r.releaseDate ? r.releaseDate.substring(0, 10) : '',
+        external_urls: { spotify: r.collectionViewUrl },
+        uri: r.collectionViewUrl,
+        copyrights: [{ text: r.copyright || '' }]
+      };
+    }
+
+    router.get('/itunes/search', function(req, resp) {
+      var q = encodeURIComponent(req.query.q || '');
+      https.get('https://itunes.apple.com/search?term=' + q + '&media=music&entity=album&limit=25', function(res2) {
+        var body = '';
+        res2.on('data', function(d) { body += d; });
+        res2.on('end', function() {
+          var data = JSON.parse(body);
+          var items = data.results
+            .filter(function(r) { return r.wrapperType === 'collection'; })
+            .map(itunesNormalizeAlbum);
+          resp.json({ albums: { items: items, total: items.length } });
+        });
+      }).on('error', function(e) { resp.status(500).json({ error: e.message }); });
+    });
+
+    router.get('/itunes/albums/:id', function(req, resp) {
+      https.get('https://itunes.apple.com/lookup?id=' + req.params.id, function(res2) {
+        var body = '';
+        res2.on('data', function(d) { body += d; });
+        res2.on('end', function() {
+          var data = JSON.parse(body);
+          if (!data.results || !data.results[0]) {
+            return resp.status(404).json({ error: 'Album not found' });
+          }
+          resp.json(itunesNormalizeAlbum(data.results[0]));
+        });
+      }).on('error', function(e) { resp.status(500).json({ error: e.message }); });
+    });
+
     function ensureSpotifyToken() {
       return spotifyApi.clientCredentialsGrant().then(function(data) {
         spotifyApi.setAccessToken(data.body['access_token']);
@@ -190,7 +234,8 @@
           var body = '';
           res2.on('data', function(d) { body += d; });
           res2.on('end', function() {
-            resp.status(res2.statusCode).json({ status: res2.statusCode, body: JSON.parse(body) });
+            try { body = JSON.parse(body); } catch(e) { /* leave as string */ }
+            resp.status(res2.statusCode).json({ status: res2.statusCode, body: body });
           });
         });
         req2.on('error', function(e) { resp.status(500).json({ error: e.message }); });

@@ -363,7 +363,7 @@ $scope.showAlert = false;
 
   $scope.search = function(){
 
-    Spotify.search($scope.post.search + '*', 'artist,album').then(function (data) {
+    $http.get('/api/itunes/search', { params: { q: $scope.post.search } }).then(function (data) {
       $scope.no_results = false;
 
       $scope.results = data.data.albums.items;
@@ -384,10 +384,6 @@ $scope.showAlert = false;
            result.link = obj.link;
            console.log (obj.link)
            ;}});
-
-        // if(post_names.findIndex(i => i.album === result.name) != -1){
-        //    result.name += ' **already been posted**';
-        // }
       });
 
     });
